@@ -111,6 +111,7 @@ public class AppPrincipale22 extends JFrame {
 			
 			}
 		});
+
 		btnAPropos.setBounds(92, 397, 89, 23);
 		contentPane.add(btnAPropos);
 		
@@ -139,6 +140,7 @@ public class AppPrincipale22 extends JFrame {
 		btnModeEditeur.setBounds(372, 457, 89, 23);
 		contentPane.add(btnModeEditeur);	
 			
+
 		
 
 	}
