@@ -99,6 +99,8 @@ public class AppPrincipale22 extends JFrame {
 
 		JMenu mnEditeur = new JMenu("Mode éditeur");
 		menuBar.add(mnEditeur);
+		
+		
 
 	}
 }
