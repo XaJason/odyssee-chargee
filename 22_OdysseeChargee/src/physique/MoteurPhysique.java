@@ -159,17 +159,32 @@ public class MoteurPhysique {
 	/**
 	 * Retourne le champ électrique généré par une plaque hors de son axe
 	 * @return Le champ électrique hors axe
+	 * @throws Exception 
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculChampElectriqueHorsAxe(Vecteur2D posVaisseau, plaqueChargee plaque) {
+	public static Vecteur2D calculChampElectriqueHorsAxe(Vecteur2D posVaisseau, double chargeVaisseau, plaqueChargee plaque) throws Exception {
 		double densiteLineiqueCharge = plaque.getCharge()/plaque.getLongueur();
-		Vecteur2D vecteurDistanceVaisseauPlaque = plaque.getPosition().soustrait(posVaisseau);
+		Vecteur2D distanceVaisseauPlaque = plaque.getPosition().soustrait(posVaisseau);
+		Vecteur2D distanceVaisseauExtremiteA = plaque.getExtremiteA().soustrait(posVaisseau);
+		Vecteur2D distanceVaisseauExtremiteB = plaque.getExtremiteB().soustrait(posVaisseau);
 		
 		//Projection orthogonale de la distance entre le vaisseau et la plaque, sur la normale de la plaque
-		double plusPetiteDistanceVaisseauPlaque = vecteurDistanceVaisseauPlaque.prodScalaire(plaque.getNormale()) / plaque.getNormale().module();
+		double plusPetiteDistanceVaisseauPlaque = distanceVaisseauPlaque.prodScalaire(plaque.getNormale()) / plaque.getNormale().module();
 		
+		//Angles délimitant les côtés des extrémités de la plaque
+		double alphaA = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteA.module());
+		double alphaB = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteB.module());
 		
+		double moduleChamp = Math.sqrt(2) * K*Math.abs(densiteLineiqueCharge)/plusPetiteDistanceVaisseauPlaque * Math.sqrt(1 - Math.cos(alphaA-alphaB));
 		
-		return VEC_ZERO;
+		//détermine le vecteur orientation du champ électrique, unitaire (en assumant que le vaisseau est attiré par la plaque)
+		Vecteur2D orientationChamp = plaque.getPosition().soustrait(posVaisseau).normalise();
+
+		//change l'orientation s'il y a répulsion
+		if (Math.signum(chargeVaisseau) == Math.signum(plaque.getCharge())) {
+			orientationChamp.multiplie(-1);
+		}
+		
+		return orientationChamp.multiplie(moduleChamp);
 	} //PAS IMPLÉMENTER
 }
