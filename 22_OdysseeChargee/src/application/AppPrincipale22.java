@@ -1,8 +1,5 @@
 package application;
 
-
-
-
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +11,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import constante.ConstanteComposantsSwing;
 
+/**
+ * 
+ */
+public class AppPrincipale22 extends JFrame {
 
-public class AppPrincipale22 extends JFrame{
+	private static final long serialVersionUID = -506870656338933836L;
 	/**
 	 * Zone des composants
 	 */
@@ -23,6 +24,7 @@ public class AppPrincipale22 extends JFrame{
 
 	/**
 	 * Lance l'application
+	 * 
 	 * @param args Paramètre d'entrée de la commande de démarrage
 	 */
 	public static void main(String[] args) {
@@ -38,23 +40,25 @@ public class AppPrincipale22 extends JFrame{
 		});
 	}
 
-	public AppPrincipale22(){
+	/**
+	 * 
+	 */
+	public AppPrincipale22() {
 		setTitle("Odyssée Chargée");
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0,25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
+		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
 
 		creerMenu();
 	}
-
 
 	/**
 	 * Creer le menu.
 	 */
 	// Kitimir Yim
-	
-	//Normalement ce sera des boutons
+
+	// Normalement ce sera des boutons
 	private void creerMenu() {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -74,7 +78,6 @@ public class AppPrincipale22 extends JFrame{
 		mntmApropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-
 			}
 		});
 		mnAide.add(mntmApropos);
@@ -90,16 +93,12 @@ public class AppPrincipale22 extends JFrame{
 
 		JMenu mnOptions = new JMenu("Options");
 		menuBar.add(mnOptions);
-		
+
 		JMenu mnPrincipale = new JMenu("Mode principale");
 		menuBar.add(mnPrincipale);
-		
+
 		JMenu mnEditeur = new JMenu("Mode éditeur");
 		menuBar.add(mnEditeur);
-		
-		
-
 
 	}
 }
-
