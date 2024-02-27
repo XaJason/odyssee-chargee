@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
 
 public class Editeur extends JFrame {
 
@@ -39,6 +40,7 @@ public class Editeur extends JFrame {
 		contentPane.setLayout(null);
 		
 		Grille grille = new Grille();
+		grille.setBackground(new Color(255, 255, 128));
 		grille.setBounds(22, 11, 743, 505);
 		contentPane.add(grille);
 	}
