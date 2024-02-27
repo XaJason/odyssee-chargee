@@ -3,13 +3,18 @@ package application;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+
 import javax.swing.JPanel;
 import constante.ConstanteComposantsSwing;
+import fenetres.FenetreApropos;
+import fenetres.FenetreInstruction;
+import fenetres.FenetreReglage;
 
 /**
  * 
@@ -21,6 +26,19 @@ public class AppPrincipale22 extends JFrame {
 	 * Zone des composants
 	 */
 	private JPanel contentPane;
+	/**
+	 * Fenêtre À propos
+	 */
+	private FenetreApropos fenApropos;
+	/**
+	 * Fenêtre Instructions
+	 */
+	private FenetreInstruction fenInstruction;
+	/**
+	 * Fenêtre Réglage
+	 */
+	private FenetreReglage fenReglage;
+	
 
 	/**
 	 * Lance l'application
@@ -47,58 +65,107 @@ public class AppPrincipale22 extends JFrame {
 		setTitle("Odyssée Chargée");
 		contentPane = new JPanel();
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
+	
 
-		creerMenu();
+		creerBoutons();
+		creerFenetres();
 	}
 
 	/**
-	 * Creer le menu.
+	 * Créer les boutons.
 	 */
 	// Kitimir Yim
 
 	// Normalement ce sera des boutons
-	private void creerMenu() {
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-
-		JMenu mnAide = new JMenu("Aide");
-		menuBar.add(mnAide);
-
-		JMenuItem mntmInstructions = new JMenuItem("Instructions");
-		mntmInstructions.addActionListener(new ActionListener() {
+	private void creerBoutons() {
+		
+		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				menuQuitter();
+				
 			}
 		});
-		mnAide.add(mntmInstructions);
-
-		JMenuItem mntmApropos = new JMenuItem("À propos");
-		mntmApropos.addActionListener(new ActionListener() {
+		btnQuitter.setBounds(92, 335, 89, 23);
+		contentPane.add(btnQuitter);
+		
+		JButton btnInstructions = new JButton("Instructions");
+		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				fenInstruction.setVisible(true);
 			}
 		});
-		mnAide.add(mntmApropos);
-
-		JMenuItem mntmQuitter = new JMenuItem("Quitter");
-		mntmQuitter.addActionListener(new ActionListener() {
+		btnInstructions.setBounds(362, 335, 89, 23);
+		contentPane.add(btnInstructions);
+		
+		JButton btnAPropos = new JButton("À propos");
+		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				fenApropos.setVisible(true);
+			
 			}
 		});
-
-		mnAide.add(mntmQuitter);
-
-		JMenu mnOptions = new JMenu("Options");
-		menuBar.add(mnOptions);
-
-		JMenu mnPrincipale = new JMenu("Mode principale");
-		menuBar.add(mnPrincipale);
-
-		JMenu mnEditeur = new JMenu("Mode éditeur");
-		menuBar.add(mnEditeur);
+		btnAPropos.setBounds(92, 397, 89, 23);
+		contentPane.add(btnAPropos);
+		
+		JButton btnNewButton_3 = new JButton("Réglages");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fenReglage.setVisible(true);
+			}
+		});
+		btnNewButton_3.setBounds(372, 397, 89, 23);
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnModePrincipal = new JButton("Mode principal");
+		btnModePrincipal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModePrincipal.setBounds(92, 457, 89, 23);
+		contentPane.add(btnModePrincipal);
+		
+		JButton btnModeEditeur = new JButton("Mode éditeur");
+		btnModeEditeur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModeEditeur.setBounds(372, 457, 89, 23);
+		contentPane.add(btnModeEditeur);	
+			
+		
 
 	}
+	/**
+	 * Créer les fenêtres pour les réglages, les instructions et les À propos
+	 */
+	//Kitimir Yim
+	public void creerFenetres() {
+	
+	fenApropos = new FenetreApropos();
+	fenInstruction = new FenetreInstruction();
+	fenReglage = new FenetreReglage();
+	
+	
+	}
+	 /**
+     * Bouton pour quitter l'application
+     */
+    // Kitimir Yim
+    public void menuQuitter() {
+        int option = JOptionPane.showConfirmDialog(this,
+                "Êtes-vous sûr de vouloir quitter l'application?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
 }
