@@ -7,12 +7,12 @@ public class ConstanteComposantsSwing {
 	/**
 	 * Longueur horizontale de l'application (en px)
 	 */
-	public static final int DIM_HORIZONTALE_APP = 2000;
+	public static final int DIM_HORIZONTALE_APP = 1680;
 
 	/**
 	 * Longueur verticale de l'application (en px)
 	 */
-	public static final int DIM_VERTICALE_APP = 1000;
+	public static final int DIM_VERTICALE_APP = 1050;
 
 	/**
 	 * Longueur verticale minimale de l'application (en px)

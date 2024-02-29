@@ -7,6 +7,8 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import etatModeJeu.PanelModeJeu;
 /**
  * Panel du sélecteur de niveaux
  * @author Kitimir Yim
@@ -17,7 +19,10 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 *  ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
+	/**
+	 * 
+	 */
+	private PanelModeJeu panJ;
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
 	 */
@@ -26,7 +31,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	}
 	//Kitimir Yim
 	public PanelSelecteurNiveaux() {
-		
+
 		setLayout(null);
 
 		JButton btnVersMenu = new JButton("Passer au menu");
@@ -36,9 +41,19 @@ public class PanelSelecteurNiveaux extends JPanel {
 				pcs.firePropertyChange("passerVersMenu", 0, -1);
 			}
 		});
-		btnVersMenu.setBounds(178, 5, 109, 23);
+		btnVersMenu.setBounds(178, 5, 176, 23);
 		add(btnVersMenu);
 
-	}
+		JButton btnPasserModeJeu = new JButton("Bouton Play");
+		btnPasserModeJeu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange("passerVersJeu", 0, -1);
+			}
+		});
+		btnPasserModeJeu.setBounds(192, 119, 162, 23);
+		add(btnPasserModeJeu);
 
+		
+
+	}
 }

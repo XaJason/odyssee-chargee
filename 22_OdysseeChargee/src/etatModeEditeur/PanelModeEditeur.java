@@ -8,6 +8,9 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 
 /**
@@ -49,7 +52,8 @@ public class PanelModeEditeur extends JPanel{
 				pcs.firePropertyChange("passerVersMenu", 0, -1);
 			}
 		});
-		btnVersMenu.setBounds(178, 5, 109, 23);
+		btnVersMenu.setBounds(178, 5, 145, 23);
 		add(btnVersMenu);
 	}
+	  
 }

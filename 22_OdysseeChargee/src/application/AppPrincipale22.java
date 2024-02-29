@@ -7,6 +7,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
@@ -18,6 +21,11 @@ import etatSelecteurNiveaux.PanelSelecteurNiveaux;
 import fenetres.FenetreApropos;
 import fenetres.FenetreInstruction;
 import fenetres.FenetreReglage;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.event.MenuListener;
+import javax.swing.event.MenuEvent;
+import java.awt.Dimension;
 
 /**
  * Projet intégrateur : Odyssée chargée
@@ -57,6 +65,8 @@ public class AppPrincipale22 extends JFrame {
 	 * Panel du sélecteur de niveaux
 	 */
 	private PanelSelecteurNiveaux panS;
+	
+	private JMenuBar menuBar;
 
 
 	/**
@@ -97,6 +107,7 @@ public class AppPrincipale22 extends JFrame {
 		creerBoutons();
 		creerFenetres();
 		creerPanels();
+		creerMenu();
 	}
 
 	/**
@@ -144,12 +155,13 @@ public class AppPrincipale22 extends JFrame {
 		btnNewButton_3.setBounds(372, 397, 89, 23);
 		contentPane.add(btnNewButton_3);
 
-		JButton btnModePrincipal = new JButton("Sélecteur de niveaux");
+		JButton btnModePrincipal = new JButton("Sélection de niveaux");
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panS.setVisible(true);
 				contentPane.setVisible(false);
 				setContentPane(panS);	
+				menuBar.setVisible(true);
 			}
 		});
 		btnModePrincipal.setBounds(92, 457, 133, 23);
@@ -161,6 +173,7 @@ public class AppPrincipale22 extends JFrame {
 				panE.setVisible(true);
 				contentPane.setVisible(false);
 				setContentPane(panE);
+				menuBar.setVisible(true);
 			}
 		});
 		btnModeEditeur.setBounds(362, 457, 168, 23);
@@ -188,30 +201,50 @@ public class AppPrincipale22 extends JFrame {
 	//Kitimir Yim
 	public void creerPanels() {
 		panE = new PanelModeEditeur();	
-		panJ = new PanelModeJeu();
 		panS = new PanelSelecteurNiveaux();
-		
+		panJ = new PanelModeJeu();
+
 		panE.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if  (evt.getPropertyName().equals("passerVersMenu")) {
 					panE.setVisible(false);
 					contentPane.setVisible(true);
 					setContentPane(contentPane);
+					menuBar.setVisible(false);
 				}
 			}
 		});	
-		
+
 		panS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if  (evt.getPropertyName().equals("passerVersMenu")) {
 					panS.setVisible(false);
 					contentPane.setVisible(true);
 					setContentPane(contentPane);
+					menuBar.setVisible(false);
+				}else if (evt.getPropertyName().equals("passerVersJeu")) {
+					panS.setVisible(false);
+					panJ.setVisible(true);
+					setContentPane(panJ);
+					
+
+
 				}
 			}
 		});	
-		
-		
+
+		panJ.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if  (evt.getPropertyName().equals("passerVersNiveaux")) {
+
+					panJ.setVisible(false);
+					panS.setVisible(true);
+					setContentPane(panS);
+				}
+			}
+		});	
+
+
 	}
 	/**
 	 * Bouton pour quitter l'application
@@ -226,5 +259,53 @@ public class AppPrincipale22 extends JFrame {
 		if (option == JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}
+	}
+
+	/**
+	 * Creer le menu.
+	 */
+	// Kitimir Yim
+	private void creerMenu() {
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.setVisible(false);
+
+
+		JMenuItem mntmSelection = new JMenuItem("Sélection de niveaux");
+		mntmSelection.setMaximumSize(new Dimension(150, 32767));
+
+
+		mntmSelection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("lebronjames");
+				contentPane.setVisible(false);
+				panE.setVisible(false);
+				panS.setVisible(true);
+				setContentPane(panS);
+				
+			}
+
+
+
+		});
+		menuBar.add(mntmSelection);
+		JMenuItem mntmEditeur = new JMenuItem("Éditeur");
+		mntmEditeur.setMaximumSize(new Dimension(150, 32767));
+
+		mntmEditeur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panE.setVisible(true);
+				panS.setVisible(false);
+				contentPane.setVisible(false);
+				setContentPane(panE);
+			}
+		});
+		menuBar.add(mntmEditeur);
+
+
+
+
+
+
 	}
 }

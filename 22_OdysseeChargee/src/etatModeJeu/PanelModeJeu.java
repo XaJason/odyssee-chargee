@@ -1,10 +1,39 @@
 package etatModeJeu;
 
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.awt.event.ActionEvent;
 /**
  * Panel du mode de jeu
  * @author Kitimir Yim
  */
 public class PanelModeJeu extends JPanel{
+	
+	/**
+	 *  ajouter le support pour lancer des evenements de type PropertyChange
+	 */
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	
+	/**
+	 * methode qui permettra de s'ajouter en tant qu'ecouteur
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+	}
+	public PanelModeJeu() {
+		setLayout(null);
+		
+		JButton btnSelecteurNiveaux = new JButton("Passer à la sélection de niveaux");
+		btnSelecteurNiveaux.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pcs.firePropertyChange("passerVersNiveaux", 0, -1);
+			}
+		});
+		btnSelecteurNiveaux.setBounds(99, 46, 159, 23);
+		add(btnSelecteurNiveaux);
+	}
 
 }
