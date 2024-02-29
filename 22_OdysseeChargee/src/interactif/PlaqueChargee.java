@@ -1,12 +1,13 @@
-package blocs;
+package interactif;
 
 import physique.Vecteur2D;
+import tuile.Bloc;
 
 /**
  * Permet de dessiner une plaque
  * @author Enuel René Valentin Kizozo Izia
  */
-public class plaqueChargee extends blocs {
+public class PlaqueChargee extends Bloc {
 
 	// PROPRIÉTÉS //
 	/** Vecteur normal de la plaque **/
@@ -37,7 +38,7 @@ public class plaqueChargee extends blocs {
 	 * @param charge
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public plaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge) {
+	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge) {
 		super(position);
 		this.normale = normale;
 		this.longueur = longueur;
