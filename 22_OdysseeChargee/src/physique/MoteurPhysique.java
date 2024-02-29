@@ -1,6 +1,6 @@
 package physique;
 
-import blocs.plaqueChargee;
+import interactif.PlaqueChargee;
 
 /**
  * Cette classe regroupera les calculs physiques nécessaires au mouvement
@@ -162,7 +162,7 @@ public class MoteurPhysique {
 	 * @throws Exception 
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculChampElectriqueHorsAxe(Vecteur2D posVaisseau, double chargeVaisseau, plaqueChargee plaque) throws Exception {
+	public static Vecteur2D calculChampElectriqueHorsAxe(Vecteur2D posVaisseau, double chargeVaisseau, PlaqueChargee plaque) throws Exception {
 		double densiteLineiqueCharge = plaque.getCharge()/plaque.getLongueur();
 		Vecteur2D distanceVaisseauPlaque = plaque.getPosition().soustrait(posVaisseau);
 		Vecteur2D distanceVaisseauExtremiteA = plaque.getExtremiteA().soustrait(posVaisseau);
@@ -186,5 +186,5 @@ public class MoteurPhysique {
 		}
 		
 		return orientationChamp.multiplie(moduleChamp);
-	} //PAS IMPLÉMENTER
+	}
 }
