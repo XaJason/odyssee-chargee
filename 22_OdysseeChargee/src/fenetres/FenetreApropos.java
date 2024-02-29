@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 import constante.ConstanteComposantsSwing;
 
 /**
- * 
+ *  Fenêtre d'à propos
+ *  @author Kitimir YIm
  */
-//Kitimir Yim
 public class FenetreApropos extends JFrame {
 
 	private static final long serialVersionUID = -2336396924514608396L;
@@ -30,8 +30,9 @@ public class FenetreApropos extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Implémente la fenêtre et ses fonctionnalités
 	 */
+	//Kitimir Yim
 	public FenetreApropos() {
 		setTitle("À propos");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
