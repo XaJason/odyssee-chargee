@@ -1,4 +1,4 @@
-package editeur;
+package etatModeEditeur;
 
 import java.awt.Color;
 import java.awt.Graphics;
