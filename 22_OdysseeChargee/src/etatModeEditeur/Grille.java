@@ -19,26 +19,27 @@ import java.awt.event.MouseMotionAdapter;
 public class Grille extends JPanel {
 
 	/** Hauteur du composant **/
-	private int hauteur;
+	private double hauteur;
 	/** Largeur du composant **/
-	private int largeur;
+	private double largeur;
 	/** Hauteur de chaque carré **/
-	private int hauteurCarre;
+	private double hauteurCarre;
 	/** Largeur du de chaque carré **/
-	private int largeurCarre;
+	private double largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
-	private int nbCarre = 16;
-	/**
-	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
-	 **/
-	Rectangle2D.Double emplacementActuel;
+	private int nbCarre = 3;
+	/** Rectangle qui conrespond à la section de la grille où se trouve la sourie **/
+	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
-	Boolean premiereFois = true;
+	private Boolean premiereFois = true;
 	/** Quadrillage verticale **/
-	Path2D.Double quadVerti;
+	private Path2D.Double quadVerti;
 	/** Quadrillage horizontal **/
-	Path2D.Double quadHori;
-
+	private Path2D.Double quadHori;
+	/** Choix entre afficher la grille ou non **/
+	private Boolean grille = true;
+	
+	
 	/**
 	 * Création du panel
 	 */
@@ -74,8 +75,11 @@ public class Grille extends JPanel {
 		g2d.setColor(Color.cyan);
 		g2d.fill(emplacementActuel);
 		g2d.setColor(Color.black);
-		g2d.draw(quadHori);
-		g2d.draw(quadVerti);
+		if(grille) {
+			g2d.setColor(Color.black);
+			g2d.draw(quadHori);
+			g2d.draw(quadVerti);
+		}
 
 	}// Fin méthode
 
@@ -85,8 +89,8 @@ public class Grille extends JPanel {
 	 */
 	// Giroux
 	void dimensionCarre() {
-		hauteurCarre = hauteur / nbCarre;
-		largeurCarre = largeur / nbCarre;
+		hauteurCarre = (hauteur / nbCarre);
+		largeurCarre = (largeur / nbCarre);
 		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCarre, hauteurCarre);
 
 	}// Fin méthode
@@ -122,14 +126,38 @@ public class Grille extends JPanel {
 	void dessinerGrille() {
 		quadVerti = new Path2D.Double();
 		quadHori = new Path2D.Double();
-		for (int i = 0; i < nbCarre + 1; i++) {
+		for (int i = 0; i < nbCarre+1; i++) {
 			quadHori.moveTo(0, i * hauteurCarre);
 			quadHori.lineTo(largeur, i * hauteurCarre);
-			for (int j = 0; j < nbCarre + 1; j++) {
+			for (int j = 0; j < nbCarre+1; j++) {
 				quadVerti.moveTo(j * largeurCarre, 0);
 				quadVerti.lineTo(j * largeurCarre, hauteur);
 			}
 
 		}
 	}//Fin méthode
+	
+	/**
+	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle y est
+	 */
+	//Giroux
+	 public void afficherGrille() {
+		 if(grille==true) {
+			 grille=false;
+		 } else {
+			 grille=true;
+		 }
+		 repaint();
+		
+	 }//Fin méthode
+	 
+	 /**
+	  * Méthode qui change le nombre de carré par ligne
+	  * @param nouvNbCarre Le nouveau nombre de carré par ligne et colonne
+	  */
+	 public void changerQttCarre(int nouvNbCarre) {
+		 this.nbCarre=nouvNbCarre;
+		 premiereFois=true;
+		 repaint();
+	 }
 }// Fin classe

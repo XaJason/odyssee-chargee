@@ -8,6 +8,11 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 
 /**
@@ -39,7 +44,7 @@ public class PanelModeEditeur extends JPanel{
 
 		grille = new Grille();
 		grille.setBackground(new Color(255, 255, 128));
-		grille.setBounds(52, 26, 897, 730);
+		grille.setBounds(514, 39, 765, 703);
 		add(grille);
 		
 		JButton btnVersMenu = new JButton("Passer au menu");
@@ -51,5 +56,31 @@ public class PanelModeEditeur extends JPanel{
 		});
 		btnVersMenu.setBounds(178, 5, 109, 23);
 		add(btnVersMenu);
+		
+		JButton btnGrille = new JButton("Afficher la grille");
+		btnGrille.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grille.afficherGrille();
+			}
+		});
+		btnGrille.setBounds(858, 5, 421, 23);
+		add(btnGrille);
+		
+		JSpinner spinnerQttCarre = new JSpinner();
+		spinnerQttCarre.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				Object objetInit = spinnerQttCarre.getValue();
+				Number chiffreTransfo = (Number) objetInit;
+				grille.changerQttCarre(chiffreTransfo.intValue());
+				
+			}
+		});
+		spinnerQttCarre.setModel(new SpinnerNumberModel(3, 2, 64, 1));
+		spinnerQttCarre.setBounds(715, 6, 54, 20);
+		add(spinnerQttCarre);
+		
+		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
+		lblQttCarre.setBounds(530, 9, 199, 14);
+		add(lblQttCarre);
 	}
 }
