@@ -1,6 +1,6 @@
 package physique;
 
-import blocs.PlaqueChargee;
+import interactif.PlaqueChargee;
 
 /**
  * Cette classe regroupera les calculs physiques nécessaires au mouvement
