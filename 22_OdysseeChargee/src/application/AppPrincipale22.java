@@ -14,12 +14,17 @@ import javax.swing.JPanel;
 import constante.ConstanteComposantsSwing;
 import etatModeEditeur.PanelModeEditeur;
 import etatModeJeu.PanelModeJeu;
+import etatSelecteurNiveaux.PanelSelecteurNiveaux;
 import fenetres.FenetreApropos;
 import fenetres.FenetreInstruction;
 import fenetres.FenetreReglage;
 
 /**
- * 
+ * Projet intégrateur : Odyssée chargée
+ * @author Pierre Olivier-Giroux
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Jason Xa
+ * @author Kitimir Yim
  */
 public class AppPrincipale22 extends JFrame {
 
@@ -40,8 +45,18 @@ public class AppPrincipale22 extends JFrame {
 	 * Fenêtre Réglage
 	 */
 	private FenetreReglage fenReglage;
-	
+	/**
+	 * Panel du mode éditeur
+	 */
 	private PanelModeEditeur panE;
+	/**
+	 * Panel du mode jeu
+	 */
+	private PanelModeJeu panJ;
+	/**
+	 * Panel du sélecteur de niveaux
+	 */
+	private PanelSelecteurNiveaux panS;
 
 
 	/**
@@ -49,6 +64,7 @@ public class AppPrincipale22 extends JFrame {
 	 * 
 	 * @param args Paramètre d'entrée de la commande de démarrage
 	 */
+	//Kitimir Yim
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,8 +79,9 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Creer la page principale.
 	 */
+	//Kitimir Yim
 	public AppPrincipale22() {
 		setTitle("Odyssée Chargée");
 		contentPane = new JPanel();
@@ -86,8 +103,6 @@ public class AppPrincipale22 extends JFrame {
 	 * Créer les boutons.
 	 */
 	// Kitimir Yim
-
-	// Normalement ce sera des boutons
 	private void creerBoutons() {
 
 		JButton btnQuitter = new JButton("Quitter");
@@ -129,12 +144,15 @@ public class AppPrincipale22 extends JFrame {
 		btnNewButton_3.setBounds(372, 397, 89, 23);
 		contentPane.add(btnNewButton_3);
 
-		JButton btnModePrincipal = new JButton("Mode principal");
+		JButton btnModePrincipal = new JButton("Sélecteur de niveaux");
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				panS.setVisible(true);
+				contentPane.setVisible(false);
+				setContentPane(panS);	
 			}
 		});
-		btnModePrincipal.setBounds(92, 457, 89, 23);
+		btnModePrincipal.setBounds(92, 457, 133, 23);
 		contentPane.add(btnModePrincipal);
 
 		JButton btnModeEditeur = new JButton("Mode éditeur");
@@ -145,7 +163,7 @@ public class AppPrincipale22 extends JFrame {
 				setContentPane(panE);
 			}
 		});
-		btnModeEditeur.setBounds(372, 457, 89, 23);
+		btnModeEditeur.setBounds(362, 457, 168, 23);
 		contentPane.add(btnModeEditeur);	
 
 
@@ -170,12 +188,23 @@ public class AppPrincipale22 extends JFrame {
 	//Kitimir Yim
 	public void creerPanels() {
 		panE = new PanelModeEditeur();	
-		PanelModeJeu panJ = new PanelModeJeu();
+		panJ = new PanelModeJeu();
+		panS = new PanelSelecteurNiveaux();
 		
 		panE.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if  (evt.getPropertyName().equals("passerVersMenu")) {
 					panE.setVisible(false);
+					contentPane.setVisible(true);
+					setContentPane(contentPane);
+				}
+			}
+		});	
+		
+		panS.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if  (evt.getPropertyName().equals("passerVersMenu")) {
+					panS.setVisible(false);
 					contentPane.setVisible(true);
 					setContentPane(contentPane);
 				}

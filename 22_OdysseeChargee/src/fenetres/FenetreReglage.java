@@ -13,9 +13,9 @@ import composants.EvaluationEtoile;
 import constante.ConstanteComposantsSwing;
 
 /**
- * 
+ *  Fenêtre des réglages
+ *  @author Kitimir YIm
  */
-//Kitimir Yim
 public class FenetreReglage extends JFrame {
 
 	private static final long serialVersionUID = -4125957740472303897L;
@@ -36,8 +36,9 @@ public class FenetreReglage extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Implémente la fenêtre et ses fonctionnalités
 	 */
+	//Kitimir Yim
 	public FenetreReglage() {
 		setTitle("Réglages");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

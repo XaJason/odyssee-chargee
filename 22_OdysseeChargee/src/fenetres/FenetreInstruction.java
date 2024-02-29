@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 import constante.ConstanteComposantsSwing;
 
 /**
- * 
+ *  Fenêtre d'instruction
+ *  @author Kitimir YIm
  */
-//Kitimir Yim
 public class FenetreInstruction extends JFrame {
 
 	private static final long serialVersionUID = -4498300440691242449L;
@@ -29,8 +29,9 @@ public class FenetreInstruction extends JFrame {
 		pcs.addPropertyChangeListener(listener);
 	}
 	/**
-	 * 
+	 * Implémente la fenêtre et ses fonctionnalités
 	 */
+	//Kitimir Yim
 	public FenetreInstruction() {
 		setTitle("Instructions");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
