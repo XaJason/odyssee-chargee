@@ -121,7 +121,7 @@ public class AppPrincipale22 extends JFrame {
 		creerFenetres();
 		creerPanels();
 		creerMenu();
-		
+
 		if (leClip!=null) leClip.close();
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -147,8 +147,8 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				
-			
+
+
 			}
 		});
 		btnInstructions.setBounds(362, 335, 89, 23);
@@ -211,6 +211,18 @@ public class AppPrincipale22 extends JFrame {
 		fenApropos = new FenetreApropos();
 		fenInstruction = new FenetreInstruction();
 		fenReglage = new FenetreReglage();
+
+		fenReglage.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if  (evt.getPropertyName().equals("changerSon")) {
+					int son = (int) evt.getNewValue();
+					double nouvelleValeurSon = (double) son/100;
+					modifierVolume(nouvelleValeurSon);
+
+				}
+			}
+		});	
+
 
 
 	}
