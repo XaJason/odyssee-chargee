@@ -5,12 +5,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import javax.swing.JPanel;
@@ -65,8 +71,15 @@ public class AppPrincipale22 extends JFrame {
 	 * Panel du sélecteur de niveaux
 	 */
 	private PanelSelecteurNiveaux panS;
-	
+
 	private JMenuBar menuBar;
+
+	private Clip leClip=null;
+	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav"; 
+	private AudioInputStream audioStr;
+	private double volumeEntre0Et1 =1.0;
+	private	String pathDeFichier=null;
+	private File objetFichier=null;
 
 
 	/**
@@ -108,6 +121,10 @@ public class AppPrincipale22 extends JFrame {
 		creerFenetres();
 		creerPanels();
 		creerMenu();
+		
+		if (leClip!=null) leClip.close();
+		chargerLeSon(NOM_FICHIER_SON_1);
+		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	/**
@@ -130,6 +147,8 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
+				
+			
 			}
 		});
 		btnInstructions.setBounds(362, 335, 89, 23);
@@ -226,7 +245,7 @@ public class AppPrincipale22 extends JFrame {
 					panS.setVisible(false);
 					panJ.setVisible(true);
 					setContentPane(panJ);
-					
+
 
 
 				}
@@ -282,7 +301,7 @@ public class AppPrincipale22 extends JFrame {
 				panE.setVisible(false);
 				panS.setVisible(true);
 				setContentPane(panS);
-				
+
 			}
 
 
@@ -308,4 +327,57 @@ public class AppPrincipale22 extends JFrame {
 
 
 	}
+
+
+
+	/**
+	 * Methode privee pour lire le son et en faire un clip
+	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé et modifier pour notre code
+	 */
+	//Caroline Houle && Kitimir Yim
+	private void chargerLeSon(String fichier) {
+
+		try {
+			//si ce n'est pas la premiere fois, on evite de reacceder au fichier sur disque (consomme du temps)
+			if (audioStr==null) {
+				pathDeFichier = getClass().getClassLoader().getResource(fichier).getFile();
+				objetFichier = new File(pathDeFichier);
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Incapable d'ouvrir le fichier de son ");
+			e.printStackTrace();
+			return;
+		}
+		try {
+			audioStr = AudioSystem.getAudioInputStream(objetFichier);
+			leClip = AudioSystem.getClip();
+			leClip.open(audioStr);
+
+			//ces 2 lignes sont necessaires seulement si on souhaite gerer le volume
+			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
+			volume.setValue(20f* (float) Math.log10((float) volumeEntre0Et1));
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Probl�me � la cr�ation du clip (son)! " + fichier);
+			e.printStackTrace();
+			return;
+		}
+
+	}// fin methode
+
+
+	/**
+	 * Pour la gestion du volume si d�sire
+	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun volume
+	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé pour notre code
+	 */
+	//Caroline Houle && Kitimir Yim
+	private void modifierVolume(double valeurEntre0Et1) {
+		this.volumeEntre0Et1 = valeurEntre0Et1;
+		if (leClip != null && leClip.isRunning()) {
+			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
+			volume.setValue(20f* (float) Math.log10((float) valeurEntre0Et1));	
+		}
+	}
+
 }
