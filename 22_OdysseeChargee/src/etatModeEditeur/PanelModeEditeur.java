@@ -85,6 +85,9 @@ public class PanelModeEditeur extends JPanel{
 		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
 		lblQttCarre.setBounds(530, 9, 199, 14);
 		add(lblQttCarre);
+		
+		ObjetEditeur objetEditeur = new ObjetEditeur();
+		objetEditeur.setBounds(64, 49, 369, 703);
+		add(objetEditeur);
 	}
-	  
 }

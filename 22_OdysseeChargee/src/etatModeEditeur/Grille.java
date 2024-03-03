@@ -40,12 +40,16 @@ public class Grille extends JPanel {
 	private Boolean grille = true;
 	
 	
+	
+	
+	
 	/**
 	 * Création du panel
 	 */
 	public Grille() {
 
 		setBackground(Color.lightGray);
+		setLayout(null);
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -57,7 +61,7 @@ public class Grille extends JPanel {
 	}// Fin constructeur
 
 	/**
-	 * Méthode qui dessine au bon endroit le rectangle
+	 * Méthode qui dessine au bon endroit la grille
 	 * 
 	 * @param g Contexte graphique
 	 */
@@ -159,5 +163,10 @@ public class Grille extends JPanel {
 		 this.nbCarre=nouvNbCarre;
 		 premiereFois=true;
 		 repaint();
+	 }
+	 
+	 
+	 public void mettreRouge() {
+		 setBackground(Color.red);
 	 }
 }// Fin classe
