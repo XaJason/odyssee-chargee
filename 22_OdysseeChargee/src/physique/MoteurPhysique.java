@@ -1,6 +1,7 @@
 package physique;
 
 import interactif.PlaqueChargee;
+import interactif.Vaisseau;
 
 /**
  * Cette classe regroupera les calculs physiques nécessaires au mouvement
@@ -162,14 +163,14 @@ public class MoteurPhysique {
 	 * @throws Exception 
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculChampElectriqueHorsAxe(Vecteur2D posVaisseau, double chargeVaisseau, PlaqueChargee plaque) throws Exception {
+	public static Vecteur2D calculChampElectriqueHorsAxe(Vaisseau vaisseau, PlaqueChargee plaque) throws Exception {
 		double densiteLineiqueCharge = plaque.getCharge()/plaque.getLongueur();
-		Vecteur2D distanceVaisseauPlaque = plaque.getPosition().soustrait(posVaisseau);
-		Vecteur2D distanceVaisseauExtremiteA = plaque.getExtremiteA().soustrait(posVaisseau);
-		Vecteur2D distanceVaisseauExtremiteB = plaque.getExtremiteB().soustrait(posVaisseau);
+		Vecteur2D distanceVaisseauPlaque = plaque.getPosition().soustrait(vaisseau.getPosition());
+		Vecteur2D distanceVaisseauExtremiteA = plaque.getExtremiteA().soustrait(vaisseau.getPosition());
+		Vecteur2D distanceVaisseauExtremiteB = plaque.getExtremiteB().soustrait(vaisseau.getPosition());
 		
 		//Projection orthogonale de la distance entre le vaisseau et la plaque, sur la normale de la plaque
-		double plusPetiteDistanceVaisseauPlaque = distanceVaisseauPlaque.prodScalaire(plaque.getNormale()) / plaque.getNormale().module();
+		double plusPetiteDistanceVaisseauPlaque = Math.abs( distanceVaisseauPlaque.prodScalaire(plaque.getNormale()) );
 		
 		//Angles délimitant les côtés des extrémités de la plaque
 		double alphaA = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteA.module());
@@ -178,13 +179,26 @@ public class MoteurPhysique {
 		double moduleChamp = Math.sqrt(2) * K*Math.abs(densiteLineiqueCharge)/plusPetiteDistanceVaisseauPlaque * Math.sqrt(1 - Math.cos(alphaA-alphaB));
 		
 		//détermine le vecteur orientation du champ électrique, unitaire (en assumant que le vaisseau est attiré par la plaque)
-		Vecteur2D orientationChamp = plaque.getPosition().soustrait(posVaisseau).normalise();
+		Vecteur2D orientationChamp = plaque.getPosition().soustrait(vaisseau.getPosition()).normalise();
 
 		//change l'orientation s'il y a répulsion
-		if (Math.signum(chargeVaisseau) == Math.signum(plaque.getCharge())) {
+		if (Math.signum(vaisseau.getCharge()) == Math.signum(plaque.getCharge())) {
 			orientationChamp.multiplie(-1);
 		}
 		
 		return orientationChamp.multiplie(moduleChamp);
+	}
+	
+	/**
+	 * Détecte s'il y a une collision entre le vaisseau et un mur
+	 * @param vaisseau Objet représentant le vaisseau
+	 * @param plaque Objet représentant une plaque chargée
+	 * @return Un booléen indiquant s'il y a eu une collision entre le vaisseau et un mur
+	 */
+	public static boolean detectionCollisions(Vaisseau vaisseau, PlaqueChargee plaque) {
+		Vecteur2D distanceVaisseauPointSurPlaque = vaisseau.getPosition().soustrait(plaque.getPosition());
+		double plusPetiteDistanceVaisseauPlaque = Math.abs( distanceVaisseauPointSurPlaque.prodScalaire(plaque.getNormale()) );
+		
+		return (plusPetiteDistanceVaisseauPlaque <= vaisseau.getRayon());
 	}
 }

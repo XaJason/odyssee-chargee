@@ -7,7 +7,7 @@ import tuile.Bloc;
  * Permet de dessiner une plaque
  * @author Enuel René Valentin Kizozo Izia
  */
-public class PlaqueChargee extends Bloc {
+public class PlaqueChargee extends InteractifPhysique {
 
 	// PROPRIÉTÉS //
 	/** Vecteur normal de la plaque **/
