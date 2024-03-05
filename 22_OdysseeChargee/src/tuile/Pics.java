@@ -1,19 +1,35 @@
-/**
- * 
- */
 package tuile;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+
 /**
  * 
  */
+//Jason Xa
 public class Pics extends Tuile {
+	private static Image imageRef;
 
 	/**
+	 * @param x 
+	 * @param y 
 	 * 
 	 */
-	public Pics() {
-		// TODO Auto-generated constructor stub
+	public Pics(int x, int y) {
+
+		super(imageRef, x, y);
+
 	}
 
+	public void dessiner(Graphics2D g2d) {
+		g2d.drawImage(image, x, y+imageRef.getHeight(null), null);
+	}
+
+	/**
+	 * @param imageRef the imageRef to set
+	 */
+	public static void setImageRef(Image imageRef) {
+		Pics.imageRef = imageRef;
+	}
 
 }

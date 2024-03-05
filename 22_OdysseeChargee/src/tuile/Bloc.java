@@ -8,7 +8,7 @@ import physique.Vecteur2D;
  * Classe Bloc
  * @author Enuel René Valentin Kizozo Izia
  */
-public class Bloc extends Tuile {
+public class Bloc {
 
 private Vecteur2D position;
 	

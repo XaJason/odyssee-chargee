@@ -11,6 +11,11 @@ import javax.swing.JOptionPane;
 
 import composants.EvaluationEtoile;
 import constante.ConstanteComposantsSwing;
+import javax.swing.JScrollBar;
+import javax.swing.JSpinner;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /**
  *  Fenêtre des réglages
@@ -28,6 +33,8 @@ public class FenetreReglage extends JFrame {
 	 * Composant de l'évaluateur d'étoile
 	 */
 	private  EvaluationEtoile evaluationEtoile ;
+	
+	private int ancienneValeurSlider = 0;
 	/**
 	 * voici la methode qui permettra � un objet de s'ajouter en tant qu'ecouteur
 	 */
@@ -59,6 +66,19 @@ public class FenetreReglage extends JFrame {
 		getContentPane().setLayout(null);
 		btnQuitter.setBounds(0, 0, 149, 31);
 		getContentPane().add(btnQuitter);
+
+		JSlider sliderSon = new JSlider();
+		sliderSon.setValue(100);
+		sliderSon.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				int nouvelleValeur = sliderSon.getValue();
+				pcs.firePropertyChange("changerSon",ancienneValeurSlider , nouvelleValeur);
+				ancienneValeurSlider = nouvelleValeur;
+
+			}
+		});
+		sliderSon.setBounds(159, 132, 172, 31);
+		getContentPane().add(sliderSon);
 	}
 
 	/**
@@ -68,5 +88,4 @@ public class FenetreReglage extends JFrame {
 	public void menuQuitter() {
 		dispose();
 	}
-
 }
