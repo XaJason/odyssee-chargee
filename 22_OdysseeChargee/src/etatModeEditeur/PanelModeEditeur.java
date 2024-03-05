@@ -63,15 +63,7 @@ public class PanelModeEditeur extends JPanel {
 		grille.setBounds(514, 39, 765, 703);
 		add(grille);
 
-		JButton btnVersMenu = new JButton("Passer au menu");
-		btnVersMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				pcs.firePropertyChange("passerVersMenu", 0, -1);
-			}
-		});
-		btnVersMenu.setBounds(178, 5, 145, 23);
-		add(btnVersMenu);
+	
 
 		JButton btnGrille = new JButton("Afficher la grille");
 		btnGrille.addActionListener(new ActionListener() {
