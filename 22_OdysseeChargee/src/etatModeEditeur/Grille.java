@@ -14,6 +14,8 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+import tuile.Tuile;
+
 /**
  * 
  */
@@ -42,6 +44,8 @@ public class Grille extends JPanel {
 	private Path2D.Double quadHori;
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
+
+	private Tuile tuile;
 
 	/**
 	 * Création du panel

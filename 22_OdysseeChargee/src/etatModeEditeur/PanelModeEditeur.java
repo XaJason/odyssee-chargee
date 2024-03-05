@@ -15,6 +15,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import utilis.OutilsImage;
+import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton;
 
 /**
  * Panel du mode éditeur
@@ -40,6 +42,7 @@ public class PanelModeEditeur extends JPanel {
 	private JButton btnPics;
 	private JButton btnPortail;
 	private JButton btnDrapeau;
+	private JLabel lblTypeSelectionne;
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -96,7 +99,6 @@ public class PanelModeEditeur extends JPanel {
 		lblQttCarre.setBounds(530, 9, 199, 14);
 		add(lblQttCarre);
 
-		
 		creerBoutonsTuile();
 	}
 
@@ -134,5 +136,9 @@ public class PanelModeEditeur extends JPanel {
 		btnDrapeau.setBounds(315, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
+		
+		lblTypeSelectionne = new JLabel("Type de tuile sélectionné: ");
+		lblTypeSelectionne.setBounds(64, 230, 209, 14);
+		add(lblTypeSelectionne);
 	}
 }
