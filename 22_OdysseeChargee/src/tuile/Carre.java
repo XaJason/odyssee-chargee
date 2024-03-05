@@ -4,8 +4,9 @@ import java.awt.Image;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
+ * 
+ * @author Jason Xa
  */
-// Jason Xa
 public class Carre extends Tuile {
 	private static Image image;
 

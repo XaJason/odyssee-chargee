@@ -6,8 +6,9 @@ import java.awt.Image;
 /**
  * Représente l'objet fixe interactif plaçable qui agit comme une plaque de pics
  * (au bas de la tuile par défaut)
+ * 
+ * @author Jason Xa
  */
-// Jason Xa
 public class Pics extends Tuile {
 	private static Image image;
 

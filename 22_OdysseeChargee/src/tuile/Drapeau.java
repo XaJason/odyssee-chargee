@@ -5,8 +5,9 @@ import java.awt.Image;
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme un drapeau
  * d'arrivée
+ * 
+ * @author Jason Xa
  */
-// Jason Xa
 public class Drapeau extends Tuile {
 	private static Image image;
 

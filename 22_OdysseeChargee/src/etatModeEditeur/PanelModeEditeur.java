@@ -21,6 +21,7 @@ import javax.swing.JToggleButton;
 /**
  * Panel du mode éditeur
  * 
+ * @author Jason Xa
  * @author Kitimir Yim
  */
 
@@ -63,8 +64,6 @@ public class PanelModeEditeur extends JPanel {
 		grille.setBounds(514, 39, 765, 703);
 		add(grille);
 
-	
-
 		JButton btnGrille = new JButton("Afficher la grille");
 		btnGrille.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,15 +90,20 @@ public class PanelModeEditeur extends JPanel {
 		lblQttCarre.setBounds(530, 9, 199, 14);
 		add(lblQttCarre);
 
-		creerBoutonsTuile();
+		creerSectionBoutons();
 	}
 
 	/**
 	 * Création des boutons représentant les différentes options de tuile possibles
 	 */
 	// Jason Xa
-	private void creerBoutonsTuile() {
+	private void creerSectionBoutons() {
 		btnCarre = new JButton();
+		btnCarre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		btnCarre.setBounds(64, 39, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
 		add(btnCarre);
@@ -128,7 +132,7 @@ public class PanelModeEditeur extends JPanel {
 		btnDrapeau.setBounds(315, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
-		
+
 		lblTypeSelectionne = new JLabel("Type de tuile sélectionné: ");
 		lblTypeSelectionne.setBounds(64, 230, 209, 14);
 		add(lblTypeSelectionne);

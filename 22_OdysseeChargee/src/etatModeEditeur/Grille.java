@@ -10,8 +10,8 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * @author Giroux
+ * @author Jason Xa
  */
-
 import javax.swing.JPanel;
 
 import tuile.Tuile;
