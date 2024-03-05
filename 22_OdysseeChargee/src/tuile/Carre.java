@@ -30,4 +30,11 @@ public class Carre extends Tuile {
 		Carre.image = imageRef;
 	}
 
+	@Override
+	public String toString() {
+		return "Carre ";
+	}
+	
+	
+
 }

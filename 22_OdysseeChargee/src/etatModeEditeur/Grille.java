@@ -16,6 +16,8 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 
+import tuile.Carre;
+import tuile.Pics;
 import tuile.Tuile;
 
 /**
@@ -34,9 +36,7 @@ public class Grille extends JPanel {
 	private double largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
 	private int nbCarre = 15;
-	/**
-	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
-	 **/
+	/** Rectangle qui conrespond à la section de la grille où se trouve la sourie **/
 	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
 	private Boolean premiereFois = true;
@@ -47,11 +47,13 @@ public class Grille extends JPanel {
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
 	/** Tableau qui contient 1 si la case est occupé ou 0 si elle est vide **/
-	int libre[][];
+	private Tuile libre[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
-
-	private Tuile tuile;
+	private int x =0;
+	
+	
+	private Tuile tuile; // Vérifier si peut pluguer objet tuile dans arrayList
 
 	/**
 	 * Création du panel
@@ -88,13 +90,18 @@ public class Grille extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if (premiereFois) {
-			libre = new int[nbCarre][nbCarre];
+			
+			libre = new Tuile[nbCarre][nbCarre];
+			tuile = new Carre(1,1);
 			hauteur = this.getHeight();
 			largeur = this.getWidth();
 			dimensionCarre();
 			dessinerGrille();
 			premiereFois = false;
 		}
+		
+			
+		
 		g2d.setColor(Color.cyan);
 		g2d.fill(emplacementActuel);
 		g2d.setColor(Color.black);
@@ -197,8 +204,9 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						libre[i][j] = 1;
+						libre[i][j] = tuile;
 						System.out.println("Vous avez cliqué sur la col: " + (j + 1) + " et la ligne: " + (i + 1));
+						System.out.println("Vous avez cliqué sur la col: " + (j) + " et la ligne: " + (i));
 					}
 				}
 
@@ -219,14 +227,17 @@ public class Grille extends JPanel {
 
 			}
 		}
-	}//Fin méthode
-	
+		System.out.print("\n\n");
+	}// Fin méthode
+
 	/**
 	 * Méthode qui retourne la quantité de carré dans la grille
+	 * 
 	 * @return La qtt de carré dans la grille
 	 */
-	//Giroux
+	// Giroux
 	int getNbCarre() {
 		return nbCarre;
-	}//Fin méthode
+	}// Fin méthode
+
 }// Fin classe

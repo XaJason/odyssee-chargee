@@ -1,4 +1,4 @@
-package tuile;
+ package tuile;
 
 import java.awt.Image;
 
