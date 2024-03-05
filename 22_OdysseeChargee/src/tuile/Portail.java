@@ -4,8 +4,9 @@ import java.awt.Image;
 
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme un portail
+ * 
+ * @author Jason Xa
  */
-// Jason Xa
 public class Portail extends Tuile {
 	private static Image image;
 
