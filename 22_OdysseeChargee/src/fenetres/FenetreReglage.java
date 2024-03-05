@@ -7,34 +7,33 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import composants.EvaluationEtoile;
 import constante.ConstanteComposantsSwing;
-import javax.swing.JScrollBar;
-import javax.swing.JSpinner;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 /**
- *  Fenêtre des réglages
- *  @author Kitimir YIm
+ * Fenêtre des réglages
+ * 
+ * @author Kitimir YIm
  */
 public class FenetreReglage extends JFrame {
 
 	private static final long serialVersionUID = -4125957740472303897L;
 
 	/**
-	 *  ajouter le support pour lancer des evenements de type PropertyChange
+	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	/**
 	 * Composant de l'évaluateur d'étoile
 	 */
-	private  EvaluationEtoile evaluationEtoile ;
-	
+	private EvaluationEtoile evaluationEtoile;
+
 	private int ancienneValeurSlider = 0;
+
 	/**
 	 * voici la methode qui permettra � un objet de s'ajouter en tant qu'ecouteur
 	 */
@@ -45,11 +44,13 @@ public class FenetreReglage extends JFrame {
 	/**
 	 * Implémente la fenêtre et ses fonctionnalités
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public FenetreReglage() {
 		setTitle("Réglages");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds((ConstanteComposantsSwing.DIM_HORIZONTALE_APP-ConstanteComposantsSwing.DIM_HORIZONTALE_SEC)/2, ( ConstanteComposantsSwing.DIM_VERTICALE_APP-ConstanteComposantsSwing.DIM_VERTICALE_SEC)/2, ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, ConstanteComposantsSwing.DIM_VERTICALE_SEC);
+		setBounds((ConstanteComposantsSwing.DIM_HORIZONTALE_APP - ConstanteComposantsSwing.DIM_HORIZONTALE_SEC) / 2,
+				(ConstanteComposantsSwing.DIM_VERTICALE_APP - ConstanteComposantsSwing.DIM_VERTICALE_SEC) / 2,
+				ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, ConstanteComposantsSwing.DIM_VERTICALE_SEC);
 		getContentPane().setLayout(null);
 
 		evaluationEtoile = new EvaluationEtoile(0);
@@ -72,7 +73,7 @@ public class FenetreReglage extends JFrame {
 		sliderSon.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				int nouvelleValeur = sliderSon.getValue();
-				pcs.firePropertyChange("changerSon",ancienneValeurSlider , nouvelleValeur);
+				pcs.firePropertyChange("changerSon", ancienneValeurSlider, nouvelleValeur);
 				ancienneValeurSlider = nouvelleValeur;
 
 			}

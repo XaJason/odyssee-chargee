@@ -9,27 +9,31 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import etatModeJeu.PanelModeJeu;
+
 /**
  * Panel du sélecteur de niveaux
+ * 
  * @author Kitimir Yim
  */
 public class PanelSelecteurNiveaux extends JPanel {
 
 	/**
-	 *  ajouter le support pour lancer des evenements de type PropertyChange
+	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	/**
 	 * 
 	 */
 	private PanelModeJeu panJ;
+
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
-	//Kitimir Yim
+
+	// Kitimir Yim
 	public PanelSelecteurNiveaux() {
 
 		setLayout(null);
@@ -52,8 +56,6 @@ public class PanelSelecteurNiveaux extends JPanel {
 		});
 		btnPasserModeJeu.setBounds(192, 119, 162, 23);
 		add(btnPasserModeJeu);
-
-		
 
 	}
 }

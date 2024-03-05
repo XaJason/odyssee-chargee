@@ -1,36 +1,33 @@
 package tuile;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
- * 
+ * Représente l'objet interactif fixe plaçable qui agit comme un drapeau
+ * d'arrivée
  */
-//Jason Xa
+// Jason Xa
 public class Drapeau extends Tuile {
-	private static Image imageRef;
+	private static Image image;
 
 	/**
-	 * @param x
-	 * @param y
+	 * Constructeur
+	 * 
+	 * @param x l'abscisse gauche de la tuile (px)
+	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
 	public Drapeau(int x, int y) {
-
-		super(imageRef, x, y);
+		super(image, x, y);
 	}
 
 	/**
+	 * Définit l'image représentant le drapeau d'arrivée
 	 * 
-	 */
-	public void dessiner(Graphics2D g2d) {
-	}
-
-	/**
-	 * @param imageRef the imageRef to set
+	 * @param imageRef l'image représentant drapeau d'arrivée
 	 */
 	public static void setImageRef(Image imageRef) {
-		Drapeau.imageRef = imageRef;
+		Drapeau.image = imageRef;
 	}
 
 }

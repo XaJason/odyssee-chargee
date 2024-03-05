@@ -3,8 +3,8 @@ package etatModeEditeur;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Area;
-import java.awt.geom.Line2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
@@ -13,8 +13,6 @@ import java.awt.geom.Rectangle2D;
  */
 
 import javax.swing.JPanel;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 public class Grille extends JPanel {
 
@@ -28,7 +26,9 @@ public class Grille extends JPanel {
 	private double largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
 	private int nbCarre = 3;
-	/** Rectangle qui conrespond à la section de la grille où se trouve la sourie **/
+	/**
+	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
+	 **/
 	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
 	private Boolean premiereFois = true;
@@ -38,11 +38,7 @@ public class Grille extends JPanel {
 	private Path2D.Double quadHori;
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
-	
-	
-	
-	
-	
+
 	/**
 	 * Création du panel
 	 */
@@ -79,7 +75,7 @@ public class Grille extends JPanel {
 		g2d.setColor(Color.cyan);
 		g2d.fill(emplacementActuel);
 		g2d.setColor(Color.black);
-		if(grille) {
+		if (grille) {
 			g2d.setColor(Color.black);
 			g2d.draw(quadHori);
 			g2d.draw(quadVerti);
@@ -130,43 +126,44 @@ public class Grille extends JPanel {
 	void dessinerGrille() {
 		quadVerti = new Path2D.Double();
 		quadHori = new Path2D.Double();
-		for (int i = 0; i < nbCarre+1; i++) {
+		for (int i = 0; i < nbCarre + 1; i++) {
 			quadHori.moveTo(0, i * hauteurCarre);
 			quadHori.lineTo(largeur, i * hauteurCarre);
-			for (int j = 0; j < nbCarre+1; j++) {
+			for (int j = 0; j < nbCarre + 1; j++) {
 				quadVerti.moveTo(j * largeurCarre, 0);
 				quadVerti.lineTo(j * largeurCarre, hauteur);
 			}
 
 		}
-	}//Fin méthode
-	
+	}// Fin méthode
+
 	/**
-	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle y est
+	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle
+	 * y est
 	 */
-	//Giroux
-	 public void afficherGrille() {
-		 if(grille==true) {
-			 grille=false;
-		 } else {
-			 grille=true;
-		 }
-		 repaint();
-		
-	 }//Fin méthode
-	 
-	 /**
-	  * Méthode qui change le nombre de carré par ligne
-	  * @param nouvNbCarre Le nouveau nombre de carré par ligne et colonne
-	  */
-	 public void changerQttCarre(int nouvNbCarre) {
-		 this.nbCarre=nouvNbCarre;
-		 premiereFois=true;
-		 repaint();
-	 }
-	 
-	 
-	 public void mettreRouge() {
-		 setBackground(Color.red);
-	 }
+	// Giroux
+	public void afficherGrille() {
+		if (grille == true) {
+			grille = false;
+		} else {
+			grille = true;
+		}
+		repaint();
+
+	}// Fin méthode
+
+	/**
+	 * Méthode qui change le nombre de carré par ligne
+	 * 
+	 * @param nouvNbCarre Le nouveau nombre de carré par ligne et colonne
+	 */
+	public void changerQttCarre(int nouvNbCarre) {
+		this.nbCarre = nouvNbCarre;
+		premiereFois = true;
+		repaint();
+	}
+
+	public void mettreRouge() {
+		setBackground(Color.red);
+	}
 }// Fin classe

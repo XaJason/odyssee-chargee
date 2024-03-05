@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,19 +8,17 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import constante.ConstanteComposantsSwing;
 import etatModeEditeur.PanelModeEditeur;
 import etatModeJeu.PanelModeJeu;
@@ -34,12 +33,6 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import utilis.OutilsImage;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.event.MenuListener;
-import javax.swing.event.MenuEvent;
-import java.awt.Dimension;
 
 /**
  * Projet intégrateur : Odyssée chargée
@@ -86,12 +79,15 @@ public class AppPrincipale22 extends JFrame {
 	private Clip leClip = null;
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
 	private AudioInputStream audioStr;
-	private double volumeEntre0Et1 = 1.0;
+	private double volumeEntre0Et1 = 0.5;
 	private String pathDeFichier = null;
 	private File objetFichier = null;
 
+	/** largeur d'une tuile */
 	private final int LARGEUR_TUILE = 64;
+	/** hauteur d'une tuile */
 	private final int HAUTEUR_TUILE = 64;
+	/** hauteur d'une demi-tuile */
 	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
 
 	/**
@@ -138,6 +134,9 @@ public class AppPrincipale22 extends JFrame {
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
+	/**
+	 * Lit, redimensionne et définit l'image pour chaque type de tuile
+	 */
 	// Jason Xa
 	private void lireImages() {
 		Carre.setImageRef(OutilsImage.lireImageEtRedimensionner("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE));

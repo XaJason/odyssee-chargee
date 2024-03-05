@@ -16,8 +16,6 @@ public class InteractifPhysique {
 	private double masse;
 
 	
-	
-	
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur de l'objet intéractif physique
@@ -31,7 +29,8 @@ public class InteractifPhysique {
 		this.masse = masse;
 	}
 
-	// SOUS-PROGRAMMES
+	
+	// SOUS-PROGRAMMES //
 	/**
 	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique passé en parametre.
 	 * @param g2d
@@ -41,8 +40,7 @@ public class InteractifPhysique {
 	}
 
 	
-	
-	// GETTERS & SETTERS 
+	// GETTERS & SETTERS //
 	/**
 	 * Retourne la position de l'objet intéractif physique
 	 * @return La position de l'objet intéractif physique

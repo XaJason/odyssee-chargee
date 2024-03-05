@@ -1,34 +1,32 @@
 package tuile;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
- * 
+ * Représente l'objet interactif fixe plaçable qui agit comme un portail
  */
-//Jason Xa
+// Jason Xa
 public class Portail extends Tuile {
-	private static Image imageRef;
+	private static Image image;
 
 	/**
-	 * @param x 
-	 * @param y 
+	 * Constructeur
+	 * 
+	 * @param x l'abscisse gauche de la tuile (px)
+	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
 	public Portail(int x, int y) {
-
-		super(imageRef, x, y);
-
-	}
-
-	public void dessiner(Graphics2D g2d) {
+		super(image, x, y);
 	}
 
 	/**
-	 * @param imageRef the imageRef to set
+	 * Définit l'image représentant le portail
+	 * 
+	 * @param imageRef l'image représentant le portail
 	 */
 	public static void setImageRef(Image imageRef) {
-		Portail.imageRef = imageRef;
+		Portail.image = imageRef;
 	}
 
 }
