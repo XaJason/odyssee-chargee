@@ -15,8 +15,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import utilis.OutilsImage;
-import javax.swing.ButtonGroup;
-import javax.swing.JToggleButton;
 
 /**
  * Panel du mode éditeur
@@ -44,6 +42,8 @@ public class PanelModeEditeur extends JPanel {
 	private JButton btnPortail;
 	private JButton btnDrapeau;
 	private JLabel lblTypeSelectionne;
+
+	private String preTexteTypeSelectionne = "Type de tuile sélectionné: ";
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -101,7 +101,7 @@ public class PanelModeEditeur extends JPanel {
 		btnCarre = new JButton();
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Carré");
 			}
 		});
 		btnCarre.setBounds(64, 39, 85, 85);
@@ -109,21 +109,37 @@ public class PanelModeEditeur extends JPanel {
 		add(btnCarre);
 
 		btnTriangleRectangle = new JButton();
+		btnTriangleRectangle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTriangleRectangle.setBounds(188, 39, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
 		add(btnTriangleRectangle);
 
 		btnTriangleEquilateral = new JButton();
+		btnTriangleEquilateral.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
 		add(btnTriangleEquilateral);
 
 		btnPics = new JButton();
+		btnPics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnPics.setBounds(64, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
 		add(btnPics);
 
 		btnPortail = new JButton();
+		btnPortail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnPortail.setBounds(188, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
 		add(btnPortail);
@@ -133,7 +149,7 @@ public class PanelModeEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
-		lblTypeSelectionne = new JLabel("Type de tuile sélectionné: ");
+		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
 		lblTypeSelectionne.setBounds(64, 230, 209, 14);
 		add(lblTypeSelectionne);
 	}

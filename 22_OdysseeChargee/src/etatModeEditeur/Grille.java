@@ -171,7 +171,21 @@ public class Grille extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * 
+	 */
+	// Giroux
 	public void mettreRouge() {
 		setBackground(Color.red);
+	}
+
+	/**
+	 * Définit le nouveau type de tuile sélectionné
+	 * 
+	 * @param tuile le nouveau type de tuile sélectionné
+	 */
+	// Jason Xa
+	public void setTuile(Tuile tuile) {
+		this.tuile = tuile;
 	}
 }// Fin classe
