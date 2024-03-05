@@ -7,15 +7,15 @@ import java.awt.Image;
  * 
  */
 //Jason Xa
-public class Portail extends Tuile {
+public class Carre extends Tuile {
 	private static Image imageRef;
 
 	/**
-	 * @param x 
-	 * @param y 
+	 * @param x
+	 * @param y
 	 * 
 	 */
-	public Portail(int x, int y) {
+	public Carre(int x, int y) {
 
 		super(imageRef, x, y);
 

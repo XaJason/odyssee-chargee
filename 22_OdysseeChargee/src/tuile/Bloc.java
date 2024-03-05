@@ -7,7 +7,7 @@ import physique.Vecteur2D;
 /**
  * 
  */
-public class Bloc extends Tuile {
+public class Bloc {
 
 private Vecteur2D position;
 	
