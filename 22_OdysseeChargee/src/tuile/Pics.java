@@ -22,6 +22,14 @@ public class Pics extends Tuile {
 	}
 
 	public void dessiner(Graphics2D g2d) {
+		g2d.drawImage(image, x, y+imageRef.getHeight(null), null);
+	}
+
+	/**
+	 * @param imageRef the imageRef to set
+	 */
+	public static void setImageRef(Image imageRef) {
+		Pics.imageRef = imageRef;
 	}
 
 }

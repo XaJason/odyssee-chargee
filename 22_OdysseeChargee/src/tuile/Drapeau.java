@@ -26,4 +26,11 @@ public class Drapeau extends Tuile {
 	public void dessiner(Graphics2D g2d) {
 	}
 
+	/**
+	 * @param imageRef the imageRef to set
+	 */
+	public static void setImageRef(Image imageRef) {
+		Drapeau.imageRef = imageRef;
+	}
+
 }

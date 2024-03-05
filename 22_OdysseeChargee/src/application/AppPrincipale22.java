@@ -27,6 +27,14 @@ import etatSelecteurNiveaux.PanelSelecteurNiveaux;
 import fenetres.FenetreApropos;
 import fenetres.FenetreInstruction;
 import fenetres.FenetreReglage;
+import tuile.Carre;
+import tuile.Drapeau;
+import tuile.Pics;
+import tuile.Portail;
+import tuile.TriangleEquilateral;
+import tuile.TriangleRectangle;
+import utilis.OutilsImage;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MenuListener;
@@ -35,6 +43,7 @@ import java.awt.Dimension;
 
 /**
  * Projet intégrateur : Odyssée chargée
+ * 
  * @author Pierre Olivier-Giroux
  * @author Enuel René Valentin Kizozo Izia
  * @author Jason Xa
@@ -74,20 +83,23 @@ public class AppPrincipale22 extends JFrame {
 
 	private JMenuBar menuBar;
 
-	private Clip leClip=null;
-	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav"; 
+	private Clip leClip = null;
+	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
 	private AudioInputStream audioStr;
-	private double volumeEntre0Et1 =1.0;
-	private	String pathDeFichier=null;
-	private File objetFichier=null;
+	private double volumeEntre0Et1 = 1.0;
+	private String pathDeFichier = null;
+	private File objetFichier = null;
 
+	private final int LARGEUR_TUILE = 64;
+	private final int HAUTEUR_TUILE = 64;
+	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
 
 	/**
 	 * Lance l'application
 	 * 
 	 * @param args Paramètre d'entrée de la commande de démarrage
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -104,27 +116,38 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Creer la page principale.
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public AppPrincipale22() {
 		setTitle("Odyssée Chargée");
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
-
 
 		creerBoutons();
 		creerFenetres();
 		creerPanels();
 		creerMenu();
+		lireImages();
 
-		if (leClip!=null) leClip.close();
+		if (leClip != null)
+			leClip.close();
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+	}
+
+	// Jason Xa
+	private void lireImages() {
+		Carre.setImageRef(OutilsImage.lireImageEtRedimensionner("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE));
+		TriangleEquilateral.setImageRef(
+				OutilsImage.lireImageEtRedimensionner("triangle_equilateral.png", LARGEUR_TUILE, HAUTEUR_TUILE));
+		TriangleRectangle.setImageRef(
+				OutilsImage.lireImageEtRedimensionner("triangle_rectangle.png", LARGEUR_TUILE, HAUTEUR_TUILE));
+		Portail.setImageRef(OutilsImage.lireImageEtRedimensionner("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE));
+		Drapeau.setImageRef(OutilsImage.lireImageEtRedimensionner("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
+		Pics.setImageRef(OutilsImage.lireImageEtRedimensionner("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE));
 	}
 
 	/**
@@ -147,7 +170,6 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-
 
 			}
 		});
@@ -179,7 +201,7 @@ public class AppPrincipale22 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				panS.setVisible(true);
 				contentPane.setVisible(false);
-				setContentPane(panS);	
+				setContentPane(panS);
 				menuBar.setVisible(true);
 			}
 		});
@@ -196,16 +218,14 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		btnModeEditeur.setBounds(362, 457, 168, 23);
-		contentPane.add(btnModeEditeur);	
-
-
-
+		contentPane.add(btnModeEditeur);
 
 	}
+
 	/**
 	 * Créer les fenêtres pour les réglages, les instructions et les À propos
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void creerFenetres() {
 
 		fenApropos = new FenetreApropos();
@@ -214,78 +234,73 @@ public class AppPrincipale22 extends JFrame {
 
 		fenReglage.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				if  (evt.getPropertyName().equals("changerSon")) {
+				if (evt.getPropertyName().equals("changerSon")) {
 					int son = (int) evt.getNewValue();
-					double nouvelleValeurSon = (double) son/100;
+					double nouvelleValeurSon = (double) son / 100;
 					modifierVolume(nouvelleValeurSon);
 
 				}
 			}
-		});	
-
-
+		});
 
 	}
+
 	/**
 	 * Créer les panels pour le mode éditeur et le mode jeu
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void creerPanels() {
-		panE = new PanelModeEditeur();	
+		panE = new PanelModeEditeur();
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
 		panE.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				if  (evt.getPropertyName().equals("passerVersMenu")) {
+				if (evt.getPropertyName().equals("passerVersMenu")) {
 					panE.setVisible(false);
 					contentPane.setVisible(true);
 					setContentPane(contentPane);
 					menuBar.setVisible(false);
 				}
 			}
-		});	
+		});
 
 		panS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				if  (evt.getPropertyName().equals("passerVersMenu")) {
+				if (evt.getPropertyName().equals("passerVersMenu")) {
 					panS.setVisible(false);
 					contentPane.setVisible(true);
 					setContentPane(contentPane);
 					menuBar.setVisible(false);
-				}else if (evt.getPropertyName().equals("passerVersJeu")) {
+				} else if (evt.getPropertyName().equals("passerVersJeu")) {
 					panS.setVisible(false);
 					panJ.setVisible(true);
 					setContentPane(panJ);
 
-
-
 				}
 			}
-		});	
+		});
 
 		panJ.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				if  (evt.getPropertyName().equals("passerVersNiveaux")) {
+				if (evt.getPropertyName().equals("passerVersNiveaux")) {
 
 					panJ.setVisible(false);
 					panS.setVisible(true);
 					setContentPane(panS);
 				}
 			}
-		});	
-
+		});
 
 	}
+
 	/**
 	 * Bouton pour quitter l'application
 	 */
 	// Kitimir Yim
 	public void menuQuitter() {
-		int option = JOptionPane.showConfirmDialog(this,
-				"Êtes-vous sûr de vouloir quitter l'application?",
-				"Confirmation",
-				JOptionPane.YES_NO_OPTION);
+		int option = JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir quitter l'application?",
+				"Confirmation", JOptionPane.YES_NO_OPTION);
 
 		if (option == JOptionPane.YES_OPTION) {
 			System.exit(0);
@@ -301,10 +316,8 @@ public class AppPrincipale22 extends JFrame {
 		setJMenuBar(menuBar);
 		menuBar.setVisible(false);
 
-
 		JMenuItem mntmSelection = new JMenuItem("Sélection de niveaux");
 		mntmSelection.setMaximumSize(new Dimension(150, 32767));
-
 
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -315,8 +328,6 @@ public class AppPrincipale22 extends JFrame {
 				setContentPane(panS);
 
 			}
-
-
 
 		});
 		menuBar.add(mntmSelection);
@@ -333,25 +344,20 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmEditeur);
 
-
-
-
-
-
 	}
-
-
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
-	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé et modifier pour notre code
+	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé et
+	 * modifier pour notre code
 	 */
-	//Caroline Houle && Kitimir Yim
+	// Caroline Houle && Kitimir Yim
 	private void chargerLeSon(String fichier) {
 
 		try {
-			//si ce n'est pas la premiere fois, on evite de reacceder au fichier sur disque (consomme du temps)
-			if (audioStr==null) {
+			// si ce n'est pas la premiere fois, on evite de reacceder au fichier sur disque
+			// (consomme du temps)
+			if (audioStr == null) {
 				pathDeFichier = getClass().getClassLoader().getResource(fichier).getFile();
 				objetFichier = new File(pathDeFichier);
 			}
@@ -365,9 +371,9 @@ public class AppPrincipale22 extends JFrame {
 			leClip = AudioSystem.getClip();
 			leClip.open(audioStr);
 
-			//ces 2 lignes sont necessaires seulement si on souhaite gerer le volume
+			// ces 2 lignes sont necessaires seulement si on souhaite gerer le volume
 			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
-			volume.setValue(20f* (float) Math.log10((float) volumeEntre0Et1));
+			volume.setValue(20f * (float) Math.log10((float) volumeEntre0Et1));
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Probl�me � la cr�ation du clip (son)! " + fichier);
@@ -377,18 +383,20 @@ public class AppPrincipale22 extends JFrame {
 
 	}// fin methode
 
-
 	/**
 	 * Pour la gestion du volume si d�sire
-	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun volume
-	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé pour notre code
+	 * 
+	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
+	 *                        volume
+	 *                        La méthode a éte trouvée dans le materiel d'appoint
+	 *                        mais a été implementé pour notre code
 	 */
-	//Caroline Houle && Kitimir Yim
+	// Caroline Houle && Kitimir Yim
 	private void modifierVolume(double valeurEntre0Et1) {
 		this.volumeEntre0Et1 = valeurEntre0Et1;
 		if (leClip != null && leClip.isRunning()) {
 			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
-			volume.setValue(20f* (float) Math.log10((float) valeurEntre0Et1));	
+			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
 		}
 	}
 
