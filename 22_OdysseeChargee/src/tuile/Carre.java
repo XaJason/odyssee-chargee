@@ -3,26 +3,30 @@ package tuile;
 import java.awt.Image;
 
 /**
- * 
+ * Représente l'objet fixe plaçable en forme de carré
  */
-//Jason Xa
+// Jason Xa
 public class Carre extends Tuile {
-	private static Image imageRef;
+	private static Image image;
 
 	/**
-	 * @param x
-	 * @param y
+	 * Constructeur
+	 * 
+	 * @param x l'abscisse gauche de la tuile (px)
+	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
 	public Carre(int x, int y) {
-		super(imageRef, x, y);
+		super(image, x, y);
 	}
 
 	/**
-	 * @param imageRef the imageRef to set
+	 * Définit l'image représentant le carré
+	 * 
+	 * @param imageRef l'image représentant le carré
 	 */
 	public static void setImageRef(Image imageRef) {
-		Carre.imageRef = imageRef;
+		Carre.image = imageRef;
 	}
 
 }

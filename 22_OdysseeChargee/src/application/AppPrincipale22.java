@@ -90,8 +90,11 @@ public class AppPrincipale22 extends JFrame {
 	private String pathDeFichier = null;
 	private File objetFichier = null;
 
+	/** largeur d'une tuile */
 	private final int LARGEUR_TUILE = 64;
+	/** hauteur d'une tuile */
 	private final int HAUTEUR_TUILE = 64;
+	/** hauteur d'une demi-tuile */
 	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
 
 	/**
@@ -138,6 +141,9 @@ public class AppPrincipale22 extends JFrame {
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
+	/**
+	 * Lit, redimensionne et définit l'image pour chaque type de tuile
+	 */
 	// Jason Xa
 	private void lireImages() {
 		Carre.setImageRef(OutilsImage.lireImageEtRedimensionner("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE));
