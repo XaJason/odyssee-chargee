@@ -1,5 +1,7 @@
 package interactif;
 
+import java.awt.Graphics2D;
+
 import physique.Vecteur2D;
 
 public class Vaisseau extends InteractifPhysique {
@@ -10,28 +12,40 @@ public class Vaisseau extends InteractifPhysique {
 
 	/** Accélération du vaisseau **/
 	private Vecteur2D accel;
-
-	/** Charge du vaisseau **/
-	private double charge;
-
+	
 	/** Rayon du vaisseau **/
 	private double rayon;
-
+	
+	
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur du vaisseau
 	 * 
 	 * @param position
-	 * @param charge
+	 * @param vitesse
+	 * @param accel
 	 * @param rayon
+	 * @param charge
+	 * @param masse
 	 */
-	public Vaisseau(Vecteur2D position, Vecteur2D vitesse, Vecteur2D accel, double charge, double rayon) {
-		super(position);
+	//Enuel René Valentin Kizozo Izia
+	public Vaisseau(Vecteur2D position, Vecteur2D vitesse, Vecteur2D accel, double rayon, double charge, double masse) {
+		super(position, charge, masse);
 		this.vitesse = vitesse;
 		this.accel = accel;
-		this.charge = charge;
 		this.rayon = rayon;
 	}
+	
+	
+	// SOUS-PROGRAMMES //
+	/**
+	 * Permet de dessiner un vaisseau, sur le contexte graphique passé en parametre.
+	 * @param g2d
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void dessiner(Graphics2D g2d) {	
+	}
+
 
 	// GETTERS ET SETTERS //
 	/**
@@ -75,26 +89,6 @@ public class Vaisseau extends InteractifPhysique {
 	}
 
 	/**
-	 * Retourne la charge du vaisseau
-	 * 
-	 * @return La charge du vaisseau
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public double getCharge() {
-		return charge;
-	}
-
-	/**
-	 * Modifie la charge du vaisseau
-	 * 
-	 * @param charge Charge du vaisseau
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void setCharge(double charge) {
-		this.charge = charge;
-	}
-
-	/**
 	 * Retourne le rayon du vaisseau
 	 * 
 	 * @return Le rayon du vaisseau
@@ -113,4 +107,5 @@ public class Vaisseau extends InteractifPhysique {
 	public void setRayon(double rayon) {
 		this.rayon = rayon;
 	}
+	
 }

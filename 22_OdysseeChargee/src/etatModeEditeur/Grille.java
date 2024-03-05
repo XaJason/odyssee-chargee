@@ -106,7 +106,7 @@ public class Grille extends JPanel {
 	 * @param posY Position y de l'emplacement
 	 */
 	// Giroux
-	void dessinerCarre(int posX, int posY) {
+	void dessinerCarre(double posX, double posY) {
 
 		for (int i = 0; i < nbCarre; i++) {
 			if (posY >= i * hauteurCarre && posY < ((i + 1) * hauteurCarre)) {

@@ -1,5 +1,7 @@
 package interactif;
 
+import java.awt.Graphics2D;
+
 import physique.Vecteur2D;
 
 /**
@@ -18,33 +20,44 @@ public class PlaqueChargee extends InteractifPhysique {
 
 	/** Longueur de la plaque **/
 	private double longueur;
-
+	
 	/** Charge de la plaque **/
 	private double charge;
-
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA = super.getPosition().additionne(axe.multiplie(longueur / 2));
 
 	/** Position de l'extrémité B de la plaque **/
 	private Vecteur2D extremiteB = super.getPosition().additionne(axe.multiplie(-longueur / 2));
-
+	
+	
 	// CONSTRUCTEUR //
 	/**
-	 * Constructeur
+	 * Constructeur de la plaque chargée
 	 * 
 	 * @param position
 	 * @param normale
 	 * @param longueur
 	 * @param charge
 	 */
-	// Enuel René Valentin Kizozo Izia
-	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge) {
-		super(position);
+	//Enuel René Valentin Kizozo Izia
+	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {
+		super(position, charge, masse);
 		this.normale = normale;
 		this.longueur = longueur;
-		this.charge = charge;
 	}
 
+	
+	// SOUS-PROGRAMMES
+	/**
+	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique passé en parametre.
+	 * @param g2d
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void dessiner(Graphics2D g2d) {	
+	}
+	
+		
+	// GETTERS & SETTERS //
 	/**
 	 * Retourne le vecteur normal de la plaque
 	 * 
@@ -106,6 +119,8 @@ public class PlaqueChargee extends InteractifPhysique {
 	}
 
 	/**
+<<<<<<< HEAD
+=======
 	 * Retourne la charge de la plaque
 	 * 
 	 * @return La charge de la plaque
@@ -126,6 +141,7 @@ public class PlaqueChargee extends InteractifPhysique {
 	}
 
 	/**
+>>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Retourne l'extrémité A de la plaque
 	 * 
 	 * @return L'extrémité A de la plaque
