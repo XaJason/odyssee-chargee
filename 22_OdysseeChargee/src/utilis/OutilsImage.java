@@ -12,7 +12,6 @@ import java.net.URL;
  * Notez les méthodes permettant de redimensionner une image.
  *
  * @author Caroline Houle
- * @author Merieme Bouisri
  */
 
 public class OutilsImage {
@@ -126,29 +125,4 @@ public class OutilsImage {
 			imgRedim.flush();
 		}
 	}// fin methode
-
-	/**
-	 * Placer une image existante sur un bouton
-	 *
-	 * @param image  {@code Image} a placer sur le bouton
-	 * @param bouton {@code JButton} sur lequel l'image sera placee
-	 */
-	// Merieme Bouisri
-	public static void placerImageSurBouton(Image image, JButton bouton) {
-		Image imgRedim = null;
-
-		imgRedim = image.getScaledInstance(bouton.getWidth(), bouton.getHeight(), Image.SCALE_DEFAULT);
-
-		if (imgRedim == null)
-			return;
-
-		bouton.setOpaque(false);
-		bouton.setContentAreaFilled(false);
-		bouton.setBorderPainted(false);
-		bouton.setText("");
-		bouton.setIcon(new ImageIcon(imgRedim));
-		bouton.setBorderPainted(true);
-		imgRedim.flush();
-	}
-
 }

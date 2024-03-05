@@ -45,6 +45,9 @@ public class ObjetEditeur extends JPanel {
 
 	private int xPrecedent, yPrecedent;
 
+	/** condition de placement */
+	private boolean placementValide;
+
 	/**
 	 * Create the panel.
 	 */

@@ -87,7 +87,7 @@ public class PanelModeEditeur extends JPanel {
 		add(lblQttCarre);
 
 		ObjetEditeur objetEditeur = new ObjetEditeur();
-		objetEditeur.setBounds(64, 49, 369, 703);
+		objetEditeur.setBounds(64, 366, 350, 350);
 		add(objetEditeur);
 	}
 }
