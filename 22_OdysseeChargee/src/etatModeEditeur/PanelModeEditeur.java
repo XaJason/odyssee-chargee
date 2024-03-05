@@ -57,7 +57,7 @@ public class PanelModeEditeur extends JPanel {
 
 		grille = new Grille();
 		grille.setBackground(new Color(255, 255, 128));
-		grille.setBounds(514, 39, 765, 703);
+		grille.setBounds(514, 39, 1025, 922);
 		add(grille);
 
 		JButton btnVersMenu = new JButton("Passer au menu");
@@ -88,7 +88,7 @@ public class PanelModeEditeur extends JPanel {
 
 			}
 		});
-		spinnerQttCarre.setModel(new SpinnerNumberModel(3, 2, 64, 1));
+		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
 		spinnerQttCarre.setBounds(715, 6, 54, 20);
 		add(spinnerQttCarre);
 
