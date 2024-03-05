@@ -253,43 +253,7 @@ public class AppPrincipale22 extends JFrame {
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
-		panE.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("passerVersMenu")) {
-					panE.setVisible(false);
-					contentPane.setVisible(true);
-					setContentPane(contentPane);
-					menuBar.setVisible(false);
-				}
-			}
-		});
-
-		panS.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("passerVersMenu")) {
-					panS.setVisible(false);
-					contentPane.setVisible(true);
-					setContentPane(contentPane);
-					menuBar.setVisible(false);
-				} else if (evt.getPropertyName().equals("passerVersJeu")) {
-					panS.setVisible(false);
-					panJ.setVisible(true);
-					setContentPane(panJ);
-
-				}
-			}
-		});
-
-		panJ.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("passerVersNiveaux")) {
-
-					panJ.setVisible(false);
-					panS.setVisible(true);
-					setContentPane(panS);
-				}
-			}
-		});
+		
 
 	}
 
@@ -321,7 +285,7 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmPrincipale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("lebronjames");
+				
 				contentPane.setVisible(true);
 				panE.setVisible(false);
 				panS.setVisible(false);
