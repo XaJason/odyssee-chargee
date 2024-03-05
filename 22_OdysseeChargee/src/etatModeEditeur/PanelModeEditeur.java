@@ -14,6 +14,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import utilis.OutilsImage;
+
 /**
  * Panel du mode éditeur
  * 
@@ -30,6 +32,12 @@ public class PanelModeEditeur extends JPanel {
 	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private JButton btnCarre;
+	private JButton btnTriangleRectangle;
+	private JButton btnTriangleEquilateral;
+	private JButton btnPics;
+	private JButton btnPortail;
+	private JButton btnDrapeau;
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -89,5 +97,42 @@ public class PanelModeEditeur extends JPanel {
 		ObjetEditeur objetEditeur = new ObjetEditeur();
 		objetEditeur.setBounds(64, 366, 350, 350);
 		add(objetEditeur);
+
+		creerBoutonsTuile();
+	}
+
+	/**
+	 * 
+	 */
+	private void creerBoutonsTuile() {
+		btnCarre = new JButton();
+		btnCarre.setBounds(64, 39, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
+		add(btnCarre);
+
+		btnTriangleRectangle = new JButton();
+		btnTriangleRectangle.setBounds(188, 39, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
+		add(btnTriangleRectangle);
+
+		btnTriangleEquilateral = new JButton();
+		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
+		add(btnTriangleEquilateral);
+
+		btnPics = new JButton();
+		btnPics.setBounds(64, 134, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
+		add(btnPics);
+
+		btnPortail = new JButton();
+		btnPortail.setBounds(188, 134, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
+		add(btnPortail);
+
+		btnDrapeau = new JButton();
+		btnDrapeau.setBounds(315, 134, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
+		add(btnDrapeau);
 	}
 }
