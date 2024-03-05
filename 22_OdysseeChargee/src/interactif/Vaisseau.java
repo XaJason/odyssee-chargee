@@ -3,7 +3,7 @@ package interactif;
 import physique.Vecteur2D;
 import tuile.Bloc;
 
-public class Vaisseau extends Bloc {
+public class Vaisseau extends InteractifPhysique {
 
 	// PROPRIÉTÉS //
 	/** Vitesse du vaisseau **/
