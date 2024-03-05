@@ -23,6 +23,8 @@ import utilis.OutilsImage;
  */
 
 public class PanelModeEditeur extends JPanel {
+	private static final long serialVersionUID = -1637257199908540129L;
+
 	/**
 	 * Grille du mode éditeur
 	 */
@@ -86,16 +88,14 @@ public class PanelModeEditeur extends JPanel {
 		lblQttCarre.setBounds(530, 9, 199, 14);
 		add(lblQttCarre);
 
-		ObjetEditeur objetEditeur = new ObjetEditeur();
-		objetEditeur.setBounds(64, 366, 350, 350);
-		add(objetEditeur);
-
+		
 		creerBoutonsTuile();
 	}
 
 	/**
-	 * 
+	 * Création des boutons représentant les différentes options de tuile possibles
 	 */
+	// Jason Xa
 	private void creerBoutonsTuile() {
 		btnCarre = new JButton();
 		btnCarre.setBounds(64, 39, 85, 85);

@@ -14,8 +14,12 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+/**
+ * 
+ */
 public class Grille extends JPanel {
 
+	private static final long serialVersionUID = -977837790552954988L;
 	/** Hauteur du composant **/
 	private double hauteur;
 	/** Largeur du composant **/
@@ -102,7 +106,7 @@ public class Grille extends JPanel {
 	 * @param posY Position y de l'emplacement
 	 */
 	// Giroux
-	void dessinerCarre(int posX, int posY) {
+	void dessinerCarre(double posX, double posY) {
 
 		for (int i = 0; i < nbCarre; i++) {
 			if (posY >= i * hauteurCarre && posY < ((i + 1) * hauteurCarre)) {
