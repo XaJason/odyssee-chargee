@@ -14,8 +14,12 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
 
+/**
+ * 
+ */
 public class Grille extends JPanel {
 
+	private static final long serialVersionUID = -977837790552954988L;
 	/** Hauteur du composant **/
 	private double hauteur;
 	/** Largeur du composant **/

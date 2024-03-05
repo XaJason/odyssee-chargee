@@ -6,12 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * 
+ */
 public class testEditeur extends JFrame {
 
+	private static final long serialVersionUID = -3712426791628020342L;
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
+	 * @param args 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

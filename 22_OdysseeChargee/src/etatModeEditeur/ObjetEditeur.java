@@ -15,8 +15,12 @@ import tuile.Tuile;
 
 // Giroux
 // Jason Xa
+/**
+ * 
+ */
 public class ObjetEditeur extends JPanel {
 
+	private static final long serialVersionUID = 5869319482884816707L;
 	/**
 	 * Forme Rectangulaire qui sert de base au area et qui reste à son endroit
 	 * d'origine
