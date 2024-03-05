@@ -77,6 +77,8 @@ public class AppPrincipale22 extends JFrame {
 	private JMenuBar menuBar;
 	
 	private JMenuItem mntmEditeur;
+	
+	private JMenuItem mntmSelection;
 
 	private Clip leClip = null;
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
@@ -204,6 +206,8 @@ public class AppPrincipale22 extends JFrame {
 				contentPane.setVisible(false);
 				setContentPane(panS);
 				menuBar.setVisible(true);
+				mntmSelection.setSelected(true);
+				mntmEditeur.setSelected(false);
 			}
 		});
 		btnModePrincipal.setBounds(92, 457, 133, 23);
@@ -216,6 +220,8 @@ public class AppPrincipale22 extends JFrame {
 				contentPane.setVisible(false);
 				setContentPane(panE);
 				menuBar.setVisible(true);
+				mntmSelection.setSelected(false);
+				mntmEditeur.setSelected(true);
 			}
 		});
 		btnModeEditeur.setBounds(362, 457, 168, 23);
@@ -298,7 +304,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmPrincipale);
 
-		JMenuItem mntmSelection = new JMenuItem("Jouer");
+		 mntmSelection = new JMenuItem("Jouer");
 	
 	
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
@@ -318,7 +324,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmSelection);
-		 mntmEditeur = new JMenuItem("Éditeur");
+		mntmEditeur = new JMenuItem("Éditeur");
 		mntmEditeur.setPreferredSize(new Dimension(100, 26));
 		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
