@@ -11,10 +11,12 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * @author Giroux
+ * @author Jason Xa
  */
-
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
+
+import tuile.Tuile;
 
 /**
  * 
@@ -48,6 +50,8 @@ public class Grille extends JPanel {
 	int libre[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
+
+	private Tuile tuile;
 
 	/**
 	 * Création du panel

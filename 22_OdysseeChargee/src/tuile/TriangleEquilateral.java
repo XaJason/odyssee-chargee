@@ -5,8 +5,9 @@ import java.awt.Image;
 /**
  * Représente l'objet fixe plaçable en forme de triangle équilatéral (pointant
  * vers le haut par défaut)
+ * 
+ * @author Jason Xa
  */
-// Jason Xa
 public class TriangleEquilateral extends Tuile {
 	private static Image image;
 

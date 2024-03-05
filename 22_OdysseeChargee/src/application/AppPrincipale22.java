@@ -314,9 +314,27 @@ public class AppPrincipale22 extends JFrame {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.setVisible(false);
+		
+		JMenuItem mntmPrincipale = new JMenuItem("Menu principal");
+		mntmPrincipale.setPreferredSize(new Dimension(100, 26));
+		mntmPrincipale.setMaximumSize(new Dimension(200, 32767));
 
-		JMenuItem mntmSelection = new JMenuItem("Sélection de niveaux");
-		mntmSelection.setMaximumSize(new Dimension(150, 32767));
+		mntmPrincipale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("lebronjames");
+				contentPane.setVisible(true);
+				panE.setVisible(false);
+				panS.setVisible(false);
+				setContentPane(contentPane);
+				menuBar.setVisible(false);
+			}
+
+		});
+		menuBar.add(mntmPrincipale);
+
+		JMenuItem mntmSelection = new JMenuItem("Jouer");
+		mntmSelection.setPreferredSize(new Dimension(100, 26));
+		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -331,7 +349,8 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmSelection);
 		JMenuItem mntmEditeur = new JMenuItem("Éditeur");
-		mntmEditeur.setMaximumSize(new Dimension(150, 32767));
+		mntmEditeur.setPreferredSize(new Dimension(100, 26));
+		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -342,8 +361,52 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		menuBar.add(mntmEditeur);
+		
+		JMenuItem mntmInstructions = new JMenuItem("Instructions");
+		mntmInstructions.setMaximumSize(new Dimension(200, 32767));
+		mntmInstructions.setPreferredSize(new Dimension(100, 26));
+		
+
+		mntmInstructions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fenInstruction.setVisible(true);
+
+			}
+
+		});
+		menuBar.add(mntmInstructions);
+		
+		JMenuItem mntmReglage = new JMenuItem("Réglage");
+		mntmReglage.setMaximumSize(new Dimension(200, 32767));
+		mntmReglage.setPreferredSize(new Dimension(100, 26));
+		
+
+		mntmReglage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fenReglage.setVisible(true);
+
+			}
+
+		});
+		menuBar.add(mntmReglage);
+		
+		JMenuItem mntmApropos = new JMenuItem("À propos");
+		mntmApropos.setPreferredSize(new Dimension(100, 26));
+		mntmApropos.setMaximumSize(new Dimension(200, 32767));
+		mntmSelection.setMaximumSize(new Dimension(150, 300));
+
+		mntmApropos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fenApropos.setVisible(true);
+
+			}
+
+		});
+		menuBar.add(mntmApropos);
+
 
 	}
+	
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
@@ -385,10 +448,8 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Pour la gestion du volume si d�sire
 	 * 
-	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
-	 *                        volume
-	 *                        La méthode a éte trouvée dans le materiel d'appoint
-	 *                        mais a été implementé pour notre code
+	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun volume
+	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé pour notre code
 	 */
 	// Caroline Houle && Kitimir Yim
 	private void modifierVolume(double valeurEntre0Et1) {

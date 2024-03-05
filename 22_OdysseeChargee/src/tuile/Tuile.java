@@ -7,8 +7,9 @@ import utilis.Dessinable;
 
 /**
  * Représente tout objet fixe qui peut être placé dans le mode éditeur.
+ * 
+ * @author Jason Xa
  */
-//Jason Xa
 public class Tuile implements Dessinable {
 
 	/** l'abscisse gauche de la tuile (px) */

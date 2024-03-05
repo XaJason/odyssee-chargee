@@ -125,4 +125,33 @@ public class OutilsImage {
 			imgRedim.flush();
 		}
 	}// fin methode
+
+	/**
+	 * Associe une image a un bouton en redimensionnant l'image adequatement.
+	 *
+	 * @param nomFichier Le nom du fichier d'image
+	 * @param leBouton   Le bouton auquel on veut associer l'image.
+	 */
+	// Caroline Houle
+	public static void lireImageEtPlacerSurBouton(String nomFichier, JToggleButton leBouton) {
+		Image imgRedim = null;
+
+		// lire et redimensionner l'image de la meme grandeur que le bouton
+		imgRedim = lireImageEtRedimensionner(nomFichier, leBouton.getWidth(), leBouton.getHeight());
+
+		if (imgRedim != null) {
+			// au cas ou le fond de l'image serait transparent
+			leBouton.setOpaque(false);
+			leBouton.setContentAreaFilled(false);
+			leBouton.setBorderPainted(false);
+
+			// associer l'image au bouton
+			leBouton.setText("");
+			leBouton.setIcon(new ImageIcon(imgRedim));
+			leBouton.setBorderPainted(true);
+
+			// on se debarrasse de l'image de base
+			imgRedim.flush();
+		}
+	}// fin methode
 }

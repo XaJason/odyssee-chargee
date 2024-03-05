@@ -19,6 +19,7 @@ import utilis.OutilsImage;
 /**
  * Panel du mode éditeur
  * 
+ * @author Jason Xa
  * @author Kitimir Yim
  */
 
@@ -40,6 +41,9 @@ public class PanelModeEditeur extends JPanel {
 	private JButton btnPics;
 	private JButton btnPortail;
 	private JButton btnDrapeau;
+	private JLabel lblTypeSelectionne;
+
+	private String preTexteTypeSelectionne = "Type de tuile sélectionné: ";
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -59,16 +63,6 @@ public class PanelModeEditeur extends JPanel {
 		grille.setBackground(new Color(255, 255, 128));
 		grille.setBounds(514, 39, 1025, 922);
 		add(grille);
-
-		JButton btnVersMenu = new JButton("Passer au menu");
-		btnVersMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				pcs.firePropertyChange("passerVersMenu", 0, -1);
-			}
-		});
-		btnVersMenu.setBounds(178, 5, 145, 23);
-		add(btnVersMenu);
 
 		JButton btnGrille = new JButton("Afficher la grille");
 		btnGrille.addActionListener(new ActionListener() {
@@ -96,36 +90,56 @@ public class PanelModeEditeur extends JPanel {
 		lblQttCarre.setBounds(530, 9, 199, 14);
 		add(lblQttCarre);
 
-		
-		creerBoutonsTuile();
+		creerSectionBoutons();
 	}
 
 	/**
 	 * Création des boutons représentant les différentes options de tuile possibles
 	 */
 	// Jason Xa
-	private void creerBoutonsTuile() {
+	private void creerSectionBoutons() {
 		btnCarre = new JButton();
+		btnCarre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Carré");
+			}
+		});
 		btnCarre.setBounds(64, 39, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
 		add(btnCarre);
 
 		btnTriangleRectangle = new JButton();
+		btnTriangleRectangle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTriangleRectangle.setBounds(188, 39, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
 		add(btnTriangleRectangle);
 
 		btnTriangleEquilateral = new JButton();
+		btnTriangleEquilateral.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
 		add(btnTriangleEquilateral);
 
 		btnPics = new JButton();
+		btnPics.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnPics.setBounds(64, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
 		add(btnPics);
 
 		btnPortail = new JButton();
+		btnPortail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnPortail.setBounds(188, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
 		add(btnPortail);
@@ -134,5 +148,9 @@ public class PanelModeEditeur extends JPanel {
 		btnDrapeau.setBounds(315, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
+
+		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
+		lblTypeSelectionne.setBounds(64, 230, 209, 14);
+		add(lblTypeSelectionne);
 	}
 }
