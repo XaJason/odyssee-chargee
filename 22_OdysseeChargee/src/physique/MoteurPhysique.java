@@ -17,7 +17,8 @@ public class MoteurPhysique {
 
 	private static final double ACCEL_G = 9.80665; //Accélération gravitationnelle de la Terre
 	private static final double K = 8.98755; //Constante de Coulomb
-	private static final double EPSILON = 1e-10; //tolerance utilisée dans les comparaisons reelles avec zero
+	private static final double COEFF_E = 19/20; //Coefficient de restitution pour un vaisseau et une surface, tous deux en acier
+	private static final double EPSILON = 1e-10; //tolerance utilisée dans les comparaisons réelles avec zero
 	private static final double RAPPORT_RADIANS_DEGRES = 2*Math.PI/360;
 	private static final Vecteur2D VEC_ZERO = new Vecteur2D();
 	
@@ -195,10 +196,29 @@ public class MoteurPhysique {
 	 * @param plaque Objet représentant une plaque chargée
 	 * @return Un booléen indiquant s'il y a eu une collision entre le vaisseau et un mur
 	 */
+	//Enuel René Valentin Kizozo Izia
 	public static boolean detectionCollisions(Vaisseau vaisseau, PlaqueChargee plaque) {
 		Vecteur2D distanceVaisseauPointSurPlaque = vaisseau.getPosition().soustrait(plaque.getPosition());
 		double plusPetiteDistanceVaisseauPlaque = Math.abs( distanceVaisseauPointSurPlaque.prodScalaire(plaque.getNormale()) );
 		
 		return (plusPetiteDistanceVaisseauPlaque <= vaisseau.getRayon());
+	}
+	
+	/**
+	 * Calcule la vitesse du vaisseau après une collision contre un mur
+	 * @param vaisseau
+	 * @param plaque
+	 * @return La nouvelle vitesse du vaisseau, après la collision
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public static Vecteur2D calculVitesseApresCollision(Vaisseau vaisseau, PlaqueChargee plaque) {
+		double impulsionJn = -(1+COEFF_E) / (1/vaisseau.getMasse() + 1/plaque.getMasse()) * vaisseau.getVitesse().prodScalaire(plaque.getNormale());
+		
+		return vaisseau.getVitesse().additionne( plaque.getNormale().multiplie( impulsionJn/vaisseau.getMasse() ) );
+		
+		/*
+		 * Il faudra peut-être trouver un moyen de vérifier que la normal du mur/plaque pointe vers l'extérieur de celui-ci,
+		 * autrement on aurait une mauvaise orientation et de mauvais résultats...
+		 */
 	}
 }

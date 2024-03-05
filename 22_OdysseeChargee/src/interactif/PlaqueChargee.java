@@ -1,5 +1,7 @@
 package interactif;
 
+import java.awt.Graphics2D;
+
 import physique.Vecteur2D;
 import tuile.Bloc;
 
@@ -19,15 +21,13 @@ public class PlaqueChargee extends InteractifPhysique {
 	/** Longueur de la plaque **/
 	private double longueur;
 	
-	/** Charge de la plaque **/
-	private double charge;
-	
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA = super.getPosition().additionne( axe.multiplie(longueur/2) );
 	
 	/** Position de l'extrémité B de la plaque **/
 	private Vecteur2D extremiteB = super.getPosition().additionne( axe.multiplie(-longueur/2) );
 
+	
 	
 	// CONSTRUCTEUR //
 	/**
@@ -38,13 +38,26 @@ public class PlaqueChargee extends InteractifPhysique {
 	 * @param charge
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge) {
-		super(position);
+	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {
+		super(position, charge, masse);
 		this.normale = normale;
 		this.longueur = longueur;
-		this.charge = charge;
 	}
 
+	
+	
+	// SOUS-PROGRAMMES
+	/**
+	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique passé en parametre.
+	 * @param g2d
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void dessiner(Graphics2D g2d) {	
+	}
+	
+	
+		
+	// GETTERS & SETTERS //
 	/**
 	 * Retourne le vecteur normal de la plaque
 	 * @return Le vecteur normal de la plaque
@@ -97,24 +110,6 @@ public class PlaqueChargee extends InteractifPhysique {
 	//Enuel René Valentin Kizozo Izia
 	public void setLongueur(double longueur) {
 		this.longueur = longueur;
-	}
-
-	/**
-	 * Retourne la charge de la plaque
-	 * @return La charge de la plaque
-	 */
-	//Enuel René Valentin Kizozo Izia
-	public double getCharge() {
-		return charge;
-	}
-
-	/**
-	 * Modifie la charge de la plaque
-	 * @param charge Charge de la plaque
-	 */
-	//Enuel René Valentin Kizozo Izia
-	public void setCharge(double charge) {
-		this.charge = charge;
 	}
 
 	/**
