@@ -30,14 +30,7 @@ public class PanelModeJeu extends JPanel {
 	public PanelModeJeu() {
 		setLayout(null);
 
-		JButton btnSelecteurNiveaux = new JButton("Passer à la sélection de niveaux");
-		btnSelecteurNiveaux.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange("passerVersNiveaux", 0, -1);
-			}
-		});
-		btnSelecteurNiveaux.setBounds(99, 46, 159, 23);
-		add(btnSelecteurNiveaux);
+		
 	}
 
 }

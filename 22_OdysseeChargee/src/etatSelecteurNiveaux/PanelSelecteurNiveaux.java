@@ -38,16 +38,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		setLayout(null);
 
-		JButton btnVersMenu = new JButton("Passer au menu");
-		btnVersMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				pcs.firePropertyChange("passerVersMenu", 0, -1);
-			}
-		});
-		btnVersMenu.setBounds(178, 5, 176, 23);
-		add(btnVersMenu);
-
+	
 		JButton btnPasserModeJeu = new JButton("Bouton Play");
 		btnPasserModeJeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
