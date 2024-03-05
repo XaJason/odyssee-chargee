@@ -4,32 +4,38 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
- * 
+ * Représente l'objet fixe interactif plaçable qui agit comme une plaque de pics
+ * (au bas de la tuile par défaut)
  */
-//Jason Xa
+// Jason Xa
 public class Pics extends Tuile {
-	private static Image imageRef;
+	private static Image image;
 
 	/**
-	 * @param x 
-	 * @param y 
+	 * Constructeur
+	 * 
+	 * @param x l'abscisse gauche de la tuile (px)
+	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
 	public Pics(int x, int y) {
-
-		super(imageRef, x, y);
-
-	}
-
-	public void dessiner(Graphics2D g2d) {
-		g2d.drawImage(image, x, y+imageRef.getHeight(null), null);
+		super(image, x, y);
 	}
 
 	/**
-	 * @param imageRef the imageRef to set
+	 * Définit l'image représentant les pics
+	 * 
+	 * @param imageRef l'image représentant les pics
 	 */
 	public static void setImageRef(Image imageRef) {
-		Pics.imageRef = imageRef;
+		Pics.image = imageRef;
+	}
+
+	/**
+	 * Dessine l'image représentant les pics selon ses coordonnées
+	 */
+	public void dessiner(Graphics2D g2d) {
+		g2d.drawImage(image, x, y + image.getHeight(null), null);
 	}
 
 }
