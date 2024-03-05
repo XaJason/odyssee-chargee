@@ -12,9 +12,7 @@ public class InteractifPhysique {
 		this.position = position;
 	}
 
-
-
-	public void dessiner(Graphics2D g2d) {	
+	public void dessiner(Graphics2D g2d) {
 	}
 
 	public Vecteur2D getPosition() {

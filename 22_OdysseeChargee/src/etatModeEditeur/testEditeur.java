@@ -37,7 +37,7 @@ public class testEditeur extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		Grille grille = new Grille();
 		grille.setBounds(145, 11, 546, 460);
 		contentPane.add(grille);

@@ -16,7 +16,7 @@ public class Tuile implements Dessinable {
 	/** l'ordonnée supérieure la tuile en (px) */
 	protected int y;
 	/** l'angle de rotation de la tuile en (rad) */
-	protected int angleRotation;
+	protected double angleRotation;
 
 	/** l'image représentant la tuile */
 	Image image;

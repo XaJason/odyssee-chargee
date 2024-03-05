@@ -10,7 +10,7 @@ import physique.Vecteur2D;
  */
 public class Bloc {
 
-	public void dessiner(Graphics2D g2d) {	
+	public void dessiner(Graphics2D g2d) {
 	}
 
 }
