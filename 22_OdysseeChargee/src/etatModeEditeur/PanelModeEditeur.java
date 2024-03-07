@@ -50,6 +50,10 @@ public class PanelModeEditeur extends JPanel {
 	private JLabel lblTypeSelectionne;
 
 	private String preTexteTypeSelectionne = "Type de tuile sélectionné: ";
+	private JButton btnReinitialiser;
+	private JButton btnSupprimer;
+	private JButton btnRotation;
+	private JButton btnSauvegarder;
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -100,7 +104,7 @@ public class PanelModeEditeur extends JPanel {
 	}
 
 	/**
-	 * Création des boutons représentant les différentes options de tuile possibles
+	 * Création des boutons d'action pour la création du niveau
 	 */
 	// Jason Xa
 	private void creerSectionBoutons() {
@@ -174,5 +178,41 @@ public class PanelModeEditeur extends JPanel {
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
 		lblTypeSelectionne.setBounds(64, 230, 336, 14);
 		add(lblTypeSelectionne);
+
+		btnReinitialiser = new JButton();
+		btnReinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnReinitialiser.setBounds(64, 255, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
+		add(btnReinitialiser);
+
+		btnSupprimer = new JButton();
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSupprimer.setBounds(188, 255, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
+		add(btnSupprimer);
+
+		btnRotation = new JButton();
+		btnRotation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRotation.setBounds(315, 255, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
+		add(btnRotation);
+
+		btnSauvegarder = new JButton();
+		btnSauvegarder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSauvegarder.setBounds(188, 351, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
+		add(btnSauvegarder);
 	}
 }

@@ -8,12 +8,14 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Carre extends Tuile {
+	/** l'image représentant un carré */
 	private static Image image;
 
 	/**
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Carre() {
 		super(image);
 	}
@@ -25,6 +27,7 @@ public class Carre extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Carre(int x, int y) {
 		super(image, x, y);
 	}
@@ -34,6 +37,7 @@ public class Carre extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le carré
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Carre.image = imageRef;
 	}
@@ -42,7 +46,5 @@ public class Carre extends Tuile {
 	public String toString() {
 		return "Carre ";
 	}
-	
-	
 
 }

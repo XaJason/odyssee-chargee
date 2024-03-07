@@ -10,14 +10,18 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Pics extends Tuile {
+	/** l'image représentant des pics */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Pics() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 
@@ -25,6 +29,7 @@ public class Pics extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Pics(int x, int y) {
 		super(image, x, y);
 	}
@@ -34,6 +39,7 @@ public class Pics extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant les pics
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Pics.image = imageRef;
 	}
@@ -41,6 +47,7 @@ public class Pics extends Tuile {
 	/**
 	 * Dessine l'image représentant les pics selon ses coordonnées
 	 */
+	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
 	}

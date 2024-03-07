@@ -59,6 +59,18 @@ public class Tuile implements Dessinable {
 	}
 
 	/**
+	 * Dessine l'image représentant la tuile selon ses coordonnées
+	 * 
+	 * @param g2d
+	 * @param x
+	 * @param y
+	 */
+	// Jason Xa
+	public void dessiner(Graphics2D g2d, int x, int y) {
+		g2d.drawImage(image, x, y, null);
+	}
+
+	/**
 	 * Définit la nouvelle abscisse gauche de la tuile
 	 * 
 	 * @param x la nouvelle abscisse gauche de la tuile (px)
@@ -83,9 +95,9 @@ public class Tuile implements Dessinable {
 	 * 
 	 * @param angleRotation le nouvel angle de rotation de la tuile (rad)
 	 */
+	// Jason Xa
 	public void setAngleRotation(int angleRotation) {
 		this.angleRotation = angleRotation;
 	}
-
 
 }
