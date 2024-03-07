@@ -95,6 +95,7 @@ public class Tuile implements Dessinable {
 	 * 
 	 * @param angleRotation le nouvel angle de rotation de la tuile (rad)
 	 */
+	// Jason Xa
 	public void setAngleRotation(int angleRotation) {
 		this.angleRotation = angleRotation;
 	}

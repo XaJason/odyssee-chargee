@@ -242,8 +242,31 @@ public class Grille extends JPanel {
 	/**
 	 * @param tuile the tuile to set
 	 */
+	// Jason Xa
 	public void setTuile(Tuile tuile) {
 		this.tuile = tuile;
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	public void reinitialiserNiveau() {
+
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	public void rotationObjet() {
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	public void supprimerTuile() {
 	}
 
 }// Fin classe

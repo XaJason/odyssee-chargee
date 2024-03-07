@@ -9,6 +9,7 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class TriangleRectangle extends Tuile {
+	/***/
 	private static Image image;
 
 	/**
