@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -13,7 +14,10 @@ import java.awt.geom.Rectangle2D;
  * @author Jason Xa
  */
 import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
 
+import tuile.Carre;
+import tuile.Pics;
 import tuile.Tuile;
 
 /**
@@ -31,10 +35,8 @@ public class Grille extends JPanel {
 	/** Largeur du de chaque carré **/
 	private double largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
-	private int nbCarre = 3;
-	/**
-	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
-	 **/
+	private int nbCarre = 15;
+	/** Rectangle qui conrespond à la section de la grille où se trouve la sourie **/
 	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
 	private Boolean premiereFois = true;
@@ -44,13 +46,27 @@ public class Grille extends JPanel {
 	private Path2D.Double quadHori;
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
-
-	private Tuile tuile;
+	/** Tableau qui contient 1 si la case est occupé ou 0 si elle est vide **/
+	private Tuile libre[][];
+	/** Dernier endroit cliqué **/
+	Point2D clique;
+	private int x =0;
+	
+	
+	private Tuile tuile; // Vérifier si peut pluguer objet tuile dans arrayList
 
 	/**
 	 * Création du panel
 	 */
 	public Grille() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				clique = e.getPoint();
+				sauvegarderEmplacement();
+				afficherTab();
+			}
+		});
 
 		setBackground(Color.lightGray);
 		setLayout(null);
@@ -74,12 +90,18 @@ public class Grille extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if (premiereFois) {
+			
+			libre = new Tuile[nbCarre][nbCarre];
+			tuile = new Carre(1,1);
 			hauteur = this.getHeight();
 			largeur = this.getWidth();
 			dimensionCarre();
 			dessinerGrille();
 			premiereFois = false;
 		}
+		
+			
+		
 		g2d.setColor(Color.cyan);
 		g2d.fill(emplacementActuel);
 		g2d.setColor(Color.black);
@@ -117,7 +139,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
-						System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
+						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
 				}
 
@@ -165,27 +187,57 @@ public class Grille extends JPanel {
 	 * 
 	 * @param nouvNbCarre Le nouveau nombre de carré par ligne et colonne
 	 */
+	// Giroux
 	public void changerQttCarre(int nouvNbCarre) {
 		this.nbCarre = nouvNbCarre;
 		premiereFois = true;
 		repaint();
-	}
+	} // Fin méthode
 
 	/**
-	 * 
+	 * Méthode qui change la valeur dans le tableau dépendant de si l'emplacement
+	 * est libre 1 si non libre et 0 si libre
 	 */
 	// Giroux
-	public void mettreRouge() {
-		setBackground(Color.red);
-	}
+	void sauvegarderEmplacement() {
+		for (int i = 0; i < nbCarre; i++) {
+			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
+				for (int j = 0; j < nbCarre; j++) {
+					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
+						libre[i][j] = tuile;
+						System.out.println("Vous avez cliqué sur la col: " + (j + 1) + " et la ligne: " + (i + 1));
+						System.out.println("Vous avez cliqué sur la col: " + (j) + " et la ligne: " + (i));
+					}
+				}
+
+			}
+
+		}
+	}// Fin méthode
 
 	/**
-	 * Définit le nouveau type de tuile sélectionné
-	 * 
-	 * @param tuile le nouveau type de tuile sélectionné
+	 * À fin de test, non permanent, imprime le tableau des emplacements
 	 */
-	// Jason Xa
-	public void setTuile(Tuile tuile) {
-		this.tuile = tuile;
-	}
+	// Giroux
+	void afficherTab() {
+		for (int i = 0; i < nbCarre; i++) {
+			System.out.print("\n");
+			for (int j = 0; j < nbCarre; j++) {
+				System.out.print(libre[i][j]);
+
+			}
+		}
+		System.out.print("\n\n");
+	}// Fin méthode
+
+	/**
+	 * Méthode qui retourne la quantité de carré dans la grille
+	 * 
+	 * @return La qtt de carré dans la grille
+	 */
+	// Giroux
+	int getNbCarre() {
+		return nbCarre;
+	}// Fin méthode
+
 }// Fin classe
