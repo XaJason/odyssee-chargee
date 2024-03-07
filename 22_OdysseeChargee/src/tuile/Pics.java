@@ -11,7 +11,13 @@ import java.awt.Image;
  */
 public class Pics extends Tuile {
 	private static Image image;
-
+	/**
+	 * Constructeur
+	 * 
+	 */
+	public Pics() {
+		super(image);
+	}
 	/**
 	 * Constructeur
 	 * 

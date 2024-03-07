@@ -36,7 +36,9 @@ public class Grille extends JPanel {
 	private double largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
 	private int nbCarre = 15;
-	/** Rectangle qui conrespond à la section de la grille où se trouve la sourie **/
+	/**
+	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
+	 **/
 	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
 	private Boolean premiereFois = true;
@@ -50,9 +52,8 @@ public class Grille extends JPanel {
 	private Tuile libre[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
-	private int x =0;
-	
-	
+	private int x = 0;
+
 	private Tuile tuile; 
 
 	/**
@@ -90,18 +91,16 @@ public class Grille extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if (premiereFois) {
-			
+
 			libre = new Tuile[nbCarre][nbCarre];
-			tuile = new Carre(1,1);
+			tuile = new Carre(1, 1);
 			hauteur = this.getHeight();
 			largeur = this.getWidth();
 			dimensionCarre();
 			dessinerGrille();
 			premiereFois = false;
 		}
-		
-			
-		
+
 		g2d.setColor(Color.cyan);
 		g2d.fill(emplacementActuel);
 		g2d.setColor(Color.black);
@@ -239,5 +238,12 @@ public class Grille extends JPanel {
 	int getNbCarre() {
 		return nbCarre;
 	}// Fin méthode
+
+	/**
+	 * @param tuile the tuile to set
+	 */
+	public void setTuile(Tuile tuile) {
+		this.tuile = tuile;
+	}
 
 }// Fin classe

@@ -10,7 +10,13 @@ import java.awt.Image;
  */
 public class TriangleEquilateral extends Tuile {
 	private static Image image;
-
+	/**
+	 * Constructeur
+	 * 
+	 */
+	public TriangleEquilateral() {
+		super(image);
+	}
 	/**
 	 * Constructeur
 	 * 
