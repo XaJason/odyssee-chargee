@@ -83,7 +83,7 @@ public class AppPrincipale22 extends JFrame {
 	private Clip leClip = null;
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
 	private AudioInputStream audioStr;
-	private double volumeEntre0Et1 = 0.5;
+	private double volumeEntre0Et1 = 1;
 	private String pathDeFichier = null;
 	private File objetFichier = null;
 
