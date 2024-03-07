@@ -30,7 +30,7 @@ public class Carre extends Tuile {
 		Carre.image = imageRef;
 	}
 
-	@Override
+	//Giroux
 	public String toString() {
 		return "Carre ";
 	}

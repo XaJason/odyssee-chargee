@@ -37,7 +37,7 @@ import utilis.OutilsImage;
 /**
  * Projet intégrateur : Odyssée chargée
  * 
- * @author Pierre Olivier-Giroux
+ * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
  * @author Jason Xa
  * @author Kitimir Yim

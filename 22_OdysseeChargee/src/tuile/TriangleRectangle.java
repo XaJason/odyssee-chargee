@@ -31,4 +31,8 @@ public class TriangleRectangle extends Tuile {
 		TriangleRectangle.image = imageRef;
 	}
 
+	// Giroux
+	public String toString() {
+		return "Triangle rectangle ";
+	}
 }

@@ -31,4 +31,9 @@ public class TriangleEquilateral extends Tuile {
 		TriangleEquilateral.image = imageRef;
 	}
 
+	// Giroux
+	public String toString() {
+		return "Triangle équilatéral ";
+	}
+
 }

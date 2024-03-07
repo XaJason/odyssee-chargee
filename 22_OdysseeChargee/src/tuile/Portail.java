@@ -29,5 +29,10 @@ public class Portail extends Tuile {
 	public static void setImageRef(Image imageRef) {
 		Portail.image = imageRef;
 	}
+	
+	//Giroux
+	public String toString() {
+		return "Portail ";
+	}
 
 }

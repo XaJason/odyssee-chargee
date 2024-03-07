@@ -39,7 +39,7 @@ public class Pics extends Tuile {
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
 	}
 
-	@Override
+	//Giroux
 	public String toString() {
 		return "Pics ";
 	}

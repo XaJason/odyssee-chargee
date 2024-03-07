@@ -53,7 +53,7 @@ public class Grille extends JPanel {
 	private int x =0;
 	
 	
-	private Tuile tuile; // Vérifier si peut pluguer objet tuile dans arrayList
+	private Tuile tuile; 
 
 	/**
 	 * Création du panel

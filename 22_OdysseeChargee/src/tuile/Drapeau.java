@@ -30,5 +30,10 @@ public class Drapeau extends Tuile {
 	public static void setImageRef(Image imageRef) {
 		Drapeau.image = imageRef;
 	}
+	
+	//Giroux
+	public String toString() {
+		return "Drapeau ";
+	}
 
 }
