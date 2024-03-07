@@ -49,12 +49,15 @@ public class Grille extends JPanel {
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
 	/** Tableau qui contient 1 si la case est occupé ou 0 si elle est vide **/
-	private Tuile libre[][];
+	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
-	private int x = 0;
-
-	private Tuile tuile; 
+	/**
+	 * Contient la tuile sélectionnée dans les boutons du panneau du mode éditeur
+	 **/
+	private Tuile tuile;
+	/** Tuile qui conrespond à celui dans le tableau des emplacements **/
+	private Tuile tuileTableau;
 
 	/**
 	 * Création du panel
@@ -82,7 +85,7 @@ public class Grille extends JPanel {
 	}// Fin constructeur
 
 	/**
-	 * Méthode qui dessine au bon endroit la grille
+	 * Méthode qui appelle le dessin de la grille et de ses composantes
 	 * 
 	 * @param g Contexte graphique
 	 */
@@ -90,10 +93,20 @@ public class Grille extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+		dessiner(g2d);
+
+	}// Fin méthode
+
+	/**
+	 * Méthode qui dessine de la grille et de ses composantes
+	 * 
+	 * @param g Contexte graphique
+	 */
+	//Giroux
+	void dessiner(Graphics2D g2d) {
 		if (premiereFois) {
 
-			libre = new Tuile[nbCarre][nbCarre];
-			tuile = new Carre(1, 1);
+			tabEmplacement = new Tuile[nbCarre][nbCarre];
 			hauteur = this.getHeight();
 			largeur = this.getWidth();
 			dimensionCarre();
@@ -103,6 +116,13 @@ public class Grille extends JPanel {
 
 		g2d.setColor(Color.cyan);
 		g2d.fill(emplacementActuel);
+
+		if (tuile != null) {
+			tuile.dessiner(g2d);
+		}
+
+		dessinerTuile(g2d);
+
 		g2d.setColor(Color.black);
 		if (grille) {
 			g2d.setColor(Color.black);
@@ -138,6 +158,8 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
+						tuile.setX((int) largeurCarre * j);
+						tuile.setY((int) hauteurCarre * i);
 						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
 				}
@@ -203,7 +225,7 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						libre[i][j] = tuile;
+						tabEmplacement[i][j] = tuile;
 						System.out.println("Vous avez cliqué sur la col: " + (j + 1) + " et la ligne: " + (i + 1));
 						System.out.println("Vous avez cliqué sur la col: " + (j) + " et la ligne: " + (i));
 					}
@@ -222,11 +244,32 @@ public class Grille extends JPanel {
 		for (int i = 0; i < nbCarre; i++) {
 			System.out.print("\n");
 			for (int j = 0; j < nbCarre; j++) {
-				System.out.print(libre[i][j]);
+				System.out.print(tabEmplacement[i][j]);
 
 			}
 		}
 		System.out.print("\n\n");
+	}// Fin méthode
+
+	/**
+	 * Méthode qui déssine les tuiles contenues dans le tableau des emplacements à
+	 * la bonne place
+	 * 
+	 * @param g2d contexte graphique
+	 */
+	// Giroux
+	void dessinerTuile(Graphics2D g2d) {
+		for (int i = 0; i < nbCarre; i++) {
+			for (int j = 0; j < nbCarre; j++) {
+				tuileTableau = tabEmplacement[i][j];
+				if (tuileTableau != null) {
+					tuileTableau.setX(j * (int) largeurCarre);
+					tuileTableau.setY(i * (int) hauteurCarre);
+					tuileTableau.dessiner(g2d);
+				}
+			}
+		}
+		repaint();
 	}// Fin méthode
 
 	/**

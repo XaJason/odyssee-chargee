@@ -174,5 +174,7 @@ public class PanelModeEditeur extends JPanel {
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
 		lblTypeSelectionne.setBounds(64, 230, 336, 14);
 		add(lblTypeSelectionne);
+		
+		
 	}
 }
