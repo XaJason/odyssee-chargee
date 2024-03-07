@@ -14,6 +14,7 @@ public class Drapeau extends Tuile {
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Drapeau() {
 		super(image);
 	}
@@ -24,6 +25,7 @@ public class Drapeau extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Drapeau(int x, int y) {
 		super(image, x, y);
 	}
@@ -33,6 +35,7 @@ public class Drapeau extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant drapeau d'arrivée
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Drapeau.image = imageRef;
 	}

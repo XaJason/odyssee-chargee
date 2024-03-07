@@ -14,6 +14,7 @@ public class Carre extends Tuile {
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Carre() {
 		super(image);
 	}
@@ -25,6 +26,7 @@ public class Carre extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Carre(int x, int y) {
 		super(image, x, y);
 	}
@@ -34,6 +36,7 @@ public class Carre extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le carré
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Carre.image = imageRef;
 	}

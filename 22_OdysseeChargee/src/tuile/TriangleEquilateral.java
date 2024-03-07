@@ -14,6 +14,7 @@ public class TriangleEquilateral extends Tuile {
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public TriangleEquilateral() {
 		super(image);
 	}
@@ -24,6 +25,7 @@ public class TriangleEquilateral extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public TriangleEquilateral(int x, int y) {
 		super(image, x, y);
 	}
@@ -33,6 +35,7 @@ public class TriangleEquilateral extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le triangle équilatéral
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		TriangleEquilateral.image = imageRef;
 	}

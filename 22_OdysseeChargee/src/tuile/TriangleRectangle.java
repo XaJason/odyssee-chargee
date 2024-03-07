@@ -10,13 +10,16 @@ import java.awt.Image;
  */
 public class TriangleRectangle extends Tuile {
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public TriangleRectangle() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 
@@ -24,6 +27,7 @@ public class TriangleRectangle extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public TriangleRectangle(int x, int y) {
 		super(image, x, y);
 	}
@@ -33,6 +37,7 @@ public class TriangleRectangle extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le triangle rectangle
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		TriangleRectangle.image = imageRef;
 	}

@@ -15,6 +15,7 @@ public class Pics extends Tuile {
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Pics() {
 		super(image);
 	}
@@ -25,6 +26,7 @@ public class Pics extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Pics(int x, int y) {
 		super(image, x, y);
 	}
@@ -34,6 +36,7 @@ public class Pics extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant les pics
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Pics.image = imageRef;
 	}
@@ -41,6 +44,7 @@ public class Pics extends Tuile {
 	/**
 	 * Dessine l'image représentant les pics selon ses coordonnées
 	 */
+	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
 	}

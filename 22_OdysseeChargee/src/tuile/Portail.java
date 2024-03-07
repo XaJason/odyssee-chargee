@@ -13,6 +13,7 @@ public class Portail extends Tuile {
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Portail() {
 		super(image);
 	}
@@ -23,6 +24,7 @@ public class Portail extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Portail(int x, int y) {
 		super(image, x, y);
 	}
@@ -32,6 +34,7 @@ public class Portail extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le portail
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Portail.image = imageRef;
 	}
