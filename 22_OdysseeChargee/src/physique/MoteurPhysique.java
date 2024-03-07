@@ -13,7 +13,7 @@ import interactif.Vaisseau;
  *
  */
 public class MoteurPhysique {
-	
+
 	private static final double ACCEL_G = 9.80665; //Accélération gravitationnelle de la Terre
 	private static final double K = 8.98755; //Constante de Coulomb
 	private static final double COEFF_E = 19/20; //Coefficient de restitution pour un vaisseau et une surface, tous deux en acier
@@ -160,65 +160,109 @@ public class MoteurPhysique {
 	}
 
 	/**
+	 * Calcule le force électrique d'une plaque sur un vaisseau
+	 * @param vaisseau Objet représentant un vaisseau
+	 * @param plaque Objet représentant une plaque chargée
+	 */
+	public static Vecteur2D calculForceElectriqueGenereeParPlaque(Vaisseau vaisseau, PlaqueChargee plaque) {
+		Vecteur2D forceElec;
+
+		double distanceVaisseauPlaque = Math.abs( vaisseau.getPosition().soustrait(plaque.getPosition()).module() );
+		System.out.println("Distance vaisseau-plaque : " + distanceVaisseauPlaque);
+		double projectionDistanceVPSurAxePlaque = Math.abs( vaisseau.getPosition().soustrait(plaque.getPosition()).prodScalaire(plaque.getAxe()) );
+		System.out.println("Projection de la distance v-p sur l'axe de la plaque : " + projectionDistanceVPSurAxePlaque);
+
+		if (distanceVaisseauPlaque <= projectionDistanceVPSurAxePlaque+EPSILON) {
+			forceElec = calculChampElectriqueSurAxe(vaisseau, plaque).multiplie(1/vaisseau.getCharge());
+		} else {
+			forceElec = calculChampElectriqueHorsAxe(vaisseau, plaque).multiplie(vaisseau.getCharge());
+		}
+		return forceElec;
+	}
+
+	/**
 	 * Retourne le champ électrique généré par une plaque le long de son axe
-	 * 
+	 * @param vaisseau Objet représentant un vaisseau
+	 * @param plaque Objet représentant une plaque chargée
 	 * @return Le champ électrique sur l'axe
-	 * @throws Exception
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculChampElectriqueSurAxe(Vecteur2D posVaisseau, double chargeVaisseau,
-			Vecteur2D posPlaque, double chargePlaque, double longueurPlaque) throws Exception {
-		double distanceVaisseauPlaque = posVaisseau.soustrait(posPlaque).module();
-		double moduleChamp = K * Math.abs(chargePlaque)
-				/ (distanceVaisseauPlaque * (distanceVaisseauPlaque + longueurPlaque));
+	public static Vecteur2D calculChampElectriqueSurAxe(Vaisseau vaisseau, PlaqueChargee plaque) {
+		try {
+			double distanceVaisseauPlaque = Math.abs( vaisseau.getPosition().soustrait(plaque.getPosition()).module() );
+			double moduleChamp = K * Math.abs(plaque.getCharge()) / (distanceVaisseauPlaque * (distanceVaisseauPlaque + plaque.getLongueur()));
 
-		// détermine le vecteur orientation du champ électrique, unitaire (en assumant
-		// que le vaisseau est attiré par la plaque)
-		Vecteur2D orientationChamp = posPlaque.soustrait(posVaisseau).normalise();
+			// détermine le vecteur orientation du champ électrique, unitaire (en assumant
+			// que le vaisseau est attiré par la plaque)
+			Vecteur2D orientationChamp;
 
-		// change l'orientation s'il y a répulsion
-		if (Math.signum(chargeVaisseau) == Math.signum(chargePlaque)) {
-			orientationChamp.multiplie(-1);
-		}
+			orientationChamp = plaque.getPosition().soustrait(vaisseau.getPosition()).normalise();
 
-		return orientationChamp.multiplie(moduleChamp);
-	}
+
+			// change l'orientation s'il y a répulsion
+			if (Math.signum(vaisseau.getCharge()) == Math.signum(plaque.getCharge())) {
+				orientationChamp.multiplie(-1);
+			}
+
+			return orientationChamp.multiplie(moduleChamp);
+		} catch (Exception e) {
+			System.out.println("Le vaisseau est trop près de la plaque, le champ électrique agissant sur la plaque est donc nul.");
+			return VEC_ZERO;
+			//e.printStackTrace();
+		}//fin méthode
+	}//fin try catch
 
 	/**
 	 * Retourne le champ électrique généré par une plaque hors de son axe
 	 * 
 	 * @return Le champ électrique hors axe
-	 * @throws Exception
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculChampElectriqueHorsAxe(Vaisseau vaisseau, PlaqueChargee plaque) throws Exception {
-		double densiteLineiqueCharge = plaque.getCharge() / plaque.getLongueur();
-		Vecteur2D distanceVaisseauPlaque = plaque.getPosition().soustrait(vaisseau.getPosition());
-		Vecteur2D distanceVaisseauExtremiteA = plaque.getExtremiteA().soustrait(vaisseau.getPosition());
-		Vecteur2D distanceVaisseauExtremiteB = plaque.getExtremiteB().soustrait(vaisseau.getPosition());
+	public static Vecteur2D calculChampElectriqueHorsAxe(Vaisseau vaisseau, PlaqueChargee plaque) {
+		try {
+			double densiteLineiqueCharge = plaque.getCharge() / plaque.getLongueur();
+			Vecteur2D distanceVaisseauPlaque = plaque.getPosition().soustrait(vaisseau.getPosition());
+			Vecteur2D distanceVaisseauExtremiteA = plaque.getExtremiteA().soustrait(vaisseau.getPosition());
+			Vecteur2D distanceVaisseauExtremiteB = plaque.getExtremiteB().soustrait(vaisseau.getPosition());
 
-		// Projection orthogonale de la distance entre le vaisseau et la plaque, sur la
-		// normale de la plaque
-		double plusPetiteDistanceVaisseauPlaque = Math.abs(distanceVaisseauPlaque.prodScalaire(plaque.getNormale()));
+			// Projection orthogonale de la distance entre le vaisseau et la plaque, sur la
+			// normale de la plaque
+			double plusPetiteDistanceVaisseauPlaque = Math.abs(distanceVaisseauPlaque.prodScalaire(plaque.getNormale()));
 
-		// Angles délimitant les côtés des extrémités de la plaque
-		double alphaA = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteA.module());
-		double alphaB = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteB.module());
+			// Angles délimitant les côtés des extrémités de la plaque
+			double alphaA = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteA.module());
+			double alphaB = Math.acos(plusPetiteDistanceVaisseauPlaque / distanceVaisseauExtremiteB.module());
 
-		double moduleChamp = Math.sqrt(2) * K * Math.abs(densiteLineiqueCharge) / plusPetiteDistanceVaisseauPlaque
-				* Math.sqrt(1 - Math.cos(alphaA - alphaB));
+			// Détermine les signes des angles alpha
+			double projDistanceVExtrmASurAxePlaque = Math.abs( distanceVaisseauExtremiteA.prodScalaire(plaque.getAxe()) );
+			double projDistanceVExtrmBSurAxePlaque = Math.abs( distanceVaisseauExtremiteB.prodScalaire(plaque.getAxe()) );
+			boolean vaisseauEntreExtremite = !(projDistanceVExtrmASurAxePlaque + projDistanceVExtrmBSurAxePlaque > plaque.getLongueur());
+			
+			if (vaisseauEntreExtremite) {
+				alphaB = -1*alphaB;
+			} 
+			
+			// Calcul du module du champ électrique
+			double moduleChamp = Math.sqrt(2) * K * Math.abs(densiteLineiqueCharge) / plusPetiteDistanceVaisseauPlaque
+					* Math.sqrt(1 - Math.cos(alphaA - alphaB));
 
-		// détermine le vecteur orientation du champ électrique, unitaire (en assumant
-		// que le vaisseau est attiré par la plaque)
-		Vecteur2D orientationChamp = plaque.getPosition().soustrait(vaisseau.getPosition()).normalise();
+			// détermine le vecteur orientation du champ électrique, unitaire (en assumant
+			// que la plaque est négative)
+			Vecteur2D orientationChamp = plaque.getPosition().soustrait(vaisseau.getPosition()).normalise();
 
-		// change l'orientation s'il y a répulsion
-		if (Math.signum(vaisseau.getCharge()) == Math.signum(plaque.getCharge())) {
-			orientationChamp.multiplie(-1);
-		}
-
-		return orientationChamp.multiplie(moduleChamp);
-	}
+			// change l'orientation si la plaque est positive
+			if (Math.signum(plaque.getCharge()) > 0) {
+				orientationChamp = orientationChamp.multiplie(-1);
+			}
+			System.out.println("Module du champ électrique : " + moduleChamp);
+			System.out.println("Champ électrique : "+orientationChamp.multiplie(moduleChamp));
+			return orientationChamp.multiplie(moduleChamp);
+		} catch (Exception e) {
+			System.out.println("Le vaisseau est trop près de la plaque, le champ électrique agissant sur la plaque est donc nul.");
+			return VEC_ZERO;
+			//e.printStackTrace();
+		}//fin try catch
+	}//fin méthode
 
 	/**
 	 * Détecte s'il y a une collision entre le vaisseau et un mur
@@ -231,12 +275,11 @@ public class MoteurPhysique {
 	//Enuel René Valentin Kizozo Izia
 	public static boolean detectionCollisions(Vaisseau vaisseau, PlaqueChargee plaque) {
 		Vecteur2D distanceVaisseauPointSurPlaque = vaisseau.getPosition().soustrait(plaque.getPosition());
-		double plusPetiteDistanceVaisseauPlaque = Math
-				.abs(distanceVaisseauPointSurPlaque.prodScalaire(plaque.getNormale()));
+		double plusPetiteDistanceVaisseauPlaque = Math.abs(distanceVaisseauPointSurPlaque.prodScalaire(plaque.getNormale()));
 
 		return (plusPetiteDistanceVaisseauPlaque <= vaisseau.getRayon());
 	}
-	
+
 	/**
 	 * Calcule la vitesse du vaisseau après une collision contre un mur
 	 * @param vaisseau
@@ -246,11 +289,11 @@ public class MoteurPhysique {
 	//Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculVitesseApresCollision(Vaisseau vaisseau, PlaqueChargee plaque) {
 		double impulsionJn = -(1+COEFF_E) / (1/vaisseau.getMasse() + 1/plaque.getMasse()) * vaisseau.getVitesse().prodScalaire(plaque.getNormale());
-		
+
 		return vaisseau.getVitesse().additionne( plaque.getNormale().multiplie( impulsionJn/vaisseau.getMasse() ) );
-		
+
 		/*
-		 * Il faudra peut-être trouver un moyen de vérifier que la normal du mur/plaque pointe vers l'extérieur de celui-ci,
+		 * Il faudra peut-être trouver un moyen de vérifier que la normale du mur/plaque pointe vers l'extérieur de celui-ci,
 		 * autrement on aurait une mauvaise orientation et de mauvais résultats...
 		 */
 	}

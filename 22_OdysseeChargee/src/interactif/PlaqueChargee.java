@@ -1,33 +1,34 @@
 package interactif;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Path2D;
 
 import physique.Vecteur2D;
+import utilis.Dessinable;
 
 /**
  * Permet de dessiner une plaque
  * 
  * @author Enuel René Valentin Kizozo Izia
  */
-public class PlaqueChargee extends InteractifPhysique {
+public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	// PROPRIÉTÉS //
 	/** Vecteur normal de la plaque **/
 	private Vecteur2D normale; // Doit être normalisé
 
 	/** Vecteur passant par l'axe de la plaque **/
-	private Vecteur2D axe = new Vecteur2D(normale.getY(), -normale.getX()); // normalisé
+	private Vecteur2D axe; // Normalisé
 
 	/** Longueur de la plaque **/
 	private double longueur;
 	
-	/** Charge de la plaque **/
-	private double charge;
 	/** Position de l'extrémité A de la plaque **/
-	private Vecteur2D extremiteA = super.getPosition().additionne(axe.multiplie(longueur / 2));
+	private Vecteur2D extremiteA;
 
 	/** Position de l'extrémité B de la plaque **/
-	private Vecteur2D extremiteB = super.getPosition().additionne(axe.multiplie(-longueur / 2));
+	private Vecteur2D extremiteB;
 	
 	
 	// CONSTRUCTEUR //
@@ -42,8 +43,12 @@ public class PlaqueChargee extends InteractifPhysique {
 	//Enuel René Valentin Kizozo Izia
 	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {
 		super(position, charge, masse);
-		this.normale = normale;
+		this.normale = new Vecteur2D(normale);
 		this.longueur = longueur;
+		
+		this.axe = new Vecteur2D(normale.getY(), -normale.getX());
+		this.extremiteA = getPosition().additionne(axe.multiplie(longueur / 2));
+		this.extremiteB = getPosition().additionne(axe.multiplie(-longueur / 2));
 	}
 
 	
@@ -54,9 +59,25 @@ public class PlaqueChargee extends InteractifPhysique {
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {	
+		Graphics2D g2dPrive = (Graphics2D) g2d.create();
+
+		double coinx = getPosition().getX();
+		double coiny = getPosition().getY() - longueur/2;
+		Path2D.Double plaque = new Path2D.Double();
+		plaque.moveTo(coinx, coiny);
+		plaque.lineTo(coinx, coiny+longueur);
+
+		g2dPrive.setColor(Color.red);
+		g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
+		g2dPrive.draw(plaque);
 	}
 	
-		
+	public String toString(int nbDecimales){
+		String s =  " position=[ " +  String.format("%."+nbDecimales+"f", getPosition().getX()) + ", " + String.format("%."+nbDecimales+"f", getPosition().getY())  + "]" ;
+		s+= " charge=[ " +  String.format("%."+nbDecimales+"f",getCharge()) + "]" ;
+		return(s);
+	}	
+	
 	// GETTERS & SETTERS //
 	/**
 	 * Retourne le vecteur normal de la plaque
@@ -75,7 +96,7 @@ public class PlaqueChargee extends InteractifPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormale(Vecteur2D normale) {
-		this.normale = normale;
+		this.normale = new Vecteur2D(normale);
 	}
 
 	/**
@@ -95,7 +116,7 @@ public class PlaqueChargee extends InteractifPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setAxe(Vecteur2D axe) {
-		this.axe = axe;
+		this.axe = new Vecteur2D(axe);
 	}
 
 	/**
@@ -119,29 +140,6 @@ public class PlaqueChargee extends InteractifPhysique {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * Retourne la charge de la plaque
-	 * 
-	 * @return La charge de la plaque
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public double getCharge() {
-		return charge;
-	}
-
-	/**
-	 * Modifie la charge de la plaque
-	 * 
-	 * @param charge Charge de la plaque
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void setCharge(double charge) {
-		this.charge = charge;
-	}
-
-	/**
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Retourne l'extrémité A de la plaque
 	 * 
 	 * @return L'extrémité A de la plaque
@@ -158,7 +156,7 @@ public class PlaqueChargee extends InteractifPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteA(Vecteur2D extremiteA) {
-		this.extremiteA = extremiteA;
+		this.extremiteA = new Vecteur2D(extremiteA);
 	}
 
 	/**
@@ -178,7 +176,7 @@ public class PlaqueChargee extends InteractifPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteB(Vecteur2D extremiteB) {
-		this.extremiteB = extremiteB;
+		this.extremiteB = new Vecteur2D(extremiteB);
 	}
 
 }
