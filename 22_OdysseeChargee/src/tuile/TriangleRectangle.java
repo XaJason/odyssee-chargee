@@ -10,7 +10,13 @@ import java.awt.Image;
  */
 public class TriangleRectangle extends Tuile {
 	private static Image image;
-
+	/**
+	 * Constructeur
+	 * 
+	 */
+	public TriangleRectangle() {
+		super(image);
+	}
 	/**
 	 * Constructeur
 	 * 

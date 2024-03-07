@@ -10,7 +10,13 @@ import java.awt.Image;
  */
 public class Drapeau extends Tuile {
 	private static Image image;
-
+	/**
+	 * Constructeur
+	 * 
+	 */
+	public Drapeau() {
+		super(image);
+	}
 	/**
 	 * Constructeur
 	 * 

@@ -26,6 +26,19 @@ public class Tuile implements Dessinable {
 	 * Constructeur
 	 * 
 	 * @param image l'image représentant la tuile
+	 * 
+	 */
+	// Jason Xa
+	public Tuile(Image image) {
+		x = 0;
+		y = 0;
+		this.image = image;
+	}
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param image l'image représentant la tuile
 	 * @param x     l'abscisse gauche de la tuile (px)
 	 * @param y     l'ordonnée supérieure la tuile (px)
 	 * 

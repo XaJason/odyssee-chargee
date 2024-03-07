@@ -13,6 +13,14 @@ public class Carre extends Tuile {
 	/**
 	 * Constructeur
 	 * 
+	 */
+	public Carre() {
+		super(image);
+	}
+
+	/**
+	 * Constructeur
+	 * 
 	 * @param x l'abscisse gauche de la tuile (px)
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 

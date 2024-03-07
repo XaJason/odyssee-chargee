@@ -9,7 +9,13 @@ import java.awt.Image;
  */
 public class Portail extends Tuile {
 	private static Image image;
-
+	/**
+	 * Constructeur
+	 * 
+	 */
+	public Portail() {
+		super(image);
+	}
 	/**
 	 * Constructeur
 	 * 

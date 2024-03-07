@@ -14,6 +14,12 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import tuile.Carre;
+import tuile.Drapeau;
+import tuile.Pics;
+import tuile.Portail;
+import tuile.TriangleEquilateral;
+import tuile.TriangleRectangle;
 import utilis.OutilsImage;
 
 /**
@@ -102,6 +108,7 @@ public class PanelModeEditeur extends JPanel {
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Carré");
+				grille.setTuile(new Carre());
 			}
 		});
 		btnCarre.setBounds(64, 39, 85, 85);
@@ -111,6 +118,8 @@ public class PanelModeEditeur extends JPanel {
 		btnTriangleRectangle = new JButton();
 		btnTriangleRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Triangle rectangle");
+				grille.setTuile(new TriangleRectangle());
 			}
 		});
 		btnTriangleRectangle.setBounds(188, 39, 85, 85);
@@ -120,6 +129,8 @@ public class PanelModeEditeur extends JPanel {
 		btnTriangleEquilateral = new JButton();
 		btnTriangleEquilateral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Triangle équilatéral");
+				grille.setTuile(new TriangleEquilateral());
 			}
 		});
 		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
@@ -129,7 +140,10 @@ public class PanelModeEditeur extends JPanel {
 		btnPics = new JButton();
 		btnPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Pics");
+				grille.setTuile(new Pics());
 			}
+
 		});
 		btnPics.setBounds(64, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
@@ -138,6 +152,8 @@ public class PanelModeEditeur extends JPanel {
 		btnPortail = new JButton();
 		btnPortail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Portail");
+				grille.setTuile(new Portail());
 			}
 		});
 		btnPortail.setBounds(188, 134, 85, 85);
@@ -145,12 +161,18 @@ public class PanelModeEditeur extends JPanel {
 		add(btnPortail);
 
 		btnDrapeau = new JButton();
+		btnDrapeau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Drapeau");
+				grille.setTuile(new Drapeau());
+			}
+		});
 		btnDrapeau.setBounds(315, 134, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
-		lblTypeSelectionne.setBounds(64, 230, 209, 14);
+		lblTypeSelectionne.setBounds(64, 230, 336, 14);
 		add(lblTypeSelectionne);
 	}
 }
