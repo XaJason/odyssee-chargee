@@ -50,6 +50,10 @@ public class PanelModeEditeur extends JPanel {
 	private JLabel lblTypeSelectionne;
 
 	private String preTexteTypeSelectionne = "Type de tuile sélectionné: ";
+	private JButton btnReinitialiser;
+	private JButton btnSupprimer;
+	private JButton btnRotation;
+	private JButton btnSauvegarder;
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -100,7 +104,7 @@ public class PanelModeEditeur extends JPanel {
 	}
 
 	/**
-	 * Création des boutons représentant les différentes options de tuile possibles
+	 * Création des boutons d'action pour la création du niveau
 	 */
 	// Jason Xa
 	private void creerSectionBoutons() {

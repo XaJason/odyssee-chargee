@@ -8,14 +8,18 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Portail extends Tuile {
+	/** l'image représentant un portail */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public Portail() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 
@@ -23,6 +27,7 @@ public class Portail extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public Portail(int x, int y) {
 		super(image, x, y);
 	}
@@ -32,6 +37,7 @@ public class Portail extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le portail
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		Portail.image = imageRef;
 	}

@@ -9,14 +9,18 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class TriangleEquilateral extends Tuile {
+	/** l'image représentant un triangle équilatéral */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
 	 */
+	// Jason Xa
 	public TriangleEquilateral() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 
@@ -24,6 +28,7 @@ public class TriangleEquilateral extends Tuile {
 	 * @param y l'ordonnée supérieure la tuile (px)
 	 * 
 	 */
+	// Jason Xa
 	public TriangleEquilateral(int x, int y) {
 		super(image, x, y);
 	}
@@ -33,6 +38,7 @@ public class TriangleEquilateral extends Tuile {
 	 * 
 	 * @param imageRef l'image représentant le triangle équilatéral
 	 */
+	// Jason Xa
 	public static void setImageRef(Image imageRef) {
 		TriangleEquilateral.image = imageRef;
 	}

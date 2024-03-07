@@ -3,6 +3,7 @@ package etatModeEditeur;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Path2D;
@@ -14,10 +15,8 @@ import java.awt.geom.Rectangle2D;
  * @author Jason Xa
  */
 import javax.swing.JPanel;
-import java.awt.event.MouseAdapter;
 
 import tuile.Carre;
-import tuile.Pics;
 import tuile.Tuile;
 
 /**
@@ -283,10 +282,35 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * @param tuile the tuile to set
+	 * Définir le type de tuile sélectionné pour le placement
+	 * 
+	 * @param tuile le nouveau type de tuile sélectionné pour le placement
 	 */
+	// Jason Xa
 	public void setTuile(Tuile tuile) {
 		this.tuile = tuile;
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	public void reinitialiserNiveau() {
+
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	public void rotationObjet() {
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	public void supprimerTuile() {
 	}
 
 }// Fin classe

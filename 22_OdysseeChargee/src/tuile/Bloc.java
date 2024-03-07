@@ -2,8 +2,6 @@ package tuile;
 
 import java.awt.Graphics2D;
 
-import physique.Vecteur2D;
-
 /**
  * Classe Bloc
  * 
