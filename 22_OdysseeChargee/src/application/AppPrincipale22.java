@@ -33,6 +33,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import utilis.OutilsImage;
+import niveau.Sauvegarder;
 
 /**
  * Projet intégrateur : Odyssée chargée
@@ -131,7 +132,11 @@ public class AppPrincipale22 extends JFrame {
 		creerPanels();
 		creerMenu();
 		lireImages();
-
+		
+		//Sauvegarder.CreeFichier();
+		//Sauvegarder.ecrireFichierTexte();
+		Sauvegarder.lireFichier();
+		
 		if (leClip != null)
 			leClip.close();
 		chargerLeSon(NOM_FICHIER_SON_1);
