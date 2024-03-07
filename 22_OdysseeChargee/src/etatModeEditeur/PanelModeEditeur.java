@@ -178,7 +178,7 @@ public class PanelModeEditeur extends JPanel {
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
 		lblTypeSelectionne.setBounds(64, 230, 336, 14);
 		add(lblTypeSelectionne);
-		
+
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -187,7 +187,7 @@ public class PanelModeEditeur extends JPanel {
 		btnReinitialiser.setBounds(64, 255, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
 		add(btnReinitialiser);
-		
+
 		btnSupprimer = new JButton();
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,7 +196,7 @@ public class PanelModeEditeur extends JPanel {
 		btnSupprimer.setBounds(188, 255, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
-		
+
 		btnRotation = new JButton();
 		btnRotation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -205,7 +205,7 @@ public class PanelModeEditeur extends JPanel {
 		btnRotation.setBounds(315, 255, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
 		add(btnRotation);
-		
+
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

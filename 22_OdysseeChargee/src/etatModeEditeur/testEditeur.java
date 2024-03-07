@@ -16,7 +16,8 @@ public class testEditeur extends JFrame {
 
 	/**
 	 * Launch the application.
-	 * @param args 
+	 * 
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

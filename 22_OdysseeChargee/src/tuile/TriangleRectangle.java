@@ -9,7 +9,7 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class TriangleRectangle extends Tuile {
-	/***/
+	/** l'image représentant un triangle rectangle */
 	private static Image image;
 
 	/**

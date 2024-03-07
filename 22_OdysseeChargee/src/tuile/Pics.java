@@ -10,7 +10,9 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Pics extends Tuile {
+	/** l'image représentant des pics */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
@@ -19,6 +21,7 @@ public class Pics extends Tuile {
 	public Pics() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 

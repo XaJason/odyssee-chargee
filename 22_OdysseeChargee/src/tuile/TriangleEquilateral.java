@@ -9,7 +9,9 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class TriangleEquilateral extends Tuile {
+	/** l'image représentant un triangle équilatéral */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
@@ -18,6 +20,7 @@ public class TriangleEquilateral extends Tuile {
 	public TriangleEquilateral() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 

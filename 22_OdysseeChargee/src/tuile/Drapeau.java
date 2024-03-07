@@ -1,4 +1,4 @@
- package tuile;
+package tuile;
 
 import java.awt.Image;
 
@@ -9,7 +9,9 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Drapeau extends Tuile {
+	/** l'image représentant un drapeau */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
@@ -18,6 +20,7 @@ public class Drapeau extends Tuile {
 	public Drapeau() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 

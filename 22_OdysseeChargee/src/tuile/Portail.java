@@ -8,7 +8,9 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Portail extends Tuile {
+	/** l'image représentant un portail */
 	private static Image image;
+
 	/**
 	 * Constructeur
 	 * 
@@ -17,6 +19,7 @@ public class Portail extends Tuile {
 	public Portail() {
 		super(image);
 	}
+
 	/**
 	 * Constructeur
 	 * 

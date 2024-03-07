@@ -8,6 +8,7 @@ import java.awt.Image;
  * @author Jason Xa
  */
 public class Carre extends Tuile {
+	/** l'image représentant un carré */
 	private static Image image;
 
 	/**
@@ -45,7 +46,5 @@ public class Carre extends Tuile {
 	public String toString() {
 		return "Carre ";
 	}
-	
-	
 
 }
