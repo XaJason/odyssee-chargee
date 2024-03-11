@@ -19,6 +19,7 @@ public class Drapeau extends Tuile {
 	// Jason Xa
 	public Drapeau() {
 		super(image);
+		setDrapeau();
 	}
 
 	/**
@@ -47,5 +48,7 @@ public class Drapeau extends Tuile {
 	public String toString() {
 		return "Drapeau ";
 	}
+	
+	
 
 }

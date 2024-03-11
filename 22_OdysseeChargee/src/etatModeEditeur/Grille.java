@@ -10,6 +10,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.JOptionPane;
 /**
  * @author Giroux
  * @author Jason Xa
@@ -17,6 +18,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 import tuile.Carre;
+import tuile.Drapeau;
 import tuile.Tuile;
 
 /**
@@ -35,7 +37,9 @@ public class Grille extends JPanel {
 	private double largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
 	private int nbCarre = 15;
-	/** Rectangle qui conrespond à la section de la grille où se trouve la sourie **/
+	/**
+	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
+	 **/
 	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
 	private Boolean premiereFois = true;
@@ -49,15 +53,20 @@ public class Grille extends JPanel {
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
-	/** Contient la tuile sélectionnée dans les boutons du panneau du mode éditeur **/
+	/**
+	 * Contient la tuile sélectionnée dans les boutons du panneau du mode éditeur
+	 **/
 	private Tuile tuile;
 	/** Tuile qui conrespond à celui dans le tableau des emplacements **/
 	private Tuile tuileTableau;
-	/** Tuile temporaire qui sauvegarde la tuile sélectionnée avec ses propriétés**/
+	/**
+	 * Tuile temporaire qui sauvegarde la tuile sélectionnée avec ses propriétés
+	 **/
 	private Tuile tuileTemp;
-	/** Indique si l'emplacement est déjà pris**/
-	boolean placePrise=false;
-	
+	/** Indique si l'emplacement est déjà pris **/
+	boolean placePrise = false;
+	/**Indique s'il y a déjà un drapeau sur la grille**/
+	boolean drapeau = false;
 
 	/**
 	 * Création du panel
@@ -102,7 +111,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @param g Contexte graphique
 	 */
-	//Giroux
+	// Giroux
 	private void dessiner(Graphics2D g2d) {
 		if (premiereFois) {
 
@@ -113,8 +122,8 @@ public class Grille extends JPanel {
 			dessinerGrille();
 			premiereFois = false;
 		}
-		
-		if(placePrise) {
+
+		if (placePrise) {
 			g2d.setColor(Color.red);
 		} else {
 			g2d.setColor(Color.cyan);
@@ -164,10 +173,10 @@ public class Grille extends JPanel {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
 						tuile.setX((int) largeurCarre * j);
 						tuile.setY((int) hauteurCarre * i);
-						if(tabEmplacement[i][j]!=null) {
+						if (tabEmplacement[i][j] != null) {
 							placePrise = true;
 						} else {
-							placePrise=false;
+							placePrise = false;
 						}
 						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
@@ -182,7 +191,7 @@ public class Grille extends JPanel {
 	/**
 	 * Méthode qui dessine le quadrillage de la grille
 	 */
-	//Giroux
+	// Giroux
 	private void dessinerGrille() {
 		quadVerti = new Path2D.Double();
 		quadHori = new Path2D.Double();
@@ -201,7 +210,7 @@ public class Grille extends JPanel {
 	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle
 	 * y est
 	 */
-	//Giroux
+	// Giroux
 	public void afficherGrille() {
 		if (grille == true) {
 			grille = false;
@@ -217,7 +226,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @param nouvNbCarre Le nouveau nombre de carré par ligne et colonne
 	 */
-	//Giroux
+	// Giroux
 	public void changerQttCarre(int nouvNbCarre) {
 		this.nbCarre = nouvNbCarre;
 		premiereFois = true;
@@ -228,16 +237,22 @@ public class Grille extends JPanel {
 	 * Méthode qui change la valeur dans le tableau dépendant de si l'emplacement
 	 * est libre 1 si non libre et 0 si libre
 	 */
-	//Giroux
+	// Giroux
 	private void sauvegarderEmplacement() {
 		for (int i = 0; i < nbCarre; i++) {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						tuileTemp = new Tuile(tuile);
-						tuileTemp.setX((int)largeurCarre*j);
-						tuileTemp.setY((int)hauteurCarre*i);
-						if(tabEmplacement[i][j]==null) {
+						if (tuile.getDrapeau() && !drapeau) {
+							drapeau = true;
+						} else if (tuile.getDrapeau() && drapeau) {
+							break;
+						}
+
+						tuileTemp.setX((int) largeurCarre * j);
+						tuileTemp.setY((int) hauteurCarre * i);
+						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
@@ -255,26 +270,29 @@ public class Grille extends JPanel {
 	/**
 	 * À fin de test, non permanent, imprime le tableau des emplacements
 	 */
-	//Giroux
+	// Giroux
 	private void afficherTab() {
 		for (int i = 0; i < nbCarre; i++) {
 			System.out.print("\n");
 			for (int j = 0; j < nbCarre; j++) {
-				System.out.print(tabEmplacement[i][j]);
+				if (tabEmplacement[i][j] == null) {
+					System.out.print(tabEmplacement[i][j]);
+				} else {
+					System.out.print(tabEmplacement[i][j].toString());
+				}
 
 			}
 		}
 		System.out.print("\n\n");
 	}// Fin méthode
 
-	
 	/**
 	 * Méthode qui déssine les tuiles contenues dans le tableau des emplacements à
 	 * la bonne place
 	 * 
 	 * @param g2d contexte graphique
 	 */
-	//Giroux
+	// Giroux
 	private void dessinerTuile(Graphics2D g2d) {
 		for (int i = 0; i < nbCarre; i++) {
 			for (int j = 0; j < nbCarre; j++) {
@@ -287,19 +305,17 @@ public class Grille extends JPanel {
 		repaint();
 	}// Fin méthode
 
-	
 	/**
 	 * Méthode qui retourne la quantité de carré dans la grille
 	 * 
 	 * @return La qtt de carré dans la grille
 	 */
-	//Giroux
-	
+	// Giroux
+
 	public int getNbCarre() {
 		return nbCarre;
 	}// Fin méthode
 
-	
 	/**
 	 * Définir le type de tuile sélectionné pour le placement
 	 * 

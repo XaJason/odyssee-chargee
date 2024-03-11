@@ -19,6 +19,8 @@ public class Tuile implements Dessinable {
 	protected int y;
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
+	/** Détermine si la tuile est un drapeau**/
+	boolean drapeau=false;
 
 	/** l'image représentant la tuile */
 	Image image;
@@ -110,6 +112,26 @@ public class Tuile implements Dessinable {
 	// Jason Xa
 	public void setAngleRotation(int angleRotation) {
 		this.angleRotation = angleRotation;
+	}
+	/**
+	 * Méthode qui met le champ drapeau à vrai
+	 */
+	//Giroux
+	public void setDrapeau() {
+		this.drapeau=true;
+	}
+	
+	/**
+	 * Méthode qui indique si c'est un drapeau
+	 * @return la valeure du boolean drapaeau
+	 */
+	//Giroux
+	public boolean getDrapeau() {
+		if (drapeau==true) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
