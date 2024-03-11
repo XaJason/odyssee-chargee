@@ -9,6 +9,7 @@ import utilis.Dessinable;
  * Représente tout objet fixe qui peut être placé dans le mode éditeur.
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Tuile implements Dessinable {
 
@@ -49,6 +50,17 @@ public class Tuile implements Dessinable {
 		this.y = y;
 		this.image = image;
 	}
+	
+	/**
+	 * Constructeur qui copie une tuile
+	 * @param tuileCopier la tuile à copier
+	 */
+	//Giroux
+	public Tuile(Tuile tuileCopier) {
+		this.x=tuileCopier.x;
+		this.y=tuileCopier.y;
+		this.image=tuileCopier.image;
+	}//Fin méthode
 
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
@@ -99,5 +111,7 @@ public class Tuile implements Dessinable {
 	public void setAngleRotation(int angleRotation) {
 		this.angleRotation = angleRotation;
 	}
+	
+	
 
 }
