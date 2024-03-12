@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import constante.ConstanteComposantsSwing;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 /**
  * Fenêtre d'à propos
@@ -19,15 +21,6 @@ public class FenetreApropos extends JFrame {
 
 	private static final long serialVersionUID = -2336396924514608396L;
 
-	// ajouter le support pour lancer des evenements de type PropertyChange
-	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
-	/**
-	 * voici la methode qui permettra � un objet de s'ajouter en tant qu'ecouteur
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
 
 	/**
 	 * Implémente la fenêtre et ses fonctionnalités
@@ -50,15 +43,32 @@ public class FenetreApropos extends JFrame {
 		getContentPane().setLayout(null);
 		btnQuitter.setBounds(0, 0, 174, 34);
 		getContentPane().add(btnQuitter);
+		
+		JTextArea txtrA = new JTextArea();
+		txtrA.setText(texte());
+		txtrA.setBounds(46, 45, 692, 405);
+		getContentPane().add(txtrA);
 	}
 
 	/**
 	 * Bouton pour fermer la fenêtre
 	 */
 	// Kitimir Yim
-	public void menuQuitter() {
+	private void menuQuitter() {
 		dispose();
 
 	}
-
+	/**
+	 * Texte pour le message afficher dans la fenêtre
+	 * @return message Message d'informations
+	 */
+	//Kitimir Yim
+	private String texte() {
+		String message = "Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+						+ "\n" + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+						 + "\n" +  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+						 		+ "\n" + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+		return message;
+		
+	}
 }
