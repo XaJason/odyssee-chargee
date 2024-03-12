@@ -10,7 +10,6 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-import javax.swing.JOptionPane;
 /**
  * @author Giroux
  * @author Jason Xa
@@ -19,6 +18,10 @@ import javax.swing.JPanel;
 
 import tuile.Carre;
 import tuile.Drapeau;
+import tuile.Pics;
+import tuile.Portail;
+import tuile.TriangleEquilateral;
+import tuile.TriangleRectangle;
 import tuile.Tuile;
 
 /**
@@ -65,7 +68,7 @@ public class Grille extends JPanel {
 	private Tuile tuileTemp;
 	/** Indique si l'emplacement est déjà pris **/
 	boolean placePrise = false;
-	/**Indique s'il y a déjà un drapeau sur la grille**/
+	/** Indique s'il y a déjà un drapeau sur la grille **/
 	boolean drapeau = false;
 
 	/**
@@ -132,6 +135,7 @@ public class Grille extends JPanel {
 
 		if (tuile != null) {
 			tuile.dessiner(g2d);
+
 		}
 
 		dessinerTuile(g2d);
@@ -171,7 +175,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
-						tuile.redimensionnerImage((int)hauteurCarre,(int) largeurCarre);
+						tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
 						tuile.setX((int) largeurCarre * j);
 						tuile.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] != null) {
@@ -244,7 +248,9 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
+
 						tuileTemp = new Tuile(tuile);
+						clonerTuile();
 						if (tuile.getDrapeau() && !drapeau) {
 							drapeau = true;
 						} else if (tuile.getDrapeau() && drapeau) {
@@ -266,6 +272,34 @@ public class Grille extends JPanel {
 
 		}
 	}// Fin méthode
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	private void clonerTuile() {
+		switch (tuile.getType()) {
+		case "Carré":
+			tuileTemp = new Carre();
+			break;
+		case "Drapeau":
+			tuileTemp = new Drapeau();
+			break;
+		case "Pics":
+			tuileTemp = new Pics();
+			break;
+		case "Portail":
+			tuileTemp = new Portail();
+			break;
+		case "Triangle équilatéral":
+			tuileTemp = new TriangleEquilateral();
+			break;
+		case "Triangle rectangle":
+			tuileTemp = new TriangleRectangle();
+			break;
+		}
+
+	}
 
 	/**
 	 * À fin de test, non permanent, imprime le tableau des emplacements

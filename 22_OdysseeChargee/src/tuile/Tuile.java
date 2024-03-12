@@ -32,6 +32,8 @@ public class Tuile extends OutilsImage implements Dessinable {
 	/** Largeur de l'image redimensionnée **/
 	int hauteurImage;
 
+	protected String type;
+
 	/**
 	 * Constructeur
 	 * 
@@ -39,10 +41,11 @@ public class Tuile extends OutilsImage implements Dessinable {
 	 * 
 	 */
 	// Jason Xa
-	public Tuile(Image image) {
+	public Tuile(Image image, String type) {
 		x = 0;
 		y = 0;
 		this.image = image;
+		this.type = type;
 	}
 
 	/**
@@ -54,10 +57,18 @@ public class Tuile extends OutilsImage implements Dessinable {
 	 * 
 	 */
 	// Jason Xa
-	public Tuile(Image image, int x, int y) {
+	public Tuile(Image image, int x, int y, String type) {
 		this.x = x;
 		this.y = y;
 		this.image = image;
+		this.type = type;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getType() {
+		return type;
 	}
 
 	/**

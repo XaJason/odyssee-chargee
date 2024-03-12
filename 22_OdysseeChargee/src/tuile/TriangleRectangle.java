@@ -11,6 +11,7 @@ import java.awt.Image;
 public class TriangleRectangle extends Tuile {
 	/** l'image représentant un triangle rectangle */
 	private static Image image;
+	private static String type = "Triangle rectangle";
 
 	/**
 	 * Constructeur
@@ -18,7 +19,7 @@ public class TriangleRectangle extends Tuile {
 	 */
 	// Jason Xa
 	public TriangleRectangle() {
-		super(image);
+		super(image, type);
 	}
 
 	/**
@@ -30,7 +31,7 @@ public class TriangleRectangle extends Tuile {
 	 */
 	// Jason Xa
 	public TriangleRectangle(int x, int y) {
-		super(image, x, y);
+		super(image, x, y, type);
 	}
 
 	/**

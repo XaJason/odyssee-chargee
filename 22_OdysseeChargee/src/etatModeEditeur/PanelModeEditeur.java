@@ -146,6 +146,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Pics");
 				grille.setTuile(new Pics());
+				
 			}
 
 		});
@@ -214,4 +215,5 @@ public class PanelModeEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 	}
+
 }

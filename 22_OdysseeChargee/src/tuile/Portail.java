@@ -10,6 +10,7 @@ import java.awt.Image;
 public class Portail extends Tuile {
 	/** l'image représentant un portail */
 	private static Image image;
+	private static String type = "Portail";
 
 	/**
 	 * Constructeur
@@ -17,7 +18,7 @@ public class Portail extends Tuile {
 	 */
 	// Jason Xa
 	public Portail() {
-		super(image);
+		super(image, type);
 	}
 
 	/**
@@ -29,7 +30,7 @@ public class Portail extends Tuile {
 	 */
 	// Jason Xa
 	public Portail(int x, int y) {
-		super(image, x, y);
+		super(image, x, y, type);
 	}
 
 	/**
@@ -41,8 +42,8 @@ public class Portail extends Tuile {
 	public static void setImageRef(Image imageRef) {
 		Portail.image = imageRef;
 	}
-	
-	//Giroux
+
+	// Giroux
 	public String toString() {
 		return "Portail ";
 	}
