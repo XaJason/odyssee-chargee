@@ -1,6 +1,7 @@
 package etatModeEditeur;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -52,7 +53,9 @@ public class Grille extends JPanel {
 	private Path2D.Double quadHori;
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
-	/** Tableau qui contient 1 si la case est occupé ou 0 si elle est vide **/
+	/**
+	 * Tableau qui contient la tuile si la case est occupé ou null si elle est vide
+	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
@@ -70,6 +73,10 @@ public class Grille extends JPanel {
 	boolean placePrise = false;
 	/** Indique s'il y a déjà un drapeau sur la grille **/
 	boolean drapeau = false;
+	/** Indique si on est en mode supprimer ou non **/
+	boolean supprimer = false;
+	/** Indique que la sourie est à l'exterieur du composant **/
+	boolean exterieurComposant = true;
 
 	/**
 	 * Création du panel
@@ -79,8 +86,23 @@ public class Grille extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				clique = e.getPoint();
-				sauvegarderEmplacement();
+				if (!supprimer) {
+					sauvegarderEmplacement();
+				} else {
+					supprimerCase();
+				}
 				afficherTab();
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				exterieurComposant = true;
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				exterieurComposant = false;
 			}
 		});
 
@@ -89,8 +111,14 @@ public class Grille extends JPanel {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
+				if (supprimer) {
+					setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+				} else {
+					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
 				dessinerCarre(e.getX(), e.getY());
 				repaint();
+
 			}
 		});
 
@@ -131,11 +159,11 @@ public class Grille extends JPanel {
 		} else {
 			g2d.setColor(Color.cyan);
 		}
-		g2d.fill(emplacementActuel);
-
-		if (tuile != null) {
+		if (!exterieurComposant) {
+			g2d.fill(emplacementActuel);
+		}
+		if (tuile != null && !supprimer && !exterieurComposant) {
 			tuile.dessiner(g2d);
-
 		}
 
 		dessinerTuile(g2d);
@@ -158,6 +186,8 @@ public class Grille extends JPanel {
 		hauteurCarre = (hauteur / nbCarre);
 		largeurCarre = (largeur / nbCarre);
 		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCarre, hauteurCarre);
+		System.out.println(largeurCarre);
+		System.out.println(hauteurCarre);
 
 	}// Fin méthode
 
@@ -175,9 +205,11 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
-						tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
-						tuile.setX((int) largeurCarre * j);
-						tuile.setY((int) hauteurCarre * i);
+						if (!supprimer) {
+							tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
+							tuile.setX((int) largeurCarre * j);
+							tuile.setY((int) hauteurCarre * i);
+						}
 						if (tabEmplacement[i][j] != null) {
 							placePrise = true;
 						} else {
@@ -248,14 +280,13 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-
-						tuileTemp = new Tuile(tuile);
 						clonerTuile();
-						if (tuile.getDrapeau() && !drapeau) {
+						if (tuileTemp.getDrapeau() && !drapeau) {
 							drapeau = true;
-						} else if (tuile.getDrapeau() && drapeau) {
+						} else if (tuileTemp.getDrapeau() && drapeau) {
 							break;
 						}
+
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
@@ -350,6 +381,47 @@ public class Grille extends JPanel {
 		return nbCarre;
 	}// Fin méthode
 
+	public void reinitialiser() {
+		for (int i = 0; i < nbCarre; i++) {
+			for (int j = 0; j < nbCarre; j++) {
+				tabEmplacement[i][j] = null;
+			}
+		}
+		drapeau = false;
+		repaint();
+
+	}
+
+	/**
+	 * 
+	 */
+	public void gererSupprimer() {
+		if (supprimer == false) {
+			supprimer = true;
+		} else {
+			supprimer = false;
+		}
+		repaint();
+	}
+
+	public void supprimerCase() {
+
+		for (int i = 0; i < nbCarre; i++) {
+			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
+				for (int j = 0; j < nbCarre; j++) {
+					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
+						if (tabEmplacement[i][j].getDrapeau()) {
+							drapeau = false;
+						}
+						tabEmplacement[i][j] = null;
+
+					}
+				}
+			}
+		}
+
+	}
+
 	/**
 	 * Définir le type de tuile sélectionné pour le placement
 	 * 
@@ -380,6 +452,14 @@ public class Grille extends JPanel {
 	 */
 	// Jason Xa
 	public void supprimerTuile() {
+	}
+
+	/**
+	 * @param supprimer the supprimer to set
+	 */
+	// Jason Xa
+	public void setSupprimer(boolean supprimer) {
+		this.supprimer = supprimer;
 	}
 
 }// Fin classe

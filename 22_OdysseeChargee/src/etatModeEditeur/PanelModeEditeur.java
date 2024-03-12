@@ -113,6 +113,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Carré");
 				grille.setTuile(new Carre());
+				grille.setSupprimer(false);
 			}
 		});
 		btnCarre.setBounds(64, 39, 85, 85);
@@ -124,6 +125,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Triangle rectangle");
 				grille.setTuile(new TriangleRectangle());
+				grille.setSupprimer(false);
 			}
 		});
 		btnTriangleRectangle.setBounds(188, 39, 85, 85);
@@ -135,6 +137,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Triangle équilatéral");
 				grille.setTuile(new TriangleEquilateral());
+				grille.setSupprimer(false);
 			}
 		});
 		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
@@ -146,7 +149,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Pics");
 				grille.setTuile(new Pics());
-				
+				grille.setSupprimer(false);
 			}
 
 		});
@@ -159,6 +162,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Portail");
 				grille.setTuile(new Portail());
+				grille.setSupprimer(false);
 			}
 		});
 		btnPortail.setBounds(188, 134, 85, 85);
@@ -170,6 +174,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Drapeau");
 				grille.setTuile(new Drapeau());
+				grille.setSupprimer(false);
 			}
 		});
 		btnDrapeau.setBounds(315, 134, 85, 85);
@@ -182,6 +187,7 @@ public class PanelModeEditeur extends JPanel {
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				grille.setSupprimer(false);
 			}
 		});
 		btnReinitialiser.setBounds(64, 255, 85, 85);
@@ -191,6 +197,7 @@ public class PanelModeEditeur extends JPanel {
 		btnSupprimer = new JButton();
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				grille.gererSupprimer();
 			}
 		});
 		btnSupprimer.setBounds(188, 255, 85, 85);
@@ -200,6 +207,7 @@ public class PanelModeEditeur extends JPanel {
 		btnRotation = new JButton();
 		btnRotation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				grille.setSupprimer(false);
 			}
 		});
 		btnRotation.setBounds(315, 255, 85, 85);
