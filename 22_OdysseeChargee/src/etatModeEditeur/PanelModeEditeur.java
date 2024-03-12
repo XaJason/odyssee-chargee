@@ -70,7 +70,6 @@ public class PanelModeEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBackground(new Color(255, 255, 128));
 		grille.setBounds(514, 39, 1021, 916);
 		add(grille);
 

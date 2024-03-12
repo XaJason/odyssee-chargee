@@ -53,7 +53,9 @@ public class Grille extends JPanel {
 	private Path2D.Double quadHori;
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
-	/** Tableau qui contient la tuile si la case est occupé ou null si elle est vide **/
+	/**
+	 * Tableau qui contient la tuile si la case est occupé ou null si elle est vide
+	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
@@ -103,13 +105,13 @@ public class Grille extends JPanel {
 				exterieurComposant = false;
 			}
 		});
-
-		setBackground(Color.lightGray);
+		
+		
 		setLayout(null);
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(supprimer) {
+				if (supprimer) {
 					setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 				} else {
 					setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -151,10 +153,15 @@ public class Grille extends JPanel {
 			dessinerGrille();
 			premiereFois = false;
 		}
-
-		if (placePrise) {
-			g2d.setColor(Color.red);
+		if(supprimer) {
+			setBackground(Color.red);
 		} else {
+			setBackground(new Color(255, 255, 128));
+		}
+
+		if (placePrise && !supprimer) {
+			g2d.setColor(Color.orange);
+		} else if(!supprimer) {
 			g2d.setColor(Color.cyan);
 		}
 		if (!exterieurComposant) {
@@ -279,16 +286,16 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						clonerTuile();
-						if (tuileTemp.getDrapeau() && !drapeau) {
-							drapeau = true;
-						} else if (tuileTemp.getDrapeau() && drapeau) {
+						if (tuileTemp.getDrapeau() && drapeau) {	
 							break;
 						}
-						
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
+							if (tuileTemp.getDrapeau() && !drapeau) {
+								drapeau = true;
+							}
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
 						}
@@ -301,7 +308,7 @@ public class Grille extends JPanel {
 
 		}
 	}// Fin méthode
-	
+
 	/**
 	 * 
 	 */
@@ -329,7 +336,6 @@ public class Grille extends JPanel {
 		}
 
 	}
-
 
 	/**
 	 * À fin de test, non permanent, imprime le tableau des emplacements
@@ -406,8 +412,8 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						if(tabEmplacement[i][j].getDrapeau()) {
-							drapeau=false;
+						if (tabEmplacement[i][j].getDrapeau()) {
+							drapeau = false;
 						}
 						tabEmplacement[i][j] = null;
 
