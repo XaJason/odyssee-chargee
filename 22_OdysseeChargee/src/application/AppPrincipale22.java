@@ -89,9 +89,9 @@ public class AppPrincipale22 extends JFrame {
 	private File objetFichier = null;
 
 	/** largeur d'une tuile */
-	private final int LARGEUR_TUILE = 64;
+	private final int LARGEUR_TUILE = 68;
 	/** hauteur d'une tuile */
-	private final int HAUTEUR_TUILE = 64;
+	private final int HAUTEUR_TUILE = 61;
 	/** hauteur d'une demi-tuile */
 	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
 

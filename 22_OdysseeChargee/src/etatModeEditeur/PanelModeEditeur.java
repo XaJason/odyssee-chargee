@@ -71,7 +71,7 @@ public class PanelModeEditeur extends JPanel {
 
 		grille = new Grille();
 		grille.setBackground(new Color(255, 255, 128));
-		grille.setBounds(514, 39, 1025, 922);
+		grille.setBounds(514, 39, 1021, 916);
 		add(grille);
 
 		JButton btnGrille = new JButton("Afficher la grille");
@@ -146,7 +146,6 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Pics");
 				grille.setTuile(new Pics());
-				
 			}
 
 		});
@@ -182,6 +181,7 @@ public class PanelModeEditeur extends JPanel {
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				grille.reinitialiser();
 			}
 		});
 		btnReinitialiser.setBounds(64, 255, 85, 85);
@@ -191,6 +191,7 @@ public class PanelModeEditeur extends JPanel {
 		btnSupprimer = new JButton();
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				grille.setSupprimer();
 			}
 		});
 		btnSupprimer.setBounds(188, 255, 85, 85);
@@ -215,5 +216,4 @@ public class PanelModeEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 	}
-
 }

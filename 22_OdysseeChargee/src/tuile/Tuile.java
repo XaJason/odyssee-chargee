@@ -24,9 +24,9 @@ public class Tuile extends OutilsImage implements Dessinable {
 	boolean drapeau = false;
 
 	/** l'image représentant la tuile */
-	Image image;
+	private	Image image;
 	/** Image redimensionnée de la tuile **/
-	Image imageRedi;
+	protected Image imageRedi;
 	/** Hauteur de l'image redimensionnée **/
 	int largeurImage;
 	/** Largeur de l'image redimensionnée **/
