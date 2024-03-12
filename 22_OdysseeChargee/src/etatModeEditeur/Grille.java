@@ -28,13 +28,13 @@ public class Grille extends JPanel {
 
 	private static final long serialVersionUID = -977837790552954988L;
 	/** Hauteur du composant **/
-	private double hauteur;
+	private int hauteur;
 	/** Largeur du composant **/
-	private double largeur;
+	private int largeur;
 	/** Hauteur de chaque carré **/
-	private double hauteurCarre;
+	private int hauteurCarre;
 	/** Largeur du de chaque carré **/
-	private double largeurCarre;
+	private int largeurCarre;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
 	private int nbCarre = 15;
 	/**
@@ -171,6 +171,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
+						tuile.redimensionnerImage((int)hauteurCarre,(int) largeurCarre);
 						tuile.setX((int) largeurCarre * j);
 						tuile.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] != null) {
@@ -249,7 +250,6 @@ public class Grille extends JPanel {
 						} else if (tuile.getDrapeau() && drapeau) {
 							break;
 						}
-
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {

@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 import utilis.Dessinable;
+import utilis.OutilsImage;
 
 /**
  * Représente tout objet fixe qui peut être placé dans le mode éditeur.
@@ -11,7 +12,7 @@ import utilis.Dessinable;
  * @author Jason Xa
  * @author Giroux
  */
-public class Tuile implements Dessinable {
+public class Tuile extends OutilsImage implements Dessinable {
 
 	/** l'abscisse gauche de la tuile (px) */
 	protected int x;
@@ -24,6 +25,12 @@ public class Tuile implements Dessinable {
 
 	/** l'image représentant la tuile */
 	Image image;
+	/** Image redimensionnée de la tuile**/
+	Image imageRedi;
+	/** Hauteur de l'image redimensionnée **/
+	int largeurImage;
+	/** Largeur de l'image redimensionnée **/
+	int hauteurImage;
 
 	/**
 	 * Constructeur
@@ -131,7 +138,28 @@ public class Tuile implements Dessinable {
 			return true;
 		} else {
 			return false;
+			
 		}
+	}
+	 /**
+	  * Méthode qui change l'image actuelle par une nouvelle
+	  * @param nouvImage la nouvelle image
+	  */
+	//Giroux
+	private void setImage(Image nouvImage) {
+		this.image = nouvImage;
+	}
+	
+	/**
+	 * Méthode qui change la dimension de l'image
+	 * @param hauteurImage l'hauteur voulue de l'image
+	 * @param largeurImage la largeur voulue de l'image
+	 */
+	//Giroux
+	public void redimensionnerImage(int hauteurImage,int largeurImage) {
+		imageRedi = image.getScaledInstance(largeurImage, hauteurImage, Image.SCALE_DEFAULT);
+		setImage(imageRedi);
+		
 	}
 	
 	
