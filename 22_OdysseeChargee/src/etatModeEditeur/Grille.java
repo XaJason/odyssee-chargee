@@ -53,7 +53,9 @@ public class Grille extends JPanel {
 	private Path2D.Double quadHori;
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
-	/** Tableau qui contient la tuile si la case est occupé ou null si elle est vide **/
+	/**
+	 * Tableau qui contient la tuile si la case est occupé ou null si elle est vide
+	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
 	Point2D clique;
@@ -109,7 +111,7 @@ public class Grille extends JPanel {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(supprimer) {
+				if (supprimer) {
 					setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 				} else {
 					setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -284,7 +286,7 @@ public class Grille extends JPanel {
 						} else if (tuileTemp.getDrapeau() && drapeau) {
 							break;
 						}
-						
+
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
@@ -301,7 +303,7 @@ public class Grille extends JPanel {
 
 		}
 	}// Fin méthode
-	
+
 	/**
 	 * 
 	 */
@@ -329,7 +331,6 @@ public class Grille extends JPanel {
 		}
 
 	}
-
 
 	/**
 	 * À fin de test, non permanent, imprime le tableau des emplacements
@@ -391,7 +392,10 @@ public class Grille extends JPanel {
 
 	}
 
-	public void setSupprimer() {
+	/**
+	 * 
+	 */
+	public void gererSupprimer() {
 		if (supprimer == false) {
 			supprimer = true;
 		} else {
@@ -406,8 +410,8 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						if(tabEmplacement[i][j].getDrapeau()) {
-							drapeau=false;
+						if (tabEmplacement[i][j].getDrapeau()) {
+							drapeau = false;
 						}
 						tabEmplacement[i][j] = null;
 
@@ -448,6 +452,14 @@ public class Grille extends JPanel {
 	 */
 	// Jason Xa
 	public void supprimerTuile() {
+	}
+
+	/**
+	 * @param supprimer the supprimer to set
+	 */
+	// Jason Xa
+	public void setSupprimer(boolean supprimer) {
+		this.supprimer = supprimer;
 	}
 
 }// Fin classe
