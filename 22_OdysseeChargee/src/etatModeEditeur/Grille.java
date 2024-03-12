@@ -289,6 +289,8 @@ public class Grille extends JPanel {
 						if (tuileTemp.getDrapeau() && drapeau) {	
 							break;
 						}
+
+
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
@@ -397,7 +399,10 @@ public class Grille extends JPanel {
 
 	}
 
-	public void setSupprimer() {
+	/**
+	 * 
+	 */
+	public void gererSupprimer() {
 		if (supprimer == false) {
 			supprimer = true;
 		} else {
@@ -454,6 +459,14 @@ public class Grille extends JPanel {
 	 */
 	// Jason Xa
 	public void supprimerTuile() {
+	}
+
+	/**
+	 * @param supprimer the supprimer to set
+	 */
+	// Jason Xa
+	public void setSupprimer(boolean supprimer) {
+		this.supprimer = supprimer;
 	}
 
 }// Fin classe
