@@ -10,6 +10,7 @@ import java.awt.Image;
 public class Carre extends Tuile {
 	/** l'image représentant un carré */
 	private static Image image;
+	private static String type = "Carré";
 
 	/**
 	 * Constructeur
@@ -17,7 +18,7 @@ public class Carre extends Tuile {
 	 */
 	// Jason Xa
 	public Carre() {
-		super(image);
+		super(image, type);
 	}
 
 	/**
@@ -29,7 +30,7 @@ public class Carre extends Tuile {
 	 */
 	// Jason Xa
 	public Carre(int x, int y) {
-		super(image, x, y);
+		super(image, x, y, type);
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class Carre extends Tuile {
 		Carre.image = imageRef;
 	}
 
-	//Giroux
+	// Giroux
 	public String toString() {
 		return "Carre ";
 	}

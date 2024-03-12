@@ -12,6 +12,7 @@ import java.awt.Image;
 public class Pics extends Tuile {
 	/** l'image représentant des pics */
 	private static Image image;
+	private static String type = "Pics";
 
 	/**
 	 * Constructeur
@@ -19,7 +20,7 @@ public class Pics extends Tuile {
 	 */
 	// Jason Xa
 	public Pics() {
-		super(image);
+		super(image, type);
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class Pics extends Tuile {
 	 */
 	// Jason Xa
 	public Pics(int x, int y) {
-		super(image, x, y);
+		super(image, x, y, type);
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class Pics extends Tuile {
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
 	}
 
-	//Giroux
+	// Giroux
 	public String toString() {
 		return "Pics ";
 	}
