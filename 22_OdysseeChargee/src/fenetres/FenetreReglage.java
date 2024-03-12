@@ -86,7 +86,7 @@ public class FenetreReglage extends JFrame {
 	 * Bouton pour fermer la fenêtre
 	 */
 	// Kitimir Yim
-	public void menuQuitter() {
+	private  void menuQuitter() {
 		dispose();
 	}
 }
