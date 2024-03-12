@@ -82,7 +82,9 @@ public class AppPrincipale22 extends JFrame {
 	private JMenuItem mntmSelection;
 
 	private Clip leClip = null;
+	
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
+	private final String NOM_FICHIER_SON_2 = "Effet_son.wav";
 	private AudioInputStream audioStr;
 	private double volumeEntre0Et1 = 1;
 	private String pathDeFichier = null;
@@ -133,14 +135,12 @@ public class AppPrincipale22 extends JFrame {
 		creerMenu();
 		lireImages();
 		
-		//Sauvegarder.CreeFichier();
-		//Sauvegarder.ecrireFichierTexte();
-		Sauvegarder.lireFichier();
 		
-		if (leClip != null)
+		/**if (leClip != null)
 			leClip.close();
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		*/
 	}
 
 	/**
@@ -168,6 +168,7 @@ public class AppPrincipale22 extends JFrame {
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
+			
 
 			}
 		});
@@ -178,6 +179,9 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
+				if (leClip!=null) leClip.close();
+				chargerLeSon(NOM_FICHIER_SON_2);
+				leClip.start();
 
 			}
 		});
@@ -188,6 +192,9 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
+				if (leClip!=null) leClip.close();
+				chargerLeSon(NOM_FICHIER_SON_2);
+				leClip.start();
 
 			}
 		});
