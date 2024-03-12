@@ -20,12 +20,12 @@ public class Tuile extends OutilsImage implements Dessinable {
 	protected int y;
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
-	/** Détermine si la tuile est un drapeau**/
-	boolean drapeau=false;
+	/** Détermine si la tuile est un drapeau **/
+	boolean drapeau = false;
 
 	/** l'image représentant la tuile */
 	Image image;
-	/** Image redimensionnée de la tuile**/
+	/** Image redimensionnée de la tuile **/
 	Image imageRedi;
 	/** Hauteur de l'image redimensionnée **/
 	int largeurImage;
@@ -59,17 +59,18 @@ public class Tuile extends OutilsImage implements Dessinable {
 		this.y = y;
 		this.image = image;
 	}
-	
+
 	/**
 	 * Constructeur qui copie une tuile
+	 * 
 	 * @param tuileCopier la tuile à copier
 	 */
-	//Giroux
+	// Giroux
 	public Tuile(Tuile tuileCopier) {
-		this.x=tuileCopier.x;
-		this.y=tuileCopier.y;
-		this.image=tuileCopier.image;
-	}//Fin méthode
+		this.x = tuileCopier.x;
+		this.y = tuileCopier.y;
+		this.image = tuileCopier.image;
+	}// Fin méthode
 
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
@@ -120,48 +121,51 @@ public class Tuile extends OutilsImage implements Dessinable {
 	public void setAngleRotation(int angleRotation) {
 		this.angleRotation = angleRotation;
 	}
+
 	/**
 	 * Méthode qui met le champ drapeau à vrai
 	 */
-	//Giroux
+	// Giroux
 	public void setDrapeau() {
-		this.drapeau=true;
+		this.drapeau = true;
 	}
-	
+
 	/**
 	 * Méthode qui indique si c'est un drapeau
+	 * 
 	 * @return la valeure du boolean drapaeau
 	 */
-	//Giroux
+	// Giroux
 	public boolean getDrapeau() {
-		if (drapeau==true) {
+		if (drapeau == true) {
 			return true;
 		} else {
 			return false;
-			
+
 		}
 	}
-	 /**
-	  * Méthode qui change l'image actuelle par une nouvelle
-	  * @param nouvImage la nouvelle image
-	  */
-	//Giroux
+
+	/**
+	 * Méthode qui change l'image actuelle par une nouvelle
+	 * 
+	 * @param nouvImage la nouvelle image
+	 */
+	// Giroux
 	private void setImage(Image nouvImage) {
 		this.image = nouvImage;
 	}
-	
+
 	/**
 	 * Méthode qui change la dimension de l'image
+	 * 
 	 * @param hauteurImage l'hauteur voulue de l'image
 	 * @param largeurImage la largeur voulue de l'image
 	 */
-	//Giroux
-	public void redimensionnerImage(int hauteurImage,int largeurImage) {
+	// Giroux
+	public void redimensionnerImage(int hauteurImage, int largeurImage) {
 		imageRedi = image.getScaledInstance(largeurImage, hauteurImage, Image.SCALE_DEFAULT);
 		setImage(imageRedi);
-		
+
 	}
-	
-	
 
 }
