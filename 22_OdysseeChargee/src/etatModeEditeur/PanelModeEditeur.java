@@ -8,12 +8,15 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import niveau.Niveau;
+import niveau.Sauvegarder;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -30,7 +33,7 @@ import utilis.OutilsImage;
  */
 
 public class PanelModeEditeur extends JPanel {
-	
+
 	/**
 	 *  Numéro d'identification pour la sérialisation
 	 */
@@ -221,11 +224,20 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sauvegarder(null) ;
 			}
 		});
 		btnSauvegarder.setBounds(188, 351, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 	}
+	
+	//Kitimir Yim
+	private void sauvegarder(Niveau niveau) {
+	String numeroTexte	 = JOptionPane.showInputDialog("Veuillez entrer un numéro de niveau :");
+	int numero = Integer.parseInt(numeroTexte);
 
+	Sauvegarder.sauvegarderNiveau(niveau, numero);
+
+	}
 }
