@@ -12,6 +12,10 @@ import java.awt.event.ActionEvent;
 
 public class ApplicationTest extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5394946883191123518L;
 	private JPanel contentPane;
 	private JButton btnDemarrer;
 	private JButton btnArreter;
@@ -68,28 +72,46 @@ public class ApplicationTest extends JFrame {
 		btnArreter = new JButton("Arrêter");
 		btnArreter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//debut
 				zoneAnimationPhysiqueTest.arreter();
 				btnProchaineImage.setEnabled(true);
 				btnDemarrer.setEnabled(true);
+				//fin
 			}
 		});
 		btnArreter.setBounds(263, 429, 89, 23);
 		contentPane.add(btnArreter);
 		
 		btnRedemarrer = new JButton("Redémarrer");
+		btnRedemarrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//debut
+				zoneAnimationPhysiqueTest.recommencer();
+				//fin
+			}
+		});
 		btnRedemarrer.setBounds(680, 429, 129, 23);
 		contentPane.add(btnRedemarrer);
 		
 		btnProchaineImage = new JButton("Prochaine image");
 		btnProchaineImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//debut
 				zoneAnimationPhysiqueTest.prochaineImage();
+				//fin
 			}
 		});
 		btnProchaineImage.setBounds(439, 429, 154, 23);
 		contentPane.add(btnProchaineImage);
 		
 		btnReinitialiser = new JButton("Réinitialiser");
+		btnReinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//debut
+				zoneAnimationPhysiqueTest.reinitialiser();
+				//fin
+			}
+		});
 		btnReinitialiser.setBounds(896, 429, 129, 23);
 		contentPane.add(btnReinitialiser);
 	}

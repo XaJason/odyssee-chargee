@@ -48,7 +48,11 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	
 	
 	// SOUS-PROGRAMMES //
-	private void creerLaGeometrie() {
+	/**
+	 * Permet de créer la géométrie du vaisseau.
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void creerLaGeometrie() {
 		double coinx = getPosition().getX() - rayon;
 		double coiny = getPosition().getY() - rayon;
 		cercle = new Ellipse2D.Double(coinx, coiny, 2*rayon, 2*rayon);
@@ -83,6 +87,28 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 		//System.out.println("Position après : "+getPosition());
 		
 		creerLaGeometrie();
+	}
+	
+	/**
+	 * Détermine s'il y a collision avec une plaque,
+	 * puis modifie la vitesse du vaisseau en conséquence
+	 * @param plaque La plaque avec laquelle le vaisseau entre en collision
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void gererCollision(PlaqueChargee plaque) {
+		/*
+		 * À modifier éventuellement, car il n'y a pas que des collisions avec des plaques
+		 * Faire de la surdéfinition (même méthodes avec comme paramètre, chaque objet différent)
+		 * OU
+		 * Faire du polymorphisme, une méthode avec comme paramètre InteractifPhysique,
+		 * mais faudra gérer différement les paramètres des méthodes
+		 * detectionCollisions et calculVitesseApresCollision
+		 */
+		if ( MoteurPhysique.detectionCollisions(this, plaque) ) {
+			System.out.println("Y'a une collision");
+			vitesse = MoteurPhysique.calculVitesseApresCollision(this, plaque);
+			//vitesse = new Vecteur2D(-vitesse.getX(), vitesse.getY());
+		}
 	}
 	
 	public String toString(int nbDecimales){
@@ -169,6 +195,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setRayon(double rayon) {
 		this.rayon = rayon;
+		creerLaGeometrie();
 	}
 	
 }
