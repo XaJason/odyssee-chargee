@@ -210,7 +210,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
-						if (!supprimer) {
+						if (!supprimer && tuile!=null) {
 							tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
 							tuile.setX((int) largeurCarre * j);
 							tuile.setY((int) hauteurCarre * i);
@@ -387,6 +387,10 @@ public class Grille extends JPanel {
 		return nbCarre;
 	}// Fin méthode
 
+	/**
+	 * Permet de réinitialiser le tableau
+	 */
+	//Giroux
 	public void reinitialiser() {
 		for (int i = 0; i < nbCarre; i++) {
 			for (int j = 0; j < nbCarre; j++) {
@@ -410,8 +414,11 @@ public class Grille extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Permet de supprimer une tuile précise
+	 */
+	//Giroux
 	public void supprimerCase() {
-
 		for (int i = 0; i < nbCarre; i++) {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
@@ -428,7 +435,10 @@ public class Grille extends JPanel {
 
 	}
 	
-	
+	/**
+	 * Permet d'avoir l'emplacement des tuiles
+	 * @return L'emplacement des tuiles
+	 */
 	public Tuile[][] getTableau() {
 		return tabEmplacement;
 	}

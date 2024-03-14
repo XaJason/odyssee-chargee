@@ -89,18 +89,18 @@ public class PanelModeEditeur extends JPanel {
 		btnGrille.setBounds(858, 5, 421, 23);
 		add(btnGrille);
 
-		JSpinner spinnerQttCarre = new JSpinner();
-		spinnerQttCarre.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				Object objetInit = spinnerQttCarre.getValue();
-				Number chiffreTransfo = (Number) objetInit;
-				grille.changerQttCarre(chiffreTransfo.intValue());
-
-			}
-		});
-		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
-		spinnerQttCarre.setBounds(715, 6, 54, 20);
-		add(spinnerQttCarre);
+//		JSpinner spinnerQttCarre = new JSpinner();
+//		spinnerQttCarre.addChangeListener(new ChangeListener() {
+//			public void stateChanged(ChangeEvent e) {
+//				Object objetInit = spinnerQttCarre.getValue();
+//				Number chiffreTransfo = (Number) objetInit;
+//				grille.changerQttCarre(chiffreTransfo.intValue());
+//
+//			}
+//		});
+//		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
+//		spinnerQttCarre.setBounds(715, 6, 54, 20);
+//		add(spinnerQttCarre);
 
 		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
 		lblQttCarre.setBounds(530, 9, 199, 14);
