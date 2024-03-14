@@ -105,8 +105,7 @@ public class Grille extends JPanel {
 				exterieurComposant = false;
 			}
 		});
-		
-		
+
 		setLayout(null);
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -153,7 +152,7 @@ public class Grille extends JPanel {
 			dessinerGrille();
 			premiereFois = false;
 		}
-		if(supprimer) {
+		if (supprimer) {
 			setBackground(Color.red);
 		} else {
 			setBackground(new Color(255, 255, 128));
@@ -161,7 +160,7 @@ public class Grille extends JPanel {
 
 		if (placePrise && !supprimer) {
 			g2d.setColor(Color.orange);
-		} else if(!supprimer) {
+		} else if (!supprimer) {
 			g2d.setColor(Color.cyan);
 		}
 		if (!exterieurComposant) {
@@ -286,10 +285,9 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						clonerTuile();
-						if (tuileTemp.getDrapeau() && drapeau) {	
+						if (tuileTemp.getDrapeau() && drapeau) {
 							break;
 						}
-
 
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
@@ -318,22 +316,22 @@ public class Grille extends JPanel {
 	private void clonerTuile() {
 		switch (tuile.getType()) {
 		case "Carré":
-			tuileTemp = new Carre();
+			tuileTemp = new Carre(tuile.getAngleRotation());
 			break;
 		case "Drapeau":
-			tuileTemp = new Drapeau();
+			tuileTemp = new Drapeau(tuile.getAngleRotation());
 			break;
 		case "Pics":
-			tuileTemp = new Pics();
+			tuileTemp = new Pics(tuile.getAngleRotation());
 			break;
 		case "Portail":
-			tuileTemp = new Portail();
+			tuileTemp = new Portail(tuile.getAngleRotation());
 			break;
 		case "Triangle équilatéral":
-			tuileTemp = new TriangleEquilateral();
+			tuileTemp = new TriangleEquilateral(tuile.getAngleRotation());
 			break;
 		case "Triangle rectangle":
-			tuileTemp = new TriangleRectangle();
+			tuileTemp = new TriangleRectangle(tuile.getAngleRotation());
 			break;
 		}
 
@@ -443,22 +441,9 @@ public class Grille extends JPanel {
 	 * 
 	 */
 	// Jason Xa
-	public void reinitialiserNiveau() {
-
-	}
-
-	/**
-	 * 
-	 */
-	// Jason Xa
-	public void rotationObjet() {
-	}
-
-	/**
-	 * 
-	 */
-	// Jason Xa
-	public void supprimerTuile() {
+	public void rotation() {
+		tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
+		repaint();
 	}
 
 	/**

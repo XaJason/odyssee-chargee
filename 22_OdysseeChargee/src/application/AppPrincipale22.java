@@ -32,6 +32,7 @@ import tuile.Pics;
 import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
+import tuile.Tuile;
 import utilis.OutilsImage;
 import niveau.Niveau;
 import niveau.Sauvegarder;
@@ -80,13 +81,13 @@ public class AppPrincipale22 extends JFrame {
 	private PanelSelecteurNiveaux panS;
 
 	private JMenuBar menuBar;
-	
+
 	private JMenuItem mntmEditeur;
-	
+
 	private JMenuItem mntmSelection;
 
 	private Clip leClip = null;
-	
+
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
 	private final String NOM_FICHIER_SON_2 = "Effet_son.wav";
 	private AudioInputStream audioStr;
@@ -95,7 +96,7 @@ public class AppPrincipale22 extends JFrame {
 	private File objetFichier = null;
 
 	/** largeur d'une tuile */
-	private final int LARGEUR_TUILE = 68;
+	private final int LARGEUR_TUILE = 61;
 	/** hauteur d'une tuile */
 	private final int HAUTEUR_TUILE = 61;
 	/** hauteur d'une demi-tuile */
@@ -138,20 +139,30 @@ public class AppPrincipale22 extends JFrame {
 		creerPanels();
 		creerMenu();
 		lireImages();
-		
-		
-		/**if (leClip != null)
-			leClip.close();
-		chargerLeSon(NOM_FICHIER_SON_1);
-		leClip.loop(Clip.LOOP_CONTINUOUSLY);
-		*/
-		
+		gererConstantes();
+
+		/**
+		 * if (leClip != null)
+		 * leClip.close();
+		 * chargerLeSon(NOM_FICHIER_SON_1);
+		 * leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		 */
+
 		Niveau niveau1 = new Niveau();
 		Niveau niveau2 = new Niveau();
 		Niveau niveau3 = new Niveau();
 		Sauvegarder.sauvegarderNiveau(niveau1, 1);
 		Sauvegarder.sauvegarderNiveau(niveau2, 2);
 		Sauvegarder.sauvegarderNiveau(niveau3, 3);
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	private void gererConstantes() {
+		Tuile.setHauteurTuile(HAUTEUR_TUILE);
+		Tuile.setLargeurTuile(LARGEUR_TUILE);
 	}
 
 	/**
@@ -179,7 +190,6 @@ public class AppPrincipale22 extends JFrame {
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
-			
 
 			}
 		});
@@ -190,7 +200,8 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				if (leClip!=null) leClip.close();
+				if (leClip != null)
+					leClip.close();
 				chargerLeSon(NOM_FICHIER_SON_2);
 				leClip.start();
 
@@ -203,7 +214,8 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
-				if (leClip!=null) leClip.close();
+				if (leClip != null)
+					leClip.close();
 				chargerLeSon(NOM_FICHIER_SON_2);
 				leClip.start();
 
@@ -284,8 +296,6 @@ public class AppPrincipale22 extends JFrame {
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
-		
-
 	}
 
 	/**
@@ -309,14 +319,14 @@ public class AppPrincipale22 extends JFrame {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		menuBar.setVisible(false);
-		
+
 		JMenuItem mntmPrincipale = new JMenuItem("Menu principal");
 		mntmPrincipale.setPreferredSize(new Dimension(100, 26));
 		mntmPrincipale.setMaximumSize(new Dimension(200, 32767));
 
 		mntmPrincipale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				contentPane.setVisible(true);
 				panE.setVisible(false);
 				panS.setVisible(false);
@@ -327,9 +337,8 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmPrincipale);
 
-		 mntmSelection = new JMenuItem("Jouer");
-	
-	
+		mntmSelection = new JMenuItem("Jouer");
+
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
@@ -362,11 +371,10 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		menuBar.add(mntmEditeur);
-		
+
 		JMenuItem mntmInstructions = new JMenuItem("Instructions");
 		mntmInstructions.setMaximumSize(new Dimension(200, 32767));
 		mntmInstructions.setPreferredSize(new Dimension(100, 26));
-		
 
 		mntmInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -376,11 +384,10 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmInstructions);
-		
+
 		JMenuItem mntmReglage = new JMenuItem("Réglage");
 		mntmReglage.setMaximumSize(new Dimension(200, 32767));
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
-		
 
 		mntmReglage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -390,7 +397,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmReglage);
-		
+
 		JMenuItem mntmApropos = new JMenuItem("À propos");
 		mntmApropos.setPreferredSize(new Dimension(100, 26));
 		mntmApropos.setMaximumSize(new Dimension(200, 32767));
@@ -405,9 +412,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmApropos);
 
-
 	}
-	
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
@@ -449,8 +454,10 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Pour la gestion du volume si d�sire
 	 * 
-	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun volume
-	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé pour notre code
+	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
+	 *                        volume
+	 *                        La méthode a éte trouvée dans le materiel d'appoint
+	 *                        mais a été implementé pour notre code
 	 */
 	// Caroline Houle && Kitimir Yim
 	private void modifierVolume(double valeurEntre0Et1) {

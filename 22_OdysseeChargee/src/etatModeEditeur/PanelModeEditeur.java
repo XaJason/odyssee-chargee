@@ -74,7 +74,7 @@ public class PanelModeEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBounds(514, 39, 1021, 916);
+		grille.setBounds(514, 39, 916, 916);
 		add(grille);
 
 		JButton btnGrille = new JButton("Afficher la grille");
@@ -212,6 +212,7 @@ public class PanelModeEditeur extends JPanel {
 		btnRotation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setSupprimer(false);
+				grille.rotation();
 			}
 		});
 		btnRotation.setBounds(315, 255, 85, 85);

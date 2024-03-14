@@ -22,6 +22,9 @@ public class TriangleRectangle extends Tuile {
 		super(image, type);
 	}
 
+	public TriangleRectangle(double angleRotation) {
+		super(angleRotation, image, type);
+	}
 	/**
 	 * Constructeur
 	 * 
