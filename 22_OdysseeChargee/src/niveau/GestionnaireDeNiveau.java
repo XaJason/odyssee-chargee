@@ -10,7 +10,7 @@ public class GestionnaireDeNiveau {
 	
 	public void ajouter(Niveau niveauAAjouter) {
 		repertoireNiveau.add(niveauAAjouter);
-		System.out.println("Ajoue fait avec succès");
+		System.out.println("Ajout fait avec succès");
 	}
 	
 	public Niveau getNiveau(String nom) {
@@ -24,6 +24,12 @@ public class GestionnaireDeNiveau {
 		return null;
 		
 	}
+	public Niveau getNiveau(int index) {
+		return repertoireNiveau.get(index);
+		
+	}
 	
-
+	public void setNiveau(int index, Niveau niveau) {
+		repertoireNiveau.set(index, niveau);	
+	}
 }

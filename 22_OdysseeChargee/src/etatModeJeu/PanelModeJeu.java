@@ -26,11 +26,15 @@ public class PanelModeJeu extends JPanel {
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
-
+	
+	/**
+	 *  Implémente le panel et ses fonctionnalités
+	 */
+	// Kitimir Yim
 	public PanelModeJeu() {
 		setLayout(null);
 
-		
+
 	}
 
 }

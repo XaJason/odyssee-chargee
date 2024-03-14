@@ -70,7 +70,7 @@ public class PanelModeEditeur extends JPanel {
 	}
 
 	/**
-	 * 
+	 *  Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
 	public PanelModeEditeur() {
@@ -231,13 +231,12 @@ public class PanelModeEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 	}
-	
+
 	//Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
-	String numero = JOptionPane.showInputDialog("Veuillez entrer un numéro de niveau :");
-	
+		String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
 
-	Sauvegarder.sauvegarderNiveau(niveau, numero);
+		Sauvegarder.sauvegarderNiveau(niveau, nom.toLowerCase());
 
 	}
 }

@@ -21,7 +21,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	
+
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -29,13 +29,15 @@ public class PanelSelecteurNiveaux extends JPanel {
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
-
+	/**
+	 *  Implémente le panel et ses fonctionnalités
+	 */
 	// Kitimir Yim
 	public PanelSelecteurNiveaux() {
 
 		setLayout(null);
 
-	
+
 		JButton btnPasserModeJeu = new JButton("Bouton Play");
 		btnPasserModeJeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
