@@ -2,6 +2,7 @@ package interactif;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
 import physique.Vecteur2D;
@@ -15,6 +16,8 @@ import utilis.Dessinable;
 public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	// PROPRIÉTÉS //
+	Path2D.Double plaque = new Path2D.Double();
+	
 	/** Vecteur normal de la plaque **/
 	private Vecteur2D normale; // Doit être normalisé
 
@@ -49,10 +52,23 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 		this.axe = new Vecteur2D(normale.getY(), -normale.getX());
 		this.extremiteA = getPosition().additionne(axe.multiplie(longueur / 2));
 		this.extremiteB = getPosition().additionne(axe.multiplie(-longueur / 2));
+		
+		creerLaGeometrie();
 	}
 
 	
 	// SOUS-PROGRAMMES
+	/**
+	 * Permet de créer la géométrie de la plaque chargée.
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void creerLaGeometrie() {
+		double coinx = getPosition().getX();
+		double coiny = getPosition().getY() - longueur/4;
+		plaque.moveTo(coinx, coiny);
+		plaque.lineTo(coinx, coiny + longueur);
+	}
+	
 	/**
 	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique passé en parametre.
 	 * @param g2d
@@ -60,12 +76,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	//Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {	
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-
-		double coinx = getPosition().getX();
-		double coiny = getPosition().getY() - longueur/2;
-		Path2D.Double plaque = new Path2D.Double();
-		plaque.moveTo(coinx, coiny);
-		plaque.lineTo(coinx, coiny+longueur);
 
 		g2dPrive.setColor(Color.red);
 		g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
@@ -97,6 +107,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setNormale(Vecteur2D normale) {
 		this.normale = new Vecteur2D(normale);
+		creerLaGeometrie();
 	}
 
 	/**
@@ -117,6 +128,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setAxe(Vecteur2D axe) {
 		this.axe = new Vecteur2D(axe);
+		creerLaGeometrie();
 	}
 
 	/**
@@ -137,6 +149,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setLongueur(double longueur) {
 		this.longueur = longueur;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -157,6 +170,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteA(Vecteur2D extremiteA) {
 		this.extremiteA = new Vecteur2D(extremiteA);
+		creerLaGeometrie();
 	}
 
 	/**
@@ -177,6 +191,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteB(Vecteur2D extremiteB) {
 		this.extremiteB = new Vecteur2D(extremiteB);
+		creerLaGeometrie();
 	}
 
 }

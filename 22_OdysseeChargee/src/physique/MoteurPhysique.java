@@ -16,7 +16,7 @@ public class MoteurPhysique {
 
 	private static final double ACCEL_G = 9.80665; //Accélération gravitationnelle de la Terre
 	private static final double K = 8.98755; //Constante de Coulomb
-	private static final double COEFF_E = 19/20; //Coefficient de restitution pour un vaisseau et une surface, tous deux en acier
+	private static final double COEFF_E = 19.0/20.0; //Coefficient de restitution pour un vaisseau et une surface, tous deux en acier
 	private static final double EPSILON = 1e-10; //tolerance utilisée dans les comparaisons réelles avec zero
 	private static final double RAPPORT_RADIANS_DEGRES = 2*Math.PI/360;
 	private static final Vecteur2D VEC_ZERO = new Vecteur2D();
@@ -45,8 +45,7 @@ public class MoteurPhysique {
 	 * 
 	 * @param deltaT  L'intervalle de temps (petit!) en secondes
 	 * @param vitesse La vitesse initiale au debut de l'intervalle de temps, en m/s
-	 * @param accel   L'accélération initiale au début de l'intervalle de temps, en
-	 *                m/s^2
+	 * @param accel   L'accélération initiale au début de l'intervalle de temps, en m/s^2
 	 * @return La nouvelle vitesse (à la fin de l'intervalle)
 	 */
 	// Caroline Houle
@@ -76,24 +75,25 @@ public class MoteurPhysique {
 	}
 
 	/**
-	 * Forme et retourne un vecteur exprimant la force gravitationnelle s'appliquant
+	 * Calcule et retourne un vecteur exprimant la force gravitationnelle s'appliquant
 	 * sur un objet dont la masse est passée en paramètre
 	 * 
 	 * @param masse Masse de l'objet
 	 * @return Un vecteur représentant la force gravitationnelle exercée
 	 */
-	// Caroline Houle
+	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceGrav(double masse) {
-		return new Vecteur2D(0, ACCEL_G * masse);
+		return new Vecteur2D(0, -ACCEL_G * masse);
 	}
 
 	/**
-	 * Forme et retourne un vecteur exprimant la composante en X de la force
+	 * Calcule et retourne un vecteur exprimant la composante en X de la force
 	 * gravitationnelle
 	 * s'appliquant sur un objet dont la masse est passée en parametre
 	 * 
-	 * @param masse Masse de l'objet
-	 * @return Un vecteur repr�sentant la force gravitationnelle exercee
+	 * @param forceGrav Vecteur de la force gravitationnelle agissant sur l'objet
+	 * @param angleDeg Angle de la surface avec l'horizontale
+	 * @return Un vecteur repr�sentant la force gravitationnelle exercée sur l'objet selon l'axe x (incliné à angleDeg degré)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceGravEnX(Vecteur2D forceGrav, double angleDeg) {
@@ -102,23 +102,20 @@ public class MoteurPhysique {
 	}
 
 	/**
-	 * Forme et retourne un vecteur exprimant la force de frottement cinétique
+	 * Calcule et retourne un vecteur exprimant la force de frottement cinétique
 	 * s'appliquant sur le vaisseau
 	 * 
 	 * @param masse               La masse de l'objet
-	 * @param coeffFrottementCine Le coefficient de frottement cinétique de la
-	 *                            surface
+	 * @param coeffFrottementCine Le coefficient de frottement cinétique de la surface
 	 * @param vitesse             La vitesse du vaisseau
 	 * @param angleDeg            L'angle de la surface avec l'horizontale, en degré
-	 * @return Un vecteur représentant la force de frottement cinétique exercée sur
-	 *         le vaisseau
+	 * @return Un vecteur représentant la force de frottement cinétique exercée sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculForceFrotCine(double masse, double coeffFrottementCine, Vecteur2D vitesse,
-			double angleDeg) {
-		Vecteur2D forceFrot;
+	public static Vecteur2D calculForceFrotCine(double masse, double coeffFrottementCine, Vecteur2D vitesse, double angleDeg) {
 		double angleRad = angleDeg * RAPPORT_RADIANS_DEGRES;
-
+		Vecteur2D forceFrot;
+		
 		if (vitesse.module() < EPSILON) {
 			forceFrot = VEC_ZERO;
 		} else {
@@ -128,27 +125,23 @@ public class MoteurPhysique {
 	}
 
 	/**
-	 * Forme et retourne un vecteur exprimant la force de frottement statique
+	 * Calcule et retourne un vecteur exprimant la force de frottement statique
 	 * s'appliquant sur le vaisseau
 	 * 
 	 * @param masse                       La masse de l'objet
-	 * @param coeffFrottementStat         Le coefficient de frottement statique de
-	 *                                    la surface
+	 * @param coeffFrottementStat         Le coefficient de frottement statique de la surface
 	 * @param vitesse                     La vitesse du vaisseau
-	 * @param angleDeg                    L'angle de la surface avec l'horizontale,
-	 *                                    en degré
-	 * @param sommeAutresForcesParalleles La somme de toutes les autres forces
-	 *                                    parallèles au frottement statique
-	 * @return Un vecteur représentant la force de frottement statique exercée sur
-	 *         le vaisseau
+	 * @param angleDeg                    L'angle de la surface avec l'horizontale, en degré
+	 * @param sommeAutresForcesParalleles La somme de toutes les autres forces parallèles au frottement statique
+	 * @return Un vecteur représentant la force de frottement statique exercée sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceFrotStat(double masse, double coeffFrottementStat, Vecteur2D vitesse,
 			double angleDeg, double sommeAutresForcesParalleles) {
-		Vecteur2D forceFrot;
 		double angleRad = angleDeg * RAPPORT_RADIANS_DEGRES;
 		double frottementStatiqueMax = -coeffFrottementStat * masse * ACCEL_G * Math.cos(angleRad);
-
+		Vecteur2D forceFrot;
+		
 		if (vitesse.module() < EPSILON) {
 			forceFrot = VEC_ZERO;
 		} else if (sommeAutresForcesParalleles <= frottementStatiqueMax) {
@@ -164,21 +157,20 @@ public class MoteurPhysique {
 	 * @param vaisseau Objet représentant un vaisseau
 	 * @param plaque Objet représentant une plaque chargée
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceElectriqueGenereeParPlaque(Vaisseau vaisseau, PlaqueChargee plaque) {
-		Vecteur2D forceElec;
-
 		double distanceVaisseauPlaque = Math.abs( vaisseau.getPosition().soustrait(plaque.getPosition()).module() );
-		System.out.println("Distance vaisseau-plaque : " + distanceVaisseauPlaque);
 		double projectionDistanceVPSurAxePlaque = Math.abs( vaisseau.getPosition().soustrait(plaque.getPosition()).prodScalaire(plaque.getAxe()) );
-		System.out.println("Projection de la distance v-p sur l'axe de la plaque : " + projectionDistanceVPSurAxePlaque);
-
+		Vecteur2D forceElec;
+		
 		if (distanceVaisseauPlaque <= projectionDistanceVPSurAxePlaque+EPSILON) {
 			forceElec = calculChampElectriqueSurAxe(vaisseau, plaque).multiplie(1/vaisseau.getCharge());
 		} else {
 			forceElec = calculChampElectriqueHorsAxe(vaisseau, plaque).multiplie(vaisseau.getCharge());
-		}
+		}// fin if
+		
 		return forceElec;
-	}
+	}// fin méthode
 
 	/**
 	 * Retourne le champ électrique généré par une plaque le long de son axe
@@ -206,15 +198,17 @@ public class MoteurPhysique {
 
 			return orientationChamp.multiplie(moduleChamp);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Le vaisseau est trop près de la plaque, le champ électrique agissant sur la plaque est donc nul.");
 			return VEC_ZERO;
-			//e.printStackTrace();
 		}//fin méthode
 	}//fin try catch
 
 	/**
 	 * Retourne le champ électrique généré par une plaque hors de son axe
 	 * 
+	 * @param vaisseau Objet représentant un vaisseau
+	 * @param plaque Objet représentant une plaque chargée
 	 * @return Le champ électrique hors axe
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -237,30 +231,34 @@ public class MoteurPhysique {
 			double projDistanceVExtrmASurAxePlaque = Math.abs( distanceVaisseauExtremiteA.prodScalaire(plaque.getAxe()) );
 			double projDistanceVExtrmBSurAxePlaque = Math.abs( distanceVaisseauExtremiteB.prodScalaire(plaque.getAxe()) );
 			boolean vaisseauEntreExtremite = !(projDistanceVExtrmASurAxePlaque + projDistanceVExtrmBSurAxePlaque > plaque.getLongueur());
-			
 			if (vaisseauEntreExtremite) {
 				alphaB = -1*alphaB;
 			} 
-			
+
 			// Calcul du module du champ électrique
 			double moduleChamp = Math.sqrt(2) * K * Math.abs(densiteLineiqueCharge) / plusPetiteDistanceVaisseauPlaque
 					* Math.sqrt(1 - Math.cos(alphaA - alphaB));
 
-			// détermine le vecteur orientation du champ électrique, unitaire (en assumant
-			// que la plaque est négative)
-			Vecteur2D orientationChamp = plaque.getPosition().soustrait(vaisseau.getPosition()).normalise();
+			/* Détermine le vecteur orientation du champ électrique, unitaire
+			 * (en assumant que la plaque est chargée négativement)
+			 */
+			Vecteur2D orientationChamp = distanceVaisseauPlaque.normalise();
 
-			// change l'orientation si la plaque est positive
+			// Change l'orientation si la plaque est chargée positivement
 			if (Math.signum(plaque.getCharge()) > 0) {
 				orientationChamp = orientationChamp.multiplie(-1);
 			}
-			System.out.println("Module du champ électrique : " + moduleChamp);
-			System.out.println("Champ électrique : "+orientationChamp.multiplie(moduleChamp));
+
+			System.out.println("Champ électrique : " + orientationChamp.multiplie(moduleChamp));
+
 			return orientationChamp.multiplie(moduleChamp);
 		} catch (Exception e) {
+			/* Si la distance entre la plaque et le vaisseau est trop petite,
+			 * nous ne pouvons pas normaliser ce vecteur, et donc le champ électrique est nul
+			 */
+			e.printStackTrace();
 			System.out.println("Le vaisseau est trop près de la plaque, le champ électrique agissant sur la plaque est donc nul.");
 			return VEC_ZERO;
-			//e.printStackTrace();
 		}//fin try catch
 	}//fin méthode
 
@@ -269,32 +267,67 @@ public class MoteurPhysique {
 	 * 
 	 * @param vaisseau Objet représentant le vaisseau
 	 * @param plaque   Objet représentant une plaque chargée
-	 * @return Un booléen indiquant s'il y a eu une collision entre le vaisseau et
-	 *         un mur
+	 * @return Un booléen indiquant s'il y a eu une collision entre le vaisseau et un mur
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public static boolean detectionCollisions(Vaisseau vaisseau, PlaqueChargee plaque) {
 		Vecteur2D distanceVaisseauPointSurPlaque = vaisseau.getPosition().soustrait(plaque.getPosition());
 		double plusPetiteDistanceVaisseauPlaque = Math.abs(distanceVaisseauPointSurPlaque.prodScalaire(plaque.getNormale()));
 
-		return (plusPetiteDistanceVaisseauPlaque <= vaisseau.getRayon());
+		Vecteur2D dVaisseauExtrA = plaque.getExtremiteA().soustrait( vaisseau.getPosition() );
+		Vecteur2D dVaisseauExtrB = plaque.getExtremiteB().soustrait( vaisseau.getPosition() );
+
+		double dVaisseauExtrASurAxe = Math.abs( dVaisseauExtrA.prodScalaire( plaque.getAxe() ) );
+		double dVaisseauExtrBSurAxe = Math.abs( dVaisseauExtrB.prodScalaire( plaque.getAxe() ) );
+
+		// Détermine si le vaisseau est entre les extrémités de la plaque, et donc s'il est bel et bien en collision
+		boolean vaisseauEntreExtremite = !(dVaisseauExtrASurAxe + dVaisseauExtrBSurAxe > plaque.getLongueur());
+
+
+		System.out.println("\nDistance vaisseau plaque : " + distanceVaisseauPointSurPlaque.module());
+		System.out.println("Plus petite distance vaisseau plaque : " + plusPetiteDistanceVaisseauPlaque + "\n");
+
+		return (plusPetiteDistanceVaisseauPlaque <= vaisseau.getRayon() & vaisseauEntreExtremite);
 	}
 
 	/**
-	 * Calcule la vitesse du vaisseau après une collision contre un mur
-	 * @param vaisseau
-	 * @param plaque
+	 * Calcule la vitesse du vaisseau après une collision contre une surface rigide, immobile et fixe (la plaque)
+	 * 
+	 * @param vaisseau L'objet représentant un vaisseau
+	 * @param plaque L'objet représentant une plaque chargée
 	 * @return La nouvelle vitesse du vaisseau, après la collision
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculVitesseApresCollision(Vaisseau vaisseau, PlaqueChargee plaque) {
-		double impulsionJn = -(1+COEFF_E) / (1/vaisseau.getMasse() + 1/plaque.getMasse()) * vaisseau.getVitesse().prodScalaire(plaque.getNormale());
+		try {
+			Vecteur2D vitApresCol;
+			Vecteur2D orientationDistancePlaqueVaisseau;
+			orientationDistancePlaqueVaisseau = vaisseau.getPosition().soustrait(plaque.getPosition()).normalise();
 
-		return vaisseau.getVitesse().additionne( plaque.getNormale().multiplie( impulsionJn/vaisseau.getMasse() ) );
+			Vecteur2D orientationVitesseInitiale = vaisseau.getVitesse().normalise();
+			Vecteur2D invOrientationVitesseInitiale = orientationVitesseInitiale.multiplie(-1);
+			Vecteur2D normaleSurface = plaque.getNormale();
 
-		/*
-		 * Il faudra peut-être trouver un moyen de vérifier que la normale du mur/plaque pointe vers l'extérieur de celui-ci,
-		 * autrement on aurait une mauvaise orientation et de mauvais résultats...
-		 */
-	}
+			// Permet de s'assurer que la normale est bien orientée vers l'extérieur de la surface, donc vers le vaisseau
+			if (orientationDistancePlaqueVaisseau.prodScalaire(normaleSurface) < 0) {
+				normaleSurface = normaleSurface.multiplie(-1);
+			}
+
+			Vecteur2D orientationVitesseFinale = orientationVitesseInitiale.additionne( normaleSurface.multiplie( 2 * invOrientationVitesseInitiale.prodScalaire(normaleSurface) ) );
+			double moduleVitApresCol = COEFF_E*vaisseau.getVitesse().module();
+			vitApresCol = orientationVitesseFinale.multiplie(moduleVitApresCol);
+
+			System.out.println("Vitesse après collision : " + vitApresCol);
+			
+			return vitApresCol;
+		} catch (Exception e) {
+			/* Si la vitesse initiale est nulle
+			 * ou si le vaisseau est trop prêt de la plaque,
+			 * alors la vitesse finale est nulle
+			 */
+			e.printStackTrace();
+			System.out.println("Le vaisseau est trop prêt de la plaque ou sa vitesse initiale est nulle, donc sa vitesse finale sera nulle");
+			return VEC_ZERO;
+		}// fin try catch
+	}// fin méthode
 }
