@@ -141,19 +141,14 @@ public class AppPrincipale22 extends JFrame {
 		lireImages();
 		gererConstantes();
 
-		/**
-		 * if (leClip != null)
-		 * leClip.close();
-		 * chargerLeSon(NOM_FICHIER_SON_1);
-		 * leClip.loop(Clip.LOOP_CONTINUOUSLY);
-		 */
 
-		Niveau niveau1 = new Niveau();
-		Niveau niveau2 = new Niveau();
-		Niveau niveau3 = new Niveau();
-		Sauvegarder.sauvegarderNiveau(niveau1, 1);
-		Sauvegarder.sauvegarderNiveau(niveau2, 2);
-		Sauvegarder.sauvegarderNiveau(niveau3, 3);
+
+
+//		if (leClip != null)
+//			leClip.close();
+//		chargerLeSon(NOM_FICHIER_SON_1);
+//		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+//		 
 	}
 
 	/**
@@ -190,6 +185,7 @@ public class AppPrincipale22 extends JFrame {
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
+
 
 			}
 		});
@@ -296,6 +292,25 @@ public class AppPrincipale22 extends JFrame {
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
+
+		panS.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("passerVersJeu")) {
+					panS.setVisible(false);
+					panJ.setVisible(true);
+					setContentPane(panJ);
+
+
+
+				}
+			}
+		});	
+
+
+
+
+
 	}
 
 	/**
@@ -339,6 +354,7 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmSelection = new JMenuItem("Jouer");
 
+
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
@@ -376,6 +392,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmInstructions.setMaximumSize(new Dimension(200, 32767));
 		mntmInstructions.setPreferredSize(new Dimension(100, 26));
 
+
 		mntmInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
@@ -388,6 +405,8 @@ public class AppPrincipale22 extends JFrame {
 		JMenuItem mntmReglage = new JMenuItem("Réglage");
 		mntmReglage.setMaximumSize(new Dimension(200, 32767));
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
+
+
 
 		mntmReglage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

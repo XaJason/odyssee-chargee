@@ -34,13 +34,16 @@ public class Sauvegarder {
 	 * @param numeroNiveau numéro du niveau 
 	 */
 	//Kitimir Yim
-	public static void sauvegarderNiveau(Niveau niveau, int numeroNiveau) {
+	public static void sauvegarderNiveau(Niveau niveau, String numeroNiveau) {
 
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
 
 		ObjectOutputStream oos = null;
+		if (fichierDeTravail.exists()) {
+			JOptionPane.showMessageDialog(null,	"Probléme! Le fichier " + fichierDeTravail.toString() + " existe déja...");
+		}
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(fichierDeTravail));
 			oos.writeObject(niveau);
@@ -65,11 +68,12 @@ public class Sauvegarder {
 	 * @return niveau niveau que l'on souhaite charger
 	 */
 	//Kitimir Yim
-	public static Niveau chargerNiveau(int numeroNiveau) {
+	public static Niveau chargerNiveau(String numeroNiveau) {
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
-
+		
+		
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
