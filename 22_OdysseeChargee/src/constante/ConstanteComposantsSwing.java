@@ -1,7 +1,7 @@
 package constante;
 
 /**
- * 
+ * Constante des différents panels et fenêtre
  */
 public class ConstanteComposantsSwing {
 	/**

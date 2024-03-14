@@ -70,7 +70,7 @@ public class PanelModeEditeur extends JPanel {
 	}
 
 	/**
-	 * 
+	 *  Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
 	public PanelModeEditeur() {
@@ -102,9 +102,9 @@ public class PanelModeEditeur extends JPanel {
 //		spinnerQttCarre.setBounds(715, 6, 54, 20);
 //		add(spinnerQttCarre);
 
-		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
-		lblQttCarre.setBounds(530, 9, 199, 14);
-		add(lblQttCarre);
+//		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
+//		lblQttCarre.setBounds(530, 9, 199, 14);
+//		add(lblQttCarre);
 
 		creerSectionBoutons();
 	}
@@ -232,13 +232,12 @@ public class PanelModeEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 	}
-	
+
 	//Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
-	String numero = JOptionPane.showInputDialog("Veuillez entrer un numéro de niveau :");
-	
+		String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
 
-	Sauvegarder.sauvegarderNiveau(niveau, numero);
+		Sauvegarder.sauvegarderNiveau(niveau, nom.toLowerCase());
 
 	}
 }

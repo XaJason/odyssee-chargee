@@ -17,7 +17,7 @@ public class GestionnaireDeNiveau {
 	//Giroux
 	public void ajouter(Niveau niveauAAjouter) {
 		repertoireNiveau.add(niveauAAjouter);
-		System.out.println("Ajoue fait avec succès");
+		System.out.println("Ajout fait avec succès");
 	}
 
 	/**
@@ -39,7 +39,25 @@ public class GestionnaireDeNiveau {
 		}
 		return niveauTrouver;
 	}
+	/**
+	 * Permet d'aller chercher le niveau
+	 * @param index
+	 * @return Le niveau voulu
+	 */
+	//Kitimir Yim
+	public Niveau getNiveau(int index) {
+		return repertoireNiveau.get(index);
 
+	}
+	/**
+	 * Permet d'aller chercher le niveau
+	 * @param index
+	 * @return Le niveau voulu
+	 */
+	//Kitimir Yim
+	public void setNiveau(int index, Niveau niveau) {
+		repertoireNiveau.set(index, niveau);	
+	}
 	/**
 	 * Permet de supprimer un niveau
 	 * @param nom le nom du niveau à supprimer
@@ -52,6 +70,7 @@ public class GestionnaireDeNiveau {
 			}
 
 		}
+
 
 	}
 }
