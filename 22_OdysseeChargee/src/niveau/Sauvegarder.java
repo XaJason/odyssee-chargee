@@ -41,6 +41,9 @@ public class Sauvegarder {
 		File fichierDeTravail = new File(nomFichier);
 
 		ObjectOutputStream oos = null;
+		if (fichierDeTravail.exists()) {
+			JOptionPane.showMessageDialog(null,	"Probléme! Le fichier " + fichierDeTravail.toString() + " existe déja...");
+		}
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(fichierDeTravail));
 			oos.writeObject(niveau);
@@ -69,7 +72,8 @@ public class Sauvegarder {
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
-
+		
+		
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
