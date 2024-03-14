@@ -33,6 +33,10 @@ public class Carre extends Tuile {
 		super(image, x, y, type);
 	}
 
+	public Carre(double angleRotation) {
+		super(angleRotation, image, type);
+	}
+
 	/**
 	 * Définit l'image représentant le carré
 	 * 

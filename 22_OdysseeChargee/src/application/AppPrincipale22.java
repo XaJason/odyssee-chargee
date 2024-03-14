@@ -32,6 +32,7 @@ import tuile.Pics;
 import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
+import tuile.Tuile;
 import utilis.OutilsImage;
 import niveau.Niveau;
 import niveau.Sauvegarder;
@@ -95,7 +96,7 @@ public class AppPrincipale22 extends JFrame {
 	private File objetFichier = null;
 
 	/** largeur d'une tuile */
-	private final int LARGEUR_TUILE = 68;
+	private final int LARGEUR_TUILE = 61;
 	/** hauteur d'une tuile */
 	private final int HAUTEUR_TUILE = 61;
 	/** hauteur d'une demi-tuile */
@@ -138,15 +139,25 @@ public class AppPrincipale22 extends JFrame {
 		creerPanels();
 		creerMenu();
 		lireImages();
+		gererConstantes();
 
 
-		/**if (leClip != null)
-			leClip.close();
-		chargerLeSon(NOM_FICHIER_SON_1);
-		leClip.loop(Clip.LOOP_CONTINUOUSLY);
-		 */
 
-		
+
+//		if (leClip != null)
+//			leClip.close();
+//		chargerLeSon(NOM_FICHIER_SON_1);
+//		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+//		 
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	private void gererConstantes() {
+		Tuile.setHauteurTuile(HAUTEUR_TUILE);
+		Tuile.setLargeurTuile(LARGEUR_TUILE);
 	}
 
 	/**
@@ -185,7 +196,8 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				if (leClip!=null) leClip.close();
+				if (leClip != null)
+					leClip.close();
 				chargerLeSon(NOM_FICHIER_SON_2);
 				leClip.start();
 
@@ -198,7 +210,8 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
-				if (leClip!=null) leClip.close();
+				if (leClip != null)
+					leClip.close();
 				chargerLeSon(NOM_FICHIER_SON_2);
 				leClip.start();
 
@@ -279,6 +292,7 @@ public class AppPrincipale22 extends JFrame {
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
+
 		panS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
@@ -292,6 +306,7 @@ public class AppPrincipale22 extends JFrame {
 				}
 			}
 		});	
+
 
 
 
@@ -392,6 +407,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
 
 
+
 		mntmReglage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenReglage.setVisible(true);
@@ -415,9 +431,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmApropos);
 
-
 	}
-
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
@@ -459,8 +473,10 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Pour la gestion du volume si d�sire
 	 * 
-	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun volume
-	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé pour notre code
+	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
+	 *                        volume
+	 *                        La méthode a éte trouvée dans le materiel d'appoint
+	 *                        mais a été implementé pour notre code
 	 */
 	// Caroline Houle && Kitimir Yim
 	private void modifierVolume(double valeurEntre0Et1) {

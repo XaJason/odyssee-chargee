@@ -20,6 +20,10 @@ public class Portail extends Tuile {
 	public Portail() {
 		super(image, type);
 	}
+	
+	public Portail(double angleRotation) {
+		super(angleRotation, image, type);
+	}
 
 	/**
 	 * Constructeur
