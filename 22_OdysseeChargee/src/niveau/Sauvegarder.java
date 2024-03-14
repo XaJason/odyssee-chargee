@@ -34,7 +34,7 @@ public class Sauvegarder {
 	 * @param numeroNiveau numéro du niveau 
 	 */
 	//Kitimir Yim
-	public static void sauvegarderNiveau(Niveau niveau, int numeroNiveau) {
+	public static void sauvegarderNiveau(Niveau niveau, String numeroNiveau) {
 
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
 
@@ -68,7 +68,7 @@ public class Sauvegarder {
 	 * @return niveau niveau que l'on souhaite charger
 	 */
 	//Kitimir Yim
-	public static Niveau chargerNiveau(int numeroNiveau) {
+	public static Niveau chargerNiveau(String numeroNiveau) {
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);

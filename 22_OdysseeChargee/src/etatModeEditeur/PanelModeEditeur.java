@@ -234,8 +234,8 @@ public class PanelModeEditeur extends JPanel {
 	
 	//Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
-	String numeroTexte	 = JOptionPane.showInputDialog("Veuillez entrer un numéro de niveau :");
-	int numero = Integer.parseInt(numeroTexte);
+	String numero = JOptionPane.showInputDialog("Veuillez entrer un numéro de niveau :");
+	
 
 	Sauvegarder.sauvegarderNiveau(niveau, numero);
 
