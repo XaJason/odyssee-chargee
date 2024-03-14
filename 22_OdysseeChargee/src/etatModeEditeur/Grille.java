@@ -87,7 +87,10 @@ public class Grille extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				clique = e.getPoint();
 				if (!supprimer) {
-					sauvegarderEmplacement();
+					if(tuile!=null) {
+						sauvegarderEmplacement();
+					}
+					
 				} else {
 					supprimerCase();
 				}
