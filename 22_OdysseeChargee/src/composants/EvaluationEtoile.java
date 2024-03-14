@@ -137,7 +137,7 @@ public class EvaluationEtoile extends JPanel {
 	 *
 	 * @param g L'objet Graphics utilisé pour dessiner.
 	 */
-	// Kitimir yim
+	// Kitimir Yim
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;

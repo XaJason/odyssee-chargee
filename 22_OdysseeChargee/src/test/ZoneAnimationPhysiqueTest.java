@@ -46,8 +46,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	
 	Vaisseau vaisseauBleu;
 	double rayonInitial = 5, chargeInitialeA = -3, masseInitialeA = 0.035;
-	double posVaisseauEnX = 200;
-	Vecteur2D posInitialeA = new Vecteur2D (posVaisseauEnX, hauteurDuComposantEnMetres/2);
+	double posInitialeVaisseauEnX = 200;
+	Vecteur2D posInitialeA = new Vecteur2D (posInitialeVaisseauEnX, hauteurDuComposantEnMetres/2);
 	Vecteur2D vitInitialeA = new Vecteur2D (0, 0); //Vitesse nulle
 	Vecteur2D accelInitialeA = new Vecteur2D (); //Accélération nulle
 	
@@ -85,7 +85,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 			pixelsParMetre = getWidth()/largeurDuComposantEnMetres;
 			hauteurDuComposantEnMetres = getHeight()/pixelsParMetre;
 			
-			vaisseauBleu.setPosition( new Vecteur2D (posVaisseauEnX, hauteurDuComposantEnMetres*2/4) );
+			vaisseauBleu.setPosition( new Vecteur2D (posInitialeVaisseauEnX, hauteurDuComposantEnMetres*2/4) );
 			plaqueRouge.setPosition( new Vecteur2D (largeurDuComposantEnMetres/2, hauteurDuComposantEnMetres/2) );
 
 			premiereFois = false;

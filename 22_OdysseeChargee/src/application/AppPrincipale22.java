@@ -40,8 +40,6 @@ import niveau.Sauvegarder;
 /**
  * Projet intégrateur : Odyssée chargée
  * 
- * @author Giroux
- * @author Enuel René Valentin Kizozo Izia
  * @author Jason Xa
  * @author Kitimir Yim
  */
@@ -221,14 +219,14 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.setBounds(92, 397, 89, 23);
 		contentPane.add(btnAPropos);
 
-		JButton btnNewButton_3 = new JButton("Réglages");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton btnReglages = new JButton("Réglages");
+		btnReglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenReglage.setVisible(true);
 			}
 		});
-		btnNewButton_3.setBounds(372, 397, 89, 23);
-		contentPane.add(btnNewButton_3);
+		btnReglages.setBounds(372, 397, 89, 23);
+		contentPane.add(btnReglages);
 
 		JButton btnModePrincipal = new JButton("Sélection de niveaux");
 		btnModePrincipal.addActionListener(new ActionListener() {
@@ -435,10 +433,11 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
-	 * La méthode a éte trouvée dans le materiel d'appoint mais a été implementé et
+	 * La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle) mais a été implementé et
 	 * modifier pour notre code
+	 * @param fichier Le fichier son
 	 */
-	// Caroline Houle && Kitimir Yim
+	// Kitimir Yim
 	private void chargerLeSon(String fichier) {
 
 		try {
@@ -471,14 +470,14 @@ public class AppPrincipale22 extends JFrame {
 	}// fin methode
 
 	/**
-	 * Pour la gestion du volume si d�sire
+	 * Pour la gestion du volume si désiré
 	 * 
 	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
 	 *                        volume
-	 *                        La méthode a éte trouvée dans le materiel d'appoint
+	 *                        La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle)
 	 *                        mais a été implementé pour notre code
 	 */
-	// Caroline Houle && Kitimir Yim
+	// Kitimir Yim
 	private void modifierVolume(double valeurEntre0Et1) {
 		this.volumeEntre0Et1 = valeurEntre0Et1;
 		if (leClip != null && leClip.isRunning()) {
