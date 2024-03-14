@@ -22,10 +22,10 @@ public class ConstanteComposantsSwing {
 	/**
 	 * Longueur verticale de la fenetre A propos
 	 */
-	public static final int DIM_HORIZONTALE_SEC = 500;
+	public static final int DIM_HORIZONTALE_SEC = 700;
 
 	/**
 	 * Longueur verticale de la fenetre A propos
 	 */
-	public static final int DIM_VERTICALE_SEC = 500;
+	public static final int DIM_VERTICALE_SEC = 700;
 }

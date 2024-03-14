@@ -17,6 +17,10 @@ import constante.ConstanteComposantsSwing;
  */
 public class FenetreInstruction extends JFrame {
 
+	
+	/**
+	 *  Numéro d'identification pour la sérialisation
+	 */
 	private static final long serialVersionUID = -4498300440691242449L;
 
 	// ajouter le support pour lancer des evenements de type PropertyChange
@@ -56,7 +60,7 @@ public class FenetreInstruction extends JFrame {
 	 * Bouton pour fermer la fenêtre
 	 */
 	// Kitimir Yim
-	public void menuQuitter() {
+	private void menuQuitter() {
 		dispose();
 	}
 }

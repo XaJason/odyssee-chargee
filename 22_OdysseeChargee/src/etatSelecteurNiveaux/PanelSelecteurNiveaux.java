@@ -21,10 +21,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	/**
-	 * 
-	 */
-	private PanelModeJeu panJ;
+	
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur

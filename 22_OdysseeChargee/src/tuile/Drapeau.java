@@ -11,6 +11,7 @@ import java.awt.Image;
 public class Drapeau extends Tuile {
 	/** l'image représentant un drapeau */
 	private static Image image;
+	private static String type = "Drapeau";
 
 	/**
 	 * Constructeur
@@ -18,7 +19,13 @@ public class Drapeau extends Tuile {
 	 */
 	// Jason Xa
 	public Drapeau() {
-		super(image);
+		super(image, type);
+		setDrapeau();
+	}
+	
+	public Drapeau(double angleRotation) {
+		super(angleRotation, image, type);
+		setDrapeau();
 	}
 
 	/**
@@ -30,7 +37,8 @@ public class Drapeau extends Tuile {
 	 */
 	// Jason Xa
 	public Drapeau(int x, int y) {
-		super(image, x, y);
+		super(image, x, y, type);
+		setDrapeau();
 	}
 
 	/**
@@ -42,8 +50,8 @@ public class Drapeau extends Tuile {
 	public static void setImageRef(Image imageRef) {
 		Drapeau.image = imageRef;
 	}
-	
-	//Giroux
+
+	// Giroux
 	public String toString() {
 		return "Drapeau ";
 	}

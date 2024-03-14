@@ -22,7 +22,7 @@ import interactif.Etoile;
  */
 public class EvaluationEtoile extends JPanel {
 	/**
-	 * Numero
+	 *  Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
