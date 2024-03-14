@@ -33,6 +33,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import utilis.OutilsImage;
+import niveau.Niveau;
 import niveau.Sauvegarder;
 
 /**
@@ -45,6 +46,9 @@ import niveau.Sauvegarder;
  */
 public class AppPrincipale22 extends JFrame {
 
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
 	private static final long serialVersionUID = -506870656338933836L;
 	/**
 	 * Zone des composants
@@ -141,6 +145,13 @@ public class AppPrincipale22 extends JFrame {
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 		*/
+		
+		Niveau niveau1 = new Niveau();
+		Niveau niveau2 = new Niveau();
+		Niveau niveau3 = new Niveau();
+		Sauvegarder.sauvegarderNiveau(niveau1, 1);
+		Sauvegarder.sauvegarderNiveau(niveau2, 2);
+		Sauvegarder.sauvegarderNiveau(niveau3, 3);
 	}
 
 	/**

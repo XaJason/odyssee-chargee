@@ -21,6 +21,10 @@ import constante.ConstanteComposantsSwing;
  */
 public class FenetreReglage extends JFrame {
 
+	
+	/**
+	 *  Numéro d'identification pour la sérialisation
+	 */
 	private static final long serialVersionUID = -4125957740472303897L;
 
 	/**

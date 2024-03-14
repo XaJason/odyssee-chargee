@@ -19,6 +19,9 @@ import javax.swing.JTextArea;
  */
 public class FenetreApropos extends JFrame {
 
+	/**
+	 *  Numéro d'identification pour la sérialisation
+	 */
 	private static final long serialVersionUID = -2336396924514608396L;
 
 

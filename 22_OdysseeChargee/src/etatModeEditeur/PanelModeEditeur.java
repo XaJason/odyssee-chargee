@@ -30,6 +30,10 @@ import utilis.OutilsImage;
  */
 
 public class PanelModeEditeur extends JPanel {
+	
+	/**
+	 *  Numéro d'identification pour la sérialisation
+	 */
 	private static final long serialVersionUID = -1637257199908540129L;
 
 	/**
