@@ -272,6 +272,7 @@ public class Grille extends JPanel {
 	public void changerQttCarre(int nouvNbCarre) {
 		this.nbCarre = nouvNbCarre;
 		premiereFois = true;
+		drapeau=false;
 		repaint();
 	} // Fin méthode
 
@@ -289,8 +290,6 @@ public class Grille extends JPanel {
 						if (tuileTemp.getDrapeau() && drapeau) {	
 							break;
 						}
-
-
 						tuileTemp.setX((int) largeurCarre * j);
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
@@ -427,6 +426,11 @@ public class Grille extends JPanel {
 			}
 		}
 
+	}
+	
+	
+	public Tuile[][] getTableau() {
+		return tabEmplacement;
 	}
 
 	/**
