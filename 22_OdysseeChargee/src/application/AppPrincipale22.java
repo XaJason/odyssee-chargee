@@ -144,11 +144,11 @@ public class AppPrincipale22 extends JFrame {
 
 
 
-//		if (leClip != null)
-//			leClip.close();
-//		chargerLeSon(NOM_FICHIER_SON_1);
-//		leClip.loop(Clip.LOOP_CONTINUOUSLY);
-//		 
+		if (leClip != null)
+			leClip.close();
+		chargerLeSon(NOM_FICHIER_SON_1);
+		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		 
 	}
 
 	/**

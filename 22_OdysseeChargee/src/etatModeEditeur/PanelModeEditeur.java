@@ -101,10 +101,10 @@ public class PanelModeEditeur extends JPanel {
 //		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
 //		spinnerQttCarre.setBounds(715, 6, 54, 20);
 //		add(spinnerQttCarre);
-
-		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
-		lblQttCarre.setBounds(530, 9, 199, 14);
-		add(lblQttCarre);
+//
+//		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
+//		lblQttCarre.setBounds(530, 9, 199, 14);
+//		add(lblQttCarre);
 
 		creerSectionBoutons();
 	}
