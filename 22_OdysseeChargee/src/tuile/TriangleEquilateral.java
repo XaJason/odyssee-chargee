@@ -21,6 +21,10 @@ public class TriangleEquilateral extends Tuile {
 	public TriangleEquilateral() {
 		super(image, type);
 	}
+	
+	public TriangleEquilateral(double angleRotation) {
+		super(angleRotation, image, type);
+	}
 
 	/**
 	 * Constructeur

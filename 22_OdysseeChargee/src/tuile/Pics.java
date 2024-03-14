@@ -2,6 +2,7 @@ package tuile;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 
 /**
  * Représente l'objet fixe interactif plaçable qui agit comme une plaque de pics
@@ -21,6 +22,10 @@ public class Pics extends Tuile {
 	// Jason Xa
 	public Pics() {
 		super(image, type);
+	}
+
+	public Pics(double angleRotation) {
+		super(angleRotation, image, type);
 	}
 
 	/**
@@ -50,7 +55,10 @@ public class Pics extends Tuile {
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
+		AffineTransform transformationAffine = g2d.getTransform();
+		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
+		g2d.setTransform(transformationAffine);
 	}
 
 	// Giroux

@@ -22,6 +22,11 @@ public class Drapeau extends Tuile {
 		super(image, type);
 		setDrapeau();
 	}
+	
+	public Drapeau(double angleRotation) {
+		super(angleRotation, image, type);
+		setDrapeau();
+	}
 
 	/**
 	 * Constructeur
@@ -33,6 +38,7 @@ public class Drapeau extends Tuile {
 	// Jason Xa
 	public Drapeau(int x, int y) {
 		super(image, x, y, type);
+		setDrapeau();
 	}
 
 	/**

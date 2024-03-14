@@ -2,6 +2,7 @@ package tuile;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 
 import utilis.Dessinable;
 import utilis.OutilsImage;
@@ -24,7 +25,7 @@ public class Tuile extends OutilsImage implements Dessinable {
 	boolean drapeau = false;
 
 	/** l'image représentant la tuile */
-	private	Image image;
+	private Image image;
 	/** Image redimensionnée de la tuile **/
 	protected Image imageRedi;
 	/** Hauteur de l'image redimensionnée **/
@@ -33,6 +34,9 @@ public class Tuile extends OutilsImage implements Dessinable {
 	int hauteurImage;
 
 	protected String type;
+
+	protected static int largeurTuile;
+	protected static int hauteurTuile;
 
 	/**
 	 * Constructeur
@@ -83,12 +87,21 @@ public class Tuile extends OutilsImage implements Dessinable {
 		this.image = tuileCopier.image;
 	}// Fin méthode
 
+	public Tuile(double angleRotation, Image image, String type) {
+		this.angleRotation = angleRotation;
+		this.image = image;
+		this.type = type;
+	}
+
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
+		AffineTransform transformationAffine = g2d.getTransform();
+		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		g2d.drawImage(image, x, y, null);
+		g2d.setTransform(transformationAffine);
 	}
 
 	/**
@@ -126,11 +139,11 @@ public class Tuile extends OutilsImage implements Dessinable {
 	/**
 	 * Définit le nouvel angle de rotation de la tuile
 	 * 
-	 * @param angleRotation le nouvel angle de rotation de la tuile (rad)
+	 * @param d le nouvel angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
-	public void setAngleRotation(int angleRotation) {
-		this.angleRotation = angleRotation;
+	public void setAngleRotation(double d) {
+		this.angleRotation = d;
 	}
 
 	/**
@@ -177,6 +190,27 @@ public class Tuile extends OutilsImage implements Dessinable {
 		imageRedi = image.getScaledInstance(largeurImage, hauteurImage, Image.SCALE_DEFAULT);
 		setImage(imageRedi);
 
+	}
+
+	/**
+	 * @return the angleRotation
+	 */
+	public double getAngleRotation() {
+		return angleRotation;
+	}
+
+	/**
+	 * @param largeurTuile the largeurTuile to set
+	 */
+	public static void setLargeurTuile(int largeurTuile) {
+		Tuile.largeurTuile = largeurTuile;
+	}
+
+	/**
+	 * @param hauteurTuile the hauteurTuile to set
+	 */
+	public static void setHauteurTuile(int hauteurTuile) {
+		Tuile.hauteurTuile = hauteurTuile;
 	}
 
 }

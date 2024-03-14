@@ -1,10 +1,11 @@
 package interactif;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 
 import physique.Vecteur2D;
 
-public class InteractifPhysique {
+public abstract class InteractifPhysique {
 
 	/** Position de l'objet intéractif physique **/
 	private Vecteur2D position;
@@ -17,8 +18,8 @@ public class InteractifPhysique {
 	
 	/** Masse de l'objet intéractif physique **/
 	private double masse;
-
 	
+		
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur de l'objet intéractif physique
@@ -35,12 +36,16 @@ public class InteractifPhysique {
 	
 	// SOUS-PROGRAMMES //
 	/**
+	 * Permet de créer la géométrie de l'objet intéractif physique.
+	 */
+	public abstract void creerLaGeometrie();
+	
+	/**
 	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique passé en parametre.
 	 * @param g2d
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public void dessiner(Graphics2D g2d) {	
-	}
+	public abstract void dessiner(Graphics2D g2d);
 
 	
 	// GETTERS & SETTERS //
@@ -60,6 +65,7 @@ public class InteractifPhysique {
 	//Enuel René Valentin Kizozo Izia
 	public void setPosition(Vecteur2D position) {
 		this.position = new Vecteur2D(position);
+		creerLaGeometrie();
 	}
 	
 	/**
