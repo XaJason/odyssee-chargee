@@ -25,6 +25,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
+import tuile.Vaisseau;
 
 /**
  * @author Giroux
@@ -79,26 +80,26 @@ public class Grille extends JPanel {
 	boolean supprimer = false;
 	/** Indique que la sourie est à l'exterieur du composant **/
 	boolean exterieurComposant = true;
-	
+
 	public Niveau niveauParDefaut;
 
 	/**
 	 * Création du panel
 	 */
 	public Grille() {
-		niveauParDefaut = new Niveau(null,"defaut");
-		
+		niveauParDefaut = new Niveau(null, "defaut");
+
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				clique = e.getPoint();
 				if (!supprimer) {
-					if(tuile!=null) {
+					if (tuile != null) {
 						sauvegarderEmplacement();
 						niveauParDefaut.setTabEmplacement(tabEmplacement);
-						
+
 					}
-					
+
 				} else {
 					supprimerCase();
 				}
@@ -161,7 +162,7 @@ public class Grille extends JPanel {
 			largeur = this.getWidth();
 			dimensionCarre();
 			dessinerGrille();
-			
+
 			premiereFois = false;
 		}
 		if (supprimer) {
@@ -221,7 +222,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
-						if (!supprimer && tuile!=null) {
+						if (!supprimer && tuile != null) {
 							tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
 							tuile.setX((int) largeurCarre * j);
 							tuile.setY((int) hauteurCarre * i);
@@ -283,7 +284,7 @@ public class Grille extends JPanel {
 	public void changerQttCarre(int nouvNbCarre) {
 		this.nbCarre = nouvNbCarre;
 		premiereFois = true;
-		drapeau=false;
+		drapeau = false;
 		repaint();
 	} // Fin méthode
 
@@ -346,6 +347,9 @@ public class Grille extends JPanel {
 		case "Triangle rectangle":
 			tuileTemp = new TriangleRectangle(tuile.getAngleRotation());
 			break;
+		case "Vaisseau":
+			tuileTemp = new Vaisseau(tuile.getAngleRotation());
+			break;
 		}
 
 	}
@@ -402,7 +406,7 @@ public class Grille extends JPanel {
 	/**
 	 * Permet de réinitialiser le tableau
 	 */
-	//Giroux
+	// Giroux
 	public void reinitialiser() {
 		for (int i = 0; i < nbCarre; i++) {
 			for (int j = 0; j < nbCarre; j++) {
@@ -429,7 +433,7 @@ public class Grille extends JPanel {
 	/**
 	 * Permet de supprimer une tuile précise
 	 */
-	//Giroux
+	// Giroux
 	public void supprimerCase() {
 		for (int i = 0; i < nbCarre; i++) {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
@@ -446,9 +450,10 @@ public class Grille extends JPanel {
 		}
 
 	}
-	
+
 	/**
 	 * Permet d'avoir l'emplacement des tuiles
+	 * 
 	 * @return L'emplacement des tuiles
 	 */
 	public Tuile[][] getTableau() {

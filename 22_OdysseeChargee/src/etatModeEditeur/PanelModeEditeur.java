@@ -24,6 +24,7 @@ import tuile.Pics;
 import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
+import tuile.Vaisseau;
 import utilis.OutilsImage;
 
 /**
@@ -36,7 +37,7 @@ import utilis.OutilsImage;
 public class PanelModeEditeur extends JPanel {
 
 	/**
-	 *  Numéro d'identification pour la sérialisation
+	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -1637257199908540129L;
 
@@ -72,7 +73,7 @@ public class PanelModeEditeur extends JPanel {
 	}
 
 	/**
-	 *  Implémente le panel et ses fonctionnalités
+	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
 	public PanelModeEditeur() {
@@ -91,22 +92,23 @@ public class PanelModeEditeur extends JPanel {
 		btnGrille.setBounds(858, 5, 421, 23);
 		add(btnGrille);
 
-		//		JSpinner spinnerQttCarre = new JSpinner();
-		//		spinnerQttCarre.addChangeListener(new ChangeListener() {
-		//			public void stateChanged(ChangeEvent e) {
-		//				Object objetInit = spinnerQttCarre.getValue();
-		//				Number chiffreTransfo = (Number) objetInit;
-		//				grille.changerQttCarre(chiffreTransfo.intValue());
+		// JSpinner spinnerQttCarre = new JSpinner();
+		// spinnerQttCarre.addChangeListener(new ChangeListener() {
+		// public void stateChanged(ChangeEvent e) {
+		// Object objetInit = spinnerQttCarre.getValue();
+		// Number chiffreTransfo = (Number) objetInit;
+		// grille.changerQttCarre(chiffreTransfo.intValue());
 		//
-		//			}
-		//		});
-		//		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
-		//		spinnerQttCarre.setBounds(715, 6, 54, 20);
-		//		add(spinnerQttCarre);
+		// }
+		// });
+		// spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64,
+		// 1));
+		// spinnerQttCarre.setBounds(715, 6, 54, 20);
+		// add(spinnerQttCarre);
 
-		//		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
-		//		lblQttCarre.setBounds(530, 9, 199, 14);
-		//		add(lblQttCarre);
+		// JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
+		// lblQttCarre.setBounds(530, 9, 199, 14);
+		// add(lblQttCarre);
 
 		creerSectionBoutons();
 	}
@@ -180,7 +182,7 @@ public class PanelModeEditeur extends JPanel {
 		btnDrapeau = new JButton();
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Drapeau");
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Drapeau (objet unique)");
 				grille.setTuile(new Drapeau());
 				grille.setSupprimer(false);
 			}
@@ -228,18 +230,21 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				sauvegarder(grille.niveauParDefaut) ;
-			
+				sauvegarder(grille.niveauParDefaut);
+
 			}
 
 		});
 		btnSauvegarder.setBounds(188, 451, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
-		
+
 		btnVaisseau = new JButton();
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Vaisseau (objet unique)");
+				grille.setTuile(new Vaisseau());
+				grille.setSupprimer(false);
 			}
 		});
 		btnVaisseau.setBounds(188, 229, 85, 85);
@@ -247,7 +252,7 @@ public class PanelModeEditeur extends JPanel {
 		add(btnVaisseau);
 	}
 
-	//Kitimir Yim
+	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
 		String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
 		GestionnaireDeNiveau.ajouter(niveau);

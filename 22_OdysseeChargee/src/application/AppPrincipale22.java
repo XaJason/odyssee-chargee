@@ -33,9 +33,8 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
+import tuile.Vaisseau;
 import utilis.OutilsImage;
-import niveau.Niveau;
-import niveau.Sauvegarder;
 
 /**
  * Projet intégrateur : Odyssée chargée
@@ -139,14 +138,11 @@ public class AppPrincipale22 extends JFrame {
 		lireImages();
 		gererConstantes();
 
-
-
-
 		if (leClip != null)
 			leClip.close();
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
-		 
+
 	}
 
 	/**
@@ -171,6 +167,7 @@ public class AppPrincipale22 extends JFrame {
 		Portail.setImageRef(OutilsImage.lireImageEtRedimensionner("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE));
 		Drapeau.setImageRef(OutilsImage.lireImageEtRedimensionner("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
 		Pics.setImageRef(OutilsImage.lireImageEtRedimensionner("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE));
+		Vaisseau.setImageRef(OutilsImage.lireImageEtRedimensionner("vaisseau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
 	}
 
 	/**
@@ -183,7 +180,6 @@ public class AppPrincipale22 extends JFrame {
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
-
 
 			}
 		});
@@ -290,7 +286,6 @@ public class AppPrincipale22 extends JFrame {
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
-
 		panS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
@@ -299,15 +294,9 @@ public class AppPrincipale22 extends JFrame {
 					panJ.setVisible(true);
 					setContentPane(panJ);
 
-
-
 				}
 			}
-		});	
-
-
-
-
+		});
 
 	}
 
@@ -352,7 +341,6 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmSelection = new JMenuItem("Jouer");
 
-
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
@@ -390,7 +378,6 @@ public class AppPrincipale22 extends JFrame {
 		mntmInstructions.setMaximumSize(new Dimension(200, 32767));
 		mntmInstructions.setPreferredSize(new Dimension(100, 26));
 
-
 		mntmInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
@@ -403,8 +390,6 @@ public class AppPrincipale22 extends JFrame {
 		JMenuItem mntmReglage = new JMenuItem("Réglage");
 		mntmReglage.setMaximumSize(new Dimension(200, 32767));
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
-
-
 
 		mntmReglage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -433,8 +418,10 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
-	 * La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle) mais a été implementé et
+	 * La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle) mais
+	 * a été implementé et
 	 * modifier pour notre code
+	 * 
 	 * @param fichier Le fichier son
 	 */
 	// Kitimir Yim
@@ -474,7 +461,8 @@ public class AppPrincipale22 extends JFrame {
 	 * 
 	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
 	 *                        volume
-	 *                        La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle)
+	 *                        La méthode a éte trouvée dans le materiel d'appoint
+	 *                        (de Caroline Houle)
 	 *                        mais a été implementé pour notre code
 	 */
 	// Kitimir Yim
