@@ -183,7 +183,7 @@ public class AppPrincipale22 extends JFrame {
 
 			}
 		});
-		btnQuitter.setBounds(92, 335, 89, 23);
+		btnQuitter.setBounds(975, 175, 150, 100);
 		contentPane.add(btnQuitter);
 
 		JButton btnInstructions = new JButton("Instructions");
@@ -197,7 +197,7 @@ public class AppPrincipale22 extends JFrame {
 
 			}
 		});
-		btnInstructions.setBounds(362, 335, 89, 23);
+		btnInstructions.setBounds(225, 470, 150, 100);
 		contentPane.add(btnInstructions);
 
 		JButton btnAPropos = new JButton("À propos");
@@ -212,7 +212,7 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 
-		btnAPropos.setBounds(92, 397, 89, 23);
+		btnAPropos.setBounds(975, 470, 150, 100);
 		contentPane.add(btnAPropos);
 
 		JButton btnReglages = new JButton("Réglages");
@@ -221,10 +221,10 @@ public class AppPrincipale22 extends JFrame {
 				fenReglage.setVisible(true);
 			}
 		});
-		btnReglages.setBounds(372, 397, 89, 23);
+		btnReglages.setBounds(600, 470, 150, 100);
 		contentPane.add(btnReglages);
 
-		JButton btnModePrincipal = new JButton("Sélection de niveaux");
+		JButton btnModePrincipal = new JButton("Jouer");
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panS.setVisible(true);
@@ -235,7 +235,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmEditeur.setSelected(false);
 			}
 		});
-		btnModePrincipal.setBounds(92, 457, 133, 23);
+		btnModePrincipal.setBounds(225, 175, 150, 100);
 		contentPane.add(btnModePrincipal);
 
 		JButton btnModeEditeur = new JButton("Mode éditeur");
@@ -249,7 +249,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmEditeur.setSelected(true);
 			}
 		});
-		btnModeEditeur.setBounds(362, 457, 168, 23);
+		btnModeEditeur.setBounds(600, 175, 150, 100);
 		contentPane.add(btnModeEditeur);
 
 	}

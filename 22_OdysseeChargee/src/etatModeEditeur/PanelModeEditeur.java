@@ -80,7 +80,7 @@ public class PanelModeEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBounds(514, 39, 916, 916);
+		grille.setBounds(410, 38, 916, 916);
 		add(grille);
 
 		JButton btnGrille = new JButton("Afficher la grille");
