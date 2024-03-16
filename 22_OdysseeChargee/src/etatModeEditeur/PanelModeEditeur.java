@@ -62,6 +62,7 @@ public class PanelModeEditeur extends JPanel {
 	private JButton btnSupprimer;
 	private JButton btnRotation;
 	private JButton btnSauvegarder;
+	private JButton btnVaisseau;
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -189,7 +190,7 @@ public class PanelModeEditeur extends JPanel {
 		add(btnDrapeau);
 
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
-		lblTypeSelectionne.setBounds(64, 230, 336, 14);
+		lblTypeSelectionne.setBounds(64, 332, 336, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
@@ -198,7 +199,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.setSupprimer(false);
 			}
 		});
-		btnReinitialiser.setBounds(64, 255, 85, 85);
+		btnReinitialiser.setBounds(64, 356, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
 		add(btnReinitialiser);
 
@@ -208,7 +209,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.gererSupprimer();
 			}
 		});
-		btnSupprimer.setBounds(188, 255, 85, 85);
+		btnSupprimer.setBounds(188, 356, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
 
@@ -219,7 +220,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.rotation();
 			}
 		});
-		btnRotation.setBounds(315, 255, 85, 85);
+		btnRotation.setBounds(315, 356, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
 		add(btnRotation);
 
@@ -232,9 +233,18 @@ public class PanelModeEditeur extends JPanel {
 			}
 
 		});
-		btnSauvegarder.setBounds(188, 351, 85, 85);
+		btnSauvegarder.setBounds(188, 451, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
+		
+		btnVaisseau = new JButton();
+		btnVaisseau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVaisseau.setBounds(188, 229, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
+		add(btnVaisseau);
 	}
 
 	//Kitimir Yim
@@ -244,5 +254,4 @@ public class PanelModeEditeur extends JPanel {
 		Sauvegarder.sauvegarderNiveau(niveau, nom.toLowerCase());
 
 	}
-
 }
