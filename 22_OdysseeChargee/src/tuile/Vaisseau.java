@@ -1,15 +1,20 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
  * 
  * @author Jason Xa
  */
-public class Vaisseau extends Tuile {
+public class Vaisseau extends Tuile implements Serializable {
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 5393283819635096303L;
 	/** l'image représentant un triangle rectangle */
-	private static Image image;
+	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type vaisseau */
 	private static String type = "Vaisseau";
 

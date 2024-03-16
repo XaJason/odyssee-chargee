@@ -2,14 +2,12 @@ package fenetres;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import constante.ConstanteComposantsSwing;
-import javax.swing.JLabel;
+
 import javax.swing.JTextArea;
 
 /**
@@ -46,7 +44,7 @@ public class FenetreApropos extends JFrame {
 		getContentPane().setLayout(null);
 		btnQuitter.setBounds(0, 0, 174, 34);
 		getContentPane().add(btnQuitter);
-		
+
 		JTextArea txtrA = new JTextArea();
 		txtrA.setText(texte());
 		txtrA.setBounds(46, 45, 692, 405);
@@ -68,10 +66,10 @@ public class FenetreApropos extends JFrame {
 	//Kitimir Yim
 	private String texte() {
 		String message = "Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-						+ "\n" + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-						 + "\n" +  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
-						 		+ "\n" + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+				+ "\n" + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+				+ "\n" +  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
+				+ "\n" + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 		return message;
-		
+
 	}
 }

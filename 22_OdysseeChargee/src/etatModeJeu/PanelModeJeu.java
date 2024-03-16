@@ -1,17 +1,16 @@
 package etatModeJeu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 import javax.swing.JSpinner;
 
-import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -21,7 +20,10 @@ import javax.swing.JTextArea;
  * @author Kitimir Yim
  */
 public class PanelModeJeu extends JPanel {
-
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 7125958637120092540L;
 	/**
 	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
@@ -48,26 +50,26 @@ public class PanelModeJeu extends JPanel {
 		panelEntree.setBounds(48, 53, 331, 340);
 		add(panelEntree);
 		panelEntree.setLayout(null);
-		
+
 		JLabel lblMasse = new JLabel("Masse (kg):");
-        lblMasse.setBounds(10, 20, 100, 26);
-        panelEntree.add(lblMasse);
+		lblMasse.setBounds(10, 20, 100, 26);
+		panelEntree.add(lblMasse);
 
-        JLabel lblCharge = new JLabel("Charge (Coulombs):");
-        lblCharge.setBounds(10, 88, 140, 26);
-        panelEntree.add(lblCharge);
+		JLabel lblCharge = new JLabel("Charge (Coulombs):");
+		lblCharge.setBounds(10, 88, 140, 26);
+		panelEntree.add(lblCharge);
 
-        JLabel lblGravite = new JLabel("Gravité (m/s²):");
-        lblGravite.setBounds(10, 161, 120, 26);
-        panelEntree.add(lblGravite);
+		JLabel lblGravite = new JLabel("Gravité (m/s²):");
+		lblGravite.setBounds(10, 161, 120, 26);
+		panelEntree.add(lblGravite);
 
-        JLabel lblChargePlaque = new JLabel("Charge Plaque (Coulombs):");
-        lblChargePlaque.setBounds(10, 224, 180, 26);
-        panelEntree.add(lblChargePlaque);
+		JLabel lblChargePlaque = new JLabel("Charge Plaque (Coulombs):");
+		lblChargePlaque.setBounds(10, 224, 180, 26);
+		panelEntree.add(lblChargePlaque);
 
-        JLabel lblCoefFriction = new JLabel("Coefficient de friction:");
-        lblCoefFriction.setBounds(10, 297, 160, 26);
-        panelEntree.add(lblCoefFriction);
+		JLabel lblCoefFriction = new JLabel("Coefficient de friction:");
+		lblCoefFriction.setBounds(10, 297, 160, 26);
+		panelEntree.add(lblCoefFriction);
 
 		JSpinner spinnerMasse = new JSpinner();
 		spinnerMasse.setBounds(144, 12, 160, 43);
@@ -104,29 +106,29 @@ public class PanelModeJeu extends JPanel {
 		panelSortie.add(lblAccélération);
 
 		JLabel lblForceElectrique = new JLabel("Force électrique (N):");
-        lblForceElectrique.setBounds(35, 113, 100, 26);
-        panelSortie.add(lblForceElectrique);
+		lblForceElectrique.setBounds(35, 113, 100, 26);
+		panelSortie.add(lblForceElectrique);
 
-        JLabel lblForceGravite = new JLabel("Force gravité (N):");
-        lblForceGravite.setBounds(35, 153, 100, 26);
-        panelSortie.add(lblForceGravite);
+		JLabel lblForceGravite = new JLabel("Force gravité (N):");
+		lblForceGravite.setBounds(35, 153, 100, 26);
+		panelSortie.add(lblForceGravite);
 
-        JLabel lblChampElectrique = new JLabel("Champ électrique (N/m):");
-        lblChampElectrique.setBounds(35, 197, 128, 26);
-        panelSortie.add(lblChampElectrique);
+		JLabel lblChampElectrique = new JLabel("Champ électrique (N/m):");
+		lblChampElectrique.setBounds(35, 197, 128, 26);
+		panelSortie.add(lblChampElectrique);
 
-        JLabel lblPosition = new JLabel("Position (m):");
-        lblPosition.setBounds(35, 233, 100, 26);
-        panelSortie.add(lblPosition);
+		JLabel lblPosition = new JLabel("Position (m):");
+		lblPosition.setBounds(35, 233, 100, 26);
+		panelSortie.add(lblPosition);
 
-        JTextArea textAreaVitesse = new JTextArea();
+		JTextArea textAreaVitesse = new JTextArea();
 		textAreaVitesse.setBounds(160, 38, 150, 22);
 		panelSortie.add(textAreaVitesse);
-		
-        JTextArea textAreaAccélération = new JTextArea();
+
+		JTextArea textAreaAccélération = new JTextArea();
 		textAreaAccélération.setBounds(160, 74, 150, 22);
 		panelSortie.add(textAreaAccélération);
-		
+
 		JTextArea textAreaForceElectrique = new JTextArea();
 		textAreaForceElectrique.setEditable(false);
 		textAreaForceElectrique.setBounds(160, 114, 150, 22);

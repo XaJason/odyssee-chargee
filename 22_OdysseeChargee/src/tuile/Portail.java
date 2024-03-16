@@ -1,15 +1,20 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme un portail
  * 
  * @author Jason Xa
  */
-public class Portail extends Tuile {
+public class Portail extends Tuile implements Serializable{
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = -3752989336876220183L;
 	/** l'image représentant un portail */
-	private static Image image;
+	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type portail */
 	private static String type = "Portail";
 

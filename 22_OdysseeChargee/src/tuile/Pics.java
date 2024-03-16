@@ -3,6 +3,7 @@ package tuile;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme une plaque de pics
@@ -10,9 +11,13 @@ import java.awt.geom.AffineTransform;
  * 
  * @author Jason Xa
  */
-public class Pics extends Tuile {
+public class Pics extends Tuile implements Serializable {
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 2291455130727306069L;
 	/** l'image représentant des pics */
-	private static Image image;
+	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type pics */
 	private static String type = "Pics";
 
