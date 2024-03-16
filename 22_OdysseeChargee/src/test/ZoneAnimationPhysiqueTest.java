@@ -45,6 +45,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	private double pixelsParMetre;
 	
 	Vaisseau vaisseauBleu;
+
+
 	double rayonInitial = 5, chargeInitialeA = -3, masseInitialeA = 0.035;
 	double posInitialeVaisseauEnX = 200;
 	Vecteur2D posInitialeA = new Vecteur2D (posInitialeVaisseauEnX, hauteurDuComposantEnMetres/2);
