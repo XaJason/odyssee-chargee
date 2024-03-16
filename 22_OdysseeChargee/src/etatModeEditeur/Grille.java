@@ -81,14 +81,13 @@ public class Grille extends JPanel {
 	/** Indique que la sourie est à l'exterieur du composant **/
 	boolean exterieurComposant = true;
 
-	/** Niveau par défaut **/
-	public Niveau niveauParDefaut;
+
 
 	/**
 	 * Création du du panneau
 	 */
 	public Grille() {
-		niveauParDefaut = new Niveau(null, "defaut");
+		
 
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -97,7 +96,7 @@ public class Grille extends JPanel {
 				if (!supprimer) {
 					if (tuile != null) {
 						sauvegarderEmplacement();
-						niveauParDefaut.setTabEmplacement(tabEmplacement);
+						
 
 					}
 

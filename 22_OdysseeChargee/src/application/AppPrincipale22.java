@@ -39,6 +39,8 @@ import utilis.OutilsImage;
 /**
  * Application permettant d'accéder au jeu Odyssée chargée
  * 
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Giroux
  * @author Jason Xa
  * @author Kitimir Yim
  */
@@ -76,20 +78,41 @@ public class AppPrincipale22 extends JFrame {
 	 * Panel du sélecteur de niveaux
 	 */
 	private PanelSelecteurNiveaux panS;
-
+	/**
+	 * Barre du menu
+	 */
 	private JMenuBar menuBar;
-
+	/**
+	 * Item du menu pour le mode éditeur
+	 */
 	private JMenuItem mntmEditeur;
-
+	/**
+	 * Item du menu pour le mode sélection de niveaux
+	 */
 	private JMenuItem mntmSelection;
-
+	/**
+	 * Clip par défaut du son 
+	 */
 	private Clip leClip = null;
-
+	/**
+	 * String du fichier de la musique de fond
+	 */
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
-	private final String NOM_FICHIER_SON_2 = "Effet_son.wav";
+	/**
+	 * Flux d'entrée audio.
+	 */
 	private AudioInputStream audioStr;
+	/**
+	 * Volume du son
+	 */
 	private double volumeEntre0Et1 = 1;
+	/**`
+	 * Chemin vers le fichier
+	 */
 	private String pathDeFichier = null;
+	/**
+	 * Fichier
+	 */
 	private File objetFichier = null;
 
 	/** largeur d'une tuile */
@@ -190,10 +213,7 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				if (leClip != null)
-					leClip.close();
-				chargerLeSon(NOM_FICHIER_SON_2);
-				leClip.start();
+				
 
 			}
 		});
@@ -204,10 +224,7 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
-				if (leClip != null)
-					leClip.close();
-				chargerLeSon(NOM_FICHIER_SON_2);
-				leClip.start();
+			
 
 			}
 		});

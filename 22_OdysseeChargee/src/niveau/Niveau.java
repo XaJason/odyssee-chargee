@@ -5,7 +5,7 @@ import java.io.Serializable;
 import tuile.Tuile;
 /**
  * Classe niveau qui sert à regrouper tout ce que peut contenir un niveau
- * @author Kitimir Yim 
+ *
  * @author Giroux
  *  
  */

@@ -2,6 +2,7 @@ package niveau;
 
 import java.util.ArrayList;
 /**
+ * Classe qui gère les différents niveaux
  * @author Giroux
  * @author Kitimir Yim
  */

@@ -26,7 +26,7 @@ import utilis.OutilsImage;
  * Panel du mode éditeur
  * 
  * @author Jason Xa
- * @author Kitimir Yim
+ * 
  */
 
 public class PanelModeEditeur extends JPanel {
@@ -235,8 +235,10 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				sauvegarder(grille.niveauParDefaut);
+				
+				String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
+				Niveau niveauParDefaut = new Niveau(grille.getTableau(),nom);
+				sauvegarder(niveauParDefaut);
 
 			}
 
@@ -259,9 +261,9 @@ public class PanelModeEditeur extends JPanel {
 
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
-		String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
+		
 		GestionnaireDeNiveau.ajouter(niveau);
-		Sauvegarder.sauvegarderNiveau(niveau, nom.toLowerCase());
+		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNomNiveau());
 
 	}
 
