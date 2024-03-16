@@ -21,6 +21,7 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Vaisseau;
 import utilis.OutilsImage;
+import javax.swing.SwingConstants;
 
 /**
  * Panel du mode éditeur
@@ -76,6 +77,21 @@ public class PanelModeEditeur extends JPanel {
 	private JButton btnSauvegarder;
 	/** bouton permettant de la sélection de la tuile de type vaisseau */
 	private JButton btnVaisseau;
+	private JLabel lblCarre;
+	private JLabel lblObjets;
+	private JLabel lblBlocs;
+	private JLabel lblTriangleRectangle;
+	private JLabel lblTriangleEquilateral;
+	private JLabel lblPics;
+	private JLabel lblPortail;
+	private JLabel lblDrapeau;
+	private JLabel lblVaisseau;
+	private JLabel lblReinitialiser;
+	private JLabel lblSupprimer;
+	private JLabel lblRotation;
+	private JLabel lblSauvegarder;
+	private JLabel lblInteractifs;
+	private JLabel lblActions;
 
 	/**
 	 * methode qui permettra de s'ajouter en tant qu'ecouteur
@@ -137,7 +153,7 @@ public class PanelModeEditeur extends JPanel {
 				afficherSelection();
 			}
 		});
-		btnCarre.setBounds(64, 39, 85, 85);
+		btnCarre.setBounds(50, 61, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
 		add(btnCarre);
 
@@ -148,7 +164,7 @@ public class PanelModeEditeur extends JPanel {
 				afficherSelection();
 			}
 		});
-		btnTriangleRectangle.setBounds(188, 39, 85, 85);
+		btnTriangleRectangle.setBounds(178, 61, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
 		add(btnTriangleRectangle);
 
@@ -159,7 +175,7 @@ public class PanelModeEditeur extends JPanel {
 				afficherSelection();
 			}
 		});
-		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
+		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
 		add(btnTriangleEquilateral);
 
@@ -171,7 +187,7 @@ public class PanelModeEditeur extends JPanel {
 			}
 
 		});
-		btnPics.setBounds(64, 134, 85, 85);
+		btnPics.setBounds(118, 215, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
 		add(btnPics);
 
@@ -182,7 +198,7 @@ public class PanelModeEditeur extends JPanel {
 				afficherSelection();
 			}
 		});
-		btnPortail.setBounds(188, 134, 85, 85);
+		btnPortail.setBounds(247, 215, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
 		add(btnPortail);
 
@@ -193,12 +209,12 @@ public class PanelModeEditeur extends JPanel {
 				afficherSelection();
 			}
 		});
-		btnDrapeau.setBounds(315, 134, 85, 85);
+		btnDrapeau.setBounds(118, 340, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
-		lblTypeSelectionne.setBounds(64, 332, 336, 14);
+		lblTypeSelectionne.setBounds(410, 9, 336, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
@@ -207,7 +223,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.setSupprimer(false);
 			}
 		});
-		btnReinitialiser.setBounds(64, 356, 85, 85);
+		btnReinitialiser.setBounds(50, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
 		add(btnReinitialiser);
 
@@ -217,7 +233,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.gererSupprimer();
 			}
 		});
-		btnSupprimer.setBounds(188, 356, 85, 85);
+		btnSupprimer.setBounds(178, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
 
@@ -228,7 +244,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.rotation();
 			}
 		});
-		btnRotation.setBounds(315, 356, 85, 85);
+		btnRotation.setBounds(302, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
 		add(btnRotation);
 
@@ -243,7 +259,7 @@ public class PanelModeEditeur extends JPanel {
 			}
 
 		});
-		btnSauvegarder.setBounds(188, 451, 85, 85);
+		btnSauvegarder.setBounds(178, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 
@@ -254,9 +270,80 @@ public class PanelModeEditeur extends JPanel {
 				afficherSelection();
 			}
 		});
-		btnVaisseau.setBounds(188, 229, 85, 85);
+		btnVaisseau.setBounds(247, 340, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
 		add(btnVaisseau);
+		
+		lblCarre = new JLabel("Carré");
+		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCarre.setBounds(50, 156, 85, 13);
+		add(lblCarre);
+		
+		lblObjets = new JLabel("Objets");
+		lblObjets.setBounds(30, 10, 45, 13);
+		add(lblObjets);
+		
+		lblBlocs = new JLabel("Blocs");
+		lblBlocs.setBounds(40, 38, 45, 13);
+		add(lblBlocs);
+		
+		lblTriangleRectangle = new JLabel("Triangle rectangle");
+		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTriangleRectangle.setBounds(168, 156, 104, 13);
+		add(lblTriangleRectangle);
+		
+		lblTriangleEquilateral = new JLabel("Triangle équilatéral");
+		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTriangleEquilateral.setBounds(289, 156, 110, 13);
+		add(lblTriangleEquilateral);
+		
+		lblPics = new JLabel("Pics");
+		lblPics.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPics.setBounds(118, 310, 85, 13);
+		add(lblPics);
+		
+		lblPortail = new JLabel("Portail");
+		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPortail.setBounds(247, 310, 85, 13);
+		add(lblPortail);
+		
+		lblDrapeau = new JLabel("Drapeau");
+		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDrapeau.setBounds(118, 435, 85, 13);
+		add(lblDrapeau);
+		
+		lblVaisseau = new JLabel("Vaisseau");
+		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVaisseau.setBounds(247, 435, 85, 13);
+		add(lblVaisseau);
+		
+		lblReinitialiser = new JLabel("Réinitialiser");
+		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
+		lblReinitialiser.setBounds(50, 576, 85, 13);
+		add(lblReinitialiser);
+		
+		lblSupprimer = new JLabel("Supprimer");
+		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSupprimer.setBounds(178, 576, 85, 13);
+		add(lblSupprimer);
+		
+		lblRotation = new JLabel("Rotation");
+		lblRotation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRotation.setBounds(302, 576, 85, 13);
+		add(lblRotation);
+		
+		lblSauvegarder = new JLabel("Sauvegarder");
+		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSauvegarder.setBounds(178, 694, 85, 13);
+		add(lblSauvegarder);
+		
+		lblInteractifs = new JLabel("Interactifs");
+		lblInteractifs.setBounds(64, 192, 85, 13);
+		add(lblInteractifs);
+		
+		lblActions = new JLabel("Actions");
+		lblActions.setBounds(64, 458, 85, 13);
+		add(lblActions);
 	}
 
 	// Kitimir Yim
