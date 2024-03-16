@@ -26,7 +26,8 @@ import tuile.TriangleRectangle;
 import tuile.Tuile;
 
 /**
- * 
+ * @author Giroux
+ * @author Jason Xa
  */
 public class Grille extends JPanel {
 
