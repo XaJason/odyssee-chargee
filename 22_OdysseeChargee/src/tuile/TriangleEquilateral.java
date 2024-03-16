@@ -1,6 +1,7 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Représente l'objet fixe plaçable en forme de triangle équilatéral (pointant
@@ -8,9 +9,13 @@ import java.awt.Image;
  * 
  * @author Jason Xa
  */
-public class TriangleEquilateral extends Tuile {
+public class TriangleEquilateral extends Tuile implements Serializable {
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 2766075546438030099L;
 	/** l'image représentant un triangle équilatéral */
-	private static Image image;
+	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type triangle équilatéral */
 	private static String type = "Triangle équilatéral";
 

@@ -3,6 +3,7 @@ package tuile;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 
 import utilis.Dessinable;
 import utilis.OutilsImage;
@@ -13,8 +14,12 @@ import utilis.OutilsImage;
  * @author Jason Xa
  * @author Giroux
  */
-public class Tuile extends OutilsImage implements Dessinable {
+public class Tuile extends OutilsImage implements Dessinable, Serializable {
 
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = -7235372039893162386L;
 	/** l'abscisse gauche de la tuile (px) */
 	protected int x;
 	/** l'ordonnée supérieure la tuile en (px) */
@@ -25,7 +30,7 @@ public class Tuile extends OutilsImage implements Dessinable {
 	boolean drapeau = false;
 
 	/** l'image représentant la tuile */
-	private Image image;
+	private transient Image image;
 	/** Image redimensionnée de la tuile **/
 	protected Image imageRedi;
 

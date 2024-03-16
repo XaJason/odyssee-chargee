@@ -1,15 +1,20 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
  * 
  * @author Jason Xa
  */
-public class Carre extends Tuile {
+public class Carre extends Tuile implements Serializable{
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = -5637937761263747229L;
 	/** l'image représentant un carré */
-	private static Image image;
+	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type carré */
 	private static String type = "Carré";
 
