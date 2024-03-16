@@ -28,20 +28,20 @@ public class Tuile extends OutilsImage implements Dessinable {
 	private Image image;
 	/** Image redimensionnée de la tuile **/
 	protected Image imageRedi;
-	/** Hauteur de l'image redimensionnée **/
-	int largeurImage;
-	/** Largeur de l'image redimensionnée **/
-	int hauteurImage;
 
+	/** chaine de caractères représentant le type de la tuile */
 	protected String type;
 
+	/** largeur de la tuile (px) */
 	protected static int largeurTuile;
+	/** hauteur de la tuile (px) */
 	protected static int hauteurTuile;
 
 	/**
 	 * Constructeur
 	 * 
 	 * @param image l'image représentant la tuile
+	 * @param type  le type de la tuile
 	 * 
 	 */
 	// Jason Xa
@@ -58,6 +58,7 @@ public class Tuile extends OutilsImage implements Dessinable {
 	 * @param image l'image représentant la tuile
 	 * @param x     l'abscisse gauche de la tuile (px)
 	 * @param y     l'ordonnée supérieure la tuile (px)
+	 * @param type  le type de la tuile
 	 * 
 	 */
 	// Jason Xa
@@ -69,28 +70,25 @@ public class Tuile extends OutilsImage implements Dessinable {
 	}
 
 	/**
-	 * @return
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 * @param image         l'image représentant la tuile
+	 * @param type          le type de la tuile
 	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * Constructeur qui copie une tuile
-	 * 
-	 * @param tuileCopier la tuile à copier
-	 */
-	// Giroux
-	public Tuile(Tuile tuileCopier) {
-		this.x = tuileCopier.x;
-		this.y = tuileCopier.y;
-		this.image = tuileCopier.image;
-	}// Fin méthode
-
+	// Jason Xa
 	public Tuile(double angleRotation, Image image, String type) {
 		this.angleRotation = angleRotation;
 		this.image = image;
 		this.type = type;
+	}
+
+	/**
+	 * Retourne la chaine de caractères représentant le type de la tuile
+	 * 
+	 * @return la chaine de caractères représentant le type de la tuile
+	 */
+	// Jason Xa
+	public String getType() {
+		return type;
 	}
 
 	/**
@@ -107,9 +105,9 @@ public class Tuile extends OutilsImage implements Dessinable {
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
 	 * 
-	 * @param g2d
-	 * @param x
-	 * @param y
+	 * @param g2d contexte graphique
+	 * @param x   abscisse gauche de la tuile (px)
+	 * @param y   ordonnée supérieure de la tuile (px)
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d, int x, int y) {
@@ -193,24 +191,33 @@ public class Tuile extends OutilsImage implements Dessinable {
 	}
 
 	/**
-	 * @return the angleRotation
+	 * Retourne l'angle de rotation
+	 * 
+	 * @return the angleRotation l'angle de rotation (rad)
 	 */
+	// Jason Xa
 	public double getAngleRotation() {
 		return angleRotation;
 	}
 
 	/**
-	 * @param largeurTuile the largeurTuile to set
+	 * Définit la largeur des tuiles
+	 * 
+	 * @param largeurTuile la nouvelle largeur des tuiles (px)
 	 */
+	// Jason Xa
 	public static void setLargeurTuile(int largeurTuile) {
 		Tuile.largeurTuile = largeurTuile;
 	}
 
 	/**
-	 * @param hauteurTuile the hauteurTuile to set
+	 * Définit la largeur des tuiles
+	 * 
+	 * @param hauteurTuile la nouvelle hauteur des tuiles (px)
+	 * 
 	 */
+	// Jason Xa
 	public static void setHauteurTuile(int hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
-
 }

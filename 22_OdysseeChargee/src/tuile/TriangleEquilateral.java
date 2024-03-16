@@ -11,6 +11,7 @@ import java.awt.Image;
 public class TriangleEquilateral extends Tuile {
 	/** l'image représentant un triangle équilatéral */
 	private static Image image;
+	/** chaine de caractères représentant la tuile de type triangle équilatéral */
 	private static String type = "Triangle équilatéral";
 
 	/**
@@ -21,7 +22,13 @@ public class TriangleEquilateral extends Tuile {
 	public TriangleEquilateral() {
 		super(image, type);
 	}
-	
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
 	public TriangleEquilateral(double angleRotation) {
 		super(angleRotation, image, type);
 	}

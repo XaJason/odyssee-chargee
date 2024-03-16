@@ -10,6 +10,7 @@ import java.awt.Image;
 public class Carre extends Tuile {
 	/** l'image représentant un carré */
 	private static Image image;
+	/** chaine de caractères représentant la tuile de type carré */
 	private static String type = "Carré";
 
 	/**
@@ -33,6 +34,12 @@ public class Carre extends Tuile {
 		super(image, x, y, type);
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
 	public Carre(double angleRotation) {
 		super(angleRotation, image, type);
 	}
@@ -51,5 +58,4 @@ public class Carre extends Tuile {
 	public String toString() {
 		return "Carre ";
 	}
-
 }

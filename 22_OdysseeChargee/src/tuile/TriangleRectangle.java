@@ -11,6 +11,7 @@ import java.awt.Image;
 public class TriangleRectangle extends Tuile {
 	/** l'image représentant un triangle rectangle */
 	private static Image image;
+	/** chaine de caractères représentant la tuile de type triangle rectangle */
 	private static String type = "Triangle rectangle";
 
 	/**
@@ -22,9 +23,16 @@ public class TriangleRectangle extends Tuile {
 		super(image, type);
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
 	public TriangleRectangle(double angleRotation) {
 		super(angleRotation, image, type);
 	}
+
 	/**
 	 * Constructeur
 	 * 

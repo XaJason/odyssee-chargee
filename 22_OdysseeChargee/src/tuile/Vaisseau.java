@@ -3,14 +3,14 @@ package tuile;
 import java.awt.Image;
 
 /**
- * Représente l'objet fixe plaçable en forme de triangle rectangle (coin en bas
- * à gauche par défaut)
+ * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
  * 
  * @author Jason Xa
  */
 public class Vaisseau extends Tuile {
 	/** l'image représentant un triangle rectangle */
 	private static Image image;
+	/** chaine de caractères représentant la tuile de type vaisseau */
 	private static String type = "Vaisseau";
 
 	/**
@@ -23,8 +23,11 @@ public class Vaisseau extends Tuile {
 	}
 
 	/**
-	 * @param angleRotation
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
+	// Jason Xa
 	public Vaisseau(double angleRotation) {
 		super(angleRotation, image, type);
 	}
@@ -42,9 +45,9 @@ public class Vaisseau extends Tuile {
 	}
 
 	/**
-	 * Définit l'image représentant le triangle rectangle
+	 * Définit l'image représentant le vaisseau
 	 * 
-	 * @param imageRef l'image représentant le triangle rectangle
+	 * @param imageRef l'image représentant le vaisseau
 	 */
 	// Jason Xa
 	public static void setImageRef(Image imageRef) {
