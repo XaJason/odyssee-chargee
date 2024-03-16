@@ -15,6 +15,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import niveau.GestionnaireDeNiveau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
 import tuile.Carre;
@@ -89,22 +90,22 @@ public class PanelModeEditeur extends JPanel {
 		btnGrille.setBounds(858, 5, 421, 23);
 		add(btnGrille);
 
-//		JSpinner spinnerQttCarre = new JSpinner();
-//		spinnerQttCarre.addChangeListener(new ChangeListener() {
-//			public void stateChanged(ChangeEvent e) {
-//				Object objetInit = spinnerQttCarre.getValue();
-//				Number chiffreTransfo = (Number) objetInit;
-//				grille.changerQttCarre(chiffreTransfo.intValue());
-//
-//			}
-//		});
-//		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
-//		spinnerQttCarre.setBounds(715, 6, 54, 20);
-//		add(spinnerQttCarre);
+		//		JSpinner spinnerQttCarre = new JSpinner();
+		//		spinnerQttCarre.addChangeListener(new ChangeListener() {
+		//			public void stateChanged(ChangeEvent e) {
+		//				Object objetInit = spinnerQttCarre.getValue();
+		//				Number chiffreTransfo = (Number) objetInit;
+		//				grille.changerQttCarre(chiffreTransfo.intValue());
+		//
+		//			}
+		//		});
+		//		spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64, 1));
+		//		spinnerQttCarre.setBounds(715, 6, 54, 20);
+		//		add(spinnerQttCarre);
 
-//		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
-//		lblQttCarre.setBounds(530, 9, 199, 14);
-//		add(lblQttCarre);
+		//		JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
+		//		lblQttCarre.setBounds(530, 9, 199, 14);
+		//		add(lblQttCarre);
 
 		creerSectionBoutons();
 	}
@@ -225,8 +226,11 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sauvegarder(null) ;
+
+				sauvegarder(grille.niveauParDefaut) ;
+			
 			}
+
 		});
 		btnSauvegarder.setBounds(188, 351, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
@@ -236,8 +240,9 @@ public class PanelModeEditeur extends JPanel {
 	//Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
 		String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
-
+		GestionnaireDeNiveau.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, nom.toLowerCase());
 
 	}
+
 }

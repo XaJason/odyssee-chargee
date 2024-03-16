@@ -3,19 +3,20 @@ package niveau;
 import java.util.ArrayList;
 /**
  * @author Giroux
+ * @author Kitimir Yim
  */
 
 public class GestionnaireDeNiveau {
 
 	/** ArrayList contenant les niveaux **/
-	ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
+	public static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
 
 	/**
 	 * Ajoute un niveau à l'ArrayList
 	 * @param niveauAAjouter Le niveau à ajouter
 	 */
 	//Giroux
-	public void ajouter(Niveau niveauAAjouter) {
+	public static void ajouter(Niveau niveauAAjouter) {
 		repertoireNiveau.add(niveauAAjouter);
 		System.out.println("Ajout fait avec succès");
 	}

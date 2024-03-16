@@ -17,6 +17,7 @@ import java.awt.geom.Rectangle2D;
  */
 import javax.swing.JPanel;
 
+import niveau.Niveau;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -78,11 +79,15 @@ public class Grille extends JPanel {
 	boolean supprimer = false;
 	/** Indique que la sourie est à l'exterieur du composant **/
 	boolean exterieurComposant = true;
+	
+	public Niveau niveauParDefaut;
 
 	/**
 	 * Création du panel
 	 */
 	public Grille() {
+		niveauParDefaut = new Niveau(null,"defaut");
+		
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -90,6 +95,8 @@ public class Grille extends JPanel {
 				if (!supprimer) {
 					if(tuile!=null) {
 						sauvegarderEmplacement();
+						niveauParDefaut.setTabEmplacement(tabEmplacement);
+						
 					}
 					
 				} else {
@@ -154,6 +161,7 @@ public class Grille extends JPanel {
 			largeur = this.getWidth();
 			dimensionCarre();
 			dessinerGrille();
+			
 			premiereFois = false;
 		}
 		if (supprimer) {
