@@ -32,7 +32,7 @@ import tuile.Vaisseau;
  * @author Jason Xa
  */
 public class Grille extends JPanel {
-
+	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -977837790552954988L;
 	/** Hauteur du composant **/
 	private int hauteur;
@@ -81,10 +81,11 @@ public class Grille extends JPanel {
 	/** Indique que la sourie est à l'exterieur du composant **/
 	boolean exterieurComposant = true;
 
+	/** Niveau par défaut **/
 	public Niveau niveauParDefaut;
 
 	/**
-	 * Création du panel
+	 * Création du du panneau
 	 */
 	public Grille() {
 		niveauParDefaut = new Niveau(null, "defaut");
@@ -324,7 +325,7 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * 
+	 * Clone la tuile sélectionnée selon son type
 	 */
 	// Jason Xa
 	private void clonerTuile() {
@@ -398,7 +399,6 @@ public class Grille extends JPanel {
 	 * @return La qtt de carré dans la grille
 	 */
 	// Giroux
-
 	public int getNbCarre() {
 		return nbCarre;
 	}// Fin méthode
@@ -419,8 +419,9 @@ public class Grille extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Gère la condition de suppression
 	 */
+	// Giroux
 	public void gererSupprimer() {
 		if (supprimer == false) {
 			supprimer = true;
@@ -461,7 +462,7 @@ public class Grille extends JPanel {
 	}
 
 	/**
-	 * Définir le type de tuile sélectionné pour le placement
+	 * Définit le type de tuile sélectionné pour le placement
 	 * 
 	 * @param tuile le nouveau type de tuile sélectionné pour le placement
 	 */
@@ -471,7 +472,7 @@ public class Grille extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Applique un quart de rotation horaire à la tuile sélectionnée
 	 */
 	// Jason Xa
 	public void rotation() {
@@ -480,7 +481,9 @@ public class Grille extends JPanel {
 	}
 
 	/**
-	 * @param supprimer the supprimer to set
+	 * Définit la condition de suppression
+	 * 
+	 * @param supprimer la nouvelle valeau de la condition de suppression
 	 */
 	// Jason Xa
 	public void setSupprimer(boolean supprimer) {

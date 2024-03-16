@@ -37,7 +37,7 @@ import tuile.Vaisseau;
 import utilis.OutilsImage;
 
 /**
- * Projet intégrateur : Odyssée chargée
+ * Application permettant d'accéder au jeu Odyssée chargée
  * 
  * @author Jason Xa
  * @author Kitimir Yim
@@ -146,7 +146,7 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * 
+	 * Gère les constantes réutilisées hors de cette classe
 	 */
 	// Jason Xa
 	private void gererConstantes() {
