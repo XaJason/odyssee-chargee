@@ -21,7 +21,7 @@ import constante.ConstanteComposantsSwing;
  */
 public class FenetreReglage extends JFrame {
 
-	
+
 	/**
 	 *  Numéro d'identification pour la sérialisation
 	 */

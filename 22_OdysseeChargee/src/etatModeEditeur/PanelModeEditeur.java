@@ -259,6 +259,10 @@ public class PanelModeEditeur extends JPanel {
 		add(btnVaisseau);
 	}
 
+	/**
+	 * Sauvegardé le niveau crée dans le mode éditeur
+	 * @param niveau
+	 */
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
 		
