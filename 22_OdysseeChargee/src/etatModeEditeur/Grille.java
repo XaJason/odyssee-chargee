@@ -490,4 +490,13 @@ public class Grille extends JPanel {
 		this.supprimer = supprimer;
 	}
 
+	/**
+	 * Retourne la tuile sélectionnée
+	 * 
+	 * @return la tuile sélectionnée
+	 */
+	public Tuile getTuile() {
+		return tuile;
+	}
+
 }// Fin classe

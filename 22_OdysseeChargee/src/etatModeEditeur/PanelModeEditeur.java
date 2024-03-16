@@ -1,6 +1,5 @@
 package etatModeEditeur;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -10,10 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import niveau.GestionnaireDeNiveau;
 import niveau.Niveau;
@@ -50,19 +45,36 @@ public class PanelModeEditeur extends JPanel {
 	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+	/** bouton permettant la sélection de la tuile de type carré */
 	private JButton btnCarre;
+	/** bouton permettant la sélection de la tuile de type triangle rectangle */
 	private JButton btnTriangleRectangle;
+	/** bouton permettant la sélection de la tuile de type triangle équilatéral */
 	private JButton btnTriangleEquilateral;
+	/** bouton permettant la sélection de la tuile de type pics */
 	private JButton btnPics;
+	/** bouton permettant la sélection de la tuile de type portail */
 	private JButton btnPortail;
+	/** bouton permettant la sélection de la tuile de type drapeau */
 	private JButton btnDrapeau;
+	/** étiquette servant à afficher le type de tuile sélectionné */
 	private JLabel lblTypeSelectionne;
 
+	/**
+	 * chaine de caractères pour l'étiquette d'affichage de type de tuile
+	 * sélectionné
+	 */
 	private String preTexteTypeSelectionne = "Type de tuile sélectionné: ";
+	/** bouton permettant la réinitialisation de la grille */
 	private JButton btnReinitialiser;
+	/** bouton permettant de gérer la suppression de tuile */
 	private JButton btnSupprimer;
+	/** bouton permettant de gérer la rotation de nouvelles tuiles */
 	private JButton btnRotation;
+	/** bouton permettant de gérer la sauvegarde du niveau associée à la grille */
 	private JButton btnSauvegarder;
+	/** bouton permettant de la sélection de la tuile de type vaisseau */
 	private JButton btnVaisseau;
 
 	/**
@@ -121,9 +133,8 @@ public class PanelModeEditeur extends JPanel {
 		btnCarre = new JButton();
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Carré");
 				grille.setTuile(new Carre());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 		});
 		btnCarre.setBounds(64, 39, 85, 85);
@@ -133,9 +144,8 @@ public class PanelModeEditeur extends JPanel {
 		btnTriangleRectangle = new JButton();
 		btnTriangleRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Triangle rectangle");
 				grille.setTuile(new TriangleRectangle());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 		});
 		btnTriangleRectangle.setBounds(188, 39, 85, 85);
@@ -145,9 +155,8 @@ public class PanelModeEditeur extends JPanel {
 		btnTriangleEquilateral = new JButton();
 		btnTriangleEquilateral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Triangle équilatéral");
 				grille.setTuile(new TriangleEquilateral());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 		});
 		btnTriangleEquilateral.setBounds(315, 39, 85, 85);
@@ -157,9 +166,8 @@ public class PanelModeEditeur extends JPanel {
 		btnPics = new JButton();
 		btnPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Pics");
 				grille.setTuile(new Pics());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 
 		});
@@ -170,9 +178,8 @@ public class PanelModeEditeur extends JPanel {
 		btnPortail = new JButton();
 		btnPortail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Portail");
 				grille.setTuile(new Portail());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 		});
 		btnPortail.setBounds(188, 134, 85, 85);
@@ -182,9 +189,8 @@ public class PanelModeEditeur extends JPanel {
 		btnDrapeau = new JButton();
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Drapeau (objet unique)");
 				grille.setTuile(new Drapeau());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 		});
 		btnDrapeau.setBounds(315, 134, 85, 85);
@@ -242,9 +248,8 @@ public class PanelModeEditeur extends JPanel {
 		btnVaisseau = new JButton();
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lblTypeSelectionne.setText(preTexteTypeSelectionne + "Vaisseau (objet unique)");
 				grille.setTuile(new Vaisseau());
-				grille.setSupprimer(false);
+				afficherSelection();
 			}
 		});
 		btnVaisseau.setBounds(188, 229, 85, 85);
@@ -258,5 +263,15 @@ public class PanelModeEditeur extends JPanel {
 		GestionnaireDeNiveau.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, nom.toLowerCase());
 
+	}
+
+	/**
+	 * Affiche le type de tuile sélectionné et désactive le mode de suppression de
+	 * tuile
+	 */
+	// Jason Xa
+	private void afficherSelection() {
+		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
+		grille.setSupprimer(false);
 	}
 }
