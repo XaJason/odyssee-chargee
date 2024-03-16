@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import niveau.GestionnaireDeNiveau;
 import niveau.Niveau;
@@ -21,7 +22,6 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Vaisseau;
 import utilis.OutilsImage;
-import javax.swing.SwingConstants;
 
 /**
  * Panel du mode éditeur
@@ -77,20 +77,78 @@ public class PanelModeEditeur extends JPanel {
 	private JButton btnSauvegarder;
 	/** bouton permettant de la sélection de la tuile de type vaisseau */
 	private JButton btnVaisseau;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type carré
+	 */
 	private JLabel lblCarre;
+	/**
+	 * étiquette servant à identifier le regroupement de boutons permettant la
+	 * sélection de
+	 * tuile
+	 */
 	private JLabel lblObjets;
+	/**
+	 * étiquette servant à identifier le regroupement de boutons permettant la
+	 * sélection de tuile (blocs)
+	 */
 	private JLabel lblBlocs;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type triangle rectangle
+	 */
 	private JLabel lblTriangleRectangle;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type triangle équilatéral
+	 */
 	private JLabel lblTriangleEquilateral;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type pics
+	 */
 	private JLabel lblPics;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type portail
+	 */
 	private JLabel lblPortail;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type drapeau
+	 */
 	private JLabel lblDrapeau;
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type vaisseau
+	 */
 	private JLabel lblVaisseau;
+	/**
+	 * étiquette servant à identifier bouton permettant la réinitialisation de la
+	 * grille
+	 */
 	private JLabel lblReinitialiser;
+	/**
+	 * étiquette servant à identifier le bouton permettant de gérer la suppression
+	 * de tuile
+	 */
 	private JLabel lblSupprimer;
+	/**
+	 * étiquette servant à identifier le bouton permettant de gérer la rotation de
+	 * nouvelles tuiles
+	 */
 	private JLabel lblRotation;
+	/**
+	 * étiquette servant à identifier le bouton permettant de gérer la sauvegarde du
+	 * niveau associée à la grille
+	 */
 	private JLabel lblSauvegarder;
+	/**
+	 * étiquette servant à identifier le regroupement de boutons permettant la
+	 * sélection de tuile interactive
+	 */
 	private JLabel lblInteractifs;
+	/** étiquette servant à identifier le regroupement de boutons d'action */
 	private JLabel lblActions;
 
 	/**
@@ -251,9 +309,9 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
-				Niveau niveauParDefaut = new Niveau(grille.getTableau(),nom);
+				Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
 				sauvegarder(niveauParDefaut);
 
 			}
@@ -273,74 +331,74 @@ public class PanelModeEditeur extends JPanel {
 		btnVaisseau.setBounds(247, 340, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
 		add(btnVaisseau);
-		
+
 		lblCarre = new JLabel("Carré");
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCarre.setBounds(50, 156, 85, 13);
 		add(lblCarre);
-		
+
 		lblObjets = new JLabel("Objets");
 		lblObjets.setBounds(30, 10, 45, 13);
 		add(lblObjets);
-		
+
 		lblBlocs = new JLabel("Blocs");
 		lblBlocs.setBounds(40, 38, 45, 13);
 		add(lblBlocs);
-		
+
 		lblTriangleRectangle = new JLabel("Triangle rectangle");
 		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriangleRectangle.setBounds(168, 156, 104, 13);
 		add(lblTriangleRectangle);
-		
+
 		lblTriangleEquilateral = new JLabel("Triangle équilatéral");
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriangleEquilateral.setBounds(289, 156, 110, 13);
 		add(lblTriangleEquilateral);
-		
+
 		lblPics = new JLabel("Pics");
 		lblPics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPics.setBounds(118, 310, 85, 13);
 		add(lblPics);
-		
+
 		lblPortail = new JLabel("Portail");
 		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPortail.setBounds(247, 310, 85, 13);
 		add(lblPortail);
-		
+
 		lblDrapeau = new JLabel("Drapeau");
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDrapeau.setBounds(118, 435, 85, 13);
 		add(lblDrapeau);
-		
+
 		lblVaisseau = new JLabel("Vaisseau");
 		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVaisseau.setBounds(247, 435, 85, 13);
 		add(lblVaisseau);
-		
+
 		lblReinitialiser = new JLabel("Réinitialiser");
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
 		lblReinitialiser.setBounds(50, 576, 85, 13);
 		add(lblReinitialiser);
-		
+
 		lblSupprimer = new JLabel("Supprimer");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSupprimer.setBounds(178, 576, 85, 13);
 		add(lblSupprimer);
-		
+
 		lblRotation = new JLabel("Rotation");
 		lblRotation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRotation.setBounds(302, 576, 85, 13);
 		add(lblRotation);
-		
+
 		lblSauvegarder = new JLabel("Sauvegarder");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSauvegarder.setBounds(178, 694, 85, 13);
 		add(lblSauvegarder);
-		
+
 		lblInteractifs = new JLabel("Interactifs");
 		lblInteractifs.setBounds(64, 192, 85, 13);
 		add(lblInteractifs);
-		
+
 		lblActions = new JLabel("Actions");
 		lblActions.setBounds(64, 458, 85, 13);
 		add(lblActions);
@@ -348,11 +406,12 @@ public class PanelModeEditeur extends JPanel {
 
 	/**
 	 * Sauvegardé le niveau crée dans le mode éditeur
+	 * 
 	 * @param niveau
 	 */
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
-		
+
 		GestionnaireDeNiveau.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNomNiveau());
 
