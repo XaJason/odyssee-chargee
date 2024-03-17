@@ -7,7 +7,16 @@ import java.awt.geom.Ellipse2D;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
 import utilis.Dessinable;
-
+/**
+ * Classe Vaisseau: représentation sommaire d'un vaisseau à l'aide d'un cercles.
+ * Un vaisseau mémorise sa masse, sa charge, son rayon, sa position, sa vitesse, son accélération 
+ *  et la somme des forces qui s'applique sur lui.
+ * 
+ * Une vaisseau a une methode qui permet de s'avancer d'un pas
+ * ainsi que des méthodes pour gérer les collisions
+ * 
+ * @author Enuel René Valentin Kizozo Izia
+ */
 public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	// PROPRIÉTÉS //
@@ -30,12 +39,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	/**
 	 * Constructeur du vaisseau
 	 * 
-	 * @param position
-	 * @param vitesse
-	 * @param accel
-	 * @param rayon
-	 * @param charge
-	 * @param masse
+	 * @param position La position du vaisseau
+	 * @param vitesse La vitesse du vaisseau
+	 * @param accel L'accélération du vaisseau
+	 * @param rayon Le rayon du vaisseau
+	 * @param charge La charge du vaisseau
+	 * @param masse La masse du vaisse
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public Vaisseau(Vecteur2D position, Vecteur2D vitesse, Vecteur2D accel, double rayon, double charge, double masse) {
@@ -60,21 +69,21 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	
 	/**
 	 * Permet de dessiner un vaisseau, sur le contexte graphique passé en parametre.
-	 * @param g2d
+	 * @param g2d Le contexte graphique
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		
 		g2dPrive.setColor(Color.cyan);
-		g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
+		//g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
 		g2dPrive.fill(cercle);
 	}
 	
 	/**
 	 * Calcule la nouvelle vitesse et la nouvelle position du vaisseau après
 	 * un certain intervalle de temps.
-	 * @param deltaT intervalle de temps (pas)
+	 * @param deltaT intervalle de temps (pas de simulation)
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public void avancerUnPas(double deltaT) {
@@ -95,7 +104,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	 * @param plaque La plaque avec laquelle le vaisseau entre en collision
 	 */
 	//Enuel René Valentin Kizozo Izia
-	public void gererCollision(PlaqueChargee plaque) {
+	public void gererCollisionAvecPlaque(PlaqueChargee plaque) {
 		/*
 		 * À modifier éventuellement, car il n'y a pas que des collisions avec des plaques
 		 * Faire de la surdéfinition (même méthodes avec comme paramètre, chaque objet différent)
@@ -104,13 +113,33 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 		 * mais faudra gérer différement les paramètres des méthodes
 		 * detectionCollisions et calculVitesseApresCollision
 		 */
-		if ( MoteurPhysique.detectionCollisions(this, plaque) ) {
-			System.out.println("Y'a une collision");
-			vitesse = MoteurPhysique.calculVitesseApresCollision(this, plaque);
-			//vitesse = new Vecteur2D(-vitesse.getX(), vitesse.getY());
-		}
+		vitesse = MoteurPhysique.detectionCollisionsAvecPlaqueEtCalculeVitesse(this, plaque);
+		creerLaGeometrie();
 	}
 	
+	/**
+	 * Détermine s'il y a une collision avec les bordures de la zone d'animation,
+	 * puis modifie la vitesse en conséquence
+	 * @param largeurComposant La largeur de la zone d'animation, en mètre
+	 * @param hauteurComposant La hauteur de la zone d'animation, en mètre
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public void gererCollisionAvecBordures(double largeurComposant, double hauteurComposant) {
+		vitesse = MoteurPhysique.detectionCollisionsBorduresEtCalculVitesse(this, largeurComposant, hauteurComposant);
+		creerLaGeometrie();
+	}
+	
+	/**
+	 * Permet d'afficher quelques caractéristiques du vaisseau :
+	 * Sa position, sa vitesse, son accélération, la somme des forces agissant sur lui et sa charge
+	 * 
+	 * !!! La méthode provient d'anciens projets (auteur : Caroline Houle) mais a été implementé et
+	 * modifier pour notre code !!!
+	 * 
+	 * @param nbDecimales Le nombre souhaité de décimales après la virgule
+	 * @return Une chaine présentant quelques caractéristiques du vaisseau
+	 */
+	//Enuel René Valentin Kizozo Izia
 	public String toString(int nbDecimales){
 		String s =  " position=[ " +  String.format("%."+nbDecimales+"f", getPosition().getX()) + ", " + String.format("%."+nbDecimales+"f", getPosition().getY())  + "]" ;
 		s+= " vitesse=[ " +  String.format("%."+nbDecimales+"f", vitesse.getX()) + ", " + String.format("%."+nbDecimales+"f", vitesse.getY())  + "]" ;
@@ -122,15 +151,18 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	
 	// GETTERS ET SETTERS //
 	/**
-	 * Recalcule l'accélération de la balle à l'aide de la nouvelle somme des forces passée en paramètre
+	 * Recalcule l'accélération du vaisseau à l'aide de la nouvelle somme des forces passée en paramètre
 	 * Ceci aura pour conséquence de modifier l'accélération
-	 * @param sommeForcesSurVaisseau La somme des forces exercées sur la balle
+	 * 
+	 * !!! La méthode provient d'anciens projets (auteur : Caroline Houle) mais a été implementé et
+	 * modifier pour notre code !!!
+	 * 
+	 * @param sommeForcesSurVaisseau La somme des forces exercées sur le vaisseau
 	 */
-	public void setSommeDesForces(Vecteur2D sommeForcesSurVaisseau) {
-		//ici changer les forces signifie recalculer l'acceleration
-		//on relegue cette tache au moteur physique. 
+	// Enuel René Valentin Kizozo Izia
+	public void setSommeDesForces(Vecteur2D sommeForcesSurVaisseau) { 
 		try {
-			sommeForces = new Vecteur2D(sommeForcesSurVaisseau); //on recopie à l'interne
+			sommeForces = new Vecteur2D(sommeForcesSurVaisseau);
 			accel = MoteurPhysique.calculAcceleration(sommeForces, getMasse());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,7 +171,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	
 	/**
 	 * Retourne la vitesse du vaisseau
-	 * 
 	 * @return La vitesse du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -149,7 +180,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Modifie la vitesse du vaisseau
-	 * 
 	 * @param vitesse Vitesse du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -159,7 +189,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Retourne l'accélération du vaisseau
-	 * 
 	 * @return L'accélération du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -169,7 +198,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Modifie l'accélération du vaisseau
-	 * 
 	 * @param accel Accélération du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -179,7 +207,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Retourne le rayon du vaisseau
-	 * 
 	 * @return Le rayon du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -189,7 +216,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Modifie le rayon du vaisseau
-	 * 
 	 * @param rayon Rayon du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
