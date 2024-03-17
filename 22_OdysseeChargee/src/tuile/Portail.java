@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 
  * @author Jason Xa
  */
-public class Portail extends Tuile implements Serializable{
+public class Portail extends Tuile implements Serializable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */

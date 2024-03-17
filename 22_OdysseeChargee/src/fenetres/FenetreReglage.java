@@ -21,9 +21,8 @@ import utilitaires.ConstanteComposantsSwing;
  */
 public class FenetreReglage extends JFrame {
 
-
 	/**
-	 *  Numéro d'identification pour la sérialisation
+	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -4125957740472303897L;
 
@@ -90,7 +89,7 @@ public class FenetreReglage extends JFrame {
 	 * Bouton pour fermer la fenêtre
 	 */
 	// Kitimir Yim
-	private  void menuQuitter() {
+	private void menuQuitter() {
 		dispose();
 	}
 }

@@ -173,7 +173,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 
 		}
 	}
-	
+
 	/**
 	 * Méthode qui met le champ vaisseau à vrai
 	 */

@@ -1,22 +1,19 @@
 package niveau;
 
-
 import java.io.File;
 import java.io.FileInputStream;
-
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JOptionPane;
 
-
-
 /**
- * Classe servant à sauvegarder des niveaux 
- * Inspirée par le matériel d'appoint, mais grandement modifier pour fonctionner pour notre jeu
+ * Classe servant à sauvegarder des niveaux
+ * Inspirée par le matériel d'appoint, mais grandement modifier pour fonctionner
+ * pour notre jeu
+ * 
  * @author Kitimir Yim
  */
 public class Sauvegarder {
@@ -28,12 +25,14 @@ public class Sauvegarder {
 	 * Type de fichier
 	 */
 	private static final String EXTENSION_FICHIER = ".dat";
+
 	/**
 	 * Méthode static permettant la sauvegarde de niveau
-	 * @param niveau Objet niveau que l'on veut sauvegarder
-	 * @param numeroNiveau numéro du niveau 
+	 * 
+	 * @param niveau       Objet niveau que l'on veut sauvegarder
+	 * @param numeroNiveau numéro du niveau
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public static void sauvegarderNiveau(Niveau niveau, String numeroNiveau) {
 
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
@@ -42,7 +41,8 @@ public class Sauvegarder {
 
 		ObjectOutputStream oos = null;
 		if (fichierDeTravail.exists()) {
-			JOptionPane.showMessageDialog(null,	"Probléme! Le fichier " + fichierDeTravail.toString() + " existe déja...");
+			JOptionPane.showMessageDialog(null,
+					"Probléme! Le fichier " + fichierDeTravail.toString() + " existe déja...");
 		}
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(fichierDeTravail));
@@ -51,8 +51,7 @@ public class Sauvegarder {
 			System.out.println("Niveau sauvegardé avec succès.");
 		} catch (IOException e) {
 			System.out.println("Erreur lors de la sauvegarde du niveau : " + e.getMessage());
-		}
-		finally {
+		} finally {
 
 			try {
 				oos.close();
@@ -62,18 +61,19 @@ public class Sauvegarder {
 			}
 		}
 	}
+
 	/**
 	 * Méthode static permettant le chargement de niveau
+	 * 
 	 * @param numeroNiveau numéro du niveau
 	 * @return niveau niveau que l'on souhaite charger
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public static Niveau chargerNiveau(String numeroNiveau) {
 		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
-		
-		
+
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
@@ -85,16 +85,14 @@ public class Sauvegarder {
 		} catch (IOException | ClassNotFoundException e) {
 			System.out.println("Erreur lors du chargement du niveau : " + e.getMessage());
 			return null;
-		}
-		finally {
+		} finally {
 
 			try {
 				ois.close();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null,"Erreur rencontrée lors de la fermeture!");
+				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
 				e.printStackTrace();
 			}
 		}
 	}
 }
-

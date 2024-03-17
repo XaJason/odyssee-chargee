@@ -1,17 +1,12 @@
 package panneaux;
 
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.BorderFactory;
-
-import javax.swing.JPanel;
-
-import javax.swing.JSpinner;
-
-
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 
 /**
@@ -38,7 +33,7 @@ public class PanelModeJeu extends JPanel {
 	}
 
 	/**
-	 *  Implémente le panel et ses fonctionnalités
+	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
 	public PanelModeJeu() {

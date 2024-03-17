@@ -91,7 +91,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private JMenuItem mntmSelection;
 	/**
-	 * Clip par défaut du son 
+	 * Clip par défaut du son
 	 */
 	private Clip leClip = null;
 	/**
@@ -106,7 +106,8 @@ public class AppPrincipale22 extends JFrame {
 	 * Volume du son
 	 */
 	private double volumeEntre0Et1 = 1;
-	/**`
+	/**
+	 * `
 	 * Chemin vers le fichier
 	 */
 	private String pathDeFichier = null;
@@ -213,7 +214,6 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				
 
 			}
 		});
@@ -224,7 +224,6 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
-			
 
 			}
 		});
