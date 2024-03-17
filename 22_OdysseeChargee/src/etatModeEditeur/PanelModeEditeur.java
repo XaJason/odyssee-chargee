@@ -279,6 +279,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.reinitialiser();
 				grille.setSupprimer(false);
+				grille.setTuile(null);
 			}
 		});
 		btnReinitialiser.setBounds(50, 481, 85, 85);
@@ -313,7 +314,6 @@ public class PanelModeEditeur extends JPanel {
 				String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
 				Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
 				sauvegarder(niveauParDefaut);
-
 
 			}
 
@@ -411,15 +411,15 @@ public class PanelModeEditeur extends JPanel {
 
 			}
 
-
 		});
 		btnChargement.setBounds(166, 20, 85, 21);
 		add(btnChargement);
 	}
+
 	/**
 	 * Charge le niveau test
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void charger() {
 		Niveau charger = Sauvegarder.chargerNiveau("test");
 
