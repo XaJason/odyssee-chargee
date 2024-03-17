@@ -1,4 +1,4 @@
-package etatModeEditeur;
+package editeur_niveaux;
 
 import java.awt.Color;
 import java.awt.Cursor;

@@ -20,12 +20,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import constante.ConstanteComposantsSwing;
-import etatModeEditeur.PanelModeEditeur;
-import etatModeJeu.PanelModeJeu;
-import etatSelecteurNiveaux.PanelSelecteurNiveaux;
+import editeur_niveaux.PanelModeEditeur;
 import fenetres.FenetreApropos;
 import fenetres.FenetreInstruction;
 import fenetres.FenetreReglage;
+import jouer.PanelModeJeu;
+import jouer.PanelSelecteurNiveaux;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;

@@ -1,4 +1,4 @@
-package etatModeJeu;
+package jouer;
 
 
 import java.beans.PropertyChangeListener;
