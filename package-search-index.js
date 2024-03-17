@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"tuile"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"application"},{"l":"dessin"},{"l":"fenetres"},{"l":"interactif"},{"l":"niveau"},{"l":"panneaux"},{"l":"physique"},{"l":"tuile"},{"l":"utilitaires"}];updateSearchResults();
