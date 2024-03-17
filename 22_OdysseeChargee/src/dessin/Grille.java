@@ -149,7 +149,8 @@ public class Grille extends JPanel {
 	/**
 	 * Méthode qui dessine de la grille et de ses composantes
 	 * 
-	 * @param g Contexte graphique
+	 * @param g2d Contexte graphique
+	 * 
 	 */
 	// Giroux
 	public void dessiner(Graphics2D g2d) {

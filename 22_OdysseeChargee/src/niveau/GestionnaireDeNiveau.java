@@ -61,8 +61,8 @@ public class GestionnaireDeNiveau {
 	/**
 	 * Permet d'aller chercher le niveau
 	 * 
-	 * @param index
-	 * @return Le niveau voulu
+	 * @param index  l'index à chercher
+	 * @param niveau le niveau à chercher
 	 */
 	// Kitimir Yim
 	public void setNiveau(int index, Niveau niveau) {

@@ -182,6 +182,7 @@ public class MoteurPhysique {
 	 * 
 	 * @param vaisseau Objet représentant un vaisseau
 	 * @param plaque   Objet représentant une plaque chargée
+	 * @return La force électrique générée par la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceElectriqueGenereeParPlaque(Vaisseau vaisseau, PlaqueChargee plaque) {
