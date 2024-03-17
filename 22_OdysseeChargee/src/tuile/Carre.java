@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Représente l'objet fixe plaçable en forme de carré
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Carre extends Tuile implements Serializable {
 	/**

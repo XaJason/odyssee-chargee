@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Vaisseau extends Tuile implements Serializable {
 	/**

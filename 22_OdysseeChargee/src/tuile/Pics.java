@@ -10,6 +10,7 @@ import java.io.Serializable;
  * (au bas de la tuile par défaut)
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Pics extends Tuile implements Serializable {
 	/**

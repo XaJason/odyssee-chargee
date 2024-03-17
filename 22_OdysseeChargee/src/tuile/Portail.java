@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Représente l'objet interactif fixe plaçable qui agit comme un portail
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Portail extends Tuile implements Serializable {
 	/**

@@ -8,6 +8,7 @@ import java.io.Serializable;
  * à gauche par défaut)
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class TriangleRectangle extends Tuile implements Serializable {
 	/**

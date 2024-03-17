@@ -8,6 +8,7 @@ import java.io.Serializable;
  * vers le haut par défaut)
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class TriangleEquilateral extends Tuile implements Serializable {
 	/**

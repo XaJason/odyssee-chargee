@@ -8,6 +8,7 @@ import java.io.Serializable;
  * d'arrivée
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Drapeau extends Tuile implements Serializable {
 	/**
