@@ -1,4 +1,4 @@
-package etatModeEditeur;
+package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import dessin.Grille;
 import niveau.GestionnaireDeNiveau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
@@ -21,7 +22,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Vaisseau;
-import utilis.OutilsImage;
+import utilitaires.OutilsImage;
 
 /**
  * Panel du mode éditeur
@@ -403,18 +404,18 @@ public class PanelModeEditeur extends JPanel {
 		lblActions = new JLabel("Actions");
 		lblActions.setBounds(64, 458, 85, 13);
 		add(lblActions);
-/**
-		JButton btnChargement = new JButton("Charger test");
-		btnChargement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				charger();
-
-			}
-
-		});
-		btnChargement.setBounds(166, 20, 85, 21);
-		add(btnChargement);
-		*/
+		/**
+		 * JButton btnChargement = new JButton("Charger test");
+		 * btnChargement.addActionListener(new ActionListener() {
+		 * public void actionPerformed(ActionEvent e) {
+		 * charger();
+		 * 
+		 * }
+		 * 
+		 * });
+		 * btnChargement.setBounds(166, 20, 85, 21);
+		 * add(btnChargement);
+		 */
 	}
 
 	/**

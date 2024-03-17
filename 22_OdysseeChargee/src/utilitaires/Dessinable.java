@@ -1,6 +1,6 @@
-package utilis;
+package utilitaires;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 /**
  * Interface qui definit la methode (ou possiblement les methodes) qu'un objet

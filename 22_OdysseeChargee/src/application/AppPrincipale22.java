@@ -19,13 +19,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import constante.ConstanteComposantsSwing;
-import etatModeEditeur.PanelModeEditeur;
-import etatModeJeu.PanelModeJeu;
-import etatSelecteurNiveaux.PanelSelecteurNiveaux;
 import fenetres.FenetreApropos;
 import fenetres.FenetreInstruction;
 import fenetres.FenetreReglage;
+import panneaux.PanelModeEditeur;
+import panneaux.PanelModeJeu;
+import panneaux.PanelSelecteurNiveaux;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -34,7 +33,8 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
 import tuile.Vaisseau;
-import utilis.OutilsImage;
+import utilitaires.ConstanteComposantsSwing;
+import utilitaires.OutilsImage;
 
 /**
  * Application permettant d'accéder au jeu Odyssée chargée
@@ -51,7 +51,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private static final long serialVersionUID = -506870656338933836L;
 	/**
-	 * Zone des composants
+	 * Zone des dessin
 	 */
 	private JPanel contentPane;
 	/**
@@ -91,7 +91,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private JMenuItem mntmSelection;
 	/**
-	 * Clip par défaut du son 
+	 * Clip par défaut du son
 	 */
 	private Clip leClip = null;
 	/**
@@ -106,7 +106,8 @@ public class AppPrincipale22 extends JFrame {
 	 * Volume du son
 	 */
 	private double volumeEntre0Et1 = 1;
-	/**`
+	/**
+	 * `
 	 * Chemin vers le fichier
 	 */
 	private String pathDeFichier = null;
@@ -213,7 +214,6 @@ public class AppPrincipale22 extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				
 
 			}
 		});
@@ -224,7 +224,6 @@ public class AppPrincipale22 extends JFrame {
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
-			
 
 			}
 		});

@@ -11,8 +11,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import composants.EvaluationEtoile;
-import constante.ConstanteComposantsSwing;
+import dessin.EvaluationEtoile;
+import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre des réglages
@@ -21,9 +21,8 @@ import constante.ConstanteComposantsSwing;
  */
 public class FenetreReglage extends JFrame {
 
-
 	/**
-	 *  Numéro d'identification pour la sérialisation
+	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -4125957740472303897L;
 
@@ -90,7 +89,7 @@ public class FenetreReglage extends JFrame {
 	 * Bouton pour fermer la fenêtre
 	 */
 	// Kitimir Yim
-	private  void menuQuitter() {
+	private void menuQuitter() {
 		dispose();
 	}
 }

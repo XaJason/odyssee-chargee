@@ -1,4 +1,4 @@
-package composants;
+package dessin;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,6 +11,7 @@ import interactif.PlaqueChargee;
 import interactif.Vaisseau;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+
 /**
  * Composant illustrant la simulation :
  * C'est la scène physique où sont représentés le vaisseau et la plaque chargée
@@ -41,7 +42,10 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/** Booléan indiquant si c'est la première fois. **/
 	private boolean premiereFois = true;
-	/** Booléan indiquant si le bouton réinitialiser a été actionné (vrai la première fois) **/
+	/**
+	 * Booléan indiquant si le bouton réinitialiser a été actionné (vrai la première
+	 * fois)
+	 **/
 	private boolean reinitialiser = true;
 
 	/** Nombre de pixels par mètre. **/
@@ -60,7 +64,10 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
 	private final double POS_INITIALE_VAISSEAU_EN_X = 200;
 
-	/** Composante en Y de la position initiale du vaisseau (en mètre), définie à mi-hauteur du composant **/
+	/**
+	 * Composante en Y de la position initiale du vaisseau (en mètre), définie à
+	 * mi-hauteur du composant
+	 **/
 	private final double POS_INITIALE_VAISSEAU_EN_Y = hauteurDuComposantEnMetres / 2;
 
 	/** Vitesse initiale du vaisseau selon l'axe X (en m/s) **/
@@ -69,7 +76,9 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/** Vitesse initiale du vaisseau selon l'axe Y (en m/s) **/
 	private final double VIT_INITIALE_VAISSEAU_Y = 0;
 
-	/** Accélération initiale du vaisseau (en m/s^2), représentée par un vecteur 2D **/
+	/**
+	 * Accélération initiale du vaisseau (en m/s^2), représentée par un vecteur 2D
+	 **/
 	private final Vecteur2D ACCEL_INITIALE_VAISSEAU = new Vecteur2D(0, 0);
 
 	// Constantes de la plaque
@@ -79,10 +88,16 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/** Charge initiale de la plaque chargée (en Coulomb) **/
 	private final double CHARGE_INITIALE_PLAQUE = 20;
 
-	/** Composante en X de la position initiale de la plaque chargée (en mètre), définie à mi-largeur du composant **/
+	/**
+	 * Composante en X de la position initiale de la plaque chargée (en mètre),
+	 * définie à mi-largeur du composant
+	 **/
 	private final double POS_INITIALE_PLAQUE_EN_X = largeurDuComposantEnMetres / 2;
 
-	/** Composante en Y de la position initiale de la plaque chargée (en mètre), définie à mi-hauteur du composant **/
+	/**
+	 * Composante en Y de la position initiale de la plaque chargée (en mètre),
+	 * définie à mi-hauteur du composant
+	 **/
 	private final double POS_INITIALE_PLAQUE_EN_Y = hauteurDuComposantEnMetres / 2;
 
 	/** Composante X de la normale de la plaque chargée **/
@@ -156,16 +171,16 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/** Vecteur normal de la plaque chargée **/
 	private Vecteur2D normalePlaque = new Vecteur2D(NORMALE_PLAQUE_COMPOSANTE_X, NORMALE_PLAQUE_COMPOSANTE_Y);
 
-
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur de la zone d'animation
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysiqueTest() {
 		setBackground(Color.black);
 
-		vaisseauBleu = new Vaisseau(posVaisseau, vitVaisseau, accelVaisseau, rayonVaisseau, chargeVaisseau, masseVaisseau);
+		vaisseauBleu = new Vaisseau(posVaisseau, vitVaisseau, accelVaisseau, rayonVaisseau, chargeVaisseau,
+				masseVaisseau);
 		plaqueRouge = new PlaqueChargee(posPlaque, normalePlaque, longueurPlaque, chargePlaque, massePlaque);
 
 	}
@@ -173,37 +188,37 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	// SOUS-PROGRAMMES //
 	/**
 	 * Permet de dessiner des objets sur le composant
+	 * 
 	 * @param g Le contexte graphique
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// Transformations affines pour que l'origine soit en bas à droite
 		g2d.translate(0, getHeight());
 		g2d.scale(1, -1);
 
 		if (premiereFois) {
-			pixelsParMetre = getWidth()/largeurDuComposantEnMetres;
-			hauteurDuComposantEnMetres = getHeight()/pixelsParMetre;
+			pixelsParMetre = getWidth() / largeurDuComposantEnMetres;
+			hauteurDuComposantEnMetres = getHeight() / pixelsParMetre;
 
 			if (reinitialiser) {
-				posVaisseauEnY = hauteurDuComposantEnMetres/2;
-				posPlaqueEnX = largeurDuComposantEnMetres/2;
-				posPlaqueEnY = hauteurDuComposantEnMetres/2;
+				posVaisseauEnY = hauteurDuComposantEnMetres / 2;
+				posPlaqueEnX = largeurDuComposantEnMetres / 2;
+				posPlaqueEnY = hauteurDuComposantEnMetres / 2;
 				reinitialiser = false;
 			}
 
-
-			vaisseauBleu.setPosition( new Vecteur2D (posVaisseauEnX, posVaisseauEnY) );
-			plaqueRouge.setPosition( new Vecteur2D (posPlaqueEnX, posPlaqueEnY) );
+			vaisseauBleu.setPosition(new Vecteur2D(posVaisseauEnX, posVaisseauEnY));
+			plaqueRouge.setPosition(new Vecteur2D(posPlaqueEnX, posPlaqueEnY));
 			plaqueRouge.setExtremiteA();
 			plaqueRouge.setExtremiteB();
 
 			premiereFois = false;
-		}//fin condition dans paintComponent
+		} // fin condition dans paintComponent
 
 		g2d.scale(pixelsParMetre, pixelsParMetre);
 		dessinerVaisseau(g2d);
@@ -212,9 +227,10 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Permet de dessiner le vaisseau
+	 * 
 	 * @param g2d Le contexte graphique
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	private void dessinerVaisseau(Graphics2D g2d) {
 		vaisseauBleu.setPixelsParMetre(pixelsParMetre);
 		vaisseauBleu.dessiner(g2d);
@@ -222,9 +238,10 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Permet de dessiner la ou les plaques chargées
+	 * 
 	 * @param g2d Le contexte graphique
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	private void dessinerPlaque(Graphics2D g2d) {
 		plaqueRouge.setPixelsParMetre(pixelsParMetre);
 		plaqueRouge.dessiner(g2d);
@@ -233,9 +250,9 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/**
 	 * Permet d'effectuer l'animation
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void run() {
-		while (enCoursDAnimation) {	
+		while (enCoursDAnimation) {
 			System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
 			calculerUneIterationPhysique(deltaT);
 			testerCollisionsEtAjusterVitesses();
@@ -245,33 +262,34 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}//fin while
+		} // fin while
 		System.out.println("Le thread est mort...!");
 	}
 
 	/**
 	 * Calcul de la nouvelle position du vaisseau
+	 * 
 	 * @param deltaT Le pas de simulation
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	private void calculerUneIterationPhysique(double deltaT) {
 		tempsTotalEcoule += deltaT;
-		System.out.println("Temps total écoulé: "  + String.format("%.3f",tempsTotalEcoule) + "sec (en temps simulé!)");
-
+		System.out.println("Temps total écoulé: " + String.format("%.3f", tempsTotalEcoule) + "sec (en temps simulé!)");
 
 		Vecteur2D forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseauBleu, plaqueRouge);
 		Vecteur2D forceGrav = MoteurPhysique.calculForceGrav(vaisseauBleu.getMasse());
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
-		 * les forces d'autres plaques 
+		 * les forces d'autres plaques
 		 */
 
 		vaisseauBleu.setSommeDesForces(forceElec.additionne(forceGrav));
 
 		vaisseauBleu.avancerUnPas(deltaT);
 
-		//System.out.println("Temps total écoulé: "  + String.format("%.3f",tempsTotalEcoule) + "sec (en temps simulé!)");
+		// System.out.println("Temps total écoulé: " +
+		// String.format("%.3f",tempsTotalEcoule) + "sec (en temps simulé!)");
 		System.out.println("Le vaisseau bleu : " + vaisseauBleu.toString(3));
 		System.out.println("La plaque rouge : " + plaqueRouge.toString(3));
 		System.out.println(" ");
@@ -280,12 +298,14 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/**
 	 * Teste si des objets de la scene sont en collision.
 	 * Si oui : on calcule les rebonds et on en déduit les nouvelles vitesses.
-	 * Lors du prochain pas, ces nouvelles vitesses entrainent les objets dans de nouvelles directions.
+	 * Lors du prochain pas, ces nouvelles vitesses entrainent les objets dans de
+	 * nouvelles directions.
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	private void testerCollisionsEtAjusterVitesses() {
-		/* 
-		 * Éventuellement, faire une boucle pour vérifier toutes les instances (murs, plaques, sol) avec lesquelles le vaisseau
+		/*
+		 * Éventuellement, faire une boucle pour vérifier toutes les instances (murs,
+		 * plaques, sol) avec lesquelles le vaisseau
 		 * pourrait entrer en collision
 		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
 		 */
@@ -296,46 +316,47 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void demarrer() {
-		if (!enCoursDAnimation) { 
+		if (!enCoursDAnimation) {
 			Thread proc = new Thread(this);
 			proc.start();
 			enCoursDAnimation = true;
 		}
 	}
+
 	/**
 	 * Cause la fin du thread
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void arreter() {
 		enCoursDAnimation = false;
-	}//fin methode
+	}// fin methode
 
 	/**
 	 * Permet d'avancer d'une image
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void prochaineImage() {
 		enCoursDAnimation = false;
 		System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
 		calculerUneIterationPhysique(deltaT);
-		//repaint();
+		// repaint();
 		testerCollisionsEtAjusterVitesses();
 		repaint();
-	}//fin methode prochaineImage
+	}// fin methode prochaineImage
 
 	/**
 	 * Permet de repositioner les objets de la scène à leur état initial
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void recommencer() {
 		vaisseauBleu.setRayon(rayonVaisseau);
 		vaisseauBleu.setCharge(chargeVaisseau);
 		vaisseauBleu.setMasse(masseVaisseau);
 
-		vaisseauBleu.setPosition( new Vecteur2D(posVaisseauEnX, posVaisseauEnY) );
-		vaisseauBleu.setVitesse( new Vecteur2D(vitVaisseauEnX, vitVaisseauEnY) );
+		vaisseauBleu.setPosition(new Vecteur2D(posVaisseauEnX, posVaisseauEnY));
+		vaisseauBleu.setVitesse(new Vecteur2D(vitVaisseauEnX, vitVaisseauEnY));
 		vaisseauBleu.setAccel(ACCEL_INITIALE_VAISSEAU);
 		vaisseauBleu.setSommeDesForces(new Vecteur2D(0, 0));
 
@@ -349,14 +370,14 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/**
 	 * Permet de réinitialiser l'application
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void reinitialiser() {
 		vaisseauBleu.setRayon(RAYON_INITIAL_VAISSEAU);
 		vaisseauBleu.setCharge(CHARGE_INITIALE_VAISSEAU);
 		vaisseauBleu.setMasse(MASSE_INITIALE_VAISSEAU);
 
-		vaisseauBleu.setPosition( new Vecteur2D(POS_INITIALE_VAISSEAU_EN_X, POS_INITIALE_VAISSEAU_EN_Y) );
-		vaisseauBleu.setVitesse( new Vecteur2D(VIT_INITIALE_VAISSEAU_X, VIT_INITIALE_VAISSEAU_Y) );
+		vaisseauBleu.setPosition(new Vecteur2D(POS_INITIALE_VAISSEAU_EN_X, POS_INITIALE_VAISSEAU_EN_Y));
+		vaisseauBleu.setVitesse(new Vecteur2D(VIT_INITIALE_VAISSEAU_X, VIT_INITIALE_VAISSEAU_Y));
 		vaisseauBleu.setAccel(ACCEL_INITIALE_VAISSEAU);
 		vaisseauBleu.setSommeDesForces(new Vecteur2D(0, 0));
 
@@ -368,22 +389,23 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		repaint();
 	}
 
-
 	// GETTERS ET SETTERS //
 	/**
 	 * Retourne le rayon du vaisseau
+	 * 
 	 * @return Le rayon du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getRayonVaisseau() {
 		return rayonVaisseau;
 	}
 
 	/**
 	 * Modifie le rayon du vaisseau
+	 * 
 	 * @param rayonVaisseau Le rayon du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setRayonVaisseau(double rayonVaisseau) {
 		this.rayonVaisseau = rayonVaisseau;
 		vaisseauBleu.setRayon(rayonVaisseau);
@@ -392,18 +414,20 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la charge du vaisseau
+	 * 
 	 * @return La charge du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getChargeVaisseau() {
 		return chargeVaisseau;
 	}
 
 	/**
 	 * Modifie la charge du vaisseau
+	 * 
 	 * @param chargeVaisseau La charge du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setChargeVaisseau(double chargeVaisseau) {
 		this.chargeVaisseau = chargeVaisseau;
 		vaisseauBleu.setCharge(chargeVaisseau);
@@ -412,18 +436,20 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la masse du vaisseau
+	 * 
 	 * @return La masse du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getMasseVaisseau() {
 		return masseVaisseau;
 	}
 
 	/**
 	 * Modifie la masse du vaisseau
+	 * 
 	 * @param masseVaisseau La masse du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setMasseVaisseau(double masseVaisseau) {
 		this.masseVaisseau = masseVaisseau;
 		vaisseauBleu.setMasse(masseVaisseau);
@@ -432,106 +458,116 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la composante en X de la position du vaisseau
+	 * 
 	 * @return La composante en X de la position du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPosVaisseauEnX() {
 		return posVaisseauEnX;
 	}
 
 	/**
 	 * Modifie la composante en X de la position du vaisseau
+	 * 
 	 * @param posVaisseauEnX La composante en X de la position du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setPosVaisseauEnX(double posVaisseauEnX) {
 		this.posVaisseauEnX = posVaisseauEnX;
 		if (!enCoursDAnimation) {
-			vaisseauBleu.setPosition( new Vecteur2D(posVaisseauEnX, vaisseauBleu.getPosition().getY()) );
+			vaisseauBleu.setPosition(new Vecteur2D(posVaisseauEnX, vaisseauBleu.getPosition().getY()));
 			repaint();
 		}
 	}
 
 	/**
 	 * Retourne la composante en Y de la position du vaisseau
+	 * 
 	 * @return La composante en Y de la position du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPosVaisseauEnY() {
 		return posVaisseauEnY;
 	}
 
 	/**
 	 * Modifie la composante en Y de la position du vaisseau
+	 * 
 	 * @param posVaisseauEnY La composante en Y de la position du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setPosVaisseauEnY(double posVaisseauEnY) {
 		this.posVaisseauEnY = posVaisseauEnY;
 		if (!enCoursDAnimation) {
-			vaisseauBleu.setPosition( new Vecteur2D(vaisseauBleu.getPosition().getX(), posVaisseauEnY) );
+			vaisseauBleu.setPosition(new Vecteur2D(vaisseauBleu.getPosition().getX(), posVaisseauEnY));
 			repaint();
 		}
 	}
 
 	/**
 	 * Retourne la composante en X de la vitesse du vaisseau
+	 * 
 	 * @return La composante en X de la vitesse du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getVitVaisseauEnX() {
 		return vitVaisseauEnX;
 	}
 
 	/**
 	 * Modifie la composante en X de la vitesse du vaisseau
+	 * 
 	 * @param vitVaisseauEnX La composante en X de la vitesse du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setVitVaisseauEnX(double vitVaisseauEnX) {
 		this.vitVaisseauEnX = vitVaisseauEnX;
 		if (!enCoursDAnimation) {
-			vaisseauBleu.setVitesse( new Vecteur2D(vitVaisseauEnX, vaisseauBleu.getVitesse().getY()) );
+			vaisseauBleu.setVitesse(new Vecteur2D(vitVaisseauEnX, vaisseauBleu.getVitesse().getY()));
 			repaint();
 		}
 	}
 
 	/**
 	 * Retourne la composante en Y de la vitesse du vaisseau
+	 * 
 	 * @return La composante en Y de la vitesse du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getVitVaisseauEnY() {
 		return vitVaisseauEnY;
 	}
 
 	/**
 	 * Modifie la composante en Y de la vitesse du vaisseau
+	 * 
 	 * @param vitVaisseauEnY La composante en Y de la vitesse du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setVitVaisseauEnY(double vitVaisseauEnY) {
 		this.vitVaisseauEnY = vitVaisseauEnY;
 		if (!enCoursDAnimation) {
-			vaisseauBleu.setVitesse( new Vecteur2D(vaisseauBleu.getVitesse().getX(), vitVaisseauEnY) );
+			vaisseauBleu.setVitesse(new Vecteur2D(vaisseauBleu.getVitesse().getX(), vitVaisseauEnY));
 			repaint();
 		}
 	}
 
 	/**
 	 * Retourne la longueur de la plaque
+	 * 
 	 * @return La longueur de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getLongueurPlaque() {
 		return longueurPlaque;
 	}
 
 	/**
 	 * Modifie la longueur de la plaque
+	 * 
 	 * @param longueurPlaque La longueur de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setLongueurPlaque(double longueurPlaque) {
 		this.longueurPlaque = longueurPlaque;
 		plaqueRouge.setLongueur(longueurPlaque);
@@ -540,18 +576,20 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la charge de la plaque
+	 * 
 	 * @return La charge de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getChargePlaque() {
 		return chargePlaque;
 	}
 
 	/**
 	 * Modifie la charge de la plaque
+	 * 
 	 * @param chargePlaque La charge de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setChargePlaque(double chargePlaque) {
 		this.chargePlaque = chargePlaque;
 		plaqueRouge.setCharge(chargePlaque);
@@ -560,22 +598,24 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la composante en X de la position de la plaque
+	 * 
 	 * @return La composante en X de la position de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPosPlaqueEnX() {
 		return posPlaqueEnX;
 	}
 
 	/**
 	 * Modifie la composante en X de la position de la plaque
+	 * 
 	 * @param posPlaqueEnX La composante en X de la position de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setPosPlaqueEnX(double posPlaqueEnX) {
 		this.posPlaqueEnX = posPlaqueEnX;
 		if (!enCoursDAnimation) {
-			plaqueRouge.setPosition( new Vecteur2D(posPlaqueEnX, plaqueRouge.getPosition().getY()) );
+			plaqueRouge.setPosition(new Vecteur2D(posPlaqueEnX, plaqueRouge.getPosition().getY()));
 			plaqueRouge.setExtremiteA();
 			plaqueRouge.setExtremiteB();
 			repaint();
@@ -584,22 +624,24 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la composante en Y de la position de la plaque
+	 * 
 	 * @return La composante en Y de la position de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPosPlaqueEnY() {
 		return posPlaqueEnY;
 	}
 
 	/**
 	 * Modifie la composante en Y de la position de la plaque
+	 * 
 	 * @param posPlaqueEnY La composante en Y de la position de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setPosPlaqueEnY(double posPlaqueEnY) {
 		this.posPlaqueEnY = posPlaqueEnY;
 		if (!enCoursDAnimation) {
-			plaqueRouge.setPosition( new Vecteur2D(plaqueRouge.getPosition().getX(), posPlaqueEnY) );
+			plaqueRouge.setPosition(new Vecteur2D(plaqueRouge.getPosition().getX(), posPlaqueEnY));
 			plaqueRouge.setExtremiteA();
 			plaqueRouge.setExtremiteB();
 			repaint();
@@ -608,24 +650,27 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la composante en X de la normale de la plaque
+	 * 
 	 * @return La composante en X de la normale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getNormalePlaqueComposanteX() {
 		return normalePlaqueComposanteX;
 	}
 
 	/**
 	 * Modifie la composante en X de la normale de la plaque
+	 * 
 	 * @param normalePlaqueComposanteX La composante en X de la normale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteX(double normalePlaqueComposanteX) {
 		this.normalePlaqueComposanteX = normalePlaqueComposanteX;
 		if (!enCoursDAnimation) {
 			// À gérer plus tard si l'utilisateur fait n'importe nawak
 			try {
-				plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX, plaqueRouge.getNormale().getY()).normalise() );
+				plaqueRouge.setNormale(
+						new Vecteur2D(normalePlaqueComposanteX, plaqueRouge.getNormale().getY()).normalise());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -635,173 +680,192 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la composante en Y de la normale de la plaque
+	 * 
 	 * @return La composante en Y de la normale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getNormalePlaqueComposanteY() {
 		return normalePlaqueComposanteY;
 	}
 
 	/**
 	 * Modifie la composante en Y de la normale de la plaque
+	 * 
 	 * @param normalePlaqueComposanteY La composante en Y de la normale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteY(double normalePlaqueComposanteY) {
 		this.normalePlaqueComposanteY = normalePlaqueComposanteY;
 		if (!enCoursDAnimation) {
 			// À gérer plus tard si l'utilisateur fait n'importe nawak
 			try {
-				plaqueRouge.setNormale( new Vecteur2D(plaqueRouge.getNormale().getX(), normalePlaqueComposanteY).normalise() );
+				plaqueRouge.setNormale(
+						new Vecteur2D(plaqueRouge.getNormale().getX(), normalePlaqueComposanteY).normalise());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			repaint();
 		}
 	}
-	
+
 	/**
 	 * Retourne la valeur du pas de simulation (deltaT)
+	 * 
 	 * @return La pas de simulation (deltaT)
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getDeltaT() {
 		return deltaT;
 	}
-	
+
 	/**
 	 * Modifie la valeur du pas de simulation (deltaT)
+	 * 
 	 * @param deltaT Le nouveau pas de simulation
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public void setDeltaT(double deltaT) {
 		this.deltaT = deltaT;
 	}
-	
+
 	/**
 	 * Retourne le rayon initiale du vaisseau
+	 * 
 	 * @return Le rayon initiale du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getRAYON_INITIAL_VAISSEAU() {
 		return RAYON_INITIAL_VAISSEAU;
 	}
 
 	/**
 	 * Retourne la charge initiale du vaisseau
+	 * 
 	 * @return La charge initiale du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getCHARGE_INITIALE_VAISSEAU() {
 		return CHARGE_INITIALE_VAISSEAU;
 	}
 
 	/**
 	 * Retourne la masse initiale du vaisseau
+	 * 
 	 * @return La masse initiale du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getMASSE_INITIALE_VAISSEAU() {
 		return MASSE_INITIALE_VAISSEAU;
 	}
 
 	/**
 	 * Retourne la position initiale en X du vaisseau
+	 * 
 	 * @return La position initiale en X du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPOS_INITIALE_VAISSEAU_EN_X() {
 		return POS_INITIALE_VAISSEAU_EN_X;
 	}
 
 	/**
 	 * Retourne la position initiale en Y du vaisseau
+	 * 
 	 * @return La position initiale en Y du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPOS_INITIALE_VAISSEAU_EN_Y() {
 		return POS_INITIALE_VAISSEAU_EN_Y;
 	}
 
 	/**
 	 * Retourne la vitesse initiale en X du vaisseau
+	 * 
 	 * @return La vitesse initiale en X du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getVIT_INITIALE_VAISSEAU_X() {
 		return VIT_INITIALE_VAISSEAU_X;
 	}
 
 	/**
 	 * Retourne la vitesse initiale en Y du vaisseau
+	 * 
 	 * @return La vitesse initiale en Y du vaisseau
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getVIT_INITIALE_VAISSEAU_Y() {
 		return VIT_INITIALE_VAISSEAU_Y;
 	}
 
 	/**
 	 * Retourne la longueur de la plaque
+	 * 
 	 * @return La longueur de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getLONGUEUR_PLAQUE() {
 		return LONGUEUR_PLAQUE;
 	}
 
 	/**
 	 * Retourne la charge initiale de la plaque
+	 * 
 	 * @return La charge initiale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getCHARGE_INITIALE_PLAQUE() {
 		return CHARGE_INITIALE_PLAQUE;
 	}
 
 	/**
 	 * Retourne la position initiale en X de la plaque
+	 * 
 	 * @return La position initiale en X de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPOS_INITIALE_PLAQUE_EN_X() {
 		return POS_INITIALE_PLAQUE_EN_X;
 	}
 
 	/**
 	 * Retourne la position initiale en Y de la plaque
+	 * 
 	 * @return La position initiale en Y de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getPOS_INITIALE_PLAQUE_EN_Y() {
 		return POS_INITIALE_PLAQUE_EN_Y;
 	}
 
 	/**
 	 * Retourne la composante en X de la normale de la plaque
+	 * 
 	 * @return La composante en X de la normale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getNORMALE_PLAQUE_COMPOSANTE_X() {
 		return NORMALE_PLAQUE_COMPOSANTE_X;
 	}
 
 	/**
 	 * Retourne la composante en Y de la normale de la plaque
+	 * 
 	 * @return La composante en Y de la normale de la plaque
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getNORMALE_PLAQUE_COMPOSANTE_Y() {
 		return NORMALE_PLAQUE_COMPOSANTE_Y;
 	}
 
 	/**
 	 * Retourne le pas de simulation (deltaT) initial
+	 * 
 	 * @return Le pas de simulation (deltaT) initial
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public double getDELTA_T_INITIAL() {
 		return DELTA_T_INITIAL;
 	}
-	
+
 }

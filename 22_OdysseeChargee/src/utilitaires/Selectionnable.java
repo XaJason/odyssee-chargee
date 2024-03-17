@@ -1,4 +1,4 @@
-package utilis;
+package utilitaires;
 
 /**
  * Interface qui definit la methode qu'un objet doit implementer pour pouvoir

@@ -1,4 +1,4 @@
-package etatModeEditeur;
+package dessin;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -17,7 +17,6 @@ import java.awt.geom.Rectangle2D;
  */
 import javax.swing.JPanel;
 
-import niveau.Niveau;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -83,14 +82,11 @@ public class Grille extends JPanel {
 	/** Indique que la sourie est à l'exterieur du composant **/
 	private boolean exterieurComposant = true;
 
-
-
 	/**
 	 * Création du du panneau
 	 */
-	//Giroux
+	// Giroux
 	public Grille() {
-		
 
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -99,7 +95,6 @@ public class Grille extends JPanel {
 				if (!supprimer) {
 					if (tuile != null) {
 						sauvegarderEmplacement();
-						
 
 					}
 
@@ -303,7 +298,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						clonerTuile();
-						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() &&  vaisseau)) {
+						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
 							break;
 						}
 
@@ -313,8 +308,8 @@ public class Grille extends JPanel {
 							tabEmplacement[i][j] = tuileTemp;
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
-							} else if(tuileTemp.getVaisseau() && !vaisseau) {
-								vaisseau=true;
+							} else if (tuileTemp.getVaisseau() && !vaisseau) {
+								vaisseau = true;
 							}
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
@@ -419,7 +414,7 @@ public class Grille extends JPanel {
 			}
 		}
 		drapeau = false;
-		vaisseau=false;
+		vaisseau = false;
 		repaint();
 
 	}
@@ -446,15 +441,15 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						
+
 						if (tabEmplacement[i][j] == null) {
-								break;
-						
-						} else if(tabEmplacement[i][j].getVaisseau()) {
-							vaisseau=false;
-						} else if(tabEmplacement[i][j].getDrapeau()) {
+							break;
+
+						} else if (tabEmplacement[i][j].getVaisseau()) {
+							vaisseau = false;
+						} else if (tabEmplacement[i][j].getDrapeau()) {
 							drapeau = false;
-							
+
 						}
 						tabEmplacement[i][j] = null;
 
@@ -470,18 +465,20 @@ public class Grille extends JPanel {
 	 * 
 	 * @return L'emplacement des tuiles
 	 */
-	//Giroux
+	// Giroux
 	public Tuile[][] getTableau() {
 		return tabEmplacement;
 	}
+
 	/**
-	 * Permet de changer le tableau 
+	 * Permet de changer le tableau
+	 * 
 	 * @param tab tableau des tuiles
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void setTableau(Tuile[][] tab) {
 		this.tabEmplacement = tab;
-		
+
 	}
 
 	/**

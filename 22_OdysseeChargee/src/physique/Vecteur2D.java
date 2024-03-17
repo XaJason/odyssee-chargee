@@ -6,7 +6,7 @@ package physique;
  * composantes du vecteur.
  * 
  * **ATTENTION***
- * Les identifiants x et y sont utilis�s dans cette classe non pas pour
+ * Les identifiants x et y sont utilitaires�s dans cette classe non pas pour
  * repr�senter
  * des position, mais bien pour repr�senter des composantes!!
  * 

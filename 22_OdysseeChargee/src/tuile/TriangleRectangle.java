@@ -9,7 +9,7 @@ import java.io.Serializable;
  * 
  * @author Jason Xa
  */
-public class TriangleRectangle extends Tuile implements Serializable{
+public class TriangleRectangle extends Tuile implements Serializable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
