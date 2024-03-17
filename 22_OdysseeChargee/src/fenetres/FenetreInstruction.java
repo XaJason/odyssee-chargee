@@ -2,8 +2,6 @@ package fenetres;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

@@ -150,9 +150,13 @@ public class Etoile implements Dessinable {
 	 * g2d intacte, car possiblement d'autres
 	 * objets l'utiliseront par la suite.
 	 *
+	 * !!! La méthode provient d'anciens projets (ex-auteur : Caroline Houle) mais a
+	 * été implementé et
+	 * modifier pour notre code !!!
+	 *
 	 * @param g2d Le contexte graphique du composant sur lequel on dessine
 	 */
-	// Caroline Houle & Nils Lahaye
+	// Nils Lahaye
 	public void dessiner(Graphics2D g2d) {
 		g2d = (Graphics2D) g2d.create();
 

@@ -29,9 +29,9 @@ public abstract class InteractifPhysique {
 	/**
 	 * Constructeur de l'objet intéractif physique
 	 * 
-	 * @param position
-	 * @param charge
-	 * @param masse
+	 * @param position La position de l'objet intéractif
+	 * @param charge La charge de l'objet intéractif
+	 * @param masse La masse de l'objet intéractif
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public InteractifPhysique(Vecteur2D position, double charge, double masse) {

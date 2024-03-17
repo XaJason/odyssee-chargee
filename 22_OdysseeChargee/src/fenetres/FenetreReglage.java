@@ -29,7 +29,7 @@ public class FenetreReglage extends JFrame {
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
-	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 	/**
 	 * Composant de l'évaluateur d'étoile
 	 */
@@ -45,7 +45,7 @@ public class FenetreReglage extends JFrame {
 	 */
 	//Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
+		PCS.addPropertyChangeListener(listener);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class FenetreReglage extends JFrame {
 		sliderSon.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				int nouvelleValeur = sliderSon.getValue();
-				pcs.firePropertyChange("changerSon", ancienneValeurSlider, nouvelleValeur);
+				PCS.firePropertyChange("changerSon", ancienneValeurSlider, nouvelleValeur);
 				ancienneValeurSlider = nouvelleValeur;
 
 			}

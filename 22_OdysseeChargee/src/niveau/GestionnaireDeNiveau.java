@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GestionnaireDeNiveau {
 
 	/** ArrayList contenant les niveaux **/
-	public static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
+	private static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
 
 	/**
 	 * Ajoute un niveau à l'ArrayList
@@ -26,7 +26,7 @@ public class GestionnaireDeNiveau {
 	}
 
 	/**
-	 * Permet d'aller chercher le niveau
+	 * Permet d'aller chercher le niveau selon son nom
 	 * 
 	 * @param nom Le nom du niveau
 	 * @return Le niveau voulu, ou rien si le nom de conrespond pas
@@ -47,9 +47,9 @@ public class GestionnaireDeNiveau {
 	}
 
 	/**
-	 * Permet d'aller chercher le niveau
+	 * Permet d'aller chercher le niveau selon son numéro
 	 * 
-	 * @param index
+	 * @param index Le numéro du niveau
 	 * @return Le niveau voulu
 	 */
 	// Kitimir Yim

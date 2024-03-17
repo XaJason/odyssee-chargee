@@ -2,8 +2,6 @@ package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -410,16 +408,17 @@ public class PanelModeEditeur extends JPanel {
 		 */
 	}
 
-	/**
-	 * Charge le niveau test
-	 */
-	// Kitimir Yim
-	private void charger() {
-		Niveau charger = Sauvegarder.chargerNiveau("test");
-
-		grille.setTableau(charger.getTabEmplacement());
-
-	}
+//	/*
+//	/**
+//	 * Charge le niveau test
+//	 */
+//	// Kitimir Yim
+//	private void charger() {
+//		Niveau charger = Sauvegarder.chargerNiveau("test");
+//
+//		grille.setTableau(charger.getTabEmplacement());
+//
+//	}
 
 	/**
 	 * Sauvegardé le niveau crée dans le mode éditeur

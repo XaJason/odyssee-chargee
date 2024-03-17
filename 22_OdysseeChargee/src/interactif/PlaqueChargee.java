@@ -16,7 +16,8 @@ import utilitaires.Dessinable;
 public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	// PROPRIÉTÉS //
-	Path2D.Double plaque;
+	/** Objet Path2D permettant de représenter la plaque **/
+	private Path2D.Double plaque;
 
 	/** Vecteur normal de la plaque **/
 	private Vecteur2D normale; // Doit être normalisé

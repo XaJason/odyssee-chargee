@@ -35,7 +35,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	private double rayon;
 
 	/** Forme servant de primitive pour le vaisseau **/
-	Ellipse2D.Double cercle;
+	private Ellipse2D.Double cercle;
 
 	// CONSTRUCTEUR //
 	/**
@@ -141,7 +141,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	 * Sa position, sa vitesse, son accélération, la somme des forces agissant sur
 	 * lui et sa charge
 	 * 
-	 * !!! La méthode provient d'anciens projets (auteur : Caroline Houle) mais a
+	 * !!! La méthode provient d'anciens projets (ex-auteur : Caroline Houle) mais a
 	 * été implementé et
 	 * modifier pour notre code !!!
 	 * 
@@ -168,7 +168,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	 * passée en paramètre
 	 * Ceci aura pour conséquence de modifier l'accélération
 	 * 
-	 * !!! La méthode provient d'anciens projets (auteur : Caroline Houle) mais a
+	 * !!! La méthode provient d'anciens projets (ex-auteur : Caroline Houle) mais a
 	 * été implementé et
 	 * modifier pour notre code !!!
 	 * 

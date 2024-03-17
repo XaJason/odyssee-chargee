@@ -25,7 +25,7 @@ public class Interactif {
 	 * @param position L'emplacement dans le tableau des positions
 	 */
 	// Giroux
-	Interactif(int position) {
+	public Interactif(int position) {
 		this.position = position;
 	}/// Fin constructeur
 
@@ -35,7 +35,7 @@ public class Interactif {
 	 * @return L'emplacement dans le tableau des positions
 	 */
 	// Giroux
-	int getPosition() {
+	public int getPosition() {
 		return this.position;
 	}/// Fin méthode
 
@@ -45,7 +45,7 @@ public class Interactif {
 	 * @param nouvPosition Le nouvel emplacement dans le tableau des positions
 	 */
 	// Giroux
-	void setPosition(int nouvPosition) {
+	public void setPosition(int nouvPosition) {
 		this.position = nouvPosition;
 	}/// Fin méthode
 
@@ -55,7 +55,7 @@ public class Interactif {
 	 * @return la charge de l'objet
 	 */
 	// Giroux
-	double getCharge() {
+	public double getCharge() {
 		return this.charge;
 	}/// Fin méthode
 
@@ -65,7 +65,7 @@ public class Interactif {
 	 * @param nouvCharge La nouvelle charge
 	 */
 	// Giroux
-	void setCharge(double nouvCharge) {
+	public void setCharge(double nouvCharge) {
 		this.charge = nouvCharge;
 	}/// Fin méthode
 
@@ -75,7 +75,7 @@ public class Interactif {
 	 * @return Vrai si meutrier, non si non-meutrier
 	 */
 	// Giroux
-	boolean getMeutrier() {
+	public boolean getMeutrier() {
 		return this.meutrier;
 	}/// Fin méthode
 
@@ -86,7 +86,7 @@ public class Interactif {
 	 *                        non-meutrier
 	 */
 	// Giroux
-	void setMeutrier(boolean nouvValMeutrier) {
+	public void setMeutrier(boolean nouvValMeutrier) {
 		if (nouvValMeutrier) {
 			this.meutrier = true;
 		} else {
