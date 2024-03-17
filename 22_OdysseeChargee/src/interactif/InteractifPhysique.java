@@ -1,10 +1,14 @@
 package interactif;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
 
 import physique.Vecteur2D;
-
+/**
+ * Classe intéractif physique : classe mères de tous les objets ayant des propriétés physiques
+ * et intéragissant physiquement entre eux
+ * 
+ * @author Enuel René Valentin Kizozo Izia
+ */
 public abstract class InteractifPhysique {
 
 	/** Position de l'objet intéractif physique **/
@@ -27,6 +31,7 @@ public abstract class InteractifPhysique {
 	 * @param charge
 	 * @param masse
 	 */
+	//Enuel René Valentin Kizozo Izia
 	public InteractifPhysique(Vecteur2D position, double charge, double masse) {
 		this.position = new Vecteur2D(position);
 		this.charge = charge;
@@ -38,11 +43,12 @@ public abstract class InteractifPhysique {
 	/**
 	 * Permet de créer la géométrie de l'objet intéractif physique.
 	 */
+	//Enuel René Valentin Kizozo Izia
 	public abstract void creerLaGeometrie();
 	
 	/**
 	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique passé en parametre.
-	 * @param g2d
+	 * @param g2d Le contexte graphique
 	 */
 	//Enuel René Valentin Kizozo Izia
 	public abstract void dessiner(Graphics2D g2d);
