@@ -25,6 +25,7 @@ public class Vaisseau extends Tuile implements Serializable {
 	// Jason Xa
 	public Vaisseau() {
 		super(image, type);
+		setVaisseau();
 	}
 
 	/**
@@ -35,6 +36,7 @@ public class Vaisseau extends Tuile implements Serializable {
 	// Jason Xa
 	public Vaisseau(double angleRotation) {
 		super(angleRotation, image, type);
+		setVaisseau();
 	}
 
 	/**
@@ -47,6 +49,7 @@ public class Vaisseau extends Tuile implements Serializable {
 	// Jason Xa
 	public Vaisseau(int x, int y) {
 		super(image, x, y, type);
+		setVaisseau();
 	}
 
 	/**
@@ -61,6 +64,6 @@ public class Vaisseau extends Tuile implements Serializable {
 
 	// Giroux
 	public String toString() {
-		return "Triangle rectangle ";
+		return "Vaisseau ";
 	}
 }

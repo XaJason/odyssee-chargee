@@ -76,6 +76,8 @@ public class Grille extends JPanel {
 	boolean placePrise = false;
 	/** Indique s'il y a déjà un drapeau sur la grille **/
 	boolean drapeau = false;
+	/** Indique s'il y a déjà un vaisseau sur la grille **/
+	boolean vaisseau = false;
 	/** Indique si on est en mode supprimer ou non **/
 	boolean supprimer = false;
 	/** Indique que la sourie est à l'exterieur du composant **/
@@ -285,6 +287,7 @@ public class Grille extends JPanel {
 		this.nbCarre = nouvNbCarre;
 		premiereFois = true;
 		drapeau = false;
+		vaisseau = false;
 		repaint();
 	} // Fin méthode
 
@@ -299,7 +302,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						clonerTuile();
-						if (tuileTemp.getDrapeau() && drapeau) {
+						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() &&  vaisseau)) {
 							break;
 						}
 
@@ -309,6 +312,8 @@ public class Grille extends JPanel {
 							tabEmplacement[i][j] = tuileTemp;
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
+							} else if(tuileTemp.getVaisseau() && !vaisseau) {
+								vaisseau=true;
 							}
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
@@ -413,6 +418,7 @@ public class Grille extends JPanel {
 			}
 		}
 		drapeau = false;
+		vaisseau=false;
 		repaint();
 
 	}
@@ -441,6 +447,8 @@ public class Grille extends JPanel {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						if (tabEmplacement[i][j].getDrapeau()) {
 							drapeau = false;
+						} else if(tabEmplacement[i][j].getVaisseau()) {
+							vaisseau=false;
 						}
 						tabEmplacement[i][j] = null;
 
