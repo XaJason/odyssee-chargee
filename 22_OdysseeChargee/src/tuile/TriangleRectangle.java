@@ -62,8 +62,8 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * @return Une chaine indiquant que l'objet est un triangle rectangle
 	 */
-
 	// Giroux
 	public String toString() {
 		return "Triangle rectangle ";

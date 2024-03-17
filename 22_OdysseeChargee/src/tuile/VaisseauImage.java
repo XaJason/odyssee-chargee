@@ -64,7 +64,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
-	 * @return Une chaine indiquant que l'objet est le vaisseau
+	 * @return Une chaine indiquant que l'objet est un vaisseau
 	 */
 	// Giroux
 	public String toString() {

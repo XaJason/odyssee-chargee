@@ -65,6 +65,7 @@ public class Pics extends Tuile implements Serializable {
 
 	/**
 	 * Dessine l'image représentant les pics selon ses coordonnées
+	 * @param g2d Le contexte graphique
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
@@ -75,8 +76,8 @@ public class Pics extends Tuile implements Serializable {
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * @return Une chaine indiquant que l'objet est un pic
 	 */
-
 	// Giroux
 	public String toString() {
 		return "Pics ";

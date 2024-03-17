@@ -77,6 +77,8 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	}
 
 	/**
+	 * Constructeur
+	 * 
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 * @param image         l'image représentant la tuile
 	 * @param type          le type de la tuile
@@ -100,6 +102,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
+	 * @param g2d Le contexte graphique
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {

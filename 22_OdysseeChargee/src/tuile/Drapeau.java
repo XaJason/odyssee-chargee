@@ -65,8 +65,8 @@ public class Drapeau extends Tuile implements Serializable {
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * @return Une chaine indiquant que l'objet est un drapeau
 	 */
-
 	// Giroux
 	public String toString() {
 		return "Drapeau ";

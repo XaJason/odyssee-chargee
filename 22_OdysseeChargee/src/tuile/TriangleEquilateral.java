@@ -62,8 +62,8 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * @return Une chaine indiquant que l'objet est un triangle équilatéral
 	 */
-
 	// Giroux
 	public String toString() {
 		return "Triangle équilatéral ";
