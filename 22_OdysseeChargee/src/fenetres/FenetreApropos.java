@@ -47,7 +47,7 @@ public class FenetreApropos extends JFrame {
 
 		JTextArea txtrA = new JTextArea();
 		txtrA.setText(texte());
-		txtrA.setBounds(46, 45, 692, 405);
+		txtrA.setBounds(30, 45, 826, 405);
 		getContentPane().add(txtrA);
 	}
 
@@ -65,10 +65,14 @@ public class FenetreApropos extends JFrame {
 	 */
 	//Kitimir Yim
 	private String texte() {
-		String message = "Lorem ipsum dolor sit amet,consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-				+ "\n" + "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-				+ "\n" +  "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. "
-				+ "\n" + "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+		String message = "Voici les fonctionnalitées à explorer pour la version alpha:"
+				+"\n" + "Navigation à travers différents panels et différentes fenêtre"
+				+"\n" + "Éditeur de niveau: placement des objets, réinitialisation (complète), suppression d'objet (placement de tuile nulle), rotation (90 degrés dans le sens horaire)"
+				+"\n" + "Démo d'une animation physique disponible dans le package test(et toutes les formules implémentées qui viennent avec)"
+				+"\n" + "Sauvegarde de fichier disponible dans le mode éditeur"
+				+"\n" + "Musique de fond et la possibilié d'ajuster le volume";
+
+
 		return message;
 
 	}
