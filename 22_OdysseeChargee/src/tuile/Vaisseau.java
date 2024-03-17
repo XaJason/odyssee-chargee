@@ -61,6 +61,9 @@ public class Vaisseau extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Vaisseau.image = imageRef;
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {

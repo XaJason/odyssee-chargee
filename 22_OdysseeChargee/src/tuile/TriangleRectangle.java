@@ -59,6 +59,9 @@ public class TriangleRectangle extends Tuile implements Serializable{
 	public static void setImageRef(Image imageRef) {
 		TriangleRectangle.image = imageRef;
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {
