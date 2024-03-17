@@ -96,7 +96,9 @@ public class ApplicationTest extends JFrame {
 
 	/**
 	 * Lance l'application
-	 * @param args Parametres de commande d'execution.
+	 * 
+	 * @param args Paramètre d'entrée de la commande de démarrage
+	 * 
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static void main(String[] args) {

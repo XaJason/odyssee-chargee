@@ -8,6 +8,7 @@ import java.io.Serializable;
  * vers le haut par défaut)
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class TriangleEquilateral extends Tuile implements Serializable {
 	/**
@@ -59,6 +60,9 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		TriangleEquilateral.image = imageRef;
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {

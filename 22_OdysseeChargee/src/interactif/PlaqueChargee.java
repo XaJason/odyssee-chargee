@@ -41,6 +41,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	 * @param normale  La normale de la plaque
 	 * @param longueur La longueur de la plaque
 	 * @param charge   La charge de la plaque
+	 * @param masse    La masse de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {

@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Représente l'objet fixe plaçable en forme de carré
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Carre extends Tuile implements Serializable {
 	/**
@@ -58,6 +59,11 @@ public class Carre extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Carre.image = imageRef;
 	}
+	
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
+	
 
 	// Giroux
 	public String toString() {

@@ -8,6 +8,7 @@ import java.io.Serializable;
  * d'arrivée
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Drapeau extends Tuile implements Serializable {
 	/**
@@ -62,6 +63,9 @@ public class Drapeau extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Drapeau.image = imageRef;
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {

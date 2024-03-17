@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Représente l'objet interactif fixe plaçable qui agit comme un portail
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Portail extends Tuile implements Serializable {
 	/**
@@ -58,6 +59,9 @@ public class Portail extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Portail.image = imageRef;
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {

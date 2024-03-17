@@ -27,6 +27,8 @@ import tuile.Tuile;
 import tuile.Vaisseau;
 
 /**
+ * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
+ * 
  * @author Giroux
  * @author Jason Xa
  * @author Kitimir Yim
@@ -150,7 +152,8 @@ public class Grille extends JPanel {
 	/**
 	 * Méthode qui dessine de la grille et de ses composantes
 	 * 
-	 * @param g Contexte graphique
+	 * @param g2d Contexte graphique
+	 * 
 	 */
 	// Giroux
 	public void dessiner(Graphics2D g2d) {
@@ -516,6 +519,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @return la tuile sélectionnée
 	 */
+	// Jason Xa
 	public Tuile getTuile() {
 		return tuile;
 	}

@@ -10,6 +10,7 @@ import java.io.Serializable;
  * (au bas de la tuile par défaut)
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Pics extends Tuile implements Serializable {
 	/**
@@ -72,6 +73,9 @@ public class Pics extends Tuile implements Serializable {
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
 		g2d.setTransform(transformationAffine);
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {

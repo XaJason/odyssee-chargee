@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
  * 
  * @author Jason Xa
+ * @author Giroux
  */
 public class Vaisseau extends Tuile implements Serializable {
 	/**
@@ -61,6 +62,9 @@ public class Vaisseau extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Vaisseau.image = imageRef;
 	}
+	/**
+	 * Méthode qui affiche le type lorsqu'on le print
+	 */
 
 	// Giroux
 	public String toString() {
