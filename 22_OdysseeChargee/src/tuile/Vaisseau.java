@@ -4,27 +4,28 @@ import java.awt.Image;
 import java.io.Serializable;
 
 /**
- * Représente l'objet interactif fixe plaçable qui agit comme un portail
+ * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
  * 
  * @author Jason Xa
  */
-public class Portail extends Tuile implements Serializable{
+public class Vaisseau extends Tuile implements Serializable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
-	private static final long serialVersionUID = -3752989336876220183L;
-	/** l'image représentant un portail */
+	private static final long serialVersionUID = 5393283819635096303L;
+	/** l'image représentant un triangle rectangle */
 	private static transient Image image;
-	/** chaine de caractères représentant la tuile de type portail */
-	private static String type = "Portail";
+	/** chaine de caractères représentant la tuile de type vaisseau */
+	private static String type = "Vaisseau";
 
 	/**
 	 * Constructeur
 	 * 
 	 */
 	// Jason Xa
-	public Portail() {
+	public Vaisseau() {
 		super(image, type);
+		setVaisseau();
 	}
 
 	/**
@@ -33,8 +34,9 @@ public class Portail extends Tuile implements Serializable{
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
-	public Portail(double angleRotation) {
+	public Vaisseau(double angleRotation) {
 		super(angleRotation, image, type);
+		setVaisseau();
 	}
 
 	/**
@@ -45,23 +47,23 @@ public class Portail extends Tuile implements Serializable{
 	 * 
 	 */
 	// Jason Xa
-	public Portail(int x, int y) {
+	public Vaisseau(int x, int y) {
 		super(image, x, y, type);
+		setVaisseau();
 	}
 
 	/**
-	 * Définit l'image représentant le portail
+	 * Définit l'image représentant le vaisseau
 	 * 
-	 * @param imageRef l'image représentant le portail
+	 * @param imageRef l'image représentant le vaisseau
 	 */
 	// Jason Xa
 	public static void setImageRef(Image imageRef) {
-		Portail.image = imageRef;
+		Vaisseau.image = imageRef;
 	}
 
 	// Giroux
 	public String toString() {
-		return "Portail ";
+		return "Vaisseau ";
 	}
-
 }

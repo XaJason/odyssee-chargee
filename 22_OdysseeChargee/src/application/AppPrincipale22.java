@@ -33,13 +33,14 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
+import tuile.Vaisseau;
 import utilis.OutilsImage;
-import niveau.Niveau;
-import niveau.Sauvegarder;
 
 /**
- * Projet intégrateur : Odyssée chargée
+ * Application permettant d'accéder au jeu Odyssée chargée
  * 
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Giroux
  * @author Jason Xa
  * @author Kitimir Yim
  */
@@ -77,20 +78,41 @@ public class AppPrincipale22 extends JFrame {
 	 * Panel du sélecteur de niveaux
 	 */
 	private PanelSelecteurNiveaux panS;
-
+	/**
+	 * Barre du menu
+	 */
 	private JMenuBar menuBar;
-
+	/**
+	 * Item du menu pour le mode éditeur
+	 */
 	private JMenuItem mntmEditeur;
-
+	/**
+	 * Item du menu pour le mode sélection de niveaux
+	 */
 	private JMenuItem mntmSelection;
-
+	/**
+	 * Clip par défaut du son 
+	 */
 	private Clip leClip = null;
-
+	/**
+	 * String du fichier de la musique de fond
+	 */
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
-	private final String NOM_FICHIER_SON_2 = "Effet_son.wav";
+	/**
+	 * Flux d'entrée audio.
+	 */
 	private AudioInputStream audioStr;
+	/**
+	 * Volume du son
+	 */
 	private double volumeEntre0Et1 = 1;
+	/**`
+	 * Chemin vers le fichier
+	 */
 	private String pathDeFichier = null;
+	/**
+	 * Fichier
+	 */
 	private File objetFichier = null;
 
 	/** largeur d'une tuile */
@@ -139,18 +161,15 @@ public class AppPrincipale22 extends JFrame {
 		lireImages();
 		gererConstantes();
 
+		if (leClip != null)
+			leClip.close();
+		chargerLeSon(NOM_FICHIER_SON_1);
+		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 
-
-
-//		if (leClip != null)
-//			leClip.close();
-//		chargerLeSon(NOM_FICHIER_SON_1);
-//		leClip.loop(Clip.LOOP_CONTINUOUSLY);
-//		 
 	}
 
 	/**
-	 * 
+	 * Gère les constantes réutilisées hors de cette classe
 	 */
 	// Jason Xa
 	private void gererConstantes() {
@@ -171,6 +190,7 @@ public class AppPrincipale22 extends JFrame {
 		Portail.setImageRef(OutilsImage.lireImageEtRedimensionner("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE));
 		Drapeau.setImageRef(OutilsImage.lireImageEtRedimensionner("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
 		Pics.setImageRef(OutilsImage.lireImageEtRedimensionner("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE));
+		Vaisseau.setImageRef(OutilsImage.lireImageEtRedimensionner("vaisseau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
 	}
 
 	/**
@@ -184,39 +204,32 @@ public class AppPrincipale22 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
 
-
 			}
 		});
-		btnQuitter.setBounds(92, 335, 89, 23);
+		btnQuitter.setBounds(975, 175, 150, 100);
 		contentPane.add(btnQuitter);
 
 		JButton btnInstructions = new JButton("Instructions");
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-				if (leClip != null)
-					leClip.close();
-				chargerLeSon(NOM_FICHIER_SON_2);
-				leClip.start();
+				
 
 			}
 		});
-		btnInstructions.setBounds(362, 335, 89, 23);
+		btnInstructions.setBounds(225, 470, 150, 100);
 		contentPane.add(btnInstructions);
 
 		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenApropos.setVisible(true);
-				if (leClip != null)
-					leClip.close();
-				chargerLeSon(NOM_FICHIER_SON_2);
-				leClip.start();
+			
 
 			}
 		});
 
-		btnAPropos.setBounds(92, 397, 89, 23);
+		btnAPropos.setBounds(975, 470, 150, 100);
 		contentPane.add(btnAPropos);
 
 		JButton btnReglages = new JButton("Réglages");
@@ -225,10 +238,10 @@ public class AppPrincipale22 extends JFrame {
 				fenReglage.setVisible(true);
 			}
 		});
-		btnReglages.setBounds(372, 397, 89, 23);
+		btnReglages.setBounds(600, 470, 150, 100);
 		contentPane.add(btnReglages);
 
-		JButton btnModePrincipal = new JButton("Sélection de niveaux");
+		JButton btnModePrincipal = new JButton("Jouer");
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panS.setVisible(true);
@@ -239,7 +252,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmEditeur.setSelected(false);
 			}
 		});
-		btnModePrincipal.setBounds(92, 457, 133, 23);
+		btnModePrincipal.setBounds(225, 175, 150, 100);
 		contentPane.add(btnModePrincipal);
 
 		JButton btnModeEditeur = new JButton("Mode éditeur");
@@ -253,7 +266,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmEditeur.setSelected(true);
 			}
 		});
-		btnModeEditeur.setBounds(362, 457, 168, 23);
+		btnModeEditeur.setBounds(600, 175, 150, 100);
 		contentPane.add(btnModeEditeur);
 
 	}
@@ -290,7 +303,6 @@ public class AppPrincipale22 extends JFrame {
 		panS = new PanelSelecteurNiveaux();
 		panJ = new PanelModeJeu();
 
-
 		panS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
@@ -299,15 +311,9 @@ public class AppPrincipale22 extends JFrame {
 					panJ.setVisible(true);
 					setContentPane(panJ);
 
-
-
 				}
 			}
-		});	
-
-
-
-
+		});
 
 	}
 
@@ -352,7 +358,6 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmSelection = new JMenuItem("Jouer");
 
-
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
@@ -390,7 +395,6 @@ public class AppPrincipale22 extends JFrame {
 		mntmInstructions.setMaximumSize(new Dimension(200, 32767));
 		mntmInstructions.setPreferredSize(new Dimension(100, 26));
 
-
 		mntmInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
@@ -403,8 +407,6 @@ public class AppPrincipale22 extends JFrame {
 		JMenuItem mntmReglage = new JMenuItem("Réglage");
 		mntmReglage.setMaximumSize(new Dimension(200, 32767));
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
-
-
 
 		mntmReglage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -433,8 +435,10 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Methode privee pour lire le son et en faire un clip
-	 * La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle) mais a été implementé et
+	 * La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle) mais
+	 * a été implementé et
 	 * modifier pour notre code
+	 * 
 	 * @param fichier Le fichier son
 	 */
 	// Kitimir Yim
@@ -474,7 +478,8 @@ public class AppPrincipale22 extends JFrame {
 	 * 
 	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
 	 *                        volume
-	 *                        La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle)
+	 *                        La méthode a éte trouvée dans le materiel d'appoint
+	 *                        (de Caroline Houle)
 	 *                        mais a été implementé pour notre code
 	 */
 	// Kitimir Yim

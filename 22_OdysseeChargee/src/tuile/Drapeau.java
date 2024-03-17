@@ -1,16 +1,22 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
- * Représente l'objet interactif fixe plaçable qui agit comme un drapeau
+ * Représente l'objet interactif fixe unique plaçable qui agit comme un drapeau
  * d'arrivée
  * 
  * @author Jason Xa
  */
-public class Drapeau extends Tuile {
+public class Drapeau extends Tuile implements Serializable {
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 6952589919609649643L;
 	/** l'image représentant un drapeau */
-	private static Image image;
+	private static transient Image image;
+	/** chaine de caractères représentant la tuile de type drapeau */
 	private static String type = "Drapeau";
 
 	/**
@@ -22,7 +28,13 @@ public class Drapeau extends Tuile {
 		super(image, type);
 		setDrapeau();
 	}
-	
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
 	public Drapeau(double angleRotation) {
 		super(angleRotation, image, type);
 		setDrapeau();

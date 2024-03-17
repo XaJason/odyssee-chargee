@@ -1,6 +1,7 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Représente l'objet fixe plaçable en forme de triangle rectangle (coin en bas
@@ -8,9 +9,14 @@ import java.awt.Image;
  * 
  * @author Jason Xa
  */
-public class TriangleRectangle extends Tuile {
+public class TriangleRectangle extends Tuile implements Serializable{
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 6670803928887029811L;
 	/** l'image représentant un triangle rectangle */
-	private static Image image;
+	private static transient Image image;
+	/** chaine de caractères représentant la tuile de type triangle rectangle */
 	private static String type = "Triangle rectangle";
 
 	/**
@@ -22,9 +28,16 @@ public class TriangleRectangle extends Tuile {
 		super(image, type);
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
 	public TriangleRectangle(double angleRotation) {
 		super(angleRotation, image, type);
 	}
+
 	/**
 	 * Constructeur
 	 * 

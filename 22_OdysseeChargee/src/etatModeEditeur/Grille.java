@@ -17,6 +17,7 @@ import java.awt.geom.Rectangle2D;
  */
 import javax.swing.JPanel;
 
+import niveau.Niveau;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -24,13 +25,14 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
+import tuile.Vaisseau;
 
 /**
  * @author Giroux
  * @author Jason Xa
  */
 public class Grille extends JPanel {
-
+	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -977837790552954988L;
 	/** Hauteur du composant **/
 	private int hauteur;
@@ -59,7 +61,7 @@ public class Grille extends JPanel {
 	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
-	Point2D clique;
+	private Point2D clique;
 	/**
 	 * Contient la tuile sélectionnée dans les boutons du panneau du mode éditeur
 	 **/
@@ -71,27 +73,36 @@ public class Grille extends JPanel {
 	 **/
 	private Tuile tuileTemp;
 	/** Indique si l'emplacement est déjà pris **/
-	boolean placePrise = false;
+	private boolean placePrise = false;
 	/** Indique s'il y a déjà un drapeau sur la grille **/
-	boolean drapeau = false;
+	private boolean drapeau = false;
+	/** Indique s'il y a déjà un vaisseau sur la grille **/
+	private boolean vaisseau = false;
 	/** Indique si on est en mode supprimer ou non **/
-	boolean supprimer = false;
+	private boolean supprimer = false;
 	/** Indique que la sourie est à l'exterieur du composant **/
-	boolean exterieurComposant = true;
+	private boolean exterieurComposant = true;
+
+
 
 	/**
-	 * Création du panel
+	 * Création du du panneau
 	 */
+	//Giroux
 	public Grille() {
+		
+
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				clique = e.getPoint();
 				if (!supprimer) {
-					if(tuile!=null) {
+					if (tuile != null) {
 						sauvegarderEmplacement();
+						
+
 					}
-					
+
 				} else {
 					supprimerCase();
 				}
@@ -146,7 +157,7 @@ public class Grille extends JPanel {
 	 * @param g Contexte graphique
 	 */
 	// Giroux
-	private void dessiner(Graphics2D g2d) {
+	public void dessiner(Graphics2D g2d) {
 		if (premiereFois) {
 
 			tabEmplacement = new Tuile[nbCarre][nbCarre];
@@ -154,6 +165,7 @@ public class Grille extends JPanel {
 			largeur = this.getWidth();
 			dimensionCarre();
 			dessinerGrille();
+
 			premiereFois = false;
 		}
 		if (supprimer) {
@@ -213,7 +225,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
 						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
-						if (!supprimer && tuile!=null) {
+						if (!supprimer && tuile != null) {
 							tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
 							tuile.setX((int) largeurCarre * j);
 							tuile.setY((int) hauteurCarre * i);
@@ -275,7 +287,8 @@ public class Grille extends JPanel {
 	public void changerQttCarre(int nouvNbCarre) {
 		this.nbCarre = nouvNbCarre;
 		premiereFois = true;
-		drapeau=false;
+		drapeau = false;
+		vaisseau = false;
 		repaint();
 	} // Fin méthode
 
@@ -290,7 +303,7 @@ public class Grille extends JPanel {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
 						clonerTuile();
-						if (tuileTemp.getDrapeau() && drapeau) {
+						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() &&  vaisseau)) {
 							break;
 						}
 
@@ -300,6 +313,8 @@ public class Grille extends JPanel {
 							tabEmplacement[i][j] = tuileTemp;
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
+							} else if(tuileTemp.getVaisseau() && !vaisseau) {
+								vaisseau=true;
 							}
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
@@ -315,7 +330,7 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * 
+	 * Clone la tuile sélectionnée selon son type
 	 */
 	// Jason Xa
 	private void clonerTuile() {
@@ -337,6 +352,9 @@ public class Grille extends JPanel {
 			break;
 		case "Triangle rectangle":
 			tuileTemp = new TriangleRectangle(tuile.getAngleRotation());
+			break;
+		case "Vaisseau":
+			tuileTemp = new Vaisseau(tuile.getAngleRotation());
 			break;
 		}
 
@@ -386,7 +404,6 @@ public class Grille extends JPanel {
 	 * @return La qtt de carré dans la grille
 	 */
 	// Giroux
-
 	public int getNbCarre() {
 		return nbCarre;
 	}// Fin méthode
@@ -394,7 +411,7 @@ public class Grille extends JPanel {
 	/**
 	 * Permet de réinitialiser le tableau
 	 */
-	//Giroux
+	// Giroux
 	public void reinitialiser() {
 		for (int i = 0; i < nbCarre; i++) {
 			for (int j = 0; j < nbCarre; j++) {
@@ -402,13 +419,15 @@ public class Grille extends JPanel {
 			}
 		}
 		drapeau = false;
+		vaisseau=false;
 		repaint();
 
 	}
 
 	/**
-	 * 
+	 * Gère la condition de suppression
 	 */
+	// Giroux
 	public void gererSupprimer() {
 		if (supprimer == false) {
 			supprimer = true;
@@ -421,14 +440,21 @@ public class Grille extends JPanel {
 	/**
 	 * Permet de supprimer une tuile précise
 	 */
-	//Giroux
+	// Giroux
 	public void supprimerCase() {
 		for (int i = 0; i < nbCarre; i++) {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						if (tabEmplacement[i][j].getDrapeau()) {
+						
+						if (tabEmplacement[i][j] == null) {
+								break;
+						
+						} else if(tabEmplacement[i][j].getVaisseau()) {
+							vaisseau=false;
+						} else if(tabEmplacement[i][j].getDrapeau()) {
 							drapeau = false;
+							
 						}
 						tabEmplacement[i][j] = null;
 
@@ -438,17 +464,28 @@ public class Grille extends JPanel {
 		}
 
 	}
-	
+
 	/**
 	 * Permet d'avoir l'emplacement des tuiles
+	 * 
 	 * @return L'emplacement des tuiles
 	 */
+	//Giroux
 	public Tuile[][] getTableau() {
 		return tabEmplacement;
 	}
+	/**
+	 * Permet de changer le tableau 
+	 * @param tab tableau des tuiles
+	 */
+	//Kitimir Yim
+	public void setTableau(Tuile[][] tab) {
+		this.tabEmplacement = tab;
+		
+	}
 
 	/**
-	 * Définir le type de tuile sélectionné pour le placement
+	 * Définit le type de tuile sélectionné pour le placement
 	 * 
 	 * @param tuile le nouveau type de tuile sélectionné pour le placement
 	 */
@@ -458,7 +495,7 @@ public class Grille extends JPanel {
 	}
 
 	/**
-	 * 
+	 * Applique un quart de rotation horaire à la tuile sélectionnée
 	 */
 	// Jason Xa
 	public void rotation() {
@@ -467,11 +504,22 @@ public class Grille extends JPanel {
 	}
 
 	/**
-	 * @param supprimer the supprimer to set
+	 * Définit la condition de suppression
+	 * 
+	 * @param supprimer la nouvelle valeau de la condition de suppression
 	 */
 	// Jason Xa
 	public void setSupprimer(boolean supprimer) {
 		this.supprimer = supprimer;
+	}
+
+	/**
+	 * Retourne la tuile sélectionnée
+	 * 
+	 * @return la tuile sélectionnée
+	 */
+	public Tuile getTuile() {
+		return tuile;
 	}
 
 }// Fin classe

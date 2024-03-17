@@ -1,10 +1,14 @@
 package utilis;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 
 /**
  * Cette classe contient des utilitaires pour le
@@ -13,11 +17,10 @@ import java.net.URL;
  *
  * @author Caroline Houle
  */
-
 public class OutilsImage {
 
 	/**
-	 * Lit le fichier d'image donne en parametre et retourne
+	 * Lit le fichier d'image donne en paramètre et retourne
 	 * un objet Image correspondant
 	 *
 	 * @param nomFichier Le nom du fichier d'image
@@ -37,22 +40,22 @@ public class OutilsImage {
 			}
 		}
 		return (img);
-	}// fin methode
+	}// fin méthode
 
 	/**
-	 * Lit le fichier d'image donne en parametre, redimensionne
-	 * l'image en appliquant le meme facteur de redimensionnement en largeur et en
+	 * Lit le fichier d'image donne en paramètre, redimensionne
+	 * l'image en appliquant le même facteur de redimensionnement en largeur et en
 	 * hauteur
 	 * (ce qui évite toute distortion dans l'image).
 	 * <p>
 	 * Retourne un objet Image correspondant.
 	 * <p>
-	 * Voir aussi la deuxieme signature de cette methode,
-	 * qui permet de specifier des resolutions precises en largeur et hauteur.
+	 * Voir aussi la deuxième signature de cette méthode,
+	 * qui permet de spécifier des résolutions précises en largeur et hauteur.
 	 *
 	 * @param nomFichier  Le nom du fichier d'image
 	 * @param facteurZoom Facteur de redimensionnement (1 signifie ne rien changer)
-	 * @return Un objet Image pour cette image redimensionnee
+	 * @return Un objet Image pour cette image redimensionnée
 	 */
 	// Caroline Houle
 	public static Image lireImageEtRedimensionner(String nomFichier, double facteurZoom) {
@@ -65,25 +68,25 @@ public class OutilsImage {
 					(int) (facteurZoom * img.getHeight(null)), Image.SCALE_SMOOTH);
 		}
 		return (imgRedim);
-	}// fin methode
+	}// fin méthode
 
 	/**
-	 * Lit le fichier d'image donne en parametre, redimensionne
-	 * l'image a la nouvelles resolution desiree.
+	 * Lit le fichier d'image donné en paramètre, redimensionne
+	 * l'image à la nouvelles résolution désirée.
 	 * <p>
 	 * Retourne un objet Image correspondant
 	 * <p>
 	 * Attention : si resoX et resoY ne sont pas proportionnels aux dimensions
-	 * initiales de
-	 * l'image, cela introduit une distortion (semblera plus etiree dans une
+	 * initiales de l'image, cela introduit une distortion (semblera plus etirée
+	 * dans une
 	 * direction)
-	 * Voir aussi la deuxieme signature de cette methode qui permet plutot de donner
+	 * Voir aussi la deuxième signature de cette méthode qui permet plutôt de donner
 	 * un facteur de redimensionnement.
 	 *
 	 * @param nomFichier Le nom du fichier d'image
 	 * @param resoX      Nouvelle largeur en pixels
 	 * @param resoY      Nouvelle hauteur en pixels
-	 * @return Un objet Image pour cette image redimensionnee
+	 * @return Un objet Image pour cette image redimensionnée
 	 */
 	// Caroline Houle
 	public static Image lireImageEtRedimensionner(String nomFichier, int resoX, int resoY) {
@@ -95,10 +98,10 @@ public class OutilsImage {
 			imgRedim = img.getScaledInstance(resoX, resoY, Image.SCALE_SMOOTH);
 		}
 		return (imgRedim);
-	}// fin methode
+	}// fin méthode
 
 	/**
-	 * Associe une image a un bouton en redimensionnant l'image adequatement.
+	 * Associe une image à un bouton en redimensionnant l'image adéquatement.
 	 *
 	 * @param nomFichier Le nom du fichier d'image
 	 * @param leBouton   Le bouton auquel on veut associer l'image.
@@ -107,11 +110,11 @@ public class OutilsImage {
 	public static void lireImageEtPlacerSurBouton(String nomFichier, JButton leBouton) {
 		Image imgRedim = null;
 
-		// lire et redimensionner l'image de la meme grandeur que le bouton
+		// lire et redimensionner l'image de la même grandeur que le bouton
 		imgRedim = lireImageEtRedimensionner(nomFichier, leBouton.getWidth(), leBouton.getHeight());
 
 		if (imgRedim != null) {
-			// au cas ou le fond de l'image serait transparent
+			// au cas où le fond de l'image serait transparent
 			leBouton.setOpaque(false);
 			leBouton.setContentAreaFilled(false);
 			leBouton.setBorderPainted(false);
@@ -121,13 +124,13 @@ public class OutilsImage {
 			leBouton.setIcon(new ImageIcon(imgRedim));
 			leBouton.setBorderPainted(true);
 
-			// on se debarrasse de l'image de base
+			// on se débarrasse de l'image de base
 			imgRedim.flush();
 		}
-	}// fin methode
+	}// fin méthode
 
 	/**
-	 * Associe une image a un bouton en redimensionnant l'image adequatement.
+	 * Associe une image a un bouton en redimensionnant l'image adéquatement.
 	 *
 	 * @param nomFichier Le nom du fichier d'image
 	 * @param leBouton   Le bouton auquel on veut associer l'image.
@@ -136,11 +139,11 @@ public class OutilsImage {
 	public static void lireImageEtPlacerSurBouton(String nomFichier, JToggleButton leBouton) {
 		Image imgRedim = null;
 
-		// lire et redimensionner l'image de la meme grandeur que le bouton
+		// lire et redimensionner l'image de la même grandeur que le bouton
 		imgRedim = lireImageEtRedimensionner(nomFichier, leBouton.getWidth(), leBouton.getHeight());
 
 		if (imgRedim != null) {
-			// au cas ou le fond de l'image serait transparent
+			// au cas où le fond de l'image serait transparent
 			leBouton.setOpaque(false);
 			leBouton.setContentAreaFilled(false);
 			leBouton.setBorderPainted(false);
@@ -150,8 +153,8 @@ public class OutilsImage {
 			leBouton.setIcon(new ImageIcon(imgRedim));
 			leBouton.setBorderPainted(true);
 
-			// on se debarrasse de l'image de base
+			// on se débarrasse de l'image de base
 			imgRedim.flush();
 		}
-	}// fin methode
+	}// fin méthode
 }

@@ -1,15 +1,21 @@
 package tuile;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
  * 
  * @author Jason Xa
  */
-public class Carre extends Tuile {
+public class Carre extends Tuile implements Serializable{
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = -5637937761263747229L;
 	/** l'image représentant un carré */
-	private static Image image;
+	private static transient Image image;
+	/** chaine de caractères représentant la tuile de type carré */
 	private static String type = "Carré";
 
 	/**
@@ -33,6 +39,12 @@ public class Carre extends Tuile {
 		super(image, x, y, type);
 	}
 
+	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
 	public Carre(double angleRotation) {
 		super(angleRotation, image, type);
 	}
@@ -51,5 +63,4 @@ public class Carre extends Tuile {
 	public String toString() {
 		return "Carre ";
 	}
-
 }

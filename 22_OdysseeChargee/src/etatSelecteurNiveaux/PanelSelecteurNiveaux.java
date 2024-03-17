@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import etatModeJeu.PanelModeJeu;
+
 
 /**
  * Panel du sélecteur de niveaux
@@ -16,7 +16,10 @@ import etatModeJeu.PanelModeJeu;
  * @author Kitimir Yim
  */
 public class PanelSelecteurNiveaux extends JPanel {
-
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = -8288362081093027798L;
 	/**
 	 * ajouter le support pour lancer des evenements de type PropertyChange
 	 */
