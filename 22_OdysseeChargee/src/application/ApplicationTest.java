@@ -98,6 +98,7 @@ public class ApplicationTest extends JFrame {
 	 * Lance l'application
 	 * 
 	 * @param args Paramètre d'entrée de la commande de démarrage
+	 * 
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static void main(String[] args) {
@@ -221,7 +222,7 @@ public class ApplicationTest extends JFrame {
 		contentPane.add(spnChargeVaisseau);
 
 		JLabel lblChargeVaisseau = new JLabel("Charge du vaisseau :");
-		lblChargeVaisseau.setBounds(53, 502, 108, 14);
+		lblChargeVaisseau.setBounds(53, 502, 130, 14);
 		contentPane.add(lblChargeVaisseau);
 
 		JLabel lblMasseVaisseau = new JLabel("Masse du vaisseau :");
