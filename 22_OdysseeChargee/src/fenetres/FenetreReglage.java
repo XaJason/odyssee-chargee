@@ -27,7 +27,7 @@ public class FenetreReglage extends JFrame {
 	private static final long serialVersionUID = -4125957740472303897L;
 
 	/**
-	 * Ajouter le support pour lancer des evenements de type PropertyChange
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	/**
@@ -43,6 +43,7 @@ public class FenetreReglage extends JFrame {
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
 	 */
+	//Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}

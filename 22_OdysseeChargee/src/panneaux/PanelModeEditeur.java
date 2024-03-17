@@ -44,10 +44,7 @@ public class PanelModeEditeur extends JPanel {
 	 */
 	private Grille grille;
 
-	/**
-	 * ajouter le support pour lancer des evenements de type PropertyChange
-	 */
-	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	
 
 	/** bouton permettant la sélection de la tuile de type carré */
 	private JButton btnCarre;
@@ -153,12 +150,6 @@ public class PanelModeEditeur extends JPanel {
 	/** étiquette servant à identifier le regroupement de boutons d'action */
 	private JLabel lblActions;
 
-	/**
-	 * methode qui permettra de s'ajouter en tant qu'ecouteur
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
 
 	/**
 	 * Implémente le panel et ses fonctionnalités

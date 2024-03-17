@@ -22,18 +22,7 @@ public class FenetreInstruction extends JFrame {
 	 */
 	private static final long serialVersionUID = -4498300440691242449L;
 
-	/**
-	 *  Ajouter le support pour lancer des evenements de type PropertyChange
-	 */
-	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-	/**
-	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
 
 	/**
 	 * Implémente la fenêtre et ses fonctionnalités

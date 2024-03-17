@@ -19,13 +19,15 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	private static final long serialVersionUID = -8288362081093027798L;
 	/**
-	 * ajouter le support pour lancer des evenements de type PropertyChange
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	/**
-	 * methode qui permettra de s'ajouter en tant qu'ecouteur
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
 	 */
+	//Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}

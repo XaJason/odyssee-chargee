@@ -63,7 +63,7 @@ public class FenetreApropos extends JFrame {
 	 * 
 	 * @return message Message d'informations
 	 */
-	// Kitimir Yim
+	//Kitimir Yim
 	private String texte() {
 		String message = "Voici les fonctionnalitées à explorer pour la version alpha:" + "\n"
 				+ "Navigation à travers différents panels et différentes fenêtre" + "\n"
