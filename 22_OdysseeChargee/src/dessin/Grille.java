@@ -27,6 +27,8 @@ import tuile.Tuile;
 import tuile.Vaisseau;
 
 /**
+ * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
+ * 
  * @author Giroux
  * @author Jason Xa
  */
@@ -516,6 +518,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @return la tuile sélectionnée
 	 */
+	// Jason Xa
 	public Tuile getTuile() {
 		return tuile;
 	}
