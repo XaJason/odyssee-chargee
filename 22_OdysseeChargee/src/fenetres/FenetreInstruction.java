@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import constante.ConstanteComposantsSwing;
+import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre d'instruction

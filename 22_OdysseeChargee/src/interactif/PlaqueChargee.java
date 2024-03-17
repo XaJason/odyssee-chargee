@@ -6,7 +6,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
 import physique.Vecteur2D;
-import utilis.Dessinable;
+import utilitaires.Dessinable;
 
 /**
  * Classe plaque: représentation sommaire d'une plaque à l'aide d'un segment de droite

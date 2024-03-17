@@ -6,7 +6,7 @@ import java.awt.geom.Ellipse2D;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import utilis.Dessinable;
+import utilitaires.Dessinable;
 /**
  * Classe Vaisseau: représentation sommaire d'un vaisseau à l'aide d'un cercles.
  * Un vaisseau mémorise sa masse, sa charge, son rayon, sa position, sa vitesse, son accélération 

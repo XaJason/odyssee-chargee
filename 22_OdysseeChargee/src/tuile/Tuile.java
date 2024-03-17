@@ -5,8 +5,8 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
-import utilis.Dessinable;
-import utilis.OutilsImage;
+import utilitaires.Dessinable;
+import utilitaires.OutilsImage;
 
 /**
  * Représente tout objet fixe qui peut être placé dans le mode éditeur.

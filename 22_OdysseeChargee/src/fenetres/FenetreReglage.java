@@ -11,8 +11,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import composants.EvaluationEtoile;
-import constante.ConstanteComposantsSwing;
+import dessin.EvaluationEtoile;
+import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre des réglages

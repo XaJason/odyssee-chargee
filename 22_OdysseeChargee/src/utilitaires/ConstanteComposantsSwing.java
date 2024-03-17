@@ -1,4 +1,4 @@
-package constante;
+package utilitaires;
 
 /**
  * Constante des différents panels et fenêtre

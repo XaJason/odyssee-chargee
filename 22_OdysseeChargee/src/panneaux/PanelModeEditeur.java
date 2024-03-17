@@ -1,4 +1,4 @@
-package editeur_niveaux;
+package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import dessin.Grille;
 import niveau.GestionnaireDeNiveau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
@@ -21,7 +22,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Vaisseau;
-import utilis.OutilsImage;
+import utilitaires.OutilsImage;
 
 /**
  * Panel du mode éditeur

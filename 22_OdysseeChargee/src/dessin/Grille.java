@@ -1,4 +1,4 @@
-package editeur_niveaux;
+package dessin;
 
 import java.awt.Color;
 import java.awt.Cursor;

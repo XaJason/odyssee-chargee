@@ -1,4 +1,4 @@
-package jouer;
+package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

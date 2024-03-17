@@ -5,10 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import constante.ConstanteComposantsSwing;
-
 import javax.swing.JTextArea;
+
+import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre d'à propos

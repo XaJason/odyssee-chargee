@@ -1,4 +1,4 @@
-package composants;
+package dessin;
 
 import java.awt.Color;
 import java.awt.Graphics;

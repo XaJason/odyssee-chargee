@@ -1,4 +1,4 @@
-package jouer;
+package panneaux;
 
 
 import java.beans.PropertyChangeListener;

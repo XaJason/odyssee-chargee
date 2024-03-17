@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import composants.ZoneAnimationPhysiqueTest;
+import dessin.ZoneAnimationPhysiqueTest;
 /**
  * Application test permettant de visualiser des phénomènes d'attraction et de répulsion électrique
  * 
