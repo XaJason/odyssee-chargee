@@ -61,7 +61,7 @@ public class Grille extends JPanel {
 	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
-	Point2D clique;
+	private Point2D clique;
 	/**
 	 * Contient la tuile sélectionnée dans les boutons du panneau du mode éditeur
 	 **/
@@ -73,21 +73,22 @@ public class Grille extends JPanel {
 	 **/
 	private Tuile tuileTemp;
 	/** Indique si l'emplacement est déjà pris **/
-	boolean placePrise = false;
+	private boolean placePrise = false;
 	/** Indique s'il y a déjà un drapeau sur la grille **/
-	boolean drapeau = false;
+	private boolean drapeau = false;
 	/** Indique s'il y a déjà un vaisseau sur la grille **/
-	boolean vaisseau = false;
+	private boolean vaisseau = false;
 	/** Indique si on est en mode supprimer ou non **/
-	boolean supprimer = false;
+	private boolean supprimer = false;
 	/** Indique que la sourie est à l'exterieur du composant **/
-	boolean exterieurComposant = true;
+	private boolean exterieurComposant = true;
 
 
 
 	/**
 	 * Création du du panneau
 	 */
+	//Giroux
 	public Grille() {
 		
 
@@ -156,7 +157,7 @@ public class Grille extends JPanel {
 	 * @param g Contexte graphique
 	 */
 	// Giroux
-	private void dessiner(Graphics2D g2d) {
+	public void dessiner(Graphics2D g2d) {
 		if (premiereFois) {
 
 			tabEmplacement = new Tuile[nbCarre][nbCarre];
@@ -445,10 +446,15 @@ public class Grille extends JPanel {
 			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
 				for (int j = 0; j < nbCarre; j++) {
 					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
-						if (tabEmplacement[i][j].getDrapeau()) {
-							drapeau = false;
+						
+						if (tabEmplacement[i][j] == null) {
+								break;
+						
 						} else if(tabEmplacement[i][j].getVaisseau()) {
 							vaisseau=false;
+						} else if(tabEmplacement[i][j].getDrapeau()) {
+							drapeau = false;
+							
 						}
 						tabEmplacement[i][j] = null;
 
@@ -464,6 +470,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @return L'emplacement des tuiles
 	 */
+	//Giroux
 	public Tuile[][] getTableau() {
 		return tabEmplacement;
 	}

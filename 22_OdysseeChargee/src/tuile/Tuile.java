@@ -27,9 +27,9 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
 	/** Détermine si la tuile est un drapeau **/
-	boolean drapeau = false;
+	protected boolean drapeau = false;
 	/** Détermine si la tuile est un vaisseau **/
-	boolean vaisseau = false;
+	protected boolean vaisseau = false;
 
 	/** l'image représentant la tuile */
 	private transient Image image;
@@ -155,7 +155,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 * Méthode qui met le champ drapeau à vrai
 	 */
 	// Giroux
-	public void setDrapeau() {
+	protected void setDrapeau() {
 		this.drapeau = true;
 	}
 
@@ -178,7 +178,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 * Méthode qui met le champ vaisseau à vrai
 	 */
 	// Giroux
-	public void setVaisseau() {
+	protected void setVaisseau() {
 		this.vaisseau = true;
 	}
 
