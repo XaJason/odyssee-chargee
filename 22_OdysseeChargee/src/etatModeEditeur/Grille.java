@@ -459,6 +459,15 @@ public class Grille extends JPanel {
 	public Tuile[][] getTableau() {
 		return tabEmplacement;
 	}
+	/**
+	 * Permet de changer le tableau 
+	 * @param tab tableau des tuiles
+	 */
+	//Kitimir Yim
+	public void setTableau(Tuile[][] tab) {
+		this.tabEmplacement = tab;
+		
+	}
 
 	/**
 	 * Définit le type de tuile sélectionné pour le placement

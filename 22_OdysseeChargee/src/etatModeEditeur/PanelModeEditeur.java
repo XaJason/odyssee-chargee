@@ -314,6 +314,7 @@ public class PanelModeEditeur extends JPanel {
 				Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
 				sauvegarder(niveauParDefaut);
 
+
 			}
 
 		});
@@ -402,6 +403,28 @@ public class PanelModeEditeur extends JPanel {
 		lblActions = new JLabel("Actions");
 		lblActions.setBounds(64, 458, 85, 13);
 		add(lblActions);
+
+		JButton btnChargement = new JButton("Charger test");
+		btnChargement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				charger();
+
+			}
+
+
+		});
+		btnChargement.setBounds(166, 20, 85, 21);
+		add(btnChargement);
+	}
+	/**
+	 * Charge le niveau test
+	 */
+	//Kitimir Yim
+	private void charger() {
+		Niveau charger = Sauvegarder.chargerNiveau("test");
+
+		grille.setTableau(charger.getTabEmplacement());
+
 	}
 
 	/**
