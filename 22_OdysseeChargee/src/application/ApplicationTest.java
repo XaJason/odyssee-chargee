@@ -433,21 +433,21 @@ public class ApplicationTest extends JFrame {
 		btnProchaineImage.setEnabled(true);
 		btnDemarrer.setEnabled(true);
 
-		spnDeltaT.setValue(zoneAnimationPhysiqueTest.getDELTA_T_INITIAL());
+		spnDeltaT.setValue(zoneAnimationPhysiqueTest.getDeltaTInitial());
 
-		spnRayonVaisseau.setValue(zoneAnimationPhysiqueTest.getRAYON_INITIAL_VAISSEAU());
-		spnChargeVaisseau.setValue(zoneAnimationPhysiqueTest.getCHARGE_INITIALE_VAISSEAU());
-		spnMasseVaisseau.setValue(zoneAnimationPhysiqueTest.getMASSE_INITIALE_VAISSEAU());
-		spnPosVaisseauX.setValue(zoneAnimationPhysiqueTest.getPOS_INITIALE_VAISSEAU_EN_X());
-		spnPosVaisseauY.setValue(zoneAnimationPhysiqueTest.getPOS_INITIALE_VAISSEAU_EN_Y());
-		spnVitVaisseauX.setValue(zoneAnimationPhysiqueTest.getVIT_INITIALE_VAISSEAU_X());
-		spnVitVaisseauY.setValue(zoneAnimationPhysiqueTest.getVIT_INITIALE_VAISSEAU_Y());
+		spnRayonVaisseau.setValue(zoneAnimationPhysiqueTest.getRayonInitialVaisseau());
+		spnChargeVaisseau.setValue(zoneAnimationPhysiqueTest.getChargeInitialeVaisseau());
+		spnMasseVaisseau.setValue(zoneAnimationPhysiqueTest.getMasseInitialeVaisseau());
+		spnPosVaisseauX.setValue(zoneAnimationPhysiqueTest.getPosInitialeVaisseauEnX());
+		spnPosVaisseauY.setValue(zoneAnimationPhysiqueTest.getPosinitialeVaisseauEnY());
+		spnVitVaisseauX.setValue(zoneAnimationPhysiqueTest.getVitInitialeVaisseauX());
+		spnVitVaisseauY.setValue(zoneAnimationPhysiqueTest.getVitInitialeVaisseauY());
 
-		spnLongueurPlaque.setValue(zoneAnimationPhysiqueTest.getLONGUEUR_PLAQUE());
-		spnChargePlaque.setValue(zoneAnimationPhysiqueTest.getCHARGE_INITIALE_PLAQUE());
-		spnPosPlaqueX.setValue(zoneAnimationPhysiqueTest.getPOS_INITIALE_PLAQUE_EN_X());
-		spnPosPlaqueY.setValue(zoneAnimationPhysiqueTest.getPOS_INITIALE_PLAQUE_EN_Y());
-		spnNormalePlaqueX.setValue(zoneAnimationPhysiqueTest.getNORMALE_PLAQUE_COMPOSANTE_X());
-		spnNormalePlaqueY.setValue(zoneAnimationPhysiqueTest.getNORMALE_PLAQUE_COMPOSANTE_Y());
+		spnLongueurPlaque.setValue(zoneAnimationPhysiqueTest.getLongueurPlaqueInitiale());
+		spnChargePlaque.setValue(zoneAnimationPhysiqueTest.getChargeInitialePlaque());
+		spnPosPlaqueX.setValue(zoneAnimationPhysiqueTest.getPosInitialePlaqueEnX());
+		spnPosPlaqueY.setValue(zoneAnimationPhysiqueTest.getPosInitialePlaqueEnY());
+		spnNormalePlaqueX.setValue(zoneAnimationPhysiqueTest.getNormaleInitialePlaqueComposanteX());
+		spnNormalePlaqueY.setValue(zoneAnimationPhysiqueTest.getNormaleInitialePlaqueComposanteY());
 	}// fin methode reinitialiserZoneAnimation
 }

@@ -19,7 +19,7 @@ import tuile.Pics;
 import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
-import tuile.Vaisseau;
+import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
 
 /**
@@ -316,7 +316,7 @@ public class PanelModeEditeur extends JPanel {
 		btnVaisseau = new JButton();
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new Vaisseau());
+				grille.setTuile(new VaisseauImage());
 				afficherSelection();
 			}
 		});
@@ -408,22 +408,21 @@ public class PanelModeEditeur extends JPanel {
 		 */
 	}
 
-//	/*
-//	/**
-//	 * Charge le niveau test
-//	 */
-//	// Kitimir Yim
-//	private void charger() {
-//		Niveau charger = Sauvegarder.chargerNiveau("test");
-//
-//		grille.setTableau(charger.getTabEmplacement());
-//
-//	}
+	/**
+	 * Charge le niveau test
+	 */
+	//Kitimir Yim
+	private void charger() {
+		Niveau charger = Sauvegarder.chargerNiveau("test");
+
+		grille.setTableau(charger.getTabEmplacement());
+
+	}
 
 	/**
 	 * Sauvegardé le niveau crée dans le mode éditeur
 	 * 
-	 * @param niveau
+	 * @param niveau Objet représentant le niveau
 	 */
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {

@@ -61,9 +61,9 @@ public class PanelModeJeu extends JPanel {
 		spinnerCharge.setBounds(144, 80, 160, 43);
 		panelEntree.add(spinnerCharge);
 
-		JSpinner spinnerGravité = new JSpinner();
-		spinnerGravité.setBounds(144, 153, 160, 43);
-		panelEntree.add(spinnerGravité);
+		JSpinner spinnerGravite = new JSpinner();
+		spinnerGravite.setBounds(144, 153, 160, 43);
+		panelEntree.add(spinnerGravite);
 
 		JSpinner spinnerChargePlaque = new JSpinner();
 		spinnerChargePlaque.setBounds(144, 216, 160, 43);
@@ -83,9 +83,9 @@ public class PanelModeJeu extends JPanel {
 		lblVitesse.setBounds(35, 37, 100, 26);
 		panelSortie.add(lblVitesse);
 
-		JLabel lblAccélération = new JLabel("Accélération (m/s^2):");
-		lblAccélération.setBounds(35, 73, 110, 26);
-		panelSortie.add(lblAccélération);
+		JLabel lblAcceleration = new JLabel("Accélération (m/s^2):");
+		lblAcceleration.setBounds(35, 73, 110, 26);
+		panelSortie.add(lblAcceleration);
 
 		JLabel lblForceElectrique = new JLabel("Force électrique (N):");
 		lblForceElectrique.setBounds(35, 113, 100, 26);
@@ -107,9 +107,9 @@ public class PanelModeJeu extends JPanel {
 		textAreaVitesse.setBounds(160, 38, 150, 22);
 		panelSortie.add(textAreaVitesse);
 
-		JTextArea textAreaAccélération = new JTextArea();
-		textAreaAccélération.setBounds(160, 74, 150, 22);
-		panelSortie.add(textAreaAccélération);
+		JTextArea textAreaAcceleration = new JTextArea();
+		textAreaAcceleration.setBounds(160, 74, 150, 22);
+		panelSortie.add(textAreaAcceleration);
 
 		JTextArea textAreaForceElectrique = new JTextArea();
 		textAreaForceElectrique.setEditable(false);

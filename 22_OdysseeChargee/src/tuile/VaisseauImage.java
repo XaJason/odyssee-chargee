@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Jason Xa
  * @author Giroux
  */
-public class Vaisseau extends Tuile implements Serializable {
+public class VaisseauImage extends Tuile implements Serializable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
@@ -24,7 +24,7 @@ public class Vaisseau extends Tuile implements Serializable {
 	 * 
 	 */
 	// Jason Xa
-	public Vaisseau() {
+	public VaisseauImage() {
 		super(image, type);
 		setVaisseau();
 	}
@@ -35,7 +35,7 @@ public class Vaisseau extends Tuile implements Serializable {
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
-	public Vaisseau(double angleRotation) {
+	public VaisseauImage(double angleRotation) {
 		super(angleRotation, image, type);
 		setVaisseau();
 	}
@@ -48,7 +48,7 @@ public class Vaisseau extends Tuile implements Serializable {
 	 * 
 	 */
 	// Jason Xa
-	public Vaisseau(int x, int y) {
+	public VaisseauImage(int x, int y) {
 		super(image, x, y, type);
 		setVaisseau();
 	}
@@ -60,12 +60,12 @@ public class Vaisseau extends Tuile implements Serializable {
 	 */
 	// Jason Xa
 	public static void setImageRef(Image imageRef) {
-		Vaisseau.image = imageRef;
+		VaisseauImage.image = imageRef;
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * @return Une chaine indiquant que l'objet est le vaisseau
 	 */
-
 	// Giroux
 	public String toString() {
 		return "Vaisseau ";

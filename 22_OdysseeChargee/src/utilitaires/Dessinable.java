@@ -18,9 +18,7 @@ public interface Dessinable {
 	 *
 	 * @param g2d Contexte graphique du composant sur lequel dessiner
 	 */
-	// Caroline Houle
-
-	// Giroux
+	// Caroline Houde
 	public void dessiner(Graphics2D g2d);
 
 }

@@ -13,18 +13,21 @@ package physique;
  * Cette classe est une version 2d modifi�e et augment�e de la classe SVector3d
  * ecrite par Simon Vezina dans le cadre du cours de physique.
  * 
- * @author Simon V�zina
- * @author Caroline Houle
+ * @author Simon Vézina & Caroline Houle
  */
 public class Vecteur2D {
 	// champs de base
-	private static final double EPSILON = 1e-10; // tolerance utilisee dans les comparaisons reeles avec zero
-	protected double x; // composante x du vecteur 2d
-	protected double y; // composante y du vecteur 2d
+	/** Tolerance utilisee dans les comparaisons reeles avec zero **/
+	private static final double EPSILON = 1e-10;
+	/** Composante x du vecteur 2d **/
+	protected double x; 
+	/** Composante y du vecteur 2d **/
+	protected double y; 
 
 	/**
 	 * Constructeur representant un vecteur 2d aux composantes nulles
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D() {
 		x = 0;
 		y = 0;
@@ -36,6 +39,7 @@ public class Vecteur2D {
 	 * @param x La composante x du vecteur.
 	 * @param y La composante y du vecteur.
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -47,6 +51,7 @@ public class Vecteur2D {
 	 * 
 	 * @param v Le vecteur � reproduire
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D(Vecteur2D v) {
 		this.x = v.x;
 		this.y = v.y;
@@ -57,6 +62,7 @@ public class Vecteur2D {
 	 * 
 	 * @return La composante x
 	 */
+	// Simon Vézina & Caroline Houle
 	public double getX() {
 		return x;
 	}
@@ -66,6 +72,7 @@ public class Vecteur2D {
 	 * 
 	 * @return La composante y
 	 */
+	// Simon Vézina & Caroline Houle
 	public double getY() {
 		return y;
 	}
@@ -75,6 +82,7 @@ public class Vecteur2D {
 	 * 
 	 * @param x La nouvelle composante x
 	 */
+	// Simon Vézina & Caroline Houle
 	public void setX(double x) {
 		this.x = x;
 	}
@@ -84,6 +92,7 @@ public class Vecteur2D {
 	 * 
 	 * @param y La nouvelle composante y
 	 */
+	// Simon Vézina & Caroline Houle
 	public void setY(double y) {
 		this.y = y;
 	}
@@ -94,6 +103,7 @@ public class Vecteur2D {
 	 * @param x La nouvelle composante x
 	 * @param y La nouvelle composante y
 	 */
+	// Simon Vézina & Caroline Houle
 	public void setComposantes(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -106,6 +116,7 @@ public class Vecteur2D {
 	 * 
 	 * @param v Le vecteur dont on d�sire copier les composantes
 	 */
+	// Simon Vézina & Caroline Houle
 	public void setComposantes(Vecteur2D v) {
 		this.x = v.x;
 		this.y = v.y;
@@ -113,7 +124,9 @@ public class Vecteur2D {
 
 	/**
 	 * Genere une chaine de caractere avec les informations du vecteur
+	 * @return Une chaine de caractere avec les informations du vecteur
 	 */
+	// Simon Vézina & Caroline Houle
 	@Override
 	public String toString() {
 		return "[ x = " + x + ", y = " + y + "]";
@@ -123,17 +136,21 @@ public class Vecteur2D {
 	 * Genere une chaine de caractere avec les informations du vecteur, avec un
 	 * nombre de decimales restreint
 	 * 
-	 * @param nbDecimales Nombre de chiffres significatifs d�sir�s
+	 * @param nbDecimales Nombre de chiffres significatifs désirés
+	 * @return Une chaine de caractere avec les informations du vecteur, avec un nombre de decimales restreint
 	 */
+	// Simon Vézina & Caroline Houle
 	public String toString(int nbDecimales) {
 		return "[ x = " + String.format("%." + nbDecimales + "f", x) + ", y = "
 				+ String.format("%." + nbDecimales + "f", y) + "]";
 	}
 
 	/**
-	 * Determine si le vecteur courant est egal ou non a un autre vecteur, a EPSILON
-	 * pres
+	 * Determine si le vecteur courant est égal ou non à un autre vecteur, à EPSILON près
+	 * @param obj L'objet contenant une référence au vecteur auquel on souhait comparé le vecteur courant
+	 * @return return Un booléan indiquant si les vecteurs sont les mêmes
 	 */
+	// Simon Vézina & Caroline Houle
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -165,6 +182,7 @@ public class Vecteur2D {
 	 * @param v Le vecteur a ajouter au vecteur courant
 	 * @return Un nouveau vecteur qui represente la somme des deux vecteurs
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D additionne(Vecteur2D v) {
 		return new Vecteur2D(x + v.x, y + v.y);
 	}
@@ -176,6 +194,7 @@ public class Vecteur2D {
 	 * @param v2 Le deuxieme vecteur
 	 * @return Un nouveau vecteur qui represente la somme des deux vecteurs
 	 */
+	// Simon Vézina & Caroline Houle
 	public static Vecteur2D additionne(Vecteur2D v1, Vecteur2D v2) {
 		return v1.additionne(v2);
 	}
@@ -187,6 +206,7 @@ public class Vecteur2D {
 	 * @param v Le vecteur a soustraire au vecteur courant.
 	 * @return Un nouveau vecteur qui represente la soustraction des deux vecteurs.
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D soustrait(Vecteur2D v) {
 		return new Vecteur2D(x - v.x, y - v.y);
 	}
@@ -200,6 +220,7 @@ public class Vecteur2D {
 	 * @return Un nouveau vecteur qui represente la diffrence entre les deux
 	 *         vecteurs
 	 */
+	// Simon Vézina & Caroline Houle
 	public static Vecteur2D soustrait(Vecteur2D v1, Vecteur2D v2) {
 		return v1.soustrait(v2);
 	}
@@ -212,6 +233,7 @@ public class Vecteur2D {
 	 * @return Un nouveau vecteur qui represente le resultat de la multiplication
 	 *         par un scalaire m sur le vecteur.
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D multiplie(double m) {
 		return new Vecteur2D(m * x, m * y);
 	}
@@ -225,6 +247,7 @@ public class Vecteur2D {
 	 * @return Un nouveau vecteur qui represente le resultat de la multiplication
 	 *         par un scalaire m sur le vecteur.
 	 */
+	// Simon Vézina & Caroline Houle
 	public static Vecteur2D multiplie(Vecteur2D v, double m) {
 		return v.multiplie(m);
 	}
@@ -234,6 +257,7 @@ public class Vecteur2D {
 	 * 
 	 * @return Le module du vecteur courant.
 	 */
+	// Simon Vézina & Caroline Houle
 	public double module() {
 		return Math.sqrt((x * x) + (y * y));
 	}
@@ -244,6 +268,7 @@ public class Vecteur2D {
 	 * @param v Le vecteur
 	 * @return Le module du vecteur.
 	 */
+	// Simon Vézina & Caroline Houle
 	public static double module(Vecteur2D v) {
 		return v.module();
 	}
@@ -259,6 +284,7 @@ public class Vecteur2D {
 	 * @throws Exception Si le vecteur ne peut pas etre normalise etant trop petit
 	 *                   ou de longueur nulle.
 	 */
+	// Simon Vézina & Caroline Houle
 	public Vecteur2D normalise() throws Exception {
 		double mod = module(); // obtenir le module du vecteur
 
@@ -283,6 +309,7 @@ public class Vecteur2D {
 	 * @throws Exception Si le vecteur ne peut pas etre normalise etant trop petit
 	 *                   ou de longueur nulle.
 	 */
+	// Simon Vézina & Caroline Houle
 	public static Vecteur2D normalise(Vecteur2D v) throws Exception {
 		return v.normalise();
 	}
@@ -294,6 +321,7 @@ public class Vecteur2D {
 	 * @param v L'autre vecteur.
 	 * @return Le produit scalaire entre les deux vecteurs.
 	 */
+	// Simon Vézina & Caroline Houle
 	public double prodScalaire(Vecteur2D v) {
 		return (x * v.x + y * v.y);
 	}
@@ -306,6 +334,7 @@ public class Vecteur2D {
 	 * @param v2 Le deuxieme vecteur
 	 * @return Le produit scalaire entre les deux vecteurs.
 	 */
+	// Simon Vézina & Caroline Houle
 	public static double prodScalaire(Vecteur2D v1, Vecteur2D v2) {
 		return (v1.prodScalaire(v2));
 	}

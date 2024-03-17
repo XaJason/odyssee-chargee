@@ -21,7 +21,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
-	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -29,7 +29,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	//Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
+		PCS.addPropertyChangeListener(listener);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 		JButton btnPasserModeJeu = new JButton("Bouton Play");
 		btnPasserModeJeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pcs.firePropertyChange("passerVersJeu", 0, -1);
+				PCS.firePropertyChange("passerVersJeu", 0, -1);
 			}
 		});
 		btnPasserModeJeu.setBounds(192, 119, 162, 23);
