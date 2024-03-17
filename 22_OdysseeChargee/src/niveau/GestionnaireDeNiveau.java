@@ -1,8 +1,10 @@
 package niveau;
 
 import java.util.ArrayList;
+
 /**
  * Classe qui gère les différents niveaux
+ * 
  * @author Giroux
  * @author Kitimir Yim
  */
@@ -14,9 +16,10 @@ public class GestionnaireDeNiveau {
 
 	/**
 	 * Ajoute un niveau à l'ArrayList
+	 * 
 	 * @param niveauAAjouter Le niveau à ajouter
 	 */
-	//Giroux
+	// Giroux
 	public static void ajouter(Niveau niveauAAjouter) {
 		repertoireNiveau.add(niveauAAjouter);
 		System.out.println("Ajout fait avec succès");
@@ -24,10 +27,11 @@ public class GestionnaireDeNiveau {
 
 	/**
 	 * Permet d'aller chercher le niveau
+	 * 
 	 * @param nom Le nom du niveau
 	 * @return Le niveau voulu, ou rien si le nom de conrespond pas
 	 */
-	//Giroux
+	// Giroux
 	public Niveau getNiveau(String nom) {
 		nom = nom.toLowerCase();
 		Niveau niveauTrouver = null;
@@ -41,30 +45,36 @@ public class GestionnaireDeNiveau {
 		}
 		return niveauTrouver;
 	}
+
 	/**
 	 * Permet d'aller chercher le niveau
+	 * 
 	 * @param index
 	 * @return Le niveau voulu
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public Niveau getNiveau(int index) {
 		return repertoireNiveau.get(index);
 
 	}
+
 	/**
 	 * Permet d'aller chercher le niveau
-	 * @param index
-	 * @return Le niveau voulu
+	 * 
+	 * @param index  l'index à chercher
+	 * @param niveau le niveau à chercher
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void setNiveau(int index, Niveau niveau) {
-		repertoireNiveau.set(index, niveau);	
+		repertoireNiveau.set(index, niveau);
 	}
+
 	/**
 	 * Permet de supprimer un niveau
+	 * 
 	 * @param nom le nom du niveau à supprimer
 	 */
-	//Giroux
+	// Giroux
 	public void supprimerNiveau(String nom) {
 		for (int i = 0; i < repertoireNiveau.size(); i++) {
 			if (repertoireNiveau.get(i).getNomNiveau() == nom) {
@@ -72,7 +82,6 @@ public class GestionnaireDeNiveau {
 			}
 
 		}
-
 
 	}
 }

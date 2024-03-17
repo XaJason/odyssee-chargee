@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import constante.ConstanteComposantsSwing;
+import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre d'instruction
@@ -17,9 +17,8 @@ import constante.ConstanteComposantsSwing;
  */
 public class FenetreInstruction extends JFrame {
 
-	
 	/**
-	 *  Numéro d'identification pour la sérialisation
+	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -4498300440691242449L;
 

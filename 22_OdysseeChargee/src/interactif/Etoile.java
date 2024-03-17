@@ -3,7 +3,7 @@ package interactif;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
-import utilis.Dessinable;
+import utilitaires.Dessinable;
 
 /**
  * Classe qui represente une etoile a 5 pointes.

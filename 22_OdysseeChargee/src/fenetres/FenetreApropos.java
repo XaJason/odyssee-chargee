@@ -5,10 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import constante.ConstanteComposantsSwing;
-
 import javax.swing.JTextArea;
+
+import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre d'à propos
@@ -18,10 +17,9 @@ import javax.swing.JTextArea;
 public class FenetreApropos extends JFrame {
 
 	/**
-	 *  Numéro d'identification pour la sérialisation
+	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -2336396924514608396L;
-
 
 	/**
 	 * Implémente la fenêtre et ses fonctionnalités
@@ -59,19 +57,21 @@ public class FenetreApropos extends JFrame {
 		dispose();
 
 	}
+
 	/**
 	 * Texte pour le message afficher dans la fenêtre
+	 * 
 	 * @return message Message d'informations
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private String texte() {
-		String message = "Voici les fonctionnalitées à explorer pour la version alpha:"
-				+"\n" + "Navigation à travers différents panels et différentes fenêtre"
-				+"\n" + "Éditeur de niveau: placement des objets, réinitialisation (complète), suppression d'objet (placement de tuile nulle), rotation (90 degrés dans le sens horaire)"
-				+"\n" + "Démo d'une animation physique disponible dans le package test(et toutes les formules implémentées qui viennent avec)"
-				+"\n" + "Sauvegarde de fichier disponible dans le mode éditeur"
-				+"\n" + "Musique de fond et la possibilié d'ajuster le volume";
-
+		String message = "Voici les fonctionnalitées à explorer pour la version alpha:" + "\n"
+				+ "Navigation à travers différents panels et différentes fenêtre" + "\n"
+				+ "Éditeur de niveau: placement des objets, réinitialisation (complète), suppression d'objet (placement de tuile nulle), rotation (90 degrés dans le sens horaire)"
+				+ "\n"
+				+ "Démo d'une animation physique disponible dans le package test(et toutes les formules implémentées qui viennent avec)"
+				+ "\n" + "Sauvegarde de fichier disponible dans le mode éditeur" + "\n"
+				+ "Musique de fond et la possibilié d'ajuster le volume";
 
 		return message;
 
