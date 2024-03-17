@@ -1,7 +1,6 @@
 package panneaux;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -19,18 +18,6 @@ public class PanelModeJeu extends JPanel {
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = 7125958637120092540L;
-	/**
-	 * ajouter le support pour lancer des evenements de type PropertyChange
-	 */
-	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	private JSpinner spinnerGravité;
-
-	/**
-	 * methode qui permettra de s'ajouter en tant qu'ecouteur
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -74,7 +61,7 @@ public class PanelModeJeu extends JPanel {
 		spinnerCharge.setBounds(144, 80, 160, 43);
 		panelEntree.add(spinnerCharge);
 
-		spinnerGravité = new JSpinner();
+		JSpinner spinnerGravité = new JSpinner();
 		spinnerGravité.setBounds(144, 153, 160, 43);
 		panelEntree.add(spinnerGravité);
 

@@ -13,7 +13,7 @@ import utilitaires.ConstanteComposantsSwing;
 /**
  * Fenêtre d'instruction
  * 
- * @author Kitimir YIm
+ * @author Kitimir Yim
  */
 public class FenetreInstruction extends JFrame {
 
@@ -22,11 +22,14 @@ public class FenetreInstruction extends JFrame {
 	 */
 	private static final long serialVersionUID = -4498300440691242449L;
 
-	// ajouter le support pour lancer des evenements de type PropertyChange
+	/**
+	 *  Ajouter le support pour lancer des evenements de type PropertyChange
+	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	/**
-	 * voici la methode qui permettra � un objet de s'ajouter en tant qu'ecouteur
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);

@@ -29,6 +29,7 @@ import tuile.Vaisseau;
 /**
  * @author Giroux
  * @author Jason Xa
+ * @author Kitimir Yim
  */
 public class Grille extends JPanel {
 	/** Numéro d'identification pour la sérialisation **/
@@ -475,7 +476,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @param tab tableau des tuiles
 	 */
-	// Kitimir Yim
+	//Kitimir Yim
 	public void setTableau(Tuile[][] tab) {
 		this.tabEmplacement = tab;
 

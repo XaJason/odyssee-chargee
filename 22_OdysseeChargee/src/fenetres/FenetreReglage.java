@@ -17,7 +17,7 @@ import utilitaires.ConstanteComposantsSwing;
 /**
  * Fenêtre des réglages
  * 
- * @author Kitimir YIm
+ * @author Kitimir Yim
  */
 public class FenetreReglage extends JFrame {
 
@@ -27,18 +27,21 @@ public class FenetreReglage extends JFrame {
 	private static final long serialVersionUID = -4125957740472303897L;
 
 	/**
-	 * ajouter le support pour lancer des evenements de type PropertyChange
+	 * Ajouter le support pour lancer des evenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	/**
 	 * Composant de l'évaluateur d'étoile
 	 */
 	private EvaluationEtoile evaluationEtoile;
-
+	/**
+	 * Ancienne valeur du slider pour le son
+	 */
 	private int ancienneValeurSlider = 0;
 
 	/**
-	 * voici la methode qui permettra � un objet de s'ajouter en tant qu'ecouteur
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);

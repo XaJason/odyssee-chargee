@@ -143,7 +143,7 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * Creer la page principale.
+	 * Créer la page principale.
 	 */
 	// Kitimir Yim
 	public AppPrincipale22() {

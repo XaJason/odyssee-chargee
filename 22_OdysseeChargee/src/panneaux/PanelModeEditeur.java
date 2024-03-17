@@ -28,6 +28,7 @@ import utilitaires.OutilsImage;
  * Panel du mode éditeur
  * 
  * @author Jason Xa
+ * @author Kitimir Yim
  * 
  */
 

@@ -12,7 +12,7 @@ import utilitaires.ConstanteComposantsSwing;
 /**
  * Fenêtre d'à propos
  * 
- * @author Kitimir YIm
+ * @author Kitimir Yim
  */
 public class FenetreApropos extends JFrame {
 

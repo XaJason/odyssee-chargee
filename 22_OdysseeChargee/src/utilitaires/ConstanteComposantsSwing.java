@@ -20,12 +20,12 @@ public class ConstanteComposantsSwing {
 	public static final int DIM_VERTICALE_MINIMALE_APP = 500;
 
 	/**
-	 * Longueur verticale de la fenetre A propos
+	 * Longueur verticale de la fenetre À propos
 	 */
 	public static final int DIM_HORIZONTALE_SEC = 900;
 
 	/**
-	 * Longueur verticale de la fenetre A propos
+	 * Longueur verticale de la fenetre À propos
 	 */
 	public static final int DIM_VERTICALE_SEC = 650;
 }

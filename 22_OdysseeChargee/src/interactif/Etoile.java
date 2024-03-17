@@ -12,6 +12,7 @@ import utilitaires.Dessinable;
  * de l'etoile seront placees.
  *
  * @author Caroline Houle
+ * @author Nils Lahaye
  */
 public class Etoile implements Dessinable {
 
