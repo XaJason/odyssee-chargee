@@ -362,8 +362,14 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setLongueur(longueurPlaque);
 		plaqueRouge.setCharge(chargePlaque);
 		plaqueRouge.setPosition(new Vecteur2D(posPlaqueEnX, posPlaqueEnY));
-		plaqueRouge.setNormale(new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY));
-		
+		plaqueRouge.setExtremiteA();
+		plaqueRouge.setExtremiteB();
+		// À gérer plus tard si l'utilisateur fait n'importe nawak
+		try {
+			plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		enCoursDAnimation = false;
 		premiereFois = true;
 		tempsTotalEcoule = 0;
@@ -387,6 +393,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setLongueur(LONGUEUR_PLAQUE_INITIALE);
 		plaqueRouge.setCharge(CHARGE_INITIALE_PLAQUE);
 		plaqueRouge.setPosition(new Vecteur2D(POS_INITIALE_PLAQUE_EN_X, POS_INITIALE_PLAQUE_EN_Y));
+		plaqueRouge.setExtremiteA();
+		plaqueRouge.setExtremiteB();
 		plaqueRouge.setNormale(new Vecteur2D(NORMALE_INITIALE_PLAQUE_COMPOSANTE_X, NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y));
 		
 		enCoursDAnimation = false;
@@ -673,12 +681,12 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteX(double normalePlaqueComposanteX) {
-		this.normalePlaqueComposanteX = normalePlaqueComposanteX;
 		if (!enCoursDAnimation) {
+			this.normalePlaqueComposanteX = normalePlaqueComposanteX;
 			// À gérer plus tard si l'utilisateur fait n'importe nawak
 			try {
 				plaqueRouge.setNormale(
-						new Vecteur2D(normalePlaqueComposanteX, plaqueRouge.getNormale().getY()).normalise());
+						new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -703,12 +711,12 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteY(double normalePlaqueComposanteY) {
-		this.normalePlaqueComposanteY = normalePlaqueComposanteY;
 		if (!enCoursDAnimation) {
+			this.normalePlaqueComposanteY = normalePlaqueComposanteY;
 			// À gérer plus tard si l'utilisateur fait n'importe nawak
 			try {
 				plaqueRouge.setNormale(
-						new Vecteur2D(plaqueRouge.getNormale().getX(), normalePlaqueComposanteY).normalise());
+						new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

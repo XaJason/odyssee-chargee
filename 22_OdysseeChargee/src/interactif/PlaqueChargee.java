@@ -190,7 +190,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteA() {
 		this.extremiteA = getPosition().additionne(axe.multiplie(longueur / 2));
-		;
 		creerLaGeometrie();
 	}
 
