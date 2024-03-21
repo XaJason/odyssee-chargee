@@ -105,8 +105,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private double volumeEntre0Et1 = 1;
 	/**
-	 * `
-	 * Chemin vers le fichier
+	 * ` Chemin vers le fichier
 	 */
 	private String pathDeFichier = null;
 	/**
@@ -431,9 +430,8 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * Methode privee pour lire le son et en faire un clip
-	 * La méthode a éte trouvée dans le materiel d'appoint (de Caroline Houle) mais
-	 * a été implementé et
+	 * Methode privee pour lire le son et en faire un clip La méthode a éte trouvée
+	 * dans le materiel d'appoint (de Caroline Houle) mais a été implementé et
 	 * modifier pour notre code
 	 * 
 	 * @param fichier Le fichier son
@@ -474,10 +472,9 @@ public class AppPrincipale22 extends JFrame {
 	 * Pour la gestion du volume si désiré
 	 * 
 	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
-	 *                        volume
-	 *                        La méthode a éte trouvée dans le materiel d'appoint
-	 *                        (de Caroline Houle)
-	 *                        mais a été implementé pour notre code
+	 *                        volume La méthode a éte trouvée dans le materiel
+	 *                        d'appoint (de Caroline Houle) mais a été implementé
+	 *                        pour notre code
 	 */
 	// Kitimir Yim
 	private void modifierVolume(double valeurEntre0Et1) {
@@ -487,5 +484,4 @@ public class AppPrincipale22 extends JFrame {
 			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
 		}
 	}
-
 }

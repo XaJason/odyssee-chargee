@@ -1,9 +1,13 @@
 package tuile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
@@ -43,6 +47,13 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected static int largeurTuile;
 	/** hauteur de la tuile (px) */
 	protected static int hauteurTuile;
+	/** ArrayList qui contient les poins des coins des blocs**/
+	protected ArrayList<Point2D> pointsCoin = new ArrayList<Point2D>();
+	/**Point initial(haut-gauche) du bloc**/
+	protected Point2D pointInitial;
+	/** Path qui représente le contour du bloc **/
+	private Path2D.Double contour;
+	
 
 	/**
 	 * Constructeur
@@ -57,6 +68,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		y = 0;
 		this.image = image;
 		this.type = type;
+		
 	}
 
 	/**
@@ -74,6 +86,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		this.y = y;
 		this.image = image;
 		this.type = type;
+
 	}
 
 	/**
@@ -110,6 +123,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
+
 	}
 
 	/**
@@ -122,6 +136,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	// Jason Xa
 	public void dessiner(Graphics2D g2d, int x, int y) {
 		g2d.drawImage(image, x, y, null);
+		
 	}
 
 	/**
@@ -252,5 +267,20 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	// Jason Xa
 	public static void setHauteurTuile(int hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
+	}
+	
+	protected void setPoint() {
+		pointInitial = new Point2D.Double(this.x+5,this.y+5);
+		pointsCoin.add(pointInitial);
+	}
+	private void creerGeometrieContour() {
+		setPoint(); 
+		contour = new Path2D.Double();
+		contour.moveTo(x, y);
+		for(Point2D i: pointsCoin ) {
+			contour.lineTo(i.getX(), i.getY());
+			
+		}
+		
 	}
 }

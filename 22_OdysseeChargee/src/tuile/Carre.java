@@ -1,7 +1,11 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
+
+import application.AppPrincipale22;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
@@ -18,7 +22,18 @@ public class Carre extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type carré */
 	private static String type = "Carré";
-
+	//Coins du carré//
+	/**position du x pour délimiter les points**/
+	private double xActuel;
+	/**position du y pour délimiter les points**/
+	private double yActuel;
+	/** Coin haut-droit **/
+	private Point2D coinHautDroit;
+	/** Coin bas-droit**/
+	private Double coinBasDroit;
+	/** Coin bas-gauche**/
+	private Double coinBasGauche;
+	
 	/**
 	 * Constructeur
 	 * 
@@ -66,6 +81,30 @@ public class Carre extends Tuile implements Serializable {
 	 */
 	// Giroux
 	public String toString() {
-		return "Carre ";
+		setPoint();
+		return "Carre" + pointsCoin.toString();
+		
+	}
+	
+	/**
+	 * Méthode qui ajoute les coins du carré dans l'arrayList points
+	 */
+	//Giroux
+	protected void setPoint() {
+		super.setPoint();
+		//Deuxième point(HautDroit)
+		xActuel = pointInitial.getX()+largeurTuile;
+		yActuel = pointInitial.getY();
+		coinHautDroit = new Point2D.Double(xActuel,yActuel);
+		//Troisième point(BasDroit)
+		yActuel += hauteurTuile;
+		coinBasDroit = new Point2D.Double(xActuel,yActuel);
+		//Quatrième point(BasGauche)
+		xActuel-= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel,yActuel);
+		//Ajouter dans l'arrayList
+		pointsCoin.add(coinHautDroit);
+		pointsCoin.add(coinBasDroit);
+		pointsCoin.add(coinBasGauche); 
 	}
 }
