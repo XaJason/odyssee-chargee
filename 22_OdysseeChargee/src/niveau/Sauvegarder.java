@@ -79,6 +79,11 @@ public class Sauvegarder {
 			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
 
 			Niveau niveau = (Niveau) ois.readObject();
+			
+
+				
+				
+			
 
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;
