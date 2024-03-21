@@ -1,8 +1,11 @@
 package tuile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
 /**
@@ -21,6 +24,17 @@ public class Pics extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type pics */
 	private static String type = "Pics";
+	//Coins du rectangle//
+	/**position du x pour délimiter les points**/
+	private double xActuel;
+	/**position du y pour délimiter les points**/
+	private double yActuel;
+	/** Coin haut-droit **/
+	private Point2D coinHautDroit;
+	/** Coin bas-droit**/
+	private Double coinBasDroit;
+	/** Coin bas-gauche**/
+	private Double coinBasGauche;
 
 	/**
 	 * Constructeur
@@ -69,6 +83,9 @@ public class Pics extends Tuile implements Serializable {
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
+		creerGeometrieContour();
+		g2d.setColor(Color.red);
+		g2d.draw(contour);
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		g2d.drawImage(image, x, y + image.getHeight(null), null);
@@ -80,7 +97,35 @@ public class Pics extends Tuile implements Serializable {
 	 */
 	// Giroux
 	public String toString() {
-		return "Pics ";
+		return "Pics "+ pointsCoin.toString();
+	}
+	
+	/**
+	 * Méthode qui ajoute les coins du rectangle dans l'arrayList points
+	 */
+	//Giroux
+	public void setPoint() {
+		super.setPoint();
+		pointInitial.setLocation(this.x, y+hauteurTuile/2);
+		pointsCoin.add(pointInitial);
+		//Deuxième point(HautDroit)
+		pointsCoin.add(pointInitial);
+		xActuel = pointInitial.getX()+largeurTuile;
+		yActuel = pointInitial.getY();
+		coinHautDroit = new Point2D.Double(xActuel,yActuel);
+		//Troisième point(BasDroit)
+		yActuel += hauteurTuile/2;
+		coinBasDroit = new Point2D.Double(xActuel,yActuel);
+		//Quatrième point(BasGauche)
+		xActuel-= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel,yActuel);
+		//Ajouter dans l'arrayList
+		pointsCoin.add(coinHautDroit);
+		pointsCoin.add(coinBasDroit);
+		pointsCoin.add(coinBasGauche);
+		
+		
+		
 	}
 
 }

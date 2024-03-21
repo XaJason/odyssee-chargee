@@ -41,6 +41,7 @@ public class Carre extends Tuile implements Serializable {
 	// Jason Xa
 	public Carre() {
 		super(image, type);
+		
 	}
 
 	/**
@@ -81,7 +82,6 @@ public class Carre extends Tuile implements Serializable {
 	 */
 	// Giroux
 	public String toString() {
-		setPoint();
 		return "Carre" + pointsCoin.toString();
 		
 	}
@@ -90,8 +90,9 @@ public class Carre extends Tuile implements Serializable {
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
 	//Giroux
-	protected void setPoint() {
+	public void setPoint() {
 		super.setPoint();
+		pointsCoin.add(pointInitial);
 		//Deuxième point(HautDroit)
 		xActuel = pointInitial.getX()+largeurTuile;
 		yActuel = pointInitial.getY();
@@ -105,6 +106,9 @@ public class Carre extends Tuile implements Serializable {
 		//Ajouter dans l'arrayList
 		pointsCoin.add(coinHautDroit);
 		pointsCoin.add(coinBasDroit);
-		pointsCoin.add(coinBasGauche); 
+		pointsCoin.add(coinBasGauche);
+		
+		
+		
 	}
 }

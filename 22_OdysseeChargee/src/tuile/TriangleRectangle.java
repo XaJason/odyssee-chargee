@@ -1,6 +1,8 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,16 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type triangle rectangle */
 	private static String type = "Triangle rectangle";
+	//Coins du triangle//
+	/**position du x pour délimiter les points**/
+	private double xActuel;
+	/**position du y pour délimiter les points**/
+	private double yActuel;
+	/** Coin bas-droit**/
+	private Double coinBasDroit;
+	/** Coin bas-gauche**/
+	private Double coinBasGauche;
+
 
 	/**
 	 * Constructeur
@@ -67,5 +79,29 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	// Giroux
 	public String toString() {
 		return "Triangle rectangle ";
+	}
+	
+	/**
+	 * Méthode qui ajoute les coins du triangle dans l'arrayList points
+	 */
+	//Giroux
+	public void setPoint() {
+		super.setPoint();
+		xActuel=x;
+		yActuel=y;
+		pointsCoin.add(pointInitial);
+		//Deuxième point(basDroit)
+		xActuel += largeurTuile;
+		yActuel += hauteurTuile;
+		coinBasDroit = new Point2D.Double(xActuel,yActuel);
+		//Troisième point(BasGauche)
+		xActuel-= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel,yActuel);
+		//Ajouter dans l'arrayList
+		pointsCoin.add(coinBasDroit);
+		pointsCoin.add(coinBasGauche);
+		
+		
+		
 	}
 }

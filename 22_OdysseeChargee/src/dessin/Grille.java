@@ -310,6 +310,7 @@ public class Grille extends JPanel {
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
+							tuileTemp.setPoint();
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {

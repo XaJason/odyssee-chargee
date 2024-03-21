@@ -52,7 +52,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	/**Point initial(haut-gauche) du bloc**/
 	protected Point2D pointInitial;
 	/** Path qui représente le contour du bloc **/
-	private Path2D.Double contour;
+	protected Path2D.Double contour;
 	
 
 	/**
@@ -68,6 +68,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		y = 0;
 		this.image = image;
 		this.type = type;
+		
 		
 	}
 
@@ -119,6 +120,10 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
+		
+		creerGeometrieContour();
+		g2d.setColor(Color.red);
+		g2d.draw(contour);
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		g2d.drawImage(image, x, y, null);
@@ -270,17 +275,21 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
 	
-	protected void setPoint() {
-		pointInitial = new Point2D.Double(this.x+5,this.y+5);
-		pointsCoin.add(pointInitial);
+	public void setPoint() {
+		pointInitial = new Point2D.Double(this.x,this.y);
+		
 	}
-	private void creerGeometrieContour() {
-		setPoint(); 
+	protected void creerGeometrieContour() {
+		
 		contour = new Path2D.Double();
-		contour.moveTo(x, y);
+		if(pointsCoin.size()!=0) {
+			contour.moveTo(pointsCoin.get(0).getX(),pointsCoin.get(0).getY());
+		}
 		for(Point2D i: pointsCoin ) {
-			contour.lineTo(i.getX(), i.getY());
-			
+			contour.lineTo(i.getX(), i.getY());	
+		}
+		if(pointsCoin.size()!=0) {
+			contour.lineTo(pointsCoin.get(0).getX(),pointsCoin.get(0).getY());
 		}
 		
 	}
