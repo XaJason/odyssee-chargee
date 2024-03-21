@@ -31,13 +31,11 @@ public abstract class InteractifPhysique {
 	 * 
 	 * @param position La position de l'objet intéractif
 	 * @param charge La charge de l'objet intéractif
-	 * @param masse La masse de l'objet intéractif
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public InteractifPhysique(Vecteur2D position, double charge, double masse) {
+	public InteractifPhysique(Vecteur2D position, double charge) {
 		this.position = new Vecteur2D(position);
 		this.charge = charge;
-		this.masse = masse;
 	}
 
 	// SOUS-PROGRAMMES //
@@ -96,26 +94,6 @@ public abstract class InteractifPhysique {
 	// Enuel René Valentin Kizozo Izia
 	public void setCharge(double charge) {
 		this.charge = charge;
-	}
-
-	/**
-	 * Retourne la masse de l'objet intéractif physique
-	 * 
-	 * @return La masse de l'objet intéractif physique
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public double getMasse() {
-		return masse;
-	}
-
-	/**
-	 * Modifie la masse de l'objet intéractif physique
-	 * 
-	 * @param masse Masse de l'objet intéractif physique
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void setMasse(double masse) {
-		this.masse = masse;
 	}
 
 	/**

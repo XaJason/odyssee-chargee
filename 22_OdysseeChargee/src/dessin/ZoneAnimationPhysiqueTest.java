@@ -85,6 +85,9 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	/** Longueur initiale de la plaque chargée (en mètre) **/
 	private final double LONGUEUR_PLAQUE_INITIALE = 25;
 
+	/** Largeur de la plaque chargée (en mètre) **/
+	private double LARGEUR_PLAQUE_INITIALE = 2;
+	
 	/** Charge initiale de la plaque chargée (en Coulomb) **/
 	private final double CHARGE_INITIALE_PLAQUE = 20;
 
@@ -146,12 +149,12 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/** Longueur de la plaque chargée (en mètre) **/
 	private double longueurPlaque = LONGUEUR_PLAQUE_INITIALE;
+	
+	/** Largeur de la plaque chargée (en mètre) **/
+	private double largeurPlaque = LARGEUR_PLAQUE_INITIALE;
 
 	/** Charge de la plaque chargée (en Coulomb) **/
 	private double chargePlaque = CHARGE_INITIALE_PLAQUE;
-
-	/** Masse de la plaque chargée (en kilogramme) **/
-	private double massePlaque = 100;
 
 	/** Composante en X de la position de la plaque chargée (en mètre) **/
 	private double posPlaqueEnX = POS_INITIALE_PLAQUE_EN_X;
@@ -181,7 +184,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 		vaisseauBleu = new Vaisseau(posVaisseau, vitVaisseau, accelVaisseau, rayonVaisseau, chargeVaisseau,
 				masseVaisseau);
-		plaqueRouge = new PlaqueChargee(posPlaque, normalePlaque, longueurPlaque, chargePlaque, massePlaque);
+		plaqueRouge = new PlaqueChargee(posPlaque, normalePlaque, longueurPlaque, largeurPlaque, chargePlaque);
 
 	}
 
