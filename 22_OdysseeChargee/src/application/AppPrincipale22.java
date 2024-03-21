@@ -424,7 +424,7 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmApropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fenApropos.setVisible(true);
+				JOptionPane.showMessageDialog(null, pnlAPropos,"À propos de cette application",JOptionPane.PLAIN_MESSAGE);
 
 			}
 
