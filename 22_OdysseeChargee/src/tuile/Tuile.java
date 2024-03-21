@@ -287,7 +287,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 * Méthode qui instancie le path qui fait le contour du bloc
 	 */
 	//Giroux
-	private void creerGeometrieContour() {
+	protected void creerGeometrieContour() {
 		
 		contour = new Path2D.Double();
 		if(pointsCoin.size()!=0) {
