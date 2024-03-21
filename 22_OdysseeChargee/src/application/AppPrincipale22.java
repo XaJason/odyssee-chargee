@@ -19,9 +19,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import fenetres.FenetreAideInstructions;
 import fenetres.FenetreApropos;
 import fenetres.FenetreInstruction;
 import fenetres.FenetreReglage;
+import fenetres.PanelAPropos;
 import panneaux.PanelModeEditeur;
 import panneaux.PanelModeJeu;
 import panneaux.PanelSelecteurNiveaux;
@@ -52,14 +54,12 @@ public class AppPrincipale22 extends JFrame {
 	 * Zone des dessin
 	 */
 	private JPanel contentPane;
-	/**
-	 * Fenêtre À propos
-	 */
-	private FenetreApropos fenApropos;
+	
+	
 	/**
 	 * Fenêtre Instructions
 	 */
-	private FenetreInstruction fenInstruction;
+	private FenetreAideInstructions fenInstruction;
 	/**
 	 * Fenêtre Réglage
 	 */
@@ -72,6 +72,10 @@ public class AppPrincipale22 extends JFrame {
 	 * Panel du mode jeu
 	 */
 	private PanelModeJeu panJ;
+	/**
+	 * Panel À propos
+	 */
+	private PanelAPropos pnlAPropos;
 	/**
 	 * Panel du sélecteur de niveaux
 	 */
@@ -221,7 +225,7 @@ public class AppPrincipale22 extends JFrame {
 		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fenApropos.setVisible(true);
+				JOptionPane.showMessageDialog(null, pnlAPropos,"À propos de cette application",JOptionPane.PLAIN_MESSAGE);
 
 			}
 		});
@@ -274,8 +278,8 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	public void creerFenetres() {
 
-		fenApropos = new FenetreApropos();
-		fenInstruction = new FenetreInstruction();
+		pnlAPropos = new PanelAPropos();
+		fenInstruction = new FenetreAideInstructions();
 		fenReglage = new FenetreReglage();
 
 		fenReglage.addPropertyChangeListener(new PropertyChangeListener() {
