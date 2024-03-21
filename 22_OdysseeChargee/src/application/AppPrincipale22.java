@@ -20,8 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import fenetres.FenetreAideInstructions;
-import fenetres.FenetreApropos;
-import fenetres.FenetreInstruction;
+
 import fenetres.FenetreReglage;
 import fenetres.PanelAPropos;
 import panneaux.PanelModeEditeur;
