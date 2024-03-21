@@ -93,7 +93,7 @@ public class Grille extends JPanel {
 
 		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {

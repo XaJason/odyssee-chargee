@@ -275,11 +275,19 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
 	
+	/**
+	 * Méthode à redéfinir dans les sous classes pour mettre les points des coins dans le arrayList
+	 */
+	//Giroux
 	public void setPoint() {
 		pointInitial = new Point2D.Double(this.x,this.y);
 		
 	}
-	protected void creerGeometrieContour() {
+	/**
+	 * Méthode qui instancie le path qui fait le contour du bloc
+	 */
+	//Giroux
+	private void creerGeometrieContour() {
 		
 		contour = new Path2D.Double();
 		if(pointsCoin.size()!=0) {
