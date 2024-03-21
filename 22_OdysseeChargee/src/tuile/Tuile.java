@@ -210,6 +210,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		this.image = nouvImage;
 	}
 
+
 	/**
 	 * Méthode qui change la dimension de l'image
 	 * 
