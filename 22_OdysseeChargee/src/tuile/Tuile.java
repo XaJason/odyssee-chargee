@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import math.MatriceRotation;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
 
@@ -53,6 +54,11 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected Point2D pointInitial;
 	/** Path qui représente le contour du bloc **/
 	protected Path2D.Double contour;
+	/**Matrice de rotation**/
+	MatriceRotation rotation;
+	/** ArrayList qui contient les points des coins des blocs avant d'être transformé**/
+	protected ArrayList<Point2D> prePointsCoin = new ArrayList<Point2D>();
+	
 	
 
 	/**
@@ -280,7 +286,8 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 */
 	//Giroux
 	public void setPoint() {
-		pointInitial = new Point2D.Double(this.x,this.y);
+		pointInitial = new Point2D.Double(0,0);
+		rotation = new MatriceRotation(-this.angleRotation);
 		
 	}
 	/**
@@ -299,6 +306,10 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		if(pointsCoin.size()!=0) {
 			contour.lineTo(pointsCoin.get(0).getX(),pointsCoin.get(0).getY());
 		}
+		
+		
+		
+		
 		
 	}
 }

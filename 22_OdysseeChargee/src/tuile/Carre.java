@@ -4,8 +4,10 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import application.AppPrincipale22;
+import math.MatriceRotation;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
@@ -33,7 +35,7 @@ public class Carre extends Tuile implements Serializable {
 	private Double coinBasDroit;
 	/** Coin bas-gauche**/
 	private Double coinBasGauche;
-	
+
 	/**
 	 * Constructeur
 	 * 
@@ -92,7 +94,7 @@ public class Carre extends Tuile implements Serializable {
 	//Giroux
 	public void setPoint() {
 		super.setPoint();
-		pointsCoin.add(pointInitial);
+		prePointsCoin.add(pointInitial);
 		//Deuxième point(HautDroit)
 		xActuel = pointInitial.getX()+largeurTuile;
 		yActuel = pointInitial.getY();
@@ -104,9 +106,17 @@ public class Carre extends Tuile implements Serializable {
 		xActuel-= largeurTuile;
 		coinBasGauche = new Point2D.Double(xActuel,yActuel);
 		//Ajouter dans l'arrayList
-		pointsCoin.add(coinHautDroit);
-		pointsCoin.add(coinBasDroit);
-		pointsCoin.add(coinBasGauche);
+		prePointsCoin.add(coinHautDroit);
+		prePointsCoin.add(coinBasDroit);
+		prePointsCoin.add(coinBasGauche);
+		for(Point2D i : prePointsCoin) {
+			//Prendre le centre
+			i.setLocation(i.getX()-largeurTuile/2, i.getY()-largeurTuile/2);
+			i=rotation.rotationner(i);
+			//Repositionner
+			i.setLocation(i.getX()+largeurTuile/2+x, i.getY()+largeurTuile/2+y);
+			pointsCoin.add(i);
+		}
 		
 		
 		

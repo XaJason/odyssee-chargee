@@ -77,7 +77,7 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	 */
 	// Giroux
 	public String toString() {
-		return "Triangle équilatéral ";
+		return "Triangle équilatéral " + pointsCoin.toString();
 	}
 	/**
 	 * Méthode qui ajoute les coins du triangle dans l'arrayList points
@@ -85,23 +85,50 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	//Giroux
 	public void setPoint() {
 		super.setPoint();
-		xActuel=x+largeurTuile/2;
-		yActuel=y;
-		pointInitial.setLocation(x+largeurTuile/2,y);
-		pointsCoin.add(pointInitial);
+		xActuel=largeurTuile/2;
+		yActuel=0;
+		pointInitial.setLocation(largeurTuile/2,0);
+		prePointsCoin.add(pointInitial);
 		//Deuxième point(basDroit)
 		xActuel += largeurTuile/2;
 		yActuel += hauteurTuile;
-		coinBasDroit = new Point2D.Double(xActuel,yActuel);
+		coinBasDroit = new Point2D.Double(xActuel,yActuel);;
 		//Troisième point(BasGauche)
 		xActuel-= largeurTuile;
 		coinBasGauche = new Point2D.Double(xActuel,yActuel);
 		//Ajouter dans l'arrayList
-		pointsCoin.add(coinBasDroit);
-		pointsCoin.add(coinBasGauche);
+		prePointsCoin.add(coinBasDroit);
+		prePointsCoin.add(coinBasGauche);
+		//Transformer
+		for(Point2D i : prePointsCoin) {
+			i.setLocation(i.getX()-largeurTuile/2, i.getY()-largeurTuile/2);
+			i=rotation.rotationner(i);
+			i.setLocation(i.getX()+largeurTuile/2+x, i.getY()+largeurTuile/2+y);
+			pointsCoin.add(i);
+		}
 		
 		
 		
 	}
+		
+		
+	
 
 }
+
+
+//super.setPoint();
+//xActuel=x+largeurTuile/2;
+//yActuel=y;
+//pointInitial.setLocation(x+largeurTuile/2,y);
+//pointsCoin.add(pointInitial);
+////Deuxième point(basDroit)
+//xActuel += largeurTuile/2;
+//yActuel += hauteurTuile;
+//coinBasDroit = new Point2D.Double(xActuel,yActuel);
+////Troisième point(BasGauche)
+//xActuel-= largeurTuile;
+//coinBasGauche = new Point2D.Double(xActuel,yActuel);
+////Ajouter dans l'arrayList
+//pointsCoin.add(coinBasDroit);
+//pointsCoin.add(coinBasGauche);

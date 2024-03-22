@@ -7,6 +7,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import math.MatriceRotation;
 
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme une plaque de pics
@@ -35,6 +38,7 @@ public class Pics extends Tuile implements Serializable {
 	private Double coinBasDroit;
 	/** Coin bas-gauche**/
 	private Double coinBasGauche;
+	
 
 	/**
 	 * Constructeur
@@ -106,10 +110,9 @@ public class Pics extends Tuile implements Serializable {
 	//Giroux
 	public void setPoint() {
 		super.setPoint();
-		pointInitial.setLocation(this.x, y+hauteurTuile/2);
-		pointsCoin.add(pointInitial);
+		pointInitial.setLocation(0, hauteurTuile/2);
+		prePointsCoin.add(pointInitial);
 		//Deuxième point(HautDroit)
-		pointsCoin.add(pointInitial);
 		xActuel = pointInitial.getX()+largeurTuile;
 		yActuel = pointInitial.getY();
 		coinHautDroit = new Point2D.Double(xActuel,yActuel);
@@ -120,9 +123,16 @@ public class Pics extends Tuile implements Serializable {
 		xActuel-= largeurTuile;
 		coinBasGauche = new Point2D.Double(xActuel,yActuel);
 		//Ajouter dans l'arrayList
-		pointsCoin.add(coinHautDroit);
-		pointsCoin.add(coinBasDroit);
-		pointsCoin.add(coinBasGauche);
+		prePointsCoin.add(coinHautDroit);
+		prePointsCoin.add(coinBasDroit);
+		prePointsCoin.add(coinBasGauche);
+		//Transformer
+		for(Point2D i : prePointsCoin) {
+			i.setLocation(i.getX()-largeurTuile/2, i.getY()-largeurTuile/2);
+			i=rotation.rotationner(i);
+			i.setLocation(i.getX()+largeurTuile/2+x, i.getY()+largeurTuile/2+y);
+			pointsCoin.add(i);
+		}
 		
 		
 		

@@ -87,21 +87,44 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	//Giroux
 	public void setPoint() {
 		super.setPoint();
-		xActuel=x;
-		yActuel=y;
-		pointsCoin.add(pointInitial);
+		xActuel=0;
+		yActuel=0;
+		prePointsCoin.add(pointInitial);
 		//Deuxième point(basDroit)
 		xActuel += largeurTuile;
 		yActuel += hauteurTuile;
-		coinBasDroit = new Point2D.Double(xActuel,yActuel);
+		coinBasDroit = new Point2D.Double(xActuel,yActuel);;
 		//Troisième point(BasGauche)
 		xActuel-= largeurTuile;
 		coinBasGauche = new Point2D.Double(xActuel,yActuel);
 		//Ajouter dans l'arrayList
-		pointsCoin.add(coinBasDroit);
-		pointsCoin.add(coinBasGauche);
-		
+		prePointsCoin.add(coinBasDroit);
+		prePointsCoin.add(coinBasGauche);
+		//Transformer
+		for(Point2D i : prePointsCoin) {
+			i.setLocation(i.getX()-largeurTuile/2, i.getY()-largeurTuile/2);
+			i=rotation.rotationner(i);
+			i.setLocation(i.getX()+largeurTuile/2+x, i.getY()+largeurTuile/2+y);
+			pointsCoin.add(i);
+		}
 		
 		
 	}
 }
+
+//super.setPoint();
+//xActuel=x;
+//yActuel=y;
+//pointsCoin.add(pointInitial);
+////Deuxième point(basDroit)
+//xActuel += largeurTuile;
+//yActuel += hauteurTuile;
+//coinBasDroit = new Point2D.Double(xActuel,yActuel);
+////Troisième point(BasGauche)
+//xActuel-= largeurTuile;
+//coinBasGauche = new Point2D.Double(xActuel,yActuel);
+////Ajouter dans l'arrayList
+//pointsCoin.add(coinBasDroit);
+//pointsCoin.add(coinBasGauche);
+
+
