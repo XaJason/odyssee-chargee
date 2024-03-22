@@ -24,16 +24,16 @@ public class Carre extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type carré */
 	private static String type = "Carré";
-	//Coins du carré//
-	/**position du x pour délimiter les points**/
+	// Coins du carré//
+	/** position du x pour délimiter les points **/
 	private double xActuel;
-	/**position du y pour délimiter les points**/
+	/** position du y pour délimiter les points **/
 	private double yActuel;
 	/** Coin haut-droit **/
 	private Point2D coinHautDroit;
-	/** Coin bas-droit**/
+	/** Coin bas-droit **/
 	private Double coinBasDroit;
-	/** Coin bas-gauche**/
+	/** Coin bas-gauche **/
 	private Double coinBasGauche;
 
 	/**
@@ -43,7 +43,7 @@ public class Carre extends Tuile implements Serializable {
 	// Jason Xa
 	public Carre() {
 		super(image, type);
-		
+
 	}
 
 	/**
@@ -77,48 +77,49 @@ public class Carre extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Carre.image = imageRef;
 	}
-	
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * 
 	 * @return Une chaine indiquant que l'objet est un carré
 	 */
 	// Giroux
 	public String toString() {
 		return "Carre" + pointsCoin.toString();
-		
+
 	}
-	
+
 	/**
-	 * Méthode qui ajoute les coins du carré dans l'arrayList points
+	 * Méthode qui ajoute les coins du carré dans l'arrayList prePointsCoin, puis
+	 * qui les transforme avant de les mettre dans pointsCoin
 	 */
-	//Giroux
+	// Giroux
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.add(pointInitial);
-		//Deuxième point(HautDroit)
-		xActuel = pointInitial.getX()+largeurTuile;
+		// Deuxième point(HautDroit)
+		xActuel = pointInitial.getX() + largeurTuile;
 		yActuel = pointInitial.getY();
-		coinHautDroit = new Point2D.Double(xActuel,yActuel);
-		//Troisième point(BasDroit)
+		coinHautDroit = new Point2D.Double(xActuel, yActuel);
+		// Troisième point(BasDroit)
 		yActuel += hauteurTuile;
-		coinBasDroit = new Point2D.Double(xActuel,yActuel);
-		//Quatrième point(BasGauche)
-		xActuel-= largeurTuile;
-		coinBasGauche = new Point2D.Double(xActuel,yActuel);
-		//Ajouter dans l'arrayList
+		coinBasDroit = new Point2D.Double(xActuel, yActuel);
+		// Quatrième point(BasGauche)
+		xActuel -= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+		// Ajouter dans l'arrayList
 		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
-		for(Point2D i : prePointsCoin) {
-			//Prendre le centre
-			i.setLocation(i.getX()-largeurTuile/2, i.getY()-largeurTuile/2);
-			i=rotation.rotationner(i);
-			//Repositionner
-			i.setLocation(i.getX()+largeurTuile/2+x, i.getY()+largeurTuile/2+y);
+		// Transformer
+		for (Point2D i : prePointsCoin) {
+			// Prendre le centre
+			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
+			i = rotation.rotationner(i);
+			// Repositionner
+			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-		
-		
-		
+
 	}
 }

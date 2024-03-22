@@ -87,25 +87,30 @@ public class Portail extends Tuile implements Serializable {
 	//Giroux
 	public void setPoint() {
 		super.setPoint();
-		pointsCoin.add(pointInitial);
-		//Deuxième point(HautDroit)
-		pointsCoin.add(pointInitial);
-		xActuel = pointInitial.getX()+largeurTuile;
+		prePointsCoin.add(pointInitial);
+		// Deuxième point(HautDroit)
+		xActuel = pointInitial.getX() + largeurTuile;
 		yActuel = pointInitial.getY();
-		coinHautDroit = new Point2D.Double(xActuel,yActuel);
-		//Troisième point(BasDroit)
+		coinHautDroit = new Point2D.Double(xActuel, yActuel);
+		// Troisième point(BasDroit)
 		yActuel += hauteurTuile;
-		coinBasDroit = new Point2D.Double(xActuel,yActuel);
-		//Quatrième point(BasGauche)
-		xActuel-= largeurTuile;
-		coinBasGauche = new Point2D.Double(xActuel,yActuel);
-		//Ajouter dans l'arrayList
-		pointsCoin.add(coinHautDroit);
-		pointsCoin.add(coinBasDroit);
-		pointsCoin.add(coinBasGauche);
-		
-		
-		
+		coinBasDroit = new Point2D.Double(xActuel, yActuel);
+		// Quatrième point(BasGauche)
+		xActuel -= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+		// Ajouter dans l'arrayList
+		prePointsCoin.add(coinHautDroit);
+		prePointsCoin.add(coinBasDroit);
+		prePointsCoin.add(coinBasGauche);
+		// Transformer
+		for (Point2D i : prePointsCoin) {
+			// Prendre le centre
+			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
+			i = rotation.rotationner(i);
+			// Repositionner
+			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
+			pointsCoin.add(i);
+		}
 	}
 
 

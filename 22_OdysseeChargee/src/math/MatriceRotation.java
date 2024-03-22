@@ -1,49 +1,64 @@
 package math;
+
 /**
+ * Classe qui permet d'instancer des matrices de rotation pour permettre de rotationner différents objets
  * @author Giroux
  */
 
 import java.awt.geom.Point2D;
 
 public class MatriceRotation {
-	
 
-	/** Angle de rotation transformé en radian**/
+	/** Angle de rotation transformé en radian **/
 	double angleRotation;
-	/** Matrice de rotation**/
-	double [][] rotation = new double[2][2];
-	
-	
-	
+	/** Matrice de rotation **/
+	double[][] rotation = new double[2][2];
+
+	/**
+	 * Matrice qui possède un angle en radian pour rotationner les blocs
+	 * 
+	 * @param angleRotation l'angle en radian
+	 */
+	// Giroux
 	public MatriceRotation(double angleRotation) {
-		this.angleRotation=angleRotation;
+		this.angleRotation = angleRotation;
 	}
-	
+
+	/**
+	 * Méthode qui permet d'instancier le tableau de rotation
+	 */
+	// Giroux
 	private void setRotation() {
 		rotation[0][0] = Math.cos(angleRotation);
-		rotation[0][1] = Math.sin(angleRotation);
+		rotation[0][1] = -Math.sin(angleRotation);
 		rotation[1][0] = Math.sin(angleRotation);
 		rotation[1][1] = Math.cos(angleRotation);
 	}
-	
+
+	/**
+	 * Méthode qui permet de retationner un point précis selon l'angle de rotation à
+	 * l'aide de la matrice de rotation
+	 * 
+	 * @param pointARotationner Le point à retationner
+	 * @return Le point transformé
+	 */
+	// Giroux
 	public Point2D.Double rotationner(Point2D pointARotationner) {
-		double [][] point = {{pointARotationner.getX()},  {pointARotationner.getY()}};
+		double[][] point = { { pointARotationner.getX() }, { pointARotationner.getY() } };
 		setRotation();
-		double x=0;
-		double y=0;
-		for(int i=0; i<rotation.length; i ++) {
-			x+= rotation[0][i]*point[i][0];
+		double x = 0;
+		double y = 0;
+		for (int i = 0; i < rotation.length; i++) {
+			x += rotation[0][i] * point[i][0];
 		}
-		for(int i=0; i<rotation.length; i ++) {
-			y+= rotation[1][i]*point[i][0];
+		for (int i = 0; i < rotation.length; i++) {
+			y += rotation[1][i] * point[i][0];
 		}
-		
-		Point2D.Double pointFinal = new Point2D.Double(x,y);
-		
+
+		Point2D.Double pointFinal = new Point2D.Double(x, y);
+
 		return pointFinal;
-		
+
 	}
-	
-	
 
 }
