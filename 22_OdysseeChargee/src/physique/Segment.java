@@ -8,8 +8,7 @@ import java.awt.geom.Point2D;
 import utilitaires.Dessinable;
 
 /**
- * Classe plaque: représentation sommaire d'une plaque à l'aide d'un segment de
- * droite
+ * Classe segment: permet de placer des segment sur des tuiles
  * 
  * @author Enuel René Valentin Kizozo Izia
  */
