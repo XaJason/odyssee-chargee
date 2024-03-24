@@ -52,7 +52,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
 	 **/
 	protected ArrayList<Point2D> prePointsCoin = new ArrayList<Point2D>();
-	/** ArrayList qui contient les poins des coins des blocs post-transformé **/
+	/** ArrayList qui contient les points des coins des blocs post-transformé **/
 	protected ArrayList<Point2D> pointsCoin = new ArrayList<Point2D>();
 	/** Point initial(haut-gauche) du bloc **/
 	protected Point2D pointInitial;
