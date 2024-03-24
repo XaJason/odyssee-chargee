@@ -21,9 +21,7 @@ public abstract class InteractifPhysique {
 
 	/** Charge de l'objet intéractif physique **/
 	private double charge;
-
-	/** Masse de l'objet intéractif physique **/
-	private double masse;
+	
 
 	// CONSTRUCTEUR //
 	/**

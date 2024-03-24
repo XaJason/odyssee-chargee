@@ -42,11 +42,11 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	 * @param position La position du segment
 	 * @param normale  La normale du segment
 	 * @param longueur La longueur du segment
-	 * @param charge   La charge du segment
+	 * @param charge   La charge du segment (nulle)
 	 * @param masse    La masse du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Segment(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {
+	public Segment(Vecteur2D position, Vecteur2D normale, double longueur, double charge) {
 		super(position, charge);
 		this.normale = new Vecteur2D(normale);
 		this.longueur = longueur;
