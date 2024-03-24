@@ -19,18 +19,12 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// PROPRIÉTÉS //
 	/** Objet Path2D permettant de représenter la plaque **/
 	private Path2D.Double plaque;
-
-	/** Objet Rectangle2D permettant de représenter la plaque **/
-	private Rectangle2D.Double rectangle;
 	
 	/** Vecteur normal de la plaque **/
 	private Vecteur2D normale; // Doit être normalisé
 
 	/** Vecteur passant par l'axe de la plaque **/
 	private Vecteur2D axe; // Normalisé
-
-	/** Angle d'inclinaison de la plaque (sens cercle trigonométrique) **/
-	private double angleInclinaison;
 	
 	/** Longueur de la plaque **/
 	private double longueur;

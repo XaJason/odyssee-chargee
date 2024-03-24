@@ -17,43 +17,39 @@ import utilitaires.Dessinable;
 public class Segment extends InteractifPhysique implements Dessinable {
 
 	// PROPRIÉTÉS //
-	/** Objet Path2D permettant de représenter la plaque **/
+	/** Objet Path2D permettant de représenter le segment **/
 	private Path2D.Double segment;
 	
-	/** Vecteur normal de la plaque **/
+	/** Vecteur normal du segment **/
 	private Vecteur2D normale; // Doit être normalisé
 
-	/** Vecteur passant par l'axe de la plaque **/
+	/** Vecteur passant par l'axe du segment **/
 	private Vecteur2D axe; // Normalisé
 	
-	/** Longueur de la plaque **/
+	/** Longueur du segment **/
 	private double longueur;
-
-	/** Largeur de la plaque **/
-	private double largeur;
 	
-	/** Position de l'extrémité A de la plaque **/
+	/** Position de l'extrémité A du segment **/
 	private Vecteur2D extremiteA;
 	
-	/** Position de l'extrémité B de la plaque **/
+	/** Position de l'extrémité B du segment **/
 	private Vecteur2D extremiteB;
 
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur de la plaque chargée
 	 * 
-	 * @param position La position de la plaque
-	 * @param normale  La normale de la plaque
-	 * @param longueur La longueur de la plaque
-	 * @param charge   La charge de la plaque
-	 * @param masse    La masse de la plaque
+	 * @param position La position du segment
+	 * @param normale  La normale du segment
+	 * @param longueur La longueur du segment
+	 * @param charge   La charge du segment
+	 * @param masse    La masse du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Segment(Vecteur2D position, Vecteur2D normale, double longueur, double largeur, double charge, double masse) {
+	public Segment(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {
 		super(position, charge);
 		this.normale = new Vecteur2D(normale);
 		this.longueur = longueur;
-		this.largeur = largeur;
 		
 		this.axe = new Vecteur2D(normale.getY(), -normale.getX());		
 		this.extremiteA = position.additionne(axe.multiplie(longueur / 2));
@@ -64,7 +60,7 @@ public class Segment extends InteractifPhysique implements Dessinable {
 
 	// SOUS-PROGRAMMES
 	/**
-	 * Permet de créer la géométrie de la plaque chargée.
+	 * Permet de créer la géométrie du segment.
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
@@ -77,7 +73,7 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique
+	 * Permet de dessiner un segment, sur le contexte graphique
 	 * passé en parametre.
 	 * 
 	 * @param g2d Le contexte graphique
@@ -92,15 +88,15 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Permet d'afficher quelques caractéristiques de la plaque :
-	 * Sa position, sa charge et la position ses extrémités
+	 * Permet d'afficher quelques caractéristiques du segment :
+	 * Sa position et la position ses extrémités
 	 * 
 	 * !!! La méthode provient d'anciens projets (auteur : Caroline Houle) mais a
 	 * été implementé et
 	 * modifier pour notre code !!!
 	 * 
 	 * @param nbDecimales Le nombre souhaité de décimales après la virgule
-	 * @return Une chaine présentant quelques caractéristiques de la plaque
+	 * @return Une chaine présentant quelques caractéristiques du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public String toString(int nbDecimales) {
@@ -116,9 +112,9 @@ public class Segment extends InteractifPhysique implements Dessinable {
 
 	// GETTERS & SETTERS //
 	/**
-	 * Retourne le vecteur normal de la plaque
+	 * Retourne le vecteur normal du segment
 	 * 
-	 * @return Le vecteur normal de la plaque
+	 * @return Le vecteur normal du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getNormale() {
@@ -126,7 +122,7 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Modifie le vecteur normal de la plaque
+	 * Modifie le vecteur normal du segment
 	 * 
 	 * @param normale Vecteur incluant les composantes en x et y
 	 */
@@ -138,9 +134,9 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Retourne le vecteur passant par l'axe de la plaque
+	 * Retourne le vecteur passant par l'axe du segment
 	 * 
-	 * @return Le vecteur passant par l'axe de la plaque
+	 * @return Le vecteur passant par l'axe du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getAxe() {
@@ -148,7 +144,7 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Modifie le vecteur passant par l'axe de la plaque
+	 * Modifie le vecteur passant par l'axe du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setAxe() {
@@ -159,9 +155,9 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Retourne la longueur de la plaque
+	 * Retourne la longueur du segment
 	 * 
-	 * @return La longueur de la plaque
+	 * @return La longueur du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public double getLongueur() {
@@ -169,9 +165,9 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Modifie la longueur de la plaque
+	 * Modifie la longueur du segment
 	 * 
-	 * @param longueur Longueur de la plaque
+	 * @param longueur Longueur du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setLongueur(double longueur) {
@@ -180,32 +176,11 @@ public class Segment extends InteractifPhysique implements Dessinable {
 		setExtremiteB();
 		creerLaGeometrie();
 	}
-
-	/**
-	 * Retourne la largeur de la plaque
-	 * 
-	 * @return La largeur de la plaque
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public double getLargeur() {
-		return largeur;
-	}
-
-	/**
-	 * Modifie la largeur de la plaque
-	 * 
-	 * @param largeur Largeur de la plaque
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void setLargeur(double largeur) {
-		this.largeur = largeur;
-		creerLaGeometrie();
-	}
 	
 	/**
-	 * Retourne l'extrémité A de la plaque
+	 * Retourne l'extrémité A du segment
 	 * 
-	 * @return L'extrémité A de la plaque
+	 * @return L'extrémité A du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getExtremiteA() {
@@ -213,7 +188,7 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Modifie l'extrémité A de la plaque
+	 * Modifie l'extrémité A du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteA() {
@@ -222,9 +197,9 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Retourne l'extrémité B de la plaque
+	 * Retourne l'extrémité B du segment
 	 * 
-	 * @return L'extrémité B de la plaque
+	 * @return L'extrémité B du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getExtremiteB() {
@@ -232,7 +207,7 @@ public class Segment extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
-	 * Modifie l'extrémité B de la plaque
+	 * Modifie l'extrémité B du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteB() {
