@@ -1,6 +1,8 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,15 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type triangle équilatéral */
 	private static String type = "Triangle équilatéral";
+	// Coins du triangle//
+	/** position du x pour délimiter les points **/
+	private double xActuel;
+	/** position du y pour délimiter les points **/
+	private double yActuel;
+	/** Coin bas-droit **/
+	private Double coinBasDroit;
+	/** Coin bas-gauche **/
+	private Double coinBasGauche;
 
 	/**
 	 * Constructeur
@@ -60,13 +71,46 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		TriangleEquilateral.image = imageRef;
 	}
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * 
 	 * @return Une chaine indiquant que l'objet est un triangle équilatéral
 	 */
 	// Giroux
 	public String toString() {
-		return "Triangle équilatéral ";
+		return "Triangle équilatéral " + pointsCoin.toString();
+	}
+
+	/**
+	 * Méthode qui ajoute les coins du triangle dans l'arrayList prePointsCoin, puis qui les transforme avant de les mettre dans pointsCoin
+	 */
+	// Giroux
+	public void setPoint() {
+		super.setPoint();
+		xActuel = largeurTuile / 2;
+		yActuel = 0;
+		pointInitial.setLocation(largeurTuile / 2, 0);
+		prePointsCoin.add(pointInitial);
+		// Deuxième point(basDroit)
+		xActuel += largeurTuile / 2;
+		yActuel += hauteurTuile;
+		coinBasDroit = new Point2D.Double(xActuel, yActuel);
+		;
+		// Troisième point(BasGauche)
+		xActuel -= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+		// Ajouter dans l'arrayList
+		prePointsCoin.add(coinBasDroit);
+		prePointsCoin.add(coinBasGauche);
+		// Transformer
+		for (Point2D i : prePointsCoin) {
+			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
+			i = rotation.rotationner(i);
+			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
+			pointsCoin.add(i);
+		}
+
 	}
 
 }

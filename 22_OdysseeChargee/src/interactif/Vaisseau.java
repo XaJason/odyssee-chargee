@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import tuile.Drapeau;
 import utilitaires.Dessinable;
 
 /**
@@ -34,6 +35,9 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	/** Rayon du vaisseau **/
 	private double rayon;
 
+	/** Masse du vaisseau **/
+	private double masse;
+	
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
@@ -50,10 +54,11 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vaisseau(Vecteur2D position, Vecteur2D vitesse, Vecteur2D accel, double rayon, double charge, double masse) {
-		super(position, charge, masse);
+		super(position, charge);
 		this.vitesse = new Vecteur2D(vitesse);
 		this.accel = new Vecteur2D(accel);
 		this.rayon = rayon;
+		this.masse = masse;
 		creerLaGeometrie();
 	}
 
@@ -244,5 +249,27 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 		this.rayon = rayon;
 		creerLaGeometrie();
 	}
+
+	/**
+	 * Retourne la masse du vaisseau
+	 * 
+	 * @return La masse du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getMasse() {
+		return masse;
+	}
+
+	/**
+	 * Modifie la masse du vaisseau
+	 * 
+	 * @param masse Masse du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setMasse(double masse) {
+		this.masse = masse;
+	}
+	
+	
 
 }

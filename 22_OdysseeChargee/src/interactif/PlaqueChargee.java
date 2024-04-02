@@ -3,6 +3,7 @@ package interactif;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 
 import physique.Vecteur2D;
 import utilitaires.Dessinable;
@@ -18,21 +19,36 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// PROPRIÉTÉS //
 	/** Objet Path2D permettant de représenter la plaque **/
 	private Path2D.Double plaque;
-
+	
 	/** Vecteur normal de la plaque **/
 	private Vecteur2D normale; // Doit être normalisé
 
 	/** Vecteur passant par l'axe de la plaque **/
 	private Vecteur2D axe; // Normalisé
-
+	
 	/** Longueur de la plaque **/
 	private double longueur;
 
+	/** Largeur de la plaque **/
+	private double largeur;
+	
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA;
 
+	/** Position du coin supérieur gauche **/
+	private Vecteur2D coinSupGauche;
+	
+	/** Position du coin supérieur droit **/
+	private Vecteur2D coinSupDroit;
+	
 	/** Position de l'extrémité B de la plaque **/
 	private Vecteur2D extremiteB;
+	
+	/** Position du coin inférieur gauche **/
+	private Vecteur2D coinInfGauche;
+	
+	/** Position du coin inféieur droit **/
+	private Vecteur2D coinInfDroit;
 
 	// CONSTRUCTEUR //
 	/**
@@ -42,17 +58,24 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	 * @param normale  La normale de la plaque
 	 * @param longueur La longueur de la plaque
 	 * @param charge   La charge de la plaque
-	 * @param masse    La masse de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double charge, double masse) {
-		super(position, charge, masse);
+	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double largeur, double charge) {
+		super(position, charge);
 		this.normale = new Vecteur2D(normale);
 		this.longueur = longueur;
-
+		this.largeur = largeur;
+		
 		this.axe = new Vecteur2D(normale.getY(), -normale.getX());
+		//this.angleInclinaison = Math.atan(axe.getY()/axe.getX());
+		
 		this.extremiteA = position.additionne(axe.multiplie(longueur / 2));
+		this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
+		this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
+		
 		this.extremiteB = position.additionne(axe.multiplie(-longueur / 2));
+		this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
+		this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
 
 		creerLaGeometrie();
 	}
@@ -64,8 +87,13 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
 		plaque = new Path2D.Double();
-		plaque.moveTo(extremiteA.getX(), extremiteA.getY());
-		plaque.lineTo(extremiteB.getX(), extremiteB.getY());
+		
+		
+		plaque.moveTo(coinInfGauche.getX(), coinInfDroit.getY());
+		plaque.lineTo(coinSupGauche.getX(), coinSupGauche.getY());
+		plaque.lineTo(coinSupDroit.getX(), coinSupDroit.getY());
+		plaque.lineTo(coinInfDroit.getX(), coinInfDroit.getY());
+		plaque.closePath();
 		;
 	}
 
@@ -79,8 +107,8 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
+		//g2dPrive.rotate(getPosition().getX(), getPosition().getY(), angleInclinaison);
 		g2dPrive.setColor(Color.red);
-		// g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
 		g2dPrive.draw(plaque);
 	}
 
@@ -127,6 +155,10 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	public void setNormale(Vecteur2D normale) {
 		this.normale = new Vecteur2D(normale);
 		setAxe();
+		setCoinSupGauche();
+		setCoinSupDroit();
+		setCoinInfGauche();
+		setCoinInfDroit();
 		creerLaGeometrie();
 	}
 
@@ -175,6 +207,31 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	}
 
 	/**
+	 * Retourne la largeur de la plaque
+	 * 
+	 * @return La largeur de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getLargeur() {
+		return largeur;
+	}
+
+	/**
+	 * Modifie la largeur de la plaque
+	 * 
+	 * @param largeur Largeur de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setLargeur(double largeur) {
+		this.largeur = largeur;
+		setCoinSupGauche();
+		setCoinSupDroit();
+		setCoinInfGauche();
+		setCoinInfDroit();
+		creerLaGeometrie();
+	}
+	
+	/**
 	 * Retourne l'extrémité A de la plaque
 	 * 
 	 * @return L'extrémité A de la plaque
@@ -190,6 +247,8 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteA() {
 		this.extremiteA = getPosition().additionne(axe.multiplie(longueur / 2));
+		setCoinSupGauche();
+		setCoinSupDroit();
 		creerLaGeometrie();
 	}
 
@@ -209,7 +268,77 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteB() {
 		this.extremiteB = getPosition().additionne(axe.multiplie(-longueur / 2));
+		setCoinInfGauche();
+		setCoinInfDroit();
 		creerLaGeometrie();
+	}
+
+	/** Retourne le coin supérieur gauche de la plaque
+	 * @return Le coin supérieur gauche de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getCoinSupGauche() {
+		return coinSupGauche;
+	}
+
+	/**
+	 * Modifie le coin supérieur gauche de la plaque
+	 * @param coinSupGauche Le coin supérieur gauche de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setCoinSupGauche() {
+		this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
+	}
+
+	/** Retourne le coin supérieur droit de la plaque
+	 * @return Le coin supérieur droit de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getCoinSupDroit() {
+		return coinSupDroit;
+	}
+
+	/**
+	 * Modifie le coin supérieur droit de la plaque
+	 * @param coinSupDroit Le coin supérieur droit de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setCoinSupDroit() {
+		this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
+	}
+
+	/** Retourne le coin inférieur gauche de la plaque
+	 * @return Le coin inférieur gauche de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getCoinInfGauche() {
+		return coinInfGauche;
+	}
+
+	/**
+	 * Modifie le coin inférieur gauche de la plaque
+	 * @param coinInfGauche Le coin inférieur gauche de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setCoinInfGauche() {
+		this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
+	}
+
+	/** Retourne le coin inférieur droit de la plaque
+	 * @return Le coin inférieur droit de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getCoinInfDroit() {
+		return coinInfDroit;
+	}
+
+	/**
+	 * Modifie le coin inférieur droit de la plaque
+	 * @param coinInfDroit Le coin inférieur droit de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setCoinInfDroit() {
+		this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
 	}
 
 }

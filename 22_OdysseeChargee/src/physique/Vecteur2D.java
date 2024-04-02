@@ -338,5 +338,6 @@ public class Vecteur2D {
 	public static double prodScalaire(Vecteur2D v1, Vecteur2D v2) {
 		return (v1.prodScalaire(v2));
 	}
+	
 
 }// fin classe Vecteur

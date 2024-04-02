@@ -2,6 +2,8 @@ package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -41,8 +43,15 @@ public class PanelModeEditeur extends JPanel {
 	 * Grille du mode éditeur
 	 */
 	private Grille grille;
+	/**
+	 * compteur pour le nombre max de niveau 
+	 */
+	private int compteur = 0;
 
-	
+	/**
+	 * nombre max de niveau possible dans la liste
+	 */
+	private static final int MAX_NIVEAUX = 3;
 
 	/** bouton permettant la sélection de la tuile de type carré */
 	private JButton btnCarre;
@@ -148,6 +157,19 @@ public class PanelModeEditeur extends JPanel {
 	/** étiquette servant à identifier le regroupement de boutons d'action */
 	private JLabel lblActions;
 
+	/**
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
+	 */
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+
+	/**
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
+	 */
+	//Kitimir Yim
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
+	}
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -157,7 +179,7 @@ public class PanelModeEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBounds(410, 38, 916, 916);
+		grille.setBounds(410, 38, 900, 900);
 		add(grille);
 
 		JButton btnGrille = new JButton("Afficher la grille");
@@ -301,10 +323,14 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
-				Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
-				sauvegarder(niveauParDefaut);
+				if(compteur < MAX_NIVEAUX) {
+					String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
+					Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
+					sauvegarder(niveauParDefaut);
+					compteur++;
+				}else {	
+					System.out.println("Nombre maximal de niveaux atteint !");
+				}
 
 			}
 
@@ -394,18 +420,18 @@ public class PanelModeEditeur extends JPanel {
 		lblActions = new JLabel("Actions");
 		lblActions.setBounds(64, 458, 85, 13);
 		add(lblActions);
-		/**
-		 * JButton btnChargement = new JButton("Charger test");
-		 * btnChargement.addActionListener(new ActionListener() {
-		 * public void actionPerformed(ActionEvent e) {
-		 * charger();
-		 * 
-		 * }
-		 * 
-		 * });
-		 * btnChargement.setBounds(166, 20, 85, 21);
-		 * add(btnChargement);
-		 */
+
+		JButton btnChargement = new JButton("Charger test");
+		btnChargement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				charger();
+
+			}
+
+		});
+		btnChargement.setBounds(166, 20, 85, 21);
+		add(btnChargement);
+
 	}
 
 	/**
@@ -416,6 +442,7 @@ public class PanelModeEditeur extends JPanel {
 		Niveau charger = Sauvegarder.chargerNiveau("test");
 
 		grille.setTableau(charger.getTabEmplacement());
+		grille.repaint();
 
 	}
 
@@ -429,7 +456,7 @@ public class PanelModeEditeur extends JPanel {
 
 		GestionnaireDeNiveau.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNomNiveau());
-
+		PCS.firePropertyChange("niveauCree", null, niveau);
 	}
 
 	/**

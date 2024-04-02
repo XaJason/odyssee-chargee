@@ -93,7 +93,7 @@ public class Grille extends JPanel {
 
 		addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {
@@ -310,6 +310,7 @@ public class Grille extends JPanel {
 						tuileTemp.setY((int) hauteurCarre * i);
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
+							tuileTemp.setPoint();
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {

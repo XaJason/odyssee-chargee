@@ -1,11 +1,16 @@
 package tuile;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import interactif.PlaqueChargee;
+import math.MatriceRotation;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
 
@@ -44,9 +49,21 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected static int largeurTuile;
 	/** hauteur de la tuile (px) */
 	protected static int hauteurTuile;
-	
+
 	private PlaqueChargee[] plaquesChargees;
-	
+
+	/**
+	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
+	 **/
+	protected ArrayList<Point2D> prePointsCoin = new ArrayList<Point2D>();
+	/** ArrayList qui contient les points des coins des blocs post-transformé **/
+	protected ArrayList<Point2D> pointsCoin = new ArrayList<Point2D>();
+	/** Point initial(haut-gauche) du bloc **/
+	protected Point2D pointInitial;
+	/** Path qui représente le contour du bloc **/
+	protected Path2D.Double contour;
+	/** Matrice de rotation **/
+	MatriceRotation rotation;
 
 	/**
 	 * Constructeur
@@ -61,6 +78,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		y = 0;
 		this.image = image;
 		this.type = type;
+
 	}
 
 	/**
@@ -78,6 +96,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		this.y = y;
 		this.image = image;
 		this.type = type;
+
 	}
 
 	/**
@@ -106,14 +125,24 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
+	 * 
 	 * @param g2d Le contexte graphique
 	 */
 	// Jason Xa
+
 	public void dessiner(Graphics2D g2d) {
+
+		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
+
+		// Giroux(Partie ci-dessous)
+		creerGeometrieContour();
+		g2d.setColor(Color.red);
+		g2d.draw(contour);
+
 	}
 
 	/**
@@ -126,6 +155,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	// Jason Xa
 	public void dessiner(Graphics2D g2d, int x, int y) {
 		g2d.drawImage(image, x, y, null);
+
 	}
 
 	/**
@@ -256,5 +286,35 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	// Jason Xa
 	public static void setHauteurTuile(int hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
+	}
+
+	/**
+	 * Méthode à redéfinir dans les sous classes pour mettre les points des coins
+	 * dans le arrayList pointsCoin
+	 */
+	// Giroux
+	public void setPoint() {
+		pointInitial = new Point2D.Double(0, 0);
+		rotation = new MatriceRotation(this.angleRotation);
+
+	}
+
+	/**
+	 * Méthode qui instancie le path qui fait le contour du bloc
+	 */
+	// Giroux
+	protected void creerGeometrieContour() {
+
+		contour = new Path2D.Double();
+		if (pointsCoin.size() != 0) {
+			contour.moveTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
+		}
+		for (Point2D i : pointsCoin) {
+			contour.lineTo(i.getX(), i.getY());
+		}
+		if (pointsCoin.size() != 0) {
+			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
+		}
+
 	}
 }
