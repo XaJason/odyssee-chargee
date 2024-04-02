@@ -17,26 +17,63 @@ public class Aire {
 	 */
 	private Point2D.Double[] pointsExterieurs;
 
-	private Point2D.Double pointMilieu;
+	/**
+	 * le point intérieur de l'aire, le point qui n'est pas adjacent à une bordure
+	 * de la tuile
+	 */
+	private Point2D.Double pointInterieur;
 
 	/**
-	 * @param point1      le premier point extérieur
-	 * @param pointMilieu le point milieu, le point qui se situe à l'intérieur de la
-	 *                    tuile
-	 * @param point2      le deuxième point extérieur
+	 * Constructeur
+	 * 
+	 * @param point1         le premier point extérieur
+	 * @param pointInterieur le point milieu, le point qui se situe à l'intérieur de
+	 *                       la
+	 *                       tuile
+	 * @param point2         le deuxième point extérieur
 	 * 
 	 */
 	// Jason Xa
-	public Aire(Point2D.Double point1, Point2D.Double pointMilieu, Point2D.Double point2) {
+	public Aire(Point2D.Double point1, Point2D.Double pointInterieur, Point2D.Double point2) {
 		forme = new Path2D.Double();
 		forme.moveTo(point1.getX(), point1.getY());
-		forme.lineTo(pointMilieu.getX(), pointMilieu.getY());
+		forme.lineTo(pointInterieur.getX(), pointInterieur.getY());
 		forme.lineTo(point2.getX(), point2.getY());
 		forme.closePath();
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
 
-		this.pointMilieu = pointMilieu;
+		this.pointInterieur = pointInterieur;
+	}
+
+	/**
+	 * Retourne la forme de l'aire
+	 * 
+	 * @return la forme de l'aire
+	 */
+	// Jason Xa
+	public Path2D.Double getForme() {
+		return forme;
+	}
+
+	/**
+	 * Retourne les points extérieurs de l'aire
+	 * 
+	 * @return les points extérieurs de l'aire
+	 */
+	// Jason Xa
+	public Point2D.Double[] getPointsExterieurs() {
+		return pointsExterieurs;
+	}
+
+	/**
+	 * Retourne le point intérieur de l'aire
+	 * 
+	 * @return le point intérieur de l'aire
+	 */
+	// Jason Xa
+	public Point2D.Double getPointMilieu() {
+		return pointInterieur;
 	}
 
 }
