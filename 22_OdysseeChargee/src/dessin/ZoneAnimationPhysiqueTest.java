@@ -86,7 +86,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	private final double LONGUEUR_PLAQUE_INITIALE = 25;
 
 	/** Largeur de la plaque chargée (en mètre) **/
-	private double LARGEUR_PLAQUE_INITIALE = 2;
+	private double LARGEUR_PLAQUE_INITIALE = 1;
 	
 	/** Charge initiale de la plaque chargée (en Coulomb) **/
 	private final double CHARGE_INITIALE_PLAQUE = 20;
@@ -684,7 +684,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteX(double normalePlaqueComposanteX) {
-		if (!enCoursDAnimation) {
+		//if (!enCoursDAnimation) {
 			this.normalePlaqueComposanteX = normalePlaqueComposanteX;
 			// À gérer plus tard si l'utilisateur fait n'importe nawak
 			try {
@@ -694,7 +694,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 			repaint();
-		}
+		//}
 	}
 
 	/**
@@ -714,7 +714,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteY(double normalePlaqueComposanteY) {
-		if (!enCoursDAnimation) {
+		//if (!enCoursDAnimation) {
 			this.normalePlaqueComposanteY = normalePlaqueComposanteY;
 			// À gérer plus tard si l'utilisateur fait n'importe nawak
 			try {
@@ -724,7 +724,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 			repaint();
-		}
+		//}
 	}
 
 	/**

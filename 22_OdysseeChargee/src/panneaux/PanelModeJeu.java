@@ -2,16 +2,26 @@ package panneaux;
 
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import dessin.ZoneAnimationPhysiqueTest;
 
 /**
  * Panel du mode de jeu
  * 
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class PanelModeJeu extends JPanel {
 	/**
@@ -19,6 +29,48 @@ public class PanelModeJeu extends JPanel {
 	 */
 	private static final long serialVersionUID = 7125958637120092540L;
 
+	/** Zone d'animation physique utilisée pour les tests */
+	private ZoneAnimationPhysiqueTest zoneAnimationPhysiqueTest;
+	
+	/** Bouton pour démarrer l'animation */
+	private JButton btnDemarrer;
+
+	/** Bouton pour arrêter l'animation */
+	private JButton btnArreter;
+
+	/** Bouton pour afficher la prochaine image de l'animation */
+	private JButton btnProchaineImage;
+
+	/** Bouton pour redémarrer l'animation */
+	private JButton btnRedemarrer;
+
+	/** Bouton pour réinitialiser les paramètres de l'animation */
+	private JButton btnReinitialiser;
+	
+	/** Tourniquet pour définir le pas de simulation de l'animation */
+	private JSpinner spnDeltaT;
+	
+	/** Tourniquet pour définir la masse du vaisseau */
+	private JSpinner spnMasseVaisseau;
+	
+	/** Tourniquet pour définir la charge du vaisseau */
+	private JSpinner spnChargeVaisseau;
+	
+	/** Tourniquet pour définir la charge de la plaque chargée */
+	private JSpinner spnChargePlaque;
+	
+	/** Tourniquet pour définir l'accélération gravtitationnelle présente dans le niveau **/
+	private JSpinner spnGravite;
+	
+	/** Tourniquet pour définir le coéfficient de frottement statique des surfaces du niveau **/
+	private JSpinner spnCoefFrictionStat;
+	
+	/** Tourniquet pour définir le coéfficient de frottement cinétique des surfaces du niveau **/
+	private JSpinner spnCoefFrictionCine;
+	
+	/** Panneau de regroupement des entrées **/
+	private JPanel panelEntree;
+	
 	/**
 	 * Label pour le nom du niveau
 	 */
@@ -30,57 +82,44 @@ public class PanelModeJeu extends JPanel {
 	public PanelModeJeu() {
 		setLayout(null);
 
-		JPanel panelEntree = new JPanel();
+		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
 
-		panelEntree.setBounds(48, 53, 331, 340);
+		panelEntree.setBounds(1271, 31, 376, 480);
 		add(panelEntree);
 		panelEntree.setLayout(null);
 
-		JLabel lblMasse = new JLabel("Masse (kg):");
-		lblMasse.setBounds(10, 20, 100, 26);
-		panelEntree.add(lblMasse);
+		JLabel lblMasseVaisseau = new JLabel("Masse du vaisseau (kg) :");
+		lblMasseVaisseau.setBounds(10, 15, 180, 26);
+		panelEntree.add(lblMasseVaisseau);
 
-		JLabel lblCharge = new JLabel("Charge (Coulombs):");
-		lblCharge.setBounds(10, 88, 140, 26);
+		JLabel lblCharge = new JLabel("Charge du vaisseau (Coulomb) :");
+		lblCharge.setBounds(10, 88, 180, 26);
 		panelEntree.add(lblCharge);
 
-		JLabel lblGravite = new JLabel("Gravité (m/s²):");
-		lblGravite.setBounds(10, 161, 120, 26);
+		JLabel lblGravite = new JLabel("Gravité (m/s²) :");
+		lblGravite.setBounds(10, 155, 120, 26);
 		panelEntree.add(lblGravite);
 
-		JLabel lblChargePlaque = new JLabel("Charge Plaque (Coulombs):");
-		lblChargePlaque.setBounds(10, 224, 180, 26);
+		JLabel lblChargePlaque = new JLabel("Charge Plaque (Coulombs) :");
+		lblChargePlaque.setBounds(10, 225, 180, 26);
 		panelEntree.add(lblChargePlaque);
 
-		JLabel lblCoefFriction = new JLabel("Coefficient de friction:");
-		lblCoefFriction.setBounds(10, 297, 160, 26);
-		panelEntree.add(lblCoefFriction);
+		JLabel lblCoefFrotStat = new JLabel("Coefficient de frottement statique :");
+		lblCoefFrotStat.setBounds(10, 295, 197, 26);
+		panelEntree.add(lblCoefFrotStat);
 
-		JSpinner spinnerMasse = new JSpinner();
-		spinnerMasse.setBounds(144, 12, 160, 43);
-		panelEntree.add(spinnerMasse);
-
-		JSpinner spinnerCharge = new JSpinner();
-		spinnerCharge.setBounds(144, 80, 160, 43);
-		panelEntree.add(spinnerCharge);
-
-		JSpinner spinnerGravite = new JSpinner();
-		spinnerGravite.setBounds(144, 153, 160, 43);
-		panelEntree.add(spinnerGravite);
-
-		JSpinner spinnerChargePlaque = new JSpinner();
-		spinnerChargePlaque.setBounds(144, 216, 160, 43);
-		panelEntree.add(spinnerChargePlaque);
-
-		JSpinner spinnerCoefFriction = new JSpinner();
-		spinnerCoefFriction.setBounds(144, 289, 160, 43);
-		panelEntree.add(spinnerCoefFriction);
-
+		JLabel lblCoefFrotCine = new JLabel("Coefficient de frottement cinétique :");
+		lblCoefFrotCine.setBounds(10, 365, 197, 26);
+		panelEntree.add(lblCoefFrotCine);
+		
+		creerBoutonsDAnimation();
+		lierTourniquetsAvecNiveau();
+		
 		JPanel panelSortie = new JPanel();
 		panelSortie.setLayout(null);
 		panelSortie.setBorder(BorderFactory.createTitledBorder("Sorties"));
-		panelSortie.setBounds(457, 53, 331, 340);
+		panelSortie.setBounds(1271, 522, 376, 274);
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
@@ -108,31 +147,31 @@ public class PanelModeJeu extends JPanel {
 		panelSortie.add(lblPosition);
 
 		JTextArea textAreaVitesse = new JTextArea();
-		textAreaVitesse.setBounds(160, 38, 150, 22);
+		textAreaVitesse.setBounds(216, 37, 150, 22);
 		panelSortie.add(textAreaVitesse);
 
 		JTextArea textAreaAcceleration = new JTextArea();
-		textAreaAcceleration.setBounds(160, 74, 150, 22);
+		textAreaAcceleration.setBounds(216, 73, 150, 22);
 		panelSortie.add(textAreaAcceleration);
 
 		JTextArea textAreaForceElectrique = new JTextArea();
 		textAreaForceElectrique.setEditable(false);
-		textAreaForceElectrique.setBounds(160, 114, 150, 22);
+		textAreaForceElectrique.setBounds(216, 113, 150, 22);
 		panelSortie.add(textAreaForceElectrique);
 
 		JTextArea textAreaForceGravite = new JTextArea();
 		textAreaForceGravite.setEditable(false);
-		textAreaForceGravite.setBounds(160, 154, 150, 22);
+		textAreaForceGravite.setBounds(216, 153, 150, 22);
 		panelSortie.add(textAreaForceGravite);
 
 		JTextArea textAreaChampElectrique = new JTextArea();
 		textAreaChampElectrique.setEditable(false);
-		textAreaChampElectrique.setBounds(160, 198, 150, 22);
+		textAreaChampElectrique.setBounds(216, 197, 150, 22);
 		panelSortie.add(textAreaChampElectrique);
 
 		JTextArea textAreaPosition = new JTextArea();
 		textAreaPosition.setEditable(false);
-		textAreaPosition.setBounds(160, 234, 150, 22);
+		textAreaPosition.setBounds(216, 233, 150, 22);
 		panelSortie.add(textAreaPosition);
 
 		labelNomNiveau = new JLabel();
@@ -148,4 +187,171 @@ public class PanelModeJeu extends JPanel {
 	public void niveauAfficher(String nomNiveau) {
 		labelNomNiveau.setText("Niveau sélectionné : " + nomNiveau);
 	}
+	
+	/**
+	 * Créer et placer les boutons d'animation sur le panneau mode jeu
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void creerBoutonsDAnimation() {
+		zoneAnimationPhysiqueTest = new ZoneAnimationPhysiqueTest();
+		zoneAnimationPhysiqueTest.setBounds(29, 31, 1232, 617);
+		add(zoneAnimationPhysiqueTest);
+		
+		btnDemarrer = new JButton("Démarrer");
+		btnDemarrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.demarrer();
+				btnProchaineImage.setEnabled(false);
+				btnDemarrer.setEnabled(false);
+				// fin
+			}
+		});
+		btnDemarrer.setBounds(172, 685, 89, 23);
+		add(btnDemarrer);
+
+		btnArreter = new JButton("Arrêter");
+		btnArreter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.arreter();
+				btnProchaineImage.setEnabled(true);
+				btnDemarrer.setEnabled(true);
+				// fin
+			}
+		});
+		btnArreter.setBounds(348, 685, 89, 23);
+		add(btnArreter);
+
+		btnRedemarrer = new JButton("Redémarrer");
+		btnRedemarrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.recommencer();
+				btnProchaineImage.setEnabled(true);
+				btnDemarrer.setEnabled(true);
+				// fin
+			}
+		});
+		btnRedemarrer.setBounds(765, 685, 129, 23);
+		add(btnRedemarrer);
+
+		btnProchaineImage = new JButton("Prochaine image");
+		btnProchaineImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.prochaineImage();
+				// fin
+			}
+		});
+		btnProchaineImage.setBounds(524, 685, 154, 23);
+		add(btnProchaineImage);
+
+		btnReinitialiser = new JButton("Réinitialiser");
+		btnReinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// debut
+				reinitialiserZoneAnimation();
+				// fin
+			}
+		});
+		btnReinitialiser.setBounds(981, 685, 129, 23);
+		add(btnReinitialiser);
+	}
+	
+	/**
+	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveau)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void lierTourniquetsAvecNiveau() {
+		spnMasseVaisseau = new JSpinner();
+		spnMasseVaisseau.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.setMasseVaisseau((double) spnMasseVaisseau.getValue());
+				// fin
+			}
+		});
+		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getMasseVaisseau(), 0.01, 10.0, 0.01));
+		spnMasseVaisseau.setBounds(206, 11, 160, 35);
+		panelEntree.add(spnMasseVaisseau);
+
+		spnChargeVaisseau = new JSpinner();
+		spnChargeVaisseau.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.setChargeVaisseau((double) spnChargeVaisseau.getValue());
+				// fin
+			}
+		});
+		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getChargeVaisseau(), -50.0, 50.0, 1.0));
+		spnChargeVaisseau.setBounds(206, 81, 160, 35);
+		panelEntree.add(spnChargeVaisseau);
+
+		spnGravite = new JSpinner();
+		spnGravite.setBounds(206, 151, 160, 35);
+		panelEntree.add(spnGravite);
+
+		spnChargePlaque = new JSpinner();
+		spnChargePlaque.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.setChargePlaque((double) spnChargePlaque.getValue());
+				// fin
+			}
+		});
+		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getChargePlaque(), -50.0, 50.0, 1.0));
+		spnChargePlaque.setBounds(206, 221, 160, 35);
+		panelEntree.add(spnChargePlaque);
+
+		spnCoefFrictionStat = new JSpinner();
+		spnCoefFrictionStat.setBounds(206, 291, 160, 35);
+		panelEntree.add(spnCoefFrictionStat);
+		
+		spnCoefFrictionCine = new JSpinner();
+		spnCoefFrictionCine.setBounds(206, 361, 160, 35);
+		panelEntree.add(spnCoefFrictionCine);
+		
+		spnDeltaT = new JSpinner();
+		spnDeltaT.setBounds(206, 431, 160, 35);
+		panelEntree.add(spnDeltaT);
+		spnDeltaT.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				// debut
+				zoneAnimationPhysiqueTest.setDeltaT((double) spnDeltaT.getValue());
+				// fin
+			}
+		});
+		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getDeltaT(), 0.001, 0.1, 0.001));
+		
+		JLabel lblDeltaT = new JLabel("Pas de simulation :");
+		lblDeltaT.setBounds(10, 437, 180, 23);
+		panelEntree.add(lblDeltaT);
+	}
+	/**
+	 * Reinitialise tout exactement dans l'etat de demarrage de l'application
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void reinitialiserZoneAnimation() {
+		zoneAnimationPhysiqueTest.reinitialiser();
+		btnProchaineImage.setEnabled(true);
+		btnDemarrer.setEnabled(true);
+
+//		spnDeltaT.setValue(zoneAnimationPhysiqueTest.getDeltaTInitial());
+//
+//		spnRayonVaisseau.setValue(zoneAnimationPhysiqueTest.getRayonInitialVaisseau());
+//		spnChargeVaisseau.setValue(zoneAnimationPhysiqueTest.getChargeInitialeVaisseau());
+//		spnMasseVaisseau.setValue(zoneAnimationPhysiqueTest.getMasseInitialeVaisseau());
+//		spnPosVaisseauX.setValue(zoneAnimationPhysiqueTest.getPosInitialeVaisseauEnX());
+//		spnPosVaisseauY.setValue(zoneAnimationPhysiqueTest.getPosinitialeVaisseauEnY());
+//		spnVitVaisseauX.setValue(zoneAnimationPhysiqueTest.getVitInitialeVaisseauX());
+//		spnVitVaisseauY.setValue(zoneAnimationPhysiqueTest.getVitInitialeVaisseauY());
+//
+//		spnLongueurPlaque.setValue(zoneAnimationPhysiqueTest.getLongueurPlaqueInitiale());
+//		spnChargePlaque.setValue(zoneAnimationPhysiqueTest.getChargeInitialePlaque());
+//		spnPosPlaqueX.setValue(zoneAnimationPhysiqueTest.getPosInitialePlaqueEnX());
+//		spnPosPlaqueY.setValue(zoneAnimationPhysiqueTest.getPosInitialePlaqueEnY());
+//		spnNormalePlaqueX.setValue(zoneAnimationPhysiqueTest.getNormaleInitialePlaqueComposanteX());
+//		spnNormalePlaqueY.setValue(zoneAnimationPhysiqueTest.getNormaleInitialePlaqueComposanteY());
+	}// fin methode reinitialiserZoneAnimation
 }
