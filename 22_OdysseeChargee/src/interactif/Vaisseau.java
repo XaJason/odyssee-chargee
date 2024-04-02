@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import tuile.Drapeau;
 import utilitaires.Dessinable;
 
 /**
@@ -268,4 +269,26 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	public void setMasse(double masse) {
 		this.masse = masse;
 	}
+	
+	 /**
+     * Méthode de détection de collision avec un drapeau.
+     * 
+     * @param drapeau Le drapeau avec lequel on vérifie la collision
+     * @return true s'il y a collision avec le drapeau, false sinon
+     */
+    // Kitimir Yim
+    public boolean detecterCollisionAvecDrapeau(Drapeau drapeau) {
+       
+        Vecteur2D positionDrapeau = drapeau.getPosition();
+        double distance = this.getPosition().distance(positionDrapeau);
+       
+        double rayonDrapeau = drapeau.getRayon();
+        double rayonVaisseau = this.getRayon();
+        if (distance <= (rayonDrapeau + rayonVaisseau)) {
+            
+            return true;
+        }
+        return false;
+    }
+
 }

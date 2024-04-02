@@ -13,10 +13,7 @@ public class GestionnaireDeNiveau {
 
 	/** ArrayList contenant les niveaux **/
 	private static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
-	/**
-	 * nombre max de niveau possible dans la liste
-	 */
-	private static final int MAX_NIVEAUX = 3;
+	
 
 	/**
 	 * Ajoute un niveau à l'ArrayList
@@ -25,13 +22,9 @@ public class GestionnaireDeNiveau {
 	 */
 	// Giroux
 	public static void ajouter(Niveau niveauAAjouter) {
-		
-		if (repertoireNiveau.size() < MAX_NIVEAUX) { 
-            repertoireNiveau.add(niveauAAjouter);
-            System.out.println("Ajout fait avec succès");
-        } else {
-            System.out.println("Nombre maximal de niveaux atteint !");
-        }
+		repertoireNiveau.add(niveauAAjouter);
+        System.out.println("Ajout fait avec succès");
+      
     }
 
 	/**
