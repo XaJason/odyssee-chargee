@@ -9,9 +9,12 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import interactif.PlaqueChargee;
 import math.MatriceRotation;
+import utilitaires.Aire;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
+import utilitaires.Selectionnable;
 
 /**
  * Représente tout objet fixe qui peut être placé dans le mode éditeur.
@@ -19,7 +22,7 @@ import utilitaires.OutilsImage;
  * @author Jason Xa
  * @author Giroux
  */
-public class Tuile extends OutilsImage implements Dessinable, Serializable {
+public class Tuile extends OutilsImage implements Dessinable, Serializable, Selectionnable {
 
 	/**
 	 * Numéro d'identification pour la sérialisation
@@ -48,14 +51,17 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected static int largeurTuile;
 	/** hauteur de la tuile (px) */
 	protected static int hauteurTuile;
+
+	private PlaqueChargee[] plaquesChargees;
+
 	/**
 	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
 	 **/
-	protected ArrayList<Point2D> prePointsCoin = new ArrayList<Point2D>();
+	protected ArrayList<Point2D.Double> prePointsCoin = new ArrayList<Point2D.Double>();
 	/** ArrayList qui contient les points des coins des blocs post-transformé **/
-	protected ArrayList<Point2D> pointsCoin = new ArrayList<Point2D>();
+	protected ArrayList<Point2D.Double> pointsCoin = new ArrayList<Point2D.Double>();
 	/** Point initial(haut-gauche) du bloc **/
-	protected Point2D pointInitial;
+	protected Point2D.Double pointInitial;
 	/** Path qui représente le contour du bloc **/
 	protected Path2D.Double contour;
 	/** Matrice de rotation **/
@@ -63,6 +69,8 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	/**Point milieu du triangle**/
 	protected Point2D pointMilieu;
 
+	/** aires de sélection pour les plaques chargées */
+	protected Aire[] aires;
 
 	/**
 	 * Constructeur
@@ -303,7 +311,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 * @param coin Arraylist des sommets du triangles
 	 * @return Le point milieu
 	 */
-	protected Point2D pointMilieuTriangle(ArrayList<Point2D> sommets) {
+	protected Point2D pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
 		sommets = pointsCoin;
 		//Point 1 va être le sommet, le segment va être entre P2 et P3
 		double moyenX=(sommets.get(1).getX()+sommets.get(2).getX())/2;
@@ -337,4 +345,11 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		}
 
 	}
+
+	@Override
+	public boolean contient(double xPix, double yPix) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

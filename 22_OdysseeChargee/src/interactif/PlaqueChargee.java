@@ -15,7 +15,7 @@ import utilitaires.Dessinable;
  * @author Enuel René Valentin Kizozo Izia
  */
 public class PlaqueChargee extends InteractifPhysique implements Dessinable {
-
+	
 	// PROPRIÉTÉS //
 	/** Objet Path2D permettant de représenter la plaque **/
 	private Path2D.Double plaque;
@@ -88,8 +88,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	public void creerLaGeometrie() {
 		plaque = new Path2D.Double();
 		
-		
-		plaque.moveTo(coinInfGauche.getX(), coinInfDroit.getY());
+		plaque.moveTo(coinInfGauche.getX(), coinInfGauche.getY());
 		plaque.lineTo(coinSupGauche.getX(), coinSupGauche.getY());
 		plaque.lineTo(coinSupDroit.getX(), coinSupDroit.getY());
 		plaque.lineTo(coinInfDroit.getX(), coinInfDroit.getY());
@@ -138,7 +137,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	// GETTERS & SETTERS //
 	/**
 	 * Retourne le vecteur normal de la plaque
-	 * 
 	 * @return Le vecteur normal de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -148,7 +146,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Modifie le vecteur normal de la plaque
-	 * 
 	 * @param normale Vecteur incluant les composantes en x et y
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -164,7 +161,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Retourne le vecteur passant par l'axe de la plaque
-	 * 
 	 * @return Le vecteur passant par l'axe de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -185,7 +181,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Retourne la longueur de la plaque
-	 * 
 	 * @return La longueur de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -195,7 +190,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Modifie la longueur de la plaque
-	 * 
 	 * @param longueur Longueur de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -208,7 +202,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Retourne la largeur de la plaque
-	 * 
 	 * @return La largeur de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -218,7 +211,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Modifie la largeur de la plaque
-	 * 
 	 * @param largeur Largeur de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -233,7 +225,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	
 	/**
 	 * Retourne l'extrémité A de la plaque
-	 * 
 	 * @return L'extrémité A de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -254,7 +245,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 
 	/**
 	 * Retourne l'extrémité B de la plaque
-	 * 
 	 * @return L'extrémité B de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia

@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import fenetres.FenetreAideInstructions;
-
 import fenetres.FenetreReglage;
 import fenetres.PanelAPropos;
 import niveau.Niveau;
@@ -53,9 +52,7 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Zone des dessin
 	 */
-	private JPanel contentPane;
-
-
+	private JPanel panMenuPrincipal;
 	/**
 	 * Fenêtre Instructions
 	 */
@@ -67,11 +64,11 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Panel du mode éditeur
 	 */
-	private PanelModeEditeur panE;
+	private PanelModeEditeur panModeEditeur;
 	/**
 	 * Panel du mode jeu
 	 */
-	private PanelModeJeu panJ;
+	private PanelModeJeu panModeJeu;
 	/**
 	 * Panel À propos
 	 */
@@ -79,7 +76,7 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Panel du sélecteur de niveaux
 	 */
-	private PanelSelecteurNiveaux panS;
+	private PanelSelecteurNiveaux panSelecteurNiveau;
 	/**
 	 * Barre du menu
 	 */
@@ -149,9 +146,9 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	public AppPrincipale22() {
 		setTitle("Odyssée Chargée");
-		contentPane = new JPanel();
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		panMenuPrincipal = new JPanel();
+		setContentPane(panMenuPrincipal);
+		panMenuPrincipal.setLayout(null);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
@@ -209,7 +206,7 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		btnQuitter.setBounds(975, 175, 150, 100);
-		contentPane.add(btnQuitter);
+		panMenuPrincipal.add(btnQuitter);
 
 		JButton btnInstructions = new JButton("Instructions");
 		btnInstructions.addActionListener(new ActionListener() {
@@ -219,7 +216,7 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		btnInstructions.setBounds(225, 470, 150, 100);
-		contentPane.add(btnInstructions);
+		panMenuPrincipal.add(btnInstructions);
 
 		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.addActionListener(new ActionListener() {
@@ -230,7 +227,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 
 		btnAPropos.setBounds(975, 470, 150, 100);
-		contentPane.add(btnAPropos);
+		panMenuPrincipal.add(btnAPropos);
 
 		JButton btnReglages = new JButton("Réglages");
 		btnReglages.addActionListener(new ActionListener() {
@@ -239,35 +236,35 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		btnReglages.setBounds(600, 470, 150, 100);
-		contentPane.add(btnReglages);
+		panMenuPrincipal.add(btnReglages);
 
 		JButton btnModePrincipal = new JButton("Jouer");
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panS.setVisible(true);
-				contentPane.setVisible(false);
-				setContentPane(panS);
+				panSelecteurNiveau.setVisible(true);
+				panMenuPrincipal.setVisible(false);
+				setContentPane(panSelecteurNiveau);
 				menuBar.setVisible(true);
 				mntmSelection.setSelected(true);
 				mntmEditeur.setSelected(false);
 			}
 		});
 		btnModePrincipal.setBounds(225, 175, 150, 100);
-		contentPane.add(btnModePrincipal);
+		panMenuPrincipal.add(btnModePrincipal);
 
 		JButton btnModeEditeur = new JButton("Mode éditeur");
 		btnModeEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panE.setVisible(true);
-				contentPane.setVisible(false);
-				setContentPane(panE);
+				panModeEditeur.setVisible(true);
+				panMenuPrincipal.setVisible(false);
+				setContentPane(panModeEditeur);
 				menuBar.setVisible(true);
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
 			}
 		});
 		btnModeEditeur.setBounds(600, 175, 150, 100);
-		contentPane.add(btnModeEditeur);
+		panMenuPrincipal.add(btnModeEditeur);
 
 	}
 
@@ -299,29 +296,30 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Kitimir Yim
 	public void creerPanels() {
-		panE = new PanelModeEditeur();
-		panS = new PanelSelecteurNiveaux();
-		panJ = new PanelModeJeu();
+		panModeEditeur = new PanelModeEditeur();
+		panSelecteurNiveau = new PanelSelecteurNiveaux();
+		panModeJeu = new PanelModeJeu();
 
-		panS.addPropertyChangeListener(new PropertyChangeListener() {
+		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
+
 				if (evt.getPropertyName().equals("niveauSelectionne")) {
-					panS.setVisible(false);
-					panJ.setVisible(true);
-					setContentPane(panJ);
+					panSelecteurNiveau.setVisible(false);
+					panModeJeu.setVisible(true);
+					setContentPane(panModeJeu);
 					Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
-					panJ.niveauAfficher(niveauSelectionne.getNomNiveau());
+					panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
 
 				}
 			}
 		});
 
-		panE.addPropertyChangeListener(new PropertyChangeListener() {
+		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				if (evt.getPropertyName().equals("niveauCree")) {
-					panS.actualiserNiveaux();
+					panSelecteurNiveau.actualiserNiveaux();
 
 				}
 			}
@@ -360,10 +358,10 @@ public class AppPrincipale22 extends JFrame {
 		mntmPrincipale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				contentPane.setVisible(true);
-				panE.setVisible(false);
-				panS.setVisible(false);
-				setContentPane(contentPane);
+				panMenuPrincipal.setVisible(true);
+				panModeEditeur.setVisible(false);
+				panSelecteurNiveau.setVisible(false);
+				setContentPane(panMenuPrincipal);
 				menuBar.setVisible(false);
 			}
 
@@ -378,10 +376,10 @@ public class AppPrincipale22 extends JFrame {
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("lebronjames");
-				contentPane.setVisible(false);
-				panE.setVisible(false);
-				panS.setVisible(true);
-				setContentPane(panS);
+				panMenuPrincipal.setVisible(false);
+				panModeEditeur.setVisible(false);
+				panSelecteurNiveau.setVisible(true);
+				setContentPane(panSelecteurNiveau);
 				mntmSelection.setSelected(true);
 				mntmEditeur.setSelected(false);
 
@@ -395,10 +393,10 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panE.setVisible(true);
-				panS.setVisible(false);
-				contentPane.setVisible(false);
-				setContentPane(panE);
+				panModeEditeur.setVisible(true);
+				panSelecteurNiveau.setVisible(false);
+				panMenuPrincipal.setVisible(false);
+				setContentPane(panModeEditeur);
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
 			}
@@ -501,5 +499,13 @@ public class AppPrincipale22 extends JFrame {
 			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
 			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
 		}
+	}
+	
+	/**
+	 * Implémente l'application test dans l'application principale
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void implementationApplicationTest() {
+		
 	}
 }

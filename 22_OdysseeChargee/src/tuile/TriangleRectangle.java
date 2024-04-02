@@ -103,7 +103,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
 			i.setLocation(i.getX() + x + largeurTuile / 2, i.getY() + y + hauteurTuile / 2);

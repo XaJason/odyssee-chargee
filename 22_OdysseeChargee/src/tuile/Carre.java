@@ -4,10 +4,8 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
-import java.util.ArrayList;
 
-import application.AppPrincipale22;
-import math.MatriceRotation;
+import utilitaires.Aire;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
@@ -30,7 +28,7 @@ public class Carre extends Tuile implements Serializable {
 	/** position du y pour délimiter les points **/
 	private double yActuel;
 	/** Coin haut-droit **/
-	private Point2D coinHautDroit;
+	private Point2D.Double coinHautDroit;
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
@@ -111,8 +109,12 @@ public class Carre extends Tuile implements Serializable {
 		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
+
+		Point2D.Double pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
+				pointInitial.getY() + hauteurTuile / 2.0);
+
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
@@ -121,6 +123,12 @@ public class Carre extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 		
+		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
+		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
+		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(3));
+		Aire aire4 = new Aire(pointsCoin.get(3), pointMilieu, pointsCoin.get(4));
 
+		aires = new Aire[] { aire1, aire2, aire3, aire4 };
+		// aires={};
 	}
 }
