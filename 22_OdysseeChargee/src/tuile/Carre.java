@@ -123,9 +123,11 @@ public class Carre extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
-		Aire aire2 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
-		Aire aire3 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
-		Aire aire4 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
+		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
+		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(3));
+		Aire aire4 = new Aire(pointsCoin.get(3), pointMilieu, pointsCoin.get(4));
+
+		aires = new Aire[] { aire1, aire2, aire3, aire4 };
 		// aires={};
 	}
 }
