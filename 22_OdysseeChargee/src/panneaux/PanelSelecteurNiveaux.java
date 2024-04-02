@@ -4,9 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import niveau.GestionnaireDeNiveau;
+import niveau.Niveau;
 
 /**
  * Panel du sélecteur de niveaux
@@ -49,5 +53,32 @@ public class PanelSelecteurNiveaux extends JPanel {
 		btnPasserModeJeu.setBounds(192, 119, 162, 23);
 		add(btnPasserModeJeu);
 
+	}
+
+	/**
+	 * Actualise les boutons représentant les niveaux disponibles
+	 */
+	//Kitimir Yim
+	public void actualiserNiveaux() {
+		removeAll(); // Supprimer tous les composants existants
+
+		ArrayList<Niveau> niveaux = GestionnaireDeNiveau.getRepertoireNiveau();
+
+
+		int yPosition = 50;
+		for (Niveau niveau : niveaux) {
+			JButton btnNiveau = new JButton(niveau.getNomNiveau());
+			btnNiveau.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					PCS.firePropertyChange("niveauSelectionne", null, niveau); 
+				}
+			});
+			btnNiveau.setBounds(50, yPosition, 200, 30);
+			add(btnNiveau);
+			yPosition += 40; 
+		}
+
+	
+		repaint();     
 	}
 }

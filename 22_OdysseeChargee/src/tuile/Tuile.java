@@ -3,15 +3,19 @@ package tuile;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import interactif.PlaqueChargee;
 import math.MatriceRotation;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
+import utilitaires.Selectionnable;
 
 /**
  * Représente tout objet fixe qui peut être placé dans le mode éditeur.
@@ -19,7 +23,7 @@ import utilitaires.OutilsImage;
  * @author Jason Xa
  * @author Giroux
  */
-public class Tuile extends OutilsImage implements Dessinable, Serializable {
+public class Tuile extends OutilsImage implements Dessinable, Serializable, Selectionnable {
 
 	/**
 	 * Numéro d'identification pour la sérialisation
@@ -48,6 +52,9 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected static int largeurTuile;
 	/** hauteur de la tuile (px) */
 	protected static int hauteurTuile;
+
+	private PlaqueChargee[] plaquesChargees;
+
 	/**
 	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
 	 **/
@@ -60,6 +67,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected Path2D.Double contour;
 	/** Matrice de rotation **/
 	MatriceRotation rotation;
+	private Area aire;
 
 	/**
 	 * Constructeur
@@ -75,6 +83,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		this.image = image;
 		this.type = type;
 
+		
 	}
 
 	/**
@@ -311,6 +320,13 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		if (pointsCoin.size() != 0) {
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
-
 	}
+
+	@Override
+	public boolean contient(double xPix, double yPix) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }

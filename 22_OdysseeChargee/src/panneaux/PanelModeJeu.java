@@ -72,6 +72,10 @@ public class PanelModeJeu extends JPanel {
 	private JPanel panelEntree;
 	
 	/**
+	 * Label pour le nom du niveau
+	 */
+	private JLabel labelNomNiveau;
+	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
@@ -170,6 +174,18 @@ public class PanelModeJeu extends JPanel {
 		textAreaPosition.setBounds(216, 233, 150, 22);
 		panelSortie.add(textAreaPosition);
 
+		labelNomNiveau = new JLabel();
+		labelNomNiveau.setBounds(50, 20, 400, 30);
+		add(labelNomNiveau);
+
+	}
+	/**
+	 * Affiche le nom du niveau choisi
+	 * @param nomNiveau niveau choisi
+	 */
+	//Kitimir Yim
+	public void niveauAfficher(String nomNiveau) {
+		labelNomNiveau.setText("Niveau sélectionné : " + nomNiveau);
 	}
 	
 	/**
