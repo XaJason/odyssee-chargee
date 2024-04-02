@@ -59,9 +59,10 @@ public class Carre extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Carre.image = imageRef;
 	}
-	
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * 
 	 * @return Une chaine indiquant que l'objet est un carré
 	 */
 	// Giroux

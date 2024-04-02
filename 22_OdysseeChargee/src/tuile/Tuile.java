@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 
+import interactif.PlaqueChargee;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
 
@@ -43,6 +44,9 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected static int largeurTuile;
 	/** hauteur de la tuile (px) */
 	protected static int hauteurTuile;
+	
+	private PlaqueChargee[] plaquesChargees;
+	
 
 	/**
 	 * Constructeur
