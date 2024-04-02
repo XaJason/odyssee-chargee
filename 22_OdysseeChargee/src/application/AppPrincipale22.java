@@ -23,6 +23,7 @@ import fenetres.FenetreAideInstructions;
 
 import fenetres.FenetreReglage;
 import fenetres.PanelAPropos;
+import niveau.Niveau;
 import panneaux.PanelModeEditeur;
 import panneaux.PanelModeJeu;
 import panneaux.PanelSelecteurNiveaux;
@@ -53,8 +54,8 @@ public class AppPrincipale22 extends JFrame {
 	 * Zone des dessin
 	 */
 	private JPanel contentPane;
-	
-	
+
+
 	/**
 	 * Fenêtre Instructions
 	 */
@@ -305,14 +306,28 @@ public class AppPrincipale22 extends JFrame {
 		panS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
-				if (evt.getPropertyName().equals("passerVersJeu")) {
+				if (evt.getPropertyName().equals("niveauSelectionne")) {
 					panS.setVisible(false);
 					panJ.setVisible(true);
 					setContentPane(panJ);
+					Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
+					panJ.niveauAfficher(niveauSelectionne.getNomNiveau());
 
 				}
 			}
 		});
+
+		panE.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("niveauCree")) {
+					panS.actualiserNiveaux();
+
+				}
+			}
+		});
+
+
 
 	}
 

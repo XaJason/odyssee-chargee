@@ -20,6 +20,10 @@ public class PanelModeJeu extends JPanel {
 	private static final long serialVersionUID = 7125958637120092540L;
 
 	/**
+	 * Label pour le nom du niveau
+	 */
+	private JLabel labelNomNiveau;
+	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
@@ -131,5 +135,17 @@ public class PanelModeJeu extends JPanel {
 		textAreaPosition.setBounds(160, 234, 150, 22);
 		panelSortie.add(textAreaPosition);
 
+		labelNomNiveau = new JLabel();
+		labelNomNiveau.setBounds(50, 20, 400, 30);
+		add(labelNomNiveau);
+
+	}
+	/**
+	 * Affiche le nom du niveau choisi
+	 * @param nomNiveau niveau choisi
+	 */
+	//Kitimir Yim
+	public void niveauAfficher(String nomNiveau) {
+		labelNomNiveau.setText("Niveau sélectionné : " + nomNiveau);
 	}
 }

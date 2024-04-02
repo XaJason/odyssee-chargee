@@ -2,6 +2,8 @@ package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -148,6 +150,19 @@ public class PanelModeEditeur extends JPanel {
 	/** étiquette servant à identifier le regroupement de boutons d'action */
 	private JLabel lblActions;
 
+	/**
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
+	 */
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+	
+	/**
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
+	 */
+	//Kitimir Yim
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
+	}
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -305,6 +320,8 @@ public class PanelModeEditeur extends JPanel {
 				String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
 				Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
 				sauvegarder(niveauParDefaut);
+				
+			
 
 			}
 
@@ -430,7 +447,7 @@ public class PanelModeEditeur extends JPanel {
 
 		GestionnaireDeNiveau.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNomNiveau());
-
+		PCS.firePropertyChange("niveauCree", null, niveau);
 	}
 
 	/**
