@@ -5,9 +5,11 @@ import java.io.Serializable;
 import tuile.Tuile;
 
 /**
- * Classe niveau qui sert à regrouper tout ce que peut contenir un niveau
+ * Composant illustrant la simulation :
+ * Un niveau est une scène physique où sont représentés des objets intéractifs physique et des tuiles
  *
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  * 
  */
 public class Niveau implements Serializable {
