@@ -60,6 +60,9 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	protected Path2D.Double contour;
 	/** Matrice de rotation **/
 	MatriceRotation rotation;
+	/**Point milieu du triangle**/
+	protected Point2D pointMilieu;
+
 
 	/**
 	 * Constructeur
@@ -104,6 +107,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 	 */
 	// Jason Xa
 	public Tuile(double angleRotation, Image image, String type) {
+		
 		this.angleRotation = angleRotation;
 		this.image = image;
 		this.type = type;
@@ -294,6 +298,22 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		rotation = new MatriceRotation(this.angleRotation);
 
 	}
+	/**
+	 * Méthode qui calcule le point milieu d'un triangle à l'aide du théoreme de Thales
+	 * @param coin Arraylist des sommets du triangles
+	 * @return Le point milieu
+	 */
+	protected Point2D pointMilieuTriangle(ArrayList<Point2D> sommets) {
+		sommets = pointsCoin;
+		//Point 1 va être le sommet, le segment va être entre P2 et P3
+		double moyenX=(sommets.get(1).getX()+sommets.get(2).getX())/2;
+		double moyenY=(sommets.get(1).getY()+sommets.get(2).getY())/2;
+		Point2D milieuSegment = new Point2D.Double(moyenX,moyenY);
+		double milieuX = (sommets.get(0).getX()-milieuSegment.getX())*2/3;
+		double milieuY = (sommets.get(0).getY()-milieuSegment.getY())*2/3;
+		Point2D milieu = new Point2D.Double(milieuX,milieuY);
+		return milieu;
+	}
 
 	/**
 	 * Méthode qui instancie le path qui fait le contour du bloc
@@ -310,6 +330,10 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable {
 		}
 		if (pointsCoin.size() != 0) {
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
+		}
+		
+		if (pointsCoin.size() != 0) {
+			contour.lineTo(pointMilieu.getX(), pointMilieu.getY());
 		}
 
 	}
