@@ -338,17 +338,6 @@ public class Vecteur2D {
 	public static double prodScalaire(Vecteur2D v1, Vecteur2D v2) {
 		return (v1.prodScalaire(v2));
 	}
-	/**
-	 * Methode pour effectuer le calcul de distance
-	 * @param positionDrapeau
-	 * @return distance entre les vecteurs
-	 */
-	//Kitimir Yim
-	public double distance(Vecteur2D position) {
-	    double deltaX = position.getX() - this.x;
-	    double deltaY = position.getY() - this.y;
-	    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-	}
-
+	
 
 }// fin classe Vecteur
