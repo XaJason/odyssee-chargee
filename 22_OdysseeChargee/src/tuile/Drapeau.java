@@ -27,7 +27,7 @@ public class Drapeau extends Tuile implements Serializable {
 	/** position du y pour délimiter les points **/
 	private double yActuel;
 	/** Coin haut-droit **/
-	private Point2D coinHautDroit;
+	private Point2D.Double coinHautDroit;
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
@@ -112,7 +112,7 @@ public class Drapeau extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);

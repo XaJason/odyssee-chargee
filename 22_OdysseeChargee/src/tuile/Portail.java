@@ -20,16 +20,16 @@ public class Portail extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type portail */
 	private static String type = "Portail";
-	//Coins du carré//
-	/**position du x pour délimiter les points**/
+	// Coins du carré//
+	/** position du x pour délimiter les points **/
 	private double xActuel;
-	/**position du y pour délimiter les points**/
+	/** position du y pour délimiter les points **/
 	private double yActuel;
 	/** Coin haut-droit **/
-	private Point2D coinHautDroit;
-	/** Coin bas-droit**/
+	private Double coinHautDroit;
+	/** Coin bas-droit **/
 	private Double coinBasDroit;
-	/** Coin bas-gauche**/
+	/** Coin bas-gauche **/
 	private Double coinBasGauche;
 
 	/**
@@ -72,19 +72,21 @@ public class Portail extends Tuile implements Serializable {
 	public static void setImageRef(Image imageRef) {
 		Portail.image = imageRef;
 	}
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * 
 	 * @return Une chaine indiquant que l'objet est un portail
 	 */
 	// Giroux
 	public String toString() {
 		return "Portail ";
 	}
-	
+
 	/**
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
-	//Giroux
+	// Giroux
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.add(pointInitial);
@@ -103,7 +105,7 @@ public class Portail extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
@@ -112,6 +114,5 @@ public class Portail extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 	}
-
 
 }

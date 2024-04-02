@@ -3,9 +3,7 @@ package tuile;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -13,6 +11,7 @@ import java.util.ArrayList;
 
 import interactif.PlaqueChargee;
 import math.MatriceRotation;
+import utilitaires.Aire;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
 import utilitaires.Selectionnable;
@@ -58,16 +57,18 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	/**
 	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
 	 **/
-	protected ArrayList<Point2D> prePointsCoin = new ArrayList<Point2D>();
+	protected ArrayList<Point2D.Double> prePointsCoin = new ArrayList<Point2D.Double>();
 	/** ArrayList qui contient les points des coins des blocs post-transformé **/
-	protected ArrayList<Point2D> pointsCoin = new ArrayList<Point2D>();
+	protected ArrayList<Point2D.Double> pointsCoin = new ArrayList<Point2D.Double>();
 	/** Point initial(haut-gauche) du bloc **/
-	protected Point2D pointInitial;
+	protected Point2D.Double pointInitial;
 	/** Path qui représente le contour du bloc **/
 	protected Path2D.Double contour;
 	/** Matrice de rotation **/
 	MatriceRotation rotation;
-	private Area aire;
+
+	/** aires de sélection pour les plaques chargées */
+	protected Aire[] aires;
 
 	/**
 	 * Constructeur
@@ -83,7 +84,6 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		this.image = image;
 		this.type = type;
 
-		
 	}
 
 	/**
@@ -327,6 +327,5 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 }
