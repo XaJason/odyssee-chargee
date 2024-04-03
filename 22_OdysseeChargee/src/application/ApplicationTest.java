@@ -28,7 +28,7 @@ public class ApplicationTest extends JFrame {
 	private static final long serialVersionUID = -5394946883191123518L;
 
 	/** Paneau de regroupement de l'interface graphique */
-	private JPanel contentPane;
+	private JPanel panModeJeu;
 
 	/** Zone d'animation physique utilisée pour les tests */
 	private ZoneAnimationPhysiqueTest zoneAnimationPhysiqueTest;
@@ -119,18 +119,20 @@ public class ApplicationTest extends JFrame {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ApplicationTest() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1127, 730);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //check
+		setBounds(100, 100, 1127, 730); //check
+		panModeJeu = new JPanel(); //check
+		panModeJeu.setBorder(new EmptyBorder(5, 5, 5, 5)); //pas check
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(panModeJeu); //check
+		panModeJeu.setLayout(null); //check
 
+		//check
 		zoneAnimationPhysiqueTest = new ZoneAnimationPhysiqueTest();
 		zoneAnimationPhysiqueTest.setBounds(29, 31, 1046, 314);
-		contentPane.add(zoneAnimationPhysiqueTest);
+		panModeJeu.add(zoneAnimationPhysiqueTest);
 
+		//check
 		btnDemarrer = new JButton("Démarrer");
 		btnDemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,8 +144,9 @@ public class ApplicationTest extends JFrame {
 			}
 		});
 		btnDemarrer.setBounds(87, 382, 89, 23);
-		contentPane.add(btnDemarrer);
+		panModeJeu.add(btnDemarrer);
 
+		//check
 		btnArreter = new JButton("Arrêter");
 		btnArreter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -155,8 +158,9 @@ public class ApplicationTest extends JFrame {
 			}
 		});
 		btnArreter.setBounds(263, 382, 89, 23);
-		contentPane.add(btnArreter);
+		panModeJeu.add(btnArreter);
 
+		//check
 		btnRedemarrer = new JButton("Redémarrer");
 		btnRedemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -168,8 +172,9 @@ public class ApplicationTest extends JFrame {
 			}
 		});
 		btnRedemarrer.setBounds(680, 382, 129, 23);
-		contentPane.add(btnRedemarrer);
+		panModeJeu.add(btnRedemarrer);
 
+		//check
 		btnProchaineImage = new JButton("Prochaine image");
 		btnProchaineImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -179,8 +184,9 @@ public class ApplicationTest extends JFrame {
 			}
 		});
 		btnProchaineImage.setBounds(439, 382, 154, 23);
-		contentPane.add(btnProchaineImage);
+		panModeJeu.add(btnProchaineImage);
 
+		//check
 		btnReinitialiser = new JButton("Réinitialiser");
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,8 +196,9 @@ public class ApplicationTest extends JFrame {
 			}
 		});
 		btnReinitialiser.setBounds(896, 382, 129, 23);
-		contentPane.add(btnReinitialiser);
+		panModeJeu.add(btnReinitialiser);
 
+		//non nécessaire so check
 		spnRayonVaisseau = new JSpinner();
 		spnRayonVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -202,12 +209,14 @@ public class ApplicationTest extends JFrame {
 		});
 		spnRayonVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getRayonVaisseau(), 3.0, 10.0, 0.5));
 		spnRayonVaisseau.setBounds(193, 468, 54, 20);
-		contentPane.add(spnRayonVaisseau);
+		panModeJeu.add(spnRayonVaisseau);
 
+		//non nécessaire so check
 		JLabel lblRayonVaisseau = new JLabel("Rayon du vaisseau :");
 		lblRayonVaisseau.setBounds(53, 459, 130, 38);
-		contentPane.add(lblRayonVaisseau);
+		panModeJeu.add(lblRayonVaisseau);
 
+		//check
 		spnChargeVaisseau = new JSpinner();
 		spnChargeVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -219,16 +228,19 @@ public class ApplicationTest extends JFrame {
 		spnChargeVaisseau
 				.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getChargeVaisseau(), -50.0, 50.0, 1.0));
 		spnChargeVaisseau.setBounds(193, 499, 54, 20);
-		contentPane.add(spnChargeVaisseau);
+		panModeJeu.add(spnChargeVaisseau);
 
+		//check
 		JLabel lblChargeVaisseau = new JLabel("Charge du vaisseau :");
 		lblChargeVaisseau.setBounds(53, 502, 130, 14);
-		contentPane.add(lblChargeVaisseau);
+		panModeJeu.add(lblChargeVaisseau);
 
+		//check
 		JLabel lblMasseVaisseau = new JLabel("Masse du vaisseau :");
 		lblMasseVaisseau.setBounds(53, 532, 130, 14);
-		contentPane.add(lblMasseVaisseau);
+		panModeJeu.add(lblMasseVaisseau);
 
+		//check
 		spnMasseVaisseau = new JSpinner();
 		spnMasseVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -240,24 +252,29 @@ public class ApplicationTest extends JFrame {
 		spnMasseVaisseau
 				.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getMasseVaisseau(), 0.01, 10.0, 0.01));
 		spnMasseVaisseau.setBounds(193, 529, 54, 20);
-		contentPane.add(spnMasseVaisseau);
+		panModeJeu.add(spnMasseVaisseau);
 
+		//à gérer en sortie
 		JLabel lblPosVaisseauY = new JLabel("Position initiale en y du vaisseau :");
 		lblPosVaisseauY.setBounds(270, 468, 200, 20);
-		contentPane.add(lblPosVaisseauY);
+		panModeJeu.add(lblPosVaisseauY);
 
+		//à gérer en sortie
 		JLabel lblPosVaisseauX = new JLabel("Position initiale en x du vaisseau :");
 		lblPosVaisseauX.setBounds(270, 442, 200, 14);
-		contentPane.add(lblPosVaisseauX);
+		panModeJeu.add(lblPosVaisseauX);
 
+		//à gérer en sortie
 		JLabel lblVitVaisseauX = new JLabel("Vitesse initiale en x du vaisseau :");
 		lblVitVaisseauX.setBounds(270, 502, 200, 14);
-		contentPane.add(lblVitVaisseauX);
+		panModeJeu.add(lblVitVaisseauX);
 
+		//à gérer en sortie
 		JLabel lblVitVaisseauY = new JLabel("Vitesse initiale en y du vaisseau :");
 		lblVitVaisseauY.setBounds(270, 529, 200, 20);
-		contentPane.add(lblVitVaisseauY);
+		panModeJeu.add(lblVitVaisseauY);
 
+		//non nécessaire so check
 		spnVitVaisseauY = new JSpinner();
 		spnVitVaisseauY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -268,8 +285,9 @@ public class ApplicationTest extends JFrame {
 		});
 		spnVitVaisseauY.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getVitVaisseauEnY(), -25, 25, 1));
 		spnVitVaisseauY.setBounds(480, 529, 54, 20);
-		contentPane.add(spnVitVaisseauY);
+		panModeJeu.add(spnVitVaisseauY);
 
+		//non nécessaire so check
 		spnVitVaisseauX = new JSpinner();
 		spnVitVaisseauX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -280,8 +298,9 @@ public class ApplicationTest extends JFrame {
 		});
 		spnVitVaisseauX.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getVitVaisseauEnX(), -25, 25, 1));
 		spnVitVaisseauX.setBounds(480, 499, 54, 20);
-		contentPane.add(spnVitVaisseauX);
+		panModeJeu.add(spnVitVaisseauX);
 
+		//non nécessaire so check
 		spnPosVaisseauY = new JSpinner();
 		spnPosVaisseauY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -293,8 +312,9 @@ public class ApplicationTest extends JFrame {
 		spnPosVaisseauY.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getPosVaisseauEnY(),
 				zoneAnimationPhysiqueTest.getRayonVaisseau(), zoneAnimationPhysiqueTest.getHeight() - 10, 1));
 		spnPosVaisseauY.setBounds(480, 468, 54, 20);
-		contentPane.add(spnPosVaisseauY);
+		panModeJeu.add(spnPosVaisseauY);
 
+		//non nécessaire so check
 		spnPosVaisseauX = new JSpinner();
 		spnPosVaisseauX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -306,16 +326,19 @@ public class ApplicationTest extends JFrame {
 		spnPosVaisseauX.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getPosVaisseauEnX(),
 				zoneAnimationPhysiqueTest.getRayonVaisseau(), zoneAnimationPhysiqueTest.getWidth() - 10, 1));
 		spnPosVaisseauX.setBounds(480, 439, 54, 20);
-		contentPane.add(spnPosVaisseauX);
+		panModeJeu.add(spnPosVaisseauX);
 
+		//non nécessaire so check
 		JLabel lblLongueurPlaque = new JLabel("Longueur de la plaque :");
 		lblLongueurPlaque.setBounds(571, 456, 144, 38);
-		contentPane.add(lblLongueurPlaque);
+		panModeJeu.add(lblLongueurPlaque);
 
+		//check
 		JLabel lblChargePlaque = new JLabel("Charge de la plaque :");
 		lblChargePlaque.setBounds(571, 499, 130, 14);
-		contentPane.add(lblChargePlaque);
+		panModeJeu.add(lblChargePlaque);
 
+		//non nécessaire so check
 		spnLongueurPlaque = new JSpinner();
 		spnLongueurPlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -327,8 +350,9 @@ public class ApplicationTest extends JFrame {
 		spnLongueurPlaque
 				.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getLongueurPlaque(), 15.0, 100.0, 1.0));
 		spnLongueurPlaque.setBounds(711, 465, 54, 20);
-		contentPane.add(spnLongueurPlaque);
+		panModeJeu.add(spnLongueurPlaque);
 
+		//check
 		spnChargePlaque = new JSpinner();
 		spnChargePlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -339,24 +363,29 @@ public class ApplicationTest extends JFrame {
 		});
 		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getChargePlaque(), -50.0, 50.0, 1.0));
 		spnChargePlaque.setBounds(711, 496, 54, 20);
-		contentPane.add(spnChargePlaque);
+		panModeJeu.add(spnChargePlaque);
 
+		//non nécessaire so check
 		JLabel lblPosPlaqueX = new JLabel("Position en x de la plaque :");
 		lblPosPlaqueX.setBounds(788, 439, 200, 14);
-		contentPane.add(lblPosPlaqueX);
+		panModeJeu.add(lblPosPlaqueX);
 
+		//non nécessaire so check
 		JLabel lblPosPlaqueY = new JLabel("Position en y de la plaque :");
 		lblPosPlaqueY.setBounds(788, 465, 200, 20);
-		contentPane.add(lblPosPlaqueY);
+		panModeJeu.add(lblPosPlaqueY);
 
+		//non nécessaire so check
 		JLabel lblNormalePlaqueX = new JLabel("Normale en x de la plaque :");
 		lblNormalePlaqueX.setBounds(788, 499, 200, 14);
-		contentPane.add(lblNormalePlaqueX);
+		panModeJeu.add(lblNormalePlaqueX);
 
+		//non nécessaire so check
 		JLabel lblNormalePlaqueY = new JLabel("Normale en y de la plaque");
 		lblNormalePlaqueY.setBounds(788, 526, 200, 20);
-		contentPane.add(lblNormalePlaqueY);
+		panModeJeu.add(lblNormalePlaqueY);
 
+		//non nécessaire so check
 		spnPosPlaqueX = new JSpinner();
 		spnPosPlaqueX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -367,8 +396,9 @@ public class ApplicationTest extends JFrame {
 		});
 		spnPosPlaqueX.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getPosPlaqueEnX(), 0.0, 500, 1.0));
 		spnPosPlaqueX.setBounds(998, 436, 54, 20);
-		contentPane.add(spnPosPlaqueX);
+		panModeJeu.add(spnPosPlaqueX);
 
+		//non nécessaire so check
 		spnPosPlaqueY = new JSpinner();
 		spnPosPlaqueY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -379,8 +409,9 @@ public class ApplicationTest extends JFrame {
 		});
 		spnPosPlaqueY.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getPosPlaqueEnY(), 0.0, 150, 1.0));
 		spnPosPlaqueY.setBounds(998, 465, 54, 20);
-		contentPane.add(spnPosPlaqueY);
+		panModeJeu.add(spnPosPlaqueY);
 
+		//non nécessaire so check
 		spnNormalePlaqueX = new JSpinner();
 		spnNormalePlaqueX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -392,8 +423,9 @@ public class ApplicationTest extends JFrame {
 		spnNormalePlaqueX.setModel(
 				new SpinnerNumberModel(zoneAnimationPhysiqueTest.getNormalePlaqueComposanteX(), -10, 10, 1.0));
 		spnNormalePlaqueX.setBounds(998, 496, 54, 20);
-		contentPane.add(spnNormalePlaqueX);
+		panModeJeu.add(spnNormalePlaqueX);
 
+		//non nécessaire so check
 		spnNormalePlaqueY = new JSpinner();
 		spnNormalePlaqueY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -405,7 +437,7 @@ public class ApplicationTest extends JFrame {
 		spnNormalePlaqueY.setModel(
 				new SpinnerNumberModel(zoneAnimationPhysiqueTest.getNormalePlaqueComposanteY(), -10, 10, 1.0));
 		spnNormalePlaqueY.setBounds(998, 526, 54, 20);
-		contentPane.add(spnNormalePlaqueY);
+		panModeJeu.add(spnNormalePlaqueY);
 
 		spnDeltaT = new JSpinner();
 		spnDeltaT.addChangeListener(new ChangeListener() {
@@ -417,11 +449,11 @@ public class ApplicationTest extends JFrame {
 		});
 		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getDeltaT(), 0.001, 0.1, 0.001));
 		spnDeltaT.setBounds(193, 579, 54, 20);
-		contentPane.add(spnDeltaT);
+		panModeJeu.add(spnDeltaT);
 
 		JLabel lblDeltaT = new JLabel("Pas de simulation :");
 		lblDeltaT.setBounds(53, 576, 130, 23);
-		contentPane.add(lblDeltaT);
+		panModeJeu.add(lblDeltaT);
 	}
 
 	/**

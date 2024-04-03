@@ -27,8 +27,8 @@ public class Segment implements Dessinable {
 	/** Longueur du segment **/
 	private double longueur;
 	
-	/** Position d'un point sur le segment **/
-	private Vecteur2D positionPoint;
+	/** Position d'un point quelconque sur le segment **/
+	private Vecteur2D pointQuelconque;
 	
 	/** Position de l'extrémité A du segment **/
 	private Vecteur2D extremiteA;
@@ -52,7 +52,8 @@ public class Segment implements Dessinable {
 			longueur = extremiteB.soustrait(extremiteA).module();
 			axe = extremiteB.soustrait(extremiteA).normalise();
 			normale = new Vecteur2D(axe.getY(), -axe.getX());
-
+			pointQuelconque = extremiteA.additionne(axe);
+			
 			creerLaGeometrie();
 		} catch (Exception e) {
 			System.out.println("Les points sont trop rapprochés, donc on ne peut pas créer de segment.");
@@ -86,7 +87,7 @@ public class Segment implements Dessinable {
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
-		g2dPrive.setColor(Color.red);
+		g2dPrive.setColor(Color.magenta);
 		g2dPrive.draw(segment);
 	}
 
@@ -150,6 +151,7 @@ public class Segment implements Dessinable {
 		try {
 			this.axe = extremiteB.soustrait(extremiteA).normalise();
 			setNormale();
+			setPointQuelconque();
 			creerLaGeometrie();
 		} catch (Exception e) {
 			System.out.println("Les points sont trop rapprochés, donc on ne peut pas créer de segment.");
@@ -220,4 +222,21 @@ public class Segment implements Dessinable {
 		creerLaGeometrie();
 	}
 
+	/**
+	 * Retourne la position du point quelconque sur le segment
+	 * @param pointQuelconque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getPointQuelconque() {
+		return pointQuelconque;
+	}
+	
+	/**
+	 * Modifie la position du point quelconque sur le segment
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setPointQuelconque() {
+		pointQuelconque = extremiteA.additionne(axe);
+		creerLaGeometrie();
+	}
 }

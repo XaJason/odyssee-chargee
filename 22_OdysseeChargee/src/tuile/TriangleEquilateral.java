@@ -30,7 +30,7 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
-
+	
 	/**
 	 * Constructeur
 	 * 
@@ -96,7 +96,6 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 		xActuel += largeurTuile / 2;
 		yActuel += hauteurTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
-		;
 		// Troisième point(BasGauche)
 		xActuel -= largeurTuile;
 		coinBasGauche = new Point2D.Double(xActuel, yActuel);
@@ -104,12 +103,14 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+		
+		pointMilieu= pointMilieuTriangle(pointsCoin);
 
 	}
 
