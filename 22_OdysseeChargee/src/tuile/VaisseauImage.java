@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
+import utilitaires.OutilsImage;
+
 /**
  * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
  * 
@@ -67,13 +69,22 @@ public class VaisseauImage extends Tuile implements Serializable {
 	}
 
 	/**
+	 * Retourne l'image représentant le vaisseau
+	 * @return L'image représentant le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Image getImageRef() {
+		return image;
+	}
+	
+	/**
 	 * Définit l'image représentant le vaisseau
 	 * 
 	 * @param imageRef l'image représentant le vaisseau
 	 */
 	// Jason Xa
-	public static void setImageRef(Image imageRef) {
-		VaisseauImage.image = imageRef;
+	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
 
 	/**

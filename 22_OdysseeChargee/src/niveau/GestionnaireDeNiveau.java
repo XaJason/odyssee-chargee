@@ -28,17 +28,35 @@ public class GestionnaireDeNiveau {
     }
 
 	/**
+	 * Permet de supprimer un niveau
+	 * 
+	 * @param nom le nom du niveau à supprimer
+	 */
+	// Giroux
+	public void supprimerNiveau(String nom) {
+		for (int i = 0; i < repertoireNiveau.size(); i++) {
+			if (repertoireNiveau.get(i).getNom() == nom) {
+				repertoireNiveau.remove(i);
+			}
+
+		}
+
+	}
+	
+	
+	// GETTERS ET SETTERS 
+	/**
 	 * Permet d'aller chercher le niveau selon son nom
 	 * 
 	 * @param nom Le nom du niveau
-	 * @return Le niveau voulu, ou rien si le nom de conrespond pas
+	 * @return Le niveau voulu, ou rien si le nom de correspond pas
 	 */
 	// Giroux
 	public Niveau getNiveau(String nom) {
 		nom = nom.toLowerCase();
 		Niveau niveauTrouver = null;
 		for (int i = 0; i < repertoireNiveau.size(); i++) {
-			if (repertoireNiveau.get(i).getNomNiveau() == nom) {
+			if (repertoireNiveau.get(i).getNom() == nom) {
 				System.out.println("Niveau trouver!");
 				niveauTrouver = repertoireNiveau.get(i);
 			} else {
@@ -61,31 +79,18 @@ public class GestionnaireDeNiveau {
 	}
 
 	/**
-	 * Permet d'aller chercher le niveau
+	 * Permet de remplacer le niveau se trouvant à l'emplacement passer en paramètre 
+	 * par l'objet niveau passer en paramètre
 	 * 
-	 * @param index  l'index à chercher
-	 * @param niveau le niveau à chercher
+	 * @param index  L'index du niveau à remplacer
+	 * @param niveau Le nouveau niveau (qui remplace l'ancien se trouvant à l'index)
 	 */
 	// Kitimir Yim
 	public void setNiveau(int index, Niveau niveau) {
 		repertoireNiveau.set(index, niveau);
 	}
 
-	/**
-	 * Permet de supprimer un niveau
-	 * 
-	 * @param nom le nom du niveau à supprimer
-	 */
-	// Giroux
-	public void supprimerNiveau(String nom) {
-		for (int i = 0; i < repertoireNiveau.size(); i++) {
-			if (repertoireNiveau.get(i).getNomNiveau() == nom) {
-				repertoireNiveau.remove(i);
-			}
-
-		}
-
-	}
+	
 	/**
 	 * Renvoie la liste des niveaux.
 	 *

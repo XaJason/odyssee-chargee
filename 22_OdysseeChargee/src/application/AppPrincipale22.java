@@ -23,6 +23,7 @@ import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
 import fenetres.PanelAPropos;
 import niveau.Niveau;
+import niveau.Sauvegarder;
 import panneaux.PanelModeEditeur;
 import panneaux.PanelModeJeu;
 import panneaux.PanelSelecteurNiveaux;
@@ -179,17 +180,15 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Lit, redimensionne et définit l'image pour chaque type de tuile
 	 */
-	// Jason Xa
+	// Enuel René Valentin Kizozo Izia
 	private void lireImages() {
-		Carre.setImageRef(OutilsImage.lireImageEtRedimensionner("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE));
-		TriangleEquilateral.setImageRef(
-				OutilsImage.lireImageEtRedimensionner("triangle_equilateral.png", LARGEUR_TUILE, HAUTEUR_TUILE));
-		TriangleRectangle.setImageRef(
-				OutilsImage.lireImageEtRedimensionner("triangle_rectangle.png", LARGEUR_TUILE, HAUTEUR_TUILE));
-		Portail.setImageRef(OutilsImage.lireImageEtRedimensionner("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE));
-		Drapeau.setImageRef(OutilsImage.lireImageEtRedimensionner("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
-		Pics.setImageRef(OutilsImage.lireImageEtRedimensionner("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE));
-		VaisseauImage.setImageRef(OutilsImage.lireImageEtRedimensionner("vaisseau.png", LARGEUR_TUILE, HAUTEUR_TUILE));
+		Carre.setImageRef("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE);
+		TriangleEquilateral.setImageRef("triangle_equilateral.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+		TriangleRectangle.setImageRef("triangle_rectangle.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+		Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+		Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+		Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
+		VaisseauImage.setImageRef("vaisseau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
 	}
 
 	/**
@@ -302,15 +301,20 @@ public class AppPrincipale22 extends JFrame {
 
 		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-
-
-				if (evt.getPropertyName().equals("niveauSelectionne")) {
+				
+				if (evt.getPropertyName().equals("passerVersJeu")) {
+					chargerNiveauVersZoneAnimationPhysique(evt);
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
-					panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+				}
 
+				if (evt.getPropertyName().equals("niveauSelectionne")) {
+					chargerNiveauVersZoneAnimationPhysique(evt);
+					panSelecteurNiveau.setVisible(false);
+					panModeJeu.setVisible(true);
+					setContentPane(panModeJeu);
+					
 				}
 			}
 		});
@@ -320,7 +324,6 @@ public class AppPrincipale22 extends JFrame {
 
 				if (evt.getPropertyName().equals("niveauCree")) {
 					panSelecteurNiveau.actualiserNiveaux();
-
 				}
 			}
 		});
@@ -329,6 +332,26 @@ public class AppPrincipale22 extends JFrame {
 
 	}
 
+	/**
+	 * Chargement des niveau vers la zone d'animation physique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {
+		
+		if (evt.getPropertyName().equals("passerVersJeu")) {
+			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau"); 
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
+			//panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+		}
+		
+		if (evt.getPropertyName().equals("niveauSelectionne")) {
+			Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
+			panModeJeu.niveauAfficher(niveauSelectionne.getNom());
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauSelectionne.getNom());
+			//panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+		}
+	}
+	
 	/**
 	 * Bouton pour quitter l'application
 	 */

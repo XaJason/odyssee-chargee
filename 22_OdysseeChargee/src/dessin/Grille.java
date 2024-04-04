@@ -10,6 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * @author Giroux
@@ -33,19 +34,19 @@ import tuile.VaisseauImage;
  * @author Jason Xa
  * @author Kitimir Yim
  */
-public class Grille extends JPanel {
+public class Grille extends JPanel implements Serializable {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -977837790552954988L;
 	/** Hauteur du composant **/
-	private int hauteur;
+	private int hauteurDuComposantEnMetre;
 	/** Largeur du composant **/
-	private int largeur;
-	/** Hauteur de chaque carré **/
-	private int hauteurCarre;
-	/** Largeur du de chaque carré **/
-	private int largeurCarre;
+	private int largeurDuComposantEnMetre;
+	/** Hauteur de chaque case (en mètre) **/
+	private int hauteurCase;
+	/** Largeur du de chaque case (en mètre) **/
+	private int largeurCase;
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
-	private int nbCarre = 15;
+	private int nbCase = 15;
 	/**
 	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
 	 **/
@@ -68,7 +69,7 @@ public class Grille extends JPanel {
 	 * Contient la tuile sélectionnée dans les boutons du panneau du mode éditeur
 	 **/
 	private Tuile tuile;
-	/** Tuile qui conrespond à celui dans le tableau des emplacements **/
+	/** Tuile qui correspond à celle dans le tableau des emplacements **/
 	private Tuile tuileTableau;
 	/**
 	 * Tuile temporaire qui sauvegarde la tuile sélectionnée avec ses propriétés
@@ -128,7 +129,7 @@ public class Grille extends JPanel {
 				} else {
 					setCursor(new Cursor(Cursor.HAND_CURSOR));
 				}
-				dessinerCarre(e.getX(), e.getY());
+				dessinerCase(e.getX(), e.getY());
 				repaint();
 
 			}
@@ -150,7 +151,7 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui dessine de la grille et de ses composantes
+	 * Méthode qui dessine la grille et ses composantes
 	 * 
 	 * @param g2d Contexte graphique
 	 * 
@@ -159,10 +160,10 @@ public class Grille extends JPanel {
 	public void dessiner(Graphics2D g2d) {
 		if (premiereFois) {
 
-			tabEmplacement = new Tuile[nbCarre][nbCarre];
-			hauteur = this.getHeight();
-			largeur = this.getWidth();
-			dimensionCarre();
+			tabEmplacement = new Tuile[nbCase][nbCase];
+			hauteurDuComposantEnMetre = this.getHeight();
+			largeurDuComposantEnMetre = this.getWidth();
+			dimensionCase();
 			dessinerGrille();
 
 			premiereFois = false;
@@ -197,37 +198,37 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui détermine la grandeur de chaque carré et qui crée le carré
+	 * Méthode qui détermine la grandeur de chaque case et qui crée le case
 	 * conrespondant
 	 */
 	// Giroux
-	private void dimensionCarre() {
-		hauteurCarre = (hauteur / nbCarre);
-		largeurCarre = (largeur / nbCarre);
-		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCarre, hauteurCarre);
-		System.out.println(largeurCarre);
-		System.out.println(hauteurCarre);
+	private void dimensionCase() {
+		hauteurCase = (hauteurDuComposantEnMetre / nbCase);
+		largeurCase = (largeurDuComposantEnMetre / nbCase);
+		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCase, hauteurCase);
+		System.out.println(largeurCase);
+		System.out.println(hauteurCase);
 
 	}// Fin méthode
 
 	/**
-	 * Méthode qui dessine le rectangle selon l'emplacement passée en paramètre
+	 * Méthode qui dessine la tuile à l'emplacement passée en paramètre
 	 * 
 	 * @param posX Position x de l'emplacement
 	 * @param posY Position y de l'emplacement
 	 */
 	// Giroux
-	private void dessinerCarre(double posX, double posY) {
+	private void dessinerCase(double posX, double posY) {
 
-		for (int i = 0; i < nbCarre; i++) {
-			if (posY >= i * hauteurCarre && posY < ((i + 1) * hauteurCarre)) {
-				for (int j = 0; j < nbCarre; j++) {
-					if (posX >= j * largeurCarre && posX < ((j + 1) * largeurCarre)) {
-						emplacementActuel.setFrame(largeurCarre * j, hauteurCarre * i, largeurCarre, hauteurCarre);
+		for (int i = 0; i < nbCase; i++) {
+			if (posY >= i * hauteurCase && posY < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCase; j++) {
+					if (posX >= j * largeurCase && posX < ((j + 1) * largeurCase)) {
+						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
 						if (!supprimer && tuile != null) {
-							tuile.redimensionnerImage((int) hauteurCarre, (int) largeurCarre);
-							tuile.setX((int) largeurCarre * j);
-							tuile.setY((int) hauteurCarre * i);
+							tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
+							tuile.setX((int) largeurCase * j);
+							tuile.setY((int) hauteurCase * i);
 						}
 						if (tabEmplacement[i][j] != null) {
 							placePrise = true;
@@ -251,12 +252,12 @@ public class Grille extends JPanel {
 	private void dessinerGrille() {
 		quadVerti = new Path2D.Double();
 		quadHori = new Path2D.Double();
-		for (int i = 0; i < nbCarre + 1; i++) {
-			quadHori.moveTo(0, i * hauteurCarre);
-			quadHori.lineTo(largeur, i * hauteurCarre);
-			for (int j = 0; j < nbCarre + 1; j++) {
-				quadVerti.moveTo(j * largeurCarre, 0);
-				quadVerti.lineTo(j * largeurCarre, hauteur);
+		for (int i = 0; i < nbCase + 1; i++) {
+			quadHori.moveTo(0, i * hauteurCase);
+			quadHori.lineTo(largeurDuComposantEnMetre, i * hauteurCase);
+			for (int j = 0; j < nbCase + 1; j++) {
+				quadVerti.moveTo(j * largeurCase, 0);
+				quadVerti.lineTo(j * largeurCase, hauteurDuComposantEnMetre);
 			}
 
 		}
@@ -278,13 +279,13 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui change le nombre de carré par ligne
+	 * Méthode qui change le nombre de case par ligne
 	 * 
-	 * @param nouvNbCarre Le nouveau nombre de carré par ligne et colonne
+	 * @param nouvNbCase Le nouveau nombre de case par ligne et colonne
 	 */
 	// Giroux
-	public void changerQttCarre(int nouvNbCarre) {
-		this.nbCarre = nouvNbCarre;
+	public void changerQttCase(int nouvNbCase) {
+		this.nbCase = nouvNbCase;
 		premiereFois = true;
 		drapeau = false;
 		vaisseau = false;
@@ -297,17 +298,17 @@ public class Grille extends JPanel {
 	 */
 	// Giroux
 	private void sauvegarderEmplacement() {
-		for (int i = 0; i < nbCarre; i++) {
-			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
-				for (int j = 0; j < nbCarre; j++) {
-					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
+		for (int i = 0; i < nbCase; i++) {
+			if (clique.getY() >= i * hauteurCase && clique.getY() < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCase; j++) {
+					if (clique.getX() >= j * largeurCase && clique.getX() < ((j + 1) * largeurCase)) {
 						clonerTuile();
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
 							break;
 						}
 
-						tuileTemp.setX((int) largeurCarre * j);
-						tuileTemp.setY((int) hauteurCarre * i);
+						tuileTemp.setX((int) largeurCase * j);
+						tuileTemp.setY((int) hauteurCase * i);
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
@@ -365,9 +366,9 @@ public class Grille extends JPanel {
 	 */
 	// Giroux
 	private void afficherTab() {
-		for (int i = 0; i < nbCarre; i++) {
+		for (int i = 0; i < nbCase; i++) {
 			System.out.print("\n");
-			for (int j = 0; j < nbCarre; j++) {
+			for (int j = 0; j < nbCase; j++) {
 				if (tabEmplacement[i][j] == null) {
 					System.out.print(tabEmplacement[i][j]);
 				} else {
@@ -386,9 +387,9 @@ public class Grille extends JPanel {
 	 * @param g2d contexte graphique
 	 */
 	// Giroux
-	private void dessinerTuile(Graphics2D g2d) {
-		for (int i = 0; i < nbCarre; i++) {
-			for (int j = 0; j < nbCarre; j++) {
+	public void dessinerTuile(Graphics2D g2d) {
+		for (int i = 0; i < nbCase; i++) {
+			for (int j = 0; j < nbCase; j++) {
 				tuileTableau = tabEmplacement[i][j];
 				if (tuileTableau != null) {
 					tuileTableau.dessiner(g2d);
@@ -399,13 +400,13 @@ public class Grille extends JPanel {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui retourne la quantité de carré dans la grille
+	 * Méthode qui retourne la quantité de case dans la grille
 	 * 
-	 * @return La qtt de carré dans la grille
+	 * @return La qtt de case dans la grille
 	 */
 	// Giroux
-	public int getNbCarre() {
-		return nbCarre;
+	public int getNbCase() {
+		return nbCase;
 	}// Fin méthode
 
 	/**
@@ -413,8 +414,8 @@ public class Grille extends JPanel {
 	 */
 	// Giroux
 	public void reinitialiser() {
-		for (int i = 0; i < nbCarre; i++) {
-			for (int j = 0; j < nbCarre; j++) {
+		for (int i = 0; i < nbCase; i++) {
+			for (int j = 0; j < nbCase; j++) {
 				tabEmplacement[i][j] = null;
 			}
 		}
@@ -442,10 +443,10 @@ public class Grille extends JPanel {
 	 */
 	// Giroux
 	public void supprimerCase() {
-		for (int i = 0; i < nbCarre; i++) {
-			if (clique.getY() >= i * hauteurCarre && clique.getY() < ((i + 1) * hauteurCarre)) {
-				for (int j = 0; j < nbCarre; j++) {
-					if (clique.getX() >= j * largeurCarre && clique.getX() < ((j + 1) * largeurCarre)) {
+		for (int i = 0; i < nbCase; i++) {
+			if (clique.getY() >= i * hauteurCase && clique.getY() < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCase; j++) {
+					if (clique.getX() >= j * largeurCase && clique.getX() < ((j + 1) * largeurCase)) {
 
 						if (tabEmplacement[i][j] == null) {
 							break;

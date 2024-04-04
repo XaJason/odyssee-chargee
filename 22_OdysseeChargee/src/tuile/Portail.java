@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
+import utilitaires.OutilsImage;
+
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme un portail
  * 
@@ -64,13 +66,22 @@ public class Portail extends Tuile implements Serializable {
 	}
 
 	/**
+	 * Retourne l'image représentant le portail
+	 * @return L'image représentant le portail
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Image getImageRef() {
+		return image;
+	}
+	
+	/**
 	 * Définit l'image représentant le portail
 	 * 
 	 * @param imageRef l'image représentant le portail
 	 */
 	// Jason Xa
-	public static void setImageRef(Image imageRef) {
-		Portail.image = imageRef;
+	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print

@@ -43,7 +43,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	/** l'image représentant la tuile */
 	private transient Image image;
 	/** Image redimensionnée de la tuile **/
-	protected Image imageRedi;
+	protected transient Image imageRedi;
 
 	/** chaine de caractères représentant le type de la tuile */
 	protected String type;
@@ -140,6 +140,9 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		if (image == null) {
+		setImageRefTuile();
+		}
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
 
@@ -239,6 +242,40 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		}
 	}
 
+	/**
+	 * Lit, redimensionne et définit l'image pour chaque type de tuile si l'image n'a pas été chargé
+	 * Soit, après avoir chargé un fichier binaire sans image
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void setImageRefTuile() {
+		if (image == null) {
+
+			switch (type) {
+			case "Carré":
+				image = Carre.getImageRef();
+				break;
+			case "Drapeau":
+				image = Drapeau.getImageRef();
+				break;
+			case "Pics":
+				image = Pics.getImageRef();
+				break;
+			case "Portail":
+				image = Portail.getImageRef();
+				break;
+			case "Triangle équilatéral":
+				image = TriangleEquilateral.getImageRef();
+				break;
+			case "Triangle rectangle":
+				image = TriangleRectangle.getImageRef();
+				break;
+			case "Vaisseau":
+				image = VaisseauImage.getImageRef();
+				break;
+			}//fin switch/case
+		}//fin if
+	}//fin méthode
+	
 	/**
 	 * Méthode qui change l'image actuelle par une nouvelle
 	 * 

@@ -60,14 +60,14 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	//Kitimir Yim
 	public void actualiserNiveaux() {
-		removeAll(); // Supprimer tous les composants existants
+		//removeAll(); // Supprimer tous les composants existants
 
 		ArrayList<Niveau> niveaux = GestionnaireDeNiveau.getRepertoireNiveau();
 
 
 		int yPosition = 50;
 		for (Niveau niveau : niveaux) {
-			JButton btnNiveau = new JButton(niveau.getNomNiveau());
+			JButton btnNiveau = new JButton(niveau.getNom());
 			btnNiveau.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					PCS.firePropertyChange("niveauSelectionne", null, niveau); 

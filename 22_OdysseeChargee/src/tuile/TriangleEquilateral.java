@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
+import utilitaires.OutilsImage;
+
 /**
  * Représente l'objet fixe plaçable en forme de triangle équilatéral (pointant
  * vers le haut par défaut)
@@ -63,15 +65,24 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	}
 
 	/**
+	 * Retourne l'image représentant le triangle équilatéral
+	 * @return L'image représentant le triangle équilatéral
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Image getImageRef() {
+		return image;
+	}
+	
+	/**
 	 * Définit l'image représentant le triangle équilatéral
 	 * 
 	 * @param imageRef l'image représentant le triangle équilatéral
 	 */
 	// Jason Xa
-	public static void setImageRef(Image imageRef) {
-		TriangleEquilateral.image = imageRef;
+	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
-
+	
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
 	 * 

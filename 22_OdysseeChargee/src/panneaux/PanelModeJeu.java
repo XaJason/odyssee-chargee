@@ -15,7 +15,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import dessin.ZoneAnimationPhysiqueTest;
+import dessin.ZoneAnimationPhysique;
 
 /**
  * Panel du mode de jeu
@@ -30,7 +30,7 @@ public class PanelModeJeu extends JPanel {
 	private static final long serialVersionUID = 7125958637120092540L;
 
 	/** Zone d'animation physique utilisée pour les tests */
-	private ZoneAnimationPhysiqueTest zoneAnimationPhysiqueTest;
+	private ZoneAnimationPhysique zoneAnimationPhysique;
 	
 	/** Bouton pour démarrer l'animation */
 	private JButton btnDemarrer;
@@ -81,7 +81,7 @@ public class PanelModeJeu extends JPanel {
 	// Kitimir Yim
 	public PanelModeJeu() {
 		setLayout(null);
-
+		
 		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
 
@@ -101,9 +101,9 @@ public class PanelModeJeu extends JPanel {
 		lblGravite.setBounds(10, 155, 120, 26);
 		panelEntree.add(lblGravite);
 
-		JLabel lblChargePlaque = new JLabel("Charge Plaque (Coulombs) :");
-		lblChargePlaque.setBounds(10, 225, 180, 26);
-		panelEntree.add(lblChargePlaque);
+		JLabel lblChargePlaques = new JLabel("Charge Plaques (Coulombs) :");
+		lblChargePlaques.setBounds(10, 225, 180, 26);
+		panelEntree.add(lblChargePlaques);
 
 		JLabel lblCoefFrotStat = new JLabel("Coefficient de frottement statique :");
 		lblCoefFrotStat.setBounds(10, 295, 197, 26);
@@ -113,7 +113,7 @@ public class PanelModeJeu extends JPanel {
 		lblCoefFrotCine.setBounds(10, 365, 197, 26);
 		panelEntree.add(lblCoefFrotCine);
 		
-		creerBoutonsDAnimation();
+		creerZoneAnimationPhysiqueEtBoutonsDAnimation();
 		lierTourniquetsAvecNiveau();
 		
 		JPanel panelSortie = new JPanel();
@@ -189,19 +189,29 @@ public class PanelModeJeu extends JPanel {
 	}
 	
 	/**
-	 * Créer et placer les boutons d'animation sur le panneau mode jeu
+	 * Modifie le niveau de la zone d'animation physique
+	 * @param nomNiveau Le nom du niveau
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void creerBoutonsDAnimation() {
-		zoneAnimationPhysiqueTest = new ZoneAnimationPhysiqueTest();
-		zoneAnimationPhysiqueTest.setBounds(29, 31, 1232, 617);
-		add(zoneAnimationPhysiqueTest);
+	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
+		zoneAnimationPhysique.setNiveau(nomNiveau);
+	}
+	
+	/**
+	 * Créer la zone d'animation physique et
+	 * les boutons d'animation sur le panneau mode jeu
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
+		zoneAnimationPhysique = new ZoneAnimationPhysique();
+		zoneAnimationPhysique.setBounds(29, 31, 1232, 617);
+		add(zoneAnimationPhysique);
 		
 		btnDemarrer = new JButton("Démarrer");
 		btnDemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.demarrer();
+				zoneAnimationPhysique.demarrer();
 				btnProchaineImage.setEnabled(false);
 				btnDemarrer.setEnabled(false);
 				// fin
@@ -214,7 +224,7 @@ public class PanelModeJeu extends JPanel {
 		btnArreter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.arreter();
+				zoneAnimationPhysique.arreter();
 				btnProchaineImage.setEnabled(true);
 				btnDemarrer.setEnabled(true);
 				// fin
@@ -227,7 +237,7 @@ public class PanelModeJeu extends JPanel {
 		btnRedemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.recommencer();
+				zoneAnimationPhysique.recommencer();
 				btnProchaineImage.setEnabled(true);
 				btnDemarrer.setEnabled(true);
 				// fin
@@ -240,7 +250,7 @@ public class PanelModeJeu extends JPanel {
 		btnProchaineImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.prochaineImage();
+				zoneAnimationPhysique.prochaineImage();
 				// fin
 			}
 		});
@@ -268,11 +278,11 @@ public class PanelModeJeu extends JPanel {
 		spnMasseVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.setMasseVaisseau((double) spnMasseVaisseau.getValue());
+				zoneAnimationPhysique.setMasseVaisseau((double) spnMasseVaisseau.getValue());
 				// fin
 			}
 		});
-		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getMasseVaisseau(), 0.01, 10.0, 0.01));
+		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseVaisseau(), 0.01, 10.0, 0.01));
 		spnMasseVaisseau.setBounds(206, 11, 160, 35);
 		panelEntree.add(spnMasseVaisseau);
 
@@ -280,11 +290,11 @@ public class PanelModeJeu extends JPanel {
 		spnChargeVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.setChargeVaisseau((double) spnChargeVaisseau.getValue());
+				zoneAnimationPhysique.setChargeVaisseau((double) spnChargeVaisseau.getValue());
 				// fin
 			}
 		});
-		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getChargeVaisseau(), -50.0, 50.0, 1.0));
+		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeVaisseau(), -50.0, 50.0, 1.0));
 		spnChargeVaisseau.setBounds(206, 81, 160, 35);
 		panelEntree.add(spnChargeVaisseau);
 
@@ -296,11 +306,11 @@ public class PanelModeJeu extends JPanel {
 		spnChargePlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.setChargePlaque((double) spnChargePlaque.getValue());
+				zoneAnimationPhysique.setChargeDesPlaques((double) spnChargePlaque.getValue());
 				// fin
 			}
 		});
-		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getChargePlaque(), -50.0, 50.0, 1.0));
+		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeDesPlaques(), -50.0, 50.0, 1.0));
 		spnChargePlaque.setBounds(206, 221, 160, 35);
 		panelEntree.add(spnChargePlaque);
 
@@ -318,11 +328,11 @@ public class PanelModeJeu extends JPanel {
 		spnDeltaT.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
-				zoneAnimationPhysiqueTest.setDeltaT((double) spnDeltaT.getValue());
+				zoneAnimationPhysique.setDeltaT((double) spnDeltaT.getValue());
 				// fin
 			}
 		});
-		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysiqueTest.getDeltaT(), 0.001, 0.1, 0.001));
+		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getDeltaT(), 0.001, 0.1, 0.001));
 		
 		JLabel lblDeltaT = new JLabel("Pas de simulation :");
 		lblDeltaT.setBounds(10, 437, 180, 23);
@@ -333,25 +343,13 @@ public class PanelModeJeu extends JPanel {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void reinitialiserZoneAnimation() {
-		zoneAnimationPhysiqueTest.reinitialiser();
+		zoneAnimationPhysique.reinitialiser();
 		btnProchaineImage.setEnabled(true);
 		btnDemarrer.setEnabled(true);
 
-//		spnDeltaT.setValue(zoneAnimationPhysiqueTest.getDeltaTInitial());
-//
-//		spnRayonVaisseau.setValue(zoneAnimationPhysiqueTest.getRayonInitialVaisseau());
-//		spnChargeVaisseau.setValue(zoneAnimationPhysiqueTest.getChargeInitialeVaisseau());
-//		spnMasseVaisseau.setValue(zoneAnimationPhysiqueTest.getMasseInitialeVaisseau());
-//		spnPosVaisseauX.setValue(zoneAnimationPhysiqueTest.getPosInitialeVaisseauEnX());
-//		spnPosVaisseauY.setValue(zoneAnimationPhysiqueTest.getPosinitialeVaisseauEnY());
-//		spnVitVaisseauX.setValue(zoneAnimationPhysiqueTest.getVitInitialeVaisseauX());
-//		spnVitVaisseauY.setValue(zoneAnimationPhysiqueTest.getVitInitialeVaisseauY());
-//
-//		spnLongueurPlaque.setValue(zoneAnimationPhysiqueTest.getLongueurPlaqueInitiale());
-//		spnChargePlaque.setValue(zoneAnimationPhysiqueTest.getChargeInitialePlaque());
-//		spnPosPlaqueX.setValue(zoneAnimationPhysiqueTest.getPosInitialePlaqueEnX());
-//		spnPosPlaqueY.setValue(zoneAnimationPhysiqueTest.getPosInitialePlaqueEnY());
-//		spnNormalePlaqueX.setValue(zoneAnimationPhysiqueTest.getNormaleInitialePlaqueComposanteX());
-//		spnNormalePlaqueY.setValue(zoneAnimationPhysiqueTest.getNormaleInitialePlaqueComposanteY());
+		spnDeltaT.setValue(zoneAnimationPhysique.getDeltaTInitial());
+		spnChargeVaisseau.setValue(zoneAnimationPhysique.getChargeInitialeVaisseau());
+		spnMasseVaisseau.setValue(zoneAnimationPhysique.getMasseInitialeVaisseau());
+		spnChargePlaque.setValue(zoneAnimationPhysique.getChargeInitialePlaque());
 	}// fin methode reinitialiserZoneAnimation
 }

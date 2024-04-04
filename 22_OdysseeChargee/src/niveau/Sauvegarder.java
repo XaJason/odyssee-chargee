@@ -65,12 +65,12 @@ public class Sauvegarder {
 	/**
 	 * Méthode static permettant le chargement de niveau
 	 * 
-	 * @param numeroNiveau numéro du niveau
-	 * @return niveau niveau que l'on souhaite charger
+	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son nom)
+	 * @return niveau Le niveau que l'on souhaite charger
 	 */
 	// Kitimir Yim
-	public static Niveau chargerNiveau(String numeroNiveau) {
-		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
+	public static Niveau chargerNiveau(String identifiantNiveau) {
+		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + identifiantNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
 
@@ -79,11 +79,6 @@ public class Sauvegarder {
 			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
 
 			Niveau niveau = (Niveau) ois.readObject();
-			
-
-				
-				
-			
 
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;

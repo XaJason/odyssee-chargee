@@ -5,6 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
+import utilitaires.OutilsImage;
+
 /**
  * Représente l'objet fixe plaçable en forme de triangle rectangle (coin en bas
  * à gauche par défaut)
@@ -63,13 +65,22 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	}
 
 	/**
+	 * Retourne l'image représentant le triangle rectangle
+	 * @return L'image représentant le triangle rectangle
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Image getImageRef() {
+		return image;
+	}
+	
+	/**
 	 * Définit l'image représentant le triangle rectangle
 	 * 
 	 * @param imageRef l'image représentant le triangle rectangle
 	 */
 	// Jason Xa
-	public static void setImageRef(Image imageRef) {
-		TriangleRectangle.image = imageRef;
+	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
 
 	/**

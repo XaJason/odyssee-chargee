@@ -325,7 +325,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(compteur < MAX_NIVEAUX) {
 					String nom = JOptionPane.showInputDialog("Veuillez entrer un nom de niveau :");
-					Niveau niveauParDefaut = new Niveau(grille.getTableau(), nom);
+					Niveau niveauParDefaut = new Niveau(grille, nom);
 					sauvegarder(niveauParDefaut);
 					compteur++;
 				}else {	
@@ -421,29 +421,6 @@ public class PanelModeEditeur extends JPanel {
 		lblActions.setBounds(64, 458, 85, 13);
 		add(lblActions);
 
-		JButton btnChargement = new JButton("Charger test");
-		btnChargement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				charger();
-
-			}
-
-		});
-		btnChargement.setBounds(166, 20, 85, 21);
-		add(btnChargement);
-
-	}
-
-	/**
-	 * Charge le niveau test
-	 */
-	//Kitimir Yim
-	private void charger() {
-		Niveau charger = Sauvegarder.chargerNiveau("test");
-
-		grille.setTableau(charger.getTabEmplacement());
-		grille.repaint();
-
 	}
 
 	/**
@@ -455,7 +432,7 @@ public class PanelModeEditeur extends JPanel {
 	private void sauvegarder(Niveau niveau) {
 
 		GestionnaireDeNiveau.ajouter(niveau);
-		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNomNiveau());
+		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNom());
 		PCS.firePropertyChange("niveauCree", null, niveau);
 	}
 

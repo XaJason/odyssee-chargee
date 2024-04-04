@@ -1,0 +1,435 @@
+package dessin;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
+import javax.swing.JPanel;
+
+import interactif.Vaisseau;
+import niveau.Niveau;
+import niveau.Sauvegarder;
+import physique.MoteurPhysique;
+import physique.Vecteur2D;
+
+/**
+ * Composant illustrant la simulation :
+ * La scène physique où sont représentés les objets intéractifs physique ainsi que le niveau et ses tuiles
+ *
+ * @author Enuel René Valentin Kizozo Izia
+ * 
+ */
+public class ZoneAnimationPhysique extends JPanel implements Runnable {
+
+	// PROPRIÉTÉS //
+	/** Numéro d'identification pour la sérialisation **/
+	private static final long serialVersionUID = -8878846015876118047L;
+	/** Largeur du niveau (en mètre) **/
+	private double largeurDuComposantEnMetres = 1500.0;
+	/** Hauteur du niveau (en mètre) **/
+	private double hauteurDuComposantEnMetres = 750.0;
+
+	/** Pas de simulation initial (en seconde) **/
+	private final double DELTA_T_INITIAL = 0.05;
+	/** Pas de simulation (en seconde) **/
+	private double deltaT = DELTA_T_INITIAL;
+	/** Temps total écoulé, simulé (en seconde) **/
+	private double tempsTotalEcoule = 0;
+	/** Temps de la pause du thread d'animation (en milliseconde) **/
+	private int tempsDuSleep = 50;
+	/** Booléen permettant de savoir si l'animation est en cours **/
+	private boolean enCoursDAnimation = false;
+	/** Booléan indiquant si c'est la première fois. **/
+	private boolean premiereFois = true;
+	/** Nombre de pixels par mètre. **/
+	private double pixelsParMetre;
+	/** Vecteur nul **/
+	private final Vecteur2D VEC_ZERO = new Vecteur2D();
+	
+	// Caractéristiques du niveau
+	/** Objet représentant la grille ainsi que toutes ses tuiles **/
+	private Niveau niveau;
+	/** Charge initiale des plaques du niveau (en Coulomb) **/
+	private final double CHARGE_INITIALE_DES_PLAQUES = 20;
+	/** Charge des plaques du niveau (en Coulomb) **/
+	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
+	
+	// Caractéristiques du vaisseau (Constantes)
+	/** Charge initiale du vaisseau (en Coulomb) **/
+	private final double CHARGE_INITIALE_VAISSEAU = -5;
+	/** Masse initiale du vaisseau (en kilogramme) **/
+	private final double MASSE_INITIALE_VAISSEAU = 0.020;
+	/** Composante en X de la position initiale du vaisseau (en mètre) **/
+	private final double POS_INITIALE_VAISSEAU_EN_X = 10; //Emplacement en x de la tuile du vaisseau image
+	/** Composante en Y de la position initiale du vaisseau (en mètre) **/
+	private final double POS_INITIALE_VAISSEAU_EN_Y = 50; //Emplacement en y de la tuile du vaisseau image
+	
+	// Caractéristiques du vaisseau
+	/** Objet représentant le vaisseau **/
+	private Vaisseau vaisseau;
+	/** Charge du vaisseau (en Coulomb) **/
+	private double chargeVaisseau = CHARGE_INITIALE_VAISSEAU;
+	/** Masse du vaisseau (en kilogramme) **/
+	private double masseVaisseau = MASSE_INITIALE_VAISSEAU;
+	/** Composante en X de la position du vaisseau (en mètre) **/
+	private double posDeSauvegardeX = POS_INITIALE_VAISSEAU_EN_X;
+	/** Composante en Y de la position du vaisseau (en mètre) **/
+	private double posDeSauvegardeY = POS_INITIALE_VAISSEAU_EN_Y;
+	/** Vecteur position du vaisseau (en mètre) **/
+	private Vecteur2D posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
+//	/** Vecteur vitesse du vaisseau (en m/s) **/
+//	private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
+//	/** Vecteur accélération du vaisseau (en m/s^2) **/
+//	private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
+	
+	/**
+	 * Constructeur de la zone d'animation physique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public ZoneAnimationPhysique() {
+		setBackground(Color.lightGray);
+		setBounds(29, 31, 1232, 617);
+		
+		niveau = Sauvegarder.chargerNiveau("niveau1"); //charger le niveau par défaut éventuellement
+		//définir la position initial du vaisseau à l'aide de son emplacement dans le niveau (sa tuile)
+		vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau);
+	}
+	
+
+	// SOUS-PROGRAMMES //
+	/**
+	 * Permet de dessiner des objets sur le composant
+	 * 
+	 * @param g Le contexte graphique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		// Transformations affines pour que l'origine soit en bas à droite
+		//g2d.translate(0, getHeight());
+		//g2d.scale(1, -1);
+
+		if (premiereFois) {
+			pixelsParMetre = getWidth() / largeurDuComposantEnMetres;
+			hauteurDuComposantEnMetres = getHeight() / pixelsParMetre;
+
+			vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
+
+			premiereFois = false;
+		} // fin condition dans paintComponent
+
+		g2d.scale(pixelsParMetre, pixelsParMetre);
+		dessinerNiveau(g2d);
+		//dessinerVaisseau(g2d);
+	}
+
+	/**
+	 * Permet de dessiner le niveau
+	 * 
+	 * @param g2d Le contexte graphique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void dessinerNiveau(Graphics2D g2d) {
+		niveau.getGrille().dessinerTuile(g2d);
+	}
+	
+	/**
+	 * Permet de dessiner le vaisseau
+	 * 
+	 * @param g2d Le contexte graphique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void dessinerVaisseau(Graphics2D g2d) {
+		//vaisseau.setPixelsParMetre(pixelsParMetre);
+		vaisseau.dessiner(g2d);
+	}
+	
+	/**
+	 * Permet d'effectuer l'animation
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void run() {
+		while (enCoursDAnimation) {
+			System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
+			calculerUneIterationPhysique(deltaT);
+			testerCollisionsEtAjusterVitesses();
+			repaint();
+			try {
+				Thread.sleep(tempsDuSleep);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		} // fin while
+		System.out.println("Le thread est mort...!");
+	}
+
+	/**
+	 * Calcul de la nouvelle position du vaisseau
+	 * 
+	 * @param deltaT Le pas de simulation
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void calculerUneIterationPhysique(double deltaT) {
+		tempsTotalEcoule += deltaT;
+		System.out.println("Temps total écoulé: " + String.format("%.3f", tempsTotalEcoule) + "sec (en temps simulé!)");
+
+		//Vecteur2D forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, plaqueRouge);
+		Vecteur2D forceGrav = MoteurPhysique.calculForceGrav(vaisseau.getMasse());
+		/*
+		 * Éventuellement il faudra initialiser
+		 * les forces de frottement (statique et cinétique)
+		 * les forces d'autres plaques
+		 */
+
+		//vaisseau.setSommeDesForces(forceElec.additionne(forceGrav));
+		vaisseau.setSommeDesForces(forceGrav);
+		vaisseau.avancerUnPas(deltaT);
+
+		// System.out.println("Temps total écoulé: " +
+		// String.format("%.3f",tempsTotalEcoule) + "sec (en temps simulé!)");
+		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
+		//System.out.println("La plaque rouge : " + plaqueRouge.toString(3));
+		System.out.println(" ");
+	}
+
+	/**
+	 * Teste si des objets de la scene sont en collision.
+	 * Si oui : on calcule les rebonds et on en déduit les nouvelles vitesses.
+	 * Lors du prochain pas, ces nouvelles vitesses entrainent les objets dans de
+	 * nouvelles directions.
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void testerCollisionsEtAjusterVitesses() {
+		/*
+		 * Éventuellement, faire une boucle pour vérifier toutes les instances (murs,
+		 * plaques, sol) avec lesquelles le vaisseau
+		 * pourrait entrer en collision
+		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
+		 */
+		//vaisseau.gererCollisionAvecPlaque(plaqueRouge);
+		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
+	}
+
+	/**
+	 * Démarre le thread s'il n'est pas deja demarré
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void demarrer() {
+		if (!enCoursDAnimation) {
+			Thread proc = new Thread(this);
+			proc.start();
+			enCoursDAnimation = true;
+		}
+	}
+
+	/**
+	 * Cause la fin du thread
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void arreter() {
+		enCoursDAnimation = false;
+	}// fin methode
+
+	/**
+	 * Permet d'avancer d'une image
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void prochaineImage() {
+		enCoursDAnimation = false;
+		System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
+		calculerUneIterationPhysique(deltaT);
+		// repaint();
+		testerCollisionsEtAjusterVitesses();
+		repaint();
+	}// fin methode prochaineImage
+
+	/**
+	 * Permet de repositioner le vaisseau à son dernier point de sauvegarde s'il est tué
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void recommencer() {
+		vaisseau.setCharge(chargeVaisseau);
+		vaisseau.setMasse(masseVaisseau);
+		vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
+		vaisseau.setVitesse(VEC_ZERO);
+		vaisseau.setAccel(VEC_ZERO);
+		vaisseau.setSommeDesForces(VEC_ZERO);
+
+		// Désactiver les plaques chargées (charge neutre)
+		
+		// À gérer plus tard si l'utilisateur fait n'importe nawak
+		try {
+			//plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		enCoursDAnimation = false;
+		premiereFois = true;
+		tempsTotalEcoule = 0;
+
+		repaint();
+	}
+
+	/**
+	 * Permet de réinitialiser l'application
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void reinitialiser() {
+		vaisseau.setCharge(CHARGE_INITIALE_VAISSEAU);
+		vaisseau.setMasse(MASSE_INITIALE_VAISSEAU);
+		vaisseau.setPosition(new Vecteur2D(POS_INITIALE_VAISSEAU_EN_X, POS_INITIALE_VAISSEAU_EN_Y));
+		vaisseau.setVitesse(VEC_ZERO);
+		vaisseau.setAccel(VEC_ZERO);
+		vaisseau.setSommeDesForces(VEC_ZERO);
+
+		//Retirer toutes plaques du niveau
+
+		enCoursDAnimation = false;
+		premiereFois = true;
+		//reinitialiser = true;
+		tempsTotalEcoule = 0;
+
+		repaint();
+	}
+
+	
+	// GETTERS ET SETTERS //
+	/**
+	 * Retourne la charge du vaisseau
+	 * @return La charge du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getChargeVaisseau() {
+		return chargeVaisseau;
+	}
+
+	/**
+	 * Modifie la charge du vaisseau
+	 * @param chargeVaisseau La charge du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setChargeVaisseau(double chargeVaisseau) {
+		this.chargeVaisseau = chargeVaisseau;
+		vaisseau.setCharge(chargeVaisseau);
+		repaint();
+	}
+
+	/**
+	 * Retourne la masse du vaisseau
+	 * @return La masse du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getMasseVaisseau() {
+		return masseVaisseau;
+	}
+
+	/**
+	 * Modifie la masse du vaisseau
+	 * @param masseVaisseau La masse du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setMasseVaisseau(double masseVaisseau) {
+		this.masseVaisseau = masseVaisseau;
+		vaisseau.setMasse(masseVaisseau);
+		repaint();
+	}
+	
+	/**
+	 * Retourne la charge des plaques du niveau
+	 * @return La charge des plaques du niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getChargeDesPlaques() {
+		return chargeDesPlaques;
+	}
+
+	/**
+	 * Modifie la charge de la plaque
+	 * @param chargePlaque La charge de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setChargeDesPlaques(double chargePlaques) {
+		this.chargeDesPlaques = chargePlaques;
+		//plaqueRouge.setCharge(chargePlaques); Changer la charge de toutes les plaques du niveau
+		repaint();
+	}
+	
+	/**
+	 * Retourne la valeur du pas de simulation (deltaT)
+	 * @return La pas de simulation (deltaT)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getDeltaT() {
+		return deltaT;
+	}
+
+	/**
+	 * Modifie la valeur du pas de simulation (deltaT)
+	 * @param deltaT Le nouveau pas de simulation
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setDeltaT(double deltaT) {
+		this.deltaT = deltaT;
+	}
+	
+	/**
+	 * Retourne le niveau
+	 * @return Le niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Niveau getNiveau() {
+		return niveau;
+	}
+
+	/**
+	 * Modifie le niveau en y chargeant un nouveau niveau
+	 * @param niveau Le niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setNiveau(String nomNiveau) {
+		this.niveau = Sauvegarder.chargerNiveau(nomNiveau);
+		repaint();
+	}
+	
+	
+	// GETTERS DE CERTAINES CONSTANTES //
+	/**
+	 * Retourne la charge initiale du vaisseau
+	 * @return La charge initiale du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getChargeInitialeVaisseau() {
+		return CHARGE_INITIALE_VAISSEAU;
+	}
+
+	/**
+	 * Retourne la masse initiale du vaisseau
+	 * @return La masse initiale du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getMasseInitialeVaisseau() {
+		return MASSE_INITIALE_VAISSEAU;
+	}
+	
+	/**
+	 * Retourne la charge initiale de la plaque
+	 * @return La charge initiale de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getChargeInitialePlaque() {
+		return CHARGE_INITIALE_DES_PLAQUES;
+	}
+
+	/**
+	 * Retourne le pas de simulation (deltaT) initial
+	 * @return Le pas de simulation (deltaT) initial
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getDeltaTInitial() {
+		return DELTA_T_INITIAL;
+	}
+}

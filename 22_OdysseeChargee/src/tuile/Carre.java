@@ -4,10 +4,8 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
-import java.util.ArrayList;
 
-import application.AppPrincipale22;
-import math.MatriceRotation;
+import utilitaires.OutilsImage;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
@@ -69,13 +67,24 @@ public class Carre extends Tuile implements Serializable {
 	}
 
 	/**
+	 * Retourne l'image représentant le carré
+	 * 
+	 * @return L'image représentant le carré
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Image getImageRef() {
+		return image;
+	}
+	
+	
+	/**
 	 * Définit l'image représentant le carré
 	 * 
-	 * @param imageRef l'image représentant le carré
+	 * @param fichierImage Le fichier de l'image représentant le carré
 	 */
-	// Jason Xa
-	public static void setImageRef(Image imageRef) {
-		Carre.image = imageRef;
+	// Enuel René Valentin Kizozo Izia
+	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
 
 	/**

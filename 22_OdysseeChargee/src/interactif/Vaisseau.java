@@ -3,10 +3,10 @@ package interactif;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import tuile.Drapeau;
 import utilitaires.Dessinable;
 
 /**
@@ -20,22 +20,22 @@ import utilitaires.Dessinable;
  * 
  * @author Enuel René Valentin Kizozo Izia
  */
-public class Vaisseau extends InteractifPhysique implements Dessinable {
+public class Vaisseau extends InteractifPhysique implements Dessinable, Serializable {
+
+	/**Constante permettant la sérialization de la classe **/
+	private static final long serialVersionUID = -1773798144841043627L;
 
 	// PROPRIÉTÉS //
-	/** Vitesse du vaisseau **/
-	private Vecteur2D vitesse;
-
-	/** Accélération du vaisseau **/
-	private Vecteur2D accel;
-
-	/** Somme des forces appliquée sur le vaisseau **/
+	/** Vitesse du vaisseau (en m/s)**/
+	private Vecteur2D vitesse = new Vecteur2D(0, 0); // par defaut
+	/** Accélération du vaisseau (en m/s^2) **/
+	private Vecteur2D accel = new Vecteur2D(0, 0); // par defaut
+	/** Somme des forces appliquée sur le vaisseau (en Newton) **/
 	private Vecteur2D sommeForces = new Vecteur2D(0, 0); // par defaut
 
-	/** Rayon du vaisseau **/
-	private double rayon;
-
-	/** Masse du vaisseau **/
+	/** Rayon du vaisseau (en mètre) **/
+	private double rayon = 5 ;
+	/** Masse du vaisseau (en kg) **/
 	private double masse;
 	
 	/** Forme servant de primitive pour le vaisseau **/
@@ -43,7 +43,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	// CONSTRUCTEUR //
 	/**
-	 * Constructeur du vaisseau
+	 * Constructeur du vaisseau pour test
 	 * 
 	 * @param position La position du vaisseau
 	 * @param vitesse  La vitesse du vaisseau
@@ -58,6 +58,20 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 		this.vitesse = new Vecteur2D(vitesse);
 		this.accel = new Vecteur2D(accel);
 		this.rayon = rayon;
+		this.masse = masse;
+		creerLaGeometrie();
+	}
+	
+	/**
+	 * Constructeur du vaisseau pour officiel
+	 * 
+	 * @param position La position du vaisseau
+	 * @param charge   La charge du vaisseau
+	 * @param masse    La masse du vaisse
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vaisseau(Vecteur2D position, double charge, double masse) {
+		super(position, charge);
 		this.masse = masse;
 		creerLaGeometrie();
 	}

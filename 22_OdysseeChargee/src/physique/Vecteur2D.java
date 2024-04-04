@@ -1,5 +1,7 @@
 package physique;
 
+import java.io.Serializable;
+
 /**
  * La classe Vecteur permet de realiser les operations de base sur un vecteur
  * Euclidien en deux dimensions (x,y), o� x et y sont les
@@ -15,7 +17,9 @@ package physique;
  * 
  * @author Simon Vézina et Caroline Houle
  */
-public class Vecteur2D {
+public class Vecteur2D implements Serializable {
+	/** Constante permettant la sérialisation de la classe **/
+	private static final long serialVersionUID = 9165560998901811062L;
 	// champs de base
 	/** Tolerance utilisee dans les comparaisons reeles avec zero **/
 	private static final double EPSILON = 1e-10;

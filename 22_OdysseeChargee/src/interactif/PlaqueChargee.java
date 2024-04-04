@@ -3,7 +3,7 @@ package interactif;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 import physique.Vecteur2D;
 import utilitaires.Dessinable;
@@ -14,8 +14,11 @@ import utilitaires.Dessinable;
  * 
  * @author Enuel René Valentin Kizozo Izia
  */
-public class PlaqueChargee extends InteractifPhysique implements Dessinable {
+public class PlaqueChargee extends InteractifPhysique implements Dessinable, Serializable {
 	
+	/** Constante permettant la sérialisation de la classe **/
+	private static final long serialVersionUID = -2406092356655374864L;
+
 	// PROPRIÉTÉS //
 	/** Objet Path2D permettant de représenter la plaque **/
 	private Path2D.Double plaque;
@@ -57,6 +60,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable {
 	 * @param position La position de la plaque
 	 * @param normale  La normale de la plaque
 	 * @param longueur La longueur de la plaque
+	 * @param largeur La largeur de la plaque 
 	 * @param charge   La charge de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia

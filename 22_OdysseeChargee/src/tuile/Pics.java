@@ -7,9 +7,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
-import java.util.ArrayList;
 
-import math.MatriceRotation;
+import utilitaires.OutilsImage;
 
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme une plaque de pics
@@ -69,15 +68,24 @@ public class Pics extends Tuile implements Serializable {
 	public Pics(int x, int y) {
 		super(image, x, y, type);
 	}
-
+	
+	/**
+	 * Retourne l'image représentant les pics
+	 * @return L'image représentant les pics
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Image getImageRef() {
+		return image;
+	}
+	
 	/**
 	 * Définit l'image représentant les pics
 	 * 
 	 * @param imageRef l'image représentant les pics
 	 */
 	// Jason Xa
-	public static void setImageRef(Image imageRef) {
-		Pics.image = imageRef;
+	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
 
 	/**

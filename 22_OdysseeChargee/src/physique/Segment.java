@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 import utilitaires.Dessinable;
 
@@ -12,7 +13,10 @@ import utilitaires.Dessinable;
  * 
  * @author Enuel René Valentin Kizozo Izia
  */
-public class Segment implements Dessinable {
+public class Segment implements Dessinable, Serializable {
+
+	/**Constante permettant la sérialisation de la classe **/
+	private static final long serialVersionUID = 5445463236556642807L;
 
 	// PROPRIÉTÉS //
 	/** Objet Path2D permettant de représenter le segment **/
@@ -44,7 +48,7 @@ public class Segment implements Dessinable {
 	 * @param p1 La coordonnée du second point
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Segment(Point2D p0, Point2D p1) {
+	public Segment(Point2D.Double p0, Point2D.Double p1) {
 		try {
 			extremiteA = new Vecteur2D(p0.getX(), p0.getY());
 			extremiteB = new Vecteur2D(p1.getX(), p1.getY());

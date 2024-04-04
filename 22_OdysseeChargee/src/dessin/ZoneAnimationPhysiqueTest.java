@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
+import niveau.Niveau;
+import niveau.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
 
@@ -199,7 +201,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+		
 		// Transformations affines pour que l'origine soit en bas à droite
 		g2d.translate(0, getHeight());
 		g2d.scale(1, -1);
