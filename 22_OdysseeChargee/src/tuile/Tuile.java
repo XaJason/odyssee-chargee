@@ -353,6 +353,22 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
 	}
+	
+	/**
+	 * Créer les aires de sélection associées aux tuiles triangulaires, pour le carré c'est redéfini dans sa classe
+	 * 
+	 * @param pointMilieu le point milieu de la tuile carrée
+	 */
+	// Jason Xa
+	protected void creerAires(Point2D.Double pointMilieu) {
+
+		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
+		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
+		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(0));
+		
+
+		aires = new Aire[] { aire1, aire2, aire3};
+	}
 
 	/**
 	 * Retourne vrai si le point passé en paramètre fait partie de l'objet

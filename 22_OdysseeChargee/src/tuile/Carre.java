@@ -129,12 +129,12 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	}
 
 	/**
-	 * Créer les aires de sélection associées à la tuile carrée
+	 * Créer les aires de sélection associées à la tuile carrée(redéfini)
 	 * 
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
 	// Jason Xa
-	private void creerAires(Point2D.Double pointMilieu) {
+	protected void creerAires(Point2D.Double pointMilieu) {
 
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
