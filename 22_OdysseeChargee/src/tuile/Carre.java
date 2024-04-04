@@ -6,6 +6,7 @@ import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
 import utilitaires.Aire;
+import utilitaires.Selectionnable;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
@@ -13,7 +14,7 @@ import utilitaires.Aire;
  * @author Jason Xa
  * @author Giroux
  */
-public class Carre extends Tuile implements Serializable {
+public class Carre extends Tuile implements Serializable, Selectionnable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
@@ -33,6 +34,7 @@ public class Carre extends Tuile implements Serializable {
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
+
 
 	/**
 	 * Constructeur
@@ -127,12 +129,12 @@ public class Carre extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Créer les aires de sélection associées à la tuile carrée
+	 * Créer les aires de sélection associées à la tuile carrée(redéfini)
 	 * 
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
 	// Jason Xa
-	private void creerAires(Point2D.Double pointMilieu) {
+	protected void creerAires(Point2D.Double pointMilieu) {
 
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
@@ -141,4 +143,5 @@ public class Carre extends Tuile implements Serializable {
 
 		aires = new Aire[] { aire1, aire2, aire3, aire4 };
 	}
+
 }
