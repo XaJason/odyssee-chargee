@@ -116,7 +116,6 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 		
 		creerAires(pointMilieu);
 	}
-	
-	
 
 }
+
