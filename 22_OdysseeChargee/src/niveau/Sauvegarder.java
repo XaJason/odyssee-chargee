@@ -82,9 +82,6 @@ public class Sauvegarder {
 
 			GestionnaireDeNiveau.ajouter(niveau);
 
-
-
-
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;
 		} catch (IOException | ClassNotFoundException e) {

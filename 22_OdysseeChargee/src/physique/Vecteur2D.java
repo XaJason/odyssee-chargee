@@ -20,9 +20,9 @@ public class Vecteur2D {
 	/** Tolerance utilisee dans les comparaisons reeles avec zero **/
 	private static final double EPSILON = 1e-10;
 	/** Composante x du vecteur 2d **/
-	protected double x; 
+	protected double x;
 	/** Composante y du vecteur 2d **/
-	protected double y; 
+	protected double y;
 
 	/**
 	 * Constructeur representant un vecteur 2d aux composantes nulles
@@ -124,6 +124,7 @@ public class Vecteur2D {
 
 	/**
 	 * Genere une chaine de caractere avec les informations du vecteur
+	 * 
 	 * @return Une chaine de caractere avec les informations du vecteur
 	 */
 	// Simon Vézina et Caroline Houle
@@ -137,7 +138,8 @@ public class Vecteur2D {
 	 * nombre de decimales restreint
 	 * 
 	 * @param nbDecimales Nombre de chiffres significatifs désirés
-	 * @return Une chaine de caractere avec les informations du vecteur, avec un nombre de decimales restreint
+	 * @return Une chaine de caractere avec les informations du vecteur, avec un
+	 *         nombre de decimales restreint
 	 */
 	// Simon Vézina et Caroline Houle
 	public String toString(int nbDecimales) {
@@ -146,8 +148,11 @@ public class Vecteur2D {
 	}
 
 	/**
-	 * Determine si le vecteur courant est égal ou non à un autre vecteur, à EPSILON près
-	 * @param obj L'objet contenant une référence au vecteur auquel on souhait comparé le vecteur courant
+	 * Determine si le vecteur courant est égal ou non à un autre vecteur, à EPSILON
+	 * près
+	 * 
+	 * @param obj L'objet contenant une référence au vecteur auquel on souhait
+	 *            comparé le vecteur courant
 	 * @return return Un booléan indiquant si les vecteurs sont les mêmes
 	 */
 	// Simon Vézina et Caroline Houle
@@ -338,6 +343,5 @@ public class Vecteur2D {
 	public static double prodScalaire(Vecteur2D v1, Vecteur2D v2) {
 		return (v1.prodScalaire(v2));
 	}
-	
 
 }// fin classe Vecteur

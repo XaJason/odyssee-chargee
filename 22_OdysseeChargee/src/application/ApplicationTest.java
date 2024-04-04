@@ -119,20 +119,20 @@ public class ApplicationTest extends JFrame {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ApplicationTest() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //check
-		setBounds(100, 100, 1127, 730); //check
-		panModeJeu = new JPanel(); //check
-		panModeJeu.setBorder(new EmptyBorder(5, 5, 5, 5)); //pas check
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // check
+		setBounds(100, 100, 1127, 730); // check
+		panModeJeu = new JPanel(); // check
+		panModeJeu.setBorder(new EmptyBorder(5, 5, 5, 5)); // pas check
 
-		setContentPane(panModeJeu); //check
-		panModeJeu.setLayout(null); //check
+		setContentPane(panModeJeu); // check
+		panModeJeu.setLayout(null); // check
 
-		//check
+		// check
 		zoneAnimationPhysiqueTest = new ZoneAnimationPhysiqueTest();
 		zoneAnimationPhysiqueTest.setBounds(29, 31, 1046, 314);
 		panModeJeu.add(zoneAnimationPhysiqueTest);
 
-		//check
+		// check
 		btnDemarrer = new JButton("Démarrer");
 		btnDemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,7 +146,7 @@ public class ApplicationTest extends JFrame {
 		btnDemarrer.setBounds(87, 382, 89, 23);
 		panModeJeu.add(btnDemarrer);
 
-		//check
+		// check
 		btnArreter = new JButton("Arrêter");
 		btnArreter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,7 +160,7 @@ public class ApplicationTest extends JFrame {
 		btnArreter.setBounds(263, 382, 89, 23);
 		panModeJeu.add(btnArreter);
 
-		//check
+		// check
 		btnRedemarrer = new JButton("Redémarrer");
 		btnRedemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -174,7 +174,7 @@ public class ApplicationTest extends JFrame {
 		btnRedemarrer.setBounds(680, 382, 129, 23);
 		panModeJeu.add(btnRedemarrer);
 
-		//check
+		// check
 		btnProchaineImage = new JButton("Prochaine image");
 		btnProchaineImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -186,7 +186,7 @@ public class ApplicationTest extends JFrame {
 		btnProchaineImage.setBounds(439, 382, 154, 23);
 		panModeJeu.add(btnProchaineImage);
 
-		//check
+		// check
 		btnReinitialiser = new JButton("Réinitialiser");
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,7 +198,7 @@ public class ApplicationTest extends JFrame {
 		btnReinitialiser.setBounds(896, 382, 129, 23);
 		panModeJeu.add(btnReinitialiser);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnRayonVaisseau = new JSpinner();
 		spnRayonVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -211,12 +211,12 @@ public class ApplicationTest extends JFrame {
 		spnRayonVaisseau.setBounds(193, 468, 54, 20);
 		panModeJeu.add(spnRayonVaisseau);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		JLabel lblRayonVaisseau = new JLabel("Rayon du vaisseau :");
 		lblRayonVaisseau.setBounds(53, 459, 130, 38);
 		panModeJeu.add(lblRayonVaisseau);
 
-		//check
+		// check
 		spnChargeVaisseau = new JSpinner();
 		spnChargeVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -230,17 +230,17 @@ public class ApplicationTest extends JFrame {
 		spnChargeVaisseau.setBounds(193, 499, 54, 20);
 		panModeJeu.add(spnChargeVaisseau);
 
-		//check
+		// check
 		JLabel lblChargeVaisseau = new JLabel("Charge du vaisseau :");
 		lblChargeVaisseau.setBounds(53, 502, 130, 14);
 		panModeJeu.add(lblChargeVaisseau);
 
-		//check
+		// check
 		JLabel lblMasseVaisseau = new JLabel("Masse du vaisseau :");
 		lblMasseVaisseau.setBounds(53, 532, 130, 14);
 		panModeJeu.add(lblMasseVaisseau);
 
-		//check
+		// check
 		spnMasseVaisseau = new JSpinner();
 		spnMasseVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -254,27 +254,27 @@ public class ApplicationTest extends JFrame {
 		spnMasseVaisseau.setBounds(193, 529, 54, 20);
 		panModeJeu.add(spnMasseVaisseau);
 
-		//à gérer en sortie
+		// à gérer en sortie
 		JLabel lblPosVaisseauY = new JLabel("Position initiale en y du vaisseau :");
 		lblPosVaisseauY.setBounds(270, 468, 200, 20);
 		panModeJeu.add(lblPosVaisseauY);
 
-		//à gérer en sortie
+		// à gérer en sortie
 		JLabel lblPosVaisseauX = new JLabel("Position initiale en x du vaisseau :");
 		lblPosVaisseauX.setBounds(270, 442, 200, 14);
 		panModeJeu.add(lblPosVaisseauX);
 
-		//à gérer en sortie
+		// à gérer en sortie
 		JLabel lblVitVaisseauX = new JLabel("Vitesse initiale en x du vaisseau :");
 		lblVitVaisseauX.setBounds(270, 502, 200, 14);
 		panModeJeu.add(lblVitVaisseauX);
 
-		//à gérer en sortie
+		// à gérer en sortie
 		JLabel lblVitVaisseauY = new JLabel("Vitesse initiale en y du vaisseau :");
 		lblVitVaisseauY.setBounds(270, 529, 200, 20);
 		panModeJeu.add(lblVitVaisseauY);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnVitVaisseauY = new JSpinner();
 		spnVitVaisseauY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -287,7 +287,7 @@ public class ApplicationTest extends JFrame {
 		spnVitVaisseauY.setBounds(480, 529, 54, 20);
 		panModeJeu.add(spnVitVaisseauY);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnVitVaisseauX = new JSpinner();
 		spnVitVaisseauX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -300,7 +300,7 @@ public class ApplicationTest extends JFrame {
 		spnVitVaisseauX.setBounds(480, 499, 54, 20);
 		panModeJeu.add(spnVitVaisseauX);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnPosVaisseauY = new JSpinner();
 		spnPosVaisseauY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -314,7 +314,7 @@ public class ApplicationTest extends JFrame {
 		spnPosVaisseauY.setBounds(480, 468, 54, 20);
 		panModeJeu.add(spnPosVaisseauY);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnPosVaisseauX = new JSpinner();
 		spnPosVaisseauX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -328,17 +328,17 @@ public class ApplicationTest extends JFrame {
 		spnPosVaisseauX.setBounds(480, 439, 54, 20);
 		panModeJeu.add(spnPosVaisseauX);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		JLabel lblLongueurPlaque = new JLabel("Longueur de la plaque :");
 		lblLongueurPlaque.setBounds(571, 456, 144, 38);
 		panModeJeu.add(lblLongueurPlaque);
 
-		//check
+		// check
 		JLabel lblChargePlaque = new JLabel("Charge de la plaque :");
 		lblChargePlaque.setBounds(571, 499, 130, 14);
 		panModeJeu.add(lblChargePlaque);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnLongueurPlaque = new JSpinner();
 		spnLongueurPlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -352,7 +352,7 @@ public class ApplicationTest extends JFrame {
 		spnLongueurPlaque.setBounds(711, 465, 54, 20);
 		panModeJeu.add(spnLongueurPlaque);
 
-		//check
+		// check
 		spnChargePlaque = new JSpinner();
 		spnChargePlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -365,27 +365,27 @@ public class ApplicationTest extends JFrame {
 		spnChargePlaque.setBounds(711, 496, 54, 20);
 		panModeJeu.add(spnChargePlaque);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		JLabel lblPosPlaqueX = new JLabel("Position en x de la plaque :");
 		lblPosPlaqueX.setBounds(788, 439, 200, 14);
 		panModeJeu.add(lblPosPlaqueX);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		JLabel lblPosPlaqueY = new JLabel("Position en y de la plaque :");
 		lblPosPlaqueY.setBounds(788, 465, 200, 20);
 		panModeJeu.add(lblPosPlaqueY);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		JLabel lblNormalePlaqueX = new JLabel("Normale en x de la plaque :");
 		lblNormalePlaqueX.setBounds(788, 499, 200, 14);
 		panModeJeu.add(lblNormalePlaqueX);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		JLabel lblNormalePlaqueY = new JLabel("Normale en y de la plaque");
 		lblNormalePlaqueY.setBounds(788, 526, 200, 20);
 		panModeJeu.add(lblNormalePlaqueY);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnPosPlaqueX = new JSpinner();
 		spnPosPlaqueX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -398,7 +398,7 @@ public class ApplicationTest extends JFrame {
 		spnPosPlaqueX.setBounds(998, 436, 54, 20);
 		panModeJeu.add(spnPosPlaqueX);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnPosPlaqueY = new JSpinner();
 		spnPosPlaqueY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -411,7 +411,7 @@ public class ApplicationTest extends JFrame {
 		spnPosPlaqueY.setBounds(998, 465, 54, 20);
 		panModeJeu.add(spnPosPlaqueY);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnNormalePlaqueX = new JSpinner();
 		spnNormalePlaqueX.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -425,7 +425,7 @@ public class ApplicationTest extends JFrame {
 		spnNormalePlaqueX.setBounds(998, 496, 54, 20);
 		panModeJeu.add(spnNormalePlaqueX);
 
-		//non nécessaire so check
+		// non nécessaire so check
 		spnNormalePlaqueY = new JSpinner();
 		spnNormalePlaqueY.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {

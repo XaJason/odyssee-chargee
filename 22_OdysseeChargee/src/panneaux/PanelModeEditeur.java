@@ -44,7 +44,7 @@ public class PanelModeEditeur extends JPanel {
 	 */
 	private Grille grille;
 	/**
-	 * compteur pour le nombre max de niveau 
+	 * compteur pour le nombre max de niveau
 	 */
 	private int compteur = 0;
 
@@ -164,9 +164,11 @@ public class PanelModeEditeur extends JPanel {
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
+	 * 
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		PCS.addPropertyChangeListener(listener);
 	}
@@ -324,17 +326,18 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (compteur < MAX_NIVEAUX) {
-		            Object[] options = { "1", "2", "3" };
-		            String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :", "Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-		            
-		            if (nom != null) { 
-		                Niveau niveauParDefaut = new Niveau(grille.getTableau(), "Niveau " + nom);
-		                sauvegarder(niveauParDefaut);
-		                compteur++;
-		            }
-		        } else {
-		            System.out.println("Nombre maximal de niveaux atteint !");
-		        }
+					Object[] options = { "1", "2", "3" };
+					String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :",
+							"Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+					if (nom != null) {
+						Niveau niveauParDefaut = new Niveau(grille.getTableau(), "Niveau " + nom);
+						sauvegarder(niveauParDefaut);
+						compteur++;
+					}
+				} else {
+					System.out.println("Nombre maximal de niveaux atteint !");
+				}
 
 			}
 
@@ -441,7 +444,7 @@ public class PanelModeEditeur extends JPanel {
 	/**
 	 * Charge le niveau test
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void charger() {
 		Niveau charger = Sauvegarder.chargerNiveau("test");
 

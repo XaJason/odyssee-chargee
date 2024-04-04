@@ -311,7 +311,7 @@ public class Grille extends JPanel {
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
-							
+
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
@@ -481,7 +481,7 @@ public class Grille extends JPanel {
 	 * 
 	 * @param tab tableau des tuiles
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void setTableau(Tuile[][] tab) {
 		this.tabEmplacement = tab;
 

@@ -6,7 +6,6 @@ import java.awt.geom.Ellipse2D;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import tuile.Drapeau;
 import utilitaires.Dessinable;
 
 /**
@@ -37,7 +36,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 
 	/** Masse du vaisseau **/
 	private double masse;
-	
+
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
@@ -269,7 +268,5 @@ public class Vaisseau extends InteractifPhysique implements Dessinable {
 	public void setMasse(double masse) {
 		this.masse = masse;
 	}
-	
-	
 
 }

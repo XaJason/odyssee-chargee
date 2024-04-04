@@ -3,7 +3,6 @@ package tuile;
 import java.awt.Image;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
@@ -121,17 +120,16 @@ public class VaisseauImage extends Tuile implements Serializable {
 		}
 	}
 
-
 	/**
 	 * Méthode qui forme le vaisseau dans un area
+	 * 
 	 * @return la forme du vaisseau dans un area
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public Area formeVaisseau() {
 
-		double diametre = Math.min(largeurTuile, hauteurTuile); 
+		double diametre = Math.min(largeurTuile, hauteurTuile);
 		double rayon = diametre / 2.0;
-
 
 		double centreX = pointInitial.getX() + largeurTuile / 2.0;
 		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
@@ -140,8 +138,6 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 		Area vaisseauArea = new Area(cercle);
 		return vaisseauArea;
-
-
 
 	}
 	/**

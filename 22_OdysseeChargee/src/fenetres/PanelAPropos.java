@@ -1,13 +1,14 @@
 package fenetres;
-import javax.swing.JPanel;
+
 import javax.swing.JLabel;
-import java.awt.Color;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
 /**
  * Panel qui affiche dans des onglets de l'information
  * sur les auteurs et sur les sources
+ * 
  * @author Caroline Houle
  * @author Kitimir Yim
  */
@@ -16,11 +17,12 @@ public class PanelAPropos extends JPanel {
 	private static final long serialVersionUID = -3110011146750233775L;
 
 	/**
-	 * Cr�ation du panel 
+	 * Cr�ation du panel
 	 */
 	//Kitimir Yim
 	public PanelAPropos() {
-		//noter: aucun layout précisé: le conteneur à onglets prendra la largeur de la plus longue ligne de texte
+		// noter: aucun layout précisé: le conteneur à onglets prendra la largeur de la
+		// plus longue ligne de texte
 		JTabbedPane tabOnglets = new JTabbedPane(JTabbedPane.TOP);
 		tabOnglets.setBounds(0, 0, 500, 250);
 		add(tabOnglets);
@@ -28,16 +30,9 @@ public class PanelAPropos extends JPanel {
 		JPanel pnlAuteurs = new JPanel();
 		tabOnglets.addTab("Auteurs", null, pnlAuteurs, null);
 
-		JLabel lblAuteurs = new JLabel( "<html>" +
-				"Équipe 22 " + 
-				"<br>" +
-				"<br> Enuel René Valentin Kizozo Izia" + 
-				"<br>Pierre-Olivier Giroux" +
-				"<br>Jason Xa" +
-				"<br>Kitimir Yim" + 
-				"<br><br>Cours 420-SCD" +
-				"<br>Intégration des apprentissages en SIM" +
-				"<br>Hiver 2024</html>");
+		JLabel lblAuteurs = new JLabel("<html>" + "Équipe 22 " + "<br>" + "<br> Enuel René Valentin Kizozo Izia"
+				+ "<br>Pierre-Olivier Giroux" + "<br>Jason Xa" + "<br>Kitimir Yim" + "<br><br>Cours 420-SCD"
+				+ "<br>Intégration des apprentissages en SIM" + "<br>Hiver 2024</html>");
 		lblAuteurs.setVerticalAlignment(SwingConstants.TOP);
 		pnlAuteurs.add(lblAuteurs);
 
