@@ -122,6 +122,7 @@ public class Carre extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+
 		creerAires(pointMilieu);
 	}
 
@@ -132,6 +133,7 @@ public class Carre extends Tuile implements Serializable {
 	 */
 	// Jason Xa
 	private void creerAires(Point2D.Double pointMilieu) {
+
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
 		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(3));
