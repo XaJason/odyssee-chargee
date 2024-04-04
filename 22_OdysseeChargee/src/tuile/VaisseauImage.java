@@ -2,6 +2,7 @@ package tuile;
 
 import java.awt.Image;
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -128,22 +129,16 @@ public class VaisseauImage extends Tuile implements Serializable {
 	//Kitimir Yim
 	public Area formeVaisseau() {
 
-		xActuel = pointInitial.getX() + largeurTuile;
-		yActuel = pointInitial.getY();
-		coinHautDroit = new Point2D.Double(xActuel, yActuel);
-		// Troisième point(BasDroit)
-		yActuel += hauteurTuile;
-		coinBasDroit = new Point2D.Double(xActuel, yActuel);
-		// Quatrième point(BasGauche)
-		xActuel -= largeurTuile;
-		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+		double diametre = Math.min(largeurTuile, hauteurTuile); 
+		double rayon = diametre / 2.0;
 
-		GeneralPath vaisseauForme = new GeneralPath();
-		vaisseauForme.moveTo(coinHautDroit.getX(), coinHautDroit.getY());
-		vaisseauForme.lineTo(coinBasDroit.getX(), coinBasDroit.getY());
-		vaisseauForme.lineTo(coinBasGauche.getX(), coinBasGauche.getY());
-		vaisseauForme.closePath();
-		Area vaisseauArea = new Area(vaisseauForme);
+
+		double centreX = pointInitial.getX() + largeurTuile / 2.0;
+		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
+
+		Ellipse2D cercle = new Ellipse2D.Double(centreX - rayon, centreY - rayon, diametre, diametre);
+
+		Area vaisseauArea = new Area(cercle);
 		return vaisseauArea;
 
 
