@@ -67,7 +67,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	/** Matrice de rotation **/
 	MatriceRotation rotation;
 	/** Point milieu du triangle **/
-	protected Point2D pointMilieu;
+	protected Point2D.Double pointMilieu;
 
 	/** aires de sélection pour les plaques chargées */
 	protected Aire[] aires;
@@ -314,17 +314,19 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	 * @param coin Arraylist des sommets du triangles
 	 * @return Le point milieu
 	 */
-	protected Point2D pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
-		sommets = pointsCoin;
+	//Giroux
+	protected Point2D.Double pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
 
 		//Point 1 va être le sommet, le segment va être entre P2 et P3
 		
-		double moyenX=(Math.abs(sommets.get(2).getX()-sommets.get(1).getX())/2)+pointsCoin.get(2).getX();
-		double moyenY=(Math.abs(sommets.get(2).getY()-sommets.get(1).getY())/2)+pointsCoin.get(2).getY();
-		Point2D milieuSegment = new Point2D.Double(moyenX,moyenY);
-		double milieuX = (Math.abs(milieuSegment.getX())-sommets.get(0).getX()*2/3)+pointsCoin.get(0).getX();
-		double milieuY = (Math.abs(milieuSegment.getY())-sommets.get(0).getY()*2/3) +pointsCoin.get(0).getY();
-		Point2D milieu = new Point2D.Double(milieuX,milieuY);
+		//Trouver le milieu du segment
+		double moyenX=(Math.abs(sommets.get(2).getX()-sommets.get(1).getX())/2)+sommets.get(2).getX();
+		double moyenY=(Math.abs(sommets.get(2).getY()-sommets.get(1).getY())/2)+sommets.get(2).getY();
+		Point2D.Double milieuSegment = new Point2D.Double(moyenX,moyenY);
+		//Trouver le 2/3 de la médiane
+		double milieuX = (Math.abs(milieuSegment.getX()-sommets.get(0).getX()))*(2.0/3.0)+sommets.get(0).getX();
+		double milieuY = (Math.abs(milieuSegment.getY()-sommets.get(0).getY()))*(2.0/3.0)+sommets.get(0).getY();
+		Point2D.Double milieu = new Point2D.Double(milieuX,milieuY);
 		return milieu;
 	}
 
@@ -345,10 +347,6 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
 
-		if (pointsCoin.size() != 0 && pointMilieu!=null) {
-
-			contour.lineTo(pointMilieu.getX(), pointMilieu.getY());
-		}
 
 	}
 
