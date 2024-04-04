@@ -73,6 +73,12 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	protected Aire[] aires;
 
 	/**
+	 * index de l'aire survolée dans le tableau d'aires de sélection pour les
+	 * plaques chargées
+	 */
+	private int indexAireSurvolee;
+
+	/**
 	 * Constructeur
 	 * 
 	 * @param image l'image représentant la tuile
@@ -346,13 +352,45 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		if (pointsCoin.size() != 0) {
 			contour.lineTo(pointMilieu.getX(), pointMilieu.getY());
 		}
-
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 *
+	 * @param xPix Coordonnée en x du point (exprimée en pixels)
+	 * @param yPix Coordonnée en y du point (exprimée en pixels)
+	 * @return vrai si le point fait partie de l'objet dessinable
+	 */
+	// Jason Xa
 	@Override
 	public boolean contient(double xPix, double yPix) {
-		// TODO Auto-generated method stub
-		return false;
+		if (contour.contains(xPix, yPix)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 * 
+	 * @param point le point à vérifier
+	 * @return vrai si le point fait est contenu dans l'objet dessinable
+	 */
+	// Jason Xa
+	public boolean contient(Point2D.Double point) {
+		if (contour.contains(point.getX(), point.getY())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void survol(Point2D.Double pointSurvole, Graphics2D g2d) {
+		for (int i = 0; i < aires.length; i++) {
+//			if (aires[i])
+		}
+	}
 }

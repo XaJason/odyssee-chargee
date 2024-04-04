@@ -23,6 +23,8 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
+import tuile.Tuile;
+import java.awt.Image;
 
 /**
  * Panel du mode éditeur

@@ -16,6 +16,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import dessin.ZoneAnimationPhysiqueTest;
+import tuile.Tuile;
+import java.awt.Image;
 
 /**
  * Panel du mode de jeu
