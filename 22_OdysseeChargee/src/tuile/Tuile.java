@@ -73,6 +73,12 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	protected Aire[] aires;
 
 	/**
+	 * index de l'aire survolée dans le tableau d'aires de sélection pour les
+	 * plaques chargées
+	 */
+	private int indexAireSurvolee;
+
+	/**
 	 * Constructeur
 	 * 
 	 * @param image l'image représentant la tuile
@@ -314,19 +320,19 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	 * @param coin Arraylist des sommets du triangles
 	 * @return Le point milieu
 	 */
-	//Giroux
+	// Giroux
 	protected Point2D.Double pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
 
-		//Point 1 va être le sommet, le segment va être entre P2 et P3
-		
-		//Trouver le milieu du segment
-		double moyenX=(Math.abs(sommets.get(2).getX()-sommets.get(1).getX())/2)+sommets.get(2).getX();
-		double moyenY=(Math.abs(sommets.get(2).getY()-sommets.get(1).getY())/2)+sommets.get(2).getY();
-		Point2D.Double milieuSegment = new Point2D.Double(moyenX,moyenY);
-		//Trouver le 2/3 de la médiane
-		double milieuX = (Math.abs(milieuSegment.getX()-sommets.get(0).getX()))*(2.0/3.0)+sommets.get(0).getX();
-		double milieuY = (Math.abs(milieuSegment.getY()-sommets.get(0).getY()))*(2.0/3.0)+sommets.get(0).getY();
-		Point2D.Double milieu = new Point2D.Double(milieuX,milieuY);
+		// Point 1 va être le sommet, le segment va être entre P2 et P3
+
+		// Trouver le milieu du segment
+		double moyenX = (Math.abs(sommets.get(2).getX() - sommets.get(1).getX()) / 2) + sommets.get(2).getX();
+		double moyenY = (Math.abs(sommets.get(2).getY() - sommets.get(1).getY()) / 2) + sommets.get(2).getY();
+		Point2D.Double milieuSegment = new Point2D.Double(moyenX, moyenY);
+		// Trouver le 2/3 de la médiane
+		double milieuX = (Math.abs(milieuSegment.getX() - sommets.get(0).getX())) * (2.0 / 3.0) + sommets.get(0).getX();
+		double milieuY = (Math.abs(milieuSegment.getY() - sommets.get(0).getY())) * (2.0 / 3.0) + sommets.get(0).getY();
+		Point2D.Double milieu = new Point2D.Double(milieuX, milieuY);
 		return milieu;
 	}
 
@@ -346,8 +352,6 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		if (pointsCoin.size() != 0) {
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
-
-
 	}
 	
 	/**
@@ -366,10 +370,43 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		aires = new Aire[] { aire1, aire2, aire3};
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 *
+	 * @param xPix Coordonnée en x du point (exprimée en pixels)
+	 * @param yPix Coordonnée en y du point (exprimée en pixels)
+	 * @return vrai si le point fait partie de l'objet dessinable
+	 */
+	// Jason Xa
 	@Override
 	public boolean contient(double xPix, double yPix) {
-		// TODO Auto-generated method stub
-		return false;
+		if (contour.contains(xPix, yPix)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 * 
+	 * @param point le point à vérifier
+	 * @return vrai si le point fait est contenu dans l'objet dessinable
+	 */
+	// Jason Xa
+	public boolean contient(Point2D.Double point) {
+		if (contour.contains(point.getX(), point.getY())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void survol(Point2D.Double pointSurvole, Graphics2D g2d) {
+		for (int i = 0; i < aires.length; i++) {
+//			if (aires[i])
+		}
+	}
 }

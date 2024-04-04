@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
  * 
  * @author Jason Xa
  */
-public class Aire {
+public class Aire implements Selectionnable{
 	/** le triangle formé par les trois points */
 	private Path2D.Double forme;
 	/**
@@ -74,6 +74,12 @@ public class Aire {
 	// Jason Xa
 	public Point2D.Double getPointMilieu() {
 		return pointInterieur;
+	}
+
+	@Override
+	public boolean contient(double xPix, double yPix) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
