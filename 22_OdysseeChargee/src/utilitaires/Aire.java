@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
  * 
  * @author Jason Xa
  */
-public class Aire implements Selectionnable{
+public class Aire implements Selectionnable {
 	/** le triangle formé par les trois points */
 	private Path2D.Double forme;
 	/**
@@ -76,10 +76,29 @@ public class Aire implements Selectionnable{
 		return pointInterieur;
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 *
+	 * @param xPix Coordonnée en x du point (exprimée en pixels)
+	 * @param yPix Coordonnée en y du point (exprimée en pixels)
+	 * @return vrai si le point fait partie de l'objet dessinable
+	 */
+	// Jason Xa
 	@Override
 	public boolean contient(double xPix, double yPix) {
-		// TODO Auto-generated method stub
-		return false;
+		return forme.contains(xPix, yPix);
+
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 * 
+	 * @param point le point à vérifier
+	 * @return vrai si le point fait est contenu dans l'objet dessinable
+	 */
+	public boolean contient(Point2D.Double point) {
+		return forme.contains(point.getX(), point.getY());
+	}
 }

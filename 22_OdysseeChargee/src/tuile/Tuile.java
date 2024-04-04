@@ -365,11 +365,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	// Jason Xa
 	@Override
 	public boolean contient(double xPix, double yPix) {
-		if (contour.contains(xPix, yPix)) {
-			return true;
-		} else {
-			return false;
-		}
+		return contour.contains(xPix, yPix);
 	}
 
 	/**
@@ -381,16 +377,11 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	 */
 	// Jason Xa
 	public boolean contient(Point2D.Double point) {
-		if (contour.contains(point.getX(), point.getY())) {
-			return true;
-		} else {
-			return false;
-		}
+		return contour.contains(point.getX(), point.getY());
 	}
 
 	public void survol(Point2D.Double pointSurvole, Graphics2D g2d) {
 		for (int i = 0; i < aires.length; i++) {
-//			if (aires[i])
 		}
 	}
 }
