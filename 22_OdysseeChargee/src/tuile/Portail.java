@@ -1,7 +1,10 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
@@ -113,6 +116,30 @@ public class Portail extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+	}
+
+
+	/**
+	 * Méthode qui forme le Portail dans un area
+	 * @return la forme du Portail dans un area
+	 */
+	//Kitimir Yim
+	public Area formePortail() {
+
+		double diametre = Math.min(largeurTuile, hauteurTuile); 
+		double rayon = diametre / 2.0;
+
+
+		double centreX = pointInitial.getX() + largeurTuile / 2.0;
+		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
+
+		Ellipse2D oval = new Ellipse2D.Double(centreX - rayon, centreY, diametre, diametre);
+
+		Area PortailArea = new Area(oval);
+		return PortailArea;
+
+
+
 	}
 
 }
