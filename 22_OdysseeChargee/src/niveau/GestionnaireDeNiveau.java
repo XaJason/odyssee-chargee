@@ -13,7 +13,6 @@ public class GestionnaireDeNiveau {
 
 	/** ArrayList contenant les niveaux **/
 	private static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
-	
 
 	/**
 	 * Ajoute un niveau à l'ArrayList
@@ -23,9 +22,9 @@ public class GestionnaireDeNiveau {
 	// Giroux
 	public static void ajouter(Niveau niveauAAjouter) {
 		repertoireNiveau.add(niveauAAjouter);
-        System.out.println("Ajout fait avec succès");
-      
-    }
+		System.out.println("Ajout fait avec succès");
+
+	}
 
 	/**
 	 * Permet de supprimer un niveau
@@ -90,7 +89,6 @@ public class GestionnaireDeNiveau {
 		repertoireNiveau.set(index, niveau);
 	}
 
-	
 	/**
 	 * Renvoie la liste des niveaux.
 	 *

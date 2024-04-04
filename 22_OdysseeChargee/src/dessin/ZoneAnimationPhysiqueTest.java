@@ -89,7 +89,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/** Largeur de la plaque chargée (en mètre) **/
 	private double LARGEUR_PLAQUE_INITIALE = 1;
-	
+
 	/** Charge initiale de la plaque chargée (en Coulomb) **/
 	private final double CHARGE_INITIALE_PLAQUE = 20;
 
@@ -151,7 +151,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 	/** Longueur de la plaque chargée (en mètre) **/
 	private double longueurPlaque = LONGUEUR_PLAQUE_INITIALE;
-	
+
 	/** Largeur de la plaque chargée (en mètre) **/
 	private double largeurPlaque = LARGEUR_PLAQUE_INITIALE;
 
@@ -174,7 +174,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	private double normalePlaqueComposanteY = NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y;
 
 	/** Vecteur normal de la plaque chargée **/
-	private Vecteur2D normalePlaque = new Vecteur2D(NORMALE_INITIALE_PLAQUE_COMPOSANTE_X, NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y);
+	private Vecteur2D normalePlaque = new Vecteur2D(NORMALE_INITIALE_PLAQUE_COMPOSANTE_X,
+			NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y);
 
 	// CONSTRUCTEUR //
 	/**
@@ -371,7 +372,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setExtremiteB();
 		// À gérer plus tard si l'utilisateur fait n'importe nawak
 		try {
-			plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise() );
+			plaqueRouge.setNormale(new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -400,8 +401,9 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setPosition(new Vecteur2D(POS_INITIALE_PLAQUE_EN_X, POS_INITIALE_PLAQUE_EN_Y));
 		plaqueRouge.setExtremiteA();
 		plaqueRouge.setExtremiteB();
-		plaqueRouge.setNormale(new Vecteur2D(NORMALE_INITIALE_PLAQUE_COMPOSANTE_X, NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y));
-		
+		plaqueRouge
+				.setNormale(new Vecteur2D(NORMALE_INITIALE_PLAQUE_COMPOSANTE_X, NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y));
+
 		enCoursDAnimation = false;
 		premiereFois = true;
 		reinitialiser = true;
@@ -686,17 +688,16 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteX(double normalePlaqueComposanteX) {
-		//if (!enCoursDAnimation) {
-			this.normalePlaqueComposanteX = normalePlaqueComposanteX;
-			// À gérer plus tard si l'utilisateur fait n'importe nawak
-			try {
-				plaqueRouge.setNormale(
-						new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			repaint();
-		//}
+		// if (!enCoursDAnimation) {
+		this.normalePlaqueComposanteX = normalePlaqueComposanteX;
+		// À gérer plus tard si l'utilisateur fait n'importe nawak
+		try {
+			plaqueRouge.setNormale(new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		repaint();
+		// }
 	}
 
 	/**
@@ -716,17 +717,16 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormalePlaqueComposanteY(double normalePlaqueComposanteY) {
-		//if (!enCoursDAnimation) {
-			this.normalePlaqueComposanteY = normalePlaqueComposanteY;
-			// À gérer plus tard si l'utilisateur fait n'importe nawak
-			try {
-				plaqueRouge.setNormale(
-						new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			repaint();
-		//}
+		// if (!enCoursDAnimation) {
+		this.normalePlaqueComposanteY = normalePlaqueComposanteY;
+		// À gérer plus tard si l'utilisateur fait n'importe nawak
+		try {
+			plaqueRouge.setNormale(new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		repaint();
+		// }
 	}
 
 	/**

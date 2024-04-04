@@ -1,7 +1,10 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
@@ -22,16 +25,16 @@ public class Portail extends Tuile implements Serializable {
 	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type portail */
 	private static String type = "Portail";
-	//Coins du carré//
-	/**position du x pour délimiter les points**/
+	// Coins du carré//
+	/** position du x pour délimiter les points **/
 	private double xActuel;
-	/**position du y pour délimiter les points**/
+	/** position du y pour délimiter les points **/
 	private double yActuel;
 	/** Coin haut-droit **/
-	private Point2D coinHautDroit;
-	/** Coin bas-droit**/
+	private Double coinHautDroit;
+	/** Coin bas-droit **/
 	private Double coinBasDroit;
-	/** Coin bas-gauche**/
+	/** Coin bas-gauche **/
 	private Double coinBasGauche;
 
 	/**
@@ -83,19 +86,21 @@ public class Portail extends Tuile implements Serializable {
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
+	 * 
 	 * @return Une chaine indiquant que l'objet est un portail
 	 */
 	// Giroux
 	public String toString() {
 		return "Portail ";
 	}
-	
+
 	/**
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
-	//Giroux
+	// Giroux
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.add(pointInitial);
@@ -114,7 +119,7 @@ public class Portail extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
@@ -124,5 +129,28 @@ public class Portail extends Tuile implements Serializable {
 		}
 	}
 
+
+	/**
+	 * Méthode qui forme le Portail dans un area
+	 * @return la forme du Portail dans un area
+	 */
+	//Kitimir Yim
+	public Area formePortail() {
+
+		double diametre = Math.min(largeurTuile, hauteurTuile); 
+		double rayon = diametre / 2.0;
+
+
+		double centreX = pointInitial.getX() + largeurTuile / 2.0;
+		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
+
+		Ellipse2D oval = new Ellipse2D.Double(centreX - rayon, centreY, diametre, diametre);
+
+		Area PortailArea = new Area(oval);
+		return PortailArea;
+
+
+
+	}
 
 }

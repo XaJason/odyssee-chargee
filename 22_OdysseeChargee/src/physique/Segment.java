@@ -21,22 +21,22 @@ public class Segment implements Dessinable, Serializable {
 	// PROPRIÉTÉS //
 	/** Objet Path2D permettant de représenter le segment **/
 	private Path2D.Double segment;
-	
+
 	/** Vecteur normal du segment **/
 	private Vecteur2D normale; // Doit être normalisé
 
 	/** Vecteur passant par l'axe du segment **/
 	private Vecteur2D axe; // Normalisé
-	
+
 	/** Longueur du segment **/
 	private double longueur;
-	
+
 	/** Position d'un point quelconque sur le segment **/
 	private Vecteur2D pointQuelconque;
-	
+
 	/** Position de l'extrémité A du segment **/
 	private Vecteur2D extremiteA;
-	
+
 	/** Position de l'extrémité B du segment **/
 	private Vecteur2D extremiteB;
 
@@ -57,13 +57,13 @@ public class Segment implements Dessinable, Serializable {
 			axe = extremiteB.soustrait(extremiteA).normalise();
 			normale = new Vecteur2D(axe.getY(), -axe.getX());
 			pointQuelconque = extremiteA.additionne(axe);
-			
+
 			creerLaGeometrie();
 		} catch (Exception e) {
 			System.out.println("Les points sont trop rapprochés, donc on ne peut pas créer de segment.");
 			e.printStackTrace();
-		}//fin try/catch
-	}//fin constructeur
+		} // fin try/catch
+	}// fin constructeur
 
 	// SOUS-PROGRAMMES
 	/**
@@ -72,7 +72,7 @@ public class Segment implements Dessinable, Serializable {
 	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
 		segment = new Path2D.Double();
-		
+
 		segment.moveTo(extremiteA.getX(), extremiteA.getY());
 		segment.lineTo(extremiteB.getX(), extremiteB.getY());
 		;
@@ -85,7 +85,8 @@ public class Segment implements Dessinable, Serializable {
 	 * @param g2d Le contexte graphique
 	 */
 	// Enuel René Valentin Kizozo Izia
-	/* À retirer éventuellement, 
+	/*
+	 * À retirer éventuellement,
 	 * mais permet de savoir si le segment est placé au bon endroit
 	 */
 	public void dessiner(Graphics2D g2d) {
@@ -160,8 +161,8 @@ public class Segment implements Dessinable, Serializable {
 		} catch (Exception e) {
 			System.out.println("Les points sont trop rapprochés, donc on ne peut pas créer de segment.");
 			e.printStackTrace();
-		}//fin try/catch
-	}//fin méthode setAxe
+		} // fin try/catch
+	}// fin méthode setAxe
 
 	/**
 	 * Retourne la longueur du segment
@@ -183,7 +184,7 @@ public class Segment implements Dessinable, Serializable {
 		this.longueur = extremiteB.soustrait(extremiteA).module();
 		creerLaGeometrie();
 	}
-	
+
 	/**
 	 * Retourne l'extrémité A du segment
 	 * 
@@ -228,13 +229,14 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Retourne la position du point quelconque sur le segment
+	 * 
 	 * @param pointQuelconque
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getPointQuelconque() {
 		return pointQuelconque;
 	}
-	
+
 	/**
 	 * Modifie la position du point quelconque sur le segment
 	 */

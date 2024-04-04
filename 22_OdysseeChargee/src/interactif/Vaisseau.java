@@ -37,7 +37,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private double rayon = 5 ;
 	/** Masse du vaisseau (en kg) **/
 	private double masse;
-	
+
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
@@ -283,7 +283,5 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public void setMasse(double masse) {
 		this.masse = masse;
 	}
-	
-	
 
 }

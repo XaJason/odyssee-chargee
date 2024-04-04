@@ -41,9 +41,11 @@ public class FenetreReglage extends JFrame {
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
+	 * 
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		PCS.addPropertyChangeListener(listener);
 	}

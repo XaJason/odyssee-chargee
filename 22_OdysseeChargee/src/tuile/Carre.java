@@ -6,6 +6,8 @@ import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
 import utilitaires.OutilsImage;
+import utilitaires.Aire;
+import utilitaires.Selectionnable;
 
 /**
  * Représente l'objet fixe plaçable en forme de carré
@@ -13,7 +15,7 @@ import utilitaires.OutilsImage;
  * @author Jason Xa
  * @author Giroux
  */
-public class Carre extends Tuile implements Serializable {
+public class Carre extends Tuile implements Serializable, Selectionnable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
@@ -28,11 +30,12 @@ public class Carre extends Tuile implements Serializable {
 	/** position du y pour délimiter les points **/
 	private double yActuel;
 	/** Coin haut-droit **/
-	private Point2D coinHautDroit;
+	private Point2D.Double coinHautDroit;
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
+
 
 	/**
 	 * Constructeur
@@ -120,8 +123,12 @@ public class Carre extends Tuile implements Serializable {
 		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
+
+		Point2D.Double pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
+				pointInitial.getY() + hauteurTuile / 2.0);
+
 		// Transformer
-		for (Point2D i : prePointsCoin) {
+		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
@@ -130,5 +137,23 @@ public class Carre extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 
+		creerAires(pointMilieu);
 	}
+
+	/**
+	 * Créer les aires de sélection associées à la tuile carrée(redéfini)
+	 * 
+	 * @param pointMilieu le point milieu de la tuile carrée
+	 */
+	// Jason Xa
+	protected void creerAires(Point2D.Double pointMilieu) {
+
+		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
+		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
+		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(3));
+		Aire aire4 = new Aire(pointsCoin.get(3), pointMilieu, pointsCoin.get(0));
+
+		aires = new Aire[] { aire1, aire2, aire3, aire4 };
+	}
+
 }

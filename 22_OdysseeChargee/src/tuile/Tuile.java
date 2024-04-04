@@ -3,9 +3,7 @@ package tuile;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -13,6 +11,7 @@ import java.util.ArrayList;
 
 import interactif.PlaqueChargee;
 import math.MatriceRotation;
+import utilitaires.Aire;
 import utilitaires.Dessinable;
 import utilitaires.OutilsImage;
 import utilitaires.Selectionnable;
@@ -58,16 +57,26 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	/**
 	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
 	 **/
-	protected ArrayList<Point2D> prePointsCoin = new ArrayList<Point2D>();
+	protected ArrayList<Point2D.Double> prePointsCoin = new ArrayList<Point2D.Double>();
 	/** ArrayList qui contient les points des coins des blocs post-transformé **/
-	protected ArrayList<Point2D> pointsCoin = new ArrayList<Point2D>();
+	protected ArrayList<Point2D.Double> pointsCoin = new ArrayList<Point2D.Double>();
 	/** Point initial(haut-gauche) du bloc **/
-	protected Point2D pointInitial;
+	protected Point2D.Double pointInitial;
 	/** Path qui représente le contour du bloc **/
 	protected Path2D.Double contour;
 	/** Matrice de rotation **/
 	MatriceRotation rotation;
-	private Area aire;
+	/** Point milieu du triangle **/
+	protected Point2D.Double pointMilieu;
+
+	/** aires de sélection pour les plaques chargées */
+	protected Aire[] aires;
+
+	/**
+	 * index de l'aire survolée dans le tableau d'aires de sélection pour les
+	 * plaques chargées
+	 */
+	private int indexAireSurvolee;
 
 	/**
 	 * Constructeur
@@ -83,7 +92,6 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		this.image = image;
 		this.type = type;
 
-		
 	}
 
 	/**
@@ -113,6 +121,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	 */
 	// Jason Xa
 	public Tuile(double angleRotation, Image image, String type) {
+
 		this.angleRotation = angleRotation;
 		this.image = image;
 		this.type = type;
@@ -342,6 +351,29 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	}
 
 	/**
+	 * Méthode qui calcule le point milieu d'un triangle à l'aide du théoreme de
+	 * Thales
+	 * 
+	 * @param coin Arraylist des sommets du triangles
+	 * @return Le point milieu
+	 */
+	// Giroux
+	protected Point2D.Double pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
+
+		// Point 1 va être le sommet, le segment va être entre P2 et P3
+
+		// Trouver le milieu du segment
+		double moyenX = (Math.abs(sommets.get(2).getX() - sommets.get(1).getX()) / 2) + sommets.get(2).getX();
+		double moyenY = (Math.abs(sommets.get(2).getY() - sommets.get(1).getY()) / 2) + sommets.get(2).getY();
+		Point2D.Double milieuSegment = new Point2D.Double(moyenX, moyenY);
+		// Trouver le 2/3 de la médiane
+		double milieuX = (Math.abs(milieuSegment.getX() - sommets.get(0).getX())) * (2.0 / 3.0) + sommets.get(0).getX();
+		double milieuY = (Math.abs(milieuSegment.getY() - sommets.get(0).getY())) * (2.0 / 3.0) + sommets.get(0).getY();
+		Point2D.Double milieu = new Point2D.Double(milieuX, milieuY);
+		return milieu;
+	}
+
+	/**
 	 * Méthode qui instancie le path qui fait le contour du bloc
 	 */
 	// Giroux
@@ -358,12 +390,51 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
 	}
+	
+	/**
+	 * Créer les aires de sélection associées aux tuiles triangulaires, pour le carré c'est redéfini dans sa classe
+	 * 
+	 * @param pointMilieu le point milieu de la tuile carrée
+	 */
+	// Jason Xa
+	protected void creerAires(Point2D.Double pointMilieu) {
 
-	@Override
-	public boolean contient(double xPix, double yPix) {
-		// TODO Auto-generated method stub
-		return false;
+		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
+		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
+		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(0));
+		
+
+		aires = new Aire[] { aire1, aire2, aire3};
 	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 *
+	 * @param xPix Coordonnée en x du point (exprimée en pixels)
+	 * @param yPix Coordonnée en y du point (exprimée en pixels)
+	 * @return vrai si le point fait partie de l'objet dessinable
+	 */
+	// Jason Xa
+	@Override
+	public boolean contient(double xPix, double yPix) {
+		return contour.contains(xPix, yPix);
+	}
 
+	/**
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
+	 * 
+	 * @param point le point à vérifier
+	 * @return vrai si le point fait est contenu dans l'objet dessinable
+	 */
+	// Jason Xa
+	public boolean contient(Point2D.Double point) {
+		return contour.contains(point.getX(), point.getY());
+	}
+
+	public void survol(Point2D.Double pointSurvole, Graphics2D g2d) {
+		for (int i = 0; i < aires.length; i++) {
+		}
+	}
 }

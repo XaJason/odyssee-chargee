@@ -29,9 +29,11 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de propriété.
+	 * 
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		PCS.addPropertyChangeListener(listener);
 	}
@@ -50,7 +52,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 				PCS.firePropertyChange("passerVersJeu", 0, -1);
 			}
 		});
-		btnPasserModeJeu.setBounds(192, 119, 162, 23);
+		btnPasserModeJeu.setBounds(50, 50, 200, 30);
 		add(btnPasserModeJeu);
 
 	}
@@ -58,27 +60,25 @@ public class PanelSelecteurNiveaux extends JPanel {
 	/**
 	 * Actualise les boutons représentant les niveaux disponibles
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void actualiserNiveaux() {
 		//removeAll(); // Supprimer tous les composants existants
 
 		ArrayList<Niveau> niveaux = GestionnaireDeNiveau.getRepertoireNiveau();
 
-
-		int yPosition = 50;
+		int yPosition = 90;
 		for (Niveau niveau : niveaux) {
 			JButton btnNiveau = new JButton(niveau.getNom());
 			btnNiveau.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PCS.firePropertyChange("niveauSelectionne", null, niveau); 
+					PCS.firePropertyChange("niveauSelectionne", null, niveau);
 				}
 			});
 			btnNiveau.setBounds(50, yPosition, 200, 30);
 			add(btnNiveau);
-			yPosition += 40; 
+			yPosition += 40;
 		}
 
-	
-		repaint();     
+		repaint();
 	}
 }

@@ -10,12 +10,11 @@ package utilitaires;
 public interface Selectionnable {
 
 	/**
-	 * Retourne vrai si le point passe en parametre fait partie de l'objet
-	 * dessinable
-	 * sur lequel cette methode sera appelee
+	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
+	 * dessinable sur lequel cette méthode sera appelée
 	 *
-	 * @param xPix Coordonnee en x du point (exprime en pixels)
-	 * @param yPix Coordonnee en y du point (exprime en pixels)
+	 * @param xPix Coordonnée en x du point (exprimée en pixels)
+	 * @param yPix Coordonnée en y du point (exprimée en pixels)
 	 * @return vrai si le point fait partie de l'objet dessinable
 	 */
 	// Caroline Houle

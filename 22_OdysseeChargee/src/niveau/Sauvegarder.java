@@ -42,7 +42,7 @@ public class Sauvegarder {
 		ObjectOutputStream oos = null;
 		if (fichierDeTravail.exists()) {
 			JOptionPane.showMessageDialog(null,
-					"Probléme! Le fichier " + fichierDeTravail.toString() + " existe déja...");
+					" Le fichier " + fichierDeTravail.toString() + " existe déja...Il va être modifier");
 		}
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(fichierDeTravail));
@@ -79,6 +79,8 @@ public class Sauvegarder {
 			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
 
 			Niveau niveau = (Niveau) ois.readObject();
+
+			GestionnaireDeNiveau.ajouter(niveau);
 
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;

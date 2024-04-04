@@ -86,8 +86,11 @@ public class Grille extends JPanel implements Serializable {
 	/** Indique que la sourie est à l'exterieur du composant **/
 	private boolean exterieurComposant = true;
 
+	/** État du mode éditeur de la grille (faux si placement de plaques chargées) */
+	private boolean modeEditeur = true;
+
 	/**
-	 * Création du du panneau
+	 * Création du panneau
 	 */
 	// Giroux
 	public Grille() {
@@ -106,17 +109,20 @@ public class Grille extends JPanel implements Serializable {
 					supprimerCase();
 				}
 				afficherTab();
-
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				exterieurComposant = true;
+				if (modeEditeur) {
+					exterieurComposant = true;
+				}
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				exterieurComposant = false;
+				if (modeEditeur) {
+					exterieurComposant = false;
+				}
 			}
 		});
 
@@ -124,13 +130,17 @@ public class Grille extends JPanel implements Serializable {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if (supprimer) {
-					setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-				} else {
-					setCursor(new Cursor(Cursor.HAND_CURSOR));
+				if (modeEditeur) {
+					if (supprimer) {
+						setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+					} else {
+						setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+					dessinerCase(e.getX(), e.getY());
+					repaint();
 				}
-				dessinerCase(e.getX(), e.getY());
-				repaint();
+				//dessinerCase(e.getX(), e.getY());
+				//repaint();
 
 			}
 		});
@@ -144,9 +154,11 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		dessiner(g2d);
+		if (modeEditeur) {
+			super.paintComponent(g);
+			Graphics2D g2d = (Graphics2D) g;
+			dessiner(g2d);
+		}
 
 	}// Fin méthode
 
@@ -158,7 +170,8 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void dessiner(Graphics2D g2d) {
-		if (premiereFois) {
+		if (modeEditeur) {
+			if (premiereFois) {
 
 			tabEmplacement = new Tuile[nbCase][nbCase];
 			hauteurDuComposantEnMetre = this.getHeight();
@@ -166,35 +179,35 @@ public class Grille extends JPanel implements Serializable {
 			dimensionCase();
 			dessinerGrille();
 
-			premiereFois = false;
-		}
-		if (supprimer) {
-			setBackground(Color.red);
-		} else {
-			setBackground(new Color(255, 255, 128));
-		}
+				premiereFois = false;
+			}
+			if (supprimer) {
+				setBackground(Color.red);
+			} else {
+				setBackground(new Color(255, 255, 128));
+			}
 
-		if (placePrise && !supprimer) {
-			g2d.setColor(Color.orange);
-		} else if (!supprimer) {
-			g2d.setColor(Color.cyan);
-		}
-		if (!exterieurComposant) {
-			g2d.fill(emplacementActuel);
-		}
-		if (tuile != null && !supprimer && !exterieurComposant) {
-			tuile.dessiner(g2d);
-		}
+			if (placePrise && !supprimer) {
+				g2d.setColor(Color.orange);
+			} else if (!supprimer) {
+				g2d.setColor(Color.cyan);
+			}
+			if (!exterieurComposant) {
+				g2d.fill(emplacementActuel);
+			}
+			if (tuile != null && !supprimer && !exterieurComposant) {
+				tuile.dessiner(g2d);
+			}
 
-		dessinerTuile(g2d);
+			dessinerTuile(g2d);
 
-		g2d.setColor(Color.black);
-		if (grille) {
 			g2d.setColor(Color.black);
-			g2d.draw(quadHori);
-			g2d.draw(quadVerti);
+			if (grille) {
+				g2d.setColor(Color.black);
+				g2d.draw(quadHori);
+				g2d.draw(quadVerti);
+			}
 		}
-
 	}// Fin méthode
 
 	/**
@@ -312,6 +325,7 @@ public class Grille extends JPanel implements Serializable {
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
+
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
@@ -481,7 +495,7 @@ public class Grille extends JPanel implements Serializable {
 	 * 
 	 * @param tab tableau des tuiles
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void setTableau(Tuile[][] tab) {
 		this.tabEmplacement = tab;
 

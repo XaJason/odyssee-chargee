@@ -1,7 +1,13 @@
 package physique;
 
+import java.awt.geom.Area;
+
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
+import tuile.Drapeau;
+import tuile.Pics;
+import tuile.Portail;
+import tuile.VaisseauImage;
 
 /**
  * Cette classe regroupe les calculs physiques nécessaires au mouvement
@@ -320,12 +326,14 @@ public class MoteurPhysique {
 		double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(plaque.getAxe()));
 		double dVaisseauExtrBSurAxe = Math.abs(dVaisseauExtrB.prodScalaire(plaque.getAxe()));
 
-		/* Détermine si le vaisseau est entre les extrémités de la plaque
+		/*
+		 * Détermine si le vaisseau est entre les extrémités de la plaque
 		 * et s'il est en collision avec la plaque
 		 */
 		boolean vaisseauEntreExtremite = (dVaisseauExtrASurAxe + dVaisseauExtrBSurAxe > plaque.getLongueur() - EPSILON)
 				& (dVaisseauExtrASurAxe + dVaisseauExtrBSurAxe < plaque.getLongueur() + EPSILON);
-		boolean collisionPlaque = (plusPetiteDistanceVaisseauPlaque - plaque.getLargeur()/2) < vaisseau.getRayon() & vaisseauEntreExtremite;
+		boolean collisionPlaque = (plusPetiteDistanceVaisseauPlaque - plaque.getLargeur() / 2) < vaisseau.getRayon()
+				& vaisseauEntreExtremite;
 
 		// Déterminer si le vaisseau est en collision avec les extrémités
 		boolean collisionExtremiteA = dVaisseauExtrA.module() < vaisseau.getRayon();
@@ -373,13 +381,13 @@ public class MoteurPhysique {
 			Vecteur2D normaleCollisionExtremite = vaisseau.getVitesse().multiplie(-1).normalise();
 			System.out.println("Orientation normale : " + normaleCollisionExtremite);
 			if (collisionExtremiteA) {
-				vaisseau.setPosition(plaque.getExtremiteA()
-						.additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
+				vaisseau.setPosition(
+						plaque.getExtremiteA().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
 				System.out
 						.println("Ajustement vaisseau dû à une potentielle collision : " + vaisseau.toString(3) + "\n");
 			} else {
-				vaisseau.setPosition(plaque.getExtremiteB()
-						.additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
+				vaisseau.setPosition(
+						plaque.getExtremiteB().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
 				System.out.println(
 						"Ajustement vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
 			} // fin if
@@ -426,9 +434,11 @@ public class MoteurPhysique {
 			double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(plaque.getAxe()));
 			Vecteur2D lieuCollision = plaque.getExtremiteA().soustrait(plaque.getAxe().multiplie(dVaisseauExtrASurAxe));
 			if (distancePlaqueVaisseau.prodScalaire(plaque.getNormale()) > 0) {
-				vaisseau.setPosition(lieuCollision.additionne(plaque.getNormale().multiplie( vaisseau.getRayon() + plaque.getLargeur()/2 )));
+				vaisseau.setPosition(lieuCollision
+						.additionne(plaque.getNormale().multiplie(vaisseau.getRayon() + plaque.getLargeur() / 2)));
 			} else {
-				vaisseau.setPosition(lieuCollision.additionne(plaque.getNormale().multiplie(-1*( vaisseau.getRayon() + plaque.getLargeur()/2 ))));
+				vaisseau.setPosition(lieuCollision.additionne(
+						plaque.getNormale().multiplie(-1 * (vaisseau.getRayon() + plaque.getLargeur() / 2))));
 			}
 
 			// System.out.println("Vitesse après collision : " + vitApresCol);
@@ -500,4 +510,44 @@ public class MoteurPhysique {
 
 		return vitApresCol;
 	}// fin méthode
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
+	 * @return boolean de si le vaisseau et en collision
+	 */
+	//Kitimir Yim  
+	public static boolean verifieCollisionPicVaisseau(VaisseauImage vaisseau, Pics pic) {
+		Area vaisseauA = vaisseau.formeVaisseau();
+		Area picA = pic.formePic();
+		vaisseauA.intersect(picA);
+		return !vaisseauA.isEmpty();
+
+	}
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
+	 * @return boolean de si le vaisseau et en collision
+	 */
+	//Kitimir Yim
+	public boolean verifieCollisionDrapeauVaisseau(VaisseauImage vaisseau, Drapeau drapeau) {
+		Area vaisseauA = vaisseau.formeVaisseau();
+		Area drapeauA = drapeau.formeDrapeau();
+		vaisseauA.intersect(drapeauA);
+		return !vaisseauA.isEmpty();
+
+	}
+	
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
+	 * @return boolean de si le vaisseau et en collision
+	 */
+	//Kitimir Yim 
+	public boolean verifieCollisionPortailVaisseau(VaisseauImage vaisseau, Portail portail) {
+		Area vaisseauA = vaisseau.formeVaisseau();
+		Area portailA = portail.formePortail();
+		vaisseauA.intersect(portailA);
+		return !vaisseauA.isEmpty();
+
+	}
 }// fin classe
