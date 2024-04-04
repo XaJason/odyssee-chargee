@@ -113,6 +113,10 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 			
 			pointsCoin.add(i);
 		}
+		
+		creerAires(pointMilieu);
 	}
+	
+	
 
 }
