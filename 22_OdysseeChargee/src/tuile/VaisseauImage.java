@@ -1,6 +1,8 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
@@ -117,5 +119,47 @@ public class VaisseauImage extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 	}
+
+
+	/**
+	 * Méthode qui forme le vaisseau dans un area
+	 * @return la forme du vaisseau dans un area
+	 */
+	//Kitimir Yim
+	public Area formeVaisseau() {
+
+		xActuel = pointInitial.getX() + largeurTuile;
+		yActuel = pointInitial.getY();
+		coinHautDroit = new Point2D.Double(xActuel, yActuel);
+		// Troisième point(BasDroit)
+		yActuel += hauteurTuile;
+		coinBasDroit = new Point2D.Double(xActuel, yActuel);
+		// Quatrième point(BasGauche)
+		xActuel -= largeurTuile;
+		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+
+		GeneralPath vaisseauForme = new GeneralPath();
+		vaisseauForme.moveTo(coinHautDroit.getX(), coinHautDroit.getY());
+		vaisseauForme.lineTo(coinBasDroit.getX(), coinBasDroit.getY());
+		vaisseauForme.lineTo(coinBasGauche.getX(), coinBasGauche.getY());
+		vaisseauForme.closePath();
+		Area vaisseauArea = new Area(vaisseauForme);
+		return vaisseauArea;
+
+
+
+	}
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
+	 * POUR LE MOMENT EN COMMENTAIRE CAR LA METHODE NE VA PAS LA
+	 */
+	//Kitimir Yim
+	//public boolean verifieCollisionDrapeauVaisseau() {
+	//	Area vaisseau = VaisseauImage.formeVaisseau();
+	//	Area drapeau = Drapeau.formeDrapeau();
+	//	vaisseau.intersect(drapeau);
+	//	return !vaisseau.isEmpty();
+
+	//}
 
 }
