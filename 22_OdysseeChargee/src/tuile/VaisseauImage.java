@@ -1,6 +1,8 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
@@ -117,5 +119,38 @@ public class VaisseauImage extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 	}
+
+	/**
+	 * Méthode qui forme le vaisseau dans un area
+	 * 
+	 * @return la forme du vaisseau dans un area
+	 */
+	// Kitimir Yim
+	public Area formeVaisseau() {
+
+		double diametre = Math.min(largeurTuile, hauteurTuile);
+		double rayon = diametre / 2.0;
+
+		double centreX = pointInitial.getX() + largeurTuile / 2.0;
+		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
+
+		Ellipse2D cercle = new Ellipse2D.Double(centreX - rayon, centreY - rayon, diametre, diametre);
+
+		Area vaisseauArea = new Area(cercle);
+		return vaisseauArea;
+
+	}
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
+	 * POUR LE MOMENT EN COMMENTAIRE CAR LA METHODE NE VA PAS LA
+	 */
+	// Kitimir Yim
+	// public boolean verifieCollisionDrapeauVaisseau() {
+	// Area vaisseau = VaisseauImage.formeVaisseau();
+	// Area drapeau = Drapeau.formeDrapeau();
+	// vaisseau.intersect(drapeau);
+	// return !vaisseau.isEmpty();
+
+	// }
 
 }

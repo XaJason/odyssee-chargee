@@ -1,8 +1,10 @@
 package tuile;
 
 import java.awt.Image;
+import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 /**
@@ -120,6 +122,21 @@ public class Drapeau extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+	}
+
+	/**
+	 * Méthode qui forme le vaisseau dans un area
+	 * 
+	 * @return la forme du vaisseau dans un area
+	 */
+	// Kitimir Yim
+	public Area formeDrapeau() {
+
+		Rectangle2D rectangle = new Rectangle2D.Double(pointInitial.getX(), pointInitial.getY(), largeurTuile,
+				hauteurTuile);
+
+		Area drapeauArea = new Area(rectangle);
+		return drapeauArea;
 	}
 
 }

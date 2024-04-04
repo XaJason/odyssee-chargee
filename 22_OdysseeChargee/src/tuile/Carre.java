@@ -122,13 +122,23 @@ public class Carre extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-		
+
+		creerAires(pointMilieu);
+	}
+
+	/**
+	 * Créer les aires de sélection associées à la tuile carrée
+	 * 
+	 * @param pointMilieu le point milieu de la tuile carrée
+	 */
+	// Jason Xa
+	private void creerAires(Point2D.Double pointMilieu) {
+
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
 		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(3));
 		Aire aire4 = new Aire(pointsCoin.get(3), pointMilieu, pointsCoin.get(0));
 
 		aires = new Aire[] { aire1, aire2, aire3, aire4 };
-		// aires={};
 	}
 }

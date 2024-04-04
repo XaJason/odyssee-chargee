@@ -2,6 +2,7 @@ package utilitaires;
 
 /**
  * Constante des différents panels et fenêtre
+ * 
  * @author Kitimir Yim
  */
 public class ConstanteComposantsSwing {

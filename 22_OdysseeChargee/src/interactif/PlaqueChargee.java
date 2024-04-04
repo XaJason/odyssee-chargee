@@ -3,7 +3,6 @@ package interactif;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
 
 import physique.Vecteur2D;
 import utilitaires.Dessinable;

@@ -6,7 +6,8 @@ import tuile.Tuile;
 
 /**
  * Composant illustrant la simulation :
- * Un niveau est une scène physique où sont représentés des objets intéractifs physique et des tuiles
+ * Un niveau est une scène physique où sont représentés des objets intéractifs
+ * physique et des tuiles
  *
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia

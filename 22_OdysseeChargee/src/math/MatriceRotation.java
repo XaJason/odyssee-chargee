@@ -6,8 +6,14 @@ package math;
  */
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public class MatriceRotation {
+public class MatriceRotation implements Serializable {
+
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
+	private static final long serialVersionUID = 2819875705094597074L;
 
 	/** Angle de rotation transformé en radian **/
 	double angleRotation;

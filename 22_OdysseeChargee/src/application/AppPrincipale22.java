@@ -221,7 +221,8 @@ public class AppPrincipale22 extends JFrame {
 		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, pnlAPropos,"À propos de cette application",JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, pnlAPropos, "À propos de cette application",
+						JOptionPane.PLAIN_MESSAGE);
 
 			}
 		});
@@ -303,12 +304,11 @@ public class AppPrincipale22 extends JFrame {
 		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
-
 				if (evt.getPropertyName().equals("niveauSelectionne")) {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
+					Niveau niveauSelectionne = (Niveau) evt.getNewValue();
 					panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
 
 				}
@@ -324,8 +324,6 @@ public class AppPrincipale22 extends JFrame {
 				}
 			}
 		});
-
-
 
 	}
 
@@ -436,7 +434,8 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmApropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, pnlAPropos,"À propos de cette application",JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, pnlAPropos, "À propos de cette application",
+						JOptionPane.PLAIN_MESSAGE);
 
 			}
 
@@ -500,12 +499,12 @@ public class AppPrincipale22 extends JFrame {
 			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
 		}
 	}
-	
+
 	/**
 	 * Implémente l'application test dans l'application principale
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void implementationApplicationTest() {
-		
+
 	}
 }
