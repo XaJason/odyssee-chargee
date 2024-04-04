@@ -52,7 +52,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 				PCS.firePropertyChange("passerVersJeu", 0, -1);
 			}
 		});
-		btnPasserModeJeu.setBounds(192, 119, 162, 23);
+		btnPasserModeJeu.setBounds(50, 50, 200, 30);
 		add(btnPasserModeJeu);
 
 	}
@@ -62,11 +62,11 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	// Kitimir Yim
 	public void actualiserNiveaux() {
-		removeAll(); // Supprimer tous les composants existants
+		
 
 		ArrayList<Niveau> niveaux = GestionnaireDeNiveau.getRepertoireNiveau();
 
-		int yPosition = 50;
+		int yPosition = 90;
 		for (Niveau niveau : niveaux) {
 			JButton btnNiveau = new JButton(niveau.getNomNiveau());
 			btnNiveau.addActionListener(new ActionListener() {

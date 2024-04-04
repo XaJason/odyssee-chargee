@@ -1,7 +1,13 @@
 package physique;
 
+import java.awt.geom.Area;
+
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
+import tuile.Drapeau;
+import tuile.Pics;
+import tuile.Portail;
+import tuile.VaisseauImage;
 
 /**
  * Cette classe regroupe les calculs physiques nécessaires au mouvement
@@ -504,4 +510,44 @@ public class MoteurPhysique {
 
 		return vitApresCol;
 	}// fin méthode
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
+	 * @return boolean de si le vaisseau et en collision
+	 */
+	//Kitimir Yim  
+	public static boolean verifieCollisionPicVaisseau(VaisseauImage vaisseau, Pics pic) {
+		Area vaisseauA = vaisseau.formeVaisseau();
+		Area picA = pic.formePic();
+		vaisseauA.intersect(picA);
+		return !vaisseauA.isEmpty();
+
+	}
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
+	 * @return boolean de si le vaisseau et en collision
+	 */
+	//Kitimir Yim
+	public boolean verifieCollisionDrapeauVaisseau(VaisseauImage vaisseau, Drapeau drapeau) {
+		Area vaisseauA = vaisseau.formeVaisseau();
+		Area drapeauA = drapeau.formeDrapeau();
+		vaisseauA.intersect(drapeauA);
+		return !vaisseauA.isEmpty();
+
+	}
+	
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
+	 * @return boolean de si le vaisseau et en collision
+	 */
+	//Kitimir Yim 
+	public boolean verifieCollisionPortailVaisseau(VaisseauImage vaisseau, Portail portail) {
+		Area vaisseauA = vaisseau.formeVaisseau();
+		Area portailA = portail.formePortail();
+		vaisseauA.intersect(portailA);
+		return !vaisseauA.isEmpty();
+
+	}
 }// fin classe
