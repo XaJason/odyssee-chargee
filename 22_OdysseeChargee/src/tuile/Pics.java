@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
@@ -133,6 +136,24 @@ public class Pics extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+
+	}
+	
+	
+	/**
+	 * Méthode qui forme le pic dans un area
+	 * @return la forme du pic dans un area
+	 */
+	//Kitimir Yim
+	public Area formePic() {
+
+		Rectangle2D rectangle = new Rectangle2D.Double(pointInitial.getX(), pointInitial.getY(), largeurTuile,
+				hauteurTuile/2);
+
+		Area picArea = new Area(rectangle);
+		return picArea;
+
+
 
 	}
 
