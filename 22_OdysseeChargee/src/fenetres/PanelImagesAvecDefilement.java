@@ -23,19 +23,59 @@ import javax.swing.ScrollPaneConstants;
  * - la largeur de ce cadre en pixels (setLargeurCadre)
  * 
  * @author Caroline Houle
+ *
  */
 
 public class PanelImagesAvecDefilement extends JPanel {
+	/**
+	 * Numéro d'identification pour la sérialisation
+	 */
 	private static final long serialVersionUID = 1L;
-	private final int LARG_BARRE_DEFILEMENT = 20; 	//largeur en pixels qu'occupe la barre de defilement vertical
-	private int largeurCadre = 6; 			        //nombre de pixels laisses vides autour du scrollpane (prendra la couleur du fond du jpanel)
+	/**
+	 * Largeur en pixels qu'occupe la barre de defilement vertical
+	 */
+	private final int LARG_BARRE_DEFILEMENT = 20; 	
+	/**
+	 * Nombre de pixels laisses vides autour du scrollpane (prendra la couleur du fond du jpanel)
+	 */
+	private int largeurCadre = 6; 
+	/**
+	 * Nom du fichier
+	 */
 	private String nomFichierCourant = null;
+	/**
+	 * JScrollPane utilisé pour afficher les images avec défilement.
+	 */
 	private JScrollPane sp;
+
+	/**
+	 * JLabel utilisé pour contenir l'image affichée.
+	 */
 	private JLabel lblPourContenirImage;
+
+	/**
+	 * Nombre de pages dans le document.
+	 */
 	private int nombrePages;
-	private int pageCourante=0;
+
+	/**
+	 * Page courante affichée.
+	 */
+	private int pageCourante = 0;
+
+	/**
+	 * Tableau contenant les chemins des fichiers images.
+	 */
 	private String[] tableauImages;
+
+	/**
+	 * Indique si la taille des images est inconnue.
+	 */
 	private boolean pasDeSize = false;
+
+	/**
+	 * Tableau d'objets ImageIcon pour contenir les images.
+	 */
 	private ImageIcon tableauIcon[] = null;
 
 	/**

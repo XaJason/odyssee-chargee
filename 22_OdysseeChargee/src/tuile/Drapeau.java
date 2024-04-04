@@ -126,9 +126,9 @@ public class Drapeau extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui forme le vaisseau dans un area
+	 * Méthode qui forme le drapeau dans un area
 	 * 
-	 * @return la forme du vaisseau dans un area
+	 * @return la forme du drapeau dans un area
 	 */
 	// Kitimir Yim
 	public Area formeDrapeau() {

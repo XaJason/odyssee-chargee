@@ -18,6 +18,7 @@ public class PanelAPropos extends JPanel {
 	/**
 	 * Cr�ation du panel 
 	 */
+	//Kitimir Yim
 	public PanelAPropos() {
 		//noter: aucun layout précisé: le conteneur à onglets prendra la largeur de la plus longue ligne de texte
 		JTabbedPane tabOnglets = new JTabbedPane(JTabbedPane.TOP);
@@ -44,11 +45,18 @@ public class PanelAPropos extends JPanel {
 		tabOnglets.addTab("Sources", null, pnlSources, null);
 
 		JLabel lblSources = new JLabel( "<html>" + 
-				"<br>Image de telle chose: truc.org" +
-				"<br>Image de telle chose: chose.com" + 
-				"<br>" +
-				"<br>Module de code pour telle chose: aaa.bbb.org" + 
-				"<br>(etc etc) </html>");
+				"<br>Image des carrés: " +
+				"<br>Image du drapeau: "+
+				"<br>Image des pics: "+
+				"<br>Image des portails: "+
+				"<br>Image des triangles équilatérals: "+
+				"<br>Image des triangles rectangles: "+
+				"<br>Image du vaisseau: "+
+				"<br>Musique de fond: "
+				
+			
+				);
+				
 		lblSources.setVerticalAlignment(SwingConstants.TOP);
 		pnlSources.add(lblSources);
 	}

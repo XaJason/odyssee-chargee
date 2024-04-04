@@ -149,12 +149,39 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 * POUR LE MOMENT EN COMMENTAIRE CAR LA METHODE NE VA PAS LA
 	 */
 	//Kitimir Yim
-	//public boolean verifieCollisionDrapeauVaisseau() {
-	//	Area vaisseau = VaisseauImage.formeVaisseau();
-	//	Area drapeau = Drapeau.formeDrapeau();
-	//	vaisseau.intersect(drapeau);
-	//	return !vaisseau.isEmpty();
-
-	//}
+//	public boolean verifieCollisionDrapeauVaisseau() {
+//		Area vaisseau = VaisseauImage.formeVaisseau();
+//		Area drapeau = Drapeau.formeDrapeau();
+//		vaisseau.intersect(drapeau);
+//		return !vaisseau.isEmpty();
+//
+//	}
+	
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
+	 * POUR LE MOMENT EN COMMENTAIRE CAR LA METHODE NE VA PAS LA
+	 */
+	//Kitimir Yim 
+//	public boolean verifieCollisionPortailVaisseau() {
+//		Area vaisseau = vaisseauImage.formeVaisseau();
+//		Area Portail = portail.formeDrapeau();
+//		vaisseau.intersect(drapeau);
+//		return !vaisseau.isEmpty();
+//
+//	}
+	
+	/**
+	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
+	 * POUR LE MOMENT EN COMMENTAIRE CAR LA METHODE NE VA PAS LA
+	 */
+	//Kitimir Yim  
+//	public boolean verifieCollisionPicVaisseau() {
+//		Area vaisseau = vaisseauImage.formeVaisseau();
+//		Area Pic = pic.formeDrapeau();
+//		vaisseau.intersect(drapeau);
+//		return !vaisseau.isEmpty();
+//
+//	}
 
 }

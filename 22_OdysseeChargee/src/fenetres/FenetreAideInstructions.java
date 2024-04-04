@@ -31,7 +31,7 @@ public class FenetreAideInstructions extends JFrame {
 	private JButton btnPageSuivante;
 	
 	// c'est ici que l'on declare un tableau ou on enumere toutes les pages d'aide desirees
-	private String tableauImages[] = {"intro.jpg","general.jpg", "touches.jpg", "aide4.jpg","aide5.jpg", "aide6.jpg", "page6.jpg"};
+	private String tableauImages[] = {""};
 	private JLabel lblAttention;
 
 	/**
