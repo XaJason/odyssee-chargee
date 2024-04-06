@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import tuile.VaisseauImage;
 import utilitaires.Dessinable;
 
 /**
@@ -41,6 +42,8 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
+	private VaisseauImage vaisseauImage;
+
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur du vaisseau pour test
@@ -61,7 +64,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		this.masse = masse;
 		creerLaGeometrie();
 	}
-	
+
 	/**
 	 * Constructeur du vaisseau pour officiel
 	 * 
@@ -70,9 +73,10 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 * @param masse    La masse du vaisse
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Vaisseau(Vecteur2D position, double charge, double masse) {
+	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage vaisseauI) {
 		super(position, charge);
 		this.masse = masse;
+		this.vaisseauImage = vaisseauI;
 		creerLaGeometrie();
 	}
 
@@ -283,5 +287,15 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public void setMasse(double masse) {
 		this.masse = masse;
 	}
+
+	/*
+	 * Retourne VaisseauImage
+	 */
+	//Kitimir Yim
+	public VaisseauImage getImage() {
+		return vaisseauImage;
+
+	}
+
 
 }

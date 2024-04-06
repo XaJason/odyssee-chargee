@@ -12,6 +12,9 @@ import niveau.Niveau;
 import niveau.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import tuile.Drapeau;
+import tuile.Tuile;
+import tuile.VaisseauImage;
 
 /**
  * Composant illustrant la simulation :
@@ -46,7 +49,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double pixelsParMetre;
 	/** Vecteur nul **/
 	private final Vecteur2D VEC_ZERO = new Vecteur2D();
-	
+
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
@@ -54,7 +57,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private final double CHARGE_INITIALE_DES_PLAQUES = 20;
 	/** Charge des plaques du niveau (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
-	
+
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
 	private final double CHARGE_INITIALE_VAISSEAU = -5;
@@ -64,7 +67,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private final double POS_INITIALE_VAISSEAU_EN_X = 10; //Emplacement en x de la tuile du vaisseau image
 	/** Composante en Y de la position initiale du vaisseau (en mètre) **/
 	private final double POS_INITIALE_VAISSEAU_EN_Y = 50; //Emplacement en y de la tuile du vaisseau image
-	
+
 	// Caractéristiques du vaisseau
 	/** Objet représentant le vaisseau **/
 	private Vaisseau vaisseau;
@@ -78,11 +81,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double posDeSauvegardeY = POS_INITIALE_VAISSEAU_EN_Y;
 	/** Vecteur position du vaisseau (en mètre) **/
 	private Vecteur2D posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
-//	/** Vecteur vitesse du vaisseau (en m/s) **/
-//	private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
-//	/** Vecteur accélération du vaisseau (en m/s^2) **/
-//	private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
-	
+	//	/** Vecteur vitesse du vaisseau (en m/s) **/
+	//	private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
+	//	/** Vecteur accélération du vaisseau (en m/s^2) **/
+	//	private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
+	private VaisseauImage img = null;
 	/**
 	 * Constructeur de la zone d'animation physique
 	 */
@@ -90,12 +93,24 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	public ZoneAnimationPhysique() {
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
-		
+
 		niveau = Sauvegarder.chargerNiveau("niveau1"); //charger le niveau par défaut éventuellement
 		//définir la position initial du vaisseau à l'aide de son emplacement dans le niveau (sa tuile)
-		vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau);
+
+		Grille grille = niveau.getGrille();
+		Tuile[][] tab = grille.getTableau();
+
+		for (int i = 0; i < grille.getNbCase(); i++) {
+			for (int j = 0; j < grille.getNbCase(); j++) {
+				Tuile tuile = tab[i][j];
+
+				if (tuile != null && tuile.getType() == "Vaisseau") {
+					img = (VaisseauImage) tuile;
+
+				}   }   }
+		vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, img);
 	}
-	
+
 
 	// SOUS-PROGRAMMES //
 	/**
@@ -136,7 +151,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private void dessinerNiveau(Graphics2D g2d) {
 		niveau.getGrille().dessinerTuile(g2d);
 	}
-	
+
 	/**
 	 * Permet de dessiner le vaisseau
 	 * 
@@ -147,7 +162,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		//vaisseau.setPixelsParMetre(pixelsParMetre);
 		vaisseau.dessiner(g2d);
 	}
-	
+
 	/**
 	 * Permet d'effectuer l'animation
 	 */
@@ -260,7 +275,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setSommeDesForces(VEC_ZERO);
 
 		// Désactiver les plaques chargées (charge neutre)
-		
+
 		// À gérer plus tard si l'utilisateur fait n'importe nawak
 		try {
 			//plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise() );
@@ -296,7 +311,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		repaint();
 	}
 
-	
+
 	// GETTERS ET SETTERS //
 	/**
 	 * Retourne la charge du vaisseau
@@ -337,7 +352,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setMasse(masseVaisseau);
 		repaint();
 	}
-	
+
 	/**
 	 * Retourne la charge des plaques du niveau
 	 * @return La charge des plaques du niveau
@@ -357,7 +372,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		//plaqueRouge.setCharge(chargePlaques); Changer la charge de toutes les plaques du niveau
 		repaint();
 	}
-	
+
 	/**
 	 * Retourne la valeur du pas de simulation (deltaT)
 	 * @return La pas de simulation (deltaT)
@@ -375,7 +390,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	public void setDeltaT(double deltaT) {
 		this.deltaT = deltaT;
 	}
-	
+
 	/**
 	 * Retourne le niveau
 	 * @return Le niveau
@@ -394,8 +409,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		this.niveau = Sauvegarder.chargerNiveau(nomNiveau);
 		repaint();
 	}
-	
-	
+
+
 	// GETTERS DE CERTAINES CONSTANTES //
 	/**
 	 * Retourne la charge initiale du vaisseau
@@ -414,7 +429,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	public double getMasseInitialeVaisseau() {
 		return MASSE_INITIALE_VAISSEAU;
 	}
-	
+
 	/**
 	 * Retourne la charge initiale de la plaque
 	 * @return La charge initiale de la plaque
@@ -431,5 +446,33 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	public double getDeltaTInitial() {
 		return DELTA_T_INITIAL;
+	}
+
+
+	/**
+	 * Méthode qui teste si le vaisseau entre en collision avec des objets.
+	 */
+	// Kitimir Yim
+	private void testerCollisionsAvecDrapeau() {
+		Grille grille = niveau.getGrille();
+		Tuile[][] tab = grille.getTableau();
+
+		for (int i = 0; i < grille.getNbCase(); i++) {
+			for (int j = 0; j < grille.getNbCase(); j++) {
+				Tuile tuile = tab[i][j];
+
+				if (tuile != null && tuile.getType() == "Drapeau") {
+					Drapeau drap = (Drapeau) tuile;
+
+					if (MoteurPhysique.verifieCollisionVaisseauDrapeau(vaisseau.getImage(), drap)){
+						System.out.println("Collision avec un drapeau détectée !");
+						enCoursDAnimation = false;
+					}
+
+					
+				}
+			}
+		}
+
 	}
 }

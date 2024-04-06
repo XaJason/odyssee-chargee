@@ -516,7 +516,7 @@ public class MoteurPhysique {
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim  
-	public static boolean verifieCollisionPicVaisseau(VaisseauImage vaisseau, Pics pic) {
+	public static boolean verifieCollisionVaisseauPic(VaisseauImage vaisseau, Pics pic) {
 		Area vaisseauA = vaisseau.formeVaisseau();
 		Area picA = pic.formePic();
 		vaisseauA.intersect(picA);
@@ -529,7 +529,7 @@ public class MoteurPhysique {
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim
-	public boolean verifieCollisionDrapeauVaisseau(VaisseauImage vaisseau, Drapeau drapeau) {
+	public static  boolean verifieCollisionVaisseauDrapeau(VaisseauImage vaisseau, Drapeau drapeau) {
 		Area vaisseauA = vaisseau.formeVaisseau();
 		Area drapeauA = drapeau.formeDrapeau();
 		vaisseauA.intersect(drapeauA);
@@ -543,11 +543,15 @@ public class MoteurPhysique {
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim 
-	public boolean verifieCollisionPortailVaisseau(VaisseauImage vaisseau, Portail portail) {
+	public static boolean verifieCollisionVaisseauPortail(VaisseauImage vaisseau, Portail portail) {
 		Area vaisseauA = vaisseau.formeVaisseau();
 		Area portailA = portail.formePortail();
 		vaisseauA.intersect(portailA);
 		return !vaisseauA.isEmpty();
 
 	}
+	
+	
+	
+	
 }// fin classe
