@@ -78,7 +78,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant le vaisseau
 	 * 
@@ -152,7 +152,6 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 	}
 
-	
 
 
 }
