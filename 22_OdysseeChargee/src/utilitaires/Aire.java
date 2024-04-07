@@ -2,6 +2,7 @@ package utilitaires;
 
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 /**
  * Un objet Aire représente une aire triangulaire intérieure d'une tuile qui
@@ -9,7 +10,9 @@ import java.awt.geom.Point2D;
  * 
  * @author Jason Xa
  */
-public class Aire implements Selectionnable {
+public class Aire implements Selectionnable, Serializable {
+	/** Constante pour la sérialisation de la classe **/
+	private static final long serialVersionUID = 6541927571396899170L;
 	/** le triangle formé par les trois points */
 	private Path2D.Double forme;
 	/**

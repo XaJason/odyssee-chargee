@@ -2,6 +2,7 @@ package interactif;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 
@@ -35,14 +36,15 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private Vecteur2D sommeForces = new Vecteur2D(0, 0); // par defaut
 
 	/** Rayon du vaisseau (en mètre) **/
-	private double rayon = 5 ;
+	private double rayon = 15;
 	/** Masse du vaisseau (en kg) **/
 	private double masse;
 
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
-	private VaisseauImage vaisseauImage;
+	/** Objet VaisseauImage permettant d'accéder aux propriétés de la tuile du vaisseau **/
+	private VaisseauImage tuile;
 
 	// CONSTRUCTEUR //
 	/**
@@ -73,10 +75,10 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 * @param masse    La masse du vaisse
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage vaisseauI) {
+	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage tuileDuVaisseau) {
 		super(position, charge);
 		this.masse = masse;
-		this.vaisseauImage = vaisseauI;
+		this.tuile = tuileDuVaisseau;
 		creerLaGeometrie();
 	}
 
@@ -90,6 +92,17 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		double coiny = getPosition().getY() - rayon;
 		cercle = new Ellipse2D.Double(coinx, coiny, 2 * rayon, 2 * rayon);
 	}
+	
+	/**
+	 * Méthode qui forme l'aire d'un objet vaisseau
+	 * Utile pour les collisions avec des objets définis par un Area (pics, drapeau, portail)
+	 * 
+	 * @return la forme du vaisseau dans un area
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Area formerAireDuVaisseau() { 
+		return new Area(cercle);
+	}
 
 	/**
 	 * Permet de dessiner un vaisseau, sur le contexte graphique passé en parametre.
@@ -100,9 +113,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
-		g2dPrive.setColor(Color.cyan);
-		// g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
+		g2dPrive.setColor(Color.black);
+		//g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
 		g2dPrive.fill(cercle);
+		
+		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
+		tuile.dessiner(g2d, (int)(getPosition().getX()-rayon), (int)(getPosition().getY()-rayon) );
 	}
 
 	/**
@@ -158,7 +174,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		vitesse = MoteurPhysique.detectionCollisionsBorduresEtCalculVitesse(this, largeurComposant, hauteurComposant);
 		creerLaGeometrie();
 	}
-
+	
 	/**
 	 * Permet d'afficher quelques caractéristiques du vaisseau :
 	 * Sa position, sa vitesse, son accélération, la somme des forces agissant sur
@@ -182,6 +198,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		s += " forces=[ " + String.format("%." + nbDecimales + "f", sommeForces.getX()) + ", "
 				+ String.format("%." + nbDecimales + "f", sommeForces.getY()) + "]";
 		s += " charge=[ " + String.format("%." + nbDecimales + "f", getCharge()) + "]";
+		s += " masse=[ " + String.format("%." + nbDecimales + "f", masse) + "]";
 		return (s);
 	}
 
@@ -288,14 +305,22 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		this.masse = masse;
 	}
 
-	/*
-	 * Retourne VaisseauImage
+	/**
+	 * Retourne l'objet VaisseauImage qui contient les propriétés de la tuile du vaisseau
+	 * @return L'objet VaisseauImage 
 	 */
 	//Kitimir Yim
-	public VaisseauImage getImage() {
-		return vaisseauImage;
-
+	public VaisseauImage getTuile() {
+		return tuile;
 	}
 
+	/**
+	 * Modifie l'objet VaisseauImage qui contient les propriétés de la tuile du vaisseau
+	 * @param tuileDuVaisseau Le nouvel objet VaisseauImage
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setTuile(VaisseauImage tuileDuVaisseau) {
+		this.tuile = tuileDuVaisseau;
+	}
 
 }

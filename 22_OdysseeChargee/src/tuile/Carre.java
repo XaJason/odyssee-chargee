@@ -84,6 +84,8 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	 * Définit l'image représentant le carré
 	 * 
 	 * @param fichierImage Le fichier de l'image représentant le carré
+	 * @param largeurTuile La largeur de la tuile
+	 * @param hauteurTuile La hauteur de la tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {

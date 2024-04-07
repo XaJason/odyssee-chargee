@@ -5,9 +5,8 @@ import java.awt.geom.Area;
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
 import tuile.Drapeau;
-import tuile.Pics;
 import tuile.Portail;
-import tuile.VaisseauImage;
+import tuile.Tuile;
 
 /**
  * Cette classe regroupe les calculs physiques nécessaires au mouvement
@@ -21,25 +20,28 @@ import tuile.VaisseauImage;
  */
 public class MoteurPhysique {
 
-	/** Accélération gravitationnelle de la Terre (en m/s^2) */
-	private static final double ACCEL_G = 9.80665;
+	/** Accélération gravitationnelle (de la Terre par défaut) (en m/s^2) **/
+	public static double accelGrav = -9.80665; //changer le signe pour + quand on aura mis l'origine en bas à droite
 
-	/** Constante de Coulomb */
+	/** Coefficient de frottement statique (acier-acier par défaut) **/
+	public static double coeffFrotStat = 0.75;
+	
+	/** Coefficient de frottement cinétique (acier-acier par défaut) **/
+	public static double coeffFrotCine = 0.57;
+	
+	/** Constante de Coulomb **/
 	private static final double K = 8.98755;
 
-	/**
-	 * Coefficient de restitution pour un vaisseau et une surface, tous deux en
-	 * acier
-	 */
+	/** Coefficient de restitution pour un vaisseau et une surface, tous deux en acier **/
 	private static final double COEFF_E = 19.0 / 20.0;
 
-	/** Tolérance utilisée dans les comparaisons réelles avec zéro */
+	/** Tolérance utilisée dans les comparaisons réelles avec zéro **/
 	private static final double EPSILON = 1e-10;
 
-	/** Rapport entre les radians et les degrés */
+	/** Rapport entre les radians et les degrés **/
 	private static final double RAPPORT_RADIANS_DEGRES = 2 * Math.PI / 360;
 
-	/** Vecteur nul */
+	/** Vecteur nul **/
 	private static final Vecteur2D VEC_ZERO = new Vecteur2D();
 
 	/**
@@ -105,8 +107,8 @@ public class MoteurPhysique {
 	 * @return Un vecteur représentant la force gravitationnelle exercée
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public static Vecteur2D calculForceGrav(double masse) {
-		return new Vecteur2D(0, -ACCEL_G * masse);
+	public static Vecteur2D calculForceGravEnY(double masse) {
+		return new Vecteur2D(0, -accelGrav * masse);
 	}
 
 	/**
@@ -146,7 +148,7 @@ public class MoteurPhysique {
 		if (vitesse.module() < EPSILON) {
 			forceFrot = VEC_ZERO;
 		} else {
-			forceFrot = new Vecteur2D(-coeffFrottementCine * masse * ACCEL_G * Math.cos(angleRad), 0);
+			forceFrot = new Vecteur2D(-coeffFrottementCine * masse * accelGrav * Math.cos(angleRad), 0);
 		}
 		return forceFrot;
 	}
@@ -170,7 +172,7 @@ public class MoteurPhysique {
 	public static Vecteur2D calculForceFrotStat(double masse, double coeffFrottementStat, Vecteur2D vitesse,
 			double angleDeg, double sommeAutresForcesParalleles) {
 		double angleRad = angleDeg * RAPPORT_RADIANS_DEGRES;
-		double frottementStatiqueMax = -coeffFrottementStat * masse * ACCEL_G * Math.cos(angleRad);
+		double frottementStatiqueMax = -coeffFrottementStat * masse * accelGrav * Math.cos(angleRad);
 		Vecteur2D forceFrot;
 
 		if (vitesse.module() < EPSILON) {
@@ -516,24 +518,25 @@ public class MoteurPhysique {
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim  
-	public static boolean verifieCollisionVaisseauPic(VaisseauImage vaisseau, Pics pic) {
-		Area vaisseauA = vaisseau.formeVaisseau();
-		Area picA = pic.formePic();
-		vaisseauA.intersect(picA);
-		return !vaisseauA.isEmpty();
+	public static boolean detecteCollisionsAvecObjetsSpeciaux(Vaisseau vaisseau, Tuile objetSpecial) {
+		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
+		Area aireTuile = objetSpecial.formerAireObjetSpecial();
+		aireVaisseau.intersect(aireTuile);
+		return !aireVaisseau.isEmpty();
 
 	}
 	
+	//PAS UTILIE SI POLYMORPHISME
 	/**
 	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim
-	public static  boolean verifieCollisionVaisseauDrapeau(VaisseauImage vaisseau, Drapeau drapeau) {
-		Area vaisseauA = vaisseau.formeVaisseau();
-		Area drapeauA = drapeau.formeDrapeau();
-		vaisseauA.intersect(drapeauA);
-		return !vaisseauA.isEmpty();
+	public static  boolean verifieCollisionVaisseauDrapeau(Vaisseau vaisseau, Drapeau drapeau) {
+		Area aireVaisseau = vaisseau.getTuile().formeVaisseau();
+		Area aireDrapeau = drapeau.formerAireObjetSpecial();
+		aireVaisseau.intersect(aireDrapeau);
+		return !aireVaisseau.isEmpty();
 
 	}
 	
@@ -543,15 +546,22 @@ public class MoteurPhysique {
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim 
-	public static boolean verifieCollisionVaisseauPortail(VaisseauImage vaisseau, Portail portail) {
-		Area vaisseauA = vaisseau.formeVaisseau();
-		Area portailA = portail.formePortail();
-		vaisseauA.intersect(portailA);
-		return !vaisseauA.isEmpty();
+	public static boolean verifieCollisionVaisseauPortail(Vaisseau vaisseau, Portail portail) {
+		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
+		Area airePortail = portail.formerAireObjetSpecial();
+		aireVaisseau.intersect(airePortail);
+		return !aireVaisseau.isEmpty();
 
 	}
+	//PAS UTILIE SI POLYMORPHISME
 	
-	
-	
+	/**
+	 * Modifie l'accélération gravitationnelle
+	 * @param accelGrav La nouvelle accélération gravitationnelle (en m/s^2)
+	 */
+	//Enuel René Valentin Kizozo Izia
+	public static void setAccelGrav(double accelGrav) {
+		MoteurPhysique.accelGrav = accelGrav;
+	}
 	
 }// fin classe

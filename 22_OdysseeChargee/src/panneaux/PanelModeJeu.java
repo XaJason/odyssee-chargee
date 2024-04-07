@@ -16,6 +16,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import dessin.ZoneAnimationPhysique;
+import physique.MoteurPhysique;
 
 /**
  * Panel du mode de jeu
@@ -204,7 +205,7 @@ public class PanelModeJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
-		zoneAnimationPhysique.setBounds(29, 31, 1232, 617);
+		zoneAnimationPhysique.setBounds(29, 31, 1232, 700);
 		add(zoneAnimationPhysique);
 		
 		btnDemarrer = new JButton("Démarrer");
@@ -217,7 +218,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(172, 685, 89, 23);
+		btnDemarrer.setBounds(172, 765, 89, 23);
 		add(btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
@@ -230,7 +231,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnArreter.setBounds(348, 685, 89, 23);
+		btnArreter.setBounds(348, 765, 89, 23);
 		add(btnArreter);
 
 		btnRedemarrer = new JButton("Redémarrer");
@@ -243,7 +244,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnRedemarrer.setBounds(765, 685, 129, 23);
+		btnRedemarrer.setBounds(765, 765, 129, 23);
 		add(btnRedemarrer);
 
 		btnProchaineImage = new JButton("Prochaine image");
@@ -254,7 +255,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnProchaineImage.setBounds(524, 685, 154, 23);
+		btnProchaineImage.setBounds(524, 765, 154, 23);
 		add(btnProchaineImage);
 
 		btnReinitialiser = new JButton("Réinitialiser");
@@ -265,7 +266,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnReinitialiser.setBounds(981, 685, 129, 23);
+		btnReinitialiser.setBounds(981, 765, 129, 23);
 		add(btnReinitialiser);
 	}
 	
@@ -299,6 +300,15 @@ public class PanelModeJeu extends JPanel {
 		panelEntree.add(spnChargeVaisseau);
 
 		spnGravite = new JSpinner();
+		spnGravite.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				// debut
+				MoteurPhysique.setAccelGrav((double) spnGravite.getValue());
+				zoneAnimationPhysique.setForceGrav();
+				// fin
+			}
+		});
+		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.accelGrav, -24.8, -1.6, 0.1));
 		spnGravite.setBounds(206, 151, 160, 35);
 		panelEntree.add(spnGravite);
 
@@ -315,10 +325,12 @@ public class PanelModeJeu extends JPanel {
 		panelEntree.add(spnChargePlaque);
 
 		spnCoefFrictionStat = new JSpinner();
+		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.coeffFrotStat, 0.50, 1.0, 0.05));
 		spnCoefFrictionStat.setBounds(206, 291, 160, 35);
 		panelEntree.add(spnCoefFrictionStat);
 		
 		spnCoefFrictionCine = new JSpinner();
+		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.coeffFrotCine, 0.35, 0.70, 0.05));
 		spnCoefFrictionCine.setBounds(206, 361, 160, 35);
 		panelEntree.add(spnCoefFrictionCine);
 		

@@ -84,8 +84,10 @@ public class Pics extends Tuile implements Serializable {
 	 * Définit l'image représentant les pics
 	 * 
 	 * @param imageRef l'image représentant les pics
+	 * @param largeurTuile La largeur de la tuile
+	 * @param hauteurTuile La hauteur de la tuile
 	 */
-	// Jason Xa
+	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
@@ -155,13 +157,13 @@ public class Pics extends Tuile implements Serializable {
 	 * @return la forme du pic dans un area
 	 */
 	//Kitimir Yim
-	public Area formePic() {
+	public Area formerAireObjetSpecial() {
 
-		Rectangle2D rectangle = new Rectangle2D.Double(pointInitial.getX(), pointInitial.getY(), largeurTuile,
+		Rectangle2D rectangle = new Rectangle2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile,
 				hauteurTuile/2);
 
-		Area picArea = new Area(rectangle);
-		return picArea;
+		Area airePics = new Area(rectangle);
+		return airePics;
 
 
 

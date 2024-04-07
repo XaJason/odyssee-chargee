@@ -81,8 +81,10 @@ public class Portail extends Tuile implements Serializable {
 	 * Définit l'image représentant le portail
 	 * 
 	 * @param imageRef l'image représentant le portail
+	 * @param largeurTuile La largeur de la tuile
+	 * @param hauteurTuile La hauteur de la tuile
 	 */
-	// Jason Xa
+	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
@@ -135,19 +137,19 @@ public class Portail extends Tuile implements Serializable {
 	 * @return la forme du Portail dans un area
 	 */
 	//Kitimir Yim
-	public Area formePortail() {
+	public Area formerAireObjetSpecial() {
 
 		double diametre = Math.min(largeurTuile, hauteurTuile); 
 		double rayon = diametre / 2.0;
 
 
-		double centreX = pointInitial.getX() + largeurTuile / 2.0;
-		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
+		double centreX = getPointZero().getX() + largeurTuile / 2.0;
+		double centreY = getPointZero().getY() + hauteurTuile / 2.0;
 
-		Ellipse2D oval = new Ellipse2D.Double(centreX - rayon, centreY, diametre, diametre);
+		Ellipse2D cercle = new Ellipse2D.Double(centreX - rayon, centreY, diametre, diametre);
 
-		Area PortailArea = new Area(oval);
-		return PortailArea;
+		Area airePortail = new Area(cercle);
+		return airePortail;
 
 
 

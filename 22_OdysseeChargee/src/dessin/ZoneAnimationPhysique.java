@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import interactif.PlaqueChargee;
 import interactif.Vaisseau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
@@ -49,7 +50,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double pixelsParMetre;
 	/** Vecteur nul **/
 	private final Vecteur2D VEC_ZERO = new Vecteur2D();
-
+	
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
@@ -64,9 +65,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Masse initiale du vaisseau (en kilogramme) **/
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
-	private final double POS_INITIALE_VAISSEAU_EN_X = 10; //Emplacement en x de la tuile du vaisseau image
+	private final double POS_INITIALE_VAISSEAU_EN_X = 90; //Emplacement en x de la tuile du vaisseau image
 	/** Composante en Y de la position initiale du vaisseau (en mètre) **/
-	private final double POS_INITIALE_VAISSEAU_EN_Y = 50; //Emplacement en y de la tuile du vaisseau image
+	private final double POS_INITIALE_VAISSEAU_EN_Y = 165; //Emplacement en y de la tuile du vaisseau image
 
 	// Caractéristiques du vaisseau
 	/** Objet représentant le vaisseau **/
@@ -81,11 +82,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double posDeSauvegardeY = POS_INITIALE_VAISSEAU_EN_Y;
 	/** Vecteur position du vaisseau (en mètre) **/
 	private Vecteur2D posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
+	/** Force gravitationnelle agissant sur le vaisseau **/
+	Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
+	/** Sommes des forces agissant sur le vaisseau **/
+	Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+
+	
 	//	/** Vecteur vitesse du vaisseau (en m/s) **/
 	//	private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
 	//	/** Vecteur accélération du vaisseau (en m/s^2) **/
 	//	private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
-	private VaisseauImage img = null;
+	//private VaisseauImage tuileDuVaisseau = null;
 	/**
 	 * Constructeur de la zone d'animation physique
 	 */
@@ -94,8 +101,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
 
-		niveau = Sauvegarder.chargerNiveau("niveau1"); //charger le niveau par défaut éventuellement
-		//définir la position initial du vaisseau à l'aide de son emplacement dans le niveau (sa tuile)
+		
+		niveau = Sauvegarder.chargerNiveau("Niveau 1"); //charger le niveau par défaut éventuellement
 
 		Grille grille = niveau.getGrille();
 		Tuile[][] tab = grille.getTableau();
@@ -103,13 +110,27 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		for (int i = 0; i < grille.getNbCase(); i++) {
 			for (int j = 0; j < grille.getNbCase(); j++) {
 				Tuile tuile = tab[i][j];
-
-				if (tuile != null && tuile.getType() == "Vaisseau") {
-					img = (VaisseauImage) tuile;
-
-				}   }   }
-		vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, img);
-	}
+				
+				if ( tuile != null && tuile.getType().equals("Vaisseau") ) {
+					//VaisseauImage tuileDuVaisseau = (VaisseauImage) tuile;
+					vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, (VaisseauImage) tuile);
+					
+					// Définir la position initial du vaisseau à l'aide de son emplacement dans le niveau (sa tuile)
+					posDeSauvegardeX = tuile.getPointZero().getX() + vaisseau.getRayon();
+					//posDeSauvegardeY = tuile.getPointZero().getY() + vaisseau.getRayon();
+					posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
+					vaisseau.setPosition(posVaisseau);
+				}//fin if
+			}//fin 2e boucle for 
+		}//fin 1re boucle for
+		
+		
+		/* 
+		 * En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la tuile vaisseau et donc son image
+		 * L'image du vaisseau le sera quand on dessinera le vaisseau
+		 */
+		niveau.getGrille().setDansModeJeu(true);
+	}//fin constructeur
 
 
 	// SOUS-PROGRAMMES //
@@ -132,14 +153,15 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			pixelsParMetre = getWidth() / largeurDuComposantEnMetres;
 			hauteurDuComposantEnMetres = getHeight() / pixelsParMetre;
 
-			vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
+			
+			//vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 
 			premiereFois = false;
 		} // fin condition dans paintComponent
 
 		g2d.scale(pixelsParMetre, pixelsParMetre);
 		dessinerNiveau(g2d);
-		//dessinerVaisseau(g2d);
+		dessinerVaisseau(g2d);
 	}
 
 	/**
@@ -149,6 +171,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerNiveau(Graphics2D g2d) {
+		
 		niveau.getGrille().dessinerTuile(g2d);
 	}
 
@@ -160,6 +183,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerVaisseau(Graphics2D g2d) {
 		//vaisseau.setPixelsParMetre(pixelsParMetre);
+		//vaisseau.setTuile(tuileDuVaisseau);
 		vaisseau.dessiner(g2d);
 	}
 
@@ -193,19 +217,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		System.out.println("Temps total écoulé: " + String.format("%.3f", tempsTotalEcoule) + "sec (en temps simulé!)");
 
 		//Vecteur2D forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, plaqueRouge);
-		Vecteur2D forceGrav = MoteurPhysique.calculForceGrav(vaisseau.getMasse());
+		
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
 		 * les forces d'autres plaques
 		 */
-
-		//vaisseau.setSommeDesForces(forceElec.additionne(forceGrav));
-		vaisseau.setSommeDesForces(forceGrav);
+		//sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
+		
+		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
-		// System.out.println("Temps total écoulé: " +
-		// String.format("%.3f",tempsTotalEcoule) + "sec (en temps simulé!)");
+		
 		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
 		//System.out.println("La plaque rouge : " + plaqueRouge.toString(3));
 		System.out.println(" ");
@@ -227,8 +250,44 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 */
 		//vaisseau.gererCollisionAvecPlaque(plaqueRouge);
 		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
+		testerCollisionsAvecObjetsSpeciaux();
 	}
 
+	/**
+	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux (drapeau, pics, portail)
+	 */
+	// Kitimir Yim
+	private void testerCollisionsAvecObjetsSpeciaux() {
+		 
+		Tuile[][] tab = niveau.getGrille().getTableau();
+
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
+				Tuile tuile = tab[i][j];
+
+				if (tuile != null && 
+						( tuile.getType().equals("Drapeau") | tuile.getType().equals("Pics") | tuile.getType().equals("Portail") ) ) {
+					System.out.println("yooo");
+					if (MoteurPhysique.detecteCollisionsAvecObjetsSpeciaux(vaisseau, tuile)) {
+						switch (tuile.getType()) {
+						case "Drapeau":
+							enCoursDAnimation = false;
+							break;
+						case "Pics":
+							enCoursDAnimation = false;
+							System.out.println("Vous êtes mort!");
+							recommencer();
+							break;
+						case "Portail":
+							//Ajouter le code pour gérer la téléportation à l'autre portail
+							break;
+						}
+					}
+				}//fin if
+			}//fin 2e boucle for
+		}//fin 1re boucle for
+	}//fin méthode
+	
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
 	 */
@@ -350,9 +409,30 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	public void setMasseVaisseau(double masseVaisseau) {
 		this.masseVaisseau = masseVaisseau;
 		vaisseau.setMasse(masseVaisseau);
+		setForceGrav();
 		repaint();
 	}
-
+	
+	/**
+	 * Retourne la force gravitationnelle agissant sur le vaisseau
+	 * @return La force gravitationnelle agissant sur le vaisseau
+	 */
+	// Enuel Rneé Valentin Kizozo Izia
+	public Vecteur2D getForceGrav() {
+		return forceGrav;
+	}
+	
+	/**
+	 * Modifie la force gravitationnelle agissant sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setForceGrav() {
+		//sommeForcesSurVaisseau.soustrait(forceGrav);
+		forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
+		//sommeForcesSurVaisseau.additionne(forceGrav);
+		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+	}
+	
 	/**
 	 * Retourne la charge des plaques du niveau
 	 * @return La charge des plaques du niveau
@@ -407,6 +487,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	public void setNiveau(String nomNiveau) {
 		this.niveau = Sauvegarder.chargerNiveau(nomNiveau);
+		niveau.getGrille().setDansModeJeu(true);
 		repaint();
 	}
 
@@ -448,7 +529,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		return DELTA_T_INITIAL;
 	}
 
-
+	
+	
 	/**
 	 * Méthode qui teste si le vaisseau entre en collision avec des objets.
 	 */
@@ -464,7 +546,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				if (tuile != null && tuile.getType() == "Drapeau") {
 					Drapeau drap = (Drapeau) tuile;
 
-					if (MoteurPhysique.verifieCollisionVaisseauDrapeau(vaisseau.getImage(), drap)){
+					if (MoteurPhysique.verifieCollisionVaisseauDrapeau(vaisseau, drap)){
 						System.out.println("Collision avec un drapeau détectée !");
 						enCoursDAnimation = false;
 					}

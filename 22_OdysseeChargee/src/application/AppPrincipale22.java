@@ -121,6 +121,8 @@ public class AppPrincipale22 extends JFrame {
 	private final int HAUTEUR_TUILE = 60;
 	/** hauteur d'une demi-tuile */
 	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
+	/** Diamètre du vaisseau **/
+	private final int DIAMETRE_VAISSEAU = LARGEUR_TUILE / 2;
 
 	/**
 	 * Lance l'application
@@ -188,7 +190,7 @@ public class AppPrincipale22 extends JFrame {
 		Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
 		Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
 		Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
-		VaisseauImage.setImageRef("vaisseau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+		VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU, DIAMETRE_VAISSEAU);
 	}
 
 	/**
@@ -523,13 +525,5 @@ public class AppPrincipale22 extends JFrame {
 			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
 			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
 		}
-	}
-
-	/**
-	 * Implémente l'application test dans l'application principale
-	 */
-	// Enuel René Valentin Kizozo Izia
-	private void implementationApplicationTest() {
-
 	}
 }

@@ -87,8 +87,10 @@ public class Drapeau extends Tuile implements Serializable {
 	 * Définit l'image représentant le drapeau d'arrivée
 	 * 
 	 * @param imageRef l'image représentant drapeau d'arrivée
+	 * @param largeurTuile La largeur de la tuile
+	 * @param hauteurTuile La hauteur de la tuile
 	 */
-	// Jason Xa
+	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
@@ -141,13 +143,13 @@ public class Drapeau extends Tuile implements Serializable {
 	 * @return la forme du drapeau dans un area
 	 */
 	// Kitimir Yim
-	public Area formeDrapeau() {
+	public Area formerAireObjetSpecial() {
 
-		Rectangle2D rectangle = new Rectangle2D.Double(pointInitial.getX(), pointInitial.getY(), largeurTuile,
+		Rectangle2D rectangle = new Rectangle2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile,
 				hauteurTuile);
 
-		Area drapeauArea = new Area(rectangle);
-		return drapeauArea;
+		Area aireDrapeau = new Area(rectangle);
+		return aireDrapeau;
 	}
 
 }

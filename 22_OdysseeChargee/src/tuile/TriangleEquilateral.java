@@ -77,8 +77,10 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	 * Définit l'image représentant le triangle équilatéral
 	 * 
 	 * @param imageRef l'image représentant le triangle équilatéral
+	 * @param largeurTuile La largeur de la tuile
+	 * @param hauteurTuile La hauteur de la tuile
 	 */
-	// Jason Xa
+	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}

@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,7 +15,6 @@ import interactif.PlaqueChargee;
 import math.MatriceRotation;
 import utilitaires.Aire;
 import utilitaires.Dessinable;
-import utilitaires.OutilsImage;
 import utilitaires.Selectionnable;
 
 /**
@@ -22,15 +23,15 @@ import utilitaires.Selectionnable;
  * @author Jason Xa
  * @author Giroux
  */
-public class Tuile extends OutilsImage implements Dessinable, Serializable, Selectionnable {
+public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, Selectionnable {
 
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -7235372039893162386L;
-	/** l'abscisse gauche de la tuile (px) */
+	/** l'abscisse gauche de la tuile (en mètre) */
 	protected int x;
-	/** l'ordonnée supérieure la tuile en (px) */
+	/** l'ordonnée supérieure la tuile en (en mètre) */
 	protected int y;
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
@@ -47,10 +48,12 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	/** chaine de caractères représentant le type de la tuile */
 	protected String type;
 
-	/** largeur de la tuile (px) */
+	/** largeur de la tuile (en mètre) */
 	protected static int largeurTuile;
-	/** hauteur de la tuile (px) */
+	/** hauteur de la tuile (en mètre) */
 	protected static int hauteurTuile;
+	/** Largeur d'une demi-tuile **/
+	protected static double largeurDemiTuile = largeurTuile / 2.0;
 
 	private PlaqueChargee[] plaquesChargees;
 
@@ -98,8 +101,8 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	 * Constructeur
 	 * 
 	 * @param image l'image représentant la tuile
-	 * @param x     l'abscisse gauche de la tuile (px)
-	 * @param y     l'ordonnée supérieure la tuile (px)
+	 * @param x     l'abscisse gauche de la tuile (en mètre)
+	 * @param y     l'ordonnée supérieure la tuile (en mètre)
 	 * @param type  le type de la tuile
 	 * 
 	 */
@@ -149,9 +152,7 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		if (image == null) {
 		setImageRefTuile();
-		}
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
 
@@ -166,8 +167,8 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	 * Dessine l'image représentant la tuile selon ses coordonnées
 	 * 
 	 * @param g2d contexte graphique
-	 * @param x   abscisse gauche de la tuile (px)
-	 * @param y   ordonnée supérieure de la tuile (px)
+	 * @param x   abscisse gauche de la tuile (en mètre)
+	 * @param y   ordonnée supérieure de la tuile (en mètre)
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d, int x, int y) {
@@ -176,9 +177,19 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	}
 
 	/**
+	 * Retourne l'abscisse gauche de la tuile
+	 * 
+	 * @return L'abscisse gauche de la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public int getX() {
+		return this.x;
+	}
+	
+	/**
 	 * Définit la nouvelle abscisse gauche de la tuile
 	 * 
-	 * @param x la nouvelle abscisse gauche de la tuile (px)
+	 * @param x la nouvelle abscisse gauche de la tuile (en mètre)
 	 */
 	// Jason Xa
 	public void setX(int x) {
@@ -186,9 +197,19 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	}
 
 	/**
+	 * Retourne l'ordonnée supérieure de la tuile
+	 * 
+	 * @return L'ordonnée supérieure de la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public int getY() {
+		return this.y;
+	}
+	
+	/**
 	 * Définit la nouvelle ordonnée supérieure de la tuile
 	 * 
-	 * @param y la nouvelle ordonnée supérieure (px)
+	 * @param y la nouvelle ordonnée supérieure (en mètre)
 	 */
 	// Jason Xa
 	public void setY(int y) {
@@ -321,17 +342,18 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	/**
 	 * Définit la largeur des tuiles
 	 * 
-	 * @param largeurTuile la nouvelle largeur des tuiles (px)
+	 * @param largeurTuile la nouvelle largeur des tuiles (en mètre)
 	 */
 	// Jason Xa
 	public static void setLargeurTuile(int largeurTuile) {
 		Tuile.largeurTuile = largeurTuile;
+		largeurDemiTuile = largeurTuile / 2.0;
 	}
 
 	/**
 	 * Définit la largeur des tuiles
 	 * 
-	 * @param hauteurTuile la nouvelle hauteur des tuiles (px)
+	 * @param hauteurTuile la nouvelle hauteur des tuiles (en mètre)
 	 * 
 	 */
 	// Jason Xa
@@ -339,6 +361,15 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 		Tuile.hauteurTuile = hauteurTuile;
 	}
 
+	/**
+	 * Retourne le point zéro de la tuile
+	 * @return Le point zéro de la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Point2D.Double getPointZero() {
+		return pointsCoin.get(0) ;
+	}
+	
 	/**
 	 * Méthode à redéfinir dans les sous classes pour mettre les points des coins
 	 * dans le arrayList pointsCoin
@@ -436,5 +467,20 @@ public class Tuile extends OutilsImage implements Dessinable, Serializable, Sele
 	public void survol(Point2D.Double pointSurvole, Graphics2D g2d) {
 		for (int i = 0; i < aires.length; i++) {
 		}
+	}
+	
+	/**
+	 * Méthode qui forme l'aire d'un objet spécial (pics, drapeau, portail)
+	 * Redéfini dans les tuiles qui sont des objets spéciaux
+	 * 
+	 * @return la forme de l.objet spécial dans un area
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Area formerAireObjetSpecial() {
+		Rectangle2D rectangle = new Rectangle2D.Double(pointInitial.getX(), pointInitial.getY(), largeurTuile,
+				hauteurTuile);
+
+		Area aireTuile = new Area(rectangle);
+		return aireTuile;
 	}
 }
