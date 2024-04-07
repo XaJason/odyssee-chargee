@@ -526,34 +526,34 @@ public class MoteurPhysique {
 
 	}
 	
-	//PAS UTILIE SI POLYMORPHISME
-	/**
-	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
-	 * @return boolean de si le vaisseau et en collision
-	 */
-	//Kitimir Yim
-	public static  boolean verifieCollisionVaisseauDrapeau(Vaisseau vaisseau, Drapeau drapeau) {
-		Area aireVaisseau = vaisseau.getTuile().formeVaisseau();
-		Area aireDrapeau = drapeau.formerAireObjetSpecial();
-		aireVaisseau.intersect(aireDrapeau);
-		return !aireVaisseau.isEmpty();
-
-	}
+	//Pas nécéssaire, car polymorphisme
 	
-	
-	/**
-	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
-	 * @return boolean de si le vaisseau et en collision
-	 */
-	//Kitimir Yim 
-	public static boolean verifieCollisionVaisseauPortail(Vaisseau vaisseau, Portail portail) {
-		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
-		Area airePortail = portail.formerAireObjetSpecial();
-		aireVaisseau.intersect(airePortail);
-		return !aireVaisseau.isEmpty();
-
-	}
-	//PAS UTILIE SI POLYMORPHISME
+//	/**
+//	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
+//	 * @return boolean de si le vaisseau et en collision
+//	 */
+//	//Kitimir Yim
+//	public static  boolean verifieCollisionVaisseauDrapeau(Vaisseau vaisseau, Drapeau drapeau) {
+//		Area aireVaisseau = vaisseau.getTuile().formeVaisseau();
+//		Area aireDrapeau = drapeau.formerAireObjetSpecial();
+//		aireVaisseau.intersect(aireDrapeau);
+//		return !aireVaisseau.isEmpty();
+//
+//	}
+//	
+//	
+//	/**
+//	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
+//	 * @return boolean de si le vaisseau et en collision
+//	 */
+//	//Kitimir Yim 
+//	public static boolean verifieCollisionVaisseauPortail(Vaisseau vaisseau, Portail portail) {
+//		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
+//		Area airePortail = portail.formerAireObjetSpecial();
+//		aireVaisseau.intersect(airePortail);
+//		return !aireVaisseau.isEmpty();
+//
+//	}
 	
 	/**
 	 * Modifie l'accélération gravitationnelle

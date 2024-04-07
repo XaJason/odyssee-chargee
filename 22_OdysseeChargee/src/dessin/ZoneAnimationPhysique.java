@@ -530,31 +530,32 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	
+	//Pas nécéssaire, car polymorphisme
 	
-	/**
-	 * Méthode qui teste si le vaisseau entre en collision avec des objets.
-	 */
-	// Kitimir Yim
-	private void testerCollisionsAvecDrapeau() {
-		Grille grille = niveau.getGrille();
-		Tuile[][] tab = grille.getTableau();
-
-		for (int i = 0; i < grille.getNbCase(); i++) {
-			for (int j = 0; j < grille.getNbCase(); j++) {
-				Tuile tuile = tab[i][j];
-
-				if (tuile != null && tuile.getType() == "Drapeau") {
-					Drapeau drap = (Drapeau) tuile;
-
-					if (MoteurPhysique.verifieCollisionVaisseauDrapeau(vaisseau, drap)){
-						System.out.println("Collision avec un drapeau détectée !");
-						enCoursDAnimation = false;
-					}
-
-					
-				}
-			}
-		}
-
-	}
+//	/**
+//	 * Méthode qui teste si le vaisseau entre en collision avec des objets.
+//	 */
+//	// Kitimir Yim
+//	private void testerCollisionsAvecDrapeau() {
+//		Grille grille = niveau.getGrille();
+//		Tuile[][] tab = grille.getTableau();
+//
+//		for (int i = 0; i < grille.getNbCase(); i++) {
+//			for (int j = 0; j < grille.getNbCase(); j++) {
+//				Tuile tuile = tab[i][j];
+//
+//				if (tuile != null && tuile.getType() == "Drapeau") {
+//					Drapeau drap = (Drapeau) tuile;
+//
+//					if (MoteurPhysique.verifieCollisionVaisseauDrapeau(vaisseau, drap)){
+//						System.out.println("Collision avec un drapeau détectée !");
+//						enCoursDAnimation = false;
+//					}
+//
+//					
+//				}
+//			}
+//		}
+//
+//	}
 }
