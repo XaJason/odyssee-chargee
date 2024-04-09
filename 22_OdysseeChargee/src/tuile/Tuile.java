@@ -360,6 +360,14 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	public static void setHauteurTuile(int hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
+	/**
+	 * 
+	 * @return hauteur de la tuile
+	 */
+	//Kitimir Yim
+	public static int getHauteurTuile() {
+		return Tuile.hauteurTuile;
+	}
 
 	/**
 	 * Retourne le point zéro de la tuile

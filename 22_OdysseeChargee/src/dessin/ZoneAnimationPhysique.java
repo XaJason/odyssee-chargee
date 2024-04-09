@@ -17,6 +17,7 @@ import panneaux.PanelModeJeu;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
 import tuile.Drapeau;
+import tuile.Portail;
 import tuile.Tuile;
 import tuile.VaisseauImage;
 import java.awt.event.MouseMotionAdapter;
@@ -308,6 +309,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							break;
 						case "Portail":
 							//Ajouter le code pour gérer la téléportation à l'autre portail
+							Portail portailInitiale = (Portail) tuile;
+							teleportation(portailInitiale);
 							break;
 						}
 					}
@@ -316,6 +319,21 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		}//fin 1re boucle for
 	}//fin méthode
 	
+	
+
+
+	private void teleportation(Portail portailIni) {
+		
+		int rayon = Tuile.getHauteurTuile()/2;
+		
+		Portail portailFinal = portailIni.getPortailAssocie();
+		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon ;
+		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon ;
+		Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
+		vaisseau.setPosition(posPortailFinal);
+	}
+
+
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
 	 */
