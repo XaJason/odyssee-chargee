@@ -88,9 +88,13 @@ public class Grille extends JPanel implements Serializable {
 
 	/** État du mode éditeur de la grille (faux si placement de plaques chargées) */
 	private boolean modeEditeur = true;
-	
+
 	/** Booléan indiquant si l'on est dans le mode jeu **/
 	private boolean dansModeJeu = false;
+	/**
+	 * Compteur du nombre de portail
+	 */
+	private int nbPortails = 0;
 
 	/**
 	 * Création du panneau
@@ -104,6 +108,12 @@ public class Grille extends JPanel implements Serializable {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {
+						if(tuile.getType().equals("Portail")){
+							nbPortails++;
+							lierPortail();
+
+
+						}
 						sauvegarderEmplacement();
 
 					}
@@ -176,11 +186,11 @@ public class Grille extends JPanel implements Serializable {
 		if (modeEditeur) {
 			if (premiereFois) {
 
-			tabEmplacement = new Tuile[nbCase][nbCase];
-			hauteurDuComposantEnMetre = this.getHeight();
-			largeurDuComposantEnMetre = this.getWidth();
-			dimensionCase();
-			dessinerGrille();
+				tabEmplacement = new Tuile[nbCase][nbCase];
+				hauteurDuComposantEnMetre = this.getHeight();
+				largeurDuComposantEnMetre = this.getWidth();
+				dimensionCase();
+				dessinerGrille();
 
 				premiereFois = false;
 			}
@@ -515,7 +525,7 @@ public class Grille extends JPanel implements Serializable {
 	public Tuile getTuile() {
 		return tuile;
 	}
-	
+
 	/**
 	 * Définit le type de tuile sélectionné pour le placement
 	 * 
@@ -552,6 +562,63 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	public void setDansModeJeu(boolean dansModeJeu) {
 		this.dansModeJeu = dansModeJeu;
+	}
+
+	/**
+	 * Vérifie si la grille contient au moins une tuile du type spécifié.
+	 * 
+	 * @param typeTuile le type de tuile à rechercher dans la grille
+	 * @return true si au moins une tuile du type spécifié est présente, sinon false
+	 */
+	//Kitimir Yim
+	public boolean contientTuile(Class<?> typeTuile) {
+		for (int i = 0; i < nbCase; i++) {
+			for (int j = 0; j < nbCase; j++) {
+				if (tabEmplacement[i][j] != null && typeTuile.isInstance(tabEmplacement[i][j])) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Recherche et retourne la première tuile du type spécifié dans la grille.
+	 * 
+	 * @param typeTuile le type de tuile à rechercher dans la grille
+	 * @return la tuile du type spécifié, ou null si aucune tuile n'est trouvée
+	 */
+	//Kitimir Yim
+	public Tuile chercherTuile(Class<?> typeTuile) {
+		for (int i = 0; i < nbCase; i++) {
+			for (int j = 0; j < nbCase; j++) {
+				if (tabEmplacement[i][j] != null && typeTuile.isInstance(tabEmplacement[i][j])) {
+					return tabEmplacement[i][j];
+				}
+			}
+		}
+		return null;
+	}
+	/**
+	 * Lie un portail si nécessaire
+	 */
+	//Kitimir Yim
+	private void lierPortail() {
+
+		if (nbPortails % 2 == 0) {
+			
+			Portail deuxiemePortail = (Portail) tuileTemp;
+			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
+			Portail premierPortail = (Portail) portailTuile;
+			
+			if(premierPortail.getPortailAssocie() == null) {
+				premierPortail.definirPortailAssocie(deuxiemePortail);
+				System.out.println("Ce portail a maintenant un duo");
+			}	
+		}else {
+			System.out.println("Ce portail n'a pas de duo. N'oubliez pas de lui créer un partenaire.");
+
+		}
 	}
 
 }// Fin classe
