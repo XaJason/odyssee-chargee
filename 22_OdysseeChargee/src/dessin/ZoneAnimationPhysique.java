@@ -209,7 +209,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 					
 					if (tuile.contient(curseurSouris)) {
 						tuile.survolerAiresDeTuile(curseurSouris);
-						System.out.println("Slayyy");
+						System.out.println(plaque.getPosition());
+						plaque.setPosition(new Vecteur2D(sourisEnMetreX, sourisEnMetreY));
+						System.out.println(plaque.getPosition());
 					}// fin 2e if
 				}//fin if
 			}//fin 2e boucle for 
@@ -243,11 +245,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} // fin condition dans paintComponent
 
 		g2d.scale(pixelsParMetre, pixelsParMetre);
+		
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
-		
 		dessinerPlaque(g2d);
-		//dessinerPlaqueFantome(g2d);
+		dessinerPlaqueFantome(g2d);
 	}
 
 	/**
@@ -282,24 +284,25 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private void dessinerPlaque(Graphics2D g2d) {
 		if (placementPlaque & sourisDansComposant) {
 			plaque.dessiner(g2d);
+			System.out.println("dessiné");
 		}
 	}
 	
-//	/**
-//	 * Méthode qui dessine la plaque fantôme
-//	 * @param g2d Le contexte graphique
-//	 */
-//	//Giroux
-//	private void dessinerPlaqueFantome(Graphics2D g2d) {
-//		if(placementPlaque & sourisDansComposant) {
-//			if(plaquePositive) {
-//				imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
-//			} else {
-//				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
-//			}
-//			g2d.drawImage(imagePlaque, (int) (posPlaqueX/pixelsParMetre), (int) (posPlaqueY/pixelsParMetre), null);
-//		}
-//	}
+	/**
+	 * Méthode qui dessine la plaque fantôme
+	 * @param g2d Le contexte graphique
+	 */
+	//Giroux
+	private void dessinerPlaqueFantome(Graphics2D g2d) {
+		if(placementPlaque & sourisDansComposant) {
+			if(plaquePositive) {
+				imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
+			} else {
+				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
+			}
+			g2d.drawImage(imagePlaque, (int) (posPlaqueX/pixelsParMetre), (int) (posPlaqueY/pixelsParMetre), null);
+		}
+	}
 
 	/**
 	 * Permet d'effectuer l'animation

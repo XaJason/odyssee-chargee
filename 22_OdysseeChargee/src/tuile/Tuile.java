@@ -481,15 +481,18 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Aire survolerAiresDeTuile(Point2D.Double pointSurvole) {
-		Aire aireOuEstCurseur = null;
-		while (aireOuEstCurseur == null) {
+		//Aire aireOuEstCurseur = null;
+		//while (aireOuEstCurseur == null) {
 			for (int i = 0; i < aires.length; i++) {
 				if (aires[i].contient(pointSurvole)) {
-					aireOuEstCurseur = new Aire(aires[i]);
+					//aireOuEstCurseur = new Aire(aires[i]);
+					return aires[i];
 				}
+
 			}
-		}
-		return aireOuEstCurseur;
+		//}
+		//return aireOuEstCurseur;
+			return null;
 	}
 
 	/**

@@ -111,16 +111,13 @@ public class Grille extends JPanel implements Serializable {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {
+						sauvegarderEmplacement();
 						if(tuile.getType().equals("Portail")){
 							nbPortails++;
 							lierPortail();
 
-
 						}
-						sauvegarderEmplacement();
-
 					}
-
 				} else {
 					supprimerCase();
 				}

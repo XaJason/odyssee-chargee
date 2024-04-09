@@ -32,9 +32,9 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	private Vecteur2D axe = new Vecteur2D(0, 1); // Normalisé
 	
 	/** Longueur de la plaque **/
-	private double longueur = 45;
+	private double longueur = 100;
 	/** Largeur de la plaque **/
-	private double epaisseur = 5;
+	private double epaisseur = 50;
 	
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA;
@@ -203,6 +203,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
+		g2d.draw(formePlaque);
 		g2dPrive.setColor(Color.red);
 		g2dPrive.draw(formePlaque);
 		
