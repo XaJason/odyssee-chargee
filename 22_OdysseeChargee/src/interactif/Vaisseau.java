@@ -68,11 +68,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	}
 
 	/**
-	 * Constructeur du vaisseau pour officiel
+	 * Constructeur du vaisseau pour version officielle
 	 * 
 	 * @param position La position du vaisseau
 	 * @param charge   La charge du vaisseau
 	 * @param masse    La masse du vaisse
+	 * @param tuileDuVaisseau L'objet tuile représentant le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage tuileDuVaisseau) {
@@ -114,7 +115,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
 		g2dPrive.setColor(Color.black);
-		//g2dPrive.scale(getPixelsParMetre(), getPixelsParMetre());
 		g2dPrive.fill(cercle);
 		
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
@@ -309,7 +309,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 * Retourne l'objet VaisseauImage qui contient les propriétés de la tuile du vaisseau
 	 * @return L'objet VaisseauImage 
 	 */
-	//Kitimir Yim
+	// Enuel René Valentin Kizozo Izia
 	public VaisseauImage getTuile() {
 		return tuile;
 	}

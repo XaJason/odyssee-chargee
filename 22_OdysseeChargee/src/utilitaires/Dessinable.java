@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
  * dessinable
  * doit implementer.
  *
- * @author Caroline Houde
+ * @author Caroline Houle
  */
 
 public interface Dessinable {
@@ -18,7 +18,7 @@ public interface Dessinable {
 	 *
 	 * @param g2d Contexte graphique du composant sur lequel dessiner
 	 */
-	// Caroline Houde
+	// Caroline Houle
 	public void dessiner(Graphics2D g2d);
 
 }

@@ -14,6 +14,7 @@ import utilitaires.Selectionnable;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Carre extends Tuile implements Serializable, Selectionnable {
 	/**
@@ -71,7 +72,6 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 
 	/**
 	 * Retourne l'image représentant le carré
-	 * 
 	 * @return L'image représentant le carré
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -148,7 +148,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
 	// Jason Xa
-	protected void creerAires(Point2D.Double pointMilieu) {
+	public void creerAires(Point2D.Double pointMilieu) {
 
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));

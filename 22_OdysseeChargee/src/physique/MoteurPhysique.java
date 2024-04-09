@@ -16,6 +16,7 @@ import tuile.Tuile;
  * 
  * @author Caroline Houle
  * @author Enuel René Valentin Kizozo Izia
+ * @author Kitimir Yim
  *
  */
 public class MoteurPhysique {
@@ -515,6 +516,8 @@ public class MoteurPhysique {
 	
 	/**
 	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
+	 * @param vaisseau Un objet représant le vaisseau
+	 * @param objetSpecial Une tuile représentant un objet spécial (drapeau, pics, tuile)
 	 * @return boolean de si le vaisseau et en collision
 	 */
 	//Kitimir Yim  

@@ -205,7 +205,7 @@ public class PanelModeJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
-		zoneAnimationPhysique.setBounds(29, 31, 1232, 700);
+		zoneAnimationPhysique.setBounds(499, 33, 704, 659);
 		add(zoneAnimationPhysique);
 		
 		btnDemarrer = new JButton("Démarrer");
@@ -218,7 +218,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(172, 765, 89, 23);
+		btnDemarrer.setBounds(499, 773, 89, 23);
 		add(btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
@@ -231,7 +231,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnArreter.setBounds(348, 765, 89, 23);
+		btnArreter.setBounds(617, 773, 89, 23);
 		add(btnArreter);
 
 		btnRedemarrer = new JButton("Redémarrer");
@@ -244,7 +244,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnRedemarrer.setBounds(765, 765, 129, 23);
+		btnRedemarrer.setBounds(917, 773, 129, 23);
 		add(btnRedemarrer);
 
 		btnProchaineImage = new JButton("Prochaine image");
@@ -255,7 +255,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnProchaineImage.setBounds(524, 765, 154, 23);
+		btnProchaineImage.setBounds(738, 773, 154, 23);
 		add(btnProchaineImage);
 
 		btnReinitialiser = new JButton("Réinitialiser");
@@ -266,7 +266,7 @@ public class PanelModeJeu extends JPanel {
 				// fin
 			}
 		});
-		btnReinitialiser.setBounds(981, 765, 129, 23);
+		btnReinitialiser.setBounds(1074, 773, 129, 23);
 		add(btnReinitialiser);
 	}
 	
@@ -335,8 +335,6 @@ public class PanelModeJeu extends JPanel {
 		panelEntree.add(spnCoefFrictionCine);
 		
 		spnDeltaT = new JSpinner();
-		spnDeltaT.setBounds(206, 431, 160, 35);
-		panelEntree.add(spnDeltaT);
 		spnDeltaT.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
@@ -345,6 +343,8 @@ public class PanelModeJeu extends JPanel {
 			}
 		});
 		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getDeltaT(), 0.001, 0.1, 0.001));
+		spnDeltaT.setBounds(206, 431, 160, 35);
+		panelEntree.add(spnDeltaT);
 		
 		JLabel lblDeltaT = new JLabel("Pas de simulation :");
 		lblDeltaT.setBounds(10, 437, 180, 23);

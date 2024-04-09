@@ -22,6 +22,7 @@ import utilitaires.Selectionnable;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, Selectionnable {
 
@@ -54,8 +55,6 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	protected static int hauteurTuile;
 	/** Largeur d'une demi-tuile **/
 	protected static double largeurDemiTuile = largeurTuile / 2.0;
-
-	private PlaqueChargee[] plaquesChargees;
 
 	/**
 	 * ArrayList qui contient les points des coins des blocs avant d'être transformé
@@ -230,7 +229,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	 * Méthode qui met le champ drapeau à vrai
 	 */
 	// Giroux
-	protected void setDrapeau() {
+	public void setDrapeau() {
 		this.drapeau = true;
 	}
 
@@ -389,7 +388,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	 * @return Le point milieu
 	 */
 	// Giroux
-	protected Point2D.Double pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
+	public Point2D.Double pointMilieuTriangle(ArrayList<Point2D.Double> sommets) {
 
 		// Point 1 va être le sommet, le segment va être entre P2 et P3
 
@@ -408,7 +407,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	 * Méthode qui instancie le path qui fait le contour du bloc
 	 */
 	// Giroux
-	protected void creerGeometrieContour() {
+	public void creerGeometrieContour() {
 
 		contour = new Path2D.Double();
 		if (pointsCoin.size() != 0) {
@@ -428,7 +427,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
 	// Jason Xa
-	protected void creerAires(Point2D.Double pointMilieu) {
+	public void creerAires(Point2D.Double pointMilieu) {
 
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
@@ -439,8 +438,8 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	}
 
 	/**
-	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
-	 * dessinable sur lequel cette méthode sera appelée
+	 * Retourne vrai si les coordonnées (d'un point) passées en paramètre fontt partie de l'objet
+	 * dessinable sur lequel cette méthode est appelée
 	 *
 	 * @param xPix Coordonnée en x du point (exprimée en pixels)
 	 * @param yPix Coordonnée en y du point (exprimée en pixels)
@@ -454,7 +453,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 
 	/**
 	 * Retourne vrai si le point passé en paramètre fait partie de l'objet
-	 * dessinable sur lequel cette méthode sera appelée
+	 * dessinable sur lequel cette méthode est appelée
 	 * 
 	 * @param point le point à vérifier
 	 * @return vrai si le point fait est contenu dans l'objet dessinable
@@ -464,8 +463,11 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 		return contour.contains(point.getX(), point.getY());
 	}
 
-	public void survol(Point2D.Double pointSurvole, Graphics2D g2d) {
+	public void survolEtDessinePlaque(Point2D.Double pointSurvole, Graphics2D g2d) {
 		for (int i = 0; i < aires.length; i++) {
+			if (aires[i].contient(pointSurvole)) {
+				
+			}
 		}
 	}
 	

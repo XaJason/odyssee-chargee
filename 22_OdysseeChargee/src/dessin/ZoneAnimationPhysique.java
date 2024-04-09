@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -13,7 +14,6 @@ import niveau.Niveau;
 import niveau.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import tuile.Drapeau;
 import tuile.Tuile;
 import tuile.VaisseauImage;
 
@@ -22,6 +22,7 @@ import tuile.VaisseauImage;
  * La scène physique où sont représentés les objets intéractifs physique ainsi que le niveau et ses tuiles
  *
  * @author Enuel René Valentin Kizozo Izia
+ * @author Kitimir Yim
  * 
  */
 public class ZoneAnimationPhysique extends JPanel implements Runnable {
@@ -30,9 +31,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -8878846015876118047L;
 	/** Largeur du niveau (en mètre) **/
-	private double largeurDuComposantEnMetres = 1500.0;
+	private double largeurDuComposantEnMetres = 900.0;
 	/** Hauteur du niveau (en mètre) **/
-	private double hauteurDuComposantEnMetres = 750.0;
+	private double hauteurDuComposantEnMetres = 200.0;
 
 	/** Pas de simulation initial (en seconde) **/
 	private final double DELTA_T_INITIAL = 0.05;
@@ -58,6 +59,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private final double CHARGE_INITIALE_DES_PLAQUES = 20;
 	/** Charge des plaques du niveau (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
+	/** Liste des plaques chargées **/
+	private ArrayList<PlaqueChargee> listePlaquesChargees;
 
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
@@ -83,9 +86,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Vecteur position du vaisseau (en mètre) **/
 	private Vecteur2D posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
 	/** Force gravitationnelle agissant sur le vaisseau **/
-	Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
+	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
-	Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+	private Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 
 	
 	//	/** Vecteur vitesse du vaisseau (en m/s) **/
@@ -117,7 +120,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 					
 					// Définir la position initial du vaisseau à l'aide de son emplacement dans le niveau (sa tuile)
 					posDeSauvegardeX = tuile.getPointZero().getX() + vaisseau.getRayon();
-					//posDeSauvegardeY = tuile.getPointZero().getY() + vaisseau.getRayon();
+					posDeSauvegardeY = tuile.getPointZero().getY() + vaisseau.getRayon();
 					posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
 					vaisseau.setPosition(posVaisseau);
 				}//fin if
@@ -267,7 +270,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 				if (tuile != null && 
 						( tuile.getType().equals("Drapeau") | tuile.getType().equals("Pics") | tuile.getType().equals("Portail") ) ) {
-					System.out.println("yooo");
+					
 					if (MoteurPhysique.detecteCollisionsAvecObjetsSpeciaux(vaisseau, tuile)) {
 						switch (tuile.getType()) {
 						case "Drapeau":
@@ -417,7 +420,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * Retourne la force gravitationnelle agissant sur le vaisseau
 	 * @return La force gravitationnelle agissant sur le vaisseau
 	 */
-	// Enuel Rneé Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getForceGrav() {
 		return forceGrav;
 	}
@@ -444,7 +447,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie la charge de la plaque
-	 * @param chargePlaque La charge de la plaque
+	 * @param chargePlaques La charge de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeDesPlaques(double chargePlaques) {
@@ -482,7 +485,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie le niveau en y chargeant un nouveau niveau
-	 * @param niveau Le niveau
+	 * @param nomNiveau Le nom du niveau (une chaîne de caractère)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNiveau(String nomNiveau) {

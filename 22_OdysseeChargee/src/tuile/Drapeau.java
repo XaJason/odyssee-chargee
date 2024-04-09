@@ -15,6 +15,7 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Drapeau extends Tuile implements Serializable {
 	/**
@@ -86,7 +87,7 @@ public class Drapeau extends Tuile implements Serializable {
 	/**
 	 * Définit l'image représentant le drapeau d'arrivée
 	 * 
-	 * @param imageRef l'image représentant drapeau d'arrivée
+	 * @param fichierImage Le fichier de l'image représentant le drapeau d'arrivée
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
 	 */

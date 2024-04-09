@@ -15,6 +15,7 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Portail extends Tuile implements Serializable {
 	/**
@@ -80,7 +81,7 @@ public class Portail extends Tuile implements Serializable {
 	/**
 	 * Définit l'image représentant le portail
 	 * 
-	 * @param imageRef l'image représentant le portail
+	 * @param fichierImage Le fichier de l'image représentant le portail
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
 	 */

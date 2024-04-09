@@ -43,6 +43,7 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class AppPrincipale22 extends JFrame {
 
@@ -336,6 +337,7 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Chargement des niveau vers la zone d'animation physique
+	 * @param evt L'événement qui a été lancé
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {

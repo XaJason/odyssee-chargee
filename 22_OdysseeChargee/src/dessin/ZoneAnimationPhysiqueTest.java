@@ -13,6 +13,8 @@ import niveau.Niveau;
 import niveau.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Composant illustrant la simulation :
@@ -88,7 +90,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	private final double LONGUEUR_PLAQUE_INITIALE = 25;
 
 	/** Largeur de la plaque chargée (en mètre) **/
-	private double LARGEUR_PLAQUE_INITIALE = 1;
+	private final double LARGEUR_PLAQUE_INITIALE = 1;
 
 	/** Charge initiale de la plaque chargée (en Coulomb) **/
 	private final double CHARGE_INITIALE_PLAQUE = 20;
@@ -183,6 +185,16 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysiqueTest() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				double xEnMetre = e.getX()/pixelsParMetre;
+				double yEnMetre = e.getY()/pixelsParMetre;
+				if (plaqueRouge.contient(xEnMetre, yEnMetre)) {
+					System.out.println("Dans la plaqueeee");
+				}
+			}
+		});
 		setBackground(Color.black);
 
 		vaisseauBleu = new Vaisseau(posVaisseau, vitVaisseau, accelVaisseau, rayonVaisseau, chargeVaisseau,
@@ -252,7 +264,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setPixelsParMetre(pixelsParMetre);
 		plaqueRouge.dessiner(g2d);
 	}
-
+	
 	/**
 	 * Permet d'effectuer l'animation
 	 */
