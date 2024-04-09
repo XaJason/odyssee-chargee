@@ -1,5 +1,8 @@
 package utilitaires;
 
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -10,7 +13,7 @@ import java.io.Serializable;
  * 
  * @author Jason Xa
  */
-public class Aire implements Selectionnable, Serializable {
+public class Aire implements Dessinable, Selectionnable, Serializable {
 	/** Constante pour la sérialisation de la classe **/
 	private static final long serialVersionUID = 6541927571396899170L;
 	/** le triangle formé par les trois points */
@@ -25,6 +28,9 @@ public class Aire implements Selectionnable, Serializable {
 	 * de la tuile
 	 */
 	private Point2D.Double pointInterieur;
+
+	/** le segment composé des deux points extérieurs */
+	private Line2D.Double segmentExterieur;
 
 	/**
 	 * Constructeur
@@ -47,6 +53,8 @@ public class Aire implements Selectionnable, Serializable {
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
 
 		this.pointInterieur = pointInterieur;
+
+		segmentExterieur = new Line2D.Double(point1, point2);
 	}
 
 	/**
@@ -103,5 +111,20 @@ public class Aire implements Selectionnable, Serializable {
 	 */
 	public boolean contient(Point2D.Double point) {
 		return forme.contains(point.getX(), point.getY());
+	}
+
+	/**
+	 * Dessine la forme de l'aire
+	 * 
+	 * @param g2d Le contexte graphique
+	 */
+	// Jason Xa
+	@Override
+	public void dessiner(Graphics2D g2d) {
+		float epaisseur = 3.0f;
+		BasicStroke trace = new BasicStroke(epaisseur);
+		
+		
+		g2d.draw(segmentExterieur);
 	}
 }
