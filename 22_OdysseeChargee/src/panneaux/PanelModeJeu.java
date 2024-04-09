@@ -209,7 +209,7 @@ public class PanelModeJeu extends JPanel {
 		panelPlaque.setBounds(6, 16, 431, 165);
 		panel.add(panelPlaque);
 		panelPlaque.setLayout(null);
-		
+
 		tglbtnPlaque = new JToggleButton("");
 		tglbtnPlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -224,9 +224,10 @@ public class PanelModeJeu extends JPanel {
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(true);
+				zoneAnimationPhysique.setPlaquePositive(true);
 			}
 		});
-		btnChargePositive.setBounds(41, 47, 33, 31);
+		btnChargePositive.setBounds(41, 36, 33, 31);
 		OutilsImage.lireImageEtPlacerSurBouton("ChargePositive.png", btnChargePositive);
 		panelPlaque.add(btnChargePositive);
 		
@@ -234,9 +235,10 @@ public class PanelModeJeu extends JPanel {
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
+				zoneAnimationPhysique.setPlaquePositive(false);
 			}
 		});
-		btnChargeNegative.setBounds(41, 115, 33, 31);
+		btnChargeNegative.setBounds(41, 78, 33, 31);
 		OutilsImage.lireImageEtPlacerSurBouton("ChargeNegative.png", btnChargeNegative);
 		panelPlaque.add(btnChargeNegative);
 		
@@ -459,4 +461,5 @@ public class PanelModeJeu extends JPanel {
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", tglbtnPlaque);
 		}
 	}
+	
 }

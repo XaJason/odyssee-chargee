@@ -271,6 +271,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Portail());
 				afficherSelection();
+				
 			}
 		});
 		btnPortail.setBounds(247, 215, 85, 85);
@@ -454,4 +455,7 @@ public class PanelModeEditeur extends JPanel {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
+
+	
+
 }

@@ -2,12 +2,14 @@ package interactif;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 import physique.Vecteur2D;
 import utilitaires.Dessinable;
+import utilitaires.OutilsImage;
 
 /**
  * Classe plaque: représentation sommaire d'une plaque à l'aide d'un segment de
@@ -26,34 +28,34 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	
 	/** Vecteur normal de la plaque **/
 	private Vecteur2D normale = new Vecteur2D(1, 0); // Doit être normalisé
-
 	/** Vecteur passant par l'axe de la plaque **/
 	private Vecteur2D axe = new Vecteur2D(0, 1); // Normalisé
 	
 	/** Longueur de la plaque **/
 	private double longueur = 45;
-
 	/** Largeur de la plaque **/
-	private double largeur = 5;
+	private double epaisseur = 5;
 	
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA;
-
 	/** Position du coin supérieur gauche **/
 	private Vecteur2D coinSupGauche;
-	
 	/** Position du coin supérieur droit **/
 	private Vecteur2D coinSupDroit;
 	
 	/** Position de l'extrémité B de la plaque **/
 	private Vecteur2D extremiteB;
-	
 	/** Position du coin inférieur gauche **/
 	private Vecteur2D coinInfGauche;
-	
 	/** Position du coin inféieur droit **/
 	private Vecteur2D coinInfDroit;
 
+	
+	/** L'image de la plaque positive **/
+	private Image imgPositive = OutilsImage.lireImageEtRedimensionner("PlaqueChargePositive.png", (int)longueur, (int)epaisseur);
+	/** L,image de la plaque négative **/
+	private Image imgNegative = OutilsImage.lireImageEtRedimensionner("PlaqueChargeNegative.png",(int)longueur, (int)epaisseur);
+	
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur de la plaque chargée
@@ -70,7 +72,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 		super(position, charge);
 		this.normale = new Vecteur2D(normale);
 		this.longueur = longueur;
-		this.largeur = largeur;
+		this.epaisseur = largeur;
 		
 		this.axe = new Vecteur2D(normale.getY(), -normale.getX());
 		
@@ -87,22 +89,21 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 	/**
 	 * Constructeur de la plaque chargée
-	 * Prend en paramètre sa charge
+	 * Ne prend que sa charge en paramètre
 	 * Officiel
 	 * 
-	 * @param position La position de la plaque
 	 * @param charge   La charge de la plaque
 	 */
-	public PlaqueChargee(Vecteur2D position, double charge) {
-		super(null, charge);
+	public PlaqueChargee(double charge) {
+		super(charge);
 		try {
-			this.extremiteA = position.additionne(axe.multiplie(longueur / 2));
-			this.extremiteB = position.additionne(axe.multiplie(-longueur / 2));
+			this.extremiteA = getPosition().additionne(axe.multiplie(longueur / 2));
+			this.extremiteB = getPosition().additionne(axe.multiplie(-longueur / 2));
 			
-			this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
-			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
-			this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
-			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
+			this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur/2));
+			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur/2));
+			this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur/2));
+			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur/2));
 
 			creerLaGeometrie();
 		} catch (Exception e) {
@@ -121,7 +122,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 * @param p1 La coordonnée du second point
 	 */
 	public PlaqueChargee(double charge, Point2D.Double p0, Point2D.Double p1) {
-		super(null, charge);
+		super(charge);
 		try {
 			this.extremiteA = new Vecteur2D(p0.getX(), p0.getY());
 			this.extremiteB = new Vecteur2D(p1.getX(), p1.getY());
@@ -131,10 +132,10 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 			this.normale = new Vecteur2D(axe.getY(), -axe.getX());
 			setPosition(extremiteA.additionne(axe.multiplie(longueur/2.0)));
 			
-			this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
-			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
-			this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
-			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
+			this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur/2));
+			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur/2));
+			this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur/2));
+			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur/2));
 
 			creerLaGeometrie();
 		} catch (Exception e) {
@@ -164,10 +165,10 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 			this.axe = extremiteB.soustrait(extremiteA).normalise();
 			this.normale = new Vecteur2D(axe.getY(), -axe.getX());
 			
-			this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
-			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
-			this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
-			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
+			this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur/2));
+			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur/2));
+			this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur/2));
+			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur/2));
 
 			creerLaGeometrie();
 		} catch (Exception e) {
@@ -204,8 +205,28 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 		g2dPrive.setColor(Color.red);
 		g2dPrive.draw(formePlaque);
+		
+		//dessinerSonImage(g2d);
 	}
 
+	/**
+	 * Permet de dessiner l'image de la plaque
+	 */
+	// Giroux
+	private void dessinerSonImage(Graphics2D g2d) {
+		/* Faut éventuellement implémenter une rotation de l'image selon la normale
+		 * pour qu'elle soit dessiner avec la bonne orientation
+		 * 
+		 * En ce moment l'image est perpendiculaireà l'image
+		 * La normale de l'image est vers le bas(ou le haut), et celle de la plaque est vers la droite
+		 */
+		if ( Math.signum(getCharge()) > 0 ) {
+			g2d.drawImage(imgPositive, (int)coinSupGauche.getX(), (int)coinSupGauche.getY(), null);
+		} else {
+			g2d.drawImage(imgNegative, (int)coinSupGauche.getX(), (int)coinSupGauche.getY(), null);
+		}
+	}
+	
 	public boolean contient(double x, double y) {
 		return formePlaque.contains(x, y);
 	}
@@ -305,7 +326,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public double getLargeur() {
-		return largeur;
+		return epaisseur;
 	}
 
 	/**
@@ -314,7 +335,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setLargeur(double largeur) {
-		this.largeur = largeur;
+		this.epaisseur = largeur;
 		setCoinSupGauche();
 		setCoinSupDroit();
 		setCoinInfGauche();
@@ -375,7 +396,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setCoinSupGauche() {
-		this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
+		this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur/2));
 	}
 
 	/** Retourne le coin supérieur droit de la plaque
@@ -391,7 +412,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setCoinSupDroit() {
-		this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
+		this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur/2));
 	}
 
 	/** Retourne le coin inférieur gauche de la plaque
@@ -407,7 +428,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setCoinInfGauche() {
-		this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
+		this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur/2));
 	}
 
 	/** Retourne le coin inférieur droit de la plaque
@@ -423,7 +444,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setCoinInfDroit() {
-		this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
+		this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur/2));
 	}
 
 }

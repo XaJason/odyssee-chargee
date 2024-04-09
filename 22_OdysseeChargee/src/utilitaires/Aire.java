@@ -2,6 +2,8 @@ package utilitaires;
 
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 /**
@@ -24,8 +26,8 @@ public class Aire implements Selectionnable, Serializable {
 	 * le point intérieur de l'aire, le point qui n'est pas adjacent à une bordure
 	 * de la tuile
 	 */
-	private Point2D.Double pointInterieur;
-
+	private Point2D.Double pointMilieu;
+	
 	/**
 	 * Constructeur
 	 * 
@@ -45,8 +47,35 @@ public class Aire implements Selectionnable, Serializable {
 		forme.closePath();
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
+//		System.out.println("Point 1 : " + point1);
+//		System.out.println("Point milieu : " + pointInterieur);
+//		System.out.println("Point 2 : " + point2);
+		this.pointMilieu = pointInterieur;
+	}
+	
+	/**
+	 * Constructeur
+	 * Permet de construire un objet de type aire,
+	 * à partir d'un autre objet du même type
+	 * 
+	 * @param aireACopier L'aire à copier
+	 * 
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Aire(Aire aireACopier) {
+		Point2D.Double point1 = (Point2D.Double) aireACopier.getPointsExterieurs()[0].clone();
+		Point2D.Double point2 = (Point2D.Double) aireACopier.getPointsExterieurs()[1].clone();
+		Point2D.Double pointMilieu = (Point2D.Double) aireACopier.getPointMilieu().clone();
+		
+		forme = new Path2D.Double();
+		forme.moveTo(point1.getX(), point1.getY());
+		forme.lineTo(pointMilieu.getX(), pointMilieu.getY());
+		forme.lineTo(point2.getX(), point2.getY());
+		forme.closePath();
 
-		this.pointInterieur = pointInterieur;
+		pointsExterieurs = new Point2D.Double[] { point1, point2 };
+
+		this.pointMilieu = pointMilieu;
 	}
 
 	/**
@@ -76,7 +105,7 @@ public class Aire implements Selectionnable, Serializable {
 	 */
 	// Jason Xa
 	public Point2D.Double getPointMilieu() {
-		return pointInterieur;
+		return pointMilieu;
 	}
 
 	/**

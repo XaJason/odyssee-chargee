@@ -39,12 +39,17 @@ public class Portail extends Tuile implements Serializable {
 	private Double coinBasGauche;
 
 	/**
+	 * Association du portail
+	 */
+	private Portail portailAssocie = null;
+	/**
 	 * Constructeur
 	 * 
 	 */
 	// Jason Xa
 	public Portail() {
 		super(image, type);
+	
 	}
 
 	/**
@@ -77,7 +82,7 @@ public class Portail extends Tuile implements Serializable {
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant le portail
 	 * 
@@ -132,6 +137,22 @@ public class Portail extends Tuile implements Serializable {
 		}
 	}
 
+	/**
+	 * Permet d'associer un portail à un autre
+	 * @param portailAssocie portail relié à un autre
+	 */
+	//Kitimir Yim
+	public void definirPortailAssocie(Portail portailAssocie) {
+		this.portailAssocie = portailAssocie;
+	}
+	/**
+	 * Retourne le portail associé
+	 * @return portailAssocie portail relié à un autre
+	 */
+	//Kitimir Yim
+	public Portail getPortailAssocie() {
+		return portailAssocie;
+	}
 
 	/**
 	 * Méthode qui forme le Portail dans un area

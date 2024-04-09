@@ -93,7 +93,6 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 		y = 0;
 		this.image = image;
 		this.type = type;
-
 	}
 
 	/**
@@ -148,6 +147,8 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 
 	public void dessiner(Graphics2D g2d) {
 
+		
+		
 		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
@@ -359,6 +360,14 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	public static void setHauteurTuile(int hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
+	/**
+	 * 
+	 * @return hauteur de la tuile
+	 */
+	//Kitimir Yim
+	public static int getHauteurTuile() {
+		return Tuile.hauteurTuile;
+	}
 
 	/**
 	 * Retourne le point zéro de la tuile
@@ -463,12 +472,22 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 		return contour.contains(point.getX(), point.getY());
 	}
 
-	public void survolEtDessinePlaque(Point2D.Double pointSurvole, Graphics2D g2d) {
-		for (int i = 0; i < aires.length; i++) {
-			if (aires[i].contient(pointSurvole)) {
-				
+	/**
+	 * Permet d'accéder à une des aires de la tuile (carré ou triangle) où se trouve le curseur
+	 * 
+	 * @param pointSurvole La position du curseur de la souris qui survole la zone d'animation physique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Aire survolerAiresDeTuile(Point2D.Double pointSurvole) {
+		Aire aireOuEstCurseur = null;
+		while (aireOuEstCurseur == null) {
+			for (int i = 0; i < aires.length; i++) {
+				if (aires[i].contient(pointSurvole)) {
+					aireOuEstCurseur = new Aire(aires[i]);
+				}
 			}
 		}
+		return aireOuEstCurseur;
 	}
 	
 	/**

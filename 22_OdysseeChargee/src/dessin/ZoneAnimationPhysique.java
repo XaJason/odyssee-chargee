@@ -3,6 +3,8 @@ package dessin;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import utilitaires.OutilsImage;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 
@@ -12,13 +14,17 @@ import interactif.PlaqueChargee;
 import interactif.Vaisseau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
+import panneaux.PanelModeJeu;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import tuile.Drapeau;
+import tuile.Portail;
 import tuile.Tuile;
 import tuile.VaisseauImage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Point2D;
 
 /**
  * Composant illustrant la simulation :
@@ -55,6 +61,15 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Vecteur nul **/
 	private final Vecteur2D VEC_ZERO = new Vecteur2D();
 	
+	/** Coordonnée en X du curseur de la souris sur le composant (en mètre) **/
+	private double sourisEnMetreX = -30; //Initialement à l'extérieur du composant
+	/** Coordonnée en Y du curseur de la souris sur le composant (en metre) **/
+	private double sourisEnMetreY = -30; //Initialement à l'extérieur du composant
+	/** Indique que le curseur de la souris est à l'intérieur du composant **/
+	private boolean sourisDansComposant = false;
+	/** Boolean qui indique si le bouton de la plaque est actionnée **/
+	private Boolean placementPlaque = false;
+	
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
@@ -65,12 +80,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Liste des plaques chargées **/
 	private ArrayList<PlaqueChargee> listePlaquesChargees;
 	/** Plaque chargée **/
-	private PlaqueChargee plaque = new PlaqueChargee(new Vecteur2D(-30, -30), chargeDesPlaques); //Placée par défaut à l'extérieur du composant pour ne pas la voir
+	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); //Placée par défaut à l'extérieur du composant pour ne pas la voir
 
-	/** Indique que le curseur de la souris est à l'intérieur du composant **/
-	private boolean sourisDansComposant = false;
-	/** Boolean qui indique si le bouton de la plaque est actionnée **/
-	private Boolean placementPlaque;
+	
+	/** Determine si la plaque est positive ou non**/
+	private Boolean plaquePositive = true;
+	/** Position en x(en mètres) de la plaque fantôme**/
+	private int posPlaqueX;
+	/** Position en y(en mètres) de la plaque fantôme**/
+	private int posPlaqueY;
+	/** L'image de la plaque, par défaut plaque positive **/
+	Image imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
 	
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
@@ -99,6 +119,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
 	private Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+	
 
 	
 	//	/** Vecteur vitesse du vaisseau (en m/s) **/
@@ -114,7 +135,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				
+				if(placementPlaque) {
+					sourisEnMetreX = e.getX()/pixelsParMetre;
+					sourisEnMetreY = e.getY()/pixelsParMetre;
+					survolerToutesLesTuilesPourTrouverCurseur();
+					repaint();
+				}
 			}
 		});
 		addMouseListener(new MouseAdapter() {
@@ -130,15 +156,26 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
 
-		
-		niveau = Sauvegarder.chargerNiveau("Niveau 1"); //charger le niveau par défaut éventuellement
+		niveau = Sauvegarder.chargerNiveau("Niveau 1");
+		placerVaisseauPourDebutAnimation(niveau);
+		niveau.getGrille().setDansModeJeu(true);
+	}//fin constructeur
 
-		Grille grille = niveau.getGrille();
-		Tuile[][] tab = grille.getTableau();
 
-		for (int i = 0; i < grille.getNbCase(); i++) {
-			for (int j = 0; j < grille.getNbCase(); j++) {
-				Tuile tuile = tab[i][j];
+	// SOUS-PROGRAMMES //
+	/**
+	 * Place le vaisseau au bon endroit dans la grille pour le début de l'animation,
+	 * en fonction de la position de la tuile du vaisseau dans la grille du niveau
+	 * 
+	 * @param niveau Le niveau dans lequel se trouve le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void placerVaisseauPourDebutAnimation(Niveau niveau) {
+		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
+
+		for (int i = 0; i < tabTuiles.length; i++) {
+			for (int j = 0; j < tabTuiles.length; j++) {
+				Tuile tuile = tabTuiles[i][j];
 				
 				if ( tuile != null && tuile.getType().equals("Vaisseau") ) {
 					//VaisseauImage tuileDuVaisseau = (VaisseauImage) tuile;
@@ -152,17 +189,34 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				}//fin if
 			}//fin 2e boucle for 
 		}//fin 1re boucle for
+	}
+	
+	/**
+	 * Permet de survoler toutes les tuiles du niveau pour trouver l du curseur de la souris.
+	 * Ainsi, on peut trouver où placer la plaque, à l'aide de la position de l'objet Aire sur lequel le curseur se trouve
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void survolerToutesLesTuilesPourTrouverCurseur() {
+		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
 		
+		for (int i = 0; i < tabTuiles.length; i++) {
+			for (int j = 0; j < tabTuiles.length; j++) {
+				Tuile tuile = tabTuiles[i][j];
+				
+				if (tuile != null && 
+						(tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle") | tuile.getType().equals("Triangle équilatéral")) ) {
+					Point2D.Double curseurSouris = new Point2D.Double(sourisEnMetreX, sourisEnMetreY);
+					
+					if (tuile.contient(curseurSouris)) {
+						tuile.survolerAiresDeTuile(curseurSouris);
+						System.out.println("Slayyy");
+					}// fin 2e if
+				}//fin if
+			}//fin 2e boucle for 
+		}//fin 1re boucle for
 		
-		/* 
-		 * En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la tuile vaisseau et donc son image
-		 * L'image du vaisseau le sera quand on dessinera le vaisseau
-		 */
-		niveau.getGrille().setDansModeJeu(true);
-	}//fin constructeur
-
-
-	// SOUS-PROGRAMMES //
+	}
+	
 	/**
 	 * Permet de dessiner des objets sur le composant
 	 * 
@@ -191,7 +245,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		g2d.scale(pixelsParMetre, pixelsParMetre);
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
+		
 		dessinerPlaque(g2d);
+		//dessinerPlaqueFantome(g2d);
 	}
 
 	/**
@@ -225,9 +281,25 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerPlaque(Graphics2D g2d) {
 		if (placementPlaque & sourisDansComposant) {
-			
+			plaque.dessiner(g2d);
 		}
 	}
+	
+//	/**
+//	 * Méthode qui dessine la plaque fantôme
+//	 * @param g2d Le contexte graphique
+//	 */
+//	//Giroux
+//	private void dessinerPlaqueFantome(Graphics2D g2d) {
+//		if(placementPlaque & sourisDansComposant) {
+//			if(plaquePositive) {
+//				imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
+//			} else {
+//				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
+//			}
+//			g2d.drawImage(imagePlaque, (int) (posPlaqueX/pixelsParMetre), (int) (posPlaqueY/pixelsParMetre), null);
+//		}
+//	}
 
 	/**
 	 * Permet d'effectuer l'animation
@@ -321,7 +393,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							recommencer();
 							break;
 						case "Portail":
-							//Ajouter le code pour gérer la téléportation à l'autre portail
+							teleportation(tuile);
 							break;
 						}
 					}
@@ -330,6 +402,20 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		}//fin 1re boucle for
 	}//fin méthode
 	
+	
+
+	private void teleportation(Tuile tuile) {
+		Portail portailIni = (Portail) tuile;
+		Portail portailFinal = portailIni.getPortailAssocie();
+		int rayon = Tuile.getHauteurTuile()/2;
+		
+		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon ;
+		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon ;
+		Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
+		vaisseau.setPosition(posPortailFinal);
+	}
+
+
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
 	 */
@@ -530,6 +616,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	public void setNiveau(String nomNiveau) {
 		this.niveau = Sauvegarder.chargerNiveau(nomNiveau);
 		niveau.getGrille().setDansModeJeu(true);
+		placerVaisseauPourDebutAnimation(niveau);
 		repaint();
 	}
 
@@ -579,32 +666,29 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	
-	//Pas nécéssaire, car polymorphisme
-	
 //	/**
-//	 * Méthode qui teste si le vaisseau entre en collision avec des objets.
+//	 * Méthode qui change si la plaque est sélectionnée ou le contraire
 //	 */
-//	// Kitimir Yim
-//	private void testerCollisionsAvecDrapeau() {
-//		Grille grille = niveau.getGrille();
-//		Tuile[][] tab = grille.getTableau();
-//
-//		for (int i = 0; i < grille.getNbCase(); i++) {
-//			for (int j = 0; j < grille.getNbCase(); j++) {
-//				Tuile tuile = tab[i][j];
-//
-//				if (tuile != null && tuile.getType() == "Drapeau") {
-//					Drapeau drap = (Drapeau) tuile;
-//
-//					if (MoteurPhysique.verifieCollisionVaisseauDrapeau(vaisseau, drap)){
-//						System.out.println("Collision avec un drapeau détectée !");
-//						enCoursDAnimation = false;
-//					}
-//
-//					
-//				}
-//			}
+//	//Giroux
+//	public void setPlaqueSelectionne() {
+//		if(plaqueSelectionne) {
+//			plaqueSelectionne =false;
+//		} else {
+//			plaqueSelectionne=true;
 //		}
-//
 //	}
+	
+	/**
+	 * Méthode qui change la nature de la plaque
+	 * @param positive True si elle devient poitive, false sinon
+	 */
+	//Giroux
+	public void setPlaquePositive(Boolean positive) {
+		if(positive) {
+			plaquePositive=true;
+		} else {
+			plaquePositive=false;
+		}
+	}
+	
 }
