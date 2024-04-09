@@ -24,7 +24,7 @@ import utilitaires.Selectionnable;
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
  */
-public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, Selectionnable {
+public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable, Selectionnable {
 
 	/**
 	 * Numéro d'identification pour la sérialisation
@@ -144,11 +144,10 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	 * @param g2d Le contexte graphique
 	 */
 	// Jason Xa
-
 	public void dessiner(Graphics2D g2d) {
 
-		
-		
+
+
 		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
@@ -185,7 +184,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	public int getX() {
 		return this.x;
 	}
-	
+
 	/**
 	 * Définit la nouvelle abscisse gauche de la tuile
 	 * 
@@ -205,7 +204,7 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	public int getY() {
 		return this.y;
 	}
-	
+
 	/**
 	 * Définit la nouvelle ordonnée supérieure de la tuile
 	 * 
@@ -273,7 +272,8 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	}
 
 	/**
-	 * Lit, redimensionne et définit l'image pour chaque type de tuile si l'image n'a pas été chargé
+	 * Lit, redimensionne et définit l'image pour chaque type de tuile si l'image
+	 * n'a pas été chargé
 	 * Soit, après avoir chargé un fichier binaire sans image
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -302,10 +302,10 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 			case "Vaisseau":
 				image = VaisseauImage.getImageRef();
 				break;
-			}//fin switch/case
-		}//fin if
-	}//fin méthode
-	
+			}// fin switch/case
+		} // fin if
+	}// fin méthode
+
 	/**
 	 * Méthode qui change l'image actuelle par une nouvelle
 	 * 
@@ -360,24 +360,26 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 	public static void setHauteurTuile(int hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
+
 	/**
 	 * 
 	 * @return hauteur de la tuile
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public static int getHauteurTuile() {
 		return Tuile.hauteurTuile;
 	}
 
 	/**
 	 * Retourne le point zéro de la tuile
+	 * 
 	 * @return Le point zéro de la tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Point2D.Double getPointZero() {
-		return pointsCoin.get(0) ;
+		return pointsCoin.get(0);
 	}
-	
+
 	/**
 	 * Méthode à redéfinir dans les sous classes pour mettre les points des coins
 	 * dans le arrayList pointsCoin
@@ -429,9 +431,10 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
 	}
-	
+
 	/**
-	 * Créer les aires de sélection associées aux tuiles triangulaires, pour le carré c'est redéfini dans sa classe
+	 * Créer les aires de sélection associées aux tuiles triangulaires, pour le
+	 * carré c'est redéfini dans sa classe
 	 * 
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
@@ -441,9 +444,8 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));
 		Aire aire3 = new Aire(pointsCoin.get(2), pointMilieu, pointsCoin.get(0));
-		
 
-		aires = new Aire[] { aire1, aire2, aire3};
+		aires = new Aire[] { aire1, aire2, aire3 };
 	}
 
 	/**
@@ -489,7 +491,60 @@ public class Tuile /*extends OutilsImage*/ implements Dessinable, Serializable, 
 		}
 		return aireOuEstCurseur;
 	}
-	
+
+	/**
+	 * Vérifie si le point survolé est contenu dans une aire de tuile et effectue le
+	 * dessin conditionnel de sélection de plaque chargée
+	 * 
+	 * @param pointSurvole le point survolé
+	 */
+	// Jason Xa
+	public void survol(Point2D.Double pointSurvole) {
+		// Vérifier si le point survolé est dans une aire de la tuile
+		for (int i = 0; i < aires.length; i++) {
+			if (aires[i].contient(pointSurvole)) {
+				indexAireSurvolee = i;
+				break;
+			}
+		}
+
+		if (indexAireSurvolee != 1) { // À implémenter: instructions à exécuter lorsqu'une aire de tuile est survolée
+
+		}
+	}
+
+	/**
+	 * Vérifie si le point cliqué est contenu dans une aire de tuile et effectue le
+	 * dessin conditionnel de sélection de plaque chargée
+	 * 
+	 * @param pointSurvole le point survolé
+	 */
+	// Jason Xa
+	public void clic(Point2D.Double pointSurvole) {
+		// Vérifier si le point survolé est dans une aire de la tuile
+		for (int i = 0; i < aires.length; i++) {
+			if (aires[i].contient(pointSurvole)) {
+				indexAireSurvolee = i;
+				break;
+			}
+		}
+
+		// Créer une PlaqueChargee si une aire est cliquée
+		if (indexAireSurvolee != 1) {
+			creerPlaqueChargeePourAire();
+		}
+	}
+
+	/**
+	 * Crée une plaque chargée à partir de le l'index de l'aire sélectionnée et
+	 * modifie la propriété associée de Tuile
+	 */
+	// Jason Xa
+	private void creerPlaqueChargeePourAire() {
+		// À implémenter: utiliser les méthodes d'Aire pour les informations sur les trois points (les deux points extérieurs et le point intérieur)
+		//		plaqueChargee = new PlaqueChargee(null, null, angleRotation, angleRotation, angleRotation);
+	}
+
 	/**
 	 * Méthode qui forme l'aire d'un objet spécial (pics, drapeau, portail)
 	 * Redéfini dans les tuiles qui sont des objets spéciaux
