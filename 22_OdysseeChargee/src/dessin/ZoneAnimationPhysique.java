@@ -301,8 +301,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		Portail portailFinal = portailIni.getPortailAssocie();
 		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon ;
 		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon ;
-		//Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
-		Vecteur2D posPortailFinal = new Vecteur2D(9, 9);
+		Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
 		vaisseau.setPosition(posPortailFinal);
 	}
 
