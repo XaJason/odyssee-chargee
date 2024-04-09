@@ -16,6 +16,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import dessin.ZoneAnimationPhysique;
+import utilitaires.OutilsImage;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 import physique.MoteurPhysique;
 
 /**
@@ -76,6 +80,22 @@ public class PanelModeJeu extends JPanel {
 	 * Label pour le nom du niveau
 	 */
 	private JLabel labelNomNiveau;
+	/** Panel qui regroupe les boutons pour la plaque chargée**/
+	private JPanel panelPlaque;
+	/** Bouton pour sélectionner la plaque**/
+	private JButton btnPlaque;
+	/** Bouton pour mettre la plaque positive**/
+	private JButton btnChargePositive;
+	/** Bouton pour mettre la plaque negative**/
+	private JButton btnChargeNegative;
+	/** Étiquette qui indique la charge de la plaque**/
+	private JLabel lblEtatPlaque;
+	/** Boolean qui indique si la plaque est sélectionné **/
+	private Boolean plaqueSelectionne;
+	/** Boolean qui indique la nature de la charge de la plaque **/
+	private Boolean plaquePositive = true;
+	/** Nombre restant de plaque**/
+	private int nbPlaqueRestante = 4;
 	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
@@ -178,6 +198,60 @@ public class PanelModeJeu extends JPanel {
 		labelNomNiveau = new JLabel();
 		labelNomNiveau.setBounds(50, 20, 400, 30);
 		add(labelNomNiveau);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(332, 735, 645, 187);
+		add(panel);
+		panel.setLayout(null);
+		
+		panelPlaque = new JPanel();
+		panelPlaque.setBounds(6, 16, 633, 165);
+		panel.add(panelPlaque);
+		panelPlaque.setLayout(null);
+		
+		btnPlaque = new JButton("");
+		btnPlaque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(plaqueSelectionne) {
+					plaqueSelectionne =false;
+				} else {
+					plaqueSelectionne=true;
+				}
+			}
+		});
+		btnPlaque.setBounds(155, 63, 212, 31);
+		OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", btnPlaque);
+		panelPlaque.add(btnPlaque);
+		
+		btnChargePositive = new JButton("");
+		btnChargePositive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changementStatutPlaque(true);
+			}
+		});
+		btnChargePositive.setBounds(41, 47, 33, 31);
+		OutilsImage.lireImageEtPlacerSurBouton("ChargePositive.png", btnChargePositive);
+		panelPlaque.add(btnChargePositive);
+		
+		btnChargeNegative = new JButton("");
+		btnChargeNegative.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changementStatutPlaque(false);
+			}
+		});
+		btnChargeNegative.setBounds(41, 115, 33, 31);
+		OutilsImage.lireImageEtPlacerSurBouton("ChargeNegative.png", btnChargeNegative);
+		panelPlaque.add(btnChargeNegative);
+		
+		lblEtatPlaque = new JLabel("La plaque est: positive ");
+		lblEtatPlaque.setBounds(41, 11, 154, 14);
+		panelPlaque.add(lblEtatPlaque);
+		
+		JLabel lblNbDePlaqueRestante = new JLabel("");
+		lblNbDePlaqueRestante.setText("Il vous reste: " + nbPlaqueRestante + " restante(s)");
+		lblNbDePlaqueRestante.setBounds(432, 64, 154, 14);
+		panelPlaque.add(lblNbDePlaqueRestante);
 
 	}
 	/**
@@ -364,4 +438,21 @@ public class PanelModeJeu extends JPanel {
 		spnMasseVaisseau.setValue(zoneAnimationPhysique.getMasseInitialeVaisseau());
 		spnChargePlaque.setValue(zoneAnimationPhysique.getChargeInitialePlaque());
 	}// fin methode reinitialiserZoneAnimation
+	
+	/**
+	 * Méthode qui effectue les changements des propriétés lors des changements de statut de la plaque
+	 * @param positif Indique true si la plaque devient positive, false si négative
+	 */
+	//Giroux
+	private void changementStatutPlaque(Boolean positif) {
+		if(positif) {
+			plaquePositive = true;
+			lblEtatPlaque.setText("La plaque est: positive");
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", btnPlaque);
+		} else {
+			plaquePositive = false;
+			lblEtatPlaque.setText("La plaque est: négative");
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", btnPlaque);
+		}
+	}
 }
