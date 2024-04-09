@@ -16,6 +16,9 @@ import physique.MoteurPhysique;
 import physique.Vecteur2D;
 import tuile.Tuile;
 import tuile.VaisseauImage;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 /**
  * Composant illustrant la simulation :
@@ -61,7 +64,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
 	/** Liste des plaques chargées **/
 	private ArrayList<PlaqueChargee> listePlaquesChargees;
+	/** Plaque chargée **/
+	private PlaqueChargee plaque = new PlaqueChargee(new Vecteur2D(-30, -30), chargeDesPlaques); //Placée par défaut à l'extérieur du composant pour ne pas la voir
 
+	/** Indique que le curseur de la souris est à l'intérieur du composant **/
+	private boolean sourisDansComposant = false;
+	/** Boolean qui indique si le bouton de la plaque est actionnée **/
+	private Boolean placementPlaque;
+	
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
 	private final double CHARGE_INITIALE_VAISSEAU = -5;
@@ -101,6 +111,22 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysique() {
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				
+			}
+		});
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				sourisDansComposant = true;
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				sourisDansComposant = false;
+			}
+		});
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
 
@@ -165,6 +191,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		g2d.scale(pixelsParMetre, pixelsParMetre);
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
+		dessinerPlaque(g2d);
 	}
 
 	/**
@@ -188,6 +215,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		//vaisseau.setPixelsParMetre(pixelsParMetre);
 		//vaisseau.setTuile(tuileDuVaisseau);
 		vaisseau.dessiner(g2d);
+	}
+	
+	/**
+	 * Permet de dessiner une plaque
+	 * 
+	 * @param g2d Le contexte graphique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void dessinerPlaque(Graphics2D g2d) {
+		if (placementPlaque & sourisDansComposant) {
+			
+		}
 	}
 
 	/**
@@ -494,6 +533,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		repaint();
 	}
 
+	/**
+	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveau
+	 * @param btnActionnee La nouvelle valeur du booléen permettant de placer une plaque dans le niveau (vrai si le bouton est enclenché)
+	 */
+	public void setPlacementPlaque(boolean btnActionnee) {
+		this.placementPlaque = btnActionnee;
+	}
 
 	// GETTERS DE CERTAINES CONSTANTES //
 	/**

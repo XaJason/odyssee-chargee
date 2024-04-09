@@ -25,10 +25,10 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	private Path2D.Double formePlaque;
 	
 	/** Vecteur normal de la plaque **/
-	private Vecteur2D normale; // Doit être normalisé
+	private Vecteur2D normale = new Vecteur2D(1, 0); // Doit être normalisé
 
 	/** Vecteur passant par l'axe de la plaque **/
-	private Vecteur2D axe; // Normalisé
+	private Vecteur2D axe = new Vecteur2D(0, 1); // Normalisé
 	
 	/** Longueur de la plaque **/
 	private double longueur = 45;
@@ -85,7 +85,31 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 		creerLaGeometrie();
 	}
 
-	
+	/**
+	 * Constructeur de la plaque chargée
+	 * Prend en paramètre sa charge
+	 * Officiel
+	 * 
+	 * @param position La position de la plaque
+	 * @param charge   La charge de la plaque
+	 */
+	public PlaqueChargee(Vecteur2D position, double charge) {
+		super(null, charge);
+		try {
+			this.extremiteA = position.additionne(axe.multiplie(longueur / 2));
+			this.extremiteB = position.additionne(axe.multiplie(-longueur / 2));
+			
+			this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur/2));
+			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur/2));
+			this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur/2));
+			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur/2));
+
+			creerLaGeometrie();
+		} catch (Exception e) {
+			System.out.println("Les points sont trop rapprochés, donc on ne peut pas créer de plaque chargée.");
+			e.printStackTrace();
+		} // fin try/catch
+	}// finc constructeur
 	
 	/**
 	 * Constructeur de la plaque chargée

@@ -21,6 +21,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import physique.MoteurPhysique;
+import javax.swing.JToggleButton;
 
 /**
  * Panel du mode de jeu
@@ -82,20 +83,19 @@ public class PanelModeJeu extends JPanel {
 	private JLabel labelNomNiveau;
 	/** Panel qui regroupe les boutons pour la plaque chargée**/
 	private JPanel panelPlaque;
-	/** Bouton pour sélectionner la plaque**/
-	private JButton btnPlaque;
+	/** Bouton à deux états pour sélectionner la plaque**/
+	private JToggleButton tglbtnPlaque;
 	/** Bouton pour mettre la plaque positive**/
 	private JButton btnChargePositive;
 	/** Bouton pour mettre la plaque negative**/
 	private JButton btnChargeNegative;
 	/** Étiquette qui indique la charge de la plaque**/
 	private JLabel lblEtatPlaque;
-	/** Boolean qui indique si la plaque est sélectionné **/
-	private Boolean plaqueSelectionne;
 	/** Boolean qui indique la nature de la charge de la plaque **/
 	private Boolean plaquePositive = true;
 	/** Nombre restant de plaque**/
 	private int nbPlaqueRestante = 4;
+	
 	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
@@ -122,16 +122,16 @@ public class PanelModeJeu extends JPanel {
 		lblGravite.setBounds(10, 155, 120, 26);
 		panelEntree.add(lblGravite);
 
-		JLabel lblChargePlaques = new JLabel("Charge Plaques (Coulombs) :");
-		lblChargePlaques.setBounds(10, 225, 180, 26);
+		JLabel lblChargePlaques = new JLabel("Charge de la plaque");
+		lblChargePlaques.setBounds(10, 215, 180, 26);
 		panelEntree.add(lblChargePlaques);
 
 		JLabel lblCoefFrotStat = new JLabel("Coefficient de frottement statique :");
-		lblCoefFrotStat.setBounds(10, 295, 197, 26);
+		lblCoefFrotStat.setBounds(10, 295, 215, 26);
 		panelEntree.add(lblCoefFrotStat);
 
 		JLabel lblCoefFrotCine = new JLabel("Coefficient de frottement cinétique :");
-		lblCoefFrotCine.setBounds(10, 365, 197, 26);
+		lblCoefFrotCine.setBounds(10, 365, 215, 26);
 		panelEntree.add(lblCoefFrotCine);
 		
 		creerZoneAnimationPhysiqueEtBoutonsDAnimation();
@@ -201,28 +201,24 @@ public class PanelModeJeu extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(332, 735, 645, 187);
+		panel.setBounds(10, 324, 447, 187);
 		add(panel);
 		panel.setLayout(null);
 		
 		panelPlaque = new JPanel();
-		panelPlaque.setBounds(6, 16, 633, 165);
+		panelPlaque.setBounds(6, 16, 431, 165);
 		panel.add(panelPlaque);
 		panelPlaque.setLayout(null);
 		
-		btnPlaque = new JButton("");
-		btnPlaque.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(plaqueSelectionne) {
-					plaqueSelectionne =false;
-				} else {
-					plaqueSelectionne=true;
-				}
+		tglbtnPlaque = new JToggleButton("");
+		tglbtnPlaque.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				zoneAnimationPhysique.setPlacementPlaque(tglbtnPlaque.isSelected());
 			}
 		});
-		btnPlaque.setBounds(155, 63, 212, 31);
-		OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", btnPlaque);
-		panelPlaque.add(btnPlaque);
+		tglbtnPlaque.setBounds(155, 63, 212, 31);
+		OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
+		panelPlaque.add(tglbtnPlaque);
 		
 		btnChargePositive = new JButton("");
 		btnChargePositive.addActionListener(new ActionListener() {
@@ -250,7 +246,7 @@ public class PanelModeJeu extends JPanel {
 		
 		JLabel lblNbDePlaqueRestante = new JLabel("");
 		lblNbDePlaqueRestante.setText("Il vous reste: " + nbPlaqueRestante + " restante(s)");
-		lblNbDePlaqueRestante.setBounds(432, 64, 154, 14);
+		lblNbDePlaqueRestante.setBounds(205, 11, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
 	}
@@ -358,7 +354,7 @@ public class PanelModeJeu extends JPanel {
 			}
 		});
 		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseVaisseau(), 0.01, 10.0, 0.01));
-		spnMasseVaisseau.setBounds(206, 11, 160, 35);
+		spnMasseVaisseau.setBounds(225, 11, 140, 35);
 		panelEntree.add(spnMasseVaisseau);
 
 		spnChargeVaisseau = new JSpinner();
@@ -370,7 +366,7 @@ public class PanelModeJeu extends JPanel {
 			}
 		});
 		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeVaisseau(), -50.0, 50.0, 1.0));
-		spnChargeVaisseau.setBounds(206, 81, 160, 35);
+		spnChargeVaisseau.setBounds(225, 81, 140, 35);
 		panelEntree.add(spnChargeVaisseau);
 
 		spnGravite = new JSpinner();
@@ -383,29 +379,33 @@ public class PanelModeJeu extends JPanel {
 			}
 		});
 		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.accelGrav, -24.8, -1.6, 0.1));
-		spnGravite.setBounds(206, 151, 160, 35);
+		spnGravite.setBounds(225, 151, 140, 35);
 		panelEntree.add(spnGravite);
 
 		spnChargePlaque = new JSpinner();
 		spnChargePlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
-				zoneAnimationPhysique.setChargeDesPlaques((double) spnChargePlaque.getValue());
+				if (plaquePositive) {
+					zoneAnimationPhysique.setChargeDesPlaques((double) spnChargePlaque.getValue());
+				} else {
+					zoneAnimationPhysique.setChargeDesPlaques(-1*((double) spnChargePlaque.getValue()));
+				}
 				// fin
 			}
 		});
-		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeDesPlaques(), -50.0, 50.0, 1.0));
-		spnChargePlaque.setBounds(206, 221, 160, 35);
+		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeDesPlaques(), 0.0, 50.0, 1.0));
+		spnChargePlaque.setBounds(225, 221, 140, 35);
 		panelEntree.add(spnChargePlaque);
 
 		spnCoefFrictionStat = new JSpinner();
 		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.coeffFrotStat, 0.50, 1.0, 0.05));
-		spnCoefFrictionStat.setBounds(206, 291, 160, 35);
+		spnCoefFrictionStat.setBounds(225, 291, 140, 35);
 		panelEntree.add(spnCoefFrictionStat);
 		
 		spnCoefFrictionCine = new JSpinner();
 		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.coeffFrotCine, 0.35, 0.70, 0.05));
-		spnCoefFrictionCine.setBounds(206, 361, 160, 35);
+		spnCoefFrictionCine.setBounds(225, 361, 140, 35);
 		panelEntree.add(spnCoefFrictionCine);
 		
 		spnDeltaT = new JSpinner();
@@ -417,12 +417,16 @@ public class PanelModeJeu extends JPanel {
 			}
 		});
 		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getDeltaT(), 0.001, 0.1, 0.001));
-		spnDeltaT.setBounds(206, 431, 160, 35);
+		spnDeltaT.setBounds(225, 431, 140, 35);
 		panelEntree.add(spnDeltaT);
 		
 		JLabel lblDeltaT = new JLabel("Pas de simulation :");
 		lblDeltaT.setBounds(10, 437, 180, 23);
 		panelEntree.add(lblDeltaT);
+		
+		JLabel lblChargePlaqueSuite = new JLabel("en valeur absolue (Coulombs) :");
+		lblChargePlaqueSuite.setBounds(10, 235, 205, 26);
+		panelEntree.add(lblChargePlaqueSuite);
 	}
 	/**
 	 * Reinitialise tout exactement dans l'etat de demarrage de l'application
@@ -448,11 +452,11 @@ public class PanelModeJeu extends JPanel {
 		if(positif) {
 			plaquePositive = true;
 			lblEtatPlaque.setText("La plaque est: positive");
-			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", btnPlaque);
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
 		} else {
 			plaquePositive = false;
 			lblEtatPlaque.setText("La plaque est: négative");
-			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", btnPlaque);
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", tglbtnPlaque);
 		}
 	}
 }
