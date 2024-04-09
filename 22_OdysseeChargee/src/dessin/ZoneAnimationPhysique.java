@@ -3,6 +3,8 @@ package dessin;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import utilitaires.OutilsImage;
 import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
@@ -11,11 +13,14 @@ import interactif.PlaqueChargee;
 import interactif.Vaisseau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
+import panneaux.PanelModeJeu;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
 import tuile.Drapeau;
 import tuile.Tuile;
 import tuile.VaisseauImage;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Composant illustrant la simulation :
@@ -86,6 +91,16 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
 	Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+	/** Détermine si la plaque est sélectionnée **/
+	private Boolean plaqueSelectionne=false;
+	/** Determine si la plaque est positive ou non**/
+	private Boolean plaquePositive = true;
+	/** Position en x(en mètres) de la plaque fantôme**/
+	private int posXPlaque;
+	/** Position en y(en mètres) de la plaque fantôme**/
+	private int posYPlaque;
+	/** L'image de la plaque, par défaut plaque positive **/
+	Image imagePlaque= OutilsImage.lireImage("PlaqueChargePositive.png");;
 
 	
 	//	/** Vecteur vitesse du vaisseau (en m/s) **/
@@ -98,6 +113,16 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysique() {
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if(plaqueSelectionne) {
+					posXPlaque = e.getX();
+					posYPlaque = e.getY();
+					repaint();
+				}
+			}
+		});
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
 
@@ -162,6 +187,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		g2d.scale(pixelsParMetre, pixelsParMetre);
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
+		if(plaqueSelectionne) {
+			dessinerPlaqueFantome(g2d);
+		}
 	}
 
 	/**
@@ -558,4 +586,40 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 //		}
 //
 //	}
+	/**
+	 * Méthode qui change si la plaque est sélectionnée ou le contraire
+	 */
+	//Giroux
+	public void setPlaqueSelectionne() {
+		if(plaqueSelectionne) {
+			plaqueSelectionne =false;
+		} else {
+			plaqueSelectionne=true;
+		}
+	}
+	/**
+	 * Méthode qui change la nature de la plaque
+	 * @param positive True si elle devient poitive, false sinon
+	 */
+	//Giroux
+	public void setPlaquePositive(Boolean positive) {
+		if(positive) {
+			plaquePositive=true;
+		} else {
+			plaquePositive=false;
+		}
+	}
+	/**
+	 * Méthode qui déssine la plaque fantôme
+	 * @param g2d Le contexte graphique
+	 */
+	//Giroux
+	private void dessinerPlaqueFantome(Graphics2D g2d) {
+		if(plaquePositive) {
+			imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
+		} else {
+			imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
+		}
+		g2d.drawImage(imagePlaque, posXPlaque, posYPlaque, null);
+	}
 }

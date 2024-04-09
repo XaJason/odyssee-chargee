@@ -90,8 +90,6 @@ public class PanelModeJeu extends JPanel {
 	private JButton btnChargeNegative;
 	/** Étiquette qui indique la charge de la plaque**/
 	private JLabel lblEtatPlaque;
-	/** Boolean qui indique si la plaque est sélectionné **/
-	private Boolean plaqueSelectionne;
 	/** Boolean qui indique la nature de la charge de la plaque **/
 	private Boolean plaquePositive = true;
 	/** Nombre restant de plaque**/
@@ -201,23 +199,19 @@ public class PanelModeJeu extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(332, 735, 645, 187);
+		panel.setBounds(331, 798, 645, 187);
 		add(panel);
 		panel.setLayout(null);
 		
 		panelPlaque = new JPanel();
-		panelPlaque.setBounds(6, 16, 633, 165);
+		panelPlaque.setBounds(6, 16, 633, 130);
 		panel.add(panelPlaque);
 		panelPlaque.setLayout(null);
 		
 		btnPlaque = new JButton("");
 		btnPlaque.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(plaqueSelectionne) {
-					plaqueSelectionne =false;
-				} else {
-					plaqueSelectionne=true;
-				}
+				zoneAnimationPhysique.setPlaqueSelectionne();
 			}
 		});
 		btnPlaque.setBounds(155, 63, 212, 31);
@@ -228,9 +222,10 @@ public class PanelModeJeu extends JPanel {
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(true);
+				zoneAnimationPhysique.setPlaquePositive(true);
 			}
 		});
-		btnChargePositive.setBounds(41, 47, 33, 31);
+		btnChargePositive.setBounds(41, 36, 33, 31);
 		OutilsImage.lireImageEtPlacerSurBouton("ChargePositive.png", btnChargePositive);
 		panelPlaque.add(btnChargePositive);
 		
@@ -238,9 +233,10 @@ public class PanelModeJeu extends JPanel {
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
+				zoneAnimationPhysique.setPlaquePositive(false);
 			}
 		});
-		btnChargeNegative.setBounds(41, 115, 33, 31);
+		btnChargeNegative.setBounds(41, 78, 33, 31);
 		OutilsImage.lireImageEtPlacerSurBouton("ChargeNegative.png", btnChargeNegative);
 		panelPlaque.add(btnChargeNegative);
 		
@@ -455,4 +451,5 @@ public class PanelModeJeu extends JPanel {
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", btnPlaque);
 		}
 	}
+	
 }
