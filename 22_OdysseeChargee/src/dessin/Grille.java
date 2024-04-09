@@ -88,6 +88,9 @@ public class Grille extends JPanel implements Serializable {
 
 	/** État du mode éditeur de la grille (faux si placement de plaques chargées) */
 	private boolean modeEditeur = true;
+	
+	/** Booléan indiquant si l'on est dans le mode jeu **/
+	private boolean dansModeJeu = false;
 
 	/**
 	 * Création du panneau
@@ -406,7 +409,9 @@ public class Grille extends JPanel implements Serializable {
 			for (int j = 0; j < nbCase; j++) {
 				tuileTableau = tabEmplacement[i][j];
 				if (tuileTableau != null) {
-					tuileTableau.dessiner(g2d);
+					if ( !(dansModeJeu & tuileTableau.getType().equals("Vaisseau")) ) {
+						tuileTableau.dessiner(g2d);
+					}
 				}
 			}
 		}
@@ -502,6 +507,16 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
+	 * Retourne la tuile sélectionnée
+	 * 
+	 * @return la tuile sélectionnée
+	 */
+	// Jason Xa
+	public Tuile getTuile() {
+		return tuile;
+	}
+	
+	/**
 	 * Définit le type de tuile sélectionné pour le placement
 	 * 
 	 * @param tuile le nouveau type de tuile sélectionné pour le placement
@@ -531,13 +546,12 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Retourne la tuile sélectionnée
-	 * 
-	 * @return la tuile sélectionnée
+	 *  Modifie la condition indiquant si l'on est dans le mode jeu
+	 *  
+	 *  @param dansModeJeu La nouvelle valeur du booléan indiquant si l'on est dans le mode jeu
 	 */
-	// Jason Xa
-	public Tuile getTuile() {
-		return tuile;
+	public void setDansModeJeu(boolean dansModeJeu) {
+		this.dansModeJeu = dansModeJeu;
 	}
 
 }// Fin classe

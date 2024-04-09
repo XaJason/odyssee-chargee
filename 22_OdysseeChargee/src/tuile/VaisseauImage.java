@@ -1,6 +1,9 @@
 package tuile;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -78,17 +81,47 @@ public class VaisseauImage extends Tuile implements Serializable {
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant le vaisseau
 	 * 
 	 * @param imageRef l'image représentant le vaisseau
+	 * @param largeurVaisseau La largeur du vaisseau
+	 * @param hauteurVaisseau La hauteur du vaisseau
 	 */
-	// Jason Xa
-	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
-		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
+	// Enuel René Valentin Kizozo Izia
+	public static void setImageRef(String fichierImage, int largeurVaisseau, int hauteurVaisseau) {
+		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurVaisseau, hauteurVaisseau);
 	}
 
+	/**
+	 * Dessine l'image représentant le vaisseau selon ses coordonnées
+	 * 
+	 * @param g2d Le contexte graphique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void dessiner(Graphics2D g2d) {
+		creerGeometrieContour();
+		g2d.setColor(Color.red);
+		g2d.draw(contour);
+		AffineTransform transformationAffine = g2d.getTransform();
+		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		g2d.drawImage(image, (int)(x + largeurDemiTuile/2.0), (int)(y + largeurDemiTuile), null);
+		g2d.setTransform(transformationAffine);
+	}
+	
+	/**
+	 * Dessine l'image représentant le vaisseau à un emplacement précis
+	 * 
+	 * @param g2d contexte graphique
+	 * @param x   abscisse gauche de la tuile (px)
+	 * @param y   ordonnée supérieure de la tuile (px)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void dessiner(Graphics2D g2d, int x, int y) {
+		g2d.drawImage(image, x, y, null);
+	}
+	
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
 	 * 
@@ -105,16 +138,17 @@ public class VaisseauImage extends Tuile implements Serializable {
 	// Giroux
 	public void setPoint() {
 		super.setPoint();
+		pointInitial.setLocation(largeurDemiTuile/2.0, largeurDemiTuile);
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(HautDroit)
-		xActuel = pointInitial.getX() + largeurTuile;
+		xActuel = pointInitial.getX() + largeurDemiTuile;
 		yActuel = pointInitial.getY();
 		coinHautDroit = new Point2D.Double(xActuel, yActuel);
 		// Troisième point(BasDroit)
-		yActuel += hauteurTuile;
+		yActuel += largeurDemiTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
 		// Quatrième point(BasGauche)
-		xActuel -= largeurTuile;
+		xActuel -= largeurDemiTuile;
 		coinBasGauche = new Point2D.Double(xActuel, yActuel);
 		// Ajouter dans l'arrayList
 		prePointsCoin.add(coinHautDroit);
@@ -123,10 +157,11 @@ public class VaisseauImage extends Tuile implements Serializable {
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
-			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
+			i.setLocation(i.getX() - largeurDemiTuile / 2, i.getY() - largeurDemiTuile / 2);
 			i = rotation.rotationner(i);
+			
 			// Repositionner
-			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
+			i.setLocation(i.getX() + largeurDemiTuile / 2 + x, i.getY() + largeurDemiTuile / 2 + y);
 			pointsCoin.add(i);
 		}
 	}
@@ -152,7 +187,6 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 	}
 
-	
 
 
 }

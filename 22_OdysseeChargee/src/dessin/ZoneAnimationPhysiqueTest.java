@@ -283,7 +283,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		System.out.println("Temps total écoulé: " + String.format("%.3f", tempsTotalEcoule) + "sec (en temps simulé!)");
 
 		Vecteur2D forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseauBleu, plaqueRouge);
-		Vecteur2D forceGrav = MoteurPhysique.calculForceGrav(vaisseauBleu.getMasse());
+		Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(vaisseauBleu.getMasse());
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
