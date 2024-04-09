@@ -126,6 +126,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 			i.setLocation(i.getX() + x + largeurTuile / 2, i.getY() + y + hauteurTuile / 2);
 			pointsCoin.add(i);
 		}
+		pointMilieu = pointsCoin.get(3);
 		creerAires(pointMilieu);
 	}
 	

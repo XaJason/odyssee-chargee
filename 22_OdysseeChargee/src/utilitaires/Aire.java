@@ -53,10 +53,12 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 		forme.closePath();
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
-//		System.out.println("Point 1 : " + point1);
-//		System.out.println("Point milieu : " + pointInterieur);
-//		System.out.println("Point 2 : " + point2);
+		
 		this.pointMilieu = pointInterieur;
+		
+		System.out.println("Point 1 : " + point1);
+		System.out.println("Point milieu : " + pointMilieu);
+		System.out.println("Point 2 : " + point2);
 	}
 	
 	/**
@@ -80,7 +82,7 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 		forme.closePath();
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
-
+		
 		this.pointMilieu = pointMilieu;
 
 		segmentExterieur = new Line2D.Double(point1, point2);

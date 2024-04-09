@@ -114,7 +114,7 @@ public class Grille extends JPanel implements Serializable {
 						sauvegarderEmplacement();
 						if(tuile.getType().equals("Portail")){
 							nbPortails++;
-							lierPortail();
+							lierPortail(tuile);
 
 						}
 					}
@@ -378,6 +378,9 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Portail":
 			tuileTemp = new Portail(tuile.getAngleRotation());
+			nbPortails++;
+			System.out.println("lebron");
+			lierPortail(tuileTemp);
 			break;
 		case "Triangle équilatéral":
 			tuileTemp = new TriangleEquilateral(tuile.getAngleRotation());
@@ -610,16 +613,17 @@ public class Grille extends JPanel implements Serializable {
 	 * Lie un portail si nécessaire
 	 */
 	//Kitimir Yim
-	private void lierPortail() {
+	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
 			
-			Portail deuxiemePortail = (Portail) tuileTemp;
+			
 			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
 			Portail premierPortail = (Portail) portailTuile;
-			
+			Portail deuxiemePortail = (Portail) tuile;
 			if(premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
+				deuxiemePortail.definirPortailAssocie(premierPortail);
 				System.out.println("Ce portail a maintenant un duo");
 			}	
 		}else {
