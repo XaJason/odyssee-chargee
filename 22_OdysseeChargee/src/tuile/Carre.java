@@ -125,10 +125,10 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
-
-		Point2D.Double pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
+		
+		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
-
+		prePointsCoin.add(pointMilieu);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
@@ -138,7 +138,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-
+		pointMilieu = pointsCoin.get(4);
 		creerAires(pointMilieu);
 	}
 
