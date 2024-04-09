@@ -161,14 +161,10 @@ public class Portail extends Tuile implements Serializable {
 	//Kitimir Yim
 	public Area formerAireObjetSpecial() {
 
-		double diametre = Math.min(largeurTuile, hauteurTuile); 
-		double rayon = diametre / 2.0;
+		double centreX = getPointZero().getX() ;
+		double centreY = getPointZero().getY();
 
-
-		double centreX = getPointZero().getX() + largeurTuile / 2.0;
-		double centreY = getPointZero().getY() + hauteurTuile / 2.0;
-
-		Ellipse2D cercle = new Ellipse2D.Double(centreX - rayon, centreY, diametre, diametre);
+		Ellipse2D cercle = new Ellipse2D.Double(centreX, centreY, largeurTuile, largeurTuile);
 
 		Area airePortail = new Area(cercle);
 		return airePortail;
