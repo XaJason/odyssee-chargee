@@ -144,16 +144,12 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
-
-		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		setImageRefTuile();
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
-
 		dessinerContour(g2d);
-
 	}
 
 	/**
@@ -439,8 +435,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
-	 * Créer les aires de sélection associées aux tuiles triangulaires, pour le
-	 * carré c'est redéfini dans sa classe
+	 * Créer les aires de sélection associées aux tuiles triangulaires
 	 * 
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
