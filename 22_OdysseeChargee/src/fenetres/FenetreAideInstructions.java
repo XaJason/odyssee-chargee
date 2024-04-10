@@ -25,20 +25,37 @@ import utilitaires.ConstanteComposantsSwing;
  *
  */
 public class FenetreAideInstructions extends JFrame {
+	/**
+	 * Numéro de sérialisation
+	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Panel
+	 */
 	private JPanel contentPane;
+	/**
+	 * Bouton pour changer de page
+	 */
 	private JButton btnPagePrecedente;
+	/**
+	 * Bouton pour changer de page
+	 */
 	private JButton btnPageSuivante;
 
-	// c'est ici que l'on declare un tableau ou on enumere toutes les pages d'aide
-	// desirees
+	/**
+	 * Tableau des images
+	 */
 	private String tableauImages[] = { "" };
+	/**
+	 * Label attention
+	 */
 	private JLabel lblAttention;
 
 	/**
 	 * Constructeur: cr�e une fen�tre qui inclut une instance d'image avec
 	 * d�filement
 	 */
+	//Kitimir Yim
 	public FenetreAideInstructions() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds((ConstanteComposantsSwing.DIM_HORIZONTALE_APP - ConstanteComposantsSwing.DIM_HORIZONTALE_SEC) / 2,

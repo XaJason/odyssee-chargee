@@ -523,7 +523,7 @@ public class MoteurPhysique {
 	 *                     tuile)
 	 * @return boolean de si le vaisseau et en collision
 	 */
-	// Kitimir Yim
+	//Kitimir Yim
 	public static boolean detecteCollisionsAvecObjetsSpeciaux(Vaisseau vaisseau, Tuile objetSpecial) {
 		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
 		Area aireTuile = objetSpecial.formerAireObjetSpecial();
@@ -531,35 +531,6 @@ public class MoteurPhysique {
 		return !aireVaisseau.isEmpty();
 
 	}
-
-	// Pas nécéssaire, car polymorphisme
-
-//	/**
-//	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
-//	 * @return boolean de si le vaisseau et en collision
-//	 */
-//	//Kitimir Yim
-//	public static  boolean verifieCollisionVaisseauDrapeau(Vaisseau vaisseau, Drapeau drapeau) {
-//		Area aireVaisseau = vaisseau.getTuile().formeVaisseau();
-//		Area aireDrapeau = drapeau.formerAireObjetSpecial();
-//		aireVaisseau.intersect(aireDrapeau);
-//		return !aireVaisseau.isEmpty();
-//
-//	}
-//	
-//	
-//	/**
-//	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
-//	 * @return boolean de si le vaisseau et en collision
-//	 */
-//	//Kitimir Yim 
-//	public static boolean verifieCollisionVaisseauPortail(Vaisseau vaisseau, Portail portail) {
-//		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
-//		Area airePortail = portail.formerAireObjetSpecial();
-//		aireVaisseau.intersect(airePortail);
-//		return !aireVaisseau.isEmpty();
-//
-//	}
 
 	/**
 	 * Modifie l'accélération gravitationnelle
