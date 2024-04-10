@@ -23,6 +23,7 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
+import javax.swing.JCheckBox;
 
 /**
  * Panel du mode éditeur
@@ -162,6 +163,9 @@ public class PanelEditeur extends JPanel {
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
+	/** Case à cocher pour l'affichage du quadrillage */
+	private JCheckBox chckbxGrille;
+
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -183,15 +187,6 @@ public class PanelEditeur extends JPanel {
 		grille = new Grille();
 		grille.setBounds(410, 38, 900, 900);
 		add(grille);
-
-		JButton btnGrille = new JButton("Afficher la grille");
-		btnGrille.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				grille.afficherGrille();
-			}
-		});
-		btnGrille.setBounds(858, 5, 421, 23);
-		add(btnGrille);
 
 		// JSpinner spinnerQttCarre = new JSpinner();
 		// spinnerQttCarre.addChangeListener(new ChangeListener() {
@@ -368,7 +363,8 @@ public class PanelEditeur extends JPanel {
 		add(lblObjets);
 
 		lblBlocs = new JLabel("Blocs");
-		lblBlocs.setBounds(40, 38, 45, 13);
+		lblBlocs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBlocs.setBounds(198, 38, 45, 13);
 		add(lblBlocs);
 
 		lblTriangleRectangle = new JLabel("Triangle rectangle");
@@ -398,7 +394,7 @@ public class PanelEditeur extends JPanel {
 
 		lblVaisseau = new JLabel("Vaisseau (personnage)");
 		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVaisseau.setBounds(225, 435, 128, 13);
+		lblVaisseau.setBounds(215, 435, 148, 13);
 		add(lblVaisseau);
 
 		lblReinitialiser = new JLabel("Réinitialiser le niveau");
@@ -422,12 +418,24 @@ public class PanelEditeur extends JPanel {
 		add(lblSauvegarder);
 
 		lblInteractifs = new JLabel("Interactifs");
-		lblInteractifs.setBounds(64, 192, 85, 13);
+		lblInteractifs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInteractifs.setBounds(178, 192, 85, 13);
 		add(lblInteractifs);
 
 		lblActions = new JLabel("Actions");
-		lblActions.setBounds(64, 458, 85, 13);
+		lblActions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActions.setBounds(10, 481, 85, 13);
 		add(lblActions);
+
+		chckbxGrille = new JCheckBox("Afficher la grille");
+		chckbxGrille.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grille.afficherGrille();
+			}
+		});
+		chckbxGrille.setSelected(true);
+		chckbxGrille.setBounds(760, 6, 200, 21);
+		add(chckbxGrille);
 
 	}
 
@@ -453,5 +461,4 @@ public class PanelEditeur extends JPanel {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
-
 }

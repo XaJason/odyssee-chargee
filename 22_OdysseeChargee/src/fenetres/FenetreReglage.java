@@ -82,7 +82,7 @@ public class FenetreReglage extends JFrame {
 			}
 		});
 		getContentPane().setLayout(null);
-		btnQuitter.setBounds(0, 0, 149, 31);
+		btnQuitter.setBounds(0, 0, 180, 21);
 		getContentPane().add(btnQuitter);
 
 		JSlider sliderSon = new JSlider();
@@ -105,7 +105,7 @@ public class FenetreReglage extends JFrame {
 
 		lblEvalutation = new JLabel("Qu'en pensez vous d'Odyssée chargée?");
 		lblEvalutation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEvalutation.setBounds(329, 250, 228, 13);
+		lblEvalutation.setBounds(306, 245, 275, 20);
 		getContentPane().add(lblEvalutation);
 	}
 
