@@ -18,6 +18,7 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Pics extends Tuile implements Serializable {
 	/**
@@ -83,7 +84,7 @@ public class Pics extends Tuile implements Serializable {
 	/**
 	 * Définit l'image représentant les pics
 	 * 
-	 * @param imageRef l'image représentant les pics
+	 * @param fichierImage Le fichier de l'image représentant les pics
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
 	 */

@@ -26,6 +26,9 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+	private JButton btnNiveauBase1;
+	private JButton btnNiveauBase2;
+	private JButton btnNiveauBase3;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -52,8 +55,41 @@ public class PanelSelecteurNiveaux extends JPanel {
 				PCS.firePropertyChange("passerVersJeu", 0, -1);
 			}
 		});
-		btnPasserModeJeu.setBounds(50, 50, 200, 30);
+		btnPasserModeJeu.setBounds(47, 50, 200, 30);
 		add(btnPasserModeJeu);
+		
+	
+		btnNiveauBase1 = new JButton("Niveau de base 1");
+		btnNiveauBase1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PCS.firePropertyChange("passerVersNiveau1", 0, -1);
+			}
+		});
+		btnNiveauBase1.setBounds(277, 50, 200, 30);
+		add(btnNiveauBase1);
+
+		
+
+		btnNiveauBase2 = new JButton("Niveau de base 2");
+		btnNiveauBase2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PCS.firePropertyChange("passerVersNiveau2", 0, -1);
+			}
+		});
+		btnNiveauBase2.setBounds(277, 103, 200, 30);
+		add(btnNiveauBase2);
+
+		
+		
+		btnNiveauBase3 = new JButton("Niveau de base 3");
+		btnNiveauBase3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PCS.firePropertyChange("passerVersNiveau3", 0, -1);
+			}
+		});
+		btnNiveauBase3.setBounds(277, 153, 200, 30);
+		add(btnNiveauBase3);
+
 
 	}
 

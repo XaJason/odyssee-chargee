@@ -33,14 +33,17 @@ import tuile.VaisseauImage;
  * @author Giroux
  * @author Jason Xa
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Grille extends JPanel implements Serializable {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -977837790552954988L;
-	/** Hauteur du composant **/
+	/** Nombre de pixels par mètre. **/
+	private double pixelsParMetre;
+	/** Hauteur du composant en mètre **/
 	private int hauteurDuComposantEnMetre;
-	/** Largeur du composant **/
-	private int largeurDuComposantEnMetre;
+	/** Largeur du composant en mètre **/
+	private int largeurDuComposantEnMetre = 900;
 	/** Hauteur de chaque case (en mètre) **/
 	private int hauteurCase;
 	/** Largeur du de chaque case (en mètre) **/
@@ -48,7 +51,7 @@ public class Grille extends JPanel implements Serializable {
 	/** Nombre de ligne et colonne. Ex: 3 donerait une grille 3x3 **/
 	private int nbCase = 15;
 	/**
-	 * Rectangle qui conrespond à la section de la grille où se trouve la sourie
+	 * Rectangle qui correspond à la section de la grille où se trouve la sourie
 	 **/
 	private Rectangle2D.Double emplacementActuel;
 	/** Quand il dessine pour le première fois **/
@@ -108,16 +111,10 @@ public class Grille extends JPanel implements Serializable {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {
-						if(tuile.getType().equals("Portail")){
-							nbPortails++;
-							lierPortail();
-
-
-						}
+						
 						sauvegarderEmplacement();
 
 					}
-
 				} else {
 					supprimerCase();
 				}
@@ -187,10 +184,14 @@ public class Grille extends JPanel implements Serializable {
 			if (premiereFois) {
 
 				tabEmplacement = new Tuile[nbCase][nbCase];
+
+				//			pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
+				//			hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
+
 				hauteurDuComposantEnMetre = this.getHeight();
 				largeurDuComposantEnMetre = this.getWidth();
 				dimensionCase();
-				dessinerGrille();
+				dessinerQuadrillage();
 
 				premiereFois = false;
 			}
@@ -229,8 +230,8 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void dimensionCase() {
-		hauteurCase = (hauteurDuComposantEnMetre / nbCase);
-		largeurCase = (largeurDuComposantEnMetre / nbCase);
+		hauteurCase =  (hauteurDuComposantEnMetre / nbCase);
+		largeurCase =  (largeurDuComposantEnMetre / nbCase);
 		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCase, hauteurCase);
 		System.out.println(largeurCase);
 		System.out.println(hauteurCase);
@@ -275,7 +276,7 @@ public class Grille extends JPanel implements Serializable {
 	 * Méthode qui dessine le quadrillage de la grille
 	 */
 	// Giroux
-	private void dessinerGrille() {
+	private void dessinerQuadrillage() {
 		quadVerti = new Path2D.Double();
 		quadHori = new Path2D.Double();
 		for (int i = 0; i < nbCase + 1; i++) {
@@ -374,6 +375,8 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Portail":
 			tuileTemp = new Portail(tuile.getAngleRotation());
+			nbPortails++;
+			lierPortail(tuileTemp);
 			break;
 		case "Triangle équilatéral":
 			tuileTemp = new TriangleEquilateral(tuile.getAngleRotation());
@@ -557,9 +560,12 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 *  Modifie la condition indiquant si l'on est dans le mode jeu
+	 *  En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la tuile du vaisseau, donc son image.
+	 *  L'image du vaisseau le sera quand on dessinera le vaisseau (individuellement)
 	 *  
 	 *  @param dansModeJeu La nouvelle valeur du booléan indiquant si l'on est dans le mode jeu
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public void setDansModeJeu(boolean dansModeJeu) {
 		this.dansModeJeu = dansModeJeu;
 	}
@@ -603,16 +609,16 @@ public class Grille extends JPanel implements Serializable {
 	 * Lie un portail si nécessaire
 	 */
 	//Kitimir Yim
-	private void lierPortail() {
+	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
-			
-			Portail deuxiemePortail = (Portail) tuileTemp;
+
 			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
 			Portail premierPortail = (Portail) portailTuile;
-			
+			Portail deuxiemePortail = (Portail) tuile;
 			if(premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
+				
 				System.out.println("Ce portail a maintenant un duo");
 			}	
 		}else {

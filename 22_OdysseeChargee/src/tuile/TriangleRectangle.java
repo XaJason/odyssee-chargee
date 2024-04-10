@@ -13,6 +13,7 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class TriangleRectangle extends Tuile implements Serializable {
 	/**
@@ -76,7 +77,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	/**
 	 * Définit l'image représentant le triangle rectangle
 	 * 
-	 * @param imageRef l'image représentant le triangle rectangle
+	 * @param fichierImage Le fichier de l'image représentant le triangle rectangle
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
 	 */
@@ -125,6 +126,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 			i.setLocation(i.getX() + x + largeurTuile / 2, i.getY() + y + hauteurTuile / 2);
 			pointsCoin.add(i);
 		}
+		pointMilieu = pointsCoin.get(3);
 		creerAires(pointMilieu);
 	}
 	

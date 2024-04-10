@@ -14,6 +14,7 @@ import utilitaires.Selectionnable;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Carre extends Tuile implements Serializable, Selectionnable {
 	/**
@@ -71,7 +72,6 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 
 	/**
 	 * Retourne l'image représentant le carré
-	 * 
 	 * @return L'image représentant le carré
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -125,11 +125,11 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
-
-		Point2D.Double pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
+		
+		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
-		System.out.println(pointMilieu);
 
+		prePointsCoin.add(pointMilieu);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
@@ -139,7 +139,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-
+		pointMilieu = pointsCoin.get(4);
 		creerAires(pointMilieu);
 	}
 
@@ -149,7 +149,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
 	// Jason Xa
-	protected void creerAires(Point2D.Double pointMilieu) {
+	public void creerAires(Point2D.Double pointMilieu) {
 
 		Aire aire1 = new Aire(pointsCoin.get(0), pointMilieu, pointsCoin.get(1));
 		Aire aire2 = new Aire(pointsCoin.get(1), pointMilieu, pointsCoin.get(2));

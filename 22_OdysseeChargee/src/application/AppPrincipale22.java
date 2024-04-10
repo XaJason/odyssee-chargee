@@ -43,6 +43,7 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class AppPrincipale22 extends JFrame {
 
@@ -304,7 +305,28 @@ public class AppPrincipale22 extends JFrame {
 
 		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				
+
+				if (evt.getPropertyName().equals("passerVersNiveau1")) {
+
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base1");
+					panSelecteurNiveau.setVisible(false);
+					panModeJeu.setVisible(true);
+					setContentPane(panModeJeu);
+				}
+
+				if (evt.getPropertyName().equals("passerVersNiveau2")) {
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base2");
+					panSelecteurNiveau.setVisible(false);
+					panModeJeu.setVisible(true);
+					setContentPane(panModeJeu);
+
+				}
+				if (evt.getPropertyName().equals("passerVersNiveau3")) {
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base3");
+					panSelecteurNiveau.setVisible(false);
+					panModeJeu.setVisible(true);
+					setContentPane(panModeJeu);
+				}
 				if (evt.getPropertyName().equals("passerVersJeu")) {
 					chargerNiveauVersZoneAnimationPhysique(evt);
 
@@ -318,7 +340,7 @@ public class AppPrincipale22 extends JFrame {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					
+
 				}
 			}
 		});
@@ -334,18 +356,20 @@ public class AppPrincipale22 extends JFrame {
 
 	}
 
+
 	/**
 	 * Chargement des niveau vers la zone d'animation physique
+	 * @param evt L'événement qui a été lancé
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {
-		
+
 		if (evt.getPropertyName().equals("passerVersJeu")) {
 			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau"); 
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
 			//panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
 		}
-		
+
 		if (evt.getPropertyName().equals("niveauSelectionne")) {
 			Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
 			panModeJeu.niveauAfficher(niveauSelectionne.getNom());
@@ -353,7 +377,7 @@ public class AppPrincipale22 extends JFrame {
 			//panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
 		}
 	}
-	
+
 	/**
 	 * Bouton pour quitter l'application
 	 */
@@ -400,7 +424,6 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("lebronjames");
 				panMenuPrincipal.setVisible(false);
 				panModeEditeur.setVisible(false);
 				panSelecteurNiveau.setVisible(true);

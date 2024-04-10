@@ -13,6 +13,8 @@ import niveau.Niveau;
 import niveau.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Composant illustrant la simulation :
@@ -88,7 +90,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	private final double LONGUEUR_PLAQUE_INITIALE = 25;
 
 	/** Largeur de la plaque chargée (en mètre) **/
-	private double LARGEUR_PLAQUE_INITIALE = 1;
+	private final double LARGEUR_PLAQUE_INITIALE = 1;
 
 	/** Charge initiale de la plaque chargée (en Coulomb) **/
 	private final double CHARGE_INITIALE_PLAQUE = 20;
@@ -183,6 +185,16 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysiqueTest() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				double xEnMetre = e.getX()/pixelsParMetre;
+				double yEnMetre = e.getY()/pixelsParMetre;
+				if (plaqueRouge.contient(xEnMetre, yEnMetre)) {
+					System.out.println("Dans la plaqueeee");
+				}
+			}
+		});
 		setBackground(Color.black);
 
 		vaisseauBleu = new Vaisseau(posVaisseau, vitVaisseau, accelVaisseau, rayonVaisseau, chargeVaisseau,
@@ -220,8 +232,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 
 			vaisseauBleu.setPosition(new Vecteur2D(posVaisseauEnX, posVaisseauEnY));
 			plaqueRouge.setPosition(new Vecteur2D(posPlaqueEnX, posPlaqueEnY));
-			plaqueRouge.setExtremiteA();
-			plaqueRouge.setExtremiteB();
+			plaqueRouge.miseAJourExtremiteA();
+			plaqueRouge.miseAJourExtremiteB();
 
 			premiereFois = false;
 		} // fin condition dans paintComponent
@@ -252,7 +264,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setPixelsParMetre(pixelsParMetre);
 		plaqueRouge.dessiner(g2d);
 	}
-
+	
 	/**
 	 * Permet d'effectuer l'animation
 	 */
@@ -368,8 +380,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setLongueur(longueurPlaque);
 		plaqueRouge.setCharge(chargePlaque);
 		plaqueRouge.setPosition(new Vecteur2D(posPlaqueEnX, posPlaqueEnY));
-		plaqueRouge.setExtremiteA();
-		plaqueRouge.setExtremiteB();
+		plaqueRouge.miseAJourExtremiteA();
+		plaqueRouge.miseAJourExtremiteB();
 		// À gérer plus tard si l'utilisateur fait n'importe nawak
 		try {
 			plaqueRouge.setNormale(new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise());
@@ -399,8 +411,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setLongueur(LONGUEUR_PLAQUE_INITIALE);
 		plaqueRouge.setCharge(CHARGE_INITIALE_PLAQUE);
 		plaqueRouge.setPosition(new Vecteur2D(POS_INITIALE_PLAQUE_EN_X, POS_INITIALE_PLAQUE_EN_Y));
-		plaqueRouge.setExtremiteA();
-		plaqueRouge.setExtremiteB();
+		plaqueRouge.miseAJourExtremiteA();
+		plaqueRouge.miseAJourExtremiteB();
 		plaqueRouge
 				.setNormale(new Vecteur2D(NORMALE_INITIALE_PLAQUE_COMPOSANTE_X, NORMALE_INITIALE_PLAQUE_COMPOSANTE_Y));
 
@@ -639,8 +651,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		this.posPlaqueEnX = posPlaqueEnX;
 		if (!enCoursDAnimation) {
 			plaqueRouge.setPosition(new Vecteur2D(posPlaqueEnX, plaqueRouge.getPosition().getY()));
-			plaqueRouge.setExtremiteA();
-			plaqueRouge.setExtremiteB();
+			plaqueRouge.miseAJourExtremiteA();
+			plaqueRouge.miseAJourExtremiteB();
 			repaint();
 		}
 	}
@@ -665,8 +677,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		this.posPlaqueEnY = posPlaqueEnY;
 		if (!enCoursDAnimation) {
 			plaqueRouge.setPosition(new Vecteur2D(plaqueRouge.getPosition().getX(), posPlaqueEnY));
-			plaqueRouge.setExtremiteA();
-			plaqueRouge.setExtremiteB();
+			plaqueRouge.miseAJourExtremiteA();
+			plaqueRouge.miseAJourExtremiteB();
 			repaint();
 		}
 	}

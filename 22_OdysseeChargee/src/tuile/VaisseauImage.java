@@ -17,6 +17,8 @@ import utilitaires.OutilsImage;
  * 
  * @author Jason Xa
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Kitimir Yim
  */
 public class VaisseauImage extends Tuile implements Serializable {
 	/**
@@ -85,7 +87,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	/**
 	 * Définit l'image représentant le vaisseau
 	 * 
-	 * @param imageRef l'image représentant le vaisseau
+	 * @param fichierImage Le fichier de l'image représentant le vaisseau
 	 * @param largeurVaisseau La largeur du vaisseau
 	 * @param hauteurVaisseau La hauteur du vaisseau
 	 */

@@ -85,11 +85,11 @@ public class Segment implements Dessinable, Serializable {
 	 * @param g2d Le contexte graphique
 	 */
 	// Enuel René Valentin Kizozo Izia
-	/*
-	 * À retirer éventuellement,
-	 * mais permet de savoir si le segment est placé au bon endroit
-	 */
 	public void dessiner(Graphics2D g2d) {
+		/*
+		 * À retirer éventuellement,
+		 * mais permet de savoir si le segment est placé au bon endroit
+		 */
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
 		g2dPrive.setColor(Color.magenta);
@@ -119,7 +119,6 @@ public class Segment implements Dessinable, Serializable {
 	// GETTERS & SETTERS //
 	/**
 	 * Retourne le vecteur normal du segment
-	 * 
 	 * @return Le vecteur normal du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -129,8 +128,6 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Modifie le vecteur normal du segment
-	 * 
-	 * @param normale Vecteur incluant les composantes en x et y
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormale() {
@@ -140,7 +137,6 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Retourne le vecteur passant par l'axe du segment
-	 * 
 	 * @return Le vecteur passant par l'axe du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -166,7 +162,6 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Retourne la longueur du segment
-	 * 
 	 * @return La longueur du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -176,8 +171,6 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Modifie la longueur du segment
-	 * 
-	 * @param longueur Longueur du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setLongueur() {
@@ -187,7 +180,6 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Retourne l'extrémité A du segment
-	 * 
 	 * @return L'extrémité A du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -197,6 +189,7 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Modifie l'extrémité A du segment
+	 * @param point L'objet point possédant les nouvelles coordonnées de l'extrémité A
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteA(Point2D point) {
@@ -208,7 +201,6 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Retourne l'extrémité B du segment
-	 * 
 	 * @return L'extrémité B du segment
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -218,6 +210,7 @@ public class Segment implements Dessinable, Serializable {
 
 	/**
 	 * Modifie l'extrémité B du segment
+	 * @param point L'objet point possédant les nouvelles coordonnées de l'extrémité B
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setExtremiteB(Point2D point) {
@@ -228,9 +221,8 @@ public class Segment implements Dessinable, Serializable {
 	}
 
 	/**
-	 * Retourne la position du point quelconque sur le segment
-	 * 
-	 * @param pointQuelconque
+	 * Retourne la position d'un point quelconque sur le segment
+	 * @return La position d'un point quelconque sur le segment
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getPointQuelconque() {
