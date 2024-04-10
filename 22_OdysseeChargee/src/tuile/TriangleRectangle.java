@@ -119,7 +119,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasGauche);
 		// Ajouter le point milieu
 		pointMilieu = pointMilieuTriangle(prePointsCoin);
-		prePointsCoin.add(pointMilieu);
+		//prePointsCoin.add(pointMilieu);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
@@ -127,8 +127,22 @@ public class TriangleRectangle extends Tuile implements Serializable {
 			i.setLocation(i.getX() + x + largeurTuile / 2, i.getY() + y + hauteurTuile / 2);
 			pointsCoin.add(i);
 		}
-		pointMilieu = pointsCoin.get(3);
+		//pointMilieu = pointsCoin.get(3);
+		transformerPointMilieu();
+		creerListeSegment();
 		creerAires(pointMilieu);
 	}
-
+	
+	/**
+	 * Transformer le pointMilieu (qui ne fait pas partie du contour)
+	 * selon la rotation appliquée sur la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void transformerPointMilieu() {
+		// Prendre le centre
+		pointMilieu.setLocation(pointMilieu.getX() - largeurTuile / 2, pointMilieu.getY() - hauteurTuile / 2);
+		pointMilieu = rotation.rotationner(pointMilieu);
+		// Repositionner
+		pointMilieu.setLocation(pointMilieu.getX() + largeurTuile / 2 + x, pointMilieu.getY() + hauteurTuile / 2 + y);
+	}
 }

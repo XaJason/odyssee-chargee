@@ -7,6 +7,7 @@ import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 
 import physique.MoteurPhysique;
+import physique.Segment;
 import physique.Vecteur2D;
 import tuile.VaisseauImage;
 import utilitaires.Dessinable;
@@ -163,6 +164,28 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		 * detectionCollisions et calculVitesseApresCollision
 		 */
 		vitesse = MoteurPhysique.detectionCollisionsAvecPlaqueEtCalculeVitesse(this, plaque);
+		creerLaGeometrie();
+	}
+	
+	/**
+	 * Détermine s'il y a collision avec un segment,
+	 * puis modifie la vitesse du vaisseau en conséquence
+	 * 
+	 * @param segment Le segment avec laquelle le vaisseau entre en collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void gererCollisionAvecSegment(Segment segment) {
+		/*
+		 * À modifier éventuellement, car il n'y a pas que des collisions avec des
+		 * plaques
+		 * Faire de la surdéfinition (même méthodes avec comme paramètre, chaque objet
+		 * différent)
+		 * OU
+		 * Faire du polymorphisme, une méthode avec comme paramètre InteractifPhysique,
+		 * mais faudra gérer différement les paramètres des méthodes
+		 * detectionCollisions et calculVitesseApresCollision
+		 */
+		vitesse = MoteurPhysique.detectionCollisionsAvecSegmentEtCalculeVitesse(this, segment);
 		creerLaGeometrie();
 	}
 

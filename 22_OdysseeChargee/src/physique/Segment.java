@@ -92,7 +92,7 @@ public class Segment implements Dessinable, Serializable {
 		 */
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
-		g2dPrive.setColor(Color.magenta);
+		g2dPrive.setColor(Color.red);
 		g2dPrive.draw(segment);
 	}
 
@@ -109,9 +109,9 @@ public class Segment implements Dessinable, Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public String toString(int nbDecimales) {
-		String s = " extrémité A=[ " + String.format("%." + nbDecimales + "f", getExtremiteA().getX()) + ", "
+		String s = " point A=[ " + String.format("%." + nbDecimales + "f", getExtremiteA().getX()) + ", "
 				+ String.format("%." + nbDecimales + "f", getExtremiteA().getY()) + "]";
-		s += " extrémité B=[ " + String.format("%." + nbDecimales + "f", getExtremiteB().getX()) + ", "
+		s += " point B=[ " + String.format("%." + nbDecimales + "f", getExtremiteB().getX()) + ", "
 				+ String.format("%." + nbDecimales + "f", getExtremiteB().getY()) + "]";
 		return (s);
 	}

@@ -100,7 +100,7 @@ public class PanelJeu extends JPanel {
 	/** Étiquette qui indique la charge de la plaque **/
 	private JLabel lblEtatPlaque;
 	/** Boolean qui indique la nature de la charge de la plaque **/
-	private Boolean plaquePositive = true;
+	private boolean plaquePositive = true;
 	/** Nombre restant de plaque **/
 	private int nbPlaqueRestante = 4;
 

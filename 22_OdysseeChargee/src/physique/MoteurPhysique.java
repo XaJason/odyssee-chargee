@@ -458,6 +458,159 @@ public class MoteurPhysique {
 		} // fin try catch
 	}// fin méthode
 
+	// COLLISION AVEC SEGMENT, REMPLACERA ÉVENTUELLEMENT COLLISION AVEC PLAQUE
+	/**
+	 * Détecte s'il y a une collision entre le vaisseau et un segment,
+	 * puis calcule la vitesse du vaisseau après la collision (s'il y a lieu)
+	 * 
+	 * @param vaisseau Objet représentant le vaisseau
+	 * @param segment  Objet représentant un segment
+	 * @return La nouvelle vitesse du vaisseau, après la collision (s'il y a lieu)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Vecteur2D detectionCollisionsAvecSegmentEtCalculeVitesse(Vaisseau vaisseau, Segment segment) {
+		Vecteur2D vitApresCol;
+		Vecteur2D distanceVaisseauPointSurSegment = vaisseau.getPosition().soustrait(segment.getPointQuelconque());
+		double plusPetiteDistanceVaisseauSegment = Math
+				.abs(distanceVaisseauPointSurSegment.prodScalaire(segment.getNormale()));
+
+		Vecteur2D dVaisseauExtrA = segment.getExtremiteA().soustrait(vaisseau.getPosition());
+		Vecteur2D dVaisseauExtrB = segment.getExtremiteB().soustrait(vaisseau.getPosition());
+
+		double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(segment.getAxe()));
+		double dVaisseauExtrBSurAxe = Math.abs(dVaisseauExtrB.prodScalaire(segment.getAxe()));
+
+		/*
+		 * Détermine si le vaisseau est entre les extrémités du segment
+		 * et s'il est en collision avec la plaque
+		 */
+		boolean vaisseauEntreExtremite = (dVaisseauExtrASurAxe + dVaisseauExtrBSurAxe > segment.getLongueur() - EPSILON)
+				& (dVaisseauExtrASurAxe + dVaisseauExtrBSurAxe < segment.getLongueur() + EPSILON);
+		boolean collisionLateralSegment = (plusPetiteDistanceVaisseauSegment < vaisseau.getRayon() + EPSILON)
+				& vaisseauEntreExtremite;
+
+		// Déterminer si le vaisseau est en collision avec les extrémités
+		boolean collisionExtremiteA = dVaisseauExtrA.module() < vaisseau.getRayon();
+		boolean collisionExtremiteB = dVaisseauExtrB.module() < vaisseau.getRayon();
+
+		// Collision aux extrémités
+		if ((collisionExtremiteA | collisionExtremiteB) & !vaisseauEntreExtremite) {
+			vitApresCol = calculVitesseApresCollisionExtremiteSegment(vaisseau, segment, collisionExtremiteA);
+			//System.out.println("Collision aux extrémités !");
+			
+		// Collision entre les extrémités
+		} else if (collisionLateralSegment) {
+			vitApresCol = calculVitesseApresCollisionFaceLateraleSegment(vaisseau, segment);
+			//System.out.println("Collision entre les extrémités !");
+			//System.out.println("Ajustements vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
+
+			// Pas de collision
+		} else {
+			vitApresCol = vaisseau.getVitesse();
+		}
+
+		//System.out.println("\nDistance vaisseau plaque : " + distanceVaisseauPointSurPlaque.module());
+		//System.out.println("Plus petite distance vaisseau plaque : " + plusPetiteDistanceVaisseauPlaque + "\n");
+
+		return vitApresCol;
+	}
+
+	/**
+	 * Calcule la vitesse du vaisseau après une collision contre une des extrémités
+	 * du segment
+	 * 
+	 * @param vaisseau            L'objet représentant un vaisseau
+	 * @param segment              L'objet représentant un segment
+	 * @param collisionExtremiteA Booléen indiquant la collision à lieu à
+	 *                            l'extrémité A de la plaque
+	 * @return La nouvelle vitesse du vaisseau, après la collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private static Vecteur2D calculVitesseApresCollisionExtremiteSegment(Vaisseau vaisseau, Segment segment,
+			boolean collisionExtremiteA) {
+		Vecteur2D vitApresCol = vaisseau.getVitesse().multiplie(-COEFF_E);
+
+		// Repositionner vaisseau après collision pour éviter bug
+		try {
+			Vecteur2D normaleCollisionExtremite = vaisseau.getVitesse().multiplie(-1).normalise();
+			//System.out.println("Orientation normale : " + normaleCollisionExtremite);
+			if (collisionExtremiteA) {
+				vaisseau.setPosition(
+						segment.getExtremiteA().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
+				//System.out.println("Ajustement vaisseau dû à une potentielle collision : " + vaisseau.toString(3) + "\n");
+			} else {
+				vaisseau.setPosition(
+						segment.getExtremiteB().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
+				//System.out.println("Ajustement vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
+			} // fin if
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("La vitesse du vaisseau est (presque) nulle, donc on ne le repositionne pas.");
+		} // fin try/catch
+
+		return vitApresCol;
+	}
+
+	/**
+	 * Calcule la vitesse du vaisseau après une collision contre une face latérale
+	 * du segment
+	 * 
+	 * @param vaisseau L'objet représentant un vaisseau
+	 * @param segment  L'objet représentant un segment
+	 * @return La nouvelle vitesse du vaisseau, après la collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private static Vecteur2D calculVitesseApresCollisionFaceLateraleSegment(Vaisseau vaisseau, Segment segment) {
+		try {
+			Vecteur2D vitApresCol;
+			Vecteur2D orientationDistanceSegmentVaisseau;
+			orientationDistanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque()).normalise();
+
+			Vecteur2D orientationVitesseInitiale = vaisseau.getVitesse().normalise();
+			Vecteur2D invOrientationVitesseInitiale = orientationVitesseInitiale.multiplie(-1);
+			Vecteur2D normaleSurface = segment.getNormale();
+
+			// Permet de s'assurer que la normale est bien orientée vers l'extérieur de la
+			// surface, donc vers le vaisseau
+			if (orientationDistanceSegmentVaisseau.prodScalaire(normaleSurface) < 0) {
+				normaleSurface = normaleSurface.multiplie(-1);
+			}
+			Vecteur2D orientationVitesseFinale = orientationVitesseInitiale.additionne(
+					normaleSurface.multiplie(2 * invOrientationVitesseInitiale.prodScalaire(normaleSurface)));
+			double moduleVitApresCol = COEFF_E * vaisseau.getVitesse().module();
+			vitApresCol = orientationVitesseFinale.multiplie(moduleVitApresCol);
+
+			// Repositionner vaisseau après collision pour éviter bug
+			Vecteur2D distanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque());
+			Vecteur2D dVaisseauExtrA = segment.getExtremiteA().soustrait(vaisseau.getPosition());
+			double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(segment.getAxe()));
+			Vecteur2D lieuCollision = segment.getExtremiteA().soustrait(segment.getAxe().multiplie(dVaisseauExtrASurAxe));
+			if (distanceSegmentVaisseau.prodScalaire(segment.getNormale()) > 0) {
+				vaisseau.setPosition(lieuCollision
+						.additionne(segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON)));
+			} else {
+				vaisseau.setPosition(lieuCollision.additionne(
+						segment.getNormale().multiplie(-1 * (vaisseau.getRayon() + EPSILON))));
+			}
+
+			// System.out.println("Vitesse après collision : " + vitApresCol);
+			// System.out.println("Ancienne pos : "+ vaisseau.getPosition());
+			// System.out.println("Nouvelle pos : "+ vaisseau.getPosition());
+			return vitApresCol;
+		} catch (Exception e) {
+			/*
+			 * Si la vitesse initiale est nulle
+			 * ou si le vaisseau est trop prêt de la plaque,
+			 * alors la vitesse finale est nulle
+			 */
+			e.printStackTrace();
+			System.out.println(
+					"Le vaisseau est trop prêt de la plaque ou sa vitesse initiale est nulle, donc sa vitesse finale sera nulle");
+			return VEC_ZERO;
+		} // fin try catch
+	}// fin méthode
+	// COLLISION AVEC SEGMENT, REMPLACERA ÉVENTUELLEMENT COLLISION AVEC PLAQUE
+	
 	/**
 	 * Détecte s'il y a une collision avec l'une des bordures,
 	 * puis calcule la vitesse du vaisseau après la collision selon la bordure

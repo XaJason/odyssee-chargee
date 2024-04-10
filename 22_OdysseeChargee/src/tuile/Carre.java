@@ -128,8 +128,8 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
 
-		prePointsCoin.add(pointMilieu);
-		// Transformer
+		//prePointsCoin.add(pointMilieu);
+		// Transformer les points qui sont au coin
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
@@ -138,10 +138,25 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-		pointMilieu = pointsCoin.get(4);
+		//pointMilieu = pointsCoin.get(4);
+		transformerPointMilieu();
+		creerListeSegment();
 		creerAires(pointMilieu);
 	}
 
+	/**
+	 * Transformer le pointMilieu (qui ne fait pas partie du contour)
+	 * selon la rotation appliquée sur la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void transformerPointMilieu() {
+		// Prendre le centre
+		pointMilieu.setLocation(pointMilieu.getX() - largeurTuile / 2, pointMilieu.getY() - hauteurTuile / 2);
+		pointMilieu = rotation.rotationner(pointMilieu);
+		// Repositionner
+		pointMilieu.setLocation(pointMilieu.getX() + largeurTuile / 2 + x, pointMilieu.getY() + hauteurTuile / 2 + y);
+	}
+	
 	/**
 	 * Créer les aires de sélection associées à la tuile carrée
 	 * 

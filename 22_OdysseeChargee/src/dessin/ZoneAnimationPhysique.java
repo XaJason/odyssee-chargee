@@ -18,6 +18,7 @@ import interactif.Vaisseau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
 import physique.MoteurPhysique;
+import physique.Segment;
 import physique.Vecteur2D;
 import tuile.Portail;
 import tuile.Tuile;
@@ -236,7 +237,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							
 							if (fixerPlaqueSurTuile) {
 								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(), plaque.getPosition().getY() );
-								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()) );
+								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, chargeDesPlaques) );
 							}
 						}
 					} // fin 2e if
@@ -410,13 +411,46 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 * pourrait entrer en collision
 		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
 		 */
-		for (PlaqueChargee p : listePlaquesChargees) {
-			vaisseau.gererCollisionAvecPlaque(p);
-		}
+		testerCollisionsAvecPlaque();
+		//testerCollisionAvecSurfaceDesBlocs();
 		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
 		testerCollisionsAvecObjetsSpeciaux();
 	}
 
+	/**
+	 * Teste la collision avec toutes les plaques du niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void testerCollisionsAvecPlaque() {
+		for (PlaqueChargee p : listePlaquesChargees) {
+			vaisseau.gererCollisionAvecPlaque(p);
+		}
+	}
+	
+	/**
+	 * Teste la collision avec la surface des blocs (carrés et triangles)
+	 * Donc avec tous leurs segments
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void testerCollisionAvecSurfaceDesBlocs() {
+		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
+
+		for (int i = 0; i < tabTuiles.length; i++) {
+			for (int j = 0; j < tabTuiles.length; j++) {
+				Tuile tuile = tabTuiles[i][j];
+
+				if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
+						| tuile.getType().equals("Triangle équilatéral"))) {
+					for (Segment segment : tuile.getListeSegments()) {
+						vaisseau.gererCollisionAvecSegment(segment);
+					}
+
+					
+				} // fin if
+			} // fin 2e boucle for
+		} // fin 1re boucle for
+	}
+	
 	/**
 	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux
 	 * (drapeau, pics, portail)
@@ -758,6 +792,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			plaquePositive = false;
 			setSignePlaque();
 		}
+		//setChargeDesPlaques(chargeDesPlaques);
 	}
 	
 	/**
@@ -770,7 +805,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			signePlaque = 1;
 		} else {
 			signePlaque = -1;
-		}
-		setChargeDesPlaques(chargeDesPlaques);
+		}// fin if
+		
+		chargeDesPlaques = Math.abs(chargeDesPlaques);
+		for (PlaqueChargee p : listePlaquesChargees) {
+			p.setCharge(signePlaque*chargeDesPlaques);
+		}// fin for
+		
+		repaint();
 	}
 }
