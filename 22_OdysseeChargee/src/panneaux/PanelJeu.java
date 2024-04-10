@@ -3,6 +3,8 @@ package panneaux;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -105,6 +107,14 @@ public class PanelJeu extends JPanel {
 	private int nbPlaqueRestante = 4;
 
 	/**
+	 * Vitesse affichée
+	 */
+	private String vitesseString = "0";
+	/**
+	 * Texte area de la vitesse
+	 */
+	private JTextArea textAreaVitesse;
+	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
@@ -175,9 +185,13 @@ public class PanelJeu extends JPanel {
 		lblPosition.setBounds(35, 233, 100, 26);
 		panelSortie.add(lblPosition);
 
-		JTextArea textAreaVitesse = new JTextArea();
+
+		textAreaVitesse = new JTextArea(vitesseString);
+		leveeEvenement();
 		textAreaVitesse.setBounds(216, 37, 150, 22);
 		panelSortie.add(textAreaVitesse);
+
+
 
 		JTextArea textAreaAcceleration = new JTextArea();
 		textAreaAcceleration.setBounds(216, 73, 150, 22);
@@ -292,7 +306,7 @@ public class PanelJeu extends JPanel {
 		btnChargePositive.setEnabled(false);
 		btnChargeNegative.setEnabled(true);
 	}
-	
+
 	/**
 	 * Changer l'état du bouton négatif et la charge de la plaque en conséquence
 	 */
@@ -302,7 +316,7 @@ public class PanelJeu extends JPanel {
 		btnChargeNegative.setEnabled(false);
 		btnChargePositive.setEnabled(true);
 	}
-	
+
 	/**
 	 * Créer la zone d'animation physique et
 	 * les boutons d'animation sur le panneau mode jeu
@@ -374,7 +388,24 @@ public class PanelJeu extends JPanel {
 		btnReinitialiser.setBounds(1074, 773, 129, 23);
 		add(btnReinitialiser);
 	}
+	/**
+	 * S'occupe de la levée d'évenement
+	 */
+	//Kitimir Yim
+	private void leveeEvenement() {
 
+		zoneAnimationPhysique.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("leveeVitesse")) {
+					double vitesse = (double) evt.getNewValue();
+					vitesseString = Double.toString(vitesse);
+					textAreaVitesse.setText(vitesseString);
+				}
+			}
+		});
+
+	}
 	/**
 	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveau)
 	 */
