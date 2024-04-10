@@ -19,13 +19,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import fenetres.FenetreAPropos;
 import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
-import fenetres.PanelAPropos;
 import niveau.Niveau;
-import niveau.Sauvegarder;
-import panneaux.PanelModeEditeur;
-import panneaux.PanelModeJeu;
+import panneaux.PanelEditeur;
+import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
 import tuile.Carre;
 import tuile.Drapeau;
@@ -36,7 +35,6 @@ import tuile.TriangleRectangle;
 import tuile.Tuile;
 import tuile.VaisseauImage;
 import utilitaires.ConstanteComposantsSwing;
-import utilitaires.OutilsImage;
 
 /**
  * Application permettant d'accéder au jeu Odyssée chargée
@@ -66,15 +64,15 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Panel du mode éditeur
 	 */
-	private PanelModeEditeur panModeEditeur;
+	private PanelEditeur panModeEditeur;
 	/**
 	 * Panel du mode jeu
 	 */
-	private PanelModeJeu panModeJeu;
+	private PanelJeu panModeJeu;
 	/**
 	 * Panel À propos
 	 */
-	private PanelAPropos pnlAPropos;
+	private FenetreAPropos pnlAPropos;
 	/**
 	 * Panel du sélecteur de niveaux
 	 */
@@ -255,7 +253,7 @@ public class AppPrincipale22 extends JFrame {
 		btnModePrincipal.setBounds(225, 175, 150, 100);
 		panMenuPrincipal.add(btnModePrincipal);
 
-		JButton btnModeEditeur = new JButton("Mode éditeur");
+		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
 		btnModeEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panModeEditeur.setVisible(true);
@@ -277,7 +275,7 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	public void creerFenetres() {
 
-		pnlAPropos = new PanelAPropos();
+		pnlAPropos = new FenetreAPropos();
 		fenInstruction = new FenetreAideInstructions();
 		fenReglage = new FenetreReglage();
 
@@ -299,9 +297,9 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Kitimir Yim
 	public void creerPanels() {
-		panModeEditeur = new PanelModeEditeur();
+		panModeEditeur = new PanelEditeur();
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
-		panModeJeu = new PanelModeJeu();
+		panModeJeu = new PanelJeu();
 
 		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -356,25 +354,25 @@ public class AppPrincipale22 extends JFrame {
 
 	}
 
-
 	/**
 	 * Chargement des niveau vers la zone d'animation physique
+	 * 
 	 * @param evt L'événement qui a été lancé
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {
 
 		if (evt.getPropertyName().equals("passerVersJeu")) {
-			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau"); 
+			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau");
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
-			//panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+			// panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
 		}
 
 		if (evt.getPropertyName().equals("niveauSelectionne")) {
-			Niveau niveauSelectionne = (Niveau) evt.getNewValue(); 
+			Niveau niveauSelectionne = (Niveau) evt.getNewValue();
 			panModeJeu.niveauAfficher(niveauSelectionne.getNom());
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauSelectionne.getNom());
-			//panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+			// panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
 		}
 	}
 
@@ -435,7 +433,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmSelection);
-		mntmEditeur = new JMenuItem("Éditeur");
+		mntmEditeur = new JMenuItem("Éditeur de niveaux");
 		mntmEditeur.setPreferredSize(new Dimension(100, 26));
 		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
@@ -464,7 +462,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmInstructions);
 
-		JMenuItem mntmReglage = new JMenuItem("Réglage");
+		JMenuItem mntmReglage = new JMenuItem("Réglages");
 		mntmReglage.setMaximumSize(new Dimension(200, 32767));
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
 

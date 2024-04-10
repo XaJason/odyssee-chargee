@@ -14,7 +14,8 @@ import physique.Vecteur2D;
 public abstract class InteractifPhysique {
 
 	/** Position de l'objet intéractif physique **/
-	private Vecteur2D position = new Vecteur2D(-30, -30); //Placée par défaut à l'extérieur du composant pour ne pas le voir
+	private Vecteur2D position = new Vecteur2D(-30, -30); // Placée par défaut à l'extérieur du composant pour ne pas le
+															// voir
 
 	/** Nombre de pixels par mètre. **/
 	private double pixelsParMetre = 1;
@@ -27,13 +28,13 @@ public abstract class InteractifPhysique {
 	 * Constructeur de l'objet intéractif physique
 	 * Ne prend que sa charge en paramètre
 	 * 
-	 * @param charge   La charge de l'objet intéractif
+	 * @param charge La charge de l'objet intéractif
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public InteractifPhysique( double charge) {
+	public InteractifPhysique(double charge) {
 		this.charge = charge;
 	}
-	
+
 	/**
 	 * Constructeur de l'objet intéractif physique
 	 * Prend en paramètre sa position et sa charge

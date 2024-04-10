@@ -1,14 +1,11 @@
 package niveau;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.io.Serializable;
 
 import javax.swing.JPanel;
 
 import dessin.Grille;
-import tuile.Tuile;
-import utilitaires.OutilsImage;
 
 /**
  * Composant illustrant la simulation :
@@ -25,12 +22,11 @@ public class Niveau extends JPanel implements Serializable {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = 7452459522695790433L;
 
-	
 	/** Nom du niveau **/
 	private String nom;
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Grille grille;
-	
+
 	/**
 	 * Constructeur du niveau
 	 * 
@@ -43,27 +39,31 @@ public class Niveau extends JPanel implements Serializable {
 		this.nom = nom;
 		creerLaGeometrie();
 	}
-	
-	/** 
+
+	/**
 	 * Permet de créer la géométrie d'un objet niveau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
-		/* Dessiner tous les bounding box des tuiles du niveau
+		/*
+		 * Dessiner tous les bounding box des tuiles du niveau
 		 * Ou du moins définir où les objets sont, mais de manière physique,
 		 * pas à l'aide d'un tableau
 		 * 
 		 * Exemples/Idées:
-		 * - Un path pour les bordures et les surfaces (côtés, carrés et triangles rectangles/isocèles)
-		 * 		- En additionnant les Area des boundings box des objets ci-dessus on aurait une grosse Area « surfaces »
+		 * - Un path pour les bordures et les surfaces (côtés, carrés et triangles
+		 * rectangles/isocèles)
+		 * - En additionnant les Area des boundings box des objets ci-dessus on aurait
+		 * une grosse Area « surfaces »
 		 * 
 		 * - Une rectangle pour les pics
 		 * - Un cercle pour le portail
-		 * 		- Possibilité de faire de même et d'avoir un Area avec les zones de pics/portail
+		 * - Possibilité de faire de même et d'avoir un Area avec les zones de
+		 * pics/portail
 		 * 
 		 * - Un rectangle pour le drapeau
 		 */
-		
+
 	}
 
 	// SOUS-PROGRAMMES //

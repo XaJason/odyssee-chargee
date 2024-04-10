@@ -4,8 +4,6 @@ import java.awt.geom.Area;
 
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
-import tuile.Drapeau;
-import tuile.Portail;
 import tuile.Tuile;
 
 /**
@@ -22,18 +20,21 @@ import tuile.Tuile;
 public class MoteurPhysique {
 
 	/** Accélération gravitationnelle (de la Terre par défaut) (en m/s^2) **/
-	public static double accelGrav = -9.80665; //changer le signe pour + quand on aura mis l'origine en bas à droite
+	public static double accelGrav = -9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
 
 	/** Coefficient de frottement statique (acier-acier par défaut) **/
 	public static double coeffFrotStat = 0.75;
-	
+
 	/** Coefficient de frottement cinétique (acier-acier par défaut) **/
 	public static double coeffFrotCine = 0.57;
-	
+
 	/** Constante de Coulomb **/
 	private static final double K = 8.98755;
 
-	/** Coefficient de restitution pour un vaisseau et une surface, tous deux en acier **/
+	/**
+	 * Coefficient de restitution pour un vaisseau et une surface, tous deux en
+	 * acier
+	 **/
 	private static final double COEFF_E = 19.0 / 20.0;
 
 	/** Tolérance utilisée dans les comparaisons réelles avec zéro **/
@@ -513,14 +514,16 @@ public class MoteurPhysique {
 
 		return vitApresCol;
 	}// fin méthode
-	
+
 	/**
 	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
-	 * @param vaisseau Un objet représant le vaisseau
-	 * @param objetSpecial Une tuile représentant un objet spécial (drapeau, pics, tuile)
+	 * 
+	 * @param vaisseau     Un objet représant le vaisseau
+	 * @param objetSpecial Une tuile représentant un objet spécial (drapeau, pics,
+	 *                     tuile)
 	 * @return boolean de si le vaisseau et en collision
 	 */
-	//Kitimir Yim  
+	// Kitimir Yim
 	public static boolean detecteCollisionsAvecObjetsSpeciaux(Vaisseau vaisseau, Tuile objetSpecial) {
 		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
 		Area aireTuile = objetSpecial.formerAireObjetSpecial();
@@ -528,9 +531,9 @@ public class MoteurPhysique {
 		return !aireVaisseau.isEmpty();
 
 	}
-	
-	//Pas nécéssaire, car polymorphisme
-	
+
+	// Pas nécéssaire, car polymorphisme
+
 //	/**
 //	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
 //	 * @return boolean de si le vaisseau et en collision
@@ -557,14 +560,15 @@ public class MoteurPhysique {
 //		return !aireVaisseau.isEmpty();
 //
 //	}
-	
+
 	/**
 	 * Modifie l'accélération gravitationnelle
+	 * 
 	 * @param accelGrav La nouvelle accélération gravitationnelle (en m/s^2)
 	 */
-	//Enuel René Valentin Kizozo Izia
+	// Enuel René Valentin Kizozo Izia
 	public static void setAccelGrav(double accelGrav) {
 		MoteurPhysique.accelGrav = accelGrav;
 	}
-	
+
 }// fin classe

@@ -65,7 +65,8 @@ public class Sauvegarder {
 	/**
 	 * Méthode static permettant le chargement de niveau
 	 * 
-	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son nom)
+	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
+	 *                          nom)
 	 * @return niveau Le niveau que l'on souhaite charger
 	 */
 	// Kitimir Yim
@@ -80,7 +81,7 @@ public class Sauvegarder {
 
 			Niveau niveau = (Niveau) ois.readObject();
 
-			GestionnaireDeNiveau.ajouter(niveau);
+			GestionnaireDeNiveaux.ajouter(niveau);
 
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;

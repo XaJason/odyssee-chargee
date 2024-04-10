@@ -11,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import interactif.PlaqueChargee;
 import math.MatriceRotation;
 import utilitaires.Aire;
 import utilitaires.Dessinable;
@@ -146,8 +145,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
 
-
-
 		// Jason Xa((Partie ci-dessous)
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
@@ -155,15 +152,16 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
 
-		
 		dessinerContour(g2d);
 
 	}
+
 	/**
 	 * Méthode qui dessine la boite de collision
+	 * 
 	 * @param g2d Contexte graphique
 	 */
-	//Giroux
+	// Giroux
 	private void dessinerContour(Graphics2D g2d) {
 		creerGeometrieContour();
 		g2d.setColor(Color.red);
@@ -457,7 +455,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
-	 * Retourne vrai si les coordonnées (d'un point) passées en paramètre fontt partie de l'objet
+	 * Retourne vrai si les coordonnées (d'un point) passées en paramètre fontt
+	 * partie de l'objet
 	 * dessinable sur lequel cette méthode est appelée
 	 *
 	 * @param xPix Coordonnée en x du point (exprimée en pixels)
@@ -483,24 +482,26 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
-	 * Permet d'accéder à une des aires de la tuile (carré ou triangle) où se trouve le curseur
+	 * Permet d'accéder à une des aires de la tuile (carré ou triangle) où se trouve
+	 * le curseur
 	 * 
-	 * @param pointSurvole La position du curseur de la souris qui survole la zone d'animation physique
+	 * @param pointSurvole La position du curseur de la souris qui survole la zone
+	 *                     d'animation physique
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Aire survolerAiresDeTuile(Point2D.Double pointSurvole) {
-		//Aire aireOuEstCurseur = null;
-		//while (aireOuEstCurseur == null) {
-			for (int i = 0; i < aires.length; i++) {
-				if (aires[i].contient(pointSurvole)) {
-					//aireOuEstCurseur = new Aire(aires[i]);
-					return aires[i];
-				}
-
+		// Aire aireOuEstCurseur = null;
+		// while (aireOuEstCurseur == null) {
+		for (int i = 0; i < aires.length; i++) {
+			if (aires[i].contient(pointSurvole)) {
+				// aireOuEstCurseur = new Aire(aires[i]);
+				return aires[i];
 			}
-		//}
-		//return aireOuEstCurseur;
-			return null;
+
+		}
+		// }
+		// return aireOuEstCurseur;
+		return null;
 	}
 
 	/**
@@ -520,7 +521,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		}
 
 		if (indexAireSurvolee != 1) { // À implémenter: instructions à exécuter lorsqu'une aire de tuile est survolée
-
+			// Idées: retourner la géométrie (plaque chargée) à dessiner (Pierre-Olivier)
 		}
 	}
 
@@ -542,7 +543,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		// Créer une PlaqueChargee si une aire est cliquée
 		if (indexAireSurvolee != 1) {
-			creerPlaqueChargeePourAire();
+			creerPlaqueChargeePourAire(); // Stockage des plaques chargées dans la grille ou la tuile (Enuel)
 		}
 	}
 
@@ -552,8 +553,10 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 */
 	// Jason Xa
 	private void creerPlaqueChargeePourAire() {
-		// À implémenter: utiliser les méthodes d'Aire pour les informations sur les trois points (les deux points extérieurs et le point intérieur)
-		//		plaqueChargee = new PlaqueChargee(null, null, angleRotation, angleRotation, angleRotation);
+		// À implémenter: utiliser les méthodes d'Aire pour les informations sur les
+		// trois points (les deux points extérieurs et le point intérieur)
+		// plaqueChargee = new PlaqueChargee(null, null, angleRotation, angleRotation,
+		// angleRotation);
 	}
 
 	/**

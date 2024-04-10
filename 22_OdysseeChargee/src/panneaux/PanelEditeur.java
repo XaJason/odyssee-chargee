@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import dessin.Grille;
-import niveau.GestionnaireDeNiveau;
+import niveau.GestionnaireDeNiveaux;
 import niveau.Niveau;
 import niveau.Sauvegarder;
 import tuile.Carre;
@@ -23,8 +23,7 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
-import tuile.Tuile;
-import java.awt.Image;
+import javax.swing.JCheckBox;
 
 /**
  * Panel du mode éditeur
@@ -34,7 +33,7 @@ import java.awt.Image;
  * 
  */
 
-public class PanelModeEditeur extends JPanel {
+public class PanelEditeur extends JPanel {
 
 	/**
 	 * Numéro d'identification pour la sérialisation
@@ -164,6 +163,9 @@ public class PanelModeEditeur extends JPanel {
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
+	/** Case à cocher pour l'affichage du quadrillage */
+	private JCheckBox chckbxGrille;
+
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -179,21 +181,12 @@ public class PanelModeEditeur extends JPanel {
 	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
-	public PanelModeEditeur() {
+	public PanelEditeur() {
 		setLayout(null);
 
 		grille = new Grille();
 		grille.setBounds(410, 38, 900, 900);
 		add(grille);
-
-		JButton btnGrille = new JButton("Afficher la grille");
-		btnGrille.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				grille.afficherGrille();
-			}
-		});
-		btnGrille.setBounds(858, 5, 421, 23);
-		add(btnGrille);
 
 		// JSpinner spinnerQttCarre = new JSpinner();
 		// spinnerQttCarre.addChangeListener(new ChangeListener() {
@@ -271,7 +264,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Portail());
 				afficherSelection();
-				
+
 			}
 		});
 		btnPortail.setBounds(247, 215, 85, 85);
@@ -300,7 +293,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.setTuile(null);
 			}
 		});
-		btnReinitialiser.setBounds(50, 481, 85, 85);
+		btnReinitialiser.setBounds(118, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
 		add(btnReinitialiser);
 
@@ -310,7 +303,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.gererSupprimer();
 			}
 		});
-		btnSupprimer.setBounds(178, 481, 85, 85);
+		btnSupprimer.setBounds(118, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
 
@@ -321,7 +314,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.rotation();
 			}
 		});
-		btnRotation.setBounds(302, 481, 85, 85);
+		btnRotation.setBounds(247, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
 		add(btnRotation);
 
@@ -329,12 +322,12 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (compteur < MAX_NIVEAUX) {
-					Object[] options = { "1", "2", "3"};
+					Object[] options = { "1", "2", "3" };
 					String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :",
 							"Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
 					if (nom != null) {
-						Niveau niveauParDefaut = new Niveau(grille,"Niveau " + nom);
+						Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
 						sauvegarder(niveauParDefaut);
 						compteur++;
 					}
@@ -345,7 +338,7 @@ public class PanelModeEditeur extends JPanel {
 			}
 
 		});
-		btnSauvegarder.setBounds(178, 599, 85, 85);
+		btnSauvegarder.setBounds(247, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 
@@ -370,7 +363,8 @@ public class PanelModeEditeur extends JPanel {
 		add(lblObjets);
 
 		lblBlocs = new JLabel("Blocs");
-		lblBlocs.setBounds(40, 38, 45, 13);
+		lblBlocs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBlocs.setBounds(198, 38, 45, 13);
 		add(lblBlocs);
 
 		lblTriangleRectangle = new JLabel("Triangle rectangle");
@@ -393,43 +387,55 @@ public class PanelModeEditeur extends JPanel {
 		lblPortail.setBounds(247, 310, 85, 13);
 		add(lblPortail);
 
-		lblDrapeau = new JLabel("Drapeau");
+		lblDrapeau = new JLabel("Drapeau d'arrivée");
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDrapeau.setBounds(118, 435, 85, 13);
+		lblDrapeau.setBounds(101, 435, 119, 13);
 		add(lblDrapeau);
 
-		lblVaisseau = new JLabel("Vaisseau");
+		lblVaisseau = new JLabel("Vaisseau (personnage)");
 		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVaisseau.setBounds(247, 435, 85, 13);
+		lblVaisseau.setBounds(215, 435, 148, 13);
 		add(lblVaisseau);
 
-		lblReinitialiser = new JLabel("Réinitialiser");
+		lblReinitialiser = new JLabel("Réinitialiser le niveau");
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReinitialiser.setBounds(50, 576, 85, 13);
+		lblReinitialiser.setBounds(101, 694, 119, 13);
 		add(lblReinitialiser);
 
 		lblSupprimer = new JLabel("Supprimer");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(178, 576, 85, 13);
+		lblSupprimer.setBounds(118, 576, 85, 13);
 		add(lblSupprimer);
 
 		lblRotation = new JLabel("Rotation");
 		lblRotation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRotation.setBounds(302, 576, 85, 13);
+		lblRotation.setBounds(247, 576, 85, 13);
 		add(lblRotation);
 
 		lblSauvegarder = new JLabel("Sauvegarder");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(178, 694, 85, 13);
+		lblSauvegarder.setBounds(247, 694, 85, 13);
 		add(lblSauvegarder);
 
 		lblInteractifs = new JLabel("Interactifs");
-		lblInteractifs.setBounds(64, 192, 85, 13);
+		lblInteractifs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInteractifs.setBounds(178, 192, 85, 13);
 		add(lblInteractifs);
 
 		lblActions = new JLabel("Actions");
-		lblActions.setBounds(64, 458, 85, 13);
+		lblActions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActions.setBounds(10, 481, 85, 13);
 		add(lblActions);
+
+		chckbxGrille = new JCheckBox("Afficher la grille");
+		chckbxGrille.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grille.afficherGrille();
+			}
+		});
+		chckbxGrille.setSelected(true);
+		chckbxGrille.setBounds(760, 6, 200, 21);
+		add(chckbxGrille);
 
 	}
 
@@ -441,7 +447,7 @@ public class PanelModeEditeur extends JPanel {
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
 
-		GestionnaireDeNiveau.ajouter(niveau);
+		GestionnaireDeNiveaux.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNom());
 		PCS.firePropertyChange("niveauCree", null, niveau);
 	}
@@ -455,7 +461,4 @@ public class PanelModeEditeur extends JPanel {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
-
-	
-
 }

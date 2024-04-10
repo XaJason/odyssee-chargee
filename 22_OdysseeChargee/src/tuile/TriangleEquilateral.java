@@ -33,7 +33,7 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
-	
+
 	/**
 	 * Constructeur
 	 * 
@@ -67,17 +67,19 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le triangle équilatéral
+	 * 
 	 * @return L'image représentant le triangle équilatéral
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant le triangle équilatéral
 	 * 
-	 * @param fichierImage Le fichier de l'image représentant le triangle équilatéral
+	 * @param fichierImage Le fichier de l'image représentant le triangle
+	 *                     équilatéral
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
 	 */
@@ -85,7 +87,7 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
-	
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
 	 * 
@@ -97,7 +99,8 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui ajoute les coins du triangle dans l'arrayList prePointsCoin, puis qui les transforme avant de les mettre dans pointsCoin
+	 * Méthode qui ajoute les coins du triangle dans l'arrayList prePointsCoin, puis
+	 * qui les transforme avant de les mettre dans pointsCoin
 	 */
 	// Giroux
 	public void setPoint() {
@@ -116,15 +119,15 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 		// Ajouter dans l'arrayList
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
-		//Ajouter le point milieu
-		pointMilieu = pointMilieuTriangle(prePointsCoin);  
+		// Ajouter le point milieu
+		pointMilieu = pointMilieuTriangle(prePointsCoin);
 		prePointsCoin.add(pointMilieu);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
-			
+
 			pointsCoin.add(i);
 		}
 		pointMilieu = pointsCoin.get(3);
@@ -132,4 +135,3 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	}
 
 }
-
