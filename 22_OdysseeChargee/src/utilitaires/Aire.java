@@ -26,10 +26,10 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 	private Point2D.Double[] pointsExterieurs;
 
 	/**
-	 * le point intérieur de l'aire, le point qui n'est pas adjacent à une bordure
+	 * Le point milieu du tuile où se situe l'aire (celui qui n'est pas adjacent à une bordure
 	 * de la tuile
 	 */
-	private Point2D.Double pointMilieu;
+	private Point2D.Double pointMilieuDeTuile;
 
 	/** le segment composé des deux points extérieurs */
 	private Line2D.Double segmentExterieur;
@@ -54,10 +54,10 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
 		
-		this.pointMilieu = pointInterieur;
+		this.pointMilieuDeTuile = pointInterieur;
 		
 		System.out.println("Point 1 : " + point1);
-		System.out.println("Point milieu : " + pointMilieu);
+		System.out.println("Point milieu : " + pointMilieuDeTuile);
 		System.out.println("Point 2 : " + point2);
 	}
 	
@@ -73,7 +73,7 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 	public Aire(Aire aireACopier) {
 		Point2D.Double point1 = (Point2D.Double) aireACopier.getPointsExterieurs()[0].clone();
 		Point2D.Double point2 = (Point2D.Double) aireACopier.getPointsExterieurs()[1].clone();
-		Point2D.Double pointMilieu = (Point2D.Double) aireACopier.getPointMilieu().clone();
+		Point2D.Double pointMilieu = (Point2D.Double) aireACopier.getPointMilieuDeTuile().clone();
 		
 		forme = new Path2D.Double();
 		forme.moveTo(point1.getX(), point1.getY());
@@ -83,7 +83,7 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
 		
-		this.pointMilieu = pointMilieu;
+		this.pointMilieuDeTuile = pointMilieu;
 
 		segmentExterieur = new Line2D.Double(point1, point2);
 	}
@@ -109,13 +109,13 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 	}
 
 	/**
-	 * Retourne le point intérieur de l'aire
+	 * Retourne le point milieu de la tuile où se trouve l'aire
 	 * 
-	 * @return le point intérieur de l'aire
+	 * @return Le point milieu de la tuile où se trouve l'aire
 	 */
 	// Jason Xa
-	public Point2D.Double getPointMilieu() {
-		return pointMilieu;
+	public Point2D.Double getPointMilieuDeTuile() {
+		return pointMilieuDeTuile;
 	}
 
 	/**

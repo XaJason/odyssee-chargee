@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import utilitaires.OutilsImage;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -14,17 +17,13 @@ import interactif.PlaqueChargee;
 import interactif.Vaisseau;
 import niveau.Niveau;
 import niveau.Sauvegarder;
-import panneaux.PanelModeJeu;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import tuile.Drapeau;
 import tuile.Portail;
 import tuile.Tuile;
 import tuile.VaisseauImage;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.Point2D;
+import utilitaires.Aire;
+import utilitaires.OutilsImage;
 
 /**
  * Composant illustrant la simulation :
@@ -138,6 +137,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				if(placementPlaque) {
 					sourisEnMetreX = e.getX()/pixelsParMetre;
 					sourisEnMetreY = e.getY()/pixelsParMetre;
+					posPlaqueX = (int) (e.getX()/pixelsParMetre);
+					posPlaqueY = (int) (e.getY()/pixelsParMetre);
 					survolerToutesLesTuilesPourTrouverCurseur();
 					repaint();
 				}
@@ -208,10 +209,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 					Point2D.Double curseurSouris = new Point2D.Double(sourisEnMetreX, sourisEnMetreY);
 					
 					if (tuile.contient(curseurSouris)) {
-						tuile.survolerAiresDeTuile(curseurSouris);
-						System.out.println(plaque.getPosition());
-						plaque.setPosition(new Vecteur2D(sourisEnMetreX, sourisEnMetreY));
-						System.out.println(plaque.getPosition());
+						Aire aireOuEstCurseur = tuile.survolerAiresDeTuile(curseurSouris);
+						if (aireOuEstCurseur != null) {
+							plaque.setPosition(new Vecteur2D(aireOuEstCurseur.getPointMilieuDeTuile().getX(), aireOuEstCurseur.getPointMilieuDeTuile().getY()));
+							plaque.miseAJourExtremiteA();
+							plaque.miseAJourExtremiteB();
+						}
 					}// fin 2e if
 				}//fin if
 			}//fin 2e boucle for 
@@ -249,7 +252,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
 		dessinerPlaque(g2d);
-		dessinerPlaqueFantome(g2d);
+		//dessinerPlaqueFantome(g2d);
 	}
 
 	/**
@@ -284,7 +287,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private void dessinerPlaque(Graphics2D g2d) {
 		if (placementPlaque & sourisDansComposant) {
 			plaque.dessiner(g2d);
-			System.out.println("dessiné");
 		}
 	}
 	
@@ -300,7 +302,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} else {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
 			}
-			g2d.drawImage(imagePlaque, (int) (posPlaqueX/pixelsParMetre), (int) (posPlaqueY/pixelsParMetre), null);
+			System.out.println("posPlaqueX : "+posPlaqueX/pixelsParMetre);
+			System.out.println("posPlaqueY : "+posPlaqueY/pixelsParMetre);
+			System.out.println("getPosX() : "+plaque.getPosition().getX());
+			System.out.println("getPosY() : "+plaque.getPosition().getY());
+			g2d.drawImage(imagePlaque, (int)(plaque.getPosition().getX()), (int)(plaque.getPosition().getY()), null);
 		}
 	}
 

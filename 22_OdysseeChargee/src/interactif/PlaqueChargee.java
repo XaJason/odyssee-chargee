@@ -3,6 +3,7 @@ package interactif;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
@@ -32,9 +33,9 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	private Vecteur2D axe = new Vecteur2D(0, 1); // Normalisé
 	
 	/** Longueur de la plaque **/
-	private double longueur = 100;
+	private double longueur = 45;
 	/** Largeur de la plaque **/
-	private double epaisseur = 50;
+	private double epaisseur = 5;
 	
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA;
@@ -203,10 +204,13 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
-		g2d.draw(formePlaque);
-		g2dPrive.setColor(Color.red);
+		g2dPrive.setColor(Color.green);
 		g2dPrive.draw(formePlaque);
-		
+//		System.out.println("Plaque : "+this.toString(3));
+//		System.out.println("Sup gauche : "+coinSupGauche);
+//		System.out.println("Inf gauche : "+coinInfGauche);
+//		System.out.println("Sup droit : "+coinSupDroit);
+//		System.out.println("Inf droit : "+coinInfDroit);
 		//dessinerSonImage(g2d);
 	}
 
@@ -248,10 +252,16 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 		String s = " position=[ " + String.format("%." + nbDecimales + "f", getPosition().getX()) + ", "
 				+ String.format("%." + nbDecimales + "f", getPosition().getY()) + "]";
 		s += " charge=[ " + String.format("%." + nbDecimales + "f", getCharge()) + "]";
-		s += " extrémité A=[ " + String.format("%." + nbDecimales + "f", getExtremiteA().getX()) + ", "
-				+ String.format("%." + nbDecimales + "f", getExtremiteA().getY()) + "]";
-		s += " extrémité B=[ " + String.format("%." + nbDecimales + "f", getExtremiteB().getX()) + ", "
+		s += " longueur=[ " + String.format("%." + nbDecimales + "f", longueur) + "]";
+		s += " épaisseur=[ " + String.format("%." + nbDecimales + "f", epaisseur) + "]";
+		s += "\n\t extrémité A=[ " + String.format("%." + nbDecimales + "f", extremiteA.getX()) + ", "
+				+ String.format("%." + nbDecimales + "f", extremiteA.getY()) + "]";
+		s += " extrémité B=[ " + String.format("%." + nbDecimales + "f", extremiteB.getX()) + ", "
 				+ String.format("%." + nbDecimales + "f", getExtremiteB().getY()) + "]";
+		s += " normale=[ " + String.format("%." + nbDecimales + "f", normale.getX()) + ", "
+				+ String.format("%." + nbDecimales + "f", normale.getY()) + "]";
+		s += " axe=[ " + String.format("%." + nbDecimales + "f", axe.getX()) + ", "
+				+ String.format("%." + nbDecimales + "f", axe.getY()) + "]";
 		return (s);
 	}
 
@@ -266,20 +276,29 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	}
 
 	/**
+	 * Modifie le vecteur normal de la plaque (lorsque l'axe a été modifié)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setNormale() {
+		this.normale = new Vecteur2D(axe.getY(), -axe.getX());
+		creerLaGeometrie();
+	}
+
+	/**
 	 * Modifie le vecteur normal de la plaque
 	 * @param normale Vecteur incluant les composantes en x et y
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNormale(Vecteur2D normale) {
 		this.normale = new Vecteur2D(normale);
-		setAxe();
+		setAxe(normale);	//Modifie aussi les extrémités A et B
 		setCoinSupGauche();
 		setCoinSupDroit();
 		setCoinInfGauche();
 		setCoinInfDroit();
 		creerLaGeometrie();
 	}
-
+	
 	/**
 	 * Retourne le vecteur passant par l'axe de la plaque
 	 * @return Le vecteur passant par l'axe de la plaque
@@ -293,13 +312,29 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 * Modifie le vecteur passant par l'axe de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setAxe() {
+	public void miseAJourAxe() {
+		try {
+			this.axe = extremiteB.soustrait(extremiteA).normalise();
+			setNormale();
+			creerLaGeometrie();
+		} catch (Exception e) {
+			System.out.println("Les points sont trop rapprochés, donc on ne peut pas créer de plaque.");
+			e.printStackTrace();
+		} // fin try/catch
+	}// fin méthode
+
+	/**
+	 * Modifie le vecteur passant par l'axe de la plaque
+	 * @param normale La normale de la plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void setAxe(Vecteur2D normale) {
 		this.axe = new Vecteur2D(normale.getY(), -normale.getX());
-		setExtremiteA();
-		setExtremiteB();
+		miseAJourExtremiteA();	// Modifie les coins supérieurs
+		miseAJourExtremiteB();	// Modifie les coins inférieurs
 		creerLaGeometrie();
 	}
-
+	
 	/**
 	 * Retourne la longueur de la plaque
 	 * @return La longueur de la plaque
@@ -310,17 +345,26 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	}
 
 	/**
+	 * Modifie la longueur de la plaque (lorsque les extrémités ont été modifiées)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void miseAJourLongueur() {
+		this.longueur = extremiteB.soustrait(extremiteA).module();
+		creerLaGeometrie();
+	}
+
+	/**
 	 * Modifie la longueur de la plaque
 	 * @param longueur Longueur de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setLongueur(double longueur) {
 		this.longueur = longueur;
-		setExtremiteA();
-		setExtremiteB();
+		miseAJourExtremiteA();	// Modifie les coins supérieurs
+		miseAJourExtremiteB();	// Modifie les coins inférieurs
 		creerLaGeometrie();
 	}
-
+	
 	/**
 	 * Retourne la largeur de la plaque
 	 * @return La largeur de la plaque
@@ -332,11 +376,11 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 	/**
 	 * Modifie la largeur de la plaque
-	 * @param largeur Largeur de la plaque
+	 * @param epaisseur L'épaisseur de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setLargeur(double largeur) {
-		this.epaisseur = largeur;
+	public void setEpaisseur(double epaisseur) {
+		this.epaisseur = epaisseur;
 		setCoinSupGauche();
 		setCoinSupDroit();
 		setCoinInfGauche();
@@ -354,11 +398,25 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	}
 
 	/**
-	 * Modifie l'extrémité A de la plaque
+	 * Modifie l'extrémité A de la plaque (lorsque l'axe ou la longuer ont été modifiés)
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setExtremiteA() {
+	public void miseAJourExtremiteA() {
 		this.extremiteA = getPosition().additionne(axe.multiplie(longueur / 2));
+		setCoinSupGauche();
+		setCoinSupDroit();
+		creerLaGeometrie();
+	}
+	
+	/**
+	 * Modifie l'extrémité A de la plaque
+	 * @param point L'objet point possédant les nouvelles coordonnées de l'extrémité A
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setExtremiteA(Point point) {
+		this.extremiteA = new Vecteur2D(point.getX(), point.getY());
+		miseAJourLongueur();
+		miseAJourAxe();	// Modifie également la normale
 		setCoinSupGauche();
 		setCoinSupDroit();
 		creerLaGeometrie();
@@ -374,11 +432,25 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	}
 
 	/**
-	 * Modifie l'extrémité B de la plaque
+	 * Modifie l'extrémité B de la plaque (lorsque l'axe ou la longuer ont été modifiés)
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setExtremiteB() {
+	public void miseAJourExtremiteB() {
 		this.extremiteB = getPosition().additionne(axe.multiplie(-longueur / 2));
+		setCoinInfGauche();
+		setCoinInfDroit();
+		creerLaGeometrie();
+	}
+	
+	/**
+	 * Modifie l'extrémité B de la plaque
+	 * @param point L'objet point possédant les nouvelles coordonnées de l'extrémité A
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setExtremiteB(Point point) {
+		this.extremiteB = new Vecteur2D(point.getX(), point.getY());
+		miseAJourLongueur();
+		miseAJourAxe();	// Modifie également la normale
 		setCoinInfGauche();
 		setCoinInfDroit();
 		creerLaGeometrie();
@@ -396,7 +468,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 * Modifie le coin supérieur gauche de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setCoinSupGauche() {
+	private void setCoinSupGauche() {
 		this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur/2));
 	}
 
@@ -412,7 +484,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 * Modifie le coin supérieur droit de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setCoinSupDroit() {
+	private void setCoinSupDroit() {
 		this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur/2));
 	}
 
@@ -428,7 +500,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 * Modifie le coin inférieur gauche de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setCoinInfGauche() {
+	private void setCoinInfGauche() {
 		this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur/2));
 	}
 
@@ -444,7 +516,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	 * Modifie le coin inférieur droit de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setCoinInfDroit() {
+	private void setCoinInfDroit() {
 		this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur/2));
 	}
 
