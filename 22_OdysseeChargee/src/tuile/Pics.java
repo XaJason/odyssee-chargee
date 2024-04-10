@@ -71,16 +71,17 @@ public class Pics extends Tuile implements Serializable {
 	public Pics(int x, int y) {
 		super(image, x, y, type);
 	}
-	
+
 	/**
 	 * Retourne l'image représentant les pics
+	 * 
 	 * @return L'image représentant les pics
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant les pics
 	 * 
@@ -151,22 +152,20 @@ public class Pics extends Tuile implements Serializable {
 		}
 
 	}
-	
-	
+
 	/**
 	 * Méthode qui forme le pic dans un area
+	 * 
 	 * @return la forme du pic dans un area
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public Area formerAireObjetSpecial() {
 
 		Rectangle2D rectangle = new Rectangle2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile,
-				hauteurTuile/2);
+				hauteurTuile / 2);
 
 		Area airePics = new Area(rectangle);
 		return airePics;
-
-
 
 	}
 

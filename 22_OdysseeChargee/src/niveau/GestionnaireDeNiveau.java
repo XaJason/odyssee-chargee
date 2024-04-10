@@ -41,9 +41,8 @@ public class GestionnaireDeNiveau {
 		}
 
 	}
-	
-	
-	// GETTERS ET SETTERS 
+
+	// GETTERS ET SETTERS
 	/**
 	 * Permet d'aller chercher le niveau selon son nom
 	 * 
@@ -78,7 +77,7 @@ public class GestionnaireDeNiveau {
 	}
 
 	/**
-	 * Permet de remplacer le niveau se trouvant à l'emplacement passer en paramètre 
+	 * Permet de remplacer le niveau se trouvant à l'emplacement passer en paramètre
 	 * par l'objet niveau passer en paramètre
 	 * 
 	 * @param index  L'index du niveau à remplacer

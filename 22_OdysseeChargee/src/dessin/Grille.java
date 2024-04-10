@@ -25,7 +25,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
-import tuile.VaisseauImage;
+import tuile.VaisseauTuile;
 
 /**
  * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
@@ -111,7 +111,7 @@ public class Grille extends JPanel implements Serializable {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {
-						
+
 						sauvegarderEmplacement();
 
 					}
@@ -149,8 +149,8 @@ public class Grille extends JPanel implements Serializable {
 					dessinerCase(e.getX(), e.getY());
 					repaint();
 				}
-				//dessinerCase(e.getX(), e.getY());
-				//repaint();
+				// dessinerCase(e.getX(), e.getY());
+				// repaint();
 
 			}
 		});
@@ -185,8 +185,8 @@ public class Grille extends JPanel implements Serializable {
 
 				tabEmplacement = new Tuile[nbCase][nbCase];
 
-				//			pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
-				//			hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
+				// pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
+				// hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
 
 				hauteurDuComposantEnMetre = this.getHeight();
 				largeurDuComposantEnMetre = this.getWidth();
@@ -230,8 +230,8 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void dimensionCase() {
-		hauteurCase =  (hauteurDuComposantEnMetre / nbCase);
-		largeurCase =  (largeurDuComposantEnMetre / nbCase);
+		hauteurCase = (hauteurDuComposantEnMetre / nbCase);
+		largeurCase = (largeurDuComposantEnMetre / nbCase);
 		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCase, hauteurCase);
 		System.out.println(largeurCase);
 		System.out.println(hauteurCase);
@@ -385,7 +385,7 @@ public class Grille extends JPanel implements Serializable {
 			tuileTemp = new TriangleRectangle(tuile.getAngleRotation());
 			break;
 		case "Vaisseau":
-			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
+			tuileTemp = new VaisseauTuile(tuile.getAngleRotation());
 			break;
 		}
 
@@ -422,7 +422,7 @@ public class Grille extends JPanel implements Serializable {
 			for (int j = 0; j < nbCase; j++) {
 				tuileTableau = tabEmplacement[i][j];
 				if (tuileTableau != null) {
-					if ( !(dansModeJeu & tuileTableau.getType().equals("Vaisseau")) ) {
+					if (!(dansModeJeu & tuileTableau.getType().equals("Vaisseau"))) {
 						tuileTableau.dessiner(g2d);
 					}
 				}
@@ -559,11 +559,13 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 *  Modifie la condition indiquant si l'on est dans le mode jeu
-	 *  En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la tuile du vaisseau, donc son image.
-	 *  L'image du vaisseau le sera quand on dessinera le vaisseau (individuellement)
-	 *  
-	 *  @param dansModeJeu La nouvelle valeur du booléan indiquant si l'on est dans le mode jeu
+	 * Modifie la condition indiquant si l'on est dans le mode jeu
+	 * En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la
+	 * tuile du vaisseau, donc son image.
+	 * L'image du vaisseau le sera quand on dessinera le vaisseau (individuellement)
+	 * 
+	 * @param dansModeJeu La nouvelle valeur du booléan indiquant si l'on est dans
+	 *                    le mode jeu
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setDansModeJeu(boolean dansModeJeu) {
@@ -576,7 +578,7 @@ public class Grille extends JPanel implements Serializable {
 	 * @param typeTuile le type de tuile à rechercher dans la grille
 	 * @return true si au moins une tuile du type spécifié est présente, sinon false
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public boolean contientTuile(Class<?> typeTuile) {
 		for (int i = 0; i < nbCase; i++) {
 			for (int j = 0; j < nbCase; j++) {
@@ -594,7 +596,7 @@ public class Grille extends JPanel implements Serializable {
 	 * @param typeTuile le type de tuile à rechercher dans la grille
 	 * @return la tuile du type spécifié, ou null si aucune tuile n'est trouvée
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public Tuile chercherTuile(Class<?> typeTuile) {
 		for (int i = 0; i < nbCase; i++) {
 			for (int j = 0; j < nbCase; j++) {
@@ -605,10 +607,11 @@ public class Grille extends JPanel implements Serializable {
 		}
 		return null;
 	}
+
 	/**
 	 * Lie un portail si nécessaire
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
@@ -616,12 +619,12 @@ public class Grille extends JPanel implements Serializable {
 			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
 			Portail premierPortail = (Portail) portailTuile;
 			Portail deuxiemePortail = (Portail) tuile;
-			if(premierPortail.getPortailAssocie() == null) {
+			if (premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
-				
+
 				System.out.println("Ce portail a maintenant un duo");
-			}	
-		}else {
+			}
+		} else {
 			System.out.println("Ce portail n'a pas de duo. N'oubliez pas de lui créer un partenaire.");
 
 		}

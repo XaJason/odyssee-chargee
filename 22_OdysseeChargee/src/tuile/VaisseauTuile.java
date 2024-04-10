@@ -20,7 +20,7 @@ import utilitaires.OutilsImage;
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
  */
-public class VaisseauImage extends Tuile implements Serializable {
+public class VaisseauTuile extends Tuile implements Serializable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
@@ -46,7 +46,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 * 
 	 */
 	// Jason Xa
-	public VaisseauImage() {
+	public VaisseauTuile() {
 		super(image, type);
 		setVaisseau();
 	}
@@ -57,7 +57,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
-	public VaisseauImage(double angleRotation) {
+	public VaisseauTuile(double angleRotation) {
 		super(angleRotation, image, type);
 		setVaisseau();
 	}
@@ -70,13 +70,14 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 * 
 	 */
 	// Jason Xa
-	public VaisseauImage(int x, int y) {
+	public VaisseauTuile(int x, int y) {
 		super(image, x, y, type);
 		setVaisseau();
 	}
 
 	/**
 	 * Retourne l'image représentant le vaisseau
+	 * 
 	 * @return L'image représentant le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -87,7 +88,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	/**
 	 * Définit l'image représentant le vaisseau
 	 * 
-	 * @param fichierImage Le fichier de l'image représentant le vaisseau
+	 * @param fichierImage    Le fichier de l'image représentant le vaisseau
 	 * @param largeurVaisseau La largeur du vaisseau
 	 * @param hauteurVaisseau La hauteur du vaisseau
 	 */
@@ -108,10 +109,10 @@ public class VaisseauImage extends Tuile implements Serializable {
 		g2d.draw(contour);
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2d.drawImage(image, (int)(x + largeurDemiTuile/2.0), (int)(y + largeurDemiTuile), null);
+		g2d.drawImage(image, (int) (x + largeurDemiTuile / 2.0), (int) (y + largeurDemiTuile), null);
 		g2d.setTransform(transformationAffine);
 	}
-	
+
 	/**
 	 * Dessine l'image représentant le vaisseau à un emplacement précis
 	 * 
@@ -123,7 +124,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	public void dessiner(Graphics2D g2d, int x, int y) {
 		g2d.drawImage(image, x, y, null);
 	}
-	
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
 	 * 
@@ -140,7 +141,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	// Giroux
 	public void setPoint() {
 		super.setPoint();
-		pointInitial.setLocation(largeurDemiTuile/2.0, largeurDemiTuile);
+		pointInitial.setLocation(largeurDemiTuile / 2.0, largeurDemiTuile);
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(HautDroit)
 		xActuel = pointInitial.getX() + largeurDemiTuile;
@@ -161,7 +162,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 			// Prendre le centre
 			i.setLocation(i.getX() - largeurDemiTuile / 2, i.getY() - largeurDemiTuile / 2);
 			i = rotation.rotationner(i);
-			
+
 			// Repositionner
 			i.setLocation(i.getX() + largeurDemiTuile / 2 + x, i.getY() + largeurDemiTuile / 2 + y);
 			pointsCoin.add(i);
@@ -188,7 +189,5 @@ public class VaisseauImage extends Tuile implements Serializable {
 		return vaisseauArea;
 
 	}
-
-
 
 }

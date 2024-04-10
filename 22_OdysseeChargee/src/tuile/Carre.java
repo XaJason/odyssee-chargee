@@ -5,8 +5,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
-import utilitaires.OutilsImage;
 import utilitaires.Aire;
+import utilitaires.OutilsImage;
 import utilitaires.Selectionnable;
 
 /**
@@ -36,7 +36,6 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
-
 
 	/**
 	 * Constructeur
@@ -72,14 +71,14 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 
 	/**
 	 * Retourne l'image représentant le carré
+	 * 
 	 * @return L'image représentant le carré
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Image getImageRef() {
 		return image;
 	}
-	
-	
+
 	/**
 	 * Définit l'image représentant le carré
 	 * 
@@ -125,7 +124,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
-		
+
 		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
 

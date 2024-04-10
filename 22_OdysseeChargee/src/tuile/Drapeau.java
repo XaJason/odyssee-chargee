@@ -77,13 +77,14 @@ public class Drapeau extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le drapeau d'arrivée
+	 * 
 	 * @return L'image représentant le drapeau d'arrivée
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant le drapeau d'arrivée
 	 * 
@@ -95,7 +96,7 @@ public class Drapeau extends Tuile implements Serializable {
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
 	}
-	
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
 	 * 

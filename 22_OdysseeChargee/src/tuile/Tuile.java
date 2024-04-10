@@ -11,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import interactif.PlaqueChargee;
 import math.MatriceRotation;
 import utilitaires.Aire;
 import utilitaires.Dessinable;
@@ -307,7 +306,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 				image = TriangleRectangle.getImageRef();
 				break;
 			case "Vaisseau":
-				image = VaisseauImage.getImageRef();
+				image = VaisseauTuile.getImageRef();
 				break;
 			}// fin switch/case
 		} // fin if

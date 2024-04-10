@@ -21,10 +21,8 @@ import tuile.Pics;
 import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
-import tuile.VaisseauImage;
+import tuile.VaisseauTuile;
 import utilitaires.OutilsImage;
-import tuile.Tuile;
-import java.awt.Image;
 
 /**
  * Panel du mode éditeur
@@ -271,7 +269,7 @@ public class PanelModeEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Portail());
 				afficherSelection();
-				
+
 			}
 		});
 		btnPortail.setBounds(247, 215, 85, 85);
@@ -329,12 +327,12 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (compteur < MAX_NIVEAUX) {
-					Object[] options = { "1", "2", "3"};
+					Object[] options = { "1", "2", "3" };
 					String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :",
 							"Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
 					if (nom != null) {
-						Niveau niveauParDefaut = new Niveau(grille,"Niveau " + nom);
+						Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
 						sauvegarder(niveauParDefaut);
 						compteur++;
 					}
@@ -352,7 +350,7 @@ public class PanelModeEditeur extends JPanel {
 		btnVaisseau = new JButton();
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new VaisseauImage());
+				grille.setTuile(new VaisseauTuile());
 				afficherSelection();
 			}
 		});
@@ -455,7 +453,5 @@ public class PanelModeEditeur extends JPanel {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
-
-	
 
 }

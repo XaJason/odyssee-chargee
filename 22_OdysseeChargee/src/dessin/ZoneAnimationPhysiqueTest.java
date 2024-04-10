@@ -4,17 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
-import niveau.Niveau;
-import niveau.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * Composant illustrant la simulation :
@@ -188,8 +186,8 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				double xEnMetre = e.getX()/pixelsParMetre;
-				double yEnMetre = e.getY()/pixelsParMetre;
+				double xEnMetre = e.getX() / pixelsParMetre;
+				double yEnMetre = e.getY() / pixelsParMetre;
 				if (plaqueRouge.contient(xEnMetre, yEnMetre)) {
 					System.out.println("Dans la plaqueeee");
 				}
@@ -214,7 +212,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
+
 		// Transformations affines pour que l'origine soit en bas à droite
 		g2d.translate(0, getHeight());
 		g2d.scale(1, -1);
@@ -264,7 +262,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 		plaqueRouge.setPixelsParMetre(pixelsParMetre);
 		plaqueRouge.dessiner(g2d);
 	}
-	
+
 	/**
 	 * Permet d'effectuer l'animation
 	 */

@@ -13,14 +13,14 @@ import javax.swing.SwingConstants;
  * @author Kitimir Yim
  */
 
-public class PanelAPropos extends JPanel {
+public class FenetreAPropos extends JPanel {
 	private static final long serialVersionUID = -3110011146750233775L;
 
 	/**
 	 * Cr�ation du panel
 	 */
-	//Kitimir Yim
-	public PanelAPropos() {
+	// Kitimir Yim
+	public FenetreAPropos() {
 		// noter: aucun layout précisé: le conteneur à onglets prendra la largeur de la
 		// plus longue ligne de texte
 		JTabbedPane tabOnglets = new JTabbedPane(JTabbedPane.TOP);
@@ -39,19 +39,12 @@ public class PanelAPropos extends JPanel {
 		JPanel pnlSources = new JPanel();
 		tabOnglets.addTab("Sources", null, pnlSources, null);
 
-		JLabel lblSources = new JLabel( "<html>" + 
-				"<br>Image des carrés: " +
-				"<br>Image du drapeau: "+
-				"<br>Image des pics: "+
-				"<br>Image des portails: "+
-				"<br>Image des triangles équilatérals: "+
-				"<br>Image des triangles rectangles: "+
-				"<br>Image du vaisseau: "+
-				"<br>Musique de fond: "
-				
-			
-				);
-				
+		JLabel lblSources = new JLabel("<html>" + "<br>Image des carrés: " + "<br>Image du drapeau: "
+				+ "<br>Image des pics: " + "<br>Image des portails: " + "<br>Image des triangles équilatérals: "
+				+ "<br>Image des triangles rectangles: " + "<br>Image du vaisseau: " + "<br>Musique de fond: "
+
+		);
+
 		lblSources.setVerticalAlignment(SwingConstants.TOP);
 		pnlSources.add(lblSources);
 	}

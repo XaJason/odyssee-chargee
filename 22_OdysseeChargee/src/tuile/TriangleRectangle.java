@@ -67,13 +67,14 @@ public class TriangleRectangle extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le triangle rectangle
+	 * 
 	 * @return L'image représentant le triangle rectangle
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Image getImageRef() {
 		return image;
 	}
-	
+
 	/**
 	 * Définit l'image représentant le triangle rectangle
 	 * 
@@ -116,8 +117,8 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		// Ajouter dans l'arrayList
 		prePointsCoin.add(coinBasDroit);
 		prePointsCoin.add(coinBasGauche);
-		//Ajouter le point milieu
-		pointMilieu = pointMilieuTriangle(prePointsCoin);  
+		// Ajouter le point milieu
+		pointMilieu = pointMilieuTriangle(prePointsCoin);
 		prePointsCoin.add(pointMilieu);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
@@ -129,6 +130,5 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		pointMilieu = pointsCoin.get(3);
 		creerAires(pointMilieu);
 	}
-	
-	
+
 }

@@ -7,7 +7,9 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -39,6 +41,12 @@ public class FenetreReglage extends JFrame {
 	 */
 	private int ancienneValeurSlider = 0;
 
+	/** étiquette identifiant le curseur associé au volume */
+	private JLabel lblVolume;
+
+	/** étiquette identifiant l'évaluateur en étoiles */
+	private JLabel lblEvalutation;
+
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -63,7 +71,7 @@ public class FenetreReglage extends JFrame {
 		getContentPane().setLayout(null);
 
 		evaluationEtoile = new EvaluationEtoile(0);
-		evaluationEtoile.setBounds(160, 273, 160, 128);
+		evaluationEtoile.setBounds(363, 273, 160, 128);
 		getContentPane().add(evaluationEtoile);
 
 		JButton btnQuitter = new JButton("Retourner à l'application");
@@ -87,8 +95,18 @@ public class FenetreReglage extends JFrame {
 
 			}
 		});
-		sliderSon.setBounds(159, 132, 172, 31);
+		sliderSon.setBounds(357, 149, 172, 31);
 		getContentPane().add(sliderSon);
+
+		lblVolume = new JLabel("Volume");
+		lblVolume.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVolume.setBounds(421, 126, 45, 13);
+		getContentPane().add(lblVolume);
+
+		lblEvalutation = new JLabel("Qu'en pensez vous d'Odyssée chargée?");
+		lblEvalutation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEvalutation.setBounds(329, 250, 228, 13);
+		getContentPane().add(lblEvalutation);
 	}
 
 	/**

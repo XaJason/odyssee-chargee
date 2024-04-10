@@ -21,13 +21,14 @@ import physique.MoteurPhysique;
 import physique.Vecteur2D;
 import tuile.Portail;
 import tuile.Tuile;
-import tuile.VaisseauImage;
+import tuile.VaisseauTuile;
 import utilitaires.Aire;
 import utilitaires.OutilsImage;
 
 /**
  * Composant illustrant la simulation :
- * La scène physique où sont représentés les objets intéractifs physique ainsi que le niveau et ses tuiles
+ * La scène physique où sont représentés les objets intéractifs physique ainsi
+ * que le niveau et ses tuiles
  *
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
@@ -59,16 +60,16 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double pixelsParMetre;
 	/** Vecteur nul **/
 	private final Vecteur2D VEC_ZERO = new Vecteur2D();
-	
+
 	/** Coordonnée en X du curseur de la souris sur le composant (en mètre) **/
-	private double sourisEnMetreX = -30; //Initialement à l'extérieur du composant
+	private double sourisEnMetreX = -30; // Initialement à l'extérieur du composant
 	/** Coordonnée en Y du curseur de la souris sur le composant (en metre) **/
-	private double sourisEnMetreY = -30; //Initialement à l'extérieur du composant
+	private double sourisEnMetreY = -30; // Initialement à l'extérieur du composant
 	/** Indique que le curseur de la souris est à l'intérieur du composant **/
 	private boolean sourisDansComposant = false;
 	/** Boolean qui indique si le bouton de la plaque est actionnée **/
 	private Boolean placementPlaque = false;
-	
+
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
@@ -79,27 +80,27 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Liste des plaques chargées **/
 	private ArrayList<PlaqueChargee> listePlaquesChargees;
 	/** Plaque chargée **/
-	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); //Placée par défaut à l'extérieur du composant pour ne pas la voir
+	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); // Placée par défaut à l'extérieur du composant
+																		// pour ne pas la voir
 
-	
-	/** Determine si la plaque est positive ou non**/
+	/** Determine si la plaque est positive ou non **/
 	private Boolean plaquePositive = true;
-	/** Position en x(en mètres) de la plaque fantôme**/
+	/** Position en x(en mètres) de la plaque fantôme **/
 	private int posPlaqueX;
-	/** Position en y(en mètres) de la plaque fantôme**/
+	/** Position en y(en mètres) de la plaque fantôme **/
 	private int posPlaqueY;
 	/** L'image de la plaque, par défaut plaque positive **/
 	Image imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
-	
+
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
 	private final double CHARGE_INITIALE_VAISSEAU = -5;
 	/** Masse initiale du vaisseau (en kilogramme) **/
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
-	private final double POS_INITIALE_VAISSEAU_EN_X = 90; //Emplacement en x de la tuile du vaisseau image
+	private final double POS_INITIALE_VAISSEAU_EN_X = 90; // Emplacement en x de la tuile du vaisseau image
 	/** Composante en Y de la position initiale du vaisseau (en mètre) **/
-	private final double POS_INITIALE_VAISSEAU_EN_Y = 165; //Emplacement en y de la tuile du vaisseau image
+	private final double POS_INITIALE_VAISSEAU_EN_Y = 165; // Emplacement en y de la tuile du vaisseau image
 
 	// Caractéristiques du vaisseau
 	/** Objet représentant le vaisseau **/
@@ -118,14 +119,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
 	private Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
-	
 
-	
-	//	/** Vecteur vitesse du vaisseau (en m/s) **/
-	//	private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
-	//	/** Vecteur accélération du vaisseau (en m/s^2) **/
-	//	private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
-	//private VaisseauImage tuileDuVaisseau = null;
+	// /** Vecteur vitesse du vaisseau (en m/s) **/
+	// private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
+	// /** Vecteur accélération du vaisseau (en m/s^2) **/
+	// private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
+	// private VaisseauTuile tuileDuVaisseau = null;
 	/**
 	 * Constructeur de la zone d'animation physique
 	 */
@@ -134,11 +133,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(placementPlaque) {
-					sourisEnMetreX = e.getX()/pixelsParMetre;
-					sourisEnMetreY = e.getY()/pixelsParMetre;
-					posPlaqueX = (int) (e.getX()/pixelsParMetre);
-					posPlaqueY = (int) (e.getY()/pixelsParMetre);
+				if (placementPlaque) {
+					sourisEnMetreX = e.getX() / pixelsParMetre;
+					sourisEnMetreY = e.getY() / pixelsParMetre;
+					posPlaqueX = (int) (e.getX() / pixelsParMetre);
+					posPlaqueY = (int) (e.getY() / pixelsParMetre);
 					survolerToutesLesTuilesPourTrouverCurseur();
 					repaint();
 				}
@@ -149,6 +148,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			public void mouseEntered(MouseEvent e) {
 				sourisDansComposant = true;
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				sourisDansComposant = false;
@@ -160,8 +160,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau = Sauvegarder.chargerNiveau("Niveau 1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
-	}//fin constructeur
-
+	}// fin constructeur
 
 	// SOUS-PROGRAMMES //
 	/**
@@ -177,51 +176,55 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		for (int i = 0; i < tabTuiles.length; i++) {
 			for (int j = 0; j < tabTuiles.length; j++) {
 				Tuile tuile = tabTuiles[i][j];
-				
-				if ( tuile != null && tuile.getType().equals("Vaisseau") ) {
-					//VaisseauImage tuileDuVaisseau = (VaisseauImage) tuile;
-					vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, (VaisseauImage) tuile);
-					
-					// Définir la position initial du vaisseau à l'aide de son emplacement dans le niveau (sa tuile)
+
+				if (tuile != null && tuile.getType().equals("Vaisseau")) {
+					// VaisseauTuile tuileDuVaisseau = (VaisseauTuile) tuile;
+					vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, (VaisseauTuile) tuile);
+
+					// Définir la position initial du vaisseau à l'aide de son emplacement dans le
+					// niveau (sa tuile)
 					posDeSauvegardeX = tuile.getPointZero().getX() + vaisseau.getRayon();
 					posDeSauvegardeY = tuile.getPointZero().getY() + vaisseau.getRayon();
 					posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
 					vaisseau.setPosition(posVaisseau);
-				}//fin if
-			}//fin 2e boucle for 
-		}//fin 1re boucle for
+				} // fin if
+			} // fin 2e boucle for
+		} // fin 1re boucle for
 	}
-	
+
 	/**
-	 * Permet de survoler toutes les tuiles du niveau pour trouver l du curseur de la souris.
-	 * Ainsi, on peut trouver où placer la plaque, à l'aide de la position de l'objet Aire sur lequel le curseur se trouve
+	 * Permet de survoler toutes les tuiles du niveau pour trouver l du curseur de
+	 * la souris.
+	 * Ainsi, on peut trouver où placer la plaque, à l'aide de la position de
+	 * l'objet Aire sur lequel le curseur se trouve
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void survolerToutesLesTuilesPourTrouverCurseur() {
 		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
-		
+
 		for (int i = 0; i < tabTuiles.length; i++) {
 			for (int j = 0; j < tabTuiles.length; j++) {
 				Tuile tuile = tabTuiles[i][j];
-				
-				if (tuile != null && 
-						(tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle") | tuile.getType().equals("Triangle équilatéral")) ) {
+
+				if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
+						| tuile.getType().equals("Triangle équilatéral"))) {
 					Point2D.Double curseurSouris = new Point2D.Double(sourisEnMetreX, sourisEnMetreY);
-					
+
 					if (tuile.contient(curseurSouris)) {
 						Aire aireOuEstCurseur = tuile.survolerAiresDeTuile(curseurSouris);
 						if (aireOuEstCurseur != null) {
-							plaque.setPosition(new Vecteur2D(aireOuEstCurseur.getPointMilieuDeTuile().getX(), aireOuEstCurseur.getPointMilieuDeTuile().getY()));
+							plaque.setPosition(new Vecteur2D(aireOuEstCurseur.getPointMilieuDeTuile().getX(),
+									aireOuEstCurseur.getPointMilieuDeTuile().getY()));
 							plaque.miseAJourExtremiteA();
 							plaque.miseAJourExtremiteB();
 						}
-					}// fin 2e if
-				}//fin if
-			}//fin 2e boucle for 
-		}//fin 1re boucle for
-		
+					} // fin 2e if
+				} // fin if
+			} // fin 2e boucle for
+		} // fin 1re boucle for
+
 	}
-	
+
 	/**
 	 * Permet de dessiner des objets sur le composant
 	 * 
@@ -234,25 +237,24 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// Transformations affines pour que l'origine soit en bas à droite
-		//g2d.translate(0, getHeight());
-		//g2d.scale(1, -1);
+		// g2d.translate(0, getHeight());
+		// g2d.scale(1, -1);
 
 		if (premiereFois) {
 			pixelsParMetre = getWidth() / largeurDuComposantEnMetres;
 			hauteurDuComposantEnMetres = getHeight() / pixelsParMetre;
 
-			
-			//vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
+			// vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 
 			premiereFois = false;
 		} // fin condition dans paintComponent
 
 		g2d.scale(pixelsParMetre, pixelsParMetre);
-		
+
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
 		dessinerPlaque(g2d);
-		//dessinerPlaqueFantome(g2d);
+		// dessinerPlaqueFantome(g2d);
 	}
 
 	/**
@@ -262,7 +264,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerNiveau(Graphics2D g2d) {
-		
+
 		niveau.getGrille().dessinerTuile(g2d);
 	}
 
@@ -273,11 +275,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerVaisseau(Graphics2D g2d) {
-		//vaisseau.setPixelsParMetre(pixelsParMetre);
-		//vaisseau.setTuile(tuileDuVaisseau);
+		// vaisseau.setPixelsParMetre(pixelsParMetre);
+		// vaisseau.setTuile(tuileDuVaisseau);
 		vaisseau.dessiner(g2d);
 	}
-	
+
 	/**
 	 * Permet de dessiner une plaque
 	 * 
@@ -289,24 +291,25 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			plaque.dessiner(g2d);
 		}
 	}
-	
+
 	/**
 	 * Méthode qui dessine la plaque fantôme
+	 * 
 	 * @param g2d Le contexte graphique
 	 */
-	//Giroux
+	// Giroux
 	private void dessinerPlaqueFantome(Graphics2D g2d) {
-		if(placementPlaque & sourisDansComposant) {
-			if(plaquePositive) {
+		if (placementPlaque & sourisDansComposant) {
+			if (plaquePositive) {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
 			} else {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
 			}
-			System.out.println("posPlaqueX : "+posPlaqueX/pixelsParMetre);
-			System.out.println("posPlaqueY : "+posPlaqueY/pixelsParMetre);
-			System.out.println("getPosX() : "+plaque.getPosition().getX());
-			System.out.println("getPosY() : "+plaque.getPosition().getY());
-			g2d.drawImage(imagePlaque, (int)(plaque.getPosition().getX()), (int)(plaque.getPosition().getY()), null);
+			System.out.println("posPlaqueX : " + posPlaqueX / pixelsParMetre);
+			System.out.println("posPlaqueY : " + posPlaqueY / pixelsParMetre);
+			System.out.println("getPosX() : " + plaque.getPosition().getX());
+			System.out.println("getPosY() : " + plaque.getPosition().getY());
+			g2d.drawImage(imagePlaque, (int) (plaque.getPosition().getX()), (int) (plaque.getPosition().getY()), null);
 		}
 	}
 
@@ -339,21 +342,21 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		tempsTotalEcoule += deltaT;
 		System.out.println("Temps total écoulé: " + String.format("%.3f", tempsTotalEcoule) + "sec (en temps simulé!)");
 
-		//Vecteur2D forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, plaqueRouge);
-		
+		// Vecteur2D forceElec =
+		// MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, plaqueRouge);
+
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
 		 * les forces d'autres plaques
 		 */
-		//sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
-		
+		// sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
+
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
-		
 		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
-		//System.out.println("La plaque rouge : " + plaqueRouge.toString(3));
+		// System.out.println("La plaque rouge : " + plaqueRouge.toString(3));
 		System.out.println(" ");
 	}
 
@@ -371,26 +374,27 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 * pourrait entrer en collision
 		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
 		 */
-		//vaisseau.gererCollisionAvecPlaque(plaqueRouge);
+		// vaisseau.gererCollisionAvecPlaque(plaqueRouge);
 		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
 		testerCollisionsAvecObjetsSpeciaux();
 	}
 
 	/**
-	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux (drapeau, pics, portail)
+	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux
+	 * (drapeau, pics, portail)
 	 */
 	// Kitimir Yim
 	private void testerCollisionsAvecObjetsSpeciaux() {
-		 
+
 		Tuile[][] tab = niveau.getGrille().getTableau();
 
 		for (int i = 0; i < tab.length; i++) {
 			for (int j = 0; j < tab.length; j++) {
 				Tuile tuile = tab[i][j];
 
-				if (tuile != null && 
-						( tuile.getType().equals("Drapeau") | tuile.getType().equals("Pics") | tuile.getType().equals("Portail") ) ) {
-					
+				if (tuile != null && (tuile.getType().equals("Drapeau") | tuile.getType().equals("Pics")
+						| tuile.getType().equals("Portail"))) {
+
 					if (MoteurPhysique.detecteCollisionsAvecObjetsSpeciaux(vaisseau, tuile)) {
 						switch (tuile.getType()) {
 						case "Drapeau":
@@ -406,24 +410,21 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							break;
 						}
 					}
-				}//fin if
-			}//fin 2e boucle for
-		}//fin 1re boucle for
-	}//fin méthode
-	
-	
+				} // fin if
+			} // fin 2e boucle for
+		} // fin 1re boucle for
+	}// fin méthode
 
 	private void teleportation(Tuile tuile) {
 		Portail portailIni = (Portail) tuile;
 		Portail portailFinal = portailIni.getPortailAssocie();
-		int rayon = Tuile.getHauteurTuile()/2;
-		
-		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon ;
-		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon ;
+		int rayon = Tuile.getHauteurTuile() / 2;
+
+		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
+		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon;
 		Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
 		vaisseau.setPosition(posPortailFinal);
 	}
-
 
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
@@ -459,7 +460,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}// fin methode prochaineImage
 
 	/**
-	 * Permet de repositioner le vaisseau à son dernier point de sauvegarde s'il est tué
+	 * Permet de repositioner le vaisseau à son dernier point de sauvegarde s'il est
+	 * tué
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void recommencer() {
@@ -474,7 +476,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		// À gérer plus tard si l'utilisateur fait n'importe nawak
 		try {
-			//plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX, normalePlaqueComposanteY).normalise() );
+			// plaqueRouge.setNormale( new Vecteur2D(normalePlaqueComposanteX,
+			// normalePlaqueComposanteY).normalise() );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -497,20 +500,20 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setAccel(VEC_ZERO);
 		vaisseau.setSommeDesForces(VEC_ZERO);
 
-		//Retirer toutes plaques du niveau
+		// Retirer toutes plaques du niveau
 
 		enCoursDAnimation = false;
 		premiereFois = true;
-		//reinitialiser = true;
+		// reinitialiser = true;
 		tempsTotalEcoule = 0;
 
 		repaint();
 	}
 
-
 	// GETTERS ET SETTERS //
 	/**
 	 * Retourne la charge du vaisseau
+	 * 
 	 * @return La charge du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -520,6 +523,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie la charge du vaisseau
+	 * 
 	 * @param chargeVaisseau La charge du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -531,6 +535,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la masse du vaisseau
+	 * 
 	 * @return La masse du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -540,6 +545,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie la masse du vaisseau
+	 * 
 	 * @param masseVaisseau La masse du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -549,29 +555,31 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setForceGrav();
 		repaint();
 	}
-	
+
 	/**
 	 * Retourne la force gravitationnelle agissant sur le vaisseau
+	 * 
 	 * @return La force gravitationnelle agissant sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D getForceGrav() {
 		return forceGrav;
 	}
-	
+
 	/**
 	 * Modifie la force gravitationnelle agissant sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setForceGrav() {
-		//sommeForcesSurVaisseau.soustrait(forceGrav);
+		// sommeForcesSurVaisseau.soustrait(forceGrav);
 		forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
-		//sommeForcesSurVaisseau.additionne(forceGrav);
+		// sommeForcesSurVaisseau.additionne(forceGrav);
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 	}
-	
+
 	/**
 	 * Retourne la charge des plaques du niveau
+	 * 
 	 * @return La charge des plaques du niveau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -581,17 +589,20 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie la charge de la plaque
+	 * 
 	 * @param chargePlaques La charge de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeDesPlaques(double chargePlaques) {
 		this.chargeDesPlaques = chargePlaques;
-		//plaqueRouge.setCharge(chargePlaques); Changer la charge de toutes les plaques du niveau
+		// plaqueRouge.setCharge(chargePlaques); Changer la charge de toutes les plaques
+		// du niveau
 		repaint();
 	}
 
 	/**
 	 * Retourne la valeur du pas de simulation (deltaT)
+	 * 
 	 * @return La pas de simulation (deltaT)
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -601,6 +612,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie la valeur du pas de simulation (deltaT)
+	 * 
 	 * @param deltaT Le nouveau pas de simulation
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -610,6 +622,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Retourne le niveau
+	 * 
 	 * @return Le niveau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -619,6 +632,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie le niveau en y chargeant un nouveau niveau
+	 * 
 	 * @param nomNiveau Le nom du niveau (une chaîne de caractère)
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -631,7 +645,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveau
-	 * @param btnActionnee La nouvelle valeur du booléen permettant de placer une plaque dans le niveau (vrai si le bouton est enclenché)
+	 * 
+	 * @param btnActionnee La nouvelle valeur du booléen permettant de placer une
+	 *                     plaque dans le niveau (vrai si le bouton est enclenché)
 	 */
 	public void setPlacementPlaque(boolean btnActionnee) {
 		this.placementPlaque = btnActionnee;
@@ -640,6 +656,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// GETTERS DE CERTAINES CONSTANTES //
 	/**
 	 * Retourne la charge initiale du vaisseau
+	 * 
 	 * @return La charge initiale du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -649,6 +666,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la masse initiale du vaisseau
+	 * 
 	 * @return La masse initiale du vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -658,6 +676,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Retourne la charge initiale de la plaque
+	 * 
 	 * @return La charge initiale de la plaque
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -667,6 +686,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Retourne le pas de simulation (deltaT) initial
+	 * 
 	 * @return Le pas de simulation (deltaT) initial
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -674,7 +694,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		return DELTA_T_INITIAL;
 	}
 
-	
 //	/**
 //	 * Méthode qui change si la plaque est sélectionnée ou le contraire
 //	 */
@@ -686,18 +705,19 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 //			plaqueSelectionne=true;
 //		}
 //	}
-	
+
 	/**
 	 * Méthode qui change la nature de la plaque
+	 * 
 	 * @param positive True si elle devient poitive, false sinon
 	 */
-	//Giroux
+	// Giroux
 	public void setPlaquePositive(Boolean positive) {
-		if(positive) {
-			plaquePositive=true;
+		if (positive) {
+			plaquePositive = true;
 		} else {
-			plaquePositive=false;
+			plaquePositive = false;
 		}
 	}
-	
+
 }

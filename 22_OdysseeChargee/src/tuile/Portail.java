@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
 
@@ -42,6 +41,7 @@ public class Portail extends Tuile implements Serializable {
 	 * Association du portail
 	 */
 	private Portail portailAssocie = null;
+
 	/**
 	 * Constructeur
 	 * 
@@ -49,7 +49,7 @@ public class Portail extends Tuile implements Serializable {
 	// Jason Xa
 	public Portail() {
 		super(image, type);
-	
+
 	}
 
 	/**
@@ -76,6 +76,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le portail
+	 * 
 	 * @return L'image représentant le portail
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -139,35 +140,37 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Permet d'associer un portail à un autre
+	 * 
 	 * @param portailAssocie portail relié à un autre
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void definirPortailAssocie(Portail portailAssocie) {
 		this.portailAssocie = portailAssocie;
 	}
+
 	/**
 	 * Retourne le portail associé
+	 * 
 	 * @return portailAssocie portail relié à un autre
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public Portail getPortailAssocie() {
 		return portailAssocie;
 	}
 
 	/**
 	 * Méthode qui forme le Portail dans un area
+	 * 
 	 * @return la forme du Portail dans un area
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public Area formerAireObjetSpecial() {
 
-
-		Ellipse2D cercle = new Ellipse2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile, largeurTuile);
+		Ellipse2D cercle = new Ellipse2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile,
+				largeurTuile);
 
 		Area airePortail = new Area(cercle);
 		return airePortail;
-
-
 
 	}
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import tuile.VaisseauImage;
+import tuile.VaisseauTuile;
 import utilitaires.Dessinable;
 
 /**
@@ -24,11 +24,11 @@ import utilitaires.Dessinable;
  */
 public class Vaisseau extends InteractifPhysique implements Dessinable, Serializable {
 
-	/**Constante permettant la sérialization de la classe **/
+	/** Constante permettant la sérialization de la classe **/
 	private static final long serialVersionUID = -1773798144841043627L;
 
 	// PROPRIÉTÉS //
-	/** Vitesse du vaisseau (en m/s)**/
+	/** Vitesse du vaisseau (en m/s) **/
 	private Vecteur2D vitesse = new Vecteur2D(0, 0); // par defaut
 	/** Accélération du vaisseau (en m/s^2) **/
 	private Vecteur2D accel = new Vecteur2D(0, 0); // par defaut
@@ -43,8 +43,11 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
-	/** Objet VaisseauImage permettant d'accéder aux propriétés de la tuile du vaisseau **/
-	private VaisseauImage tuile;
+	/**
+	 * Objet VaisseauTuile permettant d'accéder aux propriétés de la tuile du
+	 * vaisseau
+	 **/
+	private VaisseauTuile tuile;
 
 	// CONSTRUCTEUR //
 	/**
@@ -70,13 +73,13 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	/**
 	 * Constructeur du vaisseau pour version officielle
 	 * 
-	 * @param position La position du vaisseau
-	 * @param charge   La charge du vaisseau
-	 * @param masse    La masse du vaisse
+	 * @param position        La position du vaisseau
+	 * @param charge          La charge du vaisseau
+	 * @param masse           La masse du vaisse
 	 * @param tuileDuVaisseau L'objet tuile représentant le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage tuileDuVaisseau) {
+	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauTuile tuileDuVaisseau) {
 		super(position, charge);
 		this.masse = masse;
 		this.tuile = tuileDuVaisseau;
@@ -93,15 +96,16 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		double coiny = getPosition().getY() - rayon;
 		cercle = new Ellipse2D.Double(coinx, coiny, 2 * rayon, 2 * rayon);
 	}
-	
+
 	/**
 	 * Méthode qui forme l'aire d'un objet vaisseau
-	 * Utile pour les collisions avec des objets définis par un Area (pics, drapeau, portail)
+	 * Utile pour les collisions avec des objets définis par un Area (pics, drapeau,
+	 * portail)
 	 * 
 	 * @return la forme du vaisseau dans un area
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Area formerAireDuVaisseau() { 
+	public Area formerAireDuVaisseau() {
 		return new Area(cercle);
 	}
 
@@ -116,9 +120,9 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 
 		g2dPrive.setColor(Color.black);
 		g2dPrive.fill(cercle);
-		
+
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
-		tuile.dessiner(g2d, (int)(getPosition().getX()-rayon), (int)(getPosition().getY()-rayon) );
+		tuile.dessiner(g2d, (int) (getPosition().getX() - rayon), (int) (getPosition().getY() - rayon));
 	}
 
 	/**
@@ -174,7 +178,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		vitesse = MoteurPhysique.detectionCollisionsBorduresEtCalculVitesse(this, largeurComposant, hauteurComposant);
 		creerLaGeometrie();
 	}
-	
+
 	/**
 	 * Permet d'afficher quelques caractéristiques du vaisseau :
 	 * Sa position, sa vitesse, son accélération, la somme des forces agissant sur
@@ -306,20 +310,24 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	}
 
 	/**
-	 * Retourne l'objet VaisseauImage qui contient les propriétés de la tuile du vaisseau
-	 * @return L'objet VaisseauImage 
+	 * Retourne l'objet VaisseauTuile qui contient les propriétés de la tuile du
+	 * vaisseau
+	 * 
+	 * @return L'objet VaisseauTuile
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public VaisseauImage getTuile() {
+	public VaisseauTuile getTuile() {
 		return tuile;
 	}
 
 	/**
-	 * Modifie l'objet VaisseauImage qui contient les propriétés de la tuile du vaisseau
-	 * @param tuileDuVaisseau Le nouvel objet VaisseauImage
+	 * Modifie l'objet VaisseauTuile qui contient les propriétés de la tuile du
+	 * vaisseau
+	 * 
+	 * @param tuileDuVaisseau Le nouvel objet VaisseauTuile
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setTuile(VaisseauImage tuileDuVaisseau) {
+	public void setTuile(VaisseauTuile tuileDuVaisseau) {
 		this.tuile = tuileDuVaisseau;
 	}
 

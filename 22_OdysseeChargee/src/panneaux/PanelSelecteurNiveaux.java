@@ -57,8 +57,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 		});
 		btnPasserModeJeu.setBounds(47, 50, 200, 30);
 		add(btnPasserModeJeu);
-		
-	
+
 		btnNiveauBase1 = new JButton("Niveau de base 1");
 		btnNiveauBase1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,8 +66,6 @@ public class PanelSelecteurNiveaux extends JPanel {
 		});
 		btnNiveauBase1.setBounds(277, 50, 200, 30);
 		add(btnNiveauBase1);
-
-		
 
 		btnNiveauBase2 = new JButton("Niveau de base 2");
 		btnNiveauBase2.addActionListener(new ActionListener() {
@@ -79,8 +76,6 @@ public class PanelSelecteurNiveaux extends JPanel {
 		btnNiveauBase2.setBounds(277, 103, 200, 30);
 		add(btnNiveauBase2);
 
-		
-		
 		btnNiveauBase3 = new JButton("Niveau de base 3");
 		btnNiveauBase3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +85,6 @@ public class PanelSelecteurNiveaux extends JPanel {
 		btnNiveauBase3.setBounds(277, 153, 200, 30);
 		add(btnNiveauBase3);
 
-
 	}
 
 	/**
@@ -98,7 +92,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	// Kitimir Yim
 	public void actualiserNiveaux() {
-		//removeAll(); // Supprimer tous les composants existants
+		// removeAll(); // Supprimer tous les composants existants
 
 		ArrayList<Niveau> niveaux = GestionnaireDeNiveau.getRepertoireNiveau();
 

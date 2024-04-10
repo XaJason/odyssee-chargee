@@ -40,11 +40,12 @@ public class PanelImagesAvecDefilement extends JPanel {
 	/**
 	 * Largeur en pixels qu'occupe la barre de defilement vertical
 	 */
-	private final int LARG_BARRE_DEFILEMENT = 20; 	
+	private final int LARG_BARRE_DEFILEMENT = 20;
 	/**
-	 * Nombre de pixels laisses vides autour du scrollpane (prendra la couleur du fond du jpanel)
+	 * Nombre de pixels laisses vides autour du scrollpane (prendra la couleur du
+	 * fond du jpanel)
 	 */
-	private int largeurCadre = 6; 
+	private int largeurCadre = 6;
 	/**
 	 * Nom du fichier
 	 */
