@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import dessin.Grille;
-import niveau.GestionnaireDeNiveau;
+import niveau.GestionnaireDeNiveaux;
 import niveau.Niveau;
 import niveau.Sauvegarder;
 import tuile.Carre;
@@ -32,7 +32,7 @@ import utilitaires.OutilsImage;
  * 
  */
 
-public class PanelModeEditeur extends JPanel {
+public class PanelEditeur extends JPanel {
 
 	/**
 	 * Numéro d'identification pour la sérialisation
@@ -177,7 +177,7 @@ public class PanelModeEditeur extends JPanel {
 	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
-	public PanelModeEditeur() {
+	public PanelEditeur() {
 		setLayout(null);
 
 		grille = new Grille();
@@ -298,7 +298,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.setTuile(null);
 			}
 		});
-		btnReinitialiser.setBounds(50, 481, 85, 85);
+		btnReinitialiser.setBounds(118, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
 		add(btnReinitialiser);
 
@@ -308,7 +308,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.gererSupprimer();
 			}
 		});
-		btnSupprimer.setBounds(178, 481, 85, 85);
+		btnSupprimer.setBounds(118, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
 
@@ -319,7 +319,7 @@ public class PanelModeEditeur extends JPanel {
 				grille.rotation();
 			}
 		});
-		btnRotation.setBounds(302, 481, 85, 85);
+		btnRotation.setBounds(247, 481, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
 		add(btnRotation);
 
@@ -343,7 +343,7 @@ public class PanelModeEditeur extends JPanel {
 			}
 
 		});
-		btnSauvegarder.setBounds(178, 599, 85, 85);
+		btnSauvegarder.setBounds(247, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 
@@ -391,34 +391,34 @@ public class PanelModeEditeur extends JPanel {
 		lblPortail.setBounds(247, 310, 85, 13);
 		add(lblPortail);
 
-		lblDrapeau = new JLabel("Drapeau");
+		lblDrapeau = new JLabel("Drapeau d'arrivée");
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDrapeau.setBounds(118, 435, 85, 13);
+		lblDrapeau.setBounds(101, 435, 119, 13);
 		add(lblDrapeau);
 
-		lblVaisseau = new JLabel("Vaisseau");
+		lblVaisseau = new JLabel("Vaisseau (personnage)");
 		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVaisseau.setBounds(247, 435, 85, 13);
+		lblVaisseau.setBounds(225, 435, 128, 13);
 		add(lblVaisseau);
 
-		lblReinitialiser = new JLabel("Réinitialiser");
+		lblReinitialiser = new JLabel("Réinitialiser le niveau");
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReinitialiser.setBounds(50, 576, 85, 13);
+		lblReinitialiser.setBounds(101, 694, 119, 13);
 		add(lblReinitialiser);
 
 		lblSupprimer = new JLabel("Supprimer");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(178, 576, 85, 13);
+		lblSupprimer.setBounds(118, 576, 85, 13);
 		add(lblSupprimer);
 
 		lblRotation = new JLabel("Rotation");
 		lblRotation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRotation.setBounds(302, 576, 85, 13);
+		lblRotation.setBounds(247, 576, 85, 13);
 		add(lblRotation);
 
 		lblSauvegarder = new JLabel("Sauvegarder");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(178, 694, 85, 13);
+		lblSauvegarder.setBounds(247, 694, 85, 13);
 		add(lblSauvegarder);
 
 		lblInteractifs = new JLabel("Interactifs");
@@ -439,7 +439,7 @@ public class PanelModeEditeur extends JPanel {
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
 
-		GestionnaireDeNiveau.ajouter(niveau);
+		GestionnaireDeNiveaux.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNom());
 		PCS.firePropertyChange("niveauCree", null, niveau);
 	}

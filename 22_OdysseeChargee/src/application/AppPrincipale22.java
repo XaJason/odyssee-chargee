@@ -23,8 +23,8 @@ import fenetres.FenetreAPropos;
 import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
 import niveau.Niveau;
-import panneaux.PanelModeEditeur;
-import panneaux.PanelModeJeu;
+import panneaux.PanelEditeur;
+import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
 import tuile.Carre;
 import tuile.Drapeau;
@@ -64,11 +64,11 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Panel du mode éditeur
 	 */
-	private PanelModeEditeur panModeEditeur;
+	private PanelEditeur panModeEditeur;
 	/**
 	 * Panel du mode jeu
 	 */
-	private PanelModeJeu panModeJeu;
+	private PanelJeu panModeJeu;
 	/**
 	 * Panel À propos
 	 */
@@ -297,9 +297,9 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Kitimir Yim
 	public void creerPanels() {
-		panModeEditeur = new PanelModeEditeur();
+		panModeEditeur = new PanelEditeur();
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
-		panModeJeu = new PanelModeJeu();
+		panModeJeu = new PanelJeu();
 
 		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {

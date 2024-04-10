@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Kitimir Yim
  */
 
-public class GestionnaireDeNiveau {
+public class GestionnaireDeNiveaux {
 
 	/** ArrayList contenant les niveaux **/
 	private static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();

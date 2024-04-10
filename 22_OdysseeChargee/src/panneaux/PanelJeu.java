@@ -28,7 +28,7 @@ import utilitaires.OutilsImage;
  * @author Enuel René Valentin Kizozo Izia
  * @author Giroux
  */
-public class PanelModeJeu extends JPanel {
+public class PanelJeu extends JPanel {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
@@ -108,7 +108,7 @@ public class PanelModeJeu extends JPanel {
 	 * Implémente le panel et ses fonctionnalités
 	 */
 	// Kitimir Yim
-	public PanelModeJeu() {
+	public PanelJeu() {
 		setLayout(null);
 
 		panelEntree = new JPanel();

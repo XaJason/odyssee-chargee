@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import niveau.GestionnaireDeNiveau;
+import niveau.GestionnaireDeNiveaux;
 import niveau.Niveau;
 
 /**
@@ -94,7 +94,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	public void actualiserNiveaux() {
 		// removeAll(); // Supprimer tous les composants existants
 
-		ArrayList<Niveau> niveaux = GestionnaireDeNiveau.getRepertoireNiveau();
+		ArrayList<Niveau> niveaux = GestionnaireDeNiveaux.getRepertoireNiveau();
 
 		int yPosition = 90;
 		for (Niveau niveau : niveaux) {

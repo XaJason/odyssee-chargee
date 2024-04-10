@@ -81,7 +81,7 @@ public class Sauvegarder {
 
 			Niveau niveau = (Niveau) ois.readObject();
 
-			GestionnaireDeNiveau.ajouter(niveau);
+			GestionnaireDeNiveaux.ajouter(niveau);
 
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;
