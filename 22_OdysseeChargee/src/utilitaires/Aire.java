@@ -58,6 +58,8 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 		System.out.println("Point 1 : " + point1);
 		System.out.println("Point milieu : " + pointMilieuDeTuile);
 		System.out.println("Point 2 : " + point2);
+
+		segmentExterieur = new Line2D.Double(point1, point2);
 	}
 
 	/**

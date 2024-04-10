@@ -143,7 +143,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	}
 
 	/**
-	 * Créer les aires de sélection associées à la tuile carrée(redéfini)
+	 * Créer les aires de sélection associées à la tuile carrée
 	 * 
 	 * @param pointMilieu le point milieu de la tuile carrée
 	 */
