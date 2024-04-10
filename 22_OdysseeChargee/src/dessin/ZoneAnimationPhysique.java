@@ -68,8 +68,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Indique que le curseur de la souris est à l'intérieur du composant **/
 	private boolean sourisDansComposant = false;
 	/** Boolean qui indique si le bouton de la plaque est actionnée **/
-	private Boolean placementPlaque = false;
-
+	private boolean placementPlaque = false;
+	/** Booléan qui indique si l'on souhaite fixer une plaque sur tuile (après avoir cliqué dessus) **/
+	private boolean fixerPlaqueSurTuile = false;
+	
+	
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
@@ -78,14 +81,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Charge des plaques du niveau (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
 	/** Liste des plaques chargées **/
-	private ArrayList<PlaqueChargee> listePlaquesChargees;
+	private ArrayList<PlaqueChargee> listePlaquesChargees = new ArrayList<PlaqueChargee>();
 	/** Plaque chargée **/
 	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); // Placée par défaut à l'extérieur du composant
 																		// pour ne pas la voir
-
-	/** Determine si la plaque est positive ou non **/
-	private Boolean plaquePositive = true;
-	/** Position en x(en mètres) de la plaque fantôme **/
+	/** Determine si la plaque est positive ou non**/
+	private boolean plaquePositive = true;
+	/** Position en x(en mètres) de la plaque fantôme**/
 	private int posPlaqueX;
 	/** Position en y(en mètres) de la plaque fantôme **/
 	private int posPlaqueY;
@@ -147,11 +149,22 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				sourisDansComposant = true;
+				repaint();
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				sourisDansComposant = false;
+				repaint();
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (placementPlaque) {
+					fixerPlaqueSurTuile = true;
+					survolerToutesLesTuilesPourTrouverCurseur();
+					fixerPlaqueSurTuile = false;
+					repaint();
+				}
 			}
 		});
 		setBackground(Color.lightGray);
@@ -217,6 +230,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 									aireOuEstCurseur.getPointMilieuDeTuile().getY()));
 							plaque.miseAJourExtremiteA();
 							plaque.miseAJourExtremiteB();
+							
+							if (fixerPlaqueSurTuile) {
+								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(), plaque.getPosition().getY() );
+								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()) );
+							}
 						}
 					} // fin 2e if
 				} // fin if
@@ -253,8 +271,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		dessinerNiveau(g2d);
 		dessinerVaisseau(g2d);
-		dessinerPlaque(g2d);
-		// dessinerPlaqueFantome(g2d);
+		dessinerPlaques(g2d);
+		dessinerPlaqueLorsSurvol(g2d);
+		//dessinerPlaqueFantome(g2d);
 	}
 
 	/**
@@ -281,12 +300,24 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Permet de dessiner une plaque
+	 * Permet de dessiner la ou les plaques qui ont été placées dans le niveau
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void dessinerPlaque(Graphics2D g2d) {
+	private void dessinerPlaques(Graphics2D g2d) {
+		for (PlaqueChargee p : listePlaquesChargees) {
+			p.dessiner(g2d);
+		}
+	}
+	
+	/**
+	 * Permet de dessiner une plaque lorsqu'on survole les tuiles
+	 * 
+	 * @param g2d Le contexte graphique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void dessinerPlaqueLorsSurvol(Graphics2D g2d) {
 		if (placementPlaque & sourisDansComposant) {
 			plaque.dessiner(g2d);
 		}
@@ -342,21 +373,23 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		tempsTotalEcoule += deltaT;
 		System.out.println("Temps total écoulé: " + String.format("%.3f", tempsTotalEcoule) + "sec (en temps simulé!)");
 
-		// Vecteur2D forceElec =
-		// MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, plaqueRouge);
-
+		Vecteur2D forceElec = VEC_ZERO;
+		for (PlaqueChargee p : listePlaquesChargees) {
+			forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, p);
+		}
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
 		 * les forces d'autres plaques
 		 */
-		// sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
-
+		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
 		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
-		// System.out.println("La plaque rouge : " + plaqueRouge.toString(3));
+		for (PlaqueChargee p : listePlaquesChargees) {
+			System.out.println("Plaque : " + p.toString(3));
+		}
 		System.out.println(" ");
 	}
 
@@ -374,7 +407,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 * pourrait entrer en collision
 		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
 		 */
-		// vaisseau.gererCollisionAvecPlaque(plaqueRouge);
+		for (PlaqueChargee p : listePlaquesChargees) {
+			vaisseau.gererCollisionAvecPlaque(p);
+		}
 		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
 		testerCollisionsAvecObjetsSpeciaux();
 	}
@@ -471,8 +506,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setVitesse(VEC_ZERO);
 		vaisseau.setAccel(VEC_ZERO);
 		vaisseau.setSommeDesForces(VEC_ZERO);
+		
+		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 
-		// Désactiver les plaques chargées (charge neutre)
+		// Désactiver les plaques chargées (charge neutre), éventuellement
 
 		// À gérer plus tard si l'utilisateur fait n'importe nawak
 		try {
@@ -495,12 +532,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	public void reinitialiser() {
 		vaisseau.setCharge(CHARGE_INITIALE_VAISSEAU);
 		vaisseau.setMasse(MASSE_INITIALE_VAISSEAU);
-		vaisseau.setPosition(new Vecteur2D(POS_INITIALE_VAISSEAU_EN_X, POS_INITIALE_VAISSEAU_EN_Y));
+		vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 		vaisseau.setVitesse(VEC_ZERO);
 		vaisseau.setAccel(VEC_ZERO);
 		vaisseau.setSommeDesForces(VEC_ZERO);
 
-		// Retirer toutes plaques du niveau
+		listePlaquesChargees.clear();
+		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 
 		enCoursDAnimation = false;
 		premiereFois = true;
@@ -595,8 +633,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeDesPlaques(double chargePlaques) {
 		this.chargeDesPlaques = chargePlaques;
-		// plaqueRouge.setCharge(chargePlaques); Changer la charge de toutes les plaques
-		// du niveau
+		// Changer la charge de toutes les plaques du niveau OU Changer la charge de la plaque à placer ?
+		// À déterminer, là ça les changes toutes (pour changer celle à placer il faut le faire lors de sa création)
+		for (PlaqueChargee p : listePlaquesChargees) {
+			p.setCharge(chargePlaques);
+		}
 		repaint();
 	}
 

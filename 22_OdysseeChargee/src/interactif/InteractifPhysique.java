@@ -21,7 +21,7 @@ public abstract class InteractifPhysique {
 	private double pixelsParMetre = 1;
 
 	/** Charge de l'objet intéractif physique **/
-	private double charge;
+	private double charge = 20;
 
 	// CONSTRUCTEUR //
 	/**
