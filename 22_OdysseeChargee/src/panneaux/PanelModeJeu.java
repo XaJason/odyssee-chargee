@@ -28,6 +28,7 @@ import javax.swing.JToggleButton;
  * 
  * @author Kitimir Yim
  * @author Enuel René Valentin Kizozo Izia
+ * @author Giroux
  */
 public class PanelModeJeu extends JPanel {
 	/**

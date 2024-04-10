@@ -67,7 +67,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	/** Path qui représente le contour du bloc **/
 	protected Path2D.Double contour;
 	/** Matrice de rotation **/
-	MatriceRotation rotation;
+	protected MatriceRotation rotation;
 	/** Point milieu du triangle **/
 	protected Point2D.Double pointMilieu;
 
@@ -155,11 +155,19 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		g2d.drawImage(image, x, y, null);
 		g2d.setTransform(transformationAffine);
 
-		// Giroux(Partie ci-dessous)
+		
+		dessinerContour(g2d);
+
+	}
+	/**
+	 * Méthode qui dessine la boite de collision
+	 * @param g2d Contexte graphique
+	 */
+	//Giroux
+	private void dessinerContour(Graphics2D g2d) {
 		creerGeometrieContour();
 		g2d.setColor(Color.red);
 		g2d.draw(contour);
-
 	}
 
 	/**

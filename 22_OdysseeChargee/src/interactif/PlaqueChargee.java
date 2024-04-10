@@ -17,6 +17,7 @@ import utilitaires.OutilsImage;
  * droite
  * 
  * @author Enuel René Valentin Kizozo Izia
+ * @author Giroux
  */
 public class PlaqueChargee extends InteractifPhysique implements Dessinable, Serializable {
 	

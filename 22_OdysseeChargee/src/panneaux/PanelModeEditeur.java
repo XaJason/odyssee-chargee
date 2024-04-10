@@ -329,12 +329,12 @@ public class PanelModeEditeur extends JPanel {
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (compteur < MAX_NIVEAUX) {
-					Object[] options = { "1", "2", "3" };
+					Object[] options = { "1", "2", "3"};
 					String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :",
 							"Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
 					if (nom != null) {
-						Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
+						Niveau niveauParDefaut = new Niveau(grille,"Niveau " + nom);
 						sauvegarder(niveauParDefaut);
 						compteur++;
 					}
