@@ -462,7 +462,9 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	
 	/**
 	 * Retourne la liste de segment de la tuile
+	 * @return La liste de segment de la tuile
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public ArrayList<Segment> getListeSegments() {
 		return listeSegments;
 	}
