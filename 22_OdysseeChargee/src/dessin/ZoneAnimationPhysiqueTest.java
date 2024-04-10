@@ -195,7 +195,7 @@ public class ZoneAnimationPhysiqueTest extends JPanel implements Runnable {
 				}
 			}
 		});
-		setBackground(Color.black);
+		setBackground(Color.lightGray);
 
 		vaisseauBleu = new Vaisseau(posVaisseau, vitVaisseau, accelVaisseau, rayonVaisseau, chargeVaisseau,
 				masseVaisseau);
