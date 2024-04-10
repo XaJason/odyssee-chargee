@@ -519,7 +519,7 @@ public class MoteurPhysique {
 	 *                     tuile)
 	 * @return boolean de si le vaisseau et en collision
 	 */
-	// Kitimir Yim
+	//Kitimir Yim
 	public static boolean detecteCollisionsAvecObjetsSpeciaux(Vaisseau vaisseau, Tuile objetSpecial) {
 		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
 		Area aireTuile = objetSpecial.formerAireObjetSpecial();

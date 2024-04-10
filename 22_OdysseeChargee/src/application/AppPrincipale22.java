@@ -147,7 +147,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Kitimir Yim
 	public AppPrincipale22() {
-		setTitle("Odyssée Chargée");
+		setTitle("Odyssée chargée");
 		panMenuPrincipal = new JPanel();
 		setContentPane(panMenuPrincipal);
 		panMenuPrincipal.setLayout(null);
@@ -162,10 +162,10 @@ public class AppPrincipale22 extends JFrame {
 		lireImages();
 		gererConstantes();
 
-		if (leClip != null)
-			leClip.close();
-		chargerLeSon(NOM_FICHIER_SON_1);
-		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+	//	if (leClip != null)
+	//		leClip.close();
+	//	chargerLeSon(NOM_FICHIER_SON_1);
+	//	leClip.loop(Clip.LOOP_CONTINUOUSLY);
 
 	}
 

@@ -71,8 +71,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private boolean placementPlaque = false;
 	/** Booléan qui indique si l'on souhaite fixer une plaque sur tuile (après avoir cliqué dessus) **/
 	private boolean fixerPlaqueSurTuile = false;
-	
-	
+
+
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
@@ -84,7 +84,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private ArrayList<PlaqueChargee> listePlaquesChargees = new ArrayList<PlaqueChargee>();
 	/** Plaque chargée **/
 	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); // Placée par défaut à l'extérieur du composant
-																		// pour ne pas la voir
+	// pour ne pas la voir
 	/** Determine si la plaque est positive ou non**/
 	private boolean plaquePositive = true;
 	/** Détermine le signe de la plaque chargée (1 si positive, -1 si négative) **/
@@ -318,7 +318,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			p.dessiner(g2d);
 		}
 	}
-	
+
 	/**
 	 * Permet de dessiner une plaque lorsqu'on survole les tuiles
 	 * 
@@ -426,7 +426,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux
 	 * (drapeau, pics, portail)
 	 */
-	// Kitimir Yim
+	//Kitimir Yim
 	private void testerCollisionsAvecObjetsSpeciaux() {
 
 		Tuile[][] tab = niveau.getGrille().getTableau();
@@ -457,15 +457,19 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} // fin 2e boucle for
 		} // fin 1re boucle for
 	}// fin méthode
-
-
+	
+	/**
+	 * Gère la téléportation d'un portail à un autre
+	 * @param tuile tuile du portail
+	 */
+	//Kitimir Yim
 	private void teleportation(Tuile tuile) {
 		Portail portailIni = (Portail) tuile;
 		Portail portailFinal = portailIni.getPortailAssocie();
 		int rayon = Tuile.getHauteurTuile() / 2;
 
 		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
-		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon;
+		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon + Tuile.getHauteurTuile();
 		Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
 		vaisseau.setPosition(posPortailFinal);
 	}
@@ -515,7 +519,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setVitesse(VEC_ZERO);
 		vaisseau.setAccel(VEC_ZERO);
 		vaisseau.setSommeDesForces(VEC_ZERO);
-		
+
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 
 		// Désactiver les plaques chargées (charge neutre), éventuellement
