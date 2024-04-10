@@ -109,12 +109,6 @@ public class FenetreAideInstructions extends JFrame {
 		lblAideInstructions.setBounds(264, 11, 342, 34);
 		contentPane.add(lblAideInstructions);
 
-		lblAttention = new JLabel("---> Exemples al\u00E9atoires de pages sans liens entre elles! <---");
-		lblAttention.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAttention.setForeground(Color.MAGENTA);
-		lblAttention.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblAttention.setBounds(139, 43, 657, 34);
-		contentPane.add(lblAttention);
 
 	}// fin constructeur
 }// fin classe

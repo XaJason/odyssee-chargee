@@ -9,8 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Point2D;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import interactif.PlaqueChargee;
@@ -120,6 +123,24 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
 	private Vecteur2D sommeForcesSurVaisseau;
+	
+
+	/**
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
+	 */
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+
+	/**
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * 
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
+	 */
+	// Kitimir Yim
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
+	}
+
 
 	// /** Vecteur vitesse du vaisseau (en m/s) **/
 	// private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
@@ -353,6 +374,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
 			calculerUneIterationPhysique(deltaT);
 			testerCollisionsEtAjusterVitesses();
+			leveeVitesse();
 			repaint();
 			try {
 				Thread.sleep(tempsDuSleep);
@@ -773,4 +795,24 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		}
 		setChargeDesPlaques(chargeDesPlaques);
 	}
+	/**
+	 * Envoie la vitesse du vaisseau
+	 * @return vitesse du vaisseau
+	 */
+	//Kitimir Yim
+	private double getVitesse() {
+	    double vitesseX = vaisseau.getVitesse().getX();
+	    double vitesseY = vaisseau.getVitesse().getY();
+	    double vitesseTotale = Math.sqrt(vitesseX * vitesseX + vitesseY * vitesseY);
+	    return vitesseTotale;
+	}
+	/**
+	 * Envoie le message de levée d'évenements
+	 */
+	//Kitimir Yim
+	private void leveeVitesse() {
+		PCS.firePropertyChange("changerVitesse", null, getVitesse());
+	}
+
+	
 }
