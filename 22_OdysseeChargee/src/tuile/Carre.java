@@ -128,6 +128,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 
 		Point2D.Double pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
+		System.out.println(pointMilieu);
 
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {

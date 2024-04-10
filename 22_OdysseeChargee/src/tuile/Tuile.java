@@ -491,6 +491,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		}
 
 		if (indexAireSurvolee != 1) { // À implémenter: instructions à exécuter lorsqu'une aire de tuile est survolée
+			// Idées: retourner la géométrie (plaque chargée) à dessiner (Pierre-Olivier)	
 		}
 	}
 
@@ -501,7 +502,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @param pointSurvole le point survolé
 	 */
 	// Jason Xa
-	public void clic(Point2D.Double pointSurvole) {
+	public void clic(Point2D.Double pointSurvole) { 
 		// Vérifier si le point survolé est dans une aire de la tuile
 		for (int i = 0; i < aires.length; i++) {
 			if (aires[i].contient(pointSurvole)) {
@@ -512,7 +513,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		// Créer une PlaqueChargee si une aire est cliquée
 		if (indexAireSurvolee != 1) {
-			creerPlaqueChargeePourAire();
+			creerPlaqueChargeePourAire(); // Stockage des plaques chargées dans la grille ou la tuile (Enuel)
 		}
 	}
 
