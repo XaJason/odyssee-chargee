@@ -26,8 +26,12 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+	
+	/** Bouton permettant d'accéder au niveau de base 1 **/
 	private JButton btnNiveauBase1;
+	/** Bouton permettant d'accéder au niveau de base 2 **/
 	private JButton btnNiveauBase2;
+	/** Bouton permettant d'accéder au niveau de base 3 **/
 	private JButton btnNiveauBase3;
 
 	/**

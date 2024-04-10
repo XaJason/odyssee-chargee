@@ -32,6 +32,7 @@ import utilitaires.OutilsImage;
  *
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
+ * @author Giroux
  * 
  */
 public class ZoneAnimationPhysique extends JPanel implements Runnable {
@@ -89,12 +90,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private boolean plaquePositive = true;
 	/** Détermine le signe de la plaque chargée (1 si positive, -1 si négative) **/
 	private double signePlaque = 1;
-	/** Position en x(en mètres) de la plaque fantôme**/
-	private int posPlaqueX;
-	/** Position en y(en mètres) de la plaque fantôme **/
-	private int posPlaqueY;
 	/** L'image de la plaque, par défaut plaque positive **/
-	Image imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
+	private Image imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
 
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
@@ -140,8 +137,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				if (placementPlaque) {
 					sourisEnMetreX = e.getX() / pixelsParMetre;
 					sourisEnMetreY = e.getY() / pixelsParMetre;
-					posPlaqueX = (int) (e.getX() / pixelsParMetre);
-					posPlaqueY = (int) (e.getY() / pixelsParMetre);
 					survolerToutesLesTuilesPourTrouverCurseur();
 					repaint();
 				}

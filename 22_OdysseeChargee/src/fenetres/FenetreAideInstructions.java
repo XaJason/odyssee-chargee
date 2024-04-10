@@ -20,7 +20,6 @@ import utilitaires.ConstanteComposantsSwing;
  * continu. Les boutons places sur cette fenetre permettent de passer a l'image
  * precedente/suicante.
  * 
- * @author Caroline Houle
  * @author Kitimir Yim
  *
  */

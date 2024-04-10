@@ -245,7 +245,7 @@ public class PanelJeu extends JPanel {
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
-				changerBoutonSigneNégatif();
+				changerBoutonSigneNegatif();
 			}
 		});
 		btnChargeNegative.setBounds(41, 78, 33, 31);
@@ -297,7 +297,7 @@ public class PanelJeu extends JPanel {
 	 * Changer l'état du bouton négatif et la charge de la plaque en conséquence
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void changerBoutonSigneNégatif() {
+	private void changerBoutonSigneNegatif() {
 		zoneAnimationPhysique.setPlaquePositive(false);
 		btnChargeNegative.setEnabled(false);
 		btnChargePositive.setEnabled(true);
@@ -413,7 +413,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.accelGrav, -24.8, -1.6, 0.1));
+		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.getAccelGrav(), -24.8, -1.6, 0.1));
 		spnGravite.setBounds(225, 151, 140, 35);
 		panelEntree.add(spnGravite);
 
@@ -430,12 +430,26 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(spnChargePlaque);
 
 		spnCoefFrictionStat = new JSpinner();
-		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.coeffFrotStat, 0.50, 1.0, 0.05));
+		spnCoefFrictionStat.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				//début
+				MoteurPhysique.setCoeffFrotStat((double) spnCoefFrictionStat.getValue());
+				//fin
+			}
+		});
+		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), 0.50, 1.0, 0.05));
 		spnCoefFrictionStat.setBounds(225, 291, 140, 35);
 		panelEntree.add(spnCoefFrictionStat);
 
 		spnCoefFrictionCine = new JSpinner();
-		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.coeffFrotCine, 0.35, 0.70, 0.05));
+		spnCoefFrictionCine.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				//début
+				MoteurPhysique.setCoeffFrotCine((double) spnCoefFrictionCine.getValue());
+				//fin
+			}
+		});
+		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.35, 0.70, 0.05));
 		spnCoefFrictionCine.setBounds(225, 361, 140, 35);
 		panelEntree.add(spnCoefFrictionCine);
 

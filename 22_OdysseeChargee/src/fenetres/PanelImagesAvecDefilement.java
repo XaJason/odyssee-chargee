@@ -225,8 +225,13 @@ public class PanelImagesAvecDefilement extends JPanel {
 
 	}
 
-	@Override
+	/**
+	 * Permet dessiner le panneau
+	 * 
+	 * @param g Le contexte graphique
+	 */
 	//Caroline Houle
+	@Override
 	public void paintComponent(Graphics g) {
 		if (pasDeSize) {
 			// si setFichiersdImage avait ete appele avant que laes dimensions du panel ne

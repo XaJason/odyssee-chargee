@@ -15,6 +15,7 @@ import utilitaires.OutilsImage;
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
+ * @author Kitimir Yim
  */
 public class Portail extends Tuile implements Serializable {
 	/**

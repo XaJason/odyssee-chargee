@@ -22,6 +22,7 @@ import utilitaires.Selectionnable;
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
+ * @author Kitimir Yim
  */
 public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable, Selectionnable {
 
@@ -364,7 +365,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
-	 * 
+	 * Retourne la hauteur de la tuile
 	 * @return hauteur de la tuile
 	 */
 	// Kitimir Yim
@@ -397,7 +398,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * Méthode qui calcule le point milieu d'un triangle à l'aide du théoreme de
 	 * Thales
 	 * 
-	 * @param coin Arraylist des sommets du triangles
+	 * @param sommets Arraylist des sommets du triangles
 	 * @return Le point milieu
 	 */
 	// Giroux
@@ -482,6 +483,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * 
 	 * @param pointSurvole La position du curseur de la souris qui survole la zone
 	 *                     d'animation physique
+	 * @return L'une des aires de la tuile, celle où se situe le curseur de la souris
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Aire survolerAiresDeTuile(Point2D.Double pointSurvole) {

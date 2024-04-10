@@ -9,11 +9,11 @@ import javax.swing.SwingConstants;
  * Panel qui affiche dans des onglets de l'information
  * sur les auteurs et sur les sources
  * 
- * @author Caroline Houle
  * @author Kitimir Yim
  */
 
 public class FenetreAPropos extends JPanel {
+	/** Constante permettant la sérialisation de la classe **/
 	private static final long serialVersionUID = -3110011146750233775L;
 
 	/**

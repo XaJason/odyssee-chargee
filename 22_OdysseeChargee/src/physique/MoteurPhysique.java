@@ -20,13 +20,13 @@ import tuile.Tuile;
 public class MoteurPhysique {
 
 	/** Accélération gravitationnelle (de la Terre par défaut) (en m/s^2) **/
-	public static double accelGrav = -9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
+	private static double accelGrav = -9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
 
 	/** Coefficient de frottement statique (acier-acier par défaut) **/
-	public static double coeffFrotStat = 0.75;
+	private static double coeffFrotStat = 0.75;
 
 	/** Coefficient de frottement cinétique (acier-acier par défaut) **/
-	public static double coeffFrotCine = 0.57;
+	private static double coeffFrotCine = 0.57;
 
 	/** Constante de Coulomb **/
 	private static final double K = 8.98755;
@@ -529,6 +529,16 @@ public class MoteurPhysique {
 	}
 
 	/**
+	 * Retourne l'accélération gravitationnelle
+	 * 
+	 * @return L'accélération gravitationnelle
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static double getAccelGrav() {
+		return accelGrav;
+	}
+	
+	/**
 	 * Modifie l'accélération gravitationnelle
 	 * 
 	 * @param accelGrav La nouvelle accélération gravitationnelle (en m/s^2)
@@ -538,4 +548,43 @@ public class MoteurPhysique {
 		MoteurPhysique.accelGrav = accelGrav;
 	}
 
+	/**
+	 * Retourne le coefficient de frottement statique
+	 * 
+	 * @return Le coefficient de frottement statique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static double getCoeffFrotStat() {
+		return coeffFrotStat;
+	}
+	
+	/**
+	 * Modifie le coefficient de frottement statique
+	 * 
+	 * @param coeffFrotStat Le nouveau coefficient de frottement statique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static void setCoeffFrotStat(double coeffFrotStat) {
+		MoteurPhysique.coeffFrotStat = coeffFrotStat;
+	}
+	
+	/**
+	 * Retourne le coefficient de frottement cinétique
+	 * 
+	 * @return Le coefficient de frottement cinétique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static double getCoeffFrotCine() {
+		return coeffFrotCine;
+	}
+	
+	/**
+	 * Modifie le coefficient de frottement cinétique
+	 * 
+	 * @param coeffFrotCine Le nouveau coefficient de frottement cinétique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static void setCoeffFrotCine(double coeffFrotCine) {
+		MoteurPhysique.coeffFrotCine = coeffFrotCine;
+	}
 }// fin classe

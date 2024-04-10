@@ -610,6 +610,7 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Lie un portail si nécessaire
+	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
 	// Kitimir Yim
 	private void lierPortail(Tuile tuile) {

@@ -62,32 +62,32 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 		segmentExterieur = new Line2D.Double(point1, point2);
 	}
 
-	/**
-	 * Constructeur
-	 * Permet de construire un objet de type aire,
-	 * à partir d'un autre objet du même type
-	 * 
-	 * @param aireACopier L'aire à copier
-	 * 
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public Aire(Aire aireACopier) {
-		Point2D.Double point1 = (Point2D.Double) aireACopier.getPointsExterieurs()[0].clone();
-		Point2D.Double point2 = (Point2D.Double) aireACopier.getPointsExterieurs()[1].clone();
-		Point2D.Double pointMilieu = (Point2D.Double) aireACopier.getPointMilieuDeTuile().clone();
-
-		forme = new Path2D.Double();
-		forme.moveTo(point1.getX(), point1.getY());
-		forme.lineTo(pointMilieu.getX(), pointMilieu.getY());
-		forme.lineTo(point2.getX(), point2.getY());
-		forme.closePath();
-
-		pointsExterieurs = new Point2D.Double[] { point1, point2 };
-
-		this.pointMilieuDeTuile = pointMilieu;
-
-		segmentExterieur = new Line2D.Double(point1, point2);
-	}
+//	/**
+//	 * Constructeur
+//	 * Permet de construire un objet de type aire,
+//	 * à partir d'un autre objet du même type
+//	 * 
+//	 * @param aireACopier L'aire à copier
+//	 * 
+//	 */
+//	// Enuel René Valentin Kizozo Izia
+//	public Aire(Aire aireACopier) {
+//		Point2D.Double point1 = (Point2D.Double) aireACopier.getPointsExterieurs()[0].clone();
+//		Point2D.Double point2 = (Point2D.Double) aireACopier.getPointsExterieurs()[1].clone();
+//		Point2D.Double pointMilieu = (Point2D.Double) aireACopier.getPointMilieuDeTuile().clone();
+//
+//		forme = new Path2D.Double();
+//		forme.moveTo(point1.getX(), point1.getY());
+//		forme.lineTo(pointMilieu.getX(), pointMilieu.getY());
+//		forme.lineTo(point2.getX(), point2.getY());
+//		forme.closePath();
+//
+//		pointsExterieurs = new Point2D.Double[] { point1, point2 };
+//
+//		this.pointMilieuDeTuile = pointMilieu;
+//
+//		segmentExterieur = new Line2D.Double(point1, point2);
+//	}
 
 	/**
 	 * Retourne la forme de l'aire

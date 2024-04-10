@@ -1,20 +1,20 @@
 package math;
 
+
+
+import java.awt.geom.Point2D;
+import java.io.Serializable;
 /**
  * Classe qui permet d'instancer des matrices de rotation pour permettre de rotationner différents objets
  * @author Giroux
  */
-
-import java.awt.geom.Point2D;
-import java.io.Serializable;
-
 public class MatriceRotation implements Serializable {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = 2819875705094597074L;
 	/** Angle de rotation transformé en radian **/
-	double angleRotation;
+	private double angleRotation;
 	/** Matrice de rotation **/
-	double[][] rotation = new double[2][2];
+	private double[][] rotation = new double[2][2];
 
 	/**
 	 * Matrice qui possède un angle en radian pour rotationner les blocs
