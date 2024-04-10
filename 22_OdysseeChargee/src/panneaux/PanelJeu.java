@@ -234,7 +234,7 @@ public class PanelJeu extends JPanel {
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(true);
-				zoneAnimationPhysique.setPlaquePositive(true);
+				changerBoutonSignePositif();
 			}
 		});
 		btnChargePositive.setBounds(41, 36, 33, 31);
@@ -245,7 +245,7 @@ public class PanelJeu extends JPanel {
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
-				zoneAnimationPhysique.setPlaquePositive(false);
+				changerBoutonSigneNégatif();
 			}
 		});
 		btnChargeNegative.setBounds(41, 78, 33, 31);
@@ -283,6 +283,26 @@ public class PanelJeu extends JPanel {
 		zoneAnimationPhysique.setNiveau(nomNiveau);
 	}
 
+	/**
+	 * Changer l'état du bouton positif et la charge de la plaque en conséquence
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void changerBoutonSignePositif() {
+		zoneAnimationPhysique.setPlaquePositive(true);
+		btnChargePositive.setEnabled(false);
+		btnChargeNegative.setEnabled(true);
+	}
+	
+	/**
+	 * Changer l'état du bouton négatif et la charge de la plaque en conséquence
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void changerBoutonSigneNégatif() {
+		zoneAnimationPhysique.setPlaquePositive(false);
+		btnChargeNegative.setEnabled(false);
+		btnChargePositive.setEnabled(true);
+	}
+	
 	/**
 	 * Créer la zone d'animation physique et
 	 * les boutons d'animation sur le panneau mode jeu
@@ -368,7 +388,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseVaisseau(), 0.01, 10.0, 0.01));
+		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseInitialeVaisseau(), 0.01, 20.0, 0.01));
 		spnMasseVaisseau.setBounds(225, 11, 140, 35);
 		panelEntree.add(spnMasseVaisseau);
 
@@ -380,7 +400,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeVaisseau(), -50.0, 50.0, 1.0));
+		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -200.0, 200.0, 10.0));
 		spnChargeVaisseau.setBounds(225, 81, 140, 35);
 		panelEntree.add(spnChargeVaisseau);
 
@@ -401,15 +421,11 @@ public class PanelJeu extends JPanel {
 		spnChargePlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
-				if (plaquePositive) {
-					zoneAnimationPhysique.setChargeDesPlaques((double) spnChargePlaque.getValue());
-				} else {
-					zoneAnimationPhysique.setChargeDesPlaques(-1 * ((double) spnChargePlaque.getValue()));
-				}
+				zoneAnimationPhysique.setChargeDesPlaques((double) spnChargePlaque.getValue());
 				// fin
 			}
 		});
-		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeDesPlaques(), 0.0, 50.0, 1.0));
+		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 100.0, 1.0));
 		spnChargePlaque.setBounds(225, 221, 140, 35);
 		panelEntree.add(spnChargePlaque);
 
@@ -466,7 +482,7 @@ public class PanelJeu extends JPanel {
 	 * @param positif Indique true si la plaque devient positive, false si négative
 	 */
 	// Giroux
-	private void changementStatutPlaque(Boolean positif) {
+	private void changementStatutPlaque(boolean positif) {
 		if (positif) {
 			plaquePositive = true;
 			lblEtatPlaque.setText("La plaque est: positive");

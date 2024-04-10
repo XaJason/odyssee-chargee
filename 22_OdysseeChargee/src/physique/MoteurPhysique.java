@@ -292,8 +292,7 @@ public class MoteurPhysique {
 				orientationChamp = orientationChamp.multiplie(-1);
 			}
 
-			System.out.println(
-					"Champ électrique sur le vaisseau : " + orientationChamp.multiplie(moduleChamp).toString(3));
+			System.out.println("Champ électrique sur le vaisseau : " + orientationChamp.multiplie(moduleChamp).toString(3));
 
 			return orientationChamp.multiplie(moduleChamp);
 		} catch (Exception e) {
@@ -346,21 +345,20 @@ public class MoteurPhysique {
 		// Collision aux extrémités
 		if ((collisionExtremiteA | collisionExtremiteB) & !vaisseauEntreExtremite) {
 			vitApresCol = calculVitesseApresCollisionExtremitePlaque(vaisseau, plaque, collisionExtremiteA);
-			System.out.println("Collision aux extrémités !");
+			//System.out.println("Collision aux extrémités !");
 			// Collision entre les extrémités
 		} else if (collisionPlaque) {
 			vitApresCol = calculVitesseApresCollisionFaceLateralePlaque(vaisseau, plaque);
-			System.out.println("Collision entre les extrémités !");
-			System.out
-					.println("Ajustements vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
+			//System.out.println("Collision entre les extrémités !");
+			//System.out.println("Ajustements vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
 
 			// Pas de collision
 		} else {
 			vitApresCol = vaisseau.getVitesse();
 		}
 
-		System.out.println("\nDistance vaisseau plaque : " + distanceVaisseauPointSurPlaque.module());
-		System.out.println("Plus petite distance vaisseau plaque : " + plusPetiteDistanceVaisseauPlaque + "\n");
+		//System.out.println("\nDistance vaisseau plaque : " + distanceVaisseauPointSurPlaque.module());
+		//System.out.println("Plus petite distance vaisseau plaque : " + plusPetiteDistanceVaisseauPlaque + "\n");
 
 		return vitApresCol;
 	}
@@ -383,17 +381,15 @@ public class MoteurPhysique {
 		// Repositionner vaisseau après collision pour éviter bug
 		try {
 			Vecteur2D normaleCollisionExtremite = vaisseau.getVitesse().multiplie(-1).normalise();
-			System.out.println("Orientation normale : " + normaleCollisionExtremite);
+			//System.out.println("Orientation normale : " + normaleCollisionExtremite);
 			if (collisionExtremiteA) {
 				vaisseau.setPosition(
 						plaque.getExtremiteA().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
-				System.out
-						.println("Ajustement vaisseau dû à une potentielle collision : " + vaisseau.toString(3) + "\n");
+				//System.out.println("Ajustement vaisseau dû à une potentielle collision : " + vaisseau.toString(3) + "\n");
 			} else {
 				vaisseau.setPosition(
 						plaque.getExtremiteB().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
-				System.out.println(
-						"Ajustement vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
+				//System.out.println("Ajustement vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
 			} // fin if
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -531,35 +527,6 @@ public class MoteurPhysique {
 		return !aireVaisseau.isEmpty();
 
 	}
-
-	// Pas nécéssaire, car polymorphisme
-
-//	/**
-//	 * Méthode qui vérifie si le vaisseau entre en collision avec le drapeau
-//	 * @return boolean de si le vaisseau et en collision
-//	 */
-//	//Kitimir Yim
-//	public static  boolean verifieCollisionVaisseauDrapeau(Vaisseau vaisseau, Drapeau drapeau) {
-//		Area aireVaisseau = vaisseau.getTuile().formeVaisseau();
-//		Area aireDrapeau = drapeau.formerAireObjetSpecial();
-//		aireVaisseau.intersect(aireDrapeau);
-//		return !aireVaisseau.isEmpty();
-//
-//	}
-//	
-//	
-//	/**
-//	 * Méthode qui vérifie si le vaisseau entre en collision avec le Portail
-//	 * @return boolean de si le vaisseau et en collision
-//	 */
-//	//Kitimir Yim 
-//	public static boolean verifieCollisionVaisseauPortail(Vaisseau vaisseau, Portail portail) {
-//		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
-//		Area airePortail = portail.formerAireObjetSpecial();
-//		aireVaisseau.intersect(airePortail);
-//		return !aireVaisseau.isEmpty();
-//
-//	}
 
 	/**
 	 * Modifie l'accélération gravitationnelle

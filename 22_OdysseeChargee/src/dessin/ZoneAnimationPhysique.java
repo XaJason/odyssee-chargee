@@ -77,7 +77,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
 	/** Charge initiale des plaques du niveau (en Coulomb) **/
-	private final double CHARGE_INITIALE_DES_PLAQUES = 20;
+	private final double CHARGE_INITIALE_DES_PLAQUES = 50;
 	/** Charge des plaques du niveau (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
 	/** Liste des plaques chargées **/
@@ -87,6 +87,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 																		// pour ne pas la voir
 	/** Determine si la plaque est positive ou non**/
 	private boolean plaquePositive = true;
+	/** Détermine le signe de la plaque chargée (1 si positive, -1 si négative) **/
+	private double signePlaque = 1;
 	/** Position en x(en mètres) de la plaque fantôme**/
 	private int posPlaqueX;
 	/** Position en y(en mètres) de la plaque fantôme **/
@@ -96,7 +98,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
-	private final double CHARGE_INITIALE_VAISSEAU = -5;
+	private final double CHARGE_INITIALE_VAISSEAU = -25;
 	/** Masse initiale du vaisseau (en kilogramme) **/
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
@@ -120,7 +122,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Force gravitationnelle agissant sur le vaisseau **/
 	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
-	private Vecteur2D sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+	private Vecteur2D sommeForcesSurVaisseau;
 
 	// /** Vecteur vitesse du vaisseau (en m/s) **/
 	// private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
@@ -231,6 +233,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							plaque.miseAJourExtremiteA();
 							plaque.miseAJourExtremiteB();
 							
+							/* On prend la valeur absolue de la charge des plaques pour s'assurer que c'est bien
+							 * la variable signePlaque qui lui attribue son signe
+							 */
+							chargeDesPlaques = Math.abs(chargeDesPlaques);
+							plaque.setCharge(signePlaque*chargeDesPlaques);
+							
 							if (fixerPlaqueSurTuile) {
 								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(), plaque.getPosition().getY() );
 								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()) );
@@ -273,7 +281,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		dessinerVaisseau(g2d);
 		dessinerPlaques(g2d);
 		dessinerPlaqueLorsSurvol(g2d);
-		//dessinerPlaqueFantome(g2d);
+		dessinerPlaqueFantome(g2d);
 	}
 
 	/**
@@ -336,10 +344,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} else {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
 			}
-			System.out.println("posPlaqueX : " + posPlaqueX / pixelsParMetre);
-			System.out.println("posPlaqueY : " + posPlaqueY / pixelsParMetre);
-			System.out.println("getPosX() : " + plaque.getPosition().getX());
-			System.out.println("getPosY() : " + plaque.getPosition().getY());
+			
 			g2d.drawImage(imagePlaque, (int) (plaque.getPosition().getX()), (int) (plaque.getPosition().getY()), null);
 		}
 	}
@@ -375,20 +380,23 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		Vecteur2D forceElec = VEC_ZERO;
 		for (PlaqueChargee p : listePlaquesChargees) {
-			forceElec = MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, p);
+			forceElec = forceElec.additionne(MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, p));
 		}
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
 		 * les forces d'autres plaques
 		 */
+		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
+		
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
 		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
 		for (PlaqueChargee p : listePlaquesChargees) {
 			System.out.println("Plaque : " + p.toString(3));
+			System.out.println("Force électrique sur vaisseau par plaque : "+ forceElec);
 		}
 		System.out.println(" ");
 	}
@@ -449,6 +457,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} // fin 2e boucle for
 		} // fin 1re boucle for
 	}// fin méthode
+
 
 	private void teleportation(Tuile tuile) {
 		Portail portailIni = (Portail) tuile;
@@ -632,11 +641,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeDesPlaques(double chargePlaques) {
-		this.chargeDesPlaques = chargePlaques;
+		this.chargeDesPlaques = signePlaque*chargePlaques;
 		// Changer la charge de toutes les plaques du niveau OU Changer la charge de la plaque à placer ?
 		// À déterminer, là ça les changes toutes (pour changer celle à placer il faut le faire lors de sa création)
 		for (PlaqueChargee p : listePlaquesChargees) {
-			p.setCharge(chargePlaques);
+			p.setCharge(signePlaque*chargePlaques);
 		}
 		repaint();
 	}
@@ -690,6 +699,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * @param btnActionnee La nouvelle valeur du booléen permettant de placer une
 	 *                     plaque dans le niveau (vrai si le bouton est enclenché)
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public void setPlacementPlaque(boolean btnActionnee) {
 		this.placementPlaque = btnActionnee;
 	}
@@ -735,30 +745,33 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		return DELTA_T_INITIAL;
 	}
 
-//	/**
-//	 * Méthode qui change si la plaque est sélectionnée ou le contraire
-//	 */
-//	//Giroux
-//	public void setPlaqueSelectionne() {
-//		if(plaqueSelectionne) {
-//			plaqueSelectionne =false;
-//		} else {
-//			plaqueSelectionne=true;
-//		}
-//	}
-
 	/**
 	 * Méthode qui change la nature de la plaque
 	 * 
-	 * @param positive True si elle devient poitive, false sinon
+	 * @param valeur True si elle devient poitive, false sinon
 	 */
 	// Giroux
-	public void setPlaquePositive(Boolean positive) {
-		if (positive) {
+	public void setPlaquePositive(boolean valeur) {
+		if (valeur) {
 			plaquePositive = true;
+			setSignePlaque();
 		} else {
 			plaquePositive = false;
+			setSignePlaque();
 		}
 	}
-
+	
+	/**
+	 * Modifie le signe de la plaque
+	 * Et met à jour sa charge
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void setSignePlaque() {
+		if (plaquePositive) {
+			signePlaque = 1;
+		} else {
+			signePlaque = -1;
+		}
+		setChargeDesPlaques(chargeDesPlaques);
+	}
 }

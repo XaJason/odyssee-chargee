@@ -232,8 +232,13 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-
-		g2dPrive.setColor(Color.green);
+		
+		if (Math.signum(getCharge()) > 0) {
+			g2dPrive.setColor(Color.green);
+		} else {
+			g2dPrive.setColor(Color.magenta);
+		}
+		
 		g2dPrive.draw(formePlaque);
 //		System.out.println("Plaque : "+this.toString(3));
 //		System.out.println("Sup gauche : "+coinSupGauche);
