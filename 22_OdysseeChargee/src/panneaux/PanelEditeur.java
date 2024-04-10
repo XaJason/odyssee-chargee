@@ -21,7 +21,7 @@ import tuile.Pics;
 import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
-import tuile.VaisseauTuile;
+import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
 
 /**
@@ -350,7 +350,7 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau = new JButton();
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new VaisseauTuile());
+				grille.setTuile(new VaisseauImage());
 				afficherSelection();
 			}
 		});

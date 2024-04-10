@@ -20,7 +20,7 @@ import utilitaires.OutilsImage;
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
  */
-public class VaisseauTuile extends Tuile implements Serializable {
+public class VaisseauImage extends Tuile implements Serializable {
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
@@ -46,7 +46,7 @@ public class VaisseauTuile extends Tuile implements Serializable {
 	 * 
 	 */
 	// Jason Xa
-	public VaisseauTuile() {
+	public VaisseauImage() {
 		super(image, type);
 		setVaisseau();
 	}
@@ -57,7 +57,7 @@ public class VaisseauTuile extends Tuile implements Serializable {
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
-	public VaisseauTuile(double angleRotation) {
+	public VaisseauImage(double angleRotation) {
 		super(angleRotation, image, type);
 		setVaisseau();
 	}
@@ -70,7 +70,7 @@ public class VaisseauTuile extends Tuile implements Serializable {
 	 * 
 	 */
 	// Jason Xa
-	public VaisseauTuile(int x, int y) {
+	public VaisseauImage(int x, int y) {
 		super(image, x, y, type);
 		setVaisseau();
 	}

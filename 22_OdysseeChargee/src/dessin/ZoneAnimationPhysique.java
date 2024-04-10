@@ -21,7 +21,7 @@ import physique.MoteurPhysique;
 import physique.Vecteur2D;
 import tuile.Portail;
 import tuile.Tuile;
-import tuile.VaisseauTuile;
+import tuile.VaisseauImage;
 import utilitaires.Aire;
 import utilitaires.OutilsImage;
 
@@ -124,7 +124,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// private Vecteur2D vitVaisseau = new Vecteur2D(VEC_ZERO);
 	// /** Vecteur accélération du vaisseau (en m/s^2) **/
 	// private Vecteur2D accelVaisseau = new Vecteur2D(VEC_ZERO);
-	// private VaisseauTuile tuileDuVaisseau = null;
+	// private VaisseauImage tuileDuVaisseau = null;
 	/**
 	 * Constructeur de la zone d'animation physique
 	 */
@@ -178,8 +178,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				Tuile tuile = tabTuiles[i][j];
 
 				if (tuile != null && tuile.getType().equals("Vaisseau")) {
-					// VaisseauTuile tuileDuVaisseau = (VaisseauTuile) tuile;
-					vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, (VaisseauTuile) tuile);
+					// VaisseauImage tuileDuVaisseau = (VaisseauImage) tuile;
+					vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, (VaisseauImage) tuile);
 
 					// Définir la position initial du vaisseau à l'aide de son emplacement dans le
 					// niveau (sa tuile)

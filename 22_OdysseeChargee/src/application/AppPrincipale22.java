@@ -33,7 +33,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
-import tuile.VaisseauTuile;
+import tuile.VaisseauImage;
 import utilitaires.ConstanteComposantsSwing;
 
 /**
@@ -189,7 +189,7 @@ public class AppPrincipale22 extends JFrame {
 		Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
 		Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
 		Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
-		VaisseauTuile.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU, DIAMETRE_VAISSEAU);
+		VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU, DIAMETRE_VAISSEAU);
 	}
 
 	/**

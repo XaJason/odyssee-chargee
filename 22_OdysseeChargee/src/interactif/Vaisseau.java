@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import physique.MoteurPhysique;
 import physique.Vecteur2D;
-import tuile.VaisseauTuile;
+import tuile.VaisseauImage;
 import utilitaires.Dessinable;
 
 /**
@@ -44,10 +44,10 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private Ellipse2D.Double cercle;
 
 	/**
-	 * Objet VaisseauTuile permettant d'accéder aux propriétés de la tuile du
+	 * Objet VaisseauImage permettant d'accéder aux propriétés de la tuile du
 	 * vaisseau
 	 **/
-	private VaisseauTuile tuile;
+	private VaisseauImage tuile;
 
 	// CONSTRUCTEUR //
 	/**
@@ -79,7 +79,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 * @param tuileDuVaisseau L'objet tuile représentant le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauTuile tuileDuVaisseau) {
+	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage tuileDuVaisseau) {
 		super(position, charge);
 		this.masse = masse;
 		this.tuile = tuileDuVaisseau;
@@ -310,24 +310,24 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	}
 
 	/**
-	 * Retourne l'objet VaisseauTuile qui contient les propriétés de la tuile du
+	 * Retourne l'objet VaisseauImage qui contient les propriétés de la tuile du
 	 * vaisseau
 	 * 
-	 * @return L'objet VaisseauTuile
+	 * @return L'objet VaisseauImage
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public VaisseauTuile getTuile() {
+	public VaisseauImage getTuile() {
 		return tuile;
 	}
 
 	/**
-	 * Modifie l'objet VaisseauTuile qui contient les propriétés de la tuile du
+	 * Modifie l'objet VaisseauImage qui contient les propriétés de la tuile du
 	 * vaisseau
 	 * 
-	 * @param tuileDuVaisseau Le nouvel objet VaisseauTuile
+	 * @param tuileDuVaisseau Le nouvel objet VaisseauImage
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void setTuile(VaisseauTuile tuileDuVaisseau) {
+	public void setTuile(VaisseauImage tuileDuVaisseau) {
 		this.tuile = tuileDuVaisseau;
 	}
 

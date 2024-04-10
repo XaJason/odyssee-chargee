@@ -306,7 +306,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 				image = TriangleRectangle.getImageRef();
 				break;
 			case "Vaisseau":
-				image = VaisseauTuile.getImageRef();
+				image = VaisseauImage.getImageRef();
 				break;
 			}// fin switch/case
 		} // fin if

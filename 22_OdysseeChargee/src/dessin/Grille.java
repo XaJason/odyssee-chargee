@@ -25,7 +25,7 @@ import tuile.Portail;
 import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
-import tuile.VaisseauTuile;
+import tuile.VaisseauImage;
 
 /**
  * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
@@ -385,7 +385,7 @@ public class Grille extends JPanel implements Serializable {
 			tuileTemp = new TriangleRectangle(tuile.getAngleRotation());
 			break;
 		case "Vaisseau":
-			tuileTemp = new VaisseauTuile(tuile.getAngleRotation());
+			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
 			break;
 		}
 
