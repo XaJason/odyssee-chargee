@@ -147,7 +147,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Kitimir Yim
 	public AppPrincipale22() {
-		setTitle("Odyssée Chargée");
+		setTitle("Odyssée chargée");
 		panMenuPrincipal = new JPanel();
 		setContentPane(panMenuPrincipal);
 		panMenuPrincipal.setLayout(null);
