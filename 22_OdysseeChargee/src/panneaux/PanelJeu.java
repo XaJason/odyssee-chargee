@@ -184,14 +184,14 @@ public class PanelJeu extends JPanel {
 		JLabel lblPosition = new JLabel("Position (m):");
 		lblPosition.setBounds(35, 233, 100, 26);
 		panelSortie.add(lblPosition);
-		
-		
+
+
 		textAreaVitesse = new JTextArea(vitesseString);
 		leveeEvenement();
 		textAreaVitesse.setBounds(216, 37, 150, 22);
 		panelSortie.add(textAreaVitesse);
-		
-		
+
+
 
 		JTextArea textAreaAcceleration = new JTextArea();
 		textAreaAcceleration.setBounds(216, 73, 150, 22);
@@ -388,7 +388,10 @@ public class PanelJeu extends JPanel {
 		btnReinitialiser.setBounds(1074, 773, 129, 23);
 		add(btnReinitialiser);
 	}
-
+	/**
+	 * S'occupe de la levée d'évenement
+	 */
+	//Kitimir Yim
 	private void leveeEvenement() {
 
 		zoneAnimationPhysique.addPropertyChangeListener(new PropertyChangeListener() {

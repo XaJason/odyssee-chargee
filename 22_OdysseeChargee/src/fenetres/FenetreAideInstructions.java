@@ -44,7 +44,7 @@ public class FenetreAideInstructions extends JFrame {
 	/**
 	 * Tableau des images
 	 */
-	private String tableauImages[] = { "" };
+	private String tableauImages[] = { "Version Beta-1.jpg" };
 	/**
 	 * Label attention
 	 */
