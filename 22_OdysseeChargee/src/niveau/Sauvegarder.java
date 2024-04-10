@@ -35,7 +35,7 @@ public class Sauvegarder {
 	// Kitimir Yim
 	public static void sauvegarderNiveau(Niveau niveau, String numeroNiveau) {
 
-		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + numeroNiveau + EXTENSION_FICHIER;
+		String nomFichier = DOSSIER_SAUVEGARDE + numeroNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
 
@@ -70,7 +70,7 @@ public class Sauvegarder {
 	 */
 	// Kitimir Yim
 	public static Niveau chargerNiveau(String identifiantNiveau) {
-		String nomFichier = DOSSIER_SAUVEGARDE + "niveau_" + identifiantNiveau + EXTENSION_FICHIER;
+		String nomFichier = DOSSIER_SAUVEGARDE + identifiantNiveau + EXTENSION_FICHIER;
 
 		File fichierDeTravail = new File(nomFichier);
 

@@ -111,12 +111,9 @@ public class Grille extends JPanel implements Serializable {
 				clique = e.getPoint();
 				if (!supprimer) {
 					if (tuile != null) {
+						
 						sauvegarderEmplacement();
-						if(tuile.getType().equals("Portail")){
-							nbPortails++;
-							lierPortail(tuile);
 
-						}
 					}
 				} else {
 					supprimerCase();
@@ -186,15 +183,15 @@ public class Grille extends JPanel implements Serializable {
 		if (modeEditeur) {
 			if (premiereFois) {
 
-			tabEmplacement = new Tuile[nbCase][nbCase];
-			
-//			pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
-//			hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
-			
-			hauteurDuComposantEnMetre = this.getHeight();
-			largeurDuComposantEnMetre = this.getWidth();
-			dimensionCase();
-			dessinerQuadrillage();
+				tabEmplacement = new Tuile[nbCase][nbCase];
+
+				//			pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
+				//			hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
+
+				hauteurDuComposantEnMetre = this.getHeight();
+				largeurDuComposantEnMetre = this.getWidth();
+				dimensionCase();
+				dessinerQuadrillage();
 
 				premiereFois = false;
 			}
@@ -379,7 +376,6 @@ public class Grille extends JPanel implements Serializable {
 		case "Portail":
 			tuileTemp = new Portail(tuile.getAngleRotation());
 			nbPortails++;
-			System.out.println("lebron");
 			lierPortail(tuileTemp);
 			break;
 		case "Triangle équilatéral":
@@ -616,14 +612,13 @@ public class Grille extends JPanel implements Serializable {
 	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
-			
-			
+
 			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
 			Portail premierPortail = (Portail) portailTuile;
 			Portail deuxiemePortail = (Portail) tuile;
 			if(premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
-				deuxiemePortail.definirPortailAssocie(premierPortail);
+				
 				System.out.println("Ce portail a maintenant un duo");
 			}	
 		}else {
