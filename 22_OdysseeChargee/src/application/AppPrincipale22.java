@@ -18,6 +18,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import fenetres.FenetreAPropos;
 import fenetres.FenetreAideInstructions;
@@ -130,6 +132,13 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Kitimir Yim
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
