@@ -292,7 +292,7 @@ public class MoteurPhysique {
 				orientationChamp = orientationChamp.multiplie(-1);
 			}
 
-			System.out.println("Champ électrique sur le vaisseau : " + orientationChamp.multiplie(moduleChamp).toString(3));
+			//System.out.println("Champ électrique sur le vaisseau : " + orientationChamp.multiplie(moduleChamp).toString(3));
 
 			return orientationChamp.multiplie(moduleChamp);
 		} catch (Exception e) {
@@ -493,15 +493,24 @@ public class MoteurPhysique {
 		boolean collisionExtremiteA = dVaisseauExtrA.module() < vaisseau.getRayon();
 		boolean collisionExtremiteB = dVaisseauExtrB.module() < vaisseau.getRayon();
 
-		// Collision aux extrémités
-		if ((collisionExtremiteA | collisionExtremiteB) & !vaisseauEntreExtremite) {
+		// Collision aux extrémités 
+		/*
+		 * Gérer les collisions avec des coins des surfaces qui correspond aux extrémités de 2 segments
+		 */
+		if ((collisionExtremiteA | collisionExtremiteB) & !vaisseauEntreExtremite & false) {
 			vitApresCol = calculVitesseApresCollisionExtremiteSegment(vaisseau, segment, collisionExtremiteA);
-			//System.out.println("Collision aux extrémités !");
+//			System.out.println("Collision aux extrémités !");
+//			System.out.println("Point A : " +segment.getExtremiteA());
+//			System.out.println("Point B : " +segment.getExtremiteB());
+//			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
 			
 		// Collision entre les extrémités
 		} else if (collisionLateralSegment) {
 			vitApresCol = calculVitesseApresCollisionFaceLateraleSegment(vaisseau, segment);
-			//System.out.println("Collision entre les extrémités !");
+			System.out.println("Collision entre les extrémités !");
+			System.out.println("Point A : " +segment.getExtremiteA());
+			System.out.println("Point B : " +segment.getExtremiteB());
+			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
 			//System.out.println("Ajustements vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
 
 			// Pas de collision
@@ -581,10 +590,13 @@ public class MoteurPhysique {
 			vitApresCol = orientationVitesseFinale.multiplie(moduleVitApresCol);
 
 			// Repositionner vaisseau après collision pour éviter bug
+			System.out.println("Point A : " +segment.getExtremiteA());
+			System.out.println("Point B : " +segment.getExtremiteB());
+			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
 			Vecteur2D distanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque());
 			Vecteur2D dVaisseauExtrA = segment.getExtremiteA().soustrait(vaisseau.getPosition());
 			double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(segment.getAxe()));
-			Vecteur2D lieuCollision = segment.getExtremiteA().soustrait(segment.getAxe().multiplie(dVaisseauExtrASurAxe));
+			Vecteur2D lieuCollision = segment.getExtremiteA().additionne(segment.getAxe().multiplie(dVaisseauExtrASurAxe)); //surveiller si additionne pu soustraire car pour plaque fallait soustraire, mais la l'axe est dans l'autre sens idk why
 			if (distanceSegmentVaisseau.prodScalaire(segment.getNormale()) > 0) {
 				vaisseau.setPosition(lieuCollision
 						.additionne(segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON)));

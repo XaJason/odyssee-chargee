@@ -13,7 +13,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import interactif.PlaqueChargee;
@@ -258,7 +257,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							
 							if (fixerPlaqueSurTuile) {
 								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(), plaque.getPosition().getY() );
-								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, chargeDesPlaques) );
+								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()) );
 							}
 						}
 					} // fin 2e if
@@ -412,10 +411,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.avancerUnPas(deltaT);
 
 		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
-		for (PlaqueChargee p : listePlaquesChargees) {
-			System.out.println("Plaque : " + p.toString(3));
-			System.out.println("Force électrique sur vaisseau par plaque : "+ forceElec);
-		}
+//		for (PlaqueChargee p : listePlaquesChargees) {
+//			System.out.println("Plaque : " + p.toString(3));
+//			System.out.println("Force électrique sur vaisseau par plaque : "+ forceElec);
+//		}
 		System.out.println(" ");
 	}
 
@@ -434,7 +433,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
 		 */
 		testerCollisionsAvecPlaque();
-		//testerCollisionAvecSurfaceDesBlocs();
+		testerCollisionAvecSurfaceDesBlocs();
 		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
 		testerCollisionsAvecObjetsSpeciaux();
 	}
@@ -553,7 +552,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		enCoursDAnimation = false;
 		System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
 		calculerUneIterationPhysique(deltaT);
-		// repaint();
+		//repaint();
 		testerCollisionsEtAjusterVitesses();
 		repaint();
 	}// fin methode prochaineImage
@@ -852,7 +851,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	//Kitimir Yim
 	private void leveeVitesse() {
-		PCS.firePropertyChange("changerVitesse", null, getVitesse());
+		PCS.firePropertyChange("changerVitesse", null, vaisseau.getVitesse().module());
 	}
 
 	
