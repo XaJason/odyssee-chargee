@@ -98,6 +98,8 @@ public class Grille extends JPanel implements Serializable {
 	 * Compteur du nombre de portail
 	 */
 	private int nbPortails = 0;
+	/** premier portail **/
+	private Portail premierPortail;
 
 	/**
 	 * Création du panneau
@@ -580,42 +582,8 @@ public class Grille extends JPanel implements Serializable {
 		this.dansModeJeu = dansModeJeu;
 	}
 
-	/**
-	 * Vérifie si la grille contient au moins une tuile du type spécifié.
-	 * 
-	 * @param typeTuile le type de tuile à rechercher dans la grille
-	 * @return true si au moins une tuile du type spécifié est présente, sinon false
-	 */
-	// Kitimir Yim
-	public boolean contientTuile(Class<?> typeTuile) {
-		for (int i = 0; i < nbCase; i++) {
-			for (int j = 0; j < nbCase; j++) {
-				if (tabEmplacement[i][j] != null && typeTuile.isInstance(tabEmplacement[i][j])) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 
-	/**
-	 * Recherche et retourne la première tuile du type spécifié dans la grille.
-	 * 
-	 * @param typeTuile le type de tuile à rechercher dans la grille
-	 * @return la tuile du type spécifié, ou null si aucune tuile n'est trouvée
-	 */
-	// Kitimir Yim
-	public Tuile chercherTuile(Class<?> typeTuile) {
-		for (int i = 0; i < nbCase; i++) {
-			for (int j = 0; j < nbCase; j++) {
-				if (tabEmplacement[i][j] != null && typeTuile.isInstance(tabEmplacement[i][j])) {
-					return tabEmplacement[i][j];
-				}
-			}
-		}
-		return null;
-	}
-
+	
 	/**
 	 * Lie un portail si nécessaire
 	 * 
@@ -625,8 +593,6 @@ public class Grille extends JPanel implements Serializable {
 	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
-			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
-			Portail premierPortail = (Portail) portailTuile;
 			Portail deuxiemePortail = (Portail) tuile;
 			if (premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
@@ -635,6 +601,7 @@ public class Grille extends JPanel implements Serializable {
 			}
 		} else {
 			System.out.println("Ce portail n'a pas de duo. N'oubliez pas de lui créer un partenaire.");
+			premierPortail = (Portail)tuile;
 
 		}
 	}

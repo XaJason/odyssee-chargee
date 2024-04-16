@@ -339,7 +339,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(499, 773, 89, 23);
+		btnDemarrer.setBounds(10, 10, 89, 23);
 		add(btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
