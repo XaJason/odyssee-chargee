@@ -123,7 +123,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
 	private Vecteur2D sommeForcesSurVaisseau;
+
 	
+	private double dernierUsageDuPortail = 0;
 
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
@@ -248,13 +250,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 									aireOuEstCurseur.getPointMilieuDeTuile().getY()));
 							plaque.miseAJourExtremiteA();
 							plaque.miseAJourExtremiteB();
-							
+
 							/* On prend la valeur absolue de la charge des plaques pour s'assurer que c'est bien
 							 * la variable signePlaque qui lui attribue son signe
 							 */
 							chargeDesPlaques = Math.abs(chargeDesPlaques);
 							plaque.setCharge(signePlaque*chargeDesPlaques);
-							
+
 							if (fixerPlaqueSurTuile) {
 								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(), plaque.getPosition().getY() );
 								listePlaquesChargees.add( new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()) );
@@ -360,7 +362,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} else {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
 			}
-			
+
 			g2d.drawImage(imagePlaque, (int) (plaque.getPosition().getX()), (int) (plaque.getPosition().getY()), null);
 		}
 	}
@@ -406,15 +408,15 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 */
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceElec);
-		
+
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
 		System.out.println("Le vaisseau bleu : " + vaisseau.toString(3));
-//		for (PlaqueChargee p : listePlaquesChargees) {
-//			System.out.println("Plaque : " + p.toString(3));
-//			System.out.println("Force électrique sur vaisseau par plaque : "+ forceElec);
-//		}
+		//		for (PlaqueChargee p : listePlaquesChargees) {
+		//			System.out.println("Plaque : " + p.toString(3));
+		//			System.out.println("Force électrique sur vaisseau par plaque : "+ forceElec);
+		//		}
 		System.out.println(" ");
 	}
 
@@ -447,7 +449,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			vaisseau.gererCollisionAvecPlaque(p);
 		}
 	}
-	
+
 	/**
 	 * Teste la collision avec la surface des blocs (carrés et triangles)
 	 * Donc avec tous leurs segments
@@ -466,12 +468,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 						vaisseau.gererCollisionAvecSegment(segment);
 					}
 
-					
+
 				} // fin if
 			} // fin 2e boucle for
 		} // fin 1re boucle for
 	}
-	
+
 	/**
 	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux
 	 * (drapeau, pics, portail)
@@ -507,7 +509,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} // fin 2e boucle for
 		} // fin 1re boucle for
 	}// fin méthode
-	
+
 	/**
 	 * Gère la téléportation d'un portail à un autre
 	 * @param tuile tuile du portail
@@ -517,11 +519,19 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		Portail portailIni = (Portail) tuile;
 		Portail portailFinal = portailIni.getPortailAssocie();
 		int rayon = Tuile.getHauteurTuile() / 2;
+		
+		double tempsActuel = System.currentTimeMillis();
+		double cooldown = 10000; 
+		if (tempsActuel - dernierUsageDuPortail >= cooldown)  {
 
-		Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
-		Double posDeYPortail = portailFinal.getPointZero().getY() + rayon + Tuile.getHauteurTuile();
-		Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
-		vaisseau.setPosition(posPortailFinal);
+			dernierUsageDuPortail = tempsActuel; 
+			Double posDeXPortail = portailFinal.getPointZero().getX() + rayon ;
+			Double posDeYPortail = portailFinal.getPointZero().getY() + rayon + Tuile.getHauteurTuile() ;
+			Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
+			vaisseau.setPosition(posPortailFinal);
+		} else {
+			System.out.println("Le portail est en cours de refroidissement.");
+		}
 	}
 
 	/**
@@ -815,7 +825,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		}
 		//setChargeDesPlaques(chargeDesPlaques);
 	}
-	
+
 	/**
 	 * Modifie le signe de la plaque
 	 * Et met à jour sa charge
@@ -827,12 +837,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} else {
 			signePlaque = -1;
 		}// fin if
-		
+
 		chargeDesPlaques = Math.abs(chargeDesPlaques);
 		for (PlaqueChargee p : listePlaquesChargees) {
 			p.setCharge(signePlaque*chargeDesPlaques);
 		}// fin for
-		
+
 		repaint();
 	}
 	/**
@@ -841,10 +851,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	//Kitimir Yim
 	private double getVitesse() {
-	    double vitesseX = vaisseau.getVitesse().getX();
-	    double vitesseY = vaisseau.getVitesse().getY();
-	    double vitesseTotale = Math.sqrt(vitesseX * vitesseX + vitesseY * vitesseY);
-	    return vitesseTotale;
+		double vitesseX = vaisseau.getVitesse().getX();
+		double vitesseY = vaisseau.getVitesse().getY();
+		double vitesseTotale = Math.sqrt(vitesseX * vitesseX + vitesseY * vitesseY);
+		return vitesseTotale;
 	}
 	/**
 	 * Envoie le message de levée d'évenements
@@ -854,5 +864,5 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		PCS.firePropertyChange("changerVitesse", null, vaisseau.getVitesse().module());
 	}
 
-	
+
 }

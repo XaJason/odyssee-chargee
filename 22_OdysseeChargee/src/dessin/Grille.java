@@ -622,7 +622,7 @@ public class Grille extends JPanel implements Serializable {
 			Portail deuxiemePortail = (Portail) tuile;
 			if (premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
-			
+				deuxiemePortail.definirPortailAssocie(premierPortail);
 				System.out.println("Ce portail a maintenant un duo");
 			}
 		} else {
