@@ -399,7 +399,7 @@ public class PanelEditeur extends JPanel {
 
 		lblReinitialiser = new JLabel("Réinitialiser le niveau");
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReinitialiser.setBounds(101, 694, 119, 13);
+		lblReinitialiser.setBounds(89, 694, 142, 13);
 		add(lblReinitialiser);
 
 		lblSupprimer = new JLabel("Supprimer");
