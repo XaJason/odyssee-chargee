@@ -618,13 +618,13 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Lie un portail si nécessaire
+	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
 	// Kitimir Yim
 	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
-
 			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
 			Portail premierPortail = (Portail) portailTuile;
 			Portail deuxiemePortail = (Portail) tuile;
