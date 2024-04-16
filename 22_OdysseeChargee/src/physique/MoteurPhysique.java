@@ -31,10 +31,7 @@ public class MoteurPhysique {
 	/** Constante de Coulomb **/
 	private static final double K = 8.98755;
 
-	/**
-	 * Coefficient de restitution pour un vaisseau et une surface, tous deux en
-	 * acier
-	 **/
+	/** Coefficient de restitution pour un vaisseau et une surface, tous deux en acier **/
 	private static final double COEFF_E = 19.0 / 20.0;
 
 	/** Tolérance utilisée dans les comparaisons réelles avec zéro **/
@@ -43,6 +40,9 @@ public class MoteurPhysique {
 	/** Rapport entre les radians et les degrés **/
 	private static final double RAPPORT_RADIANS_DEGRES = 2 * Math.PI / 360;
 
+	/** Accélération du réacteur dorsal (en m/s^2) **/
+	private static final double ACCEL_JETPACK = 250;
+	
 	/** Vecteur nul **/
 	private static final Vecteur2D VEC_ZERO = new Vecteur2D();
 
@@ -186,7 +186,47 @@ public class MoteurPhysique {
 		}
 		return forceFrot;
 	}
-
+	
+	/**
+	 * Applique une force constante, vers la gauche, sur un vaisseau
+	 * @param masse La masse du vaisseau
+	 * @return La force appliquée sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Vecteur2D appliqueForceVersGauche(double masse) {
+		return new Vecteur2D(-ACCEL_JETPACK*masse, 0);
+	}
+	
+	/**
+	 * Applique une force constante, vers la droite, sur un vaisseau
+	 * @param masse La masse du vaisseau
+	 * @return La force appliquée sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Vecteur2D appliqueForceVersDroite(double masse) {
+		return new Vecteur2D(ACCEL_JETPACK*masse, 0);
+	}
+	
+	/**
+	 * Applique une force constante, vers le haut, sur un vaisseau
+	 * @param masse La masse du vaisseau
+	 * @return La force appliquée sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Vecteur2D appliqueForceVersHaut(double masse) {
+		return new Vecteur2D(0, -ACCEL_JETPACK*masse);	//Changer les signes éventuellement
+	}
+	
+	/**
+	 * Applique une force constante, vers le bas, sur un vaisseau
+	 * @param masse La masse du vaisseau
+	 * @return La force appliquée sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static Vecteur2D appliqueForceVersBas(double masse) {
+		return new Vecteur2D(0, ACCEL_JETPACK*masse);	//Changer les signes éventuellement
+	}
+	
 	/**
 	 * Calcule le force électrique d'une plaque sur un vaisseau
 	 * 
@@ -507,10 +547,10 @@ public class MoteurPhysique {
 		// Collision entre les extrémités
 		} else if (collisionLateralSegment) {
 			vitApresCol = calculVitesseApresCollisionFaceLateraleSegment(vaisseau, segment);
-			System.out.println("Collision entre les extrémités !");
-			System.out.println("Point A : " +segment.getExtremiteA());
-			System.out.println("Point B : " +segment.getExtremiteB());
-			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
+//			System.out.println("Collision entre les extrémités !");
+//			System.out.println("Point A : " +segment.getExtremiteA());
+//			System.out.println("Point B : " +segment.getExtremiteB());
+//			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
 			//System.out.println("Ajustements vaisseau dû à une collision avec la plaque : " + vaisseau.toString(3) + "\n");
 
 			// Pas de collision
@@ -675,7 +715,7 @@ public class MoteurPhysique {
 
 		return vitApresCol;
 	}// fin méthode
-
+	
 	/**
 	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
 	 * 

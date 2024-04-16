@@ -185,8 +185,8 @@ public class Grille extends JPanel implements Serializable {
 
 				tabEmplacement = new Tuile[nbCase][nbCase];
 
-				// pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
-				// hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
+//				pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
+//				hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
 
 				hauteurDuComposantEnMetre = this.getHeight();
 				largeurDuComposantEnMetre = this.getWidth();
