@@ -119,7 +119,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
-		g2dPrive.setColor(Color.black);
+		if (Math.signum(getCharge()) > 0) {
+			g2dPrive.setColor(Color.green);
+		} else {
+			g2dPrive.setColor(Color.magenta);
+		}
+		
 		g2dPrive.fill(cercle);
 
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile

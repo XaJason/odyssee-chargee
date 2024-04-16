@@ -238,6 +238,7 @@ public class PanelJeu extends JPanel {
 		tglbtnPlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				zoneAnimationPhysique.setPlacementPlaque(tglbtnPlaque.isSelected());
+				zoneAnimationPhysique.requestFocusInWindow();
 			}
 		});
 		tglbtnPlaque.setBounds(155, 63, 212, 31);
@@ -249,6 +250,7 @@ public class PanelJeu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(true);
 				changerBoutonSignePositif();
+				zoneAnimationPhysique.requestFocusInWindow();
 			}
 		});
 		btnChargePositive.setBounds(41, 36, 33, 31);
@@ -260,6 +262,7 @@ public class PanelJeu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
 				changerBoutonSigneNegatif();
+				zoneAnimationPhysique.requestFocusInWindow();
 			}
 		});
 		btnChargeNegative.setBounds(41, 78, 33, 31);
@@ -334,6 +337,7 @@ public class PanelJeu extends JPanel {
 				zoneAnimationPhysique.demarrer();
 				btnProchaineImage.setEnabled(false);
 				btnDemarrer.setEnabled(false);
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -347,6 +351,7 @@ public class PanelJeu extends JPanel {
 				zoneAnimationPhysique.arreter();
 				btnProchaineImage.setEnabled(true);
 				btnDemarrer.setEnabled(true);
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -360,6 +365,7 @@ public class PanelJeu extends JPanel {
 				zoneAnimationPhysique.recommencer();
 				btnProchaineImage.setEnabled(true);
 				btnDemarrer.setEnabled(true);
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -371,6 +377,7 @@ public class PanelJeu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// debut
 				zoneAnimationPhysique.prochaineImage();
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -382,6 +389,7 @@ public class PanelJeu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// debut
 				reinitialiserZoneAnimation();
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -416,6 +424,7 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// debut
 				zoneAnimationPhysique.setMasseVaisseau((double) spnMasseVaisseau.getValue());
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -428,6 +437,7 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// debut
 				zoneAnimationPhysique.setChargeVaisseau((double) spnChargeVaisseau.getValue());
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -441,6 +451,7 @@ public class PanelJeu extends JPanel {
 				// debut
 				MoteurPhysique.setAccelGrav((double) spnGravite.getValue());
 				zoneAnimationPhysique.setForceGrav();
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -453,6 +464,7 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// debut
 				zoneAnimationPhysique.setChargeDesPlaques((double) spnChargePlaque.getValue());
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -465,6 +477,7 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				//début
 				MoteurPhysique.setCoeffFrotStat((double) spnCoefFrictionStat.getValue());
+				zoneAnimationPhysique.requestFocusInWindow();
 				//fin
 			}
 		});
@@ -477,6 +490,7 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				//début
 				MoteurPhysique.setCoeffFrotCine((double) spnCoefFrictionCine.getValue());
+				zoneAnimationPhysique.requestFocusInWindow();
 				//fin
 			}
 		});
@@ -489,6 +503,7 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// debut
 				zoneAnimationPhysique.setDeltaT((double) spnDeltaT.getValue());
+				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
@@ -539,4 +554,7 @@ public class PanelJeu extends JPanel {
 		}
 	}
 
+	public ZoneAnimationPhysique getZoneAnimationPhysique() {
+		return zoneAnimationPhysique;
+	}
 }
