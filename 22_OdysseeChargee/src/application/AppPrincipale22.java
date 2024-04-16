@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import dessin.ZoneAnimationPhysique;
 import fenetres.FenetreAPropos;
 import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
@@ -376,14 +377,13 @@ public class AppPrincipale22 extends JFrame {
 		if (evt.getPropertyName().equals("passerVersJeu")) {
 			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau");
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
-			// panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+			
 		}
 
 		if (evt.getPropertyName().equals("niveauSelectionne")) {
 			Niveau niveauSelectionne = (Niveau) evt.getNewValue();
-			panModeJeu.niveauAfficher(niveauSelectionne.getNom());
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauSelectionne.getNom());
-			// panModeJeu.niveauAfficher(niveauSelectionne.getNomNiveau());
+			
 		}
 	}
 

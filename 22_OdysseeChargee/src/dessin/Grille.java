@@ -375,8 +375,7 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Portail":
 			tuileTemp = new Portail(tuile.getAngleRotation());
-			nbPortails++;
-			lierPortail(tuileTemp);
+			gererPortails();
 			break;
 		case "Triangle équilatéral":
 			tuileTemp = new TriangleEquilateral(tuile.getAngleRotation());
@@ -389,6 +388,15 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		}
 
+	}
+
+	/**
+	 * Gére les portails
+	 */
+	//Kitimir Yim
+	private void gererPortails() {
+		nbPortails++;
+		lierPortail(tuileTemp);
 	}
 
 	/**

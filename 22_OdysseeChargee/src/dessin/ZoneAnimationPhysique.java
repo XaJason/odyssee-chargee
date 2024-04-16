@@ -86,7 +86,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vecteur2D forceJetpack = new Vecteur2D( VEC_ZERO );
 	/** Booléen qui indique si le mode réacteur dorsal est activé **/
 	private boolean modeJetpack = false;
-	
+
 	// Caractéristiques du clavier
 	/** Booléen qui indique l'état d'enfoncement de la touche flèche gauche **/
 	private boolean gauche;
@@ -96,8 +96,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private boolean haut;
 	/** Booléen qui indique l'état d'enfoncement de la touche flèche bas **/
 	private boolean bas;
-	
-	
+
+
 	// pour ne pas la voir
 	/** Determine si la plaque est positive ou non**/
 	private boolean plaquePositive = true;
@@ -115,8 +115,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private ArrayList<PlaqueChargee> listePlaquesChargees = new ArrayList<PlaqueChargee>();
 	/** Plaque chargée **/
 	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); // Placée par défaut à l'extérieur du composant
-	
-	
+
+
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
 	private final double CHARGE_INITIALE_VAISSEAU = -25;
@@ -144,8 +144,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Sommes des forces agissant sur le vaisseau **/
 	private Vecteur2D sommeForcesSurVaisseau;
+	/** Force électrique sur le vaisseau**/
+	private Vecteur2D forcesElec = VEC_ZERO;
 
-	
 	private double dernierUsageDuPortail = 0;
 
 	/**
@@ -242,7 +243,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau.getGrille().setDansModeJeu(true);
 	}// fin constructeur
 
-	
+
 	// SOUS-PROGRAMMES //
 	/**
 	 * Place le vaisseau au bon endroit dans la grille pour le début de l'animation,
@@ -424,7 +425,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			System.out.println("Un tour de run...on avance de " + deltaT + " secondes");
 			calculerUneIterationPhysique(deltaT);
 			testerCollisionsEtAjusterVitesses();
-			leveeVitesse();
+			leveeSorties();
 			repaint();
 			try {
 				Thread.sleep(tempsDuSleep);
@@ -447,23 +448,23 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		// Initialise la force gravitationnelle agissant sur le vaisseau
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
-		
+
 		// Initialise les forces électriques agissant sur le vaisseau
-		Vecteur2D forcesElec = VEC_ZERO;
+		forcesElec = VEC_ZERO;
 		for (PlaqueChargee p : listePlaquesChargees) {
 			forcesElec = forcesElec.additionne(MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, p));
 		}
 		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forcesElec);
-		
+
 		// Initialise les forces du réacteur dorsal agissant sur le vaisseau
 		appliquerForcesDuJetpack();
 		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceJetpack);
-		
+
 		/*
 		 * Éventuellement il faudra initialiser
 		 * les forces de frottement (statique et cinétique)
 		 */
-		
+
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
@@ -574,14 +575,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		Portail portailIni = (Portail) tuile;
 		Portail portailFinal = portailIni.getPortailAssocie();
 		int rayon = Tuile.getHauteurTuile() / 2;
-		
+
 		double tempsActuel = System.currentTimeMillis();
 		double cooldown = 10000; 
 		if (tempsActuel - dernierUsageDuPortail >= cooldown)  {
 
 			dernierUsageDuPortail = tempsActuel; 
 			Double posDeXPortail = portailFinal.getPointZero().getX() + rayon ;
-			Double posDeYPortail = portailFinal.getPointZero().getY() + rayon + Tuile.getHauteurTuile() ;
+			Double posDeYPortail = portailFinal.getPointZero().getY() + rayon ;
 			Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
 			vaisseau.setPosition(posPortailFinal);
 		} else {
@@ -692,33 +693,33 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	private void actualiserTouchesEnfoncees(KeyEvent e, boolean toucheEnfoncee) {
 		int code = e.getKeyCode();
-		
+
 		switch (code) {
-			case KeyEvent.VK_LEFT:
-				gauche = toucheEnfoncee;
-				break;
-	
-			 case KeyEvent.VK_RIGHT:
-				droite = toucheEnfoncee;
-				break;
-	
-			 case KeyEvent.VK_UP:
-				haut = toucheEnfoncee;
-				break;
-	
-			 case KeyEvent.VK_DOWN:
-				bas = toucheEnfoncee;
-				break;
+		case KeyEvent.VK_LEFT:
+			gauche = toucheEnfoncee;
+			break;
+
+		case KeyEvent.VK_RIGHT:
+			droite = toucheEnfoncee;
+			break;
+
+		case KeyEvent.VK_UP:
+			haut = toucheEnfoncee;
+			break;
+
+		case KeyEvent.VK_DOWN:
+			bas = toucheEnfoncee;
+			break;
 		}// fin switch
 	}// fin méthode
-	
+
 	/**
 	 * Applique des forces constantes sur le vaisseau selon l'état d'enfoncement des flèches sur le clavier
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void appliquerForcesDuJetpack() {
 		Vecteur2D forceTemp = new Vecteur2D(VEC_ZERO);
-		
+
 		if (gauche) {
 			forceTemp = forceTemp.additionne( MoteurPhysique.appliqueForceVersGauche(vaisseau.getMasse()) );
 		} else {
@@ -730,7 +731,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} else {
 			forceTemp = forceTemp.additionne(VEC_ZERO);
 		}// fin if
-		
+
 		if (haut) {
 			forceTemp = forceTemp.additionne( MoteurPhysique.appliqueForceVersHaut(vaisseau.getMasse()) );
 		} else {
@@ -742,10 +743,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} else {
 			forceTemp = forceTemp.additionne(VEC_ZERO);
 		}// fin if
-		
+
 		forceJetpack = new Vecteur2D( forceTemp );
 	}//fin methode
-	
+
 	// GETTERS ET SETTERS //
 	/**
 	 * Retourne la charge du vaisseau
@@ -833,9 +834,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		this.chargeDesPlaques = signePlaque*chargePlaques;
 		//  Changer la charge de la plaque à placer 
 		// À déterminer, là ça les changes toutes (pour changer celle à placer il faut le faire lors de sa création)
-//		for (PlaqueChargee p : listePlaquesChargees) {
-//			p.setCharge(signePlaque*chargePlaques);
-//		}
+		//		for (PlaqueChargee p : listePlaquesChargees) {
+		//			p.setCharge(signePlaque*chargePlaques);
+		//		}
 		repaint();
 	}
 
@@ -964,31 +965,28 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			signePlaque = -1;
 		}// fin if
 
-		
-//		chargeDesPlaques = Math.abs(chargeDesPlaques);
-//		for (PlaqueChargee p : listePlaquesChargees) {
-//			p.setCharge(signePlaque*chargeDesPlaques);
-//		}// fin for
-		
+
+		//		chargeDesPlaques = Math.abs(chargeDesPlaques);
+		//		for (PlaqueChargee p : listePlaquesChargees) {
+		//			p.setCharge(signePlaque*chargeDesPlaques);
+		//		}// fin for
+
 		repaint();
 	}
-	/**
-	 * Envoie la vitesse du vaisseau
-	 * @return vitesse du vaisseau
-	 */
-	//Kitimir Yim
-	private double getVitesse() {
-		double vitesseX = vaisseau.getVitesse().getX();
-		double vitesseY = vaisseau.getVitesse().getY();
-		double vitesseTotale = Math.sqrt(vitesseX * vitesseX + vitesseY * vitesseY);
-		return vitesseTotale;
-	}
+
 	/**
 	 * Envoie le message de levée d'évenements
 	 */
 	//Kitimir Yim
-	private void leveeVitesse() {
+	private void leveeSorties() {
 		PCS.firePropertyChange("changerVitesse", null, vaisseau.getVitesse().module());
+		PCS.firePropertyChange("changerAcceleration", null, vaisseau.getAccel().module());
+		PCS.firePropertyChange("changerForceElec", null, this.forcesElec.module());
+		PCS.firePropertyChange("changerForceGravite", null, this.forceGrav.module());
+		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.module()/Math.abs(vaisseau.getCharge()));
+		PCS.firePropertyChange("changerPosition", null, vaisseau.getPosition().module());
+
+
 	}
 
 
