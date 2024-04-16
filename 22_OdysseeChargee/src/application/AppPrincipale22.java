@@ -144,7 +144,7 @@ public class AppPrincipale22 extends JFrame {
 				try {
 					AppPrincipale22 frame = new AppPrincipale22();
 					frame.setVisible(true);
-					
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 					frame.panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
