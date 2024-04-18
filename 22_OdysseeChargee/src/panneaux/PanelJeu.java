@@ -448,7 +448,7 @@ public class PanelJeu extends JPanel {
 	/**
 	 * Gère la levée d'évènement reliée à la gestion de la charge du vaisseau
 	 * 
-	 * @param evt l'évènement
+	 * @param evt l'évènement levé
 	 */
 	// Jason Xa
 	private void leveeEvenementCharge(PropertyChangeEvent evt) {

@@ -157,6 +157,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
+	/** Dernière charge du vaisseau non nulle */
+	private double chargeVaisseauNonNulle = chargeVaisseau;
+
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -577,14 +580,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/**
 	 * Affiche le message après la fin du jeu
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void messageMort(String tuile) {
-		Object[] options = {"Recommencer", "Sélecteur de niveau"};
+		Object[] options = { "Recommencer", "Sélecteur de niveau" };
 		int choix = 0;
-		if(tuile.equals("Pic")) {
-			choix = JOptionPane.showOptionDialog(null, "Vous avez touché les pics! Que voulez-vous faire?", "Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
-		}else if (tuile.equals("Drapeau")) {
-			choix = JOptionPane.showOptionDialog(null, "Vous avez atteint le drapeau! Que voulez-vous faire?", "Niveau Terminé", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		if (tuile.equals("Pic")) {
+			choix = JOptionPane.showOptionDialog(null, "Vous avez touché les pics! Que voulez-vous faire?", "Game Over",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+		} else if (tuile.equals("Drapeau")) {
+			choix = JOptionPane.showOptionDialog(null, "Vous avez atteint le drapeau! Que voulez-vous faire?",
+					"Niveau Terminé", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options,
+					options[0]);
 		}
 
 		switch (choix) {
@@ -592,14 +598,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			recommencer();
 			break;
 		case 1:
-			PCS.firePropertyChange("retournerNiveau",null,0);
+			PCS.firePropertyChange("retournerNiveau", null, 0);
 			break;
 		default:
 
 			break;
 		}
 	}
-
 
 	/**
 	 * Gère la téléportation d'un portail à un autre
@@ -805,6 +810,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeVaisseau(double chargeVaisseau) {
+		if (chargeVaisseau != 0) {
+			chargeVaisseauNonNulle = this.chargeVaisseau;
+		}
 		this.chargeVaisseau = chargeVaisseau;
 		vaisseau.setCharge(chargeVaisseau);
 		repaint();
@@ -1039,20 +1047,29 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		switch (code) {
 		case KeyEvent.VK_A:
-			System.out.println("La touche 'A' a été tapée!");
-			setChargeVaisseau(-Math.abs(chargeVaisseau));
-			PCS.firePropertyChange("Charge négative", null, chargeVaisseau);
+			System.out.println("La charge est négative!");
+			rafraichirChargeVaisseau(-Math.abs(chargeVaisseauNonNulle));
 			break;
 		case KeyEvent.VK_S:
-			System.out.println("La touche 'S' a été tapée!");
-			setChargeVaisseau(0);
+			System.out.println("La charge est nulle!");
+			rafraichirChargeVaisseau(0);
 			break;
 		case KeyEvent.VK_D:
-			System.out.println("La touche 'D' a été tapée!");
+			System.out.println("La charge est positive");
+			rafraichirChargeVaisseau(Math.abs(chargeVaisseauNonNulle));
 			break;
 
 		}
 
+	}
+
+	/**
+	 * 
+	 */
+	// Jason Xa
+	private void rafraichirChargeVaisseau(double chargeVaisseau) {
+		setChargeVaisseau(chargeVaisseau);
+		PCS.firePropertyChange("Charge négative", null, chargeVaisseau);
 	}
 
 }

@@ -162,10 +162,8 @@ public class Pics extends Tuile implements Serializable {
 	// Kitimir Yim
 	public Area formerAireObjetSpecial() {
 
-		Rectangle2D rectangle = new Rectangle2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile,
-				hauteurTuile / 2);
 
-		Area airePics = new Area(rectangle);
+		Area airePics = new Area(contour);
 		return airePics;
 
 	}

@@ -118,14 +118,21 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-
+		boolean dessinerCercle = true;
+		;
 		if (Math.signum(getCharge()) > 0) {
 			g2dPrive.setColor(Color.green);
-		} else {
+
+		} else if (Math.signum(getCharge()) < 0) {
 			g2dPrive.setColor(Color.magenta);
+		} else {
+			dessinerCercle = false;
 		}
-		
-		g2dPrive.fill(cercle);
+		if (dessinerCercle) {
+			g2dPrive.fill(cercle);
+		} else {
+			g2dPrive.draw(cercle);
+		}
 
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
 		tuile.dessiner(g2d, (int) (getPosition().getX() - rayon), (int) (getPosition().getY() - rayon));
@@ -171,7 +178,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		vitesse = MoteurPhysique.detectionCollisionsAvecPlaqueEtCalculeVitesse(this, plaque);
 		creerLaGeometrie();
 	}
-	
+
 	/**
 	 * Détermine s'il y a collision avec un segment,
 	 * puis modifie la vitesse du vaisseau en conséquence
