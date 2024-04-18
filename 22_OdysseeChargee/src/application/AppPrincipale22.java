@@ -312,6 +312,20 @@ public class AppPrincipale22 extends JFrame {
 		panModeEditeur = new PanelEditeur();
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
 		panModeJeu = new PanelJeu();
+		
+		ZoneAnimationPhysique zone = panModeJeu.getZone();
+		
+		zone.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("retournerNiveau")) {
+					panModeJeu.setVisible(false);
+					panSelecteurNiveau.setVisible(true);
+					setContentPane(panSelecteurNiveau);
+				}
+			}
+
+		});
+		
 
 		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {

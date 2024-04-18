@@ -14,6 +14,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interactif.PlaqueChargee;
@@ -124,10 +125,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
 	private final double POS_INITIALE_VAISSEAU_EN_X = 90; // Impossible à définir en constante, car ne peut être
-															// ré-initialié
+	// ré-initialié
 	/** Composante en Y de la position initiale du vaisseau (en mètre) **/
 	private final double POS_INITIALE_VAISSEAU_EN_Y = 165; // Impossible à définir en constante, car ne peut être
-															// ré-initialié
+	// ré-initialié
 
 	// Caractéristiques du vaisseau
 	/** Objet représentant le vaisseau **/
@@ -555,9 +556,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 						switch (tuile.getType()) {
 						case "Drapeau":
 							enCoursDAnimation = false;
+							messageMort("Drapeau");
 							break;
 						case "Pics":
 							enCoursDAnimation = false;
+							messageMort("Pic");
 							System.out.println("Vous êtes mort!");
 							recommencer();
 							break;
@@ -570,6 +573,33 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			} // fin 2e boucle for
 		} // fin 1re boucle for
 	}// fin méthode
+
+	/**
+	 * Affiche le message après la fin du jeu
+	 */
+	//Kitimir Yim
+	private void messageMort(String tuile) {
+		Object[] options = {"Recommencer", "Sélecteur de niveau"};
+		int choix = 0;
+		if(tuile.equals("Pic")) {
+			choix = JOptionPane.showOptionDialog(null, "Vous avez touché les pics! Que voulez-vous faire?", "Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+		}else if (tuile.equals("Drapeau")) {
+			choix = JOptionPane.showOptionDialog(null, "Vous avez atteint le drapeau! Que voulez-vous faire?", "Niveau Terminé", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		}
+
+		switch (choix) {
+		case 0:
+			recommencer();
+			break;
+		case 1:
+			PCS.firePropertyChange("retournerNiveau",null,0);
+			break;
+		default:
+
+			break;
+		}
+	}
+
 
 	/**
 	 * Gère la téléportation d'un portail à un autre
