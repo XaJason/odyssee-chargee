@@ -438,13 +438,24 @@ public class PanelJeu extends JPanel {
 					positionString = String.format("%.2f", valeur);
 					textAreaPosition.setText(positionString);
 				}
-				if (evt.getPropertyName().equals("Charge négative")) {
-					double valeur = (double) evt.getNewValue();
-					spnChargeVaisseau.setValue(valeur);
-				}
+				leveeEvenementCharge(evt);
 			}
+
 		});
 
+	}
+
+	/**
+	 * Gère la levée d'évènement reliée à la gestion de la charge du vaisseau
+	 * 
+	 * @param evt l'évènement
+	 */
+	// Jason Xa
+	private void leveeEvenementCharge(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("Charge négative")) {
+			double valeur = (double) evt.getNewValue();
+			spnChargeVaisseau.setValue(valeur);
+		}
 	}
 
 	/**
