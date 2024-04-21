@@ -1,5 +1,6 @@
 package panneaux;
 
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -321,19 +322,8 @@ public class PanelEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (compteur < MAX_NIVEAUX) {
-					Object[] options = { "1", "2", "3" };
-					String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :",
-							"Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
-					if (nom != null) {
-						Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
-						sauvegarder(niveauParDefaut);
-						compteur++;
-					}
-				} else {
-					System.out.println("Nombre maximal de niveaux atteint !");
-				}
+				sauvegarderNiveau();
 
 			}
 
@@ -460,5 +450,55 @@ public class PanelEditeur extends JPanel {
 	private void afficherSelection() {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
+	}
+
+	/**
+	 * Sauvegarde un niveau selon certaines conditions non reliées à la construction
+	 * du niveau
+	 * 
+	 * @throws HeadlessException l'exception indirecte
+	 */
+	// Kitimir Yim
+	private void sauvegarderNiveau() throws HeadlessException {
+		if (compteur < MAX_NIVEAUX) {
+			Object[] options = { "1", "2", "3" };
+			String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :", "Choix du niveau",
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+			if (nom != null) {
+				Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
+				sauvegarder(niveauParDefaut);
+				compteur++;
+			}
+		} else {
+			System.out.println("Nombre maximal de niveaux atteint !");
+		}
+	}
+
+	/**
+	 * Retourne vrai si le niveau contient un vaisseau et un drapeau
+	 * 
+	 * @return vrai si le niveau contient un vaisseau et un drapeau
+	 */
+	// Jason Xa
+	private boolean niveauBienConstruit() {
+		String tuilesManquantes = null;
+		if (!grille.contientVaisseau()) {
+			tuilesManquantes = tuilesManquantes + "\n Vaisseau (personnage)";
+
+		}
+		if (!grille.contientDrapeau()) {
+			tuilesManquantes = tuilesManquantes + "\n Drapeau d'arrivée";
+			JOptionPane.showMessageDialog(null,
+					"Le niveau ne contient pas de drapeau d'arrivée! Veuillez le placer avant de sauvegarder le niveau.",
+					"Drapeau d'arrivée manquant", 1, null);
+
+		}
+		if (!tuilesManquantes.isBlank()) {
+			JOptionPane.showMessageDialog(null,
+					"Objets à placer:" + tuilesManquantes + "\nVeuillez le placer avant de sauvegarder le niveau.",
+					"Objets manquants", 1, null);
+		}
+		return grille.contientVaisseau() && grille.contientDrapeau();
 	}
 }

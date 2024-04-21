@@ -63,7 +63,7 @@ public class Grille extends JPanel implements Serializable {
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
 	/**
-	 * Tableau qui contient la tuile si la case est occupé ou null si elle est vide
+	 * Tableau qui contient la tuile si la case est occupée ou null si elle est vide
 	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
@@ -395,7 +395,7 @@ public class Grille extends JPanel implements Serializable {
 	/**
 	 * Gére les portails
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void gererPortails() {
 		nbPortails++;
 		lierPortail(tuileTemp);
@@ -582,8 +582,6 @@ public class Grille extends JPanel implements Serializable {
 		this.dansModeJeu = dansModeJeu;
 	}
 
-
-	
 	/**
 	 * Lie un portail si nécessaire
 	 * 
@@ -601,9 +599,44 @@ public class Grille extends JPanel implements Serializable {
 			}
 		} else {
 			System.out.println("Ce portail n'a pas de duo. N'oubliez pas de lui créer un partenaire.");
-			premierPortail = (Portail)tuile;
+			premierPortail = (Portail) tuile;
 
 		}
 	}
 
-}// Fin classe
+	/**
+	 * Retourne vrai si la grille contient un vaisseau
+	 * 
+	 * @return vrai si la grille contient un vaisseau
+	 */
+	// Jason Xa
+	public boolean contientVaisseau() {
+		boolean vaisseauPresent = false;
+		VaisseauImage instanceVaisseau = new VaisseauImage();
+		for (int i = 0; i < tabEmplacement.length; i++) {
+			for (int j = 0; j < tabEmplacement[i].length; j++) {
+				vaisseauPresent = vaisseauPresent || instanceVaisseau.getClass().isInstance(tabEmplacement[i][j]);
+			}
+		}
+		return vaisseauPresent;
+	}
+
+	/**
+	 * Retourne vrai si la grille contient un drapeau d'arrivée
+	 * 
+	 * @return vrai si la grille contient un drapeau d'arrivée
+	 */
+	// Jason Xa
+	public boolean contientDrapeau() {
+		boolean drapeauPresent = false;
+		Drapeau instanceDrapeau = new Drapeau();
+		for (int i = 0; i < tabEmplacement.length; i++) {
+			for (int j = 0; j < tabEmplacement[i].length; j++) {
+				drapeauPresent = drapeauPresent || instanceDrapeau.getClass().isInstance(tabEmplacement[i][j]);
+			}
+		}
+		return drapeauPresent;
+	}
+
+}
+// Fin classe

@@ -74,7 +74,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 	/** ArrayList qui contient tous les segments de la tuile **/
 	protected ArrayList<Segment> listeSegments = new ArrayList<Segment>();
-	
+
 	/** aires de sélection pour les plaques chargées */
 	protected Aire[] aires;
 
@@ -166,8 +166,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	private void dessinerContour(Graphics2D g2d) {
 		creerGeometrieContour();
 		g2d.setColor(Color.red);
-		//g2d.draw(contour);
-		
+		// g2d.draw(contour);
+
 //		if (!listeSegments.isEmpty()) {
 //			for (Segment s : listeSegments) {
 //				s.dessiner(g2d);
@@ -376,6 +376,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 	/**
 	 * Retourne la hauteur de la tuile
+	 * 
 	 * @return hauteur de la tuile
 	 */
 	// Kitimir Yim
@@ -444,24 +445,26 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 			contour.lineTo(pointsCoin.get(0).getX(), pointsCoin.get(0).getY());
 		}
 	}
-	
+
 	/**
 	 * Méthode qui instancie la liste de segment du bloc
-	 * Appelé dans la méthode setPoint des carrés, des triangles rectangles et des triangles équilatéraux
+	 * Appelé dans la méthode setPoint des carrés, des triangles rectangles et des
+	 * triangles équilatéraux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void creerListeSegment() {
 		if (pointsCoin.size() > 1) {
 			for (int i = 0; i < pointsCoin.size() - 1; i++) {
-				listeSegments.add( new Segment(pointsCoin.get(i), pointsCoin.get(i+1)) );
+				listeSegments.add(new Segment(pointsCoin.get(i), pointsCoin.get(i + 1)));
 			}
-			Point2D.Double dernierPoint = pointsCoin.get(pointsCoin.size()-1);
-			listeSegments.add( new Segment(dernierPoint, pointsCoin.get(0)) );
+			Point2D.Double dernierPoint = pointsCoin.get(pointsCoin.size() - 1);
+			listeSegments.add(new Segment(dernierPoint, pointsCoin.get(0)));
 		}
 	}
-	
+
 	/**
 	 * Retourne la liste de segment de la tuile
+	 * 
 	 * @return La liste de segment de la tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -517,7 +520,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * 
 	 * @param pointSurvole La position du curseur de la souris qui survole la zone
 	 *                     d'animation physique
-	 * @return L'une des aires de la tuile, celle où se situe le curseur de la souris
+	 * @return L'une des aires de la tuile, celle où se situe le curseur de la
+	 *         souris
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Aire survolerAiresDeTuile(Point2D.Double pointSurvole) {
@@ -603,5 +607,9 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		Area aireTuile = new Area(rectangle);
 		return aireTuile;
+	}
+
+	public boolean equals() {
+		return drapeau;
 	}
 }
