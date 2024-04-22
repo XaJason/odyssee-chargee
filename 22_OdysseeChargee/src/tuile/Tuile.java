@@ -608,8 +608,4 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		Area aireTuile = new Area(rectangle);
 		return aireTuile;
 	}
-
-	public boolean equals() {
-		return drapeau;
-	}
 }

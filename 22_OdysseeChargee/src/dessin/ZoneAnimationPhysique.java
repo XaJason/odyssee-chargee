@@ -1047,15 +1047,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		switch (code) {
 		case KeyEvent.VK_A:
-			System.out.println("La charge est négative!");
 			rafraichirChargeVaisseau(-Math.abs(chargeVaisseauNonNulle));
 			break;
 		case KeyEvent.VK_S:
-			System.out.println("La charge est nulle!");
 			rafraichirChargeVaisseau(0);
 			break;
 		case KeyEvent.VK_D:
-			System.out.println("La charge est positive");
 			rafraichirChargeVaisseau(Math.abs(chargeVaisseauNonNulle));
 			break;
 
@@ -1064,7 +1061,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * 
+	 * Met à jour la charge du vaisseau partout (levée d'évènement pour le
+	 * tourniquet d'entrée du panneau de jeu)
 	 */
 	// Jason Xa
 	private void rafraichirChargeVaisseau(double chargeVaisseau) {
