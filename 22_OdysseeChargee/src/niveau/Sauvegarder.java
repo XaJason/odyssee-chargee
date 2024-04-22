@@ -21,7 +21,10 @@ public class Sauvegarder {
 	 * l'utilisateur
 	 */
 	private static final String sousDossierDeTravail = "MesTrucs";
-	private static final String DOSSIER_SAUVEGARDE = new File(javax.swing.filechooser.FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\" + sousDossierDeTravail ).getPath();
+	private static final String DOSSIER_SAUVEGARDE = new File(
+			javax.swing.filechooser.FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\"
+					+ sousDossierDeTravail)
+			.getPath();
 	/**
 	 * Type de fichier
 	 */
@@ -32,7 +35,7 @@ public class Sauvegarder {
 	 */
 	private static final String DOSSIER_SAUVEGARDE_RESSOURCE = "ressources/";
 
-	//Méthode pas utilisé encore
+	// Méthode pas utilisé encore
 	/**
 	 * Méthode static permettant la sauvegarde de niveau dans mesTrucs
 	 * 
@@ -74,7 +77,8 @@ public class Sauvegarder {
 			}
 		}
 	}
-	//Méthode pas utilisé encore
+
+	// Méthode pas utilisé encore
 	/**
 	 * Méthode static permettant le chargement de niveau dans mesTrucs
 	 * 
@@ -133,13 +137,13 @@ public class Sauvegarder {
 		ObjectOutputStream oos = null;
 		if (fichierDeTravail.exists()) {
 			JOptionPane.showMessageDialog(null,
-					" Le fichier " + fichierDeTravail.toString() + " existe déja...Il va être modifier");
+					" Le fichier " + fichierDeTravail.toString() + " existe déjà: il sera remplacé!");
 		}
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(fichierDeTravail));
 			oos.writeObject(niveau);
 			oos.close();
-			System.out.println("Niveau sauvegardé avec succès.");
+			System.out.println("Niveau sauvegardé avec succès!");
 		} catch (IOException e) {
 			System.out.println("Erreur lors de la sauvegarde du niveau : " + e.getMessage());
 		} finally {
@@ -190,5 +194,3 @@ public class Sauvegarder {
 		}
 	}
 }
-
-

@@ -322,9 +322,9 @@ public class PanelEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				sauvegarderNiveau();
-
+				if (niveauBienConstruit()) {
+					sauvegarderNiveau();
+				}
 			}
 
 		});
@@ -462,7 +462,7 @@ public class PanelEditeur extends JPanel {
 	private void sauvegarderNiveau() throws HeadlessException {
 		if (compteur < MAX_NIVEAUX) {
 			Object[] options = { "1", "2", "3" };
-			String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :", "Choix du niveau",
+			String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau:", "Choix du niveau",
 					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
 			if (nom != null) {
@@ -471,7 +471,7 @@ public class PanelEditeur extends JPanel {
 				compteur++;
 			}
 		} else {
-			System.out.println("Nombre maximal de niveaux atteint !");
+			System.out.println("Nombre maximal de niveaux atteint!");
 		}
 	}
 
@@ -482,22 +482,20 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private boolean niveauBienConstruit() {
-		String tuilesManquantes = null;
-		if (!grille.contientVaisseau()) {
-			tuilesManquantes = tuilesManquantes + "\n Vaisseau (personnage)";
+		String tuilesManquantes = "";
+		boolean vaisseauPresent = grille.contientVaisseau();
+		boolean drapeauPresent = grille.contientDrapeau();
 
+		if (!vaisseauPresent) {
+			tuilesManquantes = tuilesManquantes + "\nVaisseau (personnage)";
 		}
-		if (!grille.contientDrapeau()) {
-			tuilesManquantes = tuilesManquantes + "\n Drapeau d'arrivée";
-			JOptionPane.showMessageDialog(null,
-					"Le niveau ne contient pas de drapeau d'arrivée! Veuillez le placer avant de sauvegarder le niveau.",
-					"Drapeau d'arrivée manquant", 1, null);
-
+		if (!drapeauPresent) {
+			tuilesManquantes = tuilesManquantes + "\nDrapeau d'arrivée";
 		}
 		if (!tuilesManquantes.isBlank()) {
 			JOptionPane.showMessageDialog(null,
-					"Objets à placer:" + tuilesManquantes + "\nVeuillez le placer avant de sauvegarder le niveau.",
-					"Objets manquants", 1, null);
+					"Objets à placer:" + tuilesManquantes + "\n\nVeuillez le(s) placer avant de sauvegarder le niveau.",
+					"Niveau inadéquat", 2, null);
 		}
 		return grille.contientVaisseau() && grille.contientDrapeau();
 	}
