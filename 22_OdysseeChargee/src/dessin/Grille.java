@@ -613,8 +613,14 @@ public class Grille extends JPanel implements Serializable {
 	public boolean contientVaisseau() {
 		boolean vaisseauPresent = false;
 		VaisseauImage instanceVaisseau = new VaisseauImage();
+
+		// Traverse le tableau au complet
 		for (int i = 0; i < tabEmplacement.length; i++) {
 			for (int j = 0; j < tabEmplacement[i].length; j++) {
+
+				// Dès que le booléen est vrai, il ne changera jamais (1 ou [la tuile est un
+				// vaisseau]). Enlève le besoin de vérifier si la tuile est une instance de
+				// VaisseauImage lorsque la grille contient déjà un vaisseau.
 				vaisseauPresent = vaisseauPresent || instanceVaisseau.getClass().isInstance(tabEmplacement[i][j]);
 			}
 		}
@@ -630,8 +636,14 @@ public class Grille extends JPanel implements Serializable {
 	public boolean contientDrapeau() {
 		boolean drapeauPresent = false;
 		Drapeau instanceDrapeau = new Drapeau();
+
+		// Traverse le tableau au complet
 		for (int i = 0; i < tabEmplacement.length; i++) {
 			for (int j = 0; j < tabEmplacement[i].length; j++) {
+
+				// Dès que le booléen est vrai, il ne changera jamais (1 ou [la tuile est un
+				// vaisseau]). Enlève le besoin de vérifier si la tuile est une instance de
+				// Drapeau lorsque la grille contient déjà un vaisseau.
 				drapeauPresent = drapeauPresent || instanceDrapeau.getClass().isInstance(tabEmplacement[i][j]);
 			}
 		}
