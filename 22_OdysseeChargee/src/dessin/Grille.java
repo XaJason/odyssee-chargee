@@ -545,9 +545,10 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void rotation() {
-		tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
-		
-		repaint();
+		if (tuile != null) {
+			tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
+			repaint();
+		}
 	}
 
 	/**

@@ -418,12 +418,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		if (placementPlaque & sourisDansComposant) {
 			if (plaquePositive) {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
-				//imagePlaque = OutilsImage.lireImageEtRedimensionner("PlaqueChargePositive.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
+				// imagePlaque =
+				// OutilsImage.lireImageEtRedimensionner("PlaqueChargePositive.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
 			} else {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
-				//imagePlaque = OutilsImage.lireImageEtRedimensionner("PlaqueChargeNegative.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
+				// imagePlaque =
+				// OutilsImage.lireImageEtRedimensionner("PlaqueChargeNegative.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
 			}
-			
+
 			g2d.drawImage(imagePlaque, (int) (plaque.getPosition().getX()), (int) (plaque.getPosition().getY()), null);
 		}
 	}
@@ -812,8 +814,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeVaisseau(double chargeVaisseau) {
-		if (chargeVaisseau != 0) {
-			chargeVaisseauNonNulle = this.chargeVaisseau;
+		if (chargeVaisseau != 0 && chargeVaisseau != -0) {
+			chargeVaisseauNonNulle = chargeVaisseau;
 		}
 		this.chargeVaisseau = chargeVaisseau;
 		vaisseau.setCharge(chargeVaisseau);
