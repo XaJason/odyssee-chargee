@@ -423,7 +423,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
 				//imagePlaque = OutilsImage.lireImageEtRedimensionner("PlaqueChargeNegative.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
 			}
-			
+
 			g2d.drawImage(imagePlaque, (int) (plaque.getPosition().getX()), (int) (plaque.getPosition().getY()), null);
 		}
 	}
@@ -598,6 +598,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		switch (choix) {
 		case 0:
 			recommencer();
+			modifierBouton();
 			break;
 		case 1:
 			PCS.firePropertyChange("retournerNiveau", null, 0);
@@ -606,6 +607,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 			break;
 		}
+	}
+	/**
+	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation 
+	 */
+	//Kitimir Yim
+	private void modifierBouton() {
+		PCS.firePropertyChange("changementBouton", null, null);
+
 	}
 
 	/**
@@ -684,6 +693,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		droite = false;
 		haut = false;
 		bas = false;
+
 
 		// Désactiver les plaques chargées (charge neutre), éventuellement
 

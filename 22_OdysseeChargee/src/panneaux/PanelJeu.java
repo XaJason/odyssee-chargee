@@ -439,6 +439,11 @@ public class PanelJeu extends JPanel {
 					positionString = String.format("%.2f", valeur);
 					textAreaPosition.setText(positionString);
 				}
+				if (evt.getPropertyName().equals("changementBouton")) {
+					btnProchaineImage.setEnabled(true);
+					btnDemarrer.setEnabled(true);
+					
+				}
 				leveeEvenementCharge(evt);
 			}
 
