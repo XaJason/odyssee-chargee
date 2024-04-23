@@ -1,4 +1,4 @@
-package panneaux;
+ package panneaux;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -185,7 +185,7 @@ public class PanelEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBounds(410, 38, 900, 900);
+		grille.setBounds(410, 38, 1000, 750);
 		add(grille);
 
 		// JSpinner spinnerQttCarre = new JSpinner();
@@ -460,5 +460,14 @@ public class PanelEditeur extends JPanel {
 	private void afficherSelection() {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
+	}
+	
+	/**
+	 * Retourne l'objet grille
+	 * @return grille
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Grille getGrille() {
+		return grille;
 	}
 }

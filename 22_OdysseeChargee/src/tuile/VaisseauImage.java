@@ -109,7 +109,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 		g2d.draw(contour);
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2d.drawImage(image, (int) (x + largeurDemiTuile / 2.0), (int) (y + largeurDemiTuile), null);
+		g2d.drawImage(image, (int) (x + largeurDemiTuile / 2.0), (int) (y + largeurDemiTuile), (int)(largeurTuile/2.0), (int)(hauteurTuile/2.0), null);
 		g2d.setTransform(transformationAffine);
 	}
 
@@ -121,8 +121,8 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 * @param y   ordonnée supérieure de la tuile (px)
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void dessiner(Graphics2D g2d, int x, int y) {
-		g2d.drawImage(image, x, y, null);
+	public void dessiner(Graphics2D g2d, double x, double y) {
+		g2d.drawImage(image,(int)(x + largeurDemiTuile / 2.0), (int)(y + largeurDemiTuile), (int)(largeurTuile/2.0), (int)(hauteurTuile/2.0), null);
 	}
 
 	/**
