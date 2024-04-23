@@ -546,6 +546,7 @@ public class Grille extends JPanel implements Serializable {
 	// Jason Xa
 	public void rotation() {
 		tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
+		
 		repaint();
 	}
 
@@ -648,6 +649,7 @@ public class Grille extends JPanel implements Serializable {
 	//Giroux
 	private void placerUnBloc(MouseEvent e) {
 		clique = e.getPoint();
+		dessinerCase(e.getX(), e.getY());
 		if (!supprimer) {
 			if (tuile != null) {
 				sauvegarderEmplacement();
