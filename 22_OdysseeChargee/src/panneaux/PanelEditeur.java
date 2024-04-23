@@ -1,7 +1,12 @@
  package panneaux;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -165,7 +170,9 @@ public class PanelEditeur extends JPanel {
 
 	/** Case à cocher pour l'affichage du quadrillage */
 	private JCheckBox chckbxGrille;
-
+	/** Type de la tuile selectionnée **/
+	private PanelTuileTemp panelTuileTemp;
+	
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -208,6 +215,8 @@ public class PanelEditeur extends JPanel {
 
 		creerSectionBoutons();
 	}
+	
+	
 
 	/**
 	 * Création des boutons d'action pour la création du niveau
@@ -218,7 +227,9 @@ public class PanelEditeur extends JPanel {
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Carre());
+				panelTuileTemp.setTuile(new Carre());
 				afficherSelection();
+				repaint();
 			}
 		});
 		btnCarre.setBounds(50, 61, 85, 85);
@@ -229,7 +240,9 @@ public class PanelEditeur extends JPanel {
 		btnTriangleRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new TriangleRectangle());
+				panelTuileTemp.setTuile(new TriangleRectangle());
 				afficherSelection();
+				repaint();
 			}
 		});
 		btnTriangleRectangle.setBounds(178, 61, 85, 85);
@@ -240,7 +253,10 @@ public class PanelEditeur extends JPanel {
 		btnTriangleEquilateral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new TriangleEquilateral());
+				panelTuileTemp.setTuile(new TriangleEquilateral());
 				afficherSelection();
+				repaint();
+				
 			}
 		});
 		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
@@ -251,7 +267,9 @@ public class PanelEditeur extends JPanel {
 		btnPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Pics());
+				panelTuileTemp.setTuile(new Pics());
 				afficherSelection();
+				repaint();
 			}
 
 		});
@@ -263,7 +281,9 @@ public class PanelEditeur extends JPanel {
 		btnPortail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Portail());
+				panelTuileTemp.setTuile(new Portail());
 				afficherSelection();
+				repaint();
 
 			}
 		});
@@ -275,15 +295,17 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Drapeau());
+				panelTuileTemp.setTuile(new Drapeau());
 				afficherSelection();
+				repaint();
 			}
 		});
 		btnDrapeau.setBounds(118, 340, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
-		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
-		lblTypeSelectionne.setBounds(410, 9, 336, 14);
+		lblTypeSelectionne = new JLabel("Type de tuile sélectionnée: ");
+		lblTypeSelectionne.setBounds(417, 66, 156, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
@@ -291,6 +313,7 @@ public class PanelEditeur extends JPanel {
 				grille.reinitialiser();
 				grille.setSupprimer(false);
 				grille.setTuile(null);
+				repaint();
 			}
 		});
 		btnReinitialiser.setBounds(118, 599, 85, 85);
@@ -312,6 +335,9 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setSupprimer(false);
 				grille.rotation();
+				panelTuileTemp.rotation();
+				panelTuileTemp.repaint();
+				repaint();
 			}
 		});
 		btnRotation.setBounds(247, 481, 85, 85);
@@ -321,20 +347,9 @@ public class PanelEditeur extends JPanel {
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (compteur < MAX_NIVEAUX) {
-					Object[] options = { "1", "2", "3" };
-					String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau :",
-							"Choix du niveau", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-					if (nom != null) {
-						Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
-						sauvegarder(niveauParDefaut);
-						compteur++;
-					}
-				} else {
-					System.out.println("Nombre maximal de niveaux atteint !");
+				if (niveauBienConstruit()) {
+					sauvegarderNiveau();
 				}
-
 			}
 
 		});
@@ -346,7 +361,9 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new VaisseauImage());
+				panelTuileTemp.setTuile(new VaisseauImage());
 				afficherSelection();
+				repaint();
 			}
 		});
 		btnVaisseau.setBounds(247, 340, 85, 85);
@@ -434,8 +451,14 @@ public class PanelEditeur extends JPanel {
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(760, 6, 200, 21);
+		chckbxGrille.setBounds(1117, 122, 200, 21);
 		add(chckbxGrille);
+		
+		panelTuileTemp = new PanelTuileTemp();
+		panelTuileTemp.setBounds(605, 38, 85, 85);
+		add(panelTuileTemp);
+		
+		
 
 	}
 
@@ -470,4 +493,53 @@ public class PanelEditeur extends JPanel {
 	public Grille getGrille() {
 		return grille;
 	}
+
+	/**
+	 * Sauvegarde un niveau selon certaines conditions non reliées à la construction
+	 * du niveau
+	 * 
+	 * @throws HeadlessException l'exception indirecte
+	 */
+	// Kitimir Yim
+	private void sauvegarderNiveau() throws HeadlessException {
+		if (compteur < MAX_NIVEAUX) {
+			Object[] options = { "1", "2", "3" };
+			String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau:", "Choix du niveau",
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+			if (nom != null) {
+				Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
+				sauvegarder(niveauParDefaut);
+				compteur++;
+			}
+		} else {
+			System.out.println("Nombre maximal de niveaux atteint!");
+		}
+	}
+
+	/**
+	 * Retourne vrai si le niveau contient un vaisseau et un drapeau
+	 * 
+	 * @return vrai si le niveau contient un vaisseau et un drapeau
+	 */
+	// Jason Xa
+	private boolean niveauBienConstruit() {
+		String tuilesManquantes = "";
+		boolean vaisseauPresent = grille.contientVaisseau();
+		boolean drapeauPresent = grille.contientDrapeau();
+
+		if (!vaisseauPresent) {
+			tuilesManquantes = tuilesManquantes + "\nVaisseau (personnage)";
+		}
+		if (!drapeauPresent) {
+			tuilesManquantes = tuilesManquantes + "\nDrapeau d'arrivée";
+		}
+		if (!tuilesManquantes.isBlank()) {
+			JOptionPane.showMessageDialog(null,
+					"Objets à placer:" + tuilesManquantes + "\n\nVeuillez le(s) placer avant de sauvegarder le niveau.",
+					"Niveau inadéquat", 2, null);
+		}
+		return grille.contientVaisseau() && grille.contientDrapeau();
+	}
+	
 }

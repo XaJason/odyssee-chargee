@@ -153,9 +153,6 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 	// Jason Xa
 	@Override
 	public void dessiner(Graphics2D g2d) {
-		float epaisseur = 3.0f;
-		BasicStroke trace = new BasicStroke(epaisseur);
-
 		g2d.draw(segmentExterieur);
 	}
 }

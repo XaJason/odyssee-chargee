@@ -9,6 +9,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -22,6 +23,8 @@ import javax.swing.event.ChangeListener;
 import dessin.ZoneAnimationPhysique;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 /**
  * Panel du mode de jeu
@@ -87,10 +90,6 @@ public class PanelJeu extends JPanel {
 	/** Panneau de regroupement des entrées **/
 	private JPanel panelEntree;
 
-	/**
-	 * Label pour le nom du niveau
-	 */
-	private JLabel labelNomNiveau;
 	/** Panel qui regroupe les boutons pour la plaque chargée **/
 	private JPanel panelPlaque;
 	/** Bouton à deux états pour sélectionner la plaque **/
@@ -106,14 +105,33 @@ public class PanelJeu extends JPanel {
 	/** Nombre restant de plaque **/
 	private int nbPlaqueRestante = 4;
 
-	/**
-	 * Vitesse affichée
-	 */
+	/** Vitesse affichée **/
 	private String vitesseString = "0";
-	/**
-	 * Texte area de la vitesse
-	 */
+	/** Force électrique affichée **/
+	private String forceElecString = "0";
+	/** Gravité affichée **/
+	private String forceGravString = "0";
+	/** Accélération affichée **/
+	private String acceString = "0";
+	/** Champ électrique affichée **/
+	private String champElecString = "0";
+	/** Position du vaisseau affichée **/
+	private String positionString = "0";
+
+	/** Texte area de la vitesse **/
 	private JTextArea textAreaVitesse;
+	/** Texte area de l'accélération **/
+	private JTextArea textAreaAcceleration;
+	/** Texte area de la force électrique **/
+	private JTextArea textAreaForceElectrique;
+	/** Texte area de la force de gravité **/
+	private JTextArea textAreaForceGravite;
+	/** Texte area du champ électrique **/
+	private JTextArea textAreaChampElectrique;
+	/** Texte area de la position **/
+	private JTextArea textAreaPosition;
+	private JLabel lblIndiceChargeVaisseau;
+
 	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
@@ -124,7 +142,7 @@ public class PanelJeu extends JPanel {
 		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
 
-		panelEntree.setBounds(1324, 31, 376, 480);
+		panelEntree.setBounds(10, 242, 376, 480);
 		add(panelEntree);
 		panelEntree.setLayout(null);
 
@@ -158,7 +176,7 @@ public class PanelJeu extends JPanel {
 		JPanel panelSortie = new JPanel();
 		panelSortie.setLayout(null);
 		panelSortie.setBorder(BorderFactory.createTitledBorder("Sorties"));
-		panelSortie.setBounds(1324, 522, 376, 274);
+		panelSortie.setBounds(1181, 44, 376, 274);
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
@@ -185,47 +203,41 @@ public class PanelJeu extends JPanel {
 		lblPosition.setBounds(35, 233, 100, 26);
 		panelSortie.add(lblPosition);
 
-
 		textAreaVitesse = new JTextArea(vitesseString);
-		leveeEvenement();
 		textAreaVitesse.setBounds(216, 37, 150, 22);
 		panelSortie.add(textAreaVitesse);
 
-
-
-		JTextArea textAreaAcceleration = new JTextArea();
+		textAreaAcceleration = new JTextArea(acceString);
 		textAreaAcceleration.setBounds(216, 73, 150, 22);
 		panelSortie.add(textAreaAcceleration);
 
-		JTextArea textAreaForceElectrique = new JTextArea();
+		textAreaForceElectrique = new JTextArea(forceElecString);
 		textAreaForceElectrique.setEditable(false);
 		textAreaForceElectrique.setBounds(216, 113, 150, 22);
 		panelSortie.add(textAreaForceElectrique);
 
-		JTextArea textAreaForceGravite = new JTextArea();
+		textAreaForceGravite = new JTextArea(forceGravString);
 		textAreaForceGravite.setEditable(false);
 		textAreaForceGravite.setBounds(216, 153, 150, 22);
 		panelSortie.add(textAreaForceGravite);
 
-		JTextArea textAreaChampElectrique = new JTextArea();
+		textAreaChampElectrique = new JTextArea(champElecString);
 		textAreaChampElectrique.setEditable(false);
 		textAreaChampElectrique.setBounds(216, 197, 150, 22);
 		panelSortie.add(textAreaChampElectrique);
 
-		JTextArea textAreaPosition = new JTextArea();
+		textAreaPosition = new JTextArea(positionString);
 		textAreaPosition.setEditable(false);
 		textAreaPosition.setBounds(216, 233, 150, 22);
 		panelSortie.add(textAreaPosition);
 
-		labelNomNiveau = new JLabel();
-		labelNomNiveau.setBounds(50, 20, 400, 30);
-		add(labelNomNiveau);
+		leveeEvenement();
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 522, 292, 187);
+		panel.setBounds(10, 44, 447, 187);
 		add(panel);
 		panel.setLayout(null);
 
@@ -278,16 +290,13 @@ public class PanelJeu extends JPanel {
 		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
-	}
+		lblIndiceChargeVaisseau = new JLabel(
+				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
+		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIndiceChargeVaisseau.setBounds(550, 702, 603, 22);
+		add(lblIndiceChargeVaisseau);
 
-	/**
-	 * Affiche le nom du niveau choisi
-	 * 
-	 * @param nomNiveau niveau choisi
-	 */
-	// Kitimir Yim
-	public void niveauAfficher(String nomNiveau) {
-		labelNomNiveau.setText("Niveau sélectionné : " + nomNiveau);
 	}
 
 	/**
@@ -341,7 +350,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(487, 809, 89, 23);
+		btnDemarrer.setBounds(10, 10, 89, 23);
 		add(btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
@@ -396,24 +405,70 @@ public class PanelJeu extends JPanel {
 		btnReinitialiser.setBounds(1062, 809, 129, 23);
 		add(btnReinitialiser);
 	}
+
 	/**
 	 * S'occupe de la levée d'évenement
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void leveeEvenement() {
 
 		zoneAnimationPhysique.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
-				if (evt.getPropertyName().equals("leveeVitesse")) {
-					double vitesse = (double) evt.getNewValue();
-					vitesseString = Double.toString(vitesse);
+				if (evt.getPropertyName().equals("changerVitesse")) {
+					double valeur = (double) evt.getNewValue();
+					vitesseString = String.format("%.2f", valeur);
 					textAreaVitesse.setText(vitesseString);
 				}
+
+				if (evt.getPropertyName().equals("changerAcceleration")) {
+					double valeur = (double) evt.getNewValue();
+					acceString = String.format("%.2f", valeur);
+					textAreaAcceleration.setText(acceString);
+				}
+
+				if (evt.getPropertyName().equals("changerForceElec")) {
+					double valeur = (double) evt.getNewValue();
+					forceElecString = String.format("%.2f", valeur);
+					textAreaForceElectrique.setText(forceElecString);
+				}
+
+				if (evt.getPropertyName().equals("changerForceGravite")) {
+					double valeur = (double) evt.getNewValue();
+					forceGravString = String.format("%.2f", valeur);
+					textAreaForceGravite.setText(forceGravString);
+				}
+				if (evt.getPropertyName().equals("changerChampElec")) {
+					double valeur = (double) evt.getNewValue();
+					champElecString = String.format("%.2f", valeur);
+					textAreaChampElectrique.setText(champElecString);
+				}
+
+				if (evt.getPropertyName().equals("changerPosition")) {
+					double valeur = (double) evt.getNewValue();
+					positionString = String.format("%.2f", valeur);
+					textAreaPosition.setText(positionString);
+				}
+				leveeEvenementCharge(evt);
 			}
+
 		});
 
 	}
+
+	/**
+	 * Gère la levée d'évènement reliée à la gestion de la charge du vaisseau
+	 * 
+	 * @param evt l'évènement levé
+	 */
+	// Jason Xa
+	private void leveeEvenementCharge(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("Charge négative")) {
+			double valeur = (double) evt.getNewValue();
+			spnChargeVaisseau.setValue(valeur);
+		}
+	}
+
 	/**
 	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveau)
 	 */
@@ -428,7 +483,8 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnMasseVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseInitialeVaisseau(), 0.01, 20.0, 0.01));
+		spnMasseVaisseau
+				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseInitialeVaisseau(), 0.01, 20.0, 0.01));
 		spnMasseVaisseau.setBounds(225, 11, 140, 35);
 		panelEntree.add(spnMasseVaisseau);
 
@@ -441,7 +497,8 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnChargeVaisseau.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -200.0, 200.0, 10.0));
+		spnChargeVaisseau.setModel(
+				new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -200.0, 200.0, 10.0));
 		spnChargeVaisseau.setBounds(225, 81, 140, 35);
 		panelEntree.add(spnChargeVaisseau);
 
@@ -468,17 +525,18 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnChargePlaque.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 100.0, 1.0));
+		spnChargePlaque
+				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 100.0, 1.0));
 		spnChargePlaque.setBounds(225, 221, 140, 35);
 		panelEntree.add(spnChargePlaque);
 
 		spnCoefFrictionStat = new JSpinner();
 		spnCoefFrictionStat.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				//début
+				// début
 				MoteurPhysique.setCoeffFrotStat((double) spnCoefFrictionStat.getValue());
 				zoneAnimationPhysique.requestFocusInWindow();
-				//fin
+				// fin
 			}
 		});
 		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), 0.50, 1.0, 0.05));
@@ -488,10 +546,10 @@ public class PanelJeu extends JPanel {
 		spnCoefFrictionCine = new JSpinner();
 		spnCoefFrictionCine.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				//début
+				// début
 				MoteurPhysique.setCoeffFrotCine((double) spnCoefFrictionCine.getValue());
 				zoneAnimationPhysique.requestFocusInWindow();
-				//fin
+				// fin
 			}
 		});
 		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.35, 0.70, 0.05));
@@ -555,6 +613,10 @@ public class PanelJeu extends JPanel {
 	}
 
 	public ZoneAnimationPhysique getZoneAnimationPhysique() {
+		return zoneAnimationPhysique;
+	}
+
+	public ZoneAnimationPhysique getZone() {
 		return zoneAnimationPhysique;
 	}
 }

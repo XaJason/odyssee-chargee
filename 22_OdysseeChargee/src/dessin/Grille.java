@@ -68,7 +68,7 @@ public class Grille extends JPanel implements Serializable {
 	/** Choix entre afficher la grille ou non **/
 	private Boolean grille = true;
 	/**
-	 * Tableau qui contient la tuile si la case est occupé ou null si elle est vide
+	 * Tableau qui contient la tuile si la case est occupée ou null si elle est vide
 	 **/
 	private Tuile tabEmplacement[][];
 	/** Dernier endroit cliqué **/
@@ -102,6 +102,8 @@ public class Grille extends JPanel implements Serializable {
 	 * Compteur du nombre de portail
 	 */
 	private int nbPortails = 0;
+	/** premier portail **/
+	private Portail premierPortail;
 
 	/**
 	 * Création du panneau
@@ -109,7 +111,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public Grille() {
 
-		addMouseListener(new MouseAdapter() {			
+		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				if (modeEditeur) {
@@ -152,15 +154,17 @@ public class Grille extends JPanel implements Serializable {
 		});
 	}// Fin constructeur
 
+	
+	
 	/**
 	 * Permet de placer un tuile dans la grille
 	 */
-	// Enuel René Valentin Kizozo Izia
+	//Giroux
 	private void placerTuile(MouseEvent e) {
 			clique = e.getPoint();
+			positionnerCaseEtTuile(e.getX()/pixelsParMetre, e.getY()/pixelsParMetre);
 			if (!supprimer) {
 				if (tuile != null) {
-					positionnerCaseEtTuile(e.getX()/pixelsParMetre, e.getY()/pixelsParMetre);
 					sauvegarderEmplacement();
 				}
 			} else {
@@ -399,8 +403,7 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Portail":
 			tuileTemp = new Portail(tuile.getAngleRotation());
-			nbPortails++;
-			lierPortail(tuileTemp);
+			gererPortails();
 			break;
 		case "Triangle équilatéral":
 			tuileTemp = new TriangleEquilateral(tuile.getAngleRotation());
@@ -413,6 +416,15 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		}
 
+	}
+
+	/**
+	 * Gére les portails
+	 */
+	// Kitimir Yim
+	private void gererPortails() {
+		nbPortails++;
+		lierPortail(tuileTemp);
 	}
 
 	/**
@@ -528,8 +540,13 @@ public class Grille extends JPanel implements Serializable {
 							drapeau = false;
 
 						}
+						if (tabEmplacement[i][j].getType() == "Portail") {
+							Portail portail = (Portail) tabEmplacement[i][j];
+							Portail portailAssocie = portail.getPortailAssocie();
+							portailAssocie = null;
+						}
 						tabEmplacement[i][j] = null;
-
+							
 					}
 				}
 			}
@@ -619,8 +636,10 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void rotation() {
-		tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
-		repaint();
+		if (tuile != null) {
+			tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
+			repaint();
+		}
 	}
 
 	/**
@@ -648,6 +667,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Vérifie si la grille contient au moins une tuile du type spécifié.
 	 * 
 	 * @param typeTuile le type de tuile à rechercher dans la grille
@@ -684,16 +704,16 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
+=======
+>>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
+	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
 	// Kitimir Yim
 	private void lierPortail(Tuile tuile) {
 
 		if (nbPortails % 2 == 0) {
-
-			Portail portailTuile = (Portail) this.chercherTuile(Portail.class);
-			Portail premierPortail = (Portail) portailTuile;
 			Portail deuxiemePortail = (Portail) tuile;
 			if (premierPortail.getPortailAssocie() == null) {
 				premierPortail.definirPortailAssocie(deuxiemePortail);
@@ -702,8 +722,56 @@ public class Grille extends JPanel implements Serializable {
 			}
 		} else {
 			System.out.println("Ce portail n'a pas de duo. N'oubliez pas de lui créer un partenaire.");
+			premierPortail = (Portail) tuile;
 
 		}
 	}
 
-}// Fin classe
+	/**
+	 * Retourne vrai si la grille contient un vaisseau
+	 * 
+	 * @return vrai si la grille contient un vaisseau
+	 */
+	// Jason Xa
+	public boolean contientVaisseau() {
+		boolean vaisseauPresent = false;
+		VaisseauImage instanceVaisseau = new VaisseauImage();
+
+		// Traverse le tableau au complet
+		for (int i = 0; i < tabEmplacement.length; i++) {
+			for (int j = 0; j < tabEmplacement[i].length; j++) {
+
+				// Dès que le booléen est vrai, il ne changera jamais (1 ou [la tuile est un
+				// vaisseau]). Enlève le besoin de vérifier si la tuile est une instance de
+				// VaisseauImage lorsque la grille contient déjà un vaisseau.
+				vaisseauPresent = vaisseauPresent || instanceVaisseau.getClass().isInstance(tabEmplacement[i][j]);
+			}
+		}
+		return vaisseauPresent;
+	}
+
+	/**
+	 * Retourne vrai si la grille contient un drapeau d'arrivée
+	 * 
+	 * @return vrai si la grille contient un drapeau d'arrivée
+	 */
+	// Jason Xa
+	public boolean contientDrapeau() {
+		boolean drapeauPresent = false;
+		Drapeau instanceDrapeau = new Drapeau();
+
+		// Traverse le tableau au complet
+		for (int i = 0; i < tabEmplacement.length; i++) {
+			for (int j = 0; j < tabEmplacement[i].length; j++) {
+
+				// Dès que le booléen est vrai, il ne changera jamais (1 ou [la tuile est un
+				// vaisseau]). Enlève le besoin de vérifier si la tuile est une instance de
+				// Drapeau lorsque la grille contient déjà un vaisseau.
+				drapeauPresent = drapeauPresent || instanceDrapeau.getClass().isInstance(tabEmplacement[i][j]);
+			}
+		}
+		return drapeauPresent;
+	}
+
+}
+// Fin classe
