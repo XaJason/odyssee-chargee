@@ -418,10 +418,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		if (placementPlaque & sourisDansComposant) {
 			if (plaquePositive) {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
+				//imagePlaque = OutilsImage.lireImageEtRedimensionner("PlaqueChargePositive.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
 			} else {
 				imagePlaque = OutilsImage.lireImage("PlaqueChargeNegative.png");
+				//imagePlaque = OutilsImage.lireImageEtRedimensionner("PlaqueChargeNegative.png",(int)(plaque.getLargeur()-plaque.getLargeur()/2),(int)(plaque.getLongueur()-plaque.getLongueur()/2));
 			}
-
+			
 			g2d.drawImage(imagePlaque, (int) (plaque.getPosition().getX()), (int) (plaque.getPosition().getY()), null);
 		}
 	}

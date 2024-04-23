@@ -110,17 +110,7 @@ public class Grille extends JPanel implements Serializable {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				clique = e.getPoint();
-				if (!supprimer) {
-					if (tuile != null) {
-
-						sauvegarderEmplacement();
-
-					}
-				} else {
-					supprimerCase();
-				}
-				afficherTab();
+				placerUnBloc(e);
 			}
 
 			@Override
@@ -151,9 +141,10 @@ public class Grille extends JPanel implements Serializable {
 					dessinerCase(e.getX(), e.getY());
 					repaint();
 				}
-				// dessinerCase(e.getX(), e.getY());
-				// repaint();
-
+			}
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				placerUnBloc(e);
 			}
 		});
 
@@ -648,6 +639,23 @@ public class Grille extends JPanel implements Serializable {
 			}
 		}
 		return drapeauPresent;
+	}
+	
+	/**
+	 * Méthode qui inscrit un bloc dans le tableau des tuiles 
+	 * @param e L'évenement de la sourie
+	 */
+	//Giroux
+	private void placerUnBloc(MouseEvent e) {
+		clique = e.getPoint();
+		if (!supprimer) {
+			if (tuile != null) {
+				sauvegarderEmplacement();
+			}
+		} else {
+			supprimerCase();
+		}
+		afficherTab();
 	}
 
 }
