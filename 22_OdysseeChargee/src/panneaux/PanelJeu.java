@@ -139,7 +139,7 @@ public class PanelJeu extends JPanel {
 		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
 
-		panelEntree.setBounds(1271, 31, 376, 480);
+		panelEntree.setBounds(1172, 33, 376, 480);
 		add(panelEntree);
 		panelEntree.setLayout(null);
 
