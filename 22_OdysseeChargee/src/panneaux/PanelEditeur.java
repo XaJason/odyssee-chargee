@@ -1,6 +1,9 @@
 package panneaux;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -166,7 +169,11 @@ public class PanelEditeur extends JPanel {
 
 	/** Case à cocher pour l'affichage du quadrillage */
 	private JCheckBox chckbxGrille;
-
+	/**Image qui contient la tuile sélectionner */
+	private Image tuileSelectionne;
+	/** Type de la tuile selectionnée **/
+	private String typeTuile = "Carre.jpg";
+	
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -186,7 +193,7 @@ public class PanelEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBounds(410, 38, 900, 900);
+		grille.setBounds(417, 150, 900, 900);
 		add(grille);
 
 		// JSpinner spinnerQttCarre = new JSpinner();
@@ -209,6 +216,8 @@ public class PanelEditeur extends JPanel {
 
 		creerSectionBoutons();
 	}
+	
+	
 
 	/**
 	 * Création des boutons d'action pour la création du niveau
@@ -220,6 +229,8 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Carre());
 				afficherSelection();
+				typeTuile = "carre.jpg";
+				repaint();
 			}
 		});
 		btnCarre.setBounds(50, 61, 85, 85);
@@ -231,6 +242,8 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new TriangleRectangle());
 				afficherSelection();
+				typeTuile = "triangle_rectangle.png";
+				repaint();
 			}
 		});
 		btnTriangleRectangle.setBounds(178, 61, 85, 85);
@@ -242,6 +255,9 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new TriangleEquilateral());
 				afficherSelection();
+				typeTuile = "triangle_equilateral.png";
+				repaint();
+				
 			}
 		});
 		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
@@ -253,6 +269,8 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Pics());
 				afficherSelection();
+				typeTuile = "pics.png";
+				repaint();
 			}
 
 		});
@@ -265,6 +283,8 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Portail());
 				afficherSelection();
+				typeTuile = "portail.png";
+				repaint();
 
 			}
 		});
@@ -277,6 +297,8 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Drapeau());
 				afficherSelection();
+				typeTuile = "drapeau.png";
+				repaint();
 			}
 		});
 		btnDrapeau.setBounds(118, 340, 85, 85);
@@ -284,7 +306,7 @@ public class PanelEditeur extends JPanel {
 		add(btnDrapeau);
 
 		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
-		lblTypeSelectionne.setBounds(410, 9, 336, 14);
+		lblTypeSelectionne.setBounds(417, 66, 126, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
@@ -292,6 +314,8 @@ public class PanelEditeur extends JPanel {
 				grille.reinitialiser();
 				grille.setSupprimer(false);
 				grille.setTuile(null);
+				typeTuile = "drapeau.png";
+				repaint();
 			}
 		});
 		btnReinitialiser.setBounds(118, 599, 85, 85);
@@ -337,6 +361,8 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new VaisseauImage());
 				afficherSelection();
+				typeTuile = "vaisseau.png";
+				repaint();
 			}
 		});
 		btnVaisseau.setBounds(247, 340, 85, 85);
@@ -424,8 +450,9 @@ public class PanelEditeur extends JPanel {
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(760, 6, 200, 21);
+		chckbxGrille.setBounds(1117, 122, 200, 21);
 		add(chckbxGrille);
+		
 
 	}
 
@@ -498,5 +525,16 @@ public class PanelEditeur extends JPanel {
 					"Niveau inadéquat", 2, null);
 		}
 		return grille.contientVaisseau() && grille.contientDrapeau();
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+			Graphics2D g2d = (Graphics2D) g;
+		
+			tuileSelectionne = OutilsImage.lireImage(typeTuile);
+			if(typeTuile!=null) {
+				g2d.drawImage(tuileSelectionne.getScaledInstance(85, 85,Image.SCALE_DEFAULT), 553, 27,null);
+		}
+
 	}
 }
