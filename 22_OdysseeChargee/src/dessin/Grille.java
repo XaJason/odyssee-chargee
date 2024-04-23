@@ -650,6 +650,7 @@ public class Grille extends JPanel implements Serializable {
 	//Giroux
 	private void placerUnBloc(MouseEvent e) {
 		clique = e.getPoint();
+		dessinerCase(e.getX(), e.getY());
 		if (!supprimer) {
 			if (tuile != null) {
 				sauvegarderEmplacement();
