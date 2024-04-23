@@ -23,6 +23,8 @@ import javax.swing.event.ChangeListener;
 import dessin.ZoneAnimationPhysique;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 /**
  * Panel du mode de jeu
@@ -128,6 +130,7 @@ public class PanelJeu extends JPanel {
 	private JTextArea textAreaChampElectrique;
 	/** Texte area de la position **/
 	private JTextArea textAreaPosition;
+	private JLabel lblIndiceChargeVaisseau;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -139,7 +142,7 @@ public class PanelJeu extends JPanel {
 		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
 
-		panelEntree.setBounds(1172, 33, 376, 480);
+		panelEntree.setBounds(10, 242, 376, 480);
 		add(panelEntree);
 		panelEntree.setLayout(null);
 
@@ -173,7 +176,7 @@ public class PanelJeu extends JPanel {
 		JPanel panelSortie = new JPanel();
 		panelSortie.setLayout(null);
 		panelSortie.setBorder(BorderFactory.createTitledBorder("Sorties"));
-		panelSortie.setBounds(1271, 522, 376, 274);
+		panelSortie.setBounds(1181, 44, 376, 274);
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
@@ -234,7 +237,7 @@ public class PanelJeu extends JPanel {
 		panel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 324, 447, 187);
+		panel.setBounds(10, 44, 447, 187);
 		add(panel);
 		panel.setLayout(null);
 
@@ -287,6 +290,13 @@ public class PanelJeu extends JPanel {
 		lblNbDePlaqueRestante.setBounds(205, 11, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
+		lblIndiceChargeVaisseau = new JLabel(
+				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
+		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIndiceChargeVaisseau.setBounds(550, 702, 603, 22);
+		add(lblIndiceChargeVaisseau);
+
 	}
 
 	/**
@@ -326,7 +336,7 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
-		zoneAnimationPhysique.setBounds(499, 33, 704, 659);
+		zoneAnimationPhysique.setBounds(467, 44, 704, 659);
 		add(zoneAnimationPhysique);
 
 		btnDemarrer = new JButton("Démarrer");
