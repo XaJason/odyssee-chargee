@@ -324,6 +324,7 @@ public class Grille extends JPanel implements Serializable {
 					if (clique.getX() >= j * largeurCase && clique.getX() < ((j + 1) * largeurCase)) {
 						clonerTuile();
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
+							
 							break;
 						}
 
@@ -362,6 +363,7 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Drapeau":
 			tuileTemp = new Drapeau(tuile.getAngleRotation());
+			tuile = new Carre(tuile.getAngleRotation());
 			break;
 		case "Pics":
 			tuileTemp = new Pics(tuile.getAngleRotation());
@@ -378,6 +380,7 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Vaisseau":
 			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
+			tuile = new Carre(tuile.getAngleRotation());
 			break;
 		}
 
