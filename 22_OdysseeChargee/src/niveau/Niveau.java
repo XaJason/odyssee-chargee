@@ -74,7 +74,7 @@ public class Niveau extends JPanel implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {
-		grille.dessinerTuile(g2d);
+		grille.dessinerLesTuiles(g2d);
 	}
 
 	// GETTERS ET SETTERS //

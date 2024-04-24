@@ -1,4 +1,4 @@
-package panneaux;
+ package panneaux;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -6,6 +6,7 @@ import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -169,10 +170,8 @@ public class PanelEditeur extends JPanel {
 
 	/** Case à cocher pour l'affichage du quadrillage */
 	private JCheckBox chckbxGrille;
-	/**Image qui contient la tuile sélectionner */
-	private Image tuileSelectionne;
 	/** Type de la tuile selectionnée **/
-	private String typeTuile = "Carre.jpg";
+	private PanelTuileTemp panelTuileTemp;
 	
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -193,7 +192,7 @@ public class PanelEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
-		grille.setBounds(417, 150, 900, 900);
+		grille.setBounds(410, 38, 1000, 750);
 		add(grille);
 
 		// JSpinner spinnerQttCarre = new JSpinner();
@@ -228,8 +227,8 @@ public class PanelEditeur extends JPanel {
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Carre());
+				panelTuileTemp.setTuile(new Carre());
 				afficherSelection();
-				typeTuile = "carre.jpg";
 				repaint();
 			}
 		});
@@ -241,8 +240,8 @@ public class PanelEditeur extends JPanel {
 		btnTriangleRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new TriangleRectangle());
+				panelTuileTemp.setTuile(new TriangleRectangle());
 				afficherSelection();
-				typeTuile = "triangle_rectangle.png";
 				repaint();
 			}
 		});
@@ -254,8 +253,8 @@ public class PanelEditeur extends JPanel {
 		btnTriangleEquilateral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new TriangleEquilateral());
+				panelTuileTemp.setTuile(new TriangleEquilateral());
 				afficherSelection();
-				typeTuile = "triangle_equilateral.png";
 				repaint();
 				
 			}
@@ -268,8 +267,8 @@ public class PanelEditeur extends JPanel {
 		btnPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Pics());
+				panelTuileTemp.setTuile(new Pics());
 				afficherSelection();
-				typeTuile = "pics.png";
 				repaint();
 			}
 
@@ -282,8 +281,8 @@ public class PanelEditeur extends JPanel {
 		btnPortail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Portail());
+				panelTuileTemp.setTuile(new Portail());
 				afficherSelection();
-				typeTuile = "portail.png";
 				repaint();
 
 			}
@@ -296,8 +295,8 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new Drapeau());
+				panelTuileTemp.setTuile(new Drapeau());
 				afficherSelection();
-				typeTuile = "drapeau.png";
 				repaint();
 			}
 		});
@@ -305,8 +304,8 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
-		lblTypeSelectionne = new JLabel(preTexteTypeSelectionne);
-		lblTypeSelectionne.setBounds(417, 66, 126, 14);
+		lblTypeSelectionne = new JLabel("Type de tuile sélectionnée: ");
+		lblTypeSelectionne.setBounds(417, 66, 156, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
@@ -314,7 +313,6 @@ public class PanelEditeur extends JPanel {
 				grille.reinitialiser();
 				grille.setSupprimer(false);
 				grille.setTuile(null);
-				typeTuile = "drapeau.png";
 				repaint();
 			}
 		});
@@ -337,6 +335,9 @@ public class PanelEditeur extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				grille.setSupprimer(false);
 				grille.rotation();
+				panelTuileTemp.rotation();
+				panelTuileTemp.repaint();
+				repaint();
 			}
 		});
 		btnRotation.setBounds(247, 481, 85, 85);
@@ -360,8 +361,8 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setTuile(new VaisseauImage());
+				panelTuileTemp.setTuile(new VaisseauImage());
 				afficherSelection();
-				typeTuile = "vaisseau.png";
 				repaint();
 			}
 		});
@@ -453,6 +454,11 @@ public class PanelEditeur extends JPanel {
 		chckbxGrille.setBounds(1117, 122, 200, 21);
 		add(chckbxGrille);
 		
+		panelTuileTemp = new PanelTuileTemp();
+		panelTuileTemp.setBounds(605, 38, 85, 85);
+		add(panelTuileTemp);
+		
+		
 
 	}
 
@@ -477,6 +483,15 @@ public class PanelEditeur extends JPanel {
 	private void afficherSelection() {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
+	}
+	
+	/**
+	 * Retourne l'objet grille
+	 * @return grille
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Grille getGrille() {
+		return grille;
 	}
 
 	/**
@@ -527,14 +542,4 @@ public class PanelEditeur extends JPanel {
 		return grille.contientVaisseau() && grille.contientDrapeau();
 	}
 	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-			Graphics2D g2d = (Graphics2D) g;
-		
-			tuileSelectionne = OutilsImage.lireImage(typeTuile);
-			if(typeTuile!=null) {
-				g2d.drawImage(tuileSelectionne.getScaledInstance(85, 85,Image.SCALE_DEFAULT), 553, 27,null);
-		}
-
-	}
 }

@@ -1,5 +1,6 @@
 package tuile;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -32,9 +33,9 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 */
 	private static final long serialVersionUID = -7235372039893162386L;
 	/** l'abscisse gauche de la tuile (en mètre) */
-	protected int x;
+	protected double x;
 	/** l'ordonnée supérieure la tuile en (en mètre) */
-	protected int y;
+	protected double y;
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
 	/** Détermine si la tuile est un drapeau **/
@@ -51,9 +52,9 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	protected String type;
 
 	/** largeur de la tuile (en mètre) */
-	protected static int largeurTuile;
+	protected static double largeurTuile;
 	/** hauteur de la tuile (en mètre) */
-	protected static int hauteurTuile;
+	protected static double hauteurTuile;
 	/** Largeur d'une demi-tuile **/
 	protected static double largeurDemiTuile = largeurTuile / 2.0;
 
@@ -152,7 +153,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		setImageRefTuile();
-		g2d.drawImage(image, x, y, null);
+		g2d.drawImage(image, (int)x, (int)y, (int)largeurTuile, (int)hauteurTuile, null);
 		g2d.setTransform(transformationAffine);
 		dessinerContour(g2d);
 	}
@@ -164,13 +165,15 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 */
 	// Giroux
 	private void dessinerContour(Graphics2D g2d) {
+		Graphics2D g2dPrive = (Graphics2D) g2d.create();
+	
 		creerGeometrieContour();
-		g2d.setColor(Color.red);
-		// g2d.draw(contour);
-
+		g2dPrive.setColor(Color.red);
+		//g2d.draw(contour);
+		
 //		if (!listeSegments.isEmpty()) {
 //			for (Segment s : listeSegments) {
-//				s.dessiner(g2d);
+//				s.dessiner(g2dPrive);
 //			}
 //		}
 	}
@@ -194,7 +197,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @return L'abscisse gauche de la tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public int getX() {
+	public double getX() {
 		return this.x;
 	}
 
@@ -204,7 +207,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @param x la nouvelle abscisse gauche de la tuile (en mètre)
 	 */
 	// Jason Xa
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
@@ -214,7 +217,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @return L'ordonnée supérieure de la tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public int getY() {
+	public double getY() {
 		return this.y;
 	}
 
@@ -224,7 +227,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @param y la nouvelle ordonnée supérieure (en mètre)
 	 */
 	// Jason Xa
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
@@ -358,7 +361,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @param largeurTuile la nouvelle largeur des tuiles (en mètre)
 	 */
 	// Jason Xa
-	public static void setLargeurTuile(int largeurTuile) {
+	public static void setLargeurTuile(double largeurTuile) {
 		Tuile.largeurTuile = largeurTuile;
 		largeurDemiTuile = largeurTuile / 2.0;
 	}
@@ -370,7 +373,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * 
 	 */
 	// Jason Xa
-	public static void setHauteurTuile(int hauteurTuile) {
+	public static void setHauteurTuile(double hauteurTuile) {
 		Tuile.hauteurTuile = hauteurTuile;
 	}
 
@@ -380,7 +383,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @return hauteur de la tuile
 	 */
 	// Kitimir Yim
-	public static int getHauteurTuile() {
+	public static double getHauteurTuile() {
 		return Tuile.hauteurTuile;
 	}
 

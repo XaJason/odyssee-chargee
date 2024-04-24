@@ -104,10 +104,10 @@ public class Pics extends Tuile implements Serializable {
 	public void dessiner(Graphics2D g2d) {
 		creerGeometrieContour();
 		g2d.setColor(Color.red);
-		g2d.draw(contour);
+		//g2d.draw(contour);
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2d.drawImage(image, x, y + image.getHeight(null), null);
+		g2d.drawImage(image, (int)x, (int)(y + largeurTuile/2.0), (int)largeurTuile, (int)(hauteurTuile/2.0), null);
 		g2d.setTransform(transformationAffine);
 	}
 

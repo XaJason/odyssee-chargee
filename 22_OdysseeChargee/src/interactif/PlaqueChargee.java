@@ -33,9 +33,9 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	/** Vecteur passant par l'axe de la plaque **/
 	private Vecteur2D axe = new Vecteur2D(0, 1); // Normalisé, vecteur unitaire j par défaut
 	/** Longueur de la plaque **/
-	private double longueur = 35;
+	private double longueur = 10;
 	/** Largeur de la plaque **/
-	private double epaisseur = 5;
+	private double epaisseur = 1.5;
 
 	/** Position de l'extrémité A de la plaque **/
 	private Vecteur2D extremiteA;

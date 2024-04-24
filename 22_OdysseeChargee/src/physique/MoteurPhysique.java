@@ -41,7 +41,7 @@ public class MoteurPhysique {
 	private static final double RAPPORT_RADIANS_DEGRES = 2 * Math.PI / 360;
 
 	/** Accélération du réacteur dorsal (en m/s^2) **/
-	private static final double ACCEL_JETPACK = 250;
+	private static final double ACCEL_JETPACK = 100;
 	
 	/** Vecteur nul **/
 	private static final Vecteur2D VEC_ZERO = new Vecteur2D();

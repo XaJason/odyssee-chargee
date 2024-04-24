@@ -37,7 +37,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private Vecteur2D sommeForces = new Vecteur2D(0, 0); // par defaut
 
 	/** Rayon du vaisseau (en mètre) **/
-	private double rayon = 15;
+	private double rayon = 5.0;
 	/** Masse du vaisseau (en kg) **/
 	private double masse;
 
@@ -84,6 +84,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		super(position, charge);
 		this.masse = masse;
 		this.tuile = tuileDuVaisseau;
+		//this.rayon = VaisseauImage.getHauteurTuile()/2.0;
 		creerLaGeometrie();
 	}
 
@@ -135,7 +136,8 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		}
 
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
-		tuile.dessiner(g2d, (int) (getPosition().getX() - rayon), (int) (getPosition().getY() - rayon));
+		tuile.dessiner(g2d, (getPosition().getX()), (getPosition().getY()));
+		//tuile.dessiner(g2d);
 	}
 
 	/**
