@@ -135,10 +135,10 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public Grille() {
 		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				gererTouchesClavierAppuyees(e);
 
+			@Override
+			public void keyReleased(KeyEvent e) {
+				gererTouchesClavierRelachees(e);
 			}
 		});
 		addFocusListener(new FocusAdapter() {
@@ -169,6 +169,10 @@ public class Grille extends JPanel implements Serializable {
 
 			}// fin mousePressed
 
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				gererSourisRelachee(e);
+			}
 		});
 
 		setLayout(null);
@@ -193,6 +197,15 @@ public class Grille extends JPanel implements Serializable {
 			}
 		});
 	}// Fin constructeur
+
+	protected void gererSourisRelachee(MouseEvent e) {
+		switch (e.getButton()) {
+		case MouseEvent.BUTTON3:
+			supprimer = false;
+		
+			break;
+		}
+	}
 
 	/**
 	 * Permet de placer un tuile dans la grille
@@ -275,11 +288,11 @@ public class Grille extends JPanel implements Serializable {
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
 
-			if (supprimer) {
-				setBackground(Color.red);
-			} else {
+//			if (supprimer) {
+//				setBackground(Color.red);
+//			} else {
 				setBackground(new Color(255, 255, 128));
-			}
+//			}
 
 			if (placePrise && !supprimer) {
 				g2dPrive.setColor(Color.orange);
@@ -941,12 +954,12 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Gère les évènements au clavier
+	 * Gère les évènements au clavier (touche relâchée)
 	 * 
 	 * @param e l'évènement du clavier
 	 */
 	// Jason Xa
-	private void gererTouchesClavierAppuyees(KeyEvent e) {
+	private void gererTouchesClavierRelachees(KeyEvent e) {
 		int code = e.getKeyCode();
 
 		switch (code) {
