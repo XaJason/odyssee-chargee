@@ -172,6 +172,7 @@ public class Grille extends JPanel implements Serializable {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				gererSourisRelachee(e);
+				positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 			}
 		});
 
@@ -181,7 +182,6 @@ public class Grille extends JPanel implements Serializable {
 			public void mouseMoved(MouseEvent e) {
 				if (modeEditeur) {
 					gererCurseur();
-
 					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 					repaint();
 				}

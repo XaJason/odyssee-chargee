@@ -332,7 +332,7 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
-		zoneAnimationPhysique.setBounds(314, 31, 1000, 750);
+		zoneAnimationPhysique.setBounds(191, 0, 1000, 750);
 		add(zoneAnimationPhysique);
 
 		btnDemarrer = new JButton("Démarrer");
