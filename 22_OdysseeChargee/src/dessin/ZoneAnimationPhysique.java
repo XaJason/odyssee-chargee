@@ -668,7 +668,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		double rayon = Tuile.getHauteurTuile() / 2;
 		double tempsActuel = System.currentTimeMillis();
-		double cooldown = 10000; 
+		double cooldown = 500; 
 		
 		if (tempsActuel - dernierUsageDuPortail >= cooldown)  {
 

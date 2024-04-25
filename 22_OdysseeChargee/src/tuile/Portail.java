@@ -139,15 +139,6 @@ public class Portail extends Tuile implements Serializable {
 		}
 	}
 
-	/**
-	 * Permet d'associer un portail à un autre
-	 * 
-	 * @param portailAssocie portail relié à un autre
-	 */
-	// Kitimir Yim
-	public void definirPortailAssocie(Portail portailAssocie) {
-		this.portailAssocie = portailAssocie;
-	}
 
 	/**
 	 * Retourne le portail associé
@@ -157,6 +148,16 @@ public class Portail extends Tuile implements Serializable {
 	// Kitimir Yim
 	public Portail getPortailAssocie() {
 		return portailAssocie;
+	}
+	
+	/**
+	 * Modifie le portail associé
+	 * 
+	 * @param portailAssocie Le nouveau portail associé
+	 */
+	// Kitimir Yim
+	public void setPortailAssocie(Portail portailAssocie) {
+		this.portailAssocie = portailAssocie;
 	}
 
 	/**
