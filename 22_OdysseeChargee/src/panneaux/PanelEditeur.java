@@ -474,7 +474,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp = new PanelTuileTemp();
 		panelTuileTemp.setBounds(8, 599, 100, 100);
 		add(panelTuileTemp);
-		
+
 		btnRotationPostPlacement = new JToggleButton("");
 		btnRotationPostPlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -483,7 +483,7 @@ public class PanelEditeur extends JPanel {
 		});
 		btnRotationPostPlacement.setBounds(243, 480, 89, 85);
 		add(btnRotationPostPlacement);
-		
+
 		lblRotationPostPlacement = new JLabel("Rotation Post-Placement");
 		lblRotationPostPlacement.setBounds(226, 574, 124, 14);
 		add(lblRotationPostPlacement);
@@ -589,7 +589,7 @@ public class PanelEditeur extends JPanel {
 					panelTuileTemp.setTuile(grille.getTuile());
 					break;
 				case "FocusGrille":
-					grille.requestFocus();
+					grille.requestFocusInWindow();
 					break;
 				}
 			}

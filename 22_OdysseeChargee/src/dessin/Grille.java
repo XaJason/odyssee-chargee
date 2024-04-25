@@ -180,11 +180,7 @@ public class Grille extends JPanel implements Serializable {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if (modeEditeur) {
-					if (supprimer) {
-						setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-					} else {
-						setCursor(new Cursor(Cursor.HAND_CURSOR));
-					}
+					gererCurseur();
 
 					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 					repaint();
@@ -202,7 +198,6 @@ public class Grille extends JPanel implements Serializable {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON3:
 			supprimer = false;
-		
 			break;
 		}
 	}
@@ -291,7 +286,7 @@ public class Grille extends JPanel implements Serializable {
 //			if (supprimer) {
 //				setBackground(Color.red);
 //			} else {
-				setBackground(new Color(255, 255, 128));
+			setBackground(new Color(255, 255, 128));
 //			}
 
 			if (placePrise && !supprimer) {
@@ -548,6 +543,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
+
 			g2d.fill(emplacementActuel);
 			if (tuile != null && !supprimer) {
 				tuile.dessiner(g2d);
@@ -951,6 +947,7 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		}
+		gererCurseur();
 	}
 
 	/**
@@ -965,6 +962,18 @@ public class Grille extends JPanel implements Serializable {
 		switch (code) {
 		case KeyEvent.VK_SPACE:
 			gererSupprimer();
+		}
+	}
+
+	/**
+	 * Gère la forme du curseur
+	 */
+	// Giroux
+	private void gererCurseur() {
+		if (supprimer) {
+			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		} else {
+			setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}
 
