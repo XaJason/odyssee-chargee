@@ -195,7 +195,7 @@ public class PanelEditeur extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton()==MouseEvent.BUTTON3){
+				if (e.getButton()!=MouseEvent.BUTTON1){
 					grille.gererSupprimer();
 				}
 			}
