@@ -36,6 +36,7 @@ public class PanelTuileTemp extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if (tuile != null) {
+			g2d.scale(getWidth() / Tuile.getHauteurTuile(), getHeight() / Tuile.getHauteurTuile());
 			tuile.dessiner(g2d, 0, 0);
 		}
 

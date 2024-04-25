@@ -150,13 +150,15 @@ public class Grille extends JPanel implements Serializable {
 			public void mousePressed(MouseEvent e) {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON2:
-					supprimer = false;
+					supprimer = !supprimer;
 					break;
 				case MouseEvent.BUTTON3:
 					supprimer = true;
 					placerTuile(e);
+					break;
 				case MouseEvent.BUTTON1:
 					placerTuile(e);
+					break;
 				}
 //				if (e.getButton() == MouseEvent.BUTTON2) {
 //					supprimer = false;
@@ -167,6 +169,7 @@ public class Grille extends JPanel implements Serializable {
 //				}
 
 			}// fin mousePressed
+
 		});
 
 		setLayout(null);
@@ -201,6 +204,7 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 		if (!supprimer) {
 			if (tuile != null) {
+
 				sauvegarderEmplacement();
 			}
 		} else {
@@ -209,6 +213,7 @@ public class Grille extends JPanel implements Serializable {
 		afficherTab();
 
 		repaint();
+
 	}
 
 	/**
@@ -367,11 +372,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void afficherGrille() {
-		if (grille == true) {
-			grille = false;
-		} else {
-			grille = true;
-		}
+		grille = !grille;
 		repaint();
 
 	}// Fin méthode
@@ -405,10 +406,6 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
-							switch (tuileTemp.getType()) {
-
-							}
-
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -421,8 +418,12 @@ public class Grille extends JPanel implements Serializable {
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
+								tuile = null;
+								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
+								tuile = null;
+								PCS.firePropertyChange("Vaisseau", null, false);
 							}
 						} else if (rotationPostPlacement) {
 							rotationPostPlacement();
@@ -452,8 +453,7 @@ public class Grille extends JPanel implements Serializable {
 		case "Drapeau":
 			tuileTemp = new Drapeau(tuile.getAngleRotation());
 //			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
-			tuile = null;
-			PCS.firePropertyChange("Drapeau", null, false);
+
 			break;
 		case "Pics":
 			tuileTemp = new Pics(tuile.getAngleRotation());
@@ -470,8 +470,7 @@ public class Grille extends JPanel implements Serializable {
 		case "Vaisseau":
 			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
 //			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
-			tuile = null;
-			PCS.firePropertyChange("Vaisseau", null, false);
+
 			break;
 		}
 
@@ -806,9 +805,18 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
 	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
 	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
+=======
+	 * <<<<<<< HEAD
+	 * =======
+	 * =======
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * Lie un portail si nécessaire
+>>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
