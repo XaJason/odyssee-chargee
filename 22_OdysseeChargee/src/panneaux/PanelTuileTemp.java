@@ -14,7 +14,7 @@ public class PanelTuileTemp extends JPanel {
 	 */
 	private static final long serialVersionUID = 2236980579144572642L;
 	private Tuile tuile;
-	//private Tuile tuileTemp;
+	// private Tuile tuileTemp;
 
 	/**
 	 * Create the panel.
@@ -27,7 +27,7 @@ public class PanelTuileTemp extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if (tuile != null) {
-			tuile.dessiner(g2d);
+			tuile.dessiner(g2d, 0, 0);
 		}
 
 	}
@@ -35,8 +35,8 @@ public class PanelTuileTemp extends JPanel {
 	public void setTuile(Tuile tuile) {
 		this.tuile = tuile;
 		repaint();
-		
 	}
+
 	/**
 	 * Applique un quart de rotation horaire à la tuile sélectionnée
 	 */
@@ -45,6 +45,5 @@ public class PanelTuileTemp extends JPanel {
 		tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
 		repaint();
 	}
-
 
 }

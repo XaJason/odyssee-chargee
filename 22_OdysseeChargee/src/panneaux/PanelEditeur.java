@@ -1,4 +1,4 @@
- package panneaux;
+package panneaux;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -172,7 +173,7 @@ public class PanelEditeur extends JPanel {
 	private JCheckBox chckbxGrille;
 	/** Type de la tuile selectionnée **/
 	private PanelTuileTemp panelTuileTemp;
-	
+
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -215,14 +216,13 @@ public class PanelEditeur extends JPanel {
 
 		creerSectionBoutons();
 	}
-	
-	
 
 	/**
 	 * Création des boutons d'action pour la création du niveau
 	 */
 	// Jason Xa
 	private void creerSectionBoutons() {
+		leveeEvenement();
 		btnCarre = new JButton();
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -256,7 +256,7 @@ public class PanelEditeur extends JPanel {
 				panelTuileTemp.setTuile(new TriangleEquilateral());
 				afficherSelection();
 				repaint();
-				
+
 			}
 		});
 		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
@@ -304,8 +304,8 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
-		lblTypeSelectionne = new JLabel("Type de tuile sélectionnée: ");
-		lblTypeSelectionne.setBounds(417, 66, 156, 14);
+		lblTypeSelectionne = new JLabel("Type de la tuile sélectionnée: ");
+		lblTypeSelectionne.setBounds(10, 191, 156, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
@@ -313,7 +313,10 @@ public class PanelEditeur extends JPanel {
 				grille.reinitialiser();
 				grille.setSupprimer(false);
 				grille.setTuile(null);
+				panelTuileTemp.setTuile(null);
 				repaint();
+				btnDrapeau.setEnabled(true);
+				btnVaisseau.setEnabled(true);
 			}
 		});
 		btnReinitialiser.setBounds(118, 599, 85, 85);
@@ -453,12 +456,10 @@ public class PanelEditeur extends JPanel {
 		chckbxGrille.setSelected(true);
 		chckbxGrille.setBounds(1117, 122, 200, 21);
 		add(chckbxGrille);
-		
+
 		panelTuileTemp = new PanelTuileTemp();
-		panelTuileTemp.setBounds(605, 38, 85, 85);
+		panelTuileTemp.setBounds(10, 215, 85, 85);
 		add(panelTuileTemp);
-		
-		
 
 	}
 
@@ -484,9 +485,10 @@ public class PanelEditeur extends JPanel {
 		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
-	
+
 	/**
 	 * Retourne l'objet grille
+	 * 
 	 * @return grille
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -541,5 +543,28 @@ public class PanelEditeur extends JPanel {
 		}
 		return grille.contientVaisseau() && grille.contientDrapeau();
 	}
-	
+
+	/**
+	 * S'occupe de la levée d'évenement
+	 */
+	// Jason Xa
+	private void leveeEvenement() {
+
+		grille.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				switch (evt.getPropertyName()) {
+				case "Drapeau":
+					btnDrapeau.setEnabled((boolean) evt.getNewValue());
+					panelTuileTemp.setTuile(grille.getTuile());
+					break;
+				case "Vaisseau":
+					btnVaisseau.setEnabled((boolean) evt.getNewValue());
+					panelTuileTemp.setTuile(grille.getTuile());
+					break;
+				}
+			}
+
+		});
+
+	}
 }

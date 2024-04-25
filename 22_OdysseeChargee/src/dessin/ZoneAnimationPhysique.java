@@ -637,6 +637,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		switch (choix) {
 		case 0:
 			recommencer();
+			modifierBouton();
 			break;
 		case 1:
 			PCS.firePropertyChange("retournerNiveau", null, 0);
@@ -645,6 +646,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 			break;
 		}
+	}
+	/**
+	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation 
+	 */
+	//Kitimir Yim
+	private void modifierBouton() {
+		PCS.firePropertyChange("changementBouton", null, null);
+
 	}
 
 	/**
@@ -724,6 +733,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		droite = false;
 		haut = false;
 		bas = false;
+
 
 		// Désactiver les plaques chargées (charge neutre), éventuellement
 
