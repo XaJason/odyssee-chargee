@@ -146,10 +146,24 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON3) {
+				switch (e.getButton()) {
+				case MouseEvent.BUTTON2:
+					supprimer = false;
+					break;
+				case MouseEvent.BUTTON3:
 					supprimer = true;
+					placerTuile(e);
+				case MouseEvent.BUTTON1:
+					placerTuile(e);
 				}
-				placerTuile(e);
+//				if (e.getButton() == MouseEvent.BUTTON2) {
+//					supprimer = false;
+//				}
+//				if (e.getButton() == MouseEvent.BUTTON3) {
+//					supprimer = true;
+//					placerTuile(e);
+//				}
+
 			}// fin mousePressed
 		});
 
@@ -171,7 +185,7 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				placerTuile(e);
+					placerTuile(e);
 			}
 		});
 	}// Fin constructeur
@@ -554,7 +568,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void gererSupprimer() {
-		supprimer = true;
+		supprimer = !supprimer;
 		repaint();
 	}
 
