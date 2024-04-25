@@ -30,6 +30,8 @@ import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
 import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Panel du mode éditeur
@@ -190,6 +192,14 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Kitimir Yim
 	public PanelEditeur() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton()!=MouseEvent.BUTTON1){
+					grille.gererSupprimer();
+				}
+			}
+		});
 		setLayout(null);
 
 		grille = new Grille();
@@ -458,7 +468,7 @@ public class PanelEditeur extends JPanel {
 		add(chckbxGrille);
 
 		panelTuileTemp = new PanelTuileTemp();
-		panelTuileTemp.setBounds(10, 215, 85, 85);
+		panelTuileTemp.setBounds(33, 718, 354, 259);
 		add(panelTuileTemp);
 
 	}
