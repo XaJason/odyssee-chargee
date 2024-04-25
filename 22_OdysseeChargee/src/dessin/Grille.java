@@ -111,6 +111,8 @@ public class Grille extends JPanel implements Serializable {
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+	/** Boolean qui indique si on mode rotation **/
+	private boolean rotationPostPlacement = false;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -185,7 +187,7 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-					placerTuile(e);
+				placerTuile(e);
 			}
 		});
 	}// Fin constructeur
@@ -422,8 +424,11 @@ public class Grille extends JPanel implements Serializable {
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
 							}
+						} else if (rotationPostPlacement) {
+							rotationPostPlacement();
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
+
 						}
 						System.out.println("Vous avez cliqué sur la col: " + (j + 1) + " et la ligne: " + (i + 1));
 						System.out.println("Vous avez cliqué sur la col: " + (j) + " et la ligne: " + (i));
@@ -598,7 +603,7 @@ public class Grille extends JPanel implements Serializable {
 							PCS.firePropertyChange("Drapeau", null, true);
 
 						}
-						
+
 						supprimerPortailAssocie(i, j);
 						tabEmplacement[i][j] = null;
 
@@ -610,10 +615,11 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient d'être supprimé
+	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient
+	 * d'être supprimé
 	 * 
 	 * @param i Le numéro de la ligne courante dans la boucle for
-	 * @param j Le numéro de la colonne courante dans la boucle for 
+	 * @param j Le numéro de la colonne courante dans la boucle for
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void supprimerPortailAssocie(int i, int j) {
@@ -622,30 +628,30 @@ public class Grille extends JPanel implements Serializable {
 			nbPortails--;
 			Portail portail = (Portail) tabEmplacement[i][j];
 			Portail portailAssocie = portail.getPortailAssocie();
-			
+
 			// Vérifie qu'il y ait un portail associé
 			if (portailAssocie != null) {
-				
+
 				// Boucle pour passer au travers de toutes les tuiles
 				for (int m = 0; m < nbCaseVerticale; m++) {
 					for (int n = 0; n < nbCaseHorizontale; n++) {
-						
+
 						// Vérifie qu'il y ait une tuile
 						if (tabEmplacement[m][n] != null) {
-							
+
 							// Vérifie si la tuile courante correspond au portail associé
-							if ( tabEmplacement[m][n].equals(portailAssocie) ) {
+							if (tabEmplacement[m][n].equals(portailAssocie)) {
 								tabEmplacement[m][n] = null;
 								nbPortails--;
-								//portail.setPortailAssocie(null);
-							}// fin 4e condition
-						}// fin 3e condition
-					}// fin 2e boucle
-				}// fin 1er boucle
-			}// fin 2e condition
-		}//fin 1ere condition
+								// portail.setPortailAssocie(null);
+							} // fin 4e condition
+						} // fin 3e condition
+					} // fin 2e boucle
+				} // fin 1er boucle
+			} // fin 2e condition
+		} // fin 1ere condition
 	}
-	
+
 	/**
 	 * Permet d'avoir l'emplacement des tuiles
 	 * 
@@ -749,10 +755,10 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Modifie la condition indiquant si l'on est dans le mode jeu
-	 * En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la
-	 * tuile du vaisseau, donc son image.
-	 * L'image du vaisseau le sera quand on dessinera le vaisseau (individuellement)
+	 * Modifie la condition indiquant si l'on est dans le mode jeu En établissant
+	 * qu'on est dans le mode jeu, la grille ne dessinera pas la tuile du vaisseau,
+	 * donc son image. L'image du vaisseau le sera quand on dessinera le vaisseau
+	 * (individuellement)
 	 * 
 	 * @param dansModeJeu La nouvelle valeur du booléan indiquant si l'on est dans
 	 *                    le mode jeu
@@ -763,8 +769,8 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD
-	 * Vérifie si la grille contient au moins une tuile du type spécifié.
+	 * <<<<<<< HEAD Vérifie si la grille contient au moins une tuile du type
+	 * spécifié.
 	 * 
 	 * @param typeTuile le type de tuile à rechercher dans la grille
 	 * @return true si au moins une tuile du type spécifié est présente, sinon false
@@ -800,12 +806,9 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
-	 * =======
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
-	 * Lie un portail si nécessaire
+	 * <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
+	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
+	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
@@ -870,6 +873,38 @@ public class Grille extends JPanel implements Serializable {
 			}
 		}
 		return drapeauPresent;
+	}
+
+	public void rotationPostPlacement() {
+		for (int i = 0; i < nbCaseVerticale; i++) {
+			if (clique.getY() / pixelsParMetre >= i * hauteurCase
+					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCaseHorizontale; j++) {
+					if (clique.getX() / pixelsParMetre >= j * largeurCase
+							&& clique.getX() / pixelsParMetre < ((j + 1) * largeurCase)) {
+
+						if (tabEmplacement[i][j] == null || tabEmplacement[i][j].getVaisseau()) {
+							break;
+
+						} else {
+							tabEmplacement[i][j]
+									.setAngleRotation(tabEmplacement[i][j].getAngleRotation() + 0.5 * Math.PI);
+							repaint();
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+	public void setRotationPostPlacement() {
+		if (rotationPostPlacement) {
+			rotationPostPlacement = false;
+		} else {
+			rotationPostPlacement = true;
+		}
 	}
 
 }

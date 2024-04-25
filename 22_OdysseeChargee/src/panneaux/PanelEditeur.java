@@ -30,12 +30,14 @@ import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
 import javax.swing.JCheckBox;
+import javax.swing.JToggleButton;
 
 /**
  * Panel du mode éditeur
  * 
  * @author Jason Xa
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  * 
  */
 
@@ -85,7 +87,7 @@ public class PanelEditeur extends JPanel {
 	/** bouton permettant de gérer la suppression de tuile */
 	private JButton btnSupprimer;
 	/** bouton permettant de gérer la rotation de nouvelles tuiles */
-	private JButton btnRotation;
+	private JButton btnRotationPrePlacement;
 	/** bouton permettant de gérer la sauvegarde du niveau associée à la grille */
 	private JButton btnSauvegarder;
 	/** bouton permettant de la sélection de la tuile de type vaisseau */
@@ -150,7 +152,7 @@ public class PanelEditeur extends JPanel {
 	 * étiquette servant à identifier le bouton permettant de gérer la rotation de
 	 * nouvelles tuiles
 	 */
-	private JLabel lblRotation;
+	private JLabel lblRotationPrePlacement;
 	/**
 	 * étiquette servant à identifier le bouton permettant de gérer la sauvegarde du
 	 * niveau associée à la grille
@@ -173,6 +175,8 @@ public class PanelEditeur extends JPanel {
 	private JCheckBox chckbxGrille;
 	/** Type de la tuile selectionnée **/
 	private PanelTuileTemp panelTuileTemp;
+	private JToggleButton btnRotationPostPlacement;
+	private JLabel lblRotationPostPlacement;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -329,12 +333,12 @@ public class PanelEditeur extends JPanel {
 				grille.gererSupprimer();
 			}
 		});
-		btnSupprimer.setBounds(118, 481, 85, 85);
+		btnSupprimer.setBounds(247, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
 
-		btnRotation = new JButton();
-		btnRotation.addActionListener(new ActionListener() {
+		btnRotationPrePlacement = new JButton();
+		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setSupprimer(false);
 				grille.rotation();
@@ -343,9 +347,9 @@ public class PanelEditeur extends JPanel {
 				repaint();
 			}
 		});
-		btnRotation.setBounds(247, 481, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
-		add(btnRotation);
+		btnRotationPrePlacement.setBounds(118, 480, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
+		add(btnRotationPrePlacement);
 
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
@@ -356,7 +360,7 @@ public class PanelEditeur extends JPanel {
 			}
 
 		});
-		btnSauvegarder.setBounds(247, 599, 85, 85);
+		btnSauvegarder.setBounds(178, 727, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 
@@ -424,17 +428,17 @@ public class PanelEditeur extends JPanel {
 
 		lblSupprimer = new JLabel("Supprimer");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(118, 576, 85, 13);
+		lblSupprimer.setBounds(247, 694, 85, 13);
 		add(lblSupprimer);
 
-		lblRotation = new JLabel("Rotation");
-		lblRotation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRotation.setBounds(247, 576, 85, 13);
-		add(lblRotation);
+		lblRotationPrePlacement = new JLabel("Rotation Pre-Placement");
+		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRotationPrePlacement.setBounds(89, 575, 131, 13);
+		add(lblRotationPrePlacement);
 
 		lblSauvegarder = new JLabel("Sauvegarder");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(247, 694, 85, 13);
+		lblSauvegarder.setBounds(178, 822, 85, 13);
 		add(lblSauvegarder);
 
 		lblInteractifs = new JLabel("Interactifs");
@@ -460,6 +464,19 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp = new PanelTuileTemp();
 		panelTuileTemp.setBounds(10, 215, 85, 85);
 		add(panelTuileTemp);
+		
+		btnRotationPostPlacement = new JToggleButton("");
+		btnRotationPostPlacement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				grille.setRotationPostPlacement();
+			}
+		});
+		btnRotationPostPlacement.setBounds(243, 480, 89, 85);
+		add(btnRotationPostPlacement);
+		
+		lblRotationPostPlacement = new JLabel("Rotation Post-Placement");
+		lblRotationPostPlacement.setBounds(226, 574, 124, 14);
+		add(lblRotationPostPlacement);
 
 	}
 
