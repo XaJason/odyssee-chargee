@@ -29,14 +29,6 @@ import niveau.Niveau;
 import panneaux.PanelEditeur;
 import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
-import tuile.Carre;
-import tuile.Drapeau;
-import tuile.Pics;
-import tuile.Portail;
-import tuile.TriangleEquilateral;
-import tuile.TriangleRectangle;
-import tuile.Tuile;
-import tuile.VaisseauImage;
 import utilitaires.ConstanteComposantsSwing;
 
 /**
@@ -141,7 +133,6 @@ public class AppPrincipale22 extends JFrame {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {

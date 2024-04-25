@@ -1,7 +1,6 @@
 package dessin;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -36,8 +35,6 @@ import tuile.Tuile;
 import tuile.VaisseauImage;
 import utilitaires.Aire;
 import utilitaires.OutilsImage;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 /**
  * Composant illustrant la simulation :

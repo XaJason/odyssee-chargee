@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -30,10 +33,6 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
 import tuile.VaisseauImage;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 /**
  * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
@@ -110,6 +109,10 @@ public class Grille extends JPanel implements Serializable {
 	private int nbPortails = 0;
 	/** premier portail **/
 	private Portail premierPortail;
+	/** Dernière abscisse de la souris (pixels) */
+	private double dernierX;
+	/** Dernière ordonnée de la souris (pixels) */
+	private double dernierY;
 
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
@@ -139,6 +142,11 @@ public class Grille extends JPanel implements Serializable {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				gererTouchesClavierRelachees(e);
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				gererTouchesClavierEnfoncees(e);
 			}
 		});
 		addFocusListener(new FocusAdapter() {
@@ -183,6 +191,8 @@ public class Grille extends JPanel implements Serializable {
 				if (modeEditeur) {
 					gererCurseur();
 					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+					dernierX = e.getX();
+					dernierY = e.getY();
 					repaint();
 				}
 			}
@@ -194,7 +204,29 @@ public class Grille extends JPanel implements Serializable {
 		});
 	}// Fin constructeur
 
-	protected void gererSourisRelachee(MouseEvent e) {
+	private void gererTouchesClavierEnfoncees(KeyEvent e) {
+		int code = e.getKeyCode();
+
+		if (e.isControlDown() && code == KeyEvent.VK_S) {
+			PCS.firePropertyChange("Sauvegarder", null, null);
+		}
+		switch (code) {
+		case KeyEvent.VK_Q:
+			PCS.firePropertyChange("Sélectionner carré", null, null);
+			System.out.println("LeBron James");
+			break;
+		case KeyEvent.VK_W:
+			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+			break;
+		case KeyEvent.VK_E:
+			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
+			break;
+
+		}
+
+	}
+
+	private void gererSourisRelachee(MouseEvent e) {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON3:
 			supprimer = false;
@@ -329,6 +361,41 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void positionnerCaseEtTuile(double posX, double posY) {
+
+		for (int i = 0; i < nbCaseVerticale; i++) {
+			if (posY >= i * hauteurCase && posY < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCaseHorizontale; j++) {
+					if (posX >= j * largeurCase && posX < ((j + 1) * largeurCase)) {
+						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
+						if (!supprimer && tuile != null) {
+							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
+							tuile.setX(largeurCase * j);
+							tuile.setY(hauteurCase * i);
+						}
+						if (tabEmplacement[i][j] != null) {
+							placePrise = true;
+						} else {
+							placePrise = false;
+						}
+						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
+					}
+				}
+
+			}
+
+		}
+
+	}// Fin méthode
+
+	/**
+	 * Méthode qui positionne la tuile et son fond bleu à l'emplacement de la souris
+	 * passée en paramètre
+	 * 
+	 * @param posX Position x de l'emplacement
+	 * @param posY Position y de l'emplacement
+	 */
+	// Giroux
+	private void positionnerCaseEtTuile(Tuile tuile, double posX, double posY) {
 
 		for (int i = 0; i < nbCaseVerticale; i++) {
 			if (posY >= i * hauteurCase && posY < ((i + 1) * hauteurCase)) {
@@ -697,6 +764,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void setTuile(Tuile tuile) {
+		positionnerCaseEtTuile(tuile, dernierX/pixelsParMetre, dernierY/pixelsParMetre);
 		this.tuile = tuile;
 	}
 
@@ -962,6 +1030,18 @@ public class Grille extends JPanel implements Serializable {
 		switch (code) {
 		case KeyEvent.VK_SPACE:
 			gererSupprimer();
+			break;
+		case KeyEvent.VK_Q:
+			PCS.firePropertyChange("Sélectionner carré", null, null);
+			System.out.println("LeBron James");
+			break;
+		case KeyEvent.VK_W:
+			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+			break;
+		case KeyEvent.VK_E:
+			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
+			break;
+
 		}
 	}
 
