@@ -116,7 +116,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	// Caractéristiques des plaques chargées
 	/** Charge initiale des plaques du niveau (en Coulomb) **/
-	private final double CHARGE_INITIALE_DES_PLAQUES = 50;
+	private final double CHARGE_INITIALE_DES_PLAQUES = 5.0;
 	/** Charge des plaques du niveau (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
 	/** Liste des plaques chargées **/
@@ -126,7 +126,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
-	private final double CHARGE_INITIALE_VAISSEAU = -25;
+	private final double CHARGE_INITIALE_VAISSEAU = -5.0;
 	/** Masse initiale du vaisseau (en kilogramme) **/
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
@@ -338,7 +338,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * Lit, redimensionne et définit l'image pour chaque type de tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void lireImages() {
+	private void lireImages() {		System.out.println("Lire l'image du carré: largeur:" + niveau.getGrille().getLargeurCase() + " pixels:" + pixelsParMetre + " hauteur:" + niveau.getGrille().getHauteurCase());
 		Carre.setImageRef("carre.jpg", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
 		TriangleEquilateral.setImageRef("triangle_equilateral.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
 		TriangleRectangle.setImageRef("triangle_rectangle.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
@@ -380,6 +380,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			//			Drapeau.setImageRef("drapeau.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
 			//			Pics.setImageRef("pics.png", (int)(largeurCase*pixelsParMetre), (int)( (hauteurCase/2.0)*pixelsParMetre ));
 			//			VaisseauImage.setImageRef("vaisseau.png", (int)( (largeurCase/2.0)*pixelsParMetre ), (int)( (hauteurCase/2.0)*pixelsParMetre ));
+			System.out.println("Lire image dans paintComponent");
 			lireImages();
 			premiereFois = false;
 		} // fin condition dans paintComponent
@@ -390,12 +391,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		//lireImages();
 		
 		g2dPrive.scale(pixelsParMetre, pixelsParMetre);
-		dessinerNiveau(g2dPrive);
+		
 		dessinerVaisseau(g2dPrive);
 		
 		dessinerPlaques(g2dPrive);
 		dessinerPlaqueLorsSurvol(g2dPrive);
-		dessinerPlaqueFantome(g2dPrive);
+		//dessinerPlaqueFantome(g2dPrive);
+		dessinerNiveau(g2dPrive);
 	}
 
 	/**
@@ -407,7 +409,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private void dessinerNiveau(Graphics2D g2d) {
 		//		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		//		g2dPrive.scale(1/pixelsParMetre, 1/pixelsParMetre);
+		System.out.println(niveau.getGrille());
 		niveau.getGrille().dessinerLesTuiles(g2d);
+		niveau.getGrille().getTuile().dessiner(g2d, 50, 50);
 	}
 
 	/**

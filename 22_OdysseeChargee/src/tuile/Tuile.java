@@ -172,7 +172,9 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void dessiner(Graphics2D g2d) {
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		System.out.println("Dans tuile \"image\" : "+image);
 		setImageRefTuile();
+		System.out.println("Dans tuile \"image\" : "+image);
 		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
 		g2d.setTransform(transformationAffine);
 		dessinerContour(g2d);

@@ -501,6 +501,7 @@ public class Grille extends JPanel implements Serializable {
 				tuileTableau = tabEmplacement[i][j];
 				if (tuileTableau != null) {
 					if (!(dansModeJeu & tuileTableau.getType().equals("Vaisseau"))) {
+						System.out.println("Dans grille \"tuile\" : "+tuile);
 						tuileTableau.dessiner(g2d);
 					}
 				}

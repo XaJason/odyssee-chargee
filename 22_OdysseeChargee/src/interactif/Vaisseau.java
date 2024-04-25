@@ -29,6 +29,8 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private static final long serialVersionUID = -1773798144841043627L;
 
 	// PROPRIÉTÉS //
+	/** Vitesse limite du vaisseau (en m/s) **/
+	//private Vecteur2D VITESSE_LIMITE
 	/** Vitesse du vaisseau (en m/s) **/
 	private Vecteur2D vitesse = new Vecteur2D(0, 0); // par defaut
 	/** Accélération du vaisseau (en m/s^2) **/

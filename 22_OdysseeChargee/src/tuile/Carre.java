@@ -100,7 +100,9 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
+		System.out.println(image);
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
+		System.out.println(image);
 	}
 
 	/**

@@ -176,7 +176,7 @@ public class PanelJeu extends JPanel {
 		JPanel panelSortie = new JPanel();
 		panelSortie.setLayout(null);
 		panelSortie.setBorder(BorderFactory.createTitledBorder("Sorties"));
-		panelSortie.setBounds(1181, 44, 376, 274);
+		panelSortie.setBounds(1398, 31, 302, 274);
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
@@ -204,31 +204,31 @@ public class PanelJeu extends JPanel {
 		panelSortie.add(lblPosition);
 
 		textAreaVitesse = new JTextArea(vitesseString);
-		textAreaVitesse.setBounds(216, 37, 150, 22);
+		textAreaVitesse.setBounds(210, 37, 84, 22);
 		panelSortie.add(textAreaVitesse);
 
 		textAreaAcceleration = new JTextArea(acceString);
-		textAreaAcceleration.setBounds(216, 73, 150, 22);
+		textAreaAcceleration.setBounds(210, 73, 84, 22);
 		panelSortie.add(textAreaAcceleration);
 
 		textAreaForceElectrique = new JTextArea(forceElecString);
 		textAreaForceElectrique.setEditable(false);
-		textAreaForceElectrique.setBounds(216, 113, 150, 22);
+		textAreaForceElectrique.setBounds(210, 113, 84, 22);
 		panelSortie.add(textAreaForceElectrique);
 
 		textAreaForceGravite = new JTextArea(forceGravString);
 		textAreaForceGravite.setEditable(false);
-		textAreaForceGravite.setBounds(216, 153, 150, 22);
+		textAreaForceGravite.setBounds(210, 153, 84, 22);
 		panelSortie.add(textAreaForceGravite);
 
 		textAreaChampElectrique = new JTextArea(champElecString);
 		textAreaChampElectrique.setEditable(false);
-		textAreaChampElectrique.setBounds(216, 197, 150, 22);
+		textAreaChampElectrique.setBounds(210, 197, 84, 22);
 		panelSortie.add(textAreaChampElectrique);
 
 		textAreaPosition = new JTextArea(positionString);
 		textAreaPosition.setEditable(false);
-		textAreaPosition.setBounds(216, 233, 150, 22);
+		textAreaPosition.setBounds(210, 233, 84, 22);
 		panelSortie.add(textAreaPosition);
 
 		leveeEvenement();
@@ -237,7 +237,7 @@ public class PanelJeu extends JPanel {
 		panel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 44, 447, 187);
+		panel.setBounds(10, 44, 302, 187);
 		add(panel);
 		panel.setLayout(null);
 
@@ -336,7 +336,7 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
-		zoneAnimationPhysique.setBounds(314, 31, 1000, 750);
+		zoneAnimationPhysique.setBounds(388, 31, 1000, 750);
 		add(zoneAnimationPhysique);
 
 		btnDemarrer = new JButton("Démarrer");
@@ -350,7 +350,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(10, 10, 89, 23);
+		btnDemarrer.setBounds(494, 809, 89, 23);
 		add(btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
@@ -504,7 +504,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		spnChargeVaisseau.setModel(
-				new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -200.0, 200.0, 10.0));
+				new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -10.0, 10.0, 0.5));
 		spnChargeVaisseau.setBounds(225, 81, 140, 35);
 		panelEntree.add(spnChargeVaisseau);
 
@@ -532,7 +532,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		spnChargePlaque
-				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 100.0, 1.0));
+				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 10.0, 0.5));
 		spnChargePlaque.setBounds(225, 221, 140, 35);
 		panelEntree.add(spnChargePlaque);
 
