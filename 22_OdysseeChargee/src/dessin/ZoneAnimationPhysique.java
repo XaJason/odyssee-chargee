@@ -36,6 +36,8 @@ import tuile.Tuile;
 import tuile.VaisseauImage;
 import utilitaires.Aire;
 import utilitaires.OutilsImage;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * Composant illustrant la simulation :
@@ -130,9 +132,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Masse initiale du vaisseau (en kilogramme) **/
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
-	private final double POS_INITIALE_VAISSEAU_EN_X = 90; // Impossible à définir en constante, car ne peut être ré-initialié
+	private final double POS_INITIALE_VAISSEAU_EN_X = 90; // Impossible à définir en constante, car ne peut être
+															// ré-initialié
 	/** Composante en Y de la position initiale du vaisseau (en mètre) **/
-	private final double POS_INITIALE_VAISSEAU_EN_Y = 165; // Impossible à définir en constante, car ne peut être ré-initialié
+	private final double POS_INITIALE_VAISSEAU_EN_Y = 165; // Impossible à définir en constante, car ne peut être
+															// ré-initialié
 
 	// Caractéristiques du vaisseau
 	/** Objet représentant le vaisseau **/
@@ -250,12 +254,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
 
-
 		niveau = Sauvegarder.chargerNiveau("Niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
 	}// fin constructeur
-
 
 	// SOUS-PROGRAMMES //
 	/**
@@ -339,13 +341,22 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void lireImages() {
-		Carre.setImageRef("carre.jpg", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
-		TriangleEquilateral.setImageRef("triangle_equilateral.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
-		TriangleRectangle.setImageRef("triangle_rectangle.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
-		Portail.setImageRef("portail.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
-		Drapeau.setImageRef("drapeau.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)(niveau.getGrille().getHauteurCase()*pixelsParMetre));
-		Pics.setImageRef("pics.png", (int)(niveau.getGrille().getLargeurCase()*pixelsParMetre), (int)((niveau.getGrille().getHauteurCase()/2.0)*pixelsParMetre));
-		VaisseauImage.setImageRef("vaisseau.png", (int)((niveau.getGrille().getLargeurCase()/2.0)*pixelsParMetre), (int)((niveau.getGrille().getHauteurCase()/2.0)*pixelsParMetre));
+		Carre.setImageRef("carre.jpg", (int) (niveau.getGrille().getLargeurCase() * pixelsParMetre),
+				(int) (niveau.getGrille().getHauteurCase() * pixelsParMetre));
+		TriangleEquilateral.setImageRef("triangle_equilateral.png",
+				(int) (niveau.getGrille().getLargeurCase() * pixelsParMetre),
+				(int) (niveau.getGrille().getHauteurCase() * pixelsParMetre));
+		TriangleRectangle.setImageRef("triangle_rectangle.png",
+				(int) (niveau.getGrille().getLargeurCase() * pixelsParMetre),
+				(int) (niveau.getGrille().getHauteurCase() * pixelsParMetre));
+		Portail.setImageRef("portail.png", (int) (niveau.getGrille().getLargeurCase() * pixelsParMetre),
+				(int) (niveau.getGrille().getHauteurCase() * pixelsParMetre));
+		Drapeau.setImageRef("drapeau.png", (int) (niveau.getGrille().getLargeurCase() * pixelsParMetre),
+				(int) (niveau.getGrille().getHauteurCase() * pixelsParMetre));
+		Pics.setImageRef("pics.png", (int) (niveau.getGrille().getLargeurCase() * pixelsParMetre),
+				(int) ((niveau.getGrille().getHauteurCase() / 2.0) * pixelsParMetre));
+		VaisseauImage.setImageRef("vaisseau.png", (int) ((niveau.getGrille().getLargeurCase() / 2.0) * pixelsParMetre),
+				(int) ((niveau.getGrille().getHauteurCase() / 2.0) * pixelsParMetre));
 	}
 
 	/**
@@ -367,32 +378,38 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			pixelsParMetre = getWidth() / largeurDuComposantEnMetres;
 			hauteurDuComposantEnMetres = getHeight() / pixelsParMetre;
 
-
 			// vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 
-			//			Tuile.setLargeurTuile(largeurCase);
-			//			Tuile.setHauteurTuile(hauteurCase);
-			//			
-			//			Carre.setImageRef("carre.jpg", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-			//			TriangleEquilateral.setImageRef("triangle_equilateral.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-			//			TriangleRectangle.setImageRef("triangle_rectangle.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-			//			Portail.setImageRef("portail.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-			//			Drapeau.setImageRef("drapeau.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-			//			Pics.setImageRef("pics.png", (int)(largeurCase*pixelsParMetre), (int)( (hauteurCase/2.0)*pixelsParMetre ));
-			//			VaisseauImage.setImageRef("vaisseau.png", (int)( (largeurCase/2.0)*pixelsParMetre ), (int)( (hauteurCase/2.0)*pixelsParMetre ));
+			// Tuile.setLargeurTuile(largeurCase);
+			// Tuile.setHauteurTuile(hauteurCase);
+			//
+			// Carre.setImageRef("carre.jpg", (int)(largeurCase*pixelsParMetre),
+			// (int)(hauteurCase*pixelsParMetre));
+			// TriangleEquilateral.setImageRef("triangle_equilateral.png",
+			// (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
+			// TriangleRectangle.setImageRef("triangle_rectangle.png",
+			// (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
+			// Portail.setImageRef("portail.png", (int)(largeurCase*pixelsParMetre),
+			// (int)(hauteurCase*pixelsParMetre));
+			// Drapeau.setImageRef("drapeau.png", (int)(largeurCase*pixelsParMetre),
+			// (int)(hauteurCase*pixelsParMetre));
+			// Pics.setImageRef("pics.png", (int)(largeurCase*pixelsParMetre), (int)(
+			// (hauteurCase/2.0)*pixelsParMetre ));
+			// VaisseauImage.setImageRef("vaisseau.png", (int)(
+			// (largeurCase/2.0)*pixelsParMetre ), (int)( (hauteurCase/2.0)*pixelsParMetre
+			// ));
 			lireImages();
 			premiereFois = false;
 		} // fin condition dans paintComponent
 
-
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
-		//lireImages();
-		
+		// lireImages();
+
 		g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 		dessinerNiveau(g2dPrive);
 		dessinerVaisseau(g2dPrive);
-		
+
 		dessinerPlaques(g2dPrive);
 		dessinerPlaqueLorsSurvol(g2dPrive);
 		dessinerPlaqueFantome(g2dPrive);
@@ -405,8 +422,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerNiveau(Graphics2D g2d) {
-		//		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-		//		g2dPrive.scale(1/pixelsParMetre, 1/pixelsParMetre);
+		// Graphics2D g2dPrive = (Graphics2D) g2d.create();
+		// g2dPrive.scale(1/pixelsParMetre, 1/pixelsParMetre);
 		niveau.getGrille().dessinerLesTuiles(g2d);
 	}
 
@@ -647,10 +664,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			break;
 		}
 	}
+
 	/**
-	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation 
+	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void modifierBouton() {
 		PCS.firePropertyChange("changementBouton", null, null);
 
@@ -668,9 +686,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		double rayon = Tuile.getHauteurTuile() / 2;
 		double tempsActuel = System.currentTimeMillis();
-		double cooldown = 500; 
-		
-		if (tempsActuel - dernierUsageDuPortail >= cooldown)  {
+		double cooldown = 500;
+
+		if (tempsActuel - dernierUsageDuPortail >= cooldown) {
 
 			dernierUsageDuPortail = tempsActuel;
 			Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
@@ -733,7 +751,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		droite = false;
 		haut = false;
 		bas = false;
-
 
 		// Désactiver les plaques chargées (charge neutre), éventuellement
 
@@ -827,7 +844,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			forceTemp = forceTemp.additionne(MoteurPhysique.appliqueForceVersDroite(vaisseau.getMasse()));
 		} else {
 			forceTemp = forceTemp.additionne(VEC_ZERO);
-		}// fin if
+		} // fin if
 
 		if (haut) {
 			forceTemp = forceTemp.additionne(MoteurPhysique.appliqueForceVersHaut(vaisseau.getMasse()));
@@ -839,10 +856,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			forceTemp = forceTemp.additionne(MoteurPhysique.appliqueForceVersBas(vaisseau.getMasse()));
 		} else {
 			forceTemp = forceTemp.additionne(VEC_ZERO);
-		}// fin if
-		
-		forceJetpack = new Vecteur2D( forceTemp );
-	}//fin methode
+		} // fin if
+
+		forceJetpack = new Vecteur2D(forceTemp);
+	}// fin methode
 
 	// GETTERS ET SETTERS //
 	/**
@@ -931,12 +948,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setChargeDesPlaques(double chargePlaques) {
-		this.chargeDesPlaques = signePlaque*chargePlaques;
-		//  Changer la charge de la plaque à placer 
-		// À déterminer, là ça les changes toutes (pour changer celle à placer il faut le faire lors de sa création)
-		//		for (PlaqueChargee p : listePlaquesChargees) {
-		//			p.setCharge(signePlaque*chargePlaques);
-		//		}
+		this.chargeDesPlaques = signePlaque * chargePlaques;
+		// Changer la charge de la plaque à placer
+		// À déterminer, là ça les changes toutes (pour changer celle à placer il faut
+		// le faire lors de sa création)
+		// for (PlaqueChargee p : listePlaquesChargees) {
+		// p.setCharge(signePlaque*chargePlaques);
+		// }
 		repaint();
 	}
 
@@ -1063,13 +1081,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			signePlaque = 1;
 		} else {
 			signePlaque = -1;
-		}// fin if
+		} // fin if
 
-
-		//		chargeDesPlaques = Math.abs(chargeDesPlaques);
-		//		for (PlaqueChargee p : listePlaquesChargees) {
-		//			p.setCharge(signePlaque*chargeDesPlaques);
-		//		}// fin for
+		// chargeDesPlaques = Math.abs(chargeDesPlaques);
+		// for (PlaqueChargee p : listePlaquesChargees) {
+		// p.setCharge(signePlaque*chargeDesPlaques);
+		// }// fin for
 		repaint();
 	}
 

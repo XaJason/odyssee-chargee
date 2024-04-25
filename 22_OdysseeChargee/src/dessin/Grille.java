@@ -30,6 +30,8 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
 import tuile.VaisseauImage;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
@@ -128,6 +130,12 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public Grille() {
+		addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				PCS.firePropertyChange("FocusGrille", null, null);
+			}
+		});
 
 		addMouseListener(new MouseAdapter() {
 			@Override

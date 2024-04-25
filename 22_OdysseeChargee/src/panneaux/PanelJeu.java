@@ -1,6 +1,7 @@
 package panneaux;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -9,12 +10,12 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -23,8 +24,6 @@ import javax.swing.event.ChangeListener;
 import dessin.ZoneAnimationPhysique;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
-import javax.swing.SwingConstants;
-import java.awt.Font;
 
 /**
  * Panel du mode de jeu
@@ -452,7 +451,7 @@ public class PanelJeu extends JPanel {
 				if (evt.getPropertyName().equals("changementBouton")) {
 					btnProchaineImage.setEnabled(true);
 					btnDemarrer.setEnabled(true);
-					
+
 				}
 				leveeEvenementCharge(evt);
 			}
@@ -492,6 +491,8 @@ public class PanelJeu extends JPanel {
 		spnMasseVaisseau
 				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getMasseInitialeVaisseau(), 0.01, 20.0, 0.01));
 		spnMasseVaisseau.setBounds(225, 11, 140, 35);
+		((JSpinner.DefaultEditor) spnMasseVaisseau.getEditor()).getTextField().setEditable(false); // Désactive la zone
+																									// d'entrée
 		panelEntree.add(spnMasseVaisseau);
 
 		spnChargeVaisseau = new JSpinner();
@@ -505,7 +506,10 @@ public class PanelJeu extends JPanel {
 		});
 		spnChargeVaisseau.setModel(
 				new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -200.0, 200.0, 10.0));
+
 		spnChargeVaisseau.setBounds(225, 81, 140, 35);
+		((JSpinner.DefaultEditor) spnChargeVaisseau.getEditor()).getTextField().setEditable(false); // Désactive la zone
+		// d'entrée
 		panelEntree.add(spnChargeVaisseau);
 
 		spnGravite = new JSpinner();
@@ -520,6 +524,8 @@ public class PanelJeu extends JPanel {
 		});
 		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.getAccelGrav(), -24.8, -1.6, 0.1));
 		spnGravite.setBounds(225, 151, 140, 35);
+		((JSpinner.DefaultEditor) spnGravite.getEditor()).getTextField().setEditable(false); // Désactive la zone
+																								// d'entrée
 		panelEntree.add(spnGravite);
 
 		spnChargePlaque = new JSpinner();
@@ -534,6 +540,8 @@ public class PanelJeu extends JPanel {
 		spnChargePlaque
 				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 100.0, 1.0));
 		spnChargePlaque.setBounds(225, 221, 140, 35);
+		((JSpinner.DefaultEditor) spnChargePlaque.getEditor()).getTextField().setEditable(false); // Désactive la zone
+																									// d'entrée
 		panelEntree.add(spnChargePlaque);
 
 		spnCoefFrictionStat = new JSpinner();
@@ -547,6 +555,8 @@ public class PanelJeu extends JPanel {
 		});
 		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), 0.50, 1.0, 0.05));
 		spnCoefFrictionStat.setBounds(225, 291, 140, 35);
+		((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false); // Désactive la
+																										// zone d'entrée
 		panelEntree.add(spnCoefFrictionStat);
 
 		spnCoefFrictionCine = new JSpinner();
@@ -560,6 +570,8 @@ public class PanelJeu extends JPanel {
 		});
 		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.35, 0.70, 0.05));
 		spnCoefFrictionCine.setBounds(225, 361, 140, 35);
+		((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false); // Désactive la
+																										// zone d'entrée
 		panelEntree.add(spnCoefFrictionCine);
 
 		spnDeltaT = new JSpinner();
@@ -573,6 +585,8 @@ public class PanelJeu extends JPanel {
 		});
 		spnDeltaT.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getDeltaT(), 0.001, 0.1, 0.001));
 		spnDeltaT.setBounds(225, 431, 140, 35);
+		((JSpinner.DefaultEditor) spnDeltaT.getEditor()).getTextField().setEditable(false); // Désactive la zone
+																							// d'entrée
 		panelEntree.add(spnDeltaT);
 
 		JLabel lblDeltaT = new JLabel("Pas de simulation :");

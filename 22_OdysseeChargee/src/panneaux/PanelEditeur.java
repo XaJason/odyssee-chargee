@@ -195,7 +195,7 @@ public class PanelEditeur extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton()!=MouseEvent.BUTTON1){
+				if (e.getButton() != MouseEvent.BUTTON1) {
 					grille.gererSupprimer();
 				}
 			}
@@ -570,6 +570,9 @@ public class PanelEditeur extends JPanel {
 				case "Vaisseau":
 					btnVaisseau.setEnabled((boolean) evt.getNewValue());
 					panelTuileTemp.setTuile(grille.getTuile());
+					break;
+				case "FocusGrille":
+					grille.requestFocus();
 					break;
 				}
 			}
