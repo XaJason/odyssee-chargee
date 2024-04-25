@@ -32,6 +32,8 @@ import tuile.Tuile;
 import tuile.VaisseauImage;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
@@ -132,10 +134,17 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public Grille() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				gererTouchesClavierAppuyees(e);
+
+			}
+		});
 		addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				PCS.firePropertyChange("FocusGrille", null, null);
+				demanderFocusLevee();
 			}
 		});
 
@@ -156,25 +165,7 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				switch (e.getButton()) {
-				case MouseEvent.BUTTON2:
-					supprimer = !supprimer;
-					break;
-				case MouseEvent.BUTTON3:
-					supprimer = true;
-					placerTuile(e);
-					break;
-				case MouseEvent.BUTTON1:
-					placerTuile(e);
-					break;
-				}
-//				if (e.getButton() == MouseEvent.BUTTON2) {
-//					supprimer = false;
-//				}
-//				if (e.getButton() == MouseEvent.BUTTON3) {
-//					supprimer = true;
-//					placerTuile(e);
-//				}
+				gererSourisPesee(e);
 
 			}// fin mousePressed
 
@@ -813,18 +804,18 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-<<<<<<< HEAD
+	 * <<<<<<< HEAD
 	 * <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
 	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
 	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
-=======
+	 * =======
 	 * <<<<<<< HEAD
 	 * =======
 	 * =======
 	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
@@ -920,6 +911,47 @@ public class Grille extends JPanel implements Serializable {
 			rotationPostPlacement = false;
 		} else {
 			rotationPostPlacement = true;
+		}
+	}
+
+	/**
+	 * Lance un évènement pour demander le focus
+	 */
+	// Jason Xa
+	private void demanderFocusLevee() {
+		PCS.firePropertyChange("FocusGrille", null, null);
+	}
+
+	/**
+	 * Gère les différentes touches de la souris lorsqu'elles sont pesées
+	 * 
+	 * @param e l'évènement de souris
+	 */
+	// Jason Xa
+	private void gererSourisPesee(MouseEvent e) {
+		switch (e.getButton()) {
+		case MouseEvent.BUTTON3:
+			supprimer = true;
+			placerTuile(e);
+			break;
+		case MouseEvent.BUTTON1:
+			placerTuile(e);
+			break;
+		}
+	}
+
+	/**
+	 * Gère les évènements au clavier
+	 * 
+	 * @param e l'évènement du clavier
+	 */
+	// Jason Xa
+	private void gererTouchesClavierAppuyees(KeyEvent e) {
+		int code = e.getKeyCode();
+
+		switch (code) {
+		case KeyEvent.VK_SPACE:
+			gererSupprimer();
 		}
 	}
 

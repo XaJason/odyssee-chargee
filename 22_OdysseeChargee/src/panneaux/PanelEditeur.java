@@ -472,7 +472,7 @@ public class PanelEditeur extends JPanel {
 		add(chckbxGrille);
 
 		panelTuileTemp = new PanelTuileTemp();
-		panelTuileTemp.setBounds(33, 718, 354, 259);
+		panelTuileTemp.setBounds(8, 599, 100, 100);
 		add(panelTuileTemp);
 		
 		btnRotationPostPlacement = new JToggleButton("");

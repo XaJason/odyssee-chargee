@@ -177,7 +177,7 @@ public class AppPrincipale22 extends JFrame {
 		creerMenu();
 //		lireImages();
 //		gererConstantes();
-	
+
 //		 if (leClip != null)
 //		 leClip.close();
 //		 chargerLeSon(NOM_FICHIER_SON_1);
@@ -277,6 +277,7 @@ public class AppPrincipale22 extends JFrame {
 				menuBar.setVisible(true);
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
+				panModeEditeur.getGrille().requestFocus();
 			}
 		});
 		btnModeEditeur.setBounds(600, 175, 150, 100);
@@ -316,7 +317,7 @@ public class AppPrincipale22 extends JFrame {
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
 		panModeJeu = new PanelJeu();
 
-		 zone = panModeJeu.getZone();
+		zone = panModeJeu.getZone();
 
 		zone.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
