@@ -117,12 +117,12 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 * Dessine l'image représentant le vaisseau à un emplacement précis
 	 * 
 	 * @param g2d contexte graphique
-	 * @param x   abscisse gauche de la tuile (px)
-	 * @param y   ordonnée supérieure de la tuile (px)
+	 * @param x   abscisse gauche de la tuile du vaisseau (px)
+	 * @param y   ordonnée supérieure de la tuile du vaisseau (px)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d, double x, double y) {
-		g2d.drawImage(image,(int)(x + largeurDemiTuile / 2.0), (int)(y + largeurDemiTuile), (int)(largeurTuile/2.0), (int)(hauteurTuile/2.0), null);
+		g2d.drawImage(image,(int)(x), (int)(y), (int)(largeurTuile/2.0), (int)(hauteurTuile/2.0), null);
 	}
 
 	/**

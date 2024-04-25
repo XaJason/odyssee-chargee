@@ -792,4 +792,11 @@ public class MoteurPhysique {
 	public static void setCoeffFrotCine(double coeffFrotCine) {
 		MoteurPhysique.coeffFrotCine = coeffFrotCine;
 	}
+	
+	/**
+	 * Retourne la tolérance utilisée dans les comparaisons réelles avec zéro
+	 */
+	public static double getEpsilon() {
+		return EPSILON;
+	}
 }// fin classe

@@ -57,7 +57,7 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * nombre max de niveau possible dans la liste
 	 */
-	private static final int MAX_NIVEAUX = 3;
+	private static final int MAX_NIVEAUX = 10;
 
 	/** bouton permettant la sélection de la tuile de type carré */
 	private JButton btnCarre;

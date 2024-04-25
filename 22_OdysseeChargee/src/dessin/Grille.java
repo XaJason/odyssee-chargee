@@ -367,6 +367,7 @@ public class Grille extends JPanel implements Serializable {
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
+							gererPortails();
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
@@ -403,7 +404,6 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Portail":
 			tuileTemp = new Portail(tuile.getAngleRotation());
-			gererPortails();
 			break;
 		case "Triangle équilatéral":
 			tuileTemp = new TriangleEquilateral(tuile.getAngleRotation());
@@ -423,8 +423,10 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Kitimir Yim
 	private void gererPortails() {
-		nbPortails++;
-		lierPortail(tuileTemp);
+		if (tuileTemp.getType() == "Portail") {
+			nbPortails++;
+			lierPortail(tuileTemp);
+		}
 	}
 
 	/**
@@ -540,11 +542,8 @@ public class Grille extends JPanel implements Serializable {
 							drapeau = false;
 
 						}
-						if (tabEmplacement[i][j].getType() == "Portail") {
-							Portail portail = (Portail) tabEmplacement[i][j];
-							Portail portailAssocie = portail.getPortailAssocie();
-							portailAssocie = null;
-						}
+						
+						supprimerPortailAssocie(i, j);
 						tabEmplacement[i][j] = null;
 							
 					}
@@ -554,6 +553,43 @@ public class Grille extends JPanel implements Serializable {
 
 	}
 
+	/**
+	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient d'être supprimé
+	 * 
+	 * @param i Le numéro de la ligne courante dans la boucle for
+	 * @param j Le numéro de la colonne courante dans la boucle for 
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void supprimerPortailAssocie(int i, int j) {
+		// Vérifie que la tuile courante est un portail
+		if (tabEmplacement[i][j].getType() == "Portail") {
+			nbPortails--;
+			Portail portail = (Portail) tabEmplacement[i][j];
+			Portail portailAssocie = portail.getPortailAssocie();
+			
+			// Vérifie qu'il y ait un portail associé
+			if (portailAssocie != null) {
+				
+				// Boucle pour passer au travers de toutes les tuiles
+				for (int m = 0; m < nbCaseVerticale; m++) {
+					for (int n = 0; n < nbCaseHorizontale; n++) {
+						
+						// Vérifie qu'il y ait une tuile
+						if (tabEmplacement[m][n] != null) {
+							
+							// Vérifie si la tuile courante correspond au portail associé
+							if ( tabEmplacement[m][n].equals(portailAssocie) ) {
+								tabEmplacement[m][n] = null;
+								nbPortails--;
+								//portail.setPortailAssocie(null);
+							}// fin 4e condition
+						}// fin 3e condition
+					}// fin 2e boucle
+				}// fin 1er boucle
+			}// fin 2e condition
+		}//fin 1ere condition
+	}
+	
 	/**
 	 * Permet d'avoir l'emplacement des tuiles
 	 * 
@@ -704,8 +740,6 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-=======
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
@@ -716,8 +750,8 @@ public class Grille extends JPanel implements Serializable {
 		if (nbPortails % 2 == 0) {
 			Portail deuxiemePortail = (Portail) tuile;
 			if (premierPortail.getPortailAssocie() == null) {
-				premierPortail.definirPortailAssocie(deuxiemePortail);
-				deuxiemePortail.definirPortailAssocie(premierPortail);
+				premierPortail.setPortailAssocie(deuxiemePortail);
+				deuxiemePortail.setPortailAssocie(premierPortail);
 				System.out.println("Ce portail a maintenant un duo");
 			}
 		} else {
