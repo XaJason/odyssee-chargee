@@ -118,18 +118,20 @@ public class PanelJeu extends JPanel {
 	/** Position du vaisseau affichée **/
 	private String positionString = "0";
 
-	/** Texte area de la vitesse **/
-	private JTextArea textAreaVitesse;
-	/** Texte area de l'accélération **/
-	private JTextArea textAreaAcceleration;
-	/** Texte area de la force électrique **/
-	private JTextArea textAreaForceElectrique;
-	/** Texte area de la force de gravité **/
-	private JTextArea textAreaForceGravite;
-	/** Texte area du champ électrique **/
-	private JTextArea textAreaChampElectrique;
-	/** Texte area de la position **/
-	private JTextArea textAreaPosition;
+	
+	/** Label de la vitesse **/
+	private JLabel labelVitesse;
+	/** Label de l'accélération **/
+	private JLabel labelAcceleration;
+	/** Label de la force électrique **/
+	private JLabel labelForceElectrique;
+	/** Label de la force de gravité **/
+	private JLabel labelForceGravite;
+	/** Label du champ électrique **/
+	private JLabel labelChampElectrique;
+	/** Label de la position **/
+	private JLabel labelPosition;
+
 	private JLabel lblIndiceChargeVaisseau;
 
 	/**
@@ -203,33 +205,29 @@ public class PanelJeu extends JPanel {
 		lblPosition.setBounds(35, 233, 100, 26);
 		panelSortie.add(lblPosition);
 
-		textAreaVitesse = new JTextArea(vitesseString);
-		textAreaVitesse.setBounds(216, 37, 150, 22);
-		panelSortie.add(textAreaVitesse);
+		labelVitesse = new JLabel(vitesseString);
+		labelVitesse.setBounds(216, 37, 150, 22);
+		panelSortie.add(labelVitesse);
 
-		textAreaAcceleration = new JTextArea(acceString);
-		textAreaAcceleration.setBounds(216, 73, 150, 22);
-		panelSortie.add(textAreaAcceleration);
+		labelAcceleration = new JLabel(acceString);
+		labelAcceleration.setBounds(216, 73, 150, 22);
+		panelSortie.add(labelAcceleration);
 
-		textAreaForceElectrique = new JTextArea(forceElecString);
-		textAreaForceElectrique.setEditable(false);
-		textAreaForceElectrique.setBounds(216, 113, 150, 22);
-		panelSortie.add(textAreaForceElectrique);
+		labelForceElectrique = new JLabel(forceElecString);
+		labelForceElectrique.setBounds(216, 113, 150, 22);
+		panelSortie.add(labelForceElectrique);
 
-		textAreaForceGravite = new JTextArea(forceGravString);
-		textAreaForceGravite.setEditable(false);
-		textAreaForceGravite.setBounds(216, 153, 150, 22);
-		panelSortie.add(textAreaForceGravite);
+		labelForceGravite = new JLabel(forceGravString);
+		labelForceGravite.setBounds(216, 153, 150, 22);
+		panelSortie.add(labelForceGravite);
 
-		textAreaChampElectrique = new JTextArea(champElecString);
-		textAreaChampElectrique.setEditable(false);
-		textAreaChampElectrique.setBounds(216, 197, 150, 22);
-		panelSortie.add(textAreaChampElectrique);
+		labelChampElectrique = new JLabel(champElecString);
+		labelChampElectrique.setBounds(216, 197, 150, 22);
+		panelSortie.add(labelChampElectrique);
 
-		textAreaPosition = new JTextArea(positionString);
-		textAreaPosition.setEditable(false);
-		textAreaPosition.setBounds(216, 233, 150, 22);
-		panelSortie.add(textAreaPosition);
+		labelPosition = new JLabel(positionString);
+		labelPosition.setBounds(216, 233, 150, 22);
+		panelSortie.add(labelPosition);
 
 		leveeEvenement();
 
@@ -413,51 +411,52 @@ public class PanelJeu extends JPanel {
 	private void leveeEvenement() {
 
 		zoneAnimationPhysique.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
+		    public void propertyChange(PropertyChangeEvent evt) {
 
-				if (evt.getPropertyName().equals("changerVitesse")) {
-					double valeur = (double) evt.getNewValue();
-					vitesseString = String.format("%.2f", valeur);
-					textAreaVitesse.setText(vitesseString);
-				}
+		        if (evt.getPropertyName().equals("changerVitesse")) {
+		            double valeur = (double) evt.getNewValue();
+		            vitesseString = String.format("%.2f", valeur);
+		            labelVitesse.setText(vitesseString);
+		        }
 
-				if (evt.getPropertyName().equals("changerAcceleration")) {
-					double valeur = (double) evt.getNewValue();
-					acceString = String.format("%.2f", valeur);
-					textAreaAcceleration.setText(acceString);
-				}
+		        if (evt.getPropertyName().equals("changerAcceleration")) {
+		            double valeur = (double) evt.getNewValue();
+		            acceString = String.format("%.2f", valeur);
+		            labelAcceleration.setText(acceString);
+		        }
 
-				if (evt.getPropertyName().equals("changerForceElec")) {
-					double valeur = (double) evt.getNewValue();
-					forceElecString = String.format("%.2f", valeur);
-					textAreaForceElectrique.setText(forceElecString);
-				}
+		        if (evt.getPropertyName().equals("changerForceElec")) {
+		            double valeur = (double) evt.getNewValue();
+		            forceElecString = String.format("%.2f", valeur);
+		            labelForceElectrique.setText(forceElecString);
+		        }
 
-				if (evt.getPropertyName().equals("changerForceGravite")) {
-					double valeur = (double) evt.getNewValue();
-					forceGravString = String.format("%.2f", valeur);
-					textAreaForceGravite.setText(forceGravString);
-				}
-				if (evt.getPropertyName().equals("changerChampElec")) {
-					double valeur = (double) evt.getNewValue();
-					champElecString = String.format("%.2f", valeur);
-					textAreaChampElectrique.setText(champElecString);
-				}
+		        if (evt.getPropertyName().equals("changerForceGravite")) {
+		            double valeur = (double) evt.getNewValue();
+		            forceGravString = String.format("%.2f", valeur);
+		            labelForceGravite.setText(forceGravString);
+		        }
+		        if (evt.getPropertyName().equals("changerChampElec")) {
+		            double valeur = (double) evt.getNewValue();
+		            champElecString = String.format("%.2f", valeur);
+		            labelChampElectrique.setText(champElecString);
+		        }
 
-				if (evt.getPropertyName().equals("changerPosition")) {
-					double valeur = (double) evt.getNewValue();
-					positionString = String.format("%.2f", valeur);
-					textAreaPosition.setText(positionString);
-				}
-				if (evt.getPropertyName().equals("changementBouton")) {
-					btnProchaineImage.setEnabled(true);
-					btnDemarrer.setEnabled(true);
-					
-				}
-				leveeEvenementCharge(evt);
-			}
+		        if (evt.getPropertyName().equals("changerPosition")) {
+		            double valeur = (double) evt.getNewValue();
+		            positionString = String.format("%.2f", valeur);
+		            labelPosition.setText(positionString);
+		        }
+		        if (evt.getPropertyName().equals("changementBouton")) {
+		            btnProchaineImage.setEnabled(true);
+		            btnDemarrer.setEnabled(true);
+		            
+		        }
+		        leveeEvenementCharge(evt);
+		    }
 
 		});
+
 
 	}
 
