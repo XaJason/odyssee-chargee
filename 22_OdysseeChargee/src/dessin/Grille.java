@@ -148,13 +148,15 @@ public class Grille extends JPanel implements Serializable {
 			public void mousePressed(MouseEvent e) {
 				switch (e.getButton()) {
 				case MouseEvent.BUTTON2:
-					supprimer = false;
+					supprimer = !supprimer;
 					break;
 				case MouseEvent.BUTTON3:
 					supprimer = true;
 					placerTuile(e);
+					break;
 				case MouseEvent.BUTTON1:
 					placerTuile(e);
+					break;
 				}
 //				if (e.getButton() == MouseEvent.BUTTON2) {
 //					supprimer = false;
@@ -165,6 +167,7 @@ public class Grille extends JPanel implements Serializable {
 //				}
 
 			}// fin mousePressed
+
 		});
 
 		setLayout(null);
@@ -185,7 +188,8 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-					placerTuile(e);
+
+				placerTuile(e);
 			}
 		});
 	}// Fin constructeur
@@ -199,6 +203,7 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 		if (!supprimer) {
 			if (tuile != null) {
+
 				sauvegarderEmplacement();
 			}
 		} else {
@@ -207,6 +212,7 @@ public class Grille extends JPanel implements Serializable {
 		afficherTab();
 
 		repaint();
+
 	}
 
 	/**
@@ -365,11 +371,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void afficherGrille() {
-		if (grille == true) {
-			grille = false;
-		} else {
-			grille = true;
-		}
+		grille = !grille;
 		repaint();
 
 	}// Fin méthode
@@ -403,10 +405,6 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
-							switch (tuileTemp.getType()) {
-
-							}
-
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -419,8 +417,12 @@ public class Grille extends JPanel implements Serializable {
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
+								tuile = null;
+								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
+								tuile = null;
+								PCS.firePropertyChange("Vaisseau", null, false);
 							}
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
@@ -447,8 +449,7 @@ public class Grille extends JPanel implements Serializable {
 		case "Drapeau":
 			tuileTemp = new Drapeau(tuile.getAngleRotation());
 //			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
-			tuile = null;
-			PCS.firePropertyChange("Drapeau", null, false);
+
 			break;
 		case "Pics":
 			tuileTemp = new Pics(tuile.getAngleRotation());
@@ -465,8 +466,7 @@ public class Grille extends JPanel implements Serializable {
 		case "Vaisseau":
 			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
 //			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
-			tuile = null;
-			PCS.firePropertyChange("Vaisseau", null, false);
+
 			break;
 		}
 
@@ -598,7 +598,7 @@ public class Grille extends JPanel implements Serializable {
 							PCS.firePropertyChange("Drapeau", null, true);
 
 						}
-						
+
 						supprimerPortailAssocie(i, j);
 						tabEmplacement[i][j] = null;
 
@@ -610,10 +610,11 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient d'être supprimé
+	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient
+	 * d'être supprimé
 	 * 
 	 * @param i Le numéro de la ligne courante dans la boucle for
-	 * @param j Le numéro de la colonne courante dans la boucle for 
+	 * @param j Le numéro de la colonne courante dans la boucle for
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void supprimerPortailAssocie(int i, int j) {
@@ -622,30 +623,30 @@ public class Grille extends JPanel implements Serializable {
 			nbPortails--;
 			Portail portail = (Portail) tabEmplacement[i][j];
 			Portail portailAssocie = portail.getPortailAssocie();
-			
+
 			// Vérifie qu'il y ait un portail associé
 			if (portailAssocie != null) {
-				
+
 				// Boucle pour passer au travers de toutes les tuiles
 				for (int m = 0; m < nbCaseVerticale; m++) {
 					for (int n = 0; n < nbCaseHorizontale; n++) {
-						
+
 						// Vérifie qu'il y ait une tuile
 						if (tabEmplacement[m][n] != null) {
-							
+
 							// Vérifie si la tuile courante correspond au portail associé
-							if ( tabEmplacement[m][n].equals(portailAssocie) ) {
+							if (tabEmplacement[m][n].equals(portailAssocie)) {
 								tabEmplacement[m][n] = null;
 								nbPortails--;
-								//portail.setPortailAssocie(null);
-							}// fin 4e condition
-						}// fin 3e condition
-					}// fin 2e boucle
-				}// fin 1er boucle
-			}// fin 2e condition
-		}//fin 1ere condition
+								// portail.setPortailAssocie(null);
+							} // fin 4e condition
+						} // fin 3e condition
+					} // fin 2e boucle
+				} // fin 1er boucle
+			} // fin 2e condition
+		} // fin 1ere condition
 	}
-	
+
 	/**
 	 * Permet d'avoir l'emplacement des tuiles
 	 * 
@@ -800,11 +801,11 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
+	 * <<<<<<< HEAD
+	 * =======
 	 * =======
 	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
