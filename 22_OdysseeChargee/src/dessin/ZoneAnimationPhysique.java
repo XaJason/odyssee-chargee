@@ -658,6 +658,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			break;
 		case 1:
 			PCS.firePropertyChange("retournerNiveau", null, 0);
+			modifierBouton();
 			break;
 		default:
 
@@ -668,10 +669,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/**
 	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation
 	 */
-	// Kitimir Yim
-	private void modifierBouton() {
-		PCS.firePropertyChange("changementBouton", null, null);
 
+	// Kitimir Yim
+	public void modifierBouton() {
+		PCS.firePropertyChange("changementBouton", null, null);
 	}
 
 	/**

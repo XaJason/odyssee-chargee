@@ -7,22 +7,31 @@ import javax.swing.JPanel;
 
 import tuile.Tuile;
 
+
+/**
+ * Classe qui permet d'afficher la tuile sélectionner sous forme de fenêtre
+ *  @author Giroux
+ */
 public class PanelTuileTemp extends JPanel {
 
 	/**
-	 * 
+	 * Numéro de sérialisation
 	 */
 	private static final long serialVersionUID = 2236980579144572642L;
+	/** Tuile qui conteint l'instance de la tuile à placer **/
 	private Tuile tuile;
-	// private Tuile tuileTemp;
 
 	/**
-	 * Create the panel.
+	 * Création de la fenêtre
 	 */
 	public PanelTuileTemp() {
-
+		
 	}
-
+	/**
+	 * permet de dessiner la tuile
+	 * @param g contexte graphique
+	 */
+	//Giroux
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
@@ -32,7 +41,11 @@ public class PanelTuileTemp extends JPanel {
 		}
 
 	}
-
+	/**
+	 * Permet de changer le type de la tuile
+	 * @param tuile
+	 */
+	//Giroux
 	public void setTuile(Tuile tuile) {
 		this.tuile = tuile;
 		repaint();
@@ -41,7 +54,7 @@ public class PanelTuileTemp extends JPanel {
 	/**
 	 * Applique un quart de rotation horaire à la tuile sélectionnée
 	 */
-	// Jason Xa
+	// Giroux
 	public void rotation() {
 		tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
 		repaint();
