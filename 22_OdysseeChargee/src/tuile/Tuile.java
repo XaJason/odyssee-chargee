@@ -134,6 +134,26 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
+	 * Constructeur
+	 * 
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 * @param image         l'image représentant la tuile
+	 * @param x             l'abscisse gauche de la tuile (en mètre)
+	 * @param y             l'ordonnée supérieure la tuile (en mètre)
+	 * @param type          le type de la tuile
+	 * 
+	 */
+	// Jason Xa
+	public Tuile(double angleRotation, double x, double y, String type, Image image) {
+		this.angleRotation = angleRotation;
+		this.x = x;
+		this.y = y;
+		this.image = image;
+		this.type = type;
+
+	}
+
+	/**
 	 * Retourne la chaine de caractères représentant le type de la tuile
 	 * 
 	 * @return la chaine de caractères représentant le type de la tuile
@@ -153,7 +173,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		setImageRefTuile();
-		g2d.drawImage(image, (int)x, (int)y, (int)largeurTuile, (int)hauteurTuile, null);
+		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
 		g2d.setTransform(transformationAffine);
 		dessinerContour(g2d);
 	}
@@ -166,11 +186,11 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Giroux
 	private void dessinerContour(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-	
+
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		//g2d.draw(contour);
-		
+		// g2d.draw(contour);
+
 //		if (!listeSegments.isEmpty()) {
 //			for (Segment s : listeSegments) {
 //				s.dessiner(g2dPrive);
@@ -187,8 +207,12 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d, int x, int y) {
-		g2d.drawImage(image, x, y, null);
-
+		AffineTransform transformationAffine = g2d.getTransform();
+		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		setImageRefTuile();
+		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
+		g2d.setTransform(transformationAffine);
+		dessinerContour(g2d);
 	}
 
 	/**

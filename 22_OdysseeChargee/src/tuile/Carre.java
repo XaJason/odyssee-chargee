@@ -70,6 +70,18 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	}
 
 	/**
+	 * Constructeur
+	 * 
+	 * @param x             l'abscisse gauche de la tuile (px)
+	 * @param y             l'ordonnée supérieure la tuile (px)
+	 * @param angleRotation l'angle de rotation de la tuile (rad)
+	 */
+	// Jason Xa
+	public Carre(double angleRotation, double x, double y) {
+		super(angleRotation, x, y, type, image);
+	}
+
+	/**
 	 * Retourne l'image représentant le carré
 	 * 
 	 * @return L'image représentant le carré
@@ -128,7 +140,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
 
-		//prePointsCoin.add(pointMilieu);
+		// prePointsCoin.add(pointMilieu);
 		// Transformer les points qui sont au coin
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
@@ -138,7 +150,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-		//pointMilieu = pointsCoin.get(4);
+		// pointMilieu = pointsCoin.get(4);
 		transformerPointMilieu();
 		creerListeSegment();
 		creerAires(pointMilieu);
@@ -156,7 +168,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		// Repositionner
 		pointMilieu.setLocation(pointMilieu.getX() + largeurTuile / 2 + x, pointMilieu.getY() + hauteurTuile / 2 + y);
 	}
-	
+
 	/**
 	 * Créer les aires de sélection associées à la tuile carrée
 	 * 

@@ -12,6 +12,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 
 /**
@@ -54,7 +56,7 @@ public class Grille extends JPanel implements Serializable {
 	private int nbCaseVerticale;
 	/** Nombre de colonne **/
 	private int nbCaseHorizontale = 20;
-	
+
 	/**
 	 * Rectangle qui correspond à la section de la grille où se trouve la sourie
 	 **/
@@ -106,6 +108,22 @@ public class Grille extends JPanel implements Serializable {
 	private Portail premierPortail;
 
 	/**
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
+	 */
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+
+	/**
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 * 
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
+	 */
+	// Kitimir Yim
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
+	}
+
+	/**
 	 * Création du panneau
 	 */
 	// Giroux
@@ -125,7 +143,7 @@ public class Grille extends JPanel implements Serializable {
 					exterieurComposant = false;
 				}
 			}// fin mouseEntered
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				placerTuile(e);
@@ -142,11 +160,12 @@ public class Grille extends JPanel implements Serializable {
 					} else {
 						setCursor(new Cursor(Cursor.HAND_CURSOR));
 					}
-					
-					positionnerCaseEtTuile(e.getX()/pixelsParMetre, e.getY()/pixelsParMetre);
-					repaint();	
+
+					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+					repaint();
 				}
 			}
+
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				placerTuile(e);
@@ -154,27 +173,25 @@ public class Grille extends JPanel implements Serializable {
 		});
 	}// Fin constructeur
 
-	
-	
 	/**
 	 * Permet de placer un tuile dans la grille
 	 */
-	//Giroux
+	// Giroux
 	private void placerTuile(MouseEvent e) {
-			clique = e.getPoint();
-			positionnerCaseEtTuile(e.getX()/pixelsParMetre, e.getY()/pixelsParMetre);
-			if (!supprimer) {
-				if (tuile != null) {
-					sauvegarderEmplacement();
-				}
-			} else {
-				supprimerCase();
+		clique = e.getPoint();
+		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+		if (!supprimer) {
+			if (tuile != null) {
+				sauvegarderEmplacement();
 			}
-			afficherTab();
-			
-			repaint();
+		} else {
+			supprimerCase();
+		}
+		afficherTab();
+
+		repaint();
 	}
-	
+
 	/**
 	 * Méthode qui appelle le dessin de la grille et de ses composantes
 	 * 
@@ -202,32 +219,39 @@ public class Grille extends JPanel implements Serializable {
 		if (modeEditeur) {
 //			g2d.translate(0, getHeight());
 //			g2d.scale(1, -1);
-			
+
 			if (premiereFois) {
 				pixelsParMetre = getWidth() / largeurDuComposantEnMetre;
 				hauteurDuComposantEnMetre = getHeight() / pixelsParMetre;
 				dimensionCase();
 				dessinerQuadrillage();
-				
+
 				tabEmplacement = new Tuile[nbCaseVerticale][nbCaseHorizontale];
 				Tuile.setLargeurTuile(largeurCase);
 				Tuile.setHauteurTuile(hauteurCase);
-				
-				Carre.setImageRef("carre.jpg", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-				TriangleEquilateral.setImageRef("triangle_equilateral.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-				TriangleRectangle.setImageRef("triangle_rectangle.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-				Portail.setImageRef("portail.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-				Drapeau.setImageRef("drapeau.png", (int)(largeurCase*pixelsParMetre), (int)(hauteurCase*pixelsParMetre));
-				Pics.setImageRef("pics.png", (int)(largeurCase*pixelsParMetre), (int)( (hauteurCase/2.0)*pixelsParMetre ));
-				VaisseauImage.setImageRef("vaisseau.png", (int)( (largeurCase/2.0)*pixelsParMetre ), (int)( (hauteurCase/2.0)*pixelsParMetre ));
-				
+
+				Carre.setImageRef("carre.jpg", (int) (largeurCase * pixelsParMetre),
+						(int) (hauteurCase * pixelsParMetre));
+				TriangleEquilateral.setImageRef("triangle_equilateral.png", (int) (largeurCase * pixelsParMetre),
+						(int) (hauteurCase * pixelsParMetre));
+				TriangleRectangle.setImageRef("triangle_rectangle.png", (int) (largeurCase * pixelsParMetre),
+						(int) (hauteurCase * pixelsParMetre));
+				Portail.setImageRef("portail.png", (int) (largeurCase * pixelsParMetre),
+						(int) (hauteurCase * pixelsParMetre));
+				Drapeau.setImageRef("drapeau.png", (int) (largeurCase * pixelsParMetre),
+						(int) (hauteurCase * pixelsParMetre));
+				Pics.setImageRef("pics.png", (int) (largeurCase * pixelsParMetre),
+						(int) ((hauteurCase / 2.0) * pixelsParMetre));
+				VaisseauImage.setImageRef("vaisseau.png", (int) ((largeurCase / 2.0) * pixelsParMetre),
+						(int) ((hauteurCase / 2.0) * pixelsParMetre));
+
 				premiereFois = false;
 			}
-			
+
 			// Transformations pour être en mètre
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
-			g2dPrive.setStroke(new BasicStroke((float) (1/pixelsParMetre)));
-			
+			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
+
 			if (supprimer) {
 				setBackground(Color.red);
 			} else {
@@ -239,7 +263,7 @@ public class Grille extends JPanel implements Serializable {
 			} else if (!supprimer) {
 				g2dPrive.setColor(Color.cyan);
 			}
-			
+
 			dessinerTuileLorsSurvol(g2dPrive);
 			dessinerLesTuiles(g2dPrive);
 
@@ -261,12 +285,13 @@ public class Grille extends JPanel implements Serializable {
 		largeurCase = (largeurDuComposantEnMetre / nbCaseHorizontale);
 		hauteurCase = largeurCase;
 		nbCaseVerticale = (int) (hauteurDuComposantEnMetre / hauteurCase);
-		
+
 		emplacementActuel = new Rectangle2D.Double(0, 0, largeurCase, hauteurCase);
 	}// Fin méthode
 
 	/**
-	 * Méthode qui positionne la tuile et son fond bleu à l'emplacement de la souris passée en paramètre
+	 * Méthode qui positionne la tuile et son fond bleu à l'emplacement de la souris
+	 * passée en paramètre
 	 * 
 	 * @param posX Position x de l'emplacement
 	 * @param posY Position y de l'emplacement
@@ -280,7 +305,7 @@ public class Grille extends JPanel implements Serializable {
 					if (posX >= j * largeurCase && posX < ((j + 1) * largeurCase)) {
 						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
 						if (!supprimer && tuile != null) {
-							//tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
+							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
 							tuile.setX(largeurCase * j);
 							tuile.setY(hauteurCase * i);
 						}
@@ -353,18 +378,20 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	private void sauvegarderEmplacement() {
 		for (int i = 0; i < nbCaseVerticale; i++) {
-			if (clique.getY()/pixelsParMetre >= i * hauteurCase && clique.getY()/pixelsParMetre < ((i + 1) * hauteurCase)) {
+			if (clique.getY() / pixelsParMetre >= i * hauteurCase
+					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
 				for (int j = 0; j < nbCaseHorizontale; j++) {
-					if (clique.getX()/pixelsParMetre >= j * largeurCase && clique.getX()/pixelsParMetre < ((j + 1) * largeurCase)) {
+					if (clique.getX() / pixelsParMetre >= j * largeurCase
+							&& clique.getX() / pixelsParMetre < ((j + 1) * largeurCase)) {
 						clonerTuile();
-						
+
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
-							
+
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
 						tuileTemp.setY(hauteurCase * i);
-						
+
 						if (tabEmplacement[i][j] == null) {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
@@ -398,7 +425,9 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Drapeau":
 			tuileTemp = new Drapeau(tuile.getAngleRotation());
-			tuile = new Carre(tuile.getAngleRotation());
+			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
+			PCS.firePropertyChange("Drapeau", null, false);
+
 			break;
 		case "Pics":
 			tuileTemp = new Pics(tuile.getAngleRotation());
@@ -415,7 +444,8 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Vaisseau":
 			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
-			tuile = new Carre(tuile.getAngleRotation());
+			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
+			PCS.firePropertyChange("Vaisseau", null, false);
 			break;
 		}
 
@@ -471,7 +501,8 @@ public class Grille extends JPanel implements Serializable {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui dessine la tuile et son fond bleu lors du survol de la grille avec la souris
+	 * Méthode qui dessine la tuile et son fond bleu lors du survol de la grille
+	 * avec la souris
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -484,7 +515,7 @@ public class Grille extends JPanel implements Serializable {
 			}
 		}
 	}
-	
+
 	/**
 	 * Méthode qui retourne la quantité de case verticale dans la grille
 	 * 
@@ -530,9 +561,11 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void supprimerCase() {
 		for (int i = 0; i < nbCaseVerticale; i++) {
-			if (clique.getY()/pixelsParMetre >= i * hauteurCase && clique.getY()/pixelsParMetre < ((i + 1) * hauteurCase)) {
+			if (clique.getY() / pixelsParMetre >= i * hauteurCase
+					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
 				for (int j = 0; j < nbCaseHorizontale; j++) {
-					if (clique.getX()/pixelsParMetre >= j * largeurCase && clique.getX()/pixelsParMetre < ((j + 1) * largeurCase)) {
+					if (clique.getX() / pixelsParMetre >= j * largeurCase
+							&& clique.getX() / pixelsParMetre < ((j + 1) * largeurCase)) {
 
 						if (tabEmplacement[i][j] == null) {
 							break;
@@ -549,7 +582,7 @@ public class Grille extends JPanel implements Serializable {
 							portailAssocie = null;
 						}
 						tabEmplacement[i][j] = null;
-							
+
 					}
 				}
 			}
@@ -600,6 +633,7 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Retourne la hauteur du composant en mètre
+	 * 
 	 * @return La hauteur du composant en mètre
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -609,15 +643,17 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Retourne la largeur du composant en mètre
+	 * 
 	 * @return La largeur du composant en mètre
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public double getLargeurComposantEnMetre() {
 		return largeurDuComposantEnMetre;
 	}
-	
+
 	/**
 	 * Retourne la hauteur d'une case (et donc d'une tuile)
+	 * 
 	 * @return La hauteur d'une case
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -627,6 +663,7 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Retourne la largeur d'une case (et donc d'une tuile)
+	 * 
 	 * @return La largeur d'une case
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -670,7 +707,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-<<<<<<< HEAD
+	 * <<<<<<< HEAD
 	 * Vérifie si la grille contient au moins une tuile du type spécifié.
 	 * 
 	 * @param typeTuile le type de tuile à rechercher dans la grille
@@ -707,8 +744,8 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-=======
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * =======
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail

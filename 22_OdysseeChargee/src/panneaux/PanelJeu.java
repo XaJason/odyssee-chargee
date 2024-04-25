@@ -472,6 +472,7 @@ public class PanelJeu extends JPanel {
 			double valeur = (double) evt.getNewValue();
 			spnChargeVaisseau.setValue(valeur);
 		}
+
 	}
 
 	/**
