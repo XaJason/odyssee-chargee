@@ -313,7 +313,10 @@ public class PanelEditeur extends JPanel {
 				grille.reinitialiser();
 				grille.setSupprimer(false);
 				grille.setTuile(null);
+				panelTuileTemp.setTuile(null);
 				repaint();
+				btnDrapeau.setEnabled(true);
+				btnVaisseau.setEnabled(true);
 			}
 		});
 		btnReinitialiser.setBounds(118, 599, 85, 85);

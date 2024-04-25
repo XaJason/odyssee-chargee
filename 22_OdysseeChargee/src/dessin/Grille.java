@@ -146,6 +146,9 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON3) {
+					supprimer = true;
+				}
 				placerTuile(e);
 			}// fin mousePressed
 		});
@@ -386,6 +389,9 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
+							switch (tuileTemp.getType()) {
+
+							}
 
 							break;
 						}
@@ -425,9 +431,9 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Drapeau":
 			tuileTemp = new Drapeau(tuile.getAngleRotation());
-			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
+//			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
+			tuile = null;
 			PCS.firePropertyChange("Drapeau", null, false);
-
 			break;
 		case "Pics":
 			tuileTemp = new Pics(tuile.getAngleRotation());
@@ -444,7 +450,8 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case "Vaisseau":
 			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
-			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
+//			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
+			tuile = null;
 			PCS.firePropertyChange("Vaisseau", null, false);
 			break;
 		}
@@ -547,11 +554,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void gererSupprimer() {
-		if (supprimer == false) {
-			supprimer = true;
-		} else {
-			supprimer = false;
-		}
+		supprimer = true;
 		repaint();
 	}
 
@@ -572,8 +575,11 @@ public class Grille extends JPanel implements Serializable {
 
 						} else if (tabEmplacement[i][j].getVaisseau()) {
 							vaisseau = false;
+							PCS.firePropertyChange("Vaisseau", null, true);
+
 						} else if (tabEmplacement[i][j].getDrapeau()) {
 							drapeau = false;
+							PCS.firePropertyChange("Drapeau", null, true);
 
 						}
 						if (tabEmplacement[i][j].getType() == "Portail") {
