@@ -97,8 +97,7 @@ public class PanelEditeur extends JPanel {
 	private JLabel lblCarre;
 	/**
 	 * étiquette servant à identifier le regroupement de boutons permettant la
-	 * sélection de
-	 * tuile
+	 * sélection de tuile
 	 */
 	private JLabel lblObjets;
 	/**
@@ -441,9 +440,10 @@ public class PanelEditeur extends JPanel {
 		btnRotationPostPlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setRotationPostPlacement();
-				if(grille.getRotationPostPlacement()) {
-				OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg", btnRotationPostPlacement);
-				panelTuileTemp.setRotation(true);
+				if (grille.getRotationPostPlacement()) {
+					OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg",
+							btnRotationPostPlacement);
+					panelTuileTemp.setRotation(true);
 				} else {
 					OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 					panelTuileTemp.setRotation(false);

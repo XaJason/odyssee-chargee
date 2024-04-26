@@ -123,8 +123,8 @@ public class Grille extends JPanel implements Serializable {
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 	/** Boolean qui indique si on mode rotation **/
 	private boolean rotationPostPlacement = false;
-
-	
+	/** Boolean qui indique qu'on déplace une tuile unique **/
+	private boolean deplacementTuileUnique = false;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -204,7 +204,7 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if(rotationPostPlacement) {
+				if (rotationPostPlacement) {
 
 				} else {
 					placerTuile(e);
@@ -254,11 +254,11 @@ public class Grille extends JPanel implements Serializable {
 			if (tuile != null) {
 
 				sauvegarderEmplacement();
+
 			}
 		} else {
 			supprimerCase();
 		}
-		afficherTab();
 
 		repaint();
 
@@ -489,6 +489,7 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
+
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -498,6 +499,7 @@ public class Grille extends JPanel implements Serializable {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
 							gererPortails();
+							afficherTab();
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
@@ -508,7 +510,7 @@ public class Grille extends JPanel implements Serializable {
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
 							}
-						
+
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
 
@@ -772,7 +774,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void setTuile(Tuile tuile) {
-		positionnerCaseEtTuile(tuile, dernierX/pixelsParMetre, dernierY/pixelsParMetre);
+		positionnerCaseEtTuile(tuile, dernierX / pixelsParMetre, dernierY / pixelsParMetre);
 		this.tuile = tuile;
 	}
 
@@ -889,17 +891,12 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD
-	 * <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
+	 * <<<<<<< HEAD <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
 	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
 	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
-	 * =======
-	 * <<<<<<< HEAD
-	 * =======
-	 * =======
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
-	 * Lie un portail si nécessaire
+	 * ======= <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
+	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
+	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
 	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
@@ -970,7 +967,7 @@ public class Grille extends JPanel implements Serializable {
 	/**
 	 * Méthode qui permet de rotationner une tuile déjà placer
 	 */
-	//Giroux
+	// Giroux
 	public void rotationPostPlacement(MouseEvent e) {
 		clique = e.getPoint();
 		for (int i = 0; i < nbCaseVerticale; i++) {
@@ -999,7 +996,7 @@ public class Grille extends JPanel implements Serializable {
 	/**
 	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
 	 */
-	//Giroux
+	// Giroux
 	public void setRotationPostPlacement() {
 		if (rotationPostPlacement) {
 			rotationPostPlacement = false;
@@ -1029,17 +1026,17 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			
-			
-			
-			if(rotationPostPlacement) {
-				rotationPostPlacement(e);
+			reinitialiseStatutTuileUnique(e);
+			if (deplacementTuileUnique) {
+				deplacementTuileUnique = false;
 			} else {
-				placerTuile(e);
+				if (rotationPostPlacement) {
+					rotationPostPlacement(e);
+				} else {
+					placerTuile(e);
+				}
 			}
-			
-			
-			
+
 			break;
 		}
 		gererCurseur();
@@ -1079,27 +1076,64 @@ public class Grille extends JPanel implements Serializable {
 	private void gererCurseur() {
 		if (supprimer) {
 			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-		} else if(rotationPostPlacement) {
+		} else if (rotationPostPlacement) {
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
 			Image image = toolkit.getImage("ressources/rotationPostPlacementVert.png");
-			Cursor c = toolkit.createCustomCursor(image, new Point((int)(largeurCase/2.0/pixelsParMetre),(int)(hauteurCase/2.0/pixelsParMetre)), "Le curseur");
+//			Point pointMilieuImage = new Point((int)(image.getWidth(null)/2),(int) (image.getHeight(null)/2));
+			Cursor c = toolkit.createCustomCursor(image, new Point(0, 0), "Le curseur");
 			setCursor(c);
-			
-		}
-		else  {
+
+		} else {
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
 	}
-	
+
 	/**
 	 * Méthode qui indique si en mode rotation ou non
+	 * 
 	 * @return Vrai si en rotation, ou faux dans le cas contraire
 	 */
-	//Giroux
+	// Giroux
 	public boolean getRotationPostPlacement() {
 		return rotationPostPlacement;
 	}
-	
+
+	/**
+	 * Méthode qui permet de déplacer les tuiles uniques en reinitialisant leurs conditions pour repermettre le déplacement
+	 * @param e le point où on clique
+	 */
+	// Giroux
+	private void reinitialiseStatutTuileUnique(MouseEvent e) {
+		clique = e.getPoint();
+		for (int i = 0; i < nbCaseVerticale; i++) {
+			if (clique.getY() / pixelsParMetre >= i * hauteurCase
+					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCaseHorizontale; j++) {
+					if (clique.getX() / pixelsParMetre >= j * largeurCase
+							&& clique.getX() / pixelsParMetre < ((j + 1) * largeurCase)) {
+						if (tabEmplacement[i][j] != null && !rotationPostPlacement) {
+							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
+								deplacementTuileUnique = true;
+								drapeau = false;
+								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
+								setTuile(new Drapeau(tabEmplacement[i][j].getAngleRotation()));
+								tabEmplacement[i][j] = null;
+							} else if (tabEmplacement[i][j].getVaisseau() && vaisseau) {
+								
+								deplacementTuileUnique = true;
+								vaisseau = false;
+								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
+								setTuile(new VaisseauImage(tabEmplacement[i][j].getAngleRotation()));
+								tabEmplacement[i][j] = null;
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+	}
 
 }
 // Fin classe
