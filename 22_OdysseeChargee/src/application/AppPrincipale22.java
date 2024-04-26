@@ -393,6 +393,14 @@ public class AppPrincipale22 extends JFrame {
 				if (evt.getPropertyName().equals("niveauCree")) {
 					panSelecteurNiveau.actualiserNiveaux();
 				}
+				if (evt.getPropertyName().equals("niveau essai")) {
+					Niveau niveauEssai = (Niveau) evt.getNewValue();
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
+					panModeJeu.setVisible(true);
+					panModeEditeur.setVisible(false);
+					setContentPane(panModeJeu);
+					panModeJeu.getZoneAnimationPhysique().requestFocus();
+				}
 			}
 		});
 

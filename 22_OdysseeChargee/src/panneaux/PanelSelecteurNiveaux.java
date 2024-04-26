@@ -82,6 +82,10 @@ public class PanelSelecteurNiveaux extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3 );
 		fondEcran.add(btnNiveauBase3);
 		
+		JButton btnIdée = new JButton("IDÉE : mettre les niveaux du mode jetpack");
+		btnIdée.setBounds(1340, 434, 280, 23);
+		fondEcran.add(btnIdée);
+		
 		btnNiveauBase2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau2", 0, -1);

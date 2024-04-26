@@ -91,6 +91,10 @@ public class PanelEditeur extends JPanel {
 	/** bouton permettant de la sélection de la tuile de type vaisseau */
 	private JButton btnVaisseau;
 	/**
+	 * Bouton pour essayer le niveau créé
+	 */
+	private JButton btnEssayer;
+	/**
 	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
 	 * de type carré
 	 */
@@ -224,6 +228,24 @@ public class PanelEditeur extends JPanel {
 		// add(lblQttCarre);
 
 		creerSectionBoutons();
+		
+		btnEssayer = new JButton("Essayer");
+		btnEssayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				essayer();
+			}
+
+		});
+		btnEssayer.setBounds(178, 827, 85, 85);
+		add(btnEssayer);
+	}
+	/**
+	 * 
+	 */
+	//Kitimir Yim
+	private void essayer() {
+		Niveau niveauParDefaut = new Niveau(grille, "Niveau d'essai");
+		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
 	}
 
 	/**

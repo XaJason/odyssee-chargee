@@ -999,6 +999,21 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		listePlaquesChargees.clear();
 		repaint();
 	}
+	
+	/**
+	 * Modifie le niveau en y chargeant un nouveau niveau
+	 * 
+	 * @param niveau Le niveau que l'on veut charger
+	 */
+	//Kitimir Yim
+	public void setNiveau(Niveau niveau) {
+		this.niveau = niveau;
+		niveau.getGrille().setDansModeJeu(true);
+		placerVaisseauPourDebutAnimation(niveau);
+		listePlaquesChargees.clear();
+		repaint();
+	}
+	
 
 	/**
 	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveau

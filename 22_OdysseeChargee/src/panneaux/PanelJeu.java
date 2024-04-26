@@ -22,6 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import dessin.ZoneAnimationPhysique;
+import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
 
@@ -303,6 +304,16 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
 		zoneAnimationPhysique.setNiveau(nomNiveau);
+	}
+	
+	/**
+	 * Modifie le niveau de la zone d'animation physique
+	 * 
+	 * @param Niveau Le niveau
+	 */
+	//Kitimir Yim
+	public void modifierNiveauDeZoneAnimationPhysique(Niveau Niveau) {
+		zoneAnimationPhysique.setNiveau(Niveau);
 	}
 
 	/**
