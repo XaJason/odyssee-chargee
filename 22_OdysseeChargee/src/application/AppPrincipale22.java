@@ -209,7 +209,7 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private void creerBoutons() {
 
-		FondEcran fondEcran = new FondEcran();
+		FondEcran fondEcran = new FondEcran("fond.jpg");
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		panMenuPrincipal.add(fondEcran);
 		fondEcran.setLayout(null);

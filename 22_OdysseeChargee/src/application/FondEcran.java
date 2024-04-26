@@ -14,8 +14,8 @@ public class FondEcran extends JPanel {
 	private static final long serialVersionUID = -6371823752957467232L;
 	private Image backgroundImage;
 
-    public FondEcran() {
-        backgroundImage = OutilsImage.lireImage("fond.jpg");
+    public FondEcran(String fond) {
+        backgroundImage = OutilsImage.lireImage(fond);
     }
 
     @Override
