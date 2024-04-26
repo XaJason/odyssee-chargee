@@ -1050,7 +1050,9 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			reinitialiseStatutTuileUnique(e);
+			if(!supprimer) {
+				reinitialiseStatutTuileUnique(e);
+			}
 			if (deplacementTuileUnique) {
 				deplacementTuileUnique = false;
 			} else {
