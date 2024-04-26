@@ -25,6 +25,7 @@ import java.io.Serializable;
  */
 import javax.swing.JPanel;
 
+import interactif.Vaisseau;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -120,6 +121,12 @@ public class Grille extends JPanel implements Serializable {
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 	/** Boolean qui indique si on mode rotation **/
 	private boolean rotationPostPlacement = false;
+
+	/** Le drapeau du niveau **/
+	private Drapeau tuileDrapeau;
+
+	/** Le vaisseau du niveau **/
+	private VaisseauImage tuileVaisseau;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -221,7 +228,22 @@ public class Grille extends JPanel implements Serializable {
 		case KeyEvent.VK_E:
 			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
 			break;
-
+		case KeyEvent.VK_A:
+			PCS.firePropertyChange("Sélectionner pics", null, null);
+			break;
+		case KeyEvent.VK_S:
+			PCS.firePropertyChange("Sélectionner portail", null, null);
+			break;
+		case KeyEvent.VK_D:
+			if (!contientDrapeau()) {
+				PCS.firePropertyChange("Sélectionner drapeau", null, null);
+			}
+			break;
+		case KeyEvent.VK_F:
+			if (!contientVaisseau()) {
+				PCS.firePropertyChange("Sélectionner vaisseau", null, null);
+			}
+			break;
 		}
 
 	}
@@ -243,7 +265,6 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 		if (!supprimer) {
 			if (tuile != null) {
-
 				sauvegarderEmplacement();
 			}
 		} else {
@@ -480,6 +501,7 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
+							
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -491,10 +513,12 @@ public class Grille extends JPanel implements Serializable {
 							gererPortails();
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
+								tuileDrapeau = (Drapeau) tuileTemp;
 								drapeau = true;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
+								tuileVaisseau = (VaisseauImage) tuileTemp;
 								vaisseau = true;
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
@@ -764,7 +788,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void setTuile(Tuile tuile) {
-		positionnerCaseEtTuile(tuile, dernierX/pixelsParMetre, dernierY/pixelsParMetre);
+		positionnerCaseEtTuile(tuile, dernierX / pixelsParMetre, dernierY / pixelsParMetre);
 		this.tuile = tuile;
 	}
 
@@ -1031,17 +1055,6 @@ public class Grille extends JPanel implements Serializable {
 		case KeyEvent.VK_SPACE:
 			gererSupprimer();
 			break;
-		case KeyEvent.VK_Q:
-			PCS.firePropertyChange("Sélectionner carré", null, null);
-			System.out.println("LeBron James");
-			break;
-		case KeyEvent.VK_W:
-			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
-			break;
-		case KeyEvent.VK_E:
-			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
-			break;
-
 		}
 	}
 

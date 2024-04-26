@@ -349,9 +349,9 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
 		add(btnVaisseau);
 
-		lblCarre = new JLabel("Carré");
+		lblCarre = new JLabel("Carré (Q)");
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCarre.setBounds(50, 156, 85, 13);
+		lblCarre.setBounds(27, 156, 131, 13);
 		add(lblCarre);
 
 		lblObjets = new JLabel("Objets");
@@ -363,14 +363,14 @@ public class PanelEditeur extends JPanel {
 		lblBlocs.setBounds(198, 38, 45, 13);
 		add(lblBlocs);
 
-		lblTriangleRectangle = new JLabel("Triangle rectangle");
+		lblTriangleRectangle = new JLabel("Triangle rectangle (W)");
 		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTriangleRectangle.setBounds(168, 156, 104, 13);
+		lblTriangleRectangle.setBounds(155, 156, 131, 13);
 		add(lblTriangleRectangle);
 
-		lblTriangleEquilateral = new JLabel("Triangle équilatéral");
+		lblTriangleEquilateral = new JLabel("Triangle équilatéral (E)");
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTriangleEquilateral.setBounds(289, 156, 110, 13);
+		lblTriangleEquilateral.setBounds(285, 156, 119, 13);
 		add(lblTriangleEquilateral);
 
 		lblPics = new JLabel("Pics");
@@ -408,9 +408,9 @@ public class PanelEditeur extends JPanel {
 		lblRotationPrePlacement.setBounds(89, 575, 131, 13);
 		add(lblRotationPrePlacement);
 
-		lblSauvegarder = new JLabel("Sauvegarder");
+		lblSauvegarder = new JLabel("Sauvegarder \r\n(ctrl + S)");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(178, 822, 85, 13);
+		lblSauvegarder.setBounds(149, 822, 142, 13);
 		add(lblSauvegarder);
 
 		lblInteractifs = new JLabel("Interactifs");
@@ -565,6 +565,18 @@ public class PanelEditeur extends JPanel {
 				case "Sélectionner triangle équilatéral":
 					selectionnerTriangleEquilateral();
 					break;
+				case "Sélectionner pics":
+					selectionnerPics();
+					break;
+				case "Sélectionner portail":
+					selectionnerPortail();
+					break;
+				case "Sélectionner drapeau":
+					selectionnerDrapeau();
+					break;
+				case "Sélectionner vaisseau":
+					selectionnerVaisseau();
+					break;
 				}
 			}
 
@@ -643,10 +655,12 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerDrapeau() {
-		grille.setTuile(new Drapeau());
-		panelTuileTemp.setTuile(new Drapeau());
-		afficherSelection();
-		repaint();
+		
+			grille.setTuile(new Drapeau());
+			panelTuileTemp.setTuile(new Drapeau());
+			afficherSelection();
+			repaint();
+		
 	}
 
 	/**
