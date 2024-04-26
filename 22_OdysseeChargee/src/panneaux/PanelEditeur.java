@@ -440,10 +440,18 @@ public class PanelEditeur extends JPanel {
 		btnRotationPostPlacement = new JToggleButton("");
 		btnRotationPostPlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rotationnerApresPlacement();
+				grille.setRotationPostPlacement();
+				if(grille.getRotationPostPlacement()) {
+				OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg", btnRotationPostPlacement);
+				panelTuileTemp.setRotation(true);
+				} else {
+					OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+					panelTuileTemp.setRotation(false);
+				}
 			}
 		});
 		btnRotationPostPlacement.setBounds(243, 480, 89, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 		add(btnRotationPostPlacement);
 
 		lblRotationPostPlacement = new JLabel("Rotation Post-Placement");

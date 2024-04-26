@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -206,7 +209,11 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				placerTuile(e);
+				if (rotationPostPlacement) {
+
+				} else {
+					placerTuile(e);
+				}
 			}
 		});
 	}// Fin constructeur
@@ -501,7 +508,7 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
-							
+
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -523,8 +530,7 @@ public class Grille extends JPanel implements Serializable {
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
 							}
-						} else if (rotationPostPlacement) {
-							rotationPostPlacement();
+
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
 
@@ -636,7 +642,7 @@ public class Grille extends JPanel implements Serializable {
 		if (!exterieurComposant) {
 
 			g2d.fill(emplacementActuel);
-			if (tuile != null && !supprimer) {
+			if (tuile != null && !supprimer && !rotationPostPlacement) {
 				tuile.dessiner(g2d);
 			}
 		}
@@ -983,7 +989,12 @@ public class Grille extends JPanel implements Serializable {
 		return drapeauPresent;
 	}
 
-	public void rotationPostPlacement() {
+	/**
+	 * Méthode qui permet de rotationner une tuile déjà placer
+	 */
+	// Giroux
+	public void rotationPostPlacement(MouseEvent e) {
+		clique = e.getPoint();
 		for (int i = 0; i < nbCaseVerticale; i++) {
 			if (clique.getY() / pixelsParMetre >= i * hauteurCase
 					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
@@ -1007,6 +1018,10 @@ public class Grille extends JPanel implements Serializable {
 
 	}
 
+	/**
+	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
+	 */
+	// Giroux
 	public void setRotationPostPlacement() {
 		if (rotationPostPlacement) {
 			rotationPostPlacement = false;
@@ -1036,7 +1051,13 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			placerTuile(e);
+
+			if (rotationPostPlacement) {
+				rotationPostPlacement(e);
+			} else {
+				placerTuile(e);
+			}
+
 			break;
 		}
 		gererCurseur();
@@ -1065,9 +1086,27 @@ public class Grille extends JPanel implements Serializable {
 	private void gererCurseur() {
 		if (supprimer) {
 			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		} else if (rotationPostPlacement) {
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			Image image = toolkit.getImage("ressources/rotationPostPlacementVert.png");
+			Cursor c = toolkit.createCustomCursor(image,
+					new Point((int) (largeurCase / 2.0 / pixelsParMetre), (int) (hauteurCase / 2.0 / pixelsParMetre)),
+					"Le curseur");
+			setCursor(c);
+
 		} else {
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
+	}
+
+	/**
+	 * Méthode qui indique si en mode rotation ou non
+	 * 
+	 * @return Vrai si en rotation, ou faux dans le cas contraire
+	 */
+	// Giroux
+	public boolean getRotationPostPlacement() {
+		return rotationPostPlacement;
 	}
 
 }
