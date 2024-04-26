@@ -28,6 +28,7 @@ import java.io.Serializable;
  */
 import javax.swing.JPanel;
 
+import interactif.Vaisseau;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -125,6 +126,13 @@ public class Grille extends JPanel implements Serializable {
 	private boolean rotationPostPlacement = false;
 	/** Boolean qui indique qu'on déplace une tuile unique **/
 	private boolean deplacementTuileUnique = false;
+
+
+	/** Le drapeau du niveau **/
+	private Drapeau tuileDrapeau;
+
+	/** Le vaisseau du niveau **/
+	private VaisseauImage tuileVaisseau;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -230,7 +238,22 @@ public class Grille extends JPanel implements Serializable {
 		case KeyEvent.VK_E:
 			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
 			break;
-
+		case KeyEvent.VK_A:
+			PCS.firePropertyChange("Sélectionner pics", null, null);
+			break;
+		case KeyEvent.VK_S:
+			PCS.firePropertyChange("Sélectionner portail", null, null);
+			break;
+		case KeyEvent.VK_D:
+			if (!contientDrapeau()) {
+				PCS.firePropertyChange("Sélectionner drapeau", null, null);
+			}
+			break;
+		case KeyEvent.VK_F:
+			if (!contientVaisseau()) {
+				PCS.firePropertyChange("Sélectionner vaisseau", null, null);
+			}
+			break;
 		}
 
 	}
@@ -252,7 +275,6 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 		if (!supprimer) {
 			if (tuile != null) {
-
 				sauvegarderEmplacement();
 
 			}
@@ -502,10 +524,12 @@ public class Grille extends JPanel implements Serializable {
 							afficherTab();
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
+								tuileDrapeau = (Drapeau) tuileTemp;
 								drapeau = true;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
+								tuileVaisseau = (VaisseauImage) tuileTemp;
 								vaisseau = true;
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
@@ -1055,17 +1079,6 @@ public class Grille extends JPanel implements Serializable {
 		case KeyEvent.VK_SPACE:
 			gererSupprimer();
 			break;
-		case KeyEvent.VK_Q:
-			PCS.firePropertyChange("Sélectionner carré", null, null);
-			System.out.println("LeBron James");
-			break;
-		case KeyEvent.VK_W:
-			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
-			break;
-		case KeyEvent.VK_E:
-			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
-			break;
-
 		}
 	}
 
