@@ -240,7 +240,7 @@ public class PanelEditeur extends JPanel {
 		add(btnEssayer);
 	}
 	/**
-	 * 
+	 * Méthode pour essayer le niveau
 	 */
 	//Kitimir Yim
 	private void essayer() {
