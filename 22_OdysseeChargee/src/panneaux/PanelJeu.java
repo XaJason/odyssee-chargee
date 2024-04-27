@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -29,9 +28,10 @@ import utilitaires.OutilsImage;
 /**
  * Panel du mode de jeu
  * 
- * @author Kitimir Yim
  * @author Enuel René Valentin Kizozo Izia
  * @author Giroux
+ * @author Jason Xa
+ * @author Kitimir Yim
  */
 public class PanelJeu extends JPanel {
 	/**
@@ -305,13 +305,13 @@ public class PanelJeu extends JPanel {
 	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
 		zoneAnimationPhysique.setNiveau(nomNiveau);
 	}
-	
+
 	/**
 	 * Modifie le niveau de la zone d'animation physique
 	 * 
 	 * @param Niveau Le niveau
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void modifierNiveauDeZoneAnimationPhysique(Niveau Niveau) {
 		zoneAnimationPhysique.setNiveau(Niveau);
 	}

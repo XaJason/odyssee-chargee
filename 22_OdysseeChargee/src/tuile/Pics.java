@@ -103,10 +103,11 @@ public class Pics extends Tuile implements Serializable {
 	public void dessiner(Graphics2D g2d) {
 		creerGeometrieContour();
 		g2d.setColor(Color.red);
-		//g2d.draw(contour);
+		// g2d.draw(contour);
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2d.drawImage(image, (int)x, (int)(y + largeurTuile/2.0), (int)largeurTuile, (int)(hauteurTuile/2.0), null);
+		g2d.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) (hauteurTuile / 2.0),
+				null);
 		g2d.setTransform(transformationAffine);
 	}
 
@@ -160,7 +161,6 @@ public class Pics extends Tuile implements Serializable {
 	 */
 	// Kitimir Yim
 	public Area formerAireObjetSpecial() {
-
 
 		Area airePics = new Area(contour);
 		return airePics;

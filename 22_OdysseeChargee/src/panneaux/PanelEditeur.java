@@ -40,12 +40,11 @@ import utilitaires.OutilsImage;
 /**
  * Panel du mode éditeur
  * 
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Giroux
  * @author Jason Xa
  * @author Kitimir Yim
- * @author Enuel René Valentin Kizozo Izia
- * 
  */
-
 public class PanelEditeur extends JPanel {
 
 	/**
@@ -176,10 +175,19 @@ public class PanelEditeur extends JPanel {
 
 	/** Case à cocher pour l'affichage du quadrillage */
 	private JCheckBox chckbxGrille;
-	/** Type de la tuile selectionnée **/
+	/** Panneau d'affichage servant à afficher la tuile ou le mode sélectionné **/
 	private PanelTuileTemp panelTuileTemp;
+
 	private JToggleButton btnRotationPostPlacement;
+
+	/**
+	 * Étiquette servant à identifier le bouton à deux états pour la rotation
+	 * post-placement
+	 */
 	private JLabel lblRotationPostPlacement;
+	/**
+	 * Étiquette servant à identifier le bouton pour essayer le niveau construit
+	 */
 	private JLabel lblEssayer;
 
 	/**
@@ -449,7 +457,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement.setText("R");
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rotationnerAvant(4);
+				rotationnerAvant(4); // quart de rotation
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
@@ -618,7 +626,9 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Retourne vrai si le niveau contient un vaisseau et un drapeau
+	 * Retourne vrai si le niveau contient un vaisseau et un drapeau. Affiche
+	 * également une fenêtre pop-up lorsque le niveau n'est pas bien construit comme
+	 * avertissement.
 	 * 
 	 * @return vrai si le niveau contient un vaisseau et un drapeau
 	 */
@@ -801,7 +811,7 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Réinitialise cet éditeur de niveaux
+	 * Réinitialise cet éditeur de niveaux sauf le niveau
 	 */
 	// Jason Xa
 	private void reinitialiserSaufNiveau() {

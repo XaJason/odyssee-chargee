@@ -139,7 +139,6 @@ public class Portail extends Tuile implements Serializable {
 		}
 	}
 
-
 	/**
 	 * Retourne le portail associé
 	 * 
@@ -149,7 +148,7 @@ public class Portail extends Tuile implements Serializable {
 	public Portail getPortailAssocie() {
 		return portailAssocie;
 	}
-	
+
 	/**
 	 * Modifie le portail associé
 	 * 
