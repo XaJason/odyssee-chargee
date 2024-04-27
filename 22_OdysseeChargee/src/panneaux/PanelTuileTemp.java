@@ -13,6 +13,7 @@ import utilitaires.OutilsImage;
  * Classe qui permet d'afficher la tuile sélectionner sous forme de fenêtre
  * 
  * @author Giroux
+ * @author Jason Xa
  */
 public class PanelTuileTemp extends JPanel {
 
@@ -78,7 +79,7 @@ public class PanelTuileTemp extends JPanel {
 	 * 
 	 * @param signum 1 si positif, 0 si nul, -1 si négatif
 	 */
-	// Giroux
+	// Jason Xa
 	public void rotation(int signum) {
 		if (tuile != null && tuile.getType() != "Vaisseau") {
 			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.5 * Math.PI);

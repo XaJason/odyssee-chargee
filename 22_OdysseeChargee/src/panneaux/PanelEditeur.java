@@ -434,12 +434,13 @@ public class PanelEditeur extends JPanel {
 		lblReinitialiser.setBounds(127, 694, 67, 26);
 		add(lblReinitialiser);
 
-		lblSupprimer = new JLabel("<html><center>GÉRER LA SUPPRESSION<br>\r\n[ESPACE]<html>");
+		lblSupprimer = new JLabel("<html><center>GÉRER LA SUPPRESSION<br>\r\n[ESPACE], CLIC DROIT OU MOLETTE<html>");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(232, 694, 114, 39);
+		lblSupprimer.setBounds(205, 694, 168, 39);
 		add(lblSupprimer);
 
-		lblRotationPrePlacement = new JLabel("<html><center>ROTATION PRÉ-PLACEMENT<br>\r\n[R]<html>");
+		lblRotationPrePlacement = new JLabel(
+				"<html><center>ROTATION PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT MOLETTE<html>");
 		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRotationPrePlacement.setBounds(65, 568, 190, 31);
 		add(lblRotationPrePlacement);
@@ -491,7 +492,7 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 		add(btnRotationPostPlacement);
 
-		lblRotationPostPlacement = new JLabel("<html><center>ROTATION POST-PLACEMENT<br>\r\n[R]<html>");
+		lblRotationPostPlacement = new JLabel("<html><center>ROTATION POST-PLACEMENT<br>\r\n[T]<html>");
 		lblRotationPostPlacement.setBounds(247, 568, 138, 26);
 		add(lblRotationPostPlacement);
 
@@ -730,6 +731,7 @@ public class PanelEditeur extends JPanel {
 		grille.setSupprimer(false);
 		grille.setTuile(null);
 		panelTuileTemp.setTuile(null);
+		grille.setRotationPostPlacement(false);
 		repaint();
 		btnDrapeau.setEnabled(true);
 		btnVaisseau.setEnabled(true);
@@ -744,6 +746,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(null);
 		panelTuileTemp.setTuile(null);
 		grille.setExterieurComposant(true);
+		grille.setRotationPostPlacement(false);
 		repaint();
 	}
 
@@ -766,7 +769,6 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.repaint();
 		repaint();
 	}
-
 
 	/**
 	 * Gère la sauvegarde du niveau

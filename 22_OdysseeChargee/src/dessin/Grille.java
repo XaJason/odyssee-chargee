@@ -850,17 +850,6 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée
-	 */
-	// Jason Xa
-	public void rotation() {
-		if (tuile != null) {
-			tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
-			repaint();
-		}
-	}
-
-	/**
 	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
 	 * de l'argument
 	 * 
@@ -868,7 +857,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void rotation(int signum) {
-		if (tuile != null && tuile.getType()!="Vaisseau") {
+		if (tuile != null && tuile.getType() != "Vaisseau") {
 			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.5 * Math.PI);
 			repaint();
 		}
@@ -1045,11 +1034,17 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void setRotationPostPlacement() {
-		if (rotationPostPlacement) {
-			rotationPostPlacement = false;
-		} else {
-			rotationPostPlacement = true;
-		}
+		rotationPostPlacement = !rotationPostPlacement;
+	}
+
+	/**
+	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
+	 * 
+	 * @param rotationPostPlacement vrai si la rotation post-placement est activée
+	 */
+	// Jason Xa
+	public void setRotationPostPlacement(boolean rotationPostPlacement) {
+		this.rotationPostPlacement = rotationPostPlacement;
 	}
 
 	/**
@@ -1105,7 +1100,7 @@ public class Grille extends JPanel implements Serializable {
 			gererSupprimer();
 			break;
 		case KeyEvent.VK_R:
-			PCS.firePropertyChange("<html>Rotation pré-placement<html>", null, null);
+			PCS.firePropertyChange("Rotation pré-placement", null, null);
 			break;
 		case KeyEvent.VK_T:
 			PCS.firePropertyChange("Rotation post-placement", null, null);
