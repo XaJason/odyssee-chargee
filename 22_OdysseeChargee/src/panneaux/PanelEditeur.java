@@ -31,6 +31,8 @@ import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 
 /**
  * Panel du mode éditeur
@@ -192,6 +194,11 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	public PanelEditeur() {
+		addMouseWheelListener(new MouseWheelListener() {
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				rotationnerAvant(Integer.signum(e.getWheelRotation()));
+			}
+		});
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -241,6 +248,7 @@ public class PanelEditeur extends JPanel {
 		});
 		btnEssayer.setBounds(342, 599, 85, 85);
 		add(btnEssayer);
+		grille.requestFocusInWindow();
 	}
 
 	/**
@@ -353,7 +361,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement = new JButton();
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rotationnerAvant();
+				rotationnerAvant(1);
 			}
 		});
 		btnRotationPrePlacement.setBounds(118, 480, 85, 85);
@@ -615,7 +623,7 @@ public class PanelEditeur extends JPanel {
 					selectionnerVaisseau();
 					break;
 				case "Rotation pré-placement":
-					rotationnerAvant();
+					rotationnerAvant(1);
 					break;
 				case "Rotation post-placement":
 					rotationnerApresPlacement();
@@ -751,13 +759,14 @@ public class PanelEditeur extends JPanel {
 	 * Gère la rotation de la tuile actuelle
 	 */
 	// Giroux
-	private void rotationnerAvant() {
+	private void rotationnerAvant(int signum) {
 		grille.setSupprimer(false);
-		grille.rotation();
-		panelTuileTemp.rotation();
+		grille.rotation(signum);
+		panelTuileTemp.rotation(signum);
 		panelTuileTemp.repaint();
 		repaint();
 	}
+
 
 	/**
 	 * Gère la sauvegarde du niveau

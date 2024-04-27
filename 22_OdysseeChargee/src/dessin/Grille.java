@@ -861,6 +861,20 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
+	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
+	 * de l'argument
+	 * 
+	 * @param signum 1 si positif, 0 si nul, -1 si négatif
+	 */
+	// Jason Xa
+	public void rotation(int signum) {
+		if (tuile != null && tuile.getType()!="Vaisseau") {
+			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.5 * Math.PI);
+			repaint();
+		}
+	}
+
+	/**
 	 * Définit la condition de suppression
 	 * 
 	 * @param supprimer la nouvelle valeau de la condition de suppression

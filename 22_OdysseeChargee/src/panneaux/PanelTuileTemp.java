@@ -29,8 +29,7 @@ public class PanelTuileTemp extends JPanel {
 	/**
 	 * Indique si la grille est en mode application ou pas
 	 */
-	private boolean rotation=false ;
-	
+	private boolean rotation = false;
 
 	/**
 	 * Création de la fenêtre
@@ -50,13 +49,14 @@ public class PanelTuileTemp extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 
 		if (tuile != null) {
-			Graphics2D g2dPrive = (Graphics2D) g2d.create(); 
+			Graphics2D g2dPrive = (Graphics2D) g2d.create();
 			g2dPrive.scale(getWidth() / Tuile.getHauteurTuile(), getHeight() / Tuile.getHauteurTuile());
 			tuile.dessiner(g2dPrive, 0, 0);
 		}
-		
-		if(rotation) {
-			image = OutilsImage.lireImageEtRedimensionner("rotationPostPlacementVert.png", (int) (this.getWidth()), (int) (this.getHeight()));
+
+		if (rotation) {
+			image = OutilsImage.lireImageEtRedimensionner("rotationPostPlacementVert.png", (int) (this.getWidth()),
+					(int) (this.getHeight()));
 			g2d.drawImage(image, 0, 0, null);
 		}
 	}
@@ -73,25 +73,28 @@ public class PanelTuileTemp extends JPanel {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée
+	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
+	 * de l'argument
+	 * 
+	 * @param signum 1 si positif, 0 si nul, -1 si négatif
 	 */
 	// Giroux
-	public void rotation() {
-		if (this.tuile != null) {
-			tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
+	public void rotation(int signum) {
+		if (tuile != null && tuile.getType() != "Vaisseau") {
+			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.5 * Math.PI);
 			repaint();
 		}
 	}
 
 	/**
 	 * Permet de mettre l'état de la fenêtre en rotation
+	 * 
 	 * @param rotation Vrai si en rotation, faux sinon
 	 */
-	//Giroux
+	// Giroux
 	public void setRotation(boolean rotation) {
 		this.rotation = rotation;
 		repaint();
 	}
 
-	
 }
