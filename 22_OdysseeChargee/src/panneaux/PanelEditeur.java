@@ -101,11 +101,6 @@ public class PanelEditeur extends JPanel {
 	private JLabel lblCarre;
 	/**
 	 * étiquette servant à identifier le regroupement de boutons permettant la
-	 * sélection de tuile
-	 */
-	private JLabel lblObjets;
-	/**
-	 * étiquette servant à identifier le regroupement de boutons permettant la
 	 * sélection de tuile (blocs)
 	 */
 	private JLabel lblBlocs;
@@ -228,21 +223,22 @@ public class PanelEditeur extends JPanel {
 		// add(lblQttCarre);
 
 		creerSectionBoutons();
-		
-		btnEssayer = new JButton("Essayer");
+
+		btnEssayer = new JButton("<html><center>ESSAYER<br>\r\n[CTRL + E]<html>");
 		btnEssayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				essayer();
 			}
 
 		});
-		btnEssayer.setBounds(178, 827, 85, 85);
+		btnEssayer.setBounds(342, 599, 85, 85);
 		add(btnEssayer);
 	}
+
 	/**
 	 * Méthode pour essayer le niveau
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void essayer() {
 		Niveau niveauParDefaut = new Niveau(grille, "Niveau d'essai");
 		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
@@ -316,7 +312,7 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
 		add(btnDrapeau);
 
-		lblTypeSelectionne = new JLabel("Type de la tuile sélectionnée: ");
+		lblTypeSelectionne = new JLabel("TUILE ACTUELLE:");
 		lblTypeSelectionne.setBounds(30, 321, 269, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
@@ -356,7 +352,7 @@ public class PanelEditeur extends JPanel {
 			}
 
 		});
-		btnSauvegarder.setBounds(178, 727, 85, 85);
+		btnSauvegarder.setBounds(10, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 
@@ -370,76 +366,72 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
 		add(btnVaisseau);
 
-		lblCarre = new JLabel("Carré (Q)");
+		lblCarre = new JLabel("[Q]");
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCarre.setBounds(27, 156, 131, 13);
 		add(lblCarre);
 
-		lblObjets = new JLabel("Objets");
-		lblObjets.setBounds(30, 10, 45, 13);
-		add(lblObjets);
-
-		lblBlocs = new JLabel("Blocs");
+		lblBlocs = new JLabel("BLOCS");
 		lblBlocs.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBlocs.setBounds(198, 38, 45, 13);
 		add(lblBlocs);
 
-		lblTriangleRectangle = new JLabel("Triangle rectangle (W)");
+		lblTriangleRectangle = new JLabel("[W]");
 		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriangleRectangle.setBounds(155, 156, 131, 13);
 		add(lblTriangleRectangle);
 
-		lblTriangleEquilateral = new JLabel("Triangle équilatéral (E)");
+		lblTriangleEquilateral = new JLabel("[E]");
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTriangleEquilateral.setBounds(285, 156, 119, 13);
 		add(lblTriangleEquilateral);
 
-		lblPics = new JLabel("Pics");
+		lblPics = new JLabel("[A]");
 		lblPics.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPics.setBounds(118, 310, 85, 13);
 		add(lblPics);
 
-		lblPortail = new JLabel("Portail");
+		lblPortail = new JLabel("[S]");
 		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPortail.setBounds(247, 310, 85, 13);
 		add(lblPortail);
 
-		lblDrapeau = new JLabel("Drapeau d'arrivée");
+		lblDrapeau = new JLabel("[D]");
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDrapeau.setBounds(101, 435, 119, 13);
 		add(lblDrapeau);
 
-		lblVaisseau = new JLabel("Vaisseau (personnage)");
+		lblVaisseau = new JLabel("[F]");
 		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVaisseau.setBounds(215, 435, 148, 13);
 		add(lblVaisseau);
 
-		lblReinitialiser = new JLabel("Réinitialiser le niveau");
+		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReinitialiser.setBounds(89, 694, 142, 13);
+		lblReinitialiser.setBounds(127, 694, 67, 26);
 		add(lblReinitialiser);
 
-		lblSupprimer = new JLabel("Supprimer");
+		lblSupprimer = new JLabel("<html><center>GÉRER LA SUPPRESSION<br>\r\n[ESPACE]<html>");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(247, 694, 85, 13);
+		lblSupprimer.setBounds(232, 694, 114, 39);
 		add(lblSupprimer);
 
-		lblRotationPrePlacement = new JLabel("Rotation Pre-Placement");
+		lblRotationPrePlacement = new JLabel("<html><center>ROTATION PRÉ-PLACEMENT<br>\r\n[R]<html>");
 		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRotationPrePlacement.setBounds(89, 575, 131, 13);
+		lblRotationPrePlacement.setBounds(65, 568, 190, 31);
 		add(lblRotationPrePlacement);
 
-		lblSauvegarder = new JLabel("Sauvegarder \r\n(ctrl + S)");
+		lblSauvegarder = new JLabel("<html><center>SAUVEGARDER<br>\r\n[CTRL + S]<html>");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(149, 822, 142, 13);
+		lblSauvegarder.setBounds(18, 707, 69, 26);
 		add(lblSauvegarder);
 
-		lblInteractifs = new JLabel("Interactifs");
+		lblInteractifs = new JLabel("INTERACTIFS");
 		lblInteractifs.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInteractifs.setBounds(178, 192, 85, 13);
 		add(lblInteractifs);
 
-		lblActions = new JLabel("Actions");
+		lblActions = new JLabel("ACTIONS");
 		lblActions.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActions.setBounds(10, 481, 85, 13);
 		add(lblActions);
@@ -455,7 +447,7 @@ public class PanelEditeur extends JPanel {
 		add(chckbxGrille);
 
 		panelTuileTemp = new PanelTuileTemp();
-		panelTuileTemp.setBounds(8, 599, 100, 100);
+		panelTuileTemp.setBounds(10, 348, 100, 100);
 		add(panelTuileTemp);
 
 		btnRotationPostPlacement = new JToggleButton("");
@@ -476,8 +468,8 @@ public class PanelEditeur extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 		add(btnRotationPostPlacement);
 
-		lblRotationPostPlacement = new JLabel("Rotation Post-Placement");
-		lblRotationPostPlacement.setBounds(226, 574, 124, 14);
+		lblRotationPostPlacement = new JLabel("<html><center>ROTATION POST-PLACEMENT<br>\r\n[R]<html>");
+		lblRotationPostPlacement.setBounds(247, 568, 138, 26);
 		add(lblRotationPostPlacement);
 
 	}
@@ -607,6 +599,19 @@ public class PanelEditeur extends JPanel {
 				case "Sélectionner vaisseau":
 					selectionnerVaisseau();
 					break;
+				case "Rotation pré-placement":
+					rotationnerAvant();
+					break;
+				case "Rotation post-placement":
+					rotationnerApresPlacement();
+					break;
+				case "Réinitialiser":
+					reinitialiser();
+					break;
+				case "Essayer le niveau":
+					essayer();
+					break;
+
 				}
 			}
 
@@ -685,12 +690,12 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerDrapeau() {
-		
-			grille.setTuile(new Drapeau());
-			panelTuileTemp.setTuile(new Drapeau());
-			afficherSelection();
-			repaint();
-		
+
+		grille.setTuile(new Drapeau());
+		panelTuileTemp.setTuile(new Drapeau());
+		afficherSelection();
+		repaint();
+
 	}
 
 	/**

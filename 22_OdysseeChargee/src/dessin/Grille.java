@@ -28,7 +28,6 @@ import java.io.Serializable;
  */
 import javax.swing.JPanel;
 
-import interactif.Vaisseau;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -127,13 +126,6 @@ public class Grille extends JPanel implements Serializable {
 	/** Boolean qui indique qu'on déplace une tuile unique **/
 	private boolean deplacementTuileUnique = false;
 
-
-	/** Le drapeau du niveau **/
-	private Drapeau tuileDrapeau;
-
-	/** Le vaisseau du niveau **/
-	private VaisseauImage tuileVaisseau;
-
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
 	 * 
@@ -193,7 +185,7 @@ public class Grille extends JPanel implements Serializable {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				gererSourisRelachee(e);
-				positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+
 			}
 		});
 
@@ -221,47 +213,64 @@ public class Grille extends JPanel implements Serializable {
 		});
 	}// Fin constructeur
 
+	/**
+	 * Gère les touches du clavier lorsqu'elles sont enfoncées
+	 * 
+	 * @param e l'évènement du clavier
+	 */
+	// Jason Xa
 	private void gererTouchesClavierEnfoncees(KeyEvent e) {
 		int code = e.getKeyCode();
 
 		if (e.isControlDown() && code == KeyEvent.VK_S) {
 			PCS.firePropertyChange("Sauvegarder", null, null);
-		}
-		switch (code) {
-		case KeyEvent.VK_Q:
-			PCS.firePropertyChange("Sélectionner carré", null, null);
-			System.out.println("LeBron James");
-			break;
-		case KeyEvent.VK_W:
-			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
-			break;
-		case KeyEvent.VK_E:
-			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
-			break;
-		case KeyEvent.VK_A:
-			PCS.firePropertyChange("Sélectionner pics", null, null);
-			break;
-		case KeyEvent.VK_S:
-			PCS.firePropertyChange("Sélectionner portail", null, null);
-			break;
-		case KeyEvent.VK_D:
-			if (!contientDrapeau()) {
-				PCS.firePropertyChange("Sélectionner drapeau", null, null);
-			}
-			break;
-		case KeyEvent.VK_F:
-			if (!contientVaisseau()) {
-				PCS.firePropertyChange("Sélectionner vaisseau", null, null);
-			}
-			break;
-		}
+		} else if (e.isControlDown() && code == KeyEvent.VK_R) {
+			PCS.firePropertyChange("Réinitialiser", null, null);
+		} else if (e.isControlDown() && code == KeyEvent.VK_E) {
+			PCS.firePropertyChange("Essayer le niveau", null, null);
+		} else {
+			switch (code) {
+			case KeyEvent.VK_Q:
+				PCS.firePropertyChange("Sélectionner carré", null, null);
+				break;
+			case KeyEvent.VK_W:
+				PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+				break;
+			case KeyEvent.VK_E:
+				PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
+				break;
+			case KeyEvent.VK_A:
+				PCS.firePropertyChange("Sélectionner pics", null, null);
+				break;
+			case KeyEvent.VK_S:
+				PCS.firePropertyChange("Sélectionner portail", null, null);
+				break;
+			case KeyEvent.VK_D:
+				if (!contientDrapeau()) {
+					PCS.firePropertyChange("Sélectionner drapeau", null, null);
+				}
+				break;
+			case KeyEvent.VK_F:
+				if (!contientVaisseau()) {
+					PCS.firePropertyChange("Sélectionner vaisseau", null, null);
+				}
+				break;
 
+			}
+		}
 	}
 
+	/**
+	 * Gère les évènements de la souris lorsqu'elle est relâchée
+	 * 
+	 * @param e l'évènement de la souris
+	 */
+	// Jason Xa
 	private void gererSourisRelachee(MouseEvent e) {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON3:
 			supprimer = false;
+			positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 			break;
 		}
 	}
@@ -524,12 +533,10 @@ public class Grille extends JPanel implements Serializable {
 							afficherTab();
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
-								tuileDrapeau = (Drapeau) tuileTemp;
 								drapeau = true;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
-								tuileVaisseau = (VaisseauImage) tuileTemp;
 								vaisseau = true;
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
@@ -990,6 +997,8 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Méthode qui permet de rotationner une tuile déjà placer
+	 * 
+	 * @param e l'évènement de la souris
 	 */
 	// Giroux
 	public void rotationPostPlacement(MouseEvent e) {
@@ -1050,7 +1059,7 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			if(!supprimer) {
+			if (!supprimer) {
 				reinitialiseStatutTuileUnique(e);
 			}
 			if (deplacementTuileUnique) {
@@ -1080,6 +1089,12 @@ public class Grille extends JPanel implements Serializable {
 		switch (code) {
 		case KeyEvent.VK_SPACE:
 			gererSupprimer();
+			break;
+		case KeyEvent.VK_R:
+			PCS.firePropertyChange("<html>Rotation pré-placement<html>", null, null);
+			break;
+		case KeyEvent.VK_T:
+			PCS.firePropertyChange("Rotation post-placement", null, null);
 			break;
 		}
 	}
@@ -1114,7 +1129,9 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Méthode qui permet de déplacer les tuiles uniques en reinitialisant leurs conditions pour repermettre le déplacement
+	 * Méthode qui permet de déplacer les tuiles uniques en reinitialisant leurs
+	 * conditions pour repermettre le déplacement
+	 * 
 	 * @param e le point où on clique
 	 */
 	// Giroux
@@ -1134,7 +1151,7 @@ public class Grille extends JPanel implements Serializable {
 								setTuile(new Drapeau(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
 							} else if (tabEmplacement[i][j].getVaisseau() && vaisseau) {
-								
+
 								deplacementTuileUnique = true;
 								vaisseau = false;
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
