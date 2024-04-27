@@ -796,5 +796,6 @@ public class PanelEditeur extends JPanel {
 	// Giroux
 	private void rotationnerApresPlacement() {
 		grille.setRotationPostPlacement();
+		
 	}
 }
