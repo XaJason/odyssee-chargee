@@ -635,4 +635,14 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		Area aireTuile = new Area(rectangle);
 		return aireTuile;
 	}
+
+	/**
+	 * Retourne la largeur de la tuile
+	 * 
+	 * @return la largeur de la tuile
+	 */
+	// Jason Xa
+	public static double getLargeurTuile() {
+		return largeurTuile;
+	}
 }

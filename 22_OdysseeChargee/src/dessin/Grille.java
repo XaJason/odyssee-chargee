@@ -858,7 +858,7 @@ public class Grille extends JPanel implements Serializable {
 	// Jason Xa
 	public void rotation(int signum) {
 		if (tuile != null && tuile.getType() != "Vaisseau") {
-			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.5 * Math.PI);
+			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.125 * Math.PI);
 			repaint();
 		}
 	}

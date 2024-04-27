@@ -361,7 +361,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement = new JButton();
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rotationnerAvant(1);
+				rotationnerAvant(4);
 			}
 		});
 		btnRotationPrePlacement.setBounds(118, 480, 85, 85);
@@ -624,7 +624,7 @@ public class PanelEditeur extends JPanel {
 					selectionnerVaisseau();
 					break;
 				case "Rotation pré-placement":
-					rotationnerAvant(1);
+					rotationnerAvant(4);
 					break;
 				case "Rotation post-placement":
 					rotationnerApresPlacement();
