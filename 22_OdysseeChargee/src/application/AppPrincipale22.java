@@ -215,43 +215,43 @@ public class AppPrincipale22 extends JFrame {
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
 		btnModeEditeur.setFocusable(false);
-		btnModeEditeur.setBounds(808, 304, 303, 104);
+		btnModeEditeur.setBounds(472, 304, 303, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
 		fondEcran.add(btnModeEditeur);
 
 		JButton btnReglages = new JButton("Réglages");
 		btnReglages.setFocusable(false);
-		btnReglages.setBounds(838, 419, 243, 100);
+		btnReglages.setBounds(502, 419, 243, 100);
 		OutilsImage.lireImageEtPlacerSurBouton("reglages.png", btnReglages);
 		fondEcran.add(btnReglages);
 
 		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.setFocusable(false);
-		btnAPropos.setBounds(824, 530, 272, 104);
+		btnAPropos.setBounds(487, 530, 272, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("apropos.png", btnAPropos);
 		fondEcran.add(btnAPropos);
 
 		JButton btnInstructions = new JButton("Aide");
 		btnInstructions.setFocusable(false);
-		btnInstructions.setBounds(891, 645, 138, 80);
+		btnInstructions.setBounds(554, 645, 138, 80);
 		OutilsImage.lireImageEtPlacerSurBouton("aide.png", btnInstructions);
 		fondEcran.add(btnInstructions);
 
 		JButton btnQuitter = new JButton("Quitter");
 		btnQuitter.setFocusable(false);
-		btnQuitter.setBounds(839, 736, 242, 70);
+		btnQuitter.setBounds(502, 736, 242, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("quitter.png", btnQuitter);
 		fondEcran.add(btnQuitter);
 
 		JButton btnModePrincipal = new JButton("Jouer");
 		btnModePrincipal.setFocusable(false);
-		btnModePrincipal.setBounds(891, 223, 138, 70);
+		btnModePrincipal.setBounds(554, 190, 138, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("jouer.png", btnModePrincipal);
 		fondEcran.add(btnModePrincipal);
 
 		JButton btnTitre = new JButton("New button");
 		btnTitre.setFocusable(false);
-		btnTitre.setBounds(746, 127, 428, 70);
+		btnTitre.setBounds(115, 101, 428, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("titre.png", btnTitre);
 
 		fondEcran.add(btnTitre);
@@ -517,6 +517,7 @@ public class AppPrincipale22 extends JFrame {
 				panModeEditeur.getGrille().requestFocusInWindow();
 				panModeEditeur.getGrille().repaint();
 				zone.reinitialiser();
+				panModeEditeur.getGrille().setDansModeJeu(false);
 				
 			}
 		});
