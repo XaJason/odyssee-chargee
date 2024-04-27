@@ -29,6 +29,8 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * Panel du mode éditeur
@@ -188,7 +190,7 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Implémente le panel et ses fonctionnalités
 	 */
-	// Kitimir Yim
+	// Jason Xa
 	public PanelEditeur() {
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -201,6 +203,12 @@ public class PanelEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
+		grille.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				grille.requestFocusInWindow();
+			}
+		});
 		grille.setBounds(410, 38, 1000, 750);
 		add(grille);
 
@@ -242,6 +250,7 @@ public class PanelEditeur extends JPanel {
 	private void essayer() {
 		Niveau niveauParDefaut = new Niveau(grille, "Niveau d'essai");
 		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
+		reinitialiserSaufNiveau();
 	}
 
 	/**
@@ -251,18 +260,21 @@ public class PanelEditeur extends JPanel {
 	private void creerSectionBoutons() {
 		leveeEvenement();
 		btnCarre = new JButton();
-		btnCarre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnCarre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
 				selectionnerCarre();
 			}
 		});
+
 		btnCarre.setBounds(50, 61, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
 		add(btnCarre);
 
 		btnTriangleRectangle = new JButton();
-		btnTriangleRectangle.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnTriangleRectangle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleRectangle();
 			}
 		});
@@ -271,31 +283,33 @@ public class PanelEditeur extends JPanel {
 		add(btnTriangleRectangle);
 
 		btnTriangleEquilateral = new JButton();
-		btnTriangleEquilateral.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnTriangleEquilateral.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleEquilateral();
 			}
 		});
+
 		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
 		add(btnTriangleEquilateral);
 
 		btnPics = new JButton();
-		btnPics.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnPics.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
 				selectionnerPics();
 			}
-
 		});
 		btnPics.setBounds(118, 215, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
 		add(btnPics);
 
 		btnPortail = new JButton();
-		btnPortail.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnPortail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
 				selectionnerPortail();
-
 			}
 		});
 		btnPortail.setBounds(247, 215, 85, 85);
@@ -303,8 +317,9 @@ public class PanelEditeur extends JPanel {
 		add(btnPortail);
 
 		btnDrapeau = new JButton();
-		btnDrapeau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnDrapeau.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
 				selectionnerDrapeau();
 			}
 		});
@@ -710,6 +725,18 @@ public class PanelEditeur extends JPanel {
 		repaint();
 		btnDrapeau.setEnabled(true);
 		btnVaisseau.setEnabled(true);
+	}
+
+	/**
+	 * Réinitialise cet éditeur de niveaux
+	 */
+	// Jason Xa
+	private void reinitialiserSaufNiveau() {
+		grille.setSupprimer(false);
+		grille.setTuile(null);
+		panelTuileTemp.setTuile(null);
+		grille.setExterieurComposant(true);
+		repaint();
 	}
 
 	/**

@@ -114,16 +114,14 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private ZoneAnimationPhysique zone;
 
-
-
-	//	/** largeur d'une tuile */
-	//	private final int LARGEUR_TUILE = 60;
-	//	/** hauteur d'une tuile */
-	//	private final int HAUTEUR_TUILE = 60;
-	//	/** hauteur d'une demi-tuile */
-	//	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
-	//	/** Diamètre du vaisseau **/
-	//	private final int DIAMETRE_VAISSEAU = LARGEUR_TUILE / 2;
+	// /** largeur d'une tuile */
+	// private final int LARGEUR_TUILE = 60;
+	// /** hauteur d'une tuile */
+	// private final int HAUTEUR_TUILE = 60;
+	// /** hauteur d'une demi-tuile */
+	// private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
+	// /** Diamètre du vaisseau **/
+	// private final int DIAMETRE_VAISSEAU = LARGEUR_TUILE / 2;
 
 	/**
 	 * Lance l'application
@@ -162,8 +160,6 @@ public class AppPrincipale22 extends JFrame {
 		setContentPane(panMenuPrincipal);
 		panMenuPrincipal.setLayout(null);
 
-
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
 
@@ -171,37 +167,40 @@ public class AppPrincipale22 extends JFrame {
 		creerFenetres();
 		creerPanels();
 		creerMenu();
-		//		lireImages();
-		//		gererConstantes();
+		// lireImages();
+		// gererConstantes();
 
-		//		 if (leClip != null)
-		//		 leClip.close();
-		//		 chargerLeSon(NOM_FICHIER_SON_1);
-		//		 leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		// if (leClip != null)
+		// leClip.close();
+		// chargerLeSon(NOM_FICHIER_SON_1);
+		// leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
-	//	/**
-	//	 * Gère les constantes réutilisées hors de cette classe
-	//	 */
-	//	// Jason Xa
-	//	private void gererConstantes() {
-	//		Tuile.setHauteurTuile(HAUTEUR_TUILE);
-	//		Tuile.setLargeurTuile(LARGEUR_TUILE);
-	//	}
+	// /**
+	// * Gère les constantes réutilisées hors de cette classe
+	// */
+	// // Jason Xa
+	// private void gererConstantes() {
+	// Tuile.setHauteurTuile(HAUTEUR_TUILE);
+	// Tuile.setLargeurTuile(LARGEUR_TUILE);
+	// }
 
-	//	/**
-	//	 * Lit, redimensionne et définit l'image pour chaque type de tuile
-	//	 */
-	//	// Enuel René Valentin Kizozo Izia
-	//	private void lireImages() {
-	//		Carre.setImageRef("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE);
-	//		TriangleEquilateral.setImageRef("triangle_equilateral.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-	//		TriangleRectangle.setImageRef("triangle_rectangle.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-	//		Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-	//		Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-	//		Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
-	//		VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU, DIAMETRE_VAISSEAU);
-	//	}
+	// /**
+	// * Lit, redimensionne et définit l'image pour chaque type de tuile
+	// */
+	// // Enuel René Valentin Kizozo Izia
+	// private void lireImages() {
+	// Carre.setImageRef("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE);
+	// TriangleEquilateral.setImageRef("triangle_equilateral.png", LARGEUR_TUILE,
+	// HAUTEUR_TUILE);
+	// TriangleRectangle.setImageRef("triangle_rectangle.png", LARGEUR_TUILE,
+	// HAUTEUR_TUILE);
+	// Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+	// Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+	// Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
+	// VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU,
+	// DIAMETRE_VAISSEAU);
+	// }
 
 	/**
 	 * Créer les boutons.
@@ -244,8 +243,6 @@ public class AppPrincipale22 extends JFrame {
 		OutilsImage.lireImageEtPlacerSurBouton("quitter.png", btnQuitter);
 		fondEcran.add(btnQuitter);
 
-
-
 		JButton btnModePrincipal = new JButton("Jouer");
 		btnModePrincipal.setFocusable(false);
 		btnModePrincipal.setBounds(891, 223, 138, 70);
@@ -259,7 +256,6 @@ public class AppPrincipale22 extends JFrame {
 
 		fondEcran.add(btnTitre);
 
-
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panSelecteurNiveau.setVisible(true);
@@ -270,7 +266,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmEditeur.setSelected(false);
 			}
 		});
-		
+
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
@@ -304,6 +300,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
 				panModeEditeur.getGrille().requestFocus();
+				panModeEditeur.getGrille().repaint();
 			}
 		});
 
@@ -513,8 +510,9 @@ public class AppPrincipale22 extends JFrame {
 				setContentPane(panModeEditeur);
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
-
 				zone.modifierBouton();
+				panModeEditeur.getGrille().requestFocusInWindow();
+				panModeEditeur.getGrille().repaint();
 			}
 		});
 		menuBar.add(mntmEditeur);

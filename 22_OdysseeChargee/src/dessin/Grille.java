@@ -173,6 +173,7 @@ public class Grille extends JPanel implements Serializable {
 			public void mouseEntered(MouseEvent e) {
 				if (modeEditeur) {
 					exterieurComposant = false;
+
 				}
 			}// fin mouseEntered
 
@@ -193,19 +194,18 @@ public class Grille extends JPanel implements Serializable {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if (modeEditeur) {
-					gererCurseur();
-					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
-					dernierX = e.getX();
-					dernierY = e.getY();
-					repaint();
-				}
+
+				gererCurseur();
+				positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+				dernierX = e.getX();
+				dernierY = e.getY();
+				repaint();
+
 			}
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				if (rotationPostPlacement) {
-
 				} else {
 					placerTuile(e);
 				}
@@ -368,6 +368,7 @@ public class Grille extends JPanel implements Serializable {
 			}
 
 			dessinerTuileLorsSurvol(g2dPrive);
+
 			dessinerLesTuiles(g2dPrive);
 
 			g2dPrive.setColor(Color.black);
@@ -651,7 +652,6 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
-
 			g2d.fill(emplacementActuel);
 			if (tuile != null && !supprimer && !rotationPostPlacement) {
 				tuile.dessiner(g2d);
@@ -1165,6 +1165,17 @@ public class Grille extends JPanel implements Serializable {
 			}
 		}
 
+	}
+
+	/**
+	 * Associe une nouvelle valeur qui dit vrai si la souris est à l'extérieur de la
+	 * grille
+	 * 
+	 * @param exterieurComposant vrai si la souris est à l'extérieur de la grille
+	 */
+	// Jason Xa
+	public void setExterieurComposant(boolean exterieurComposant) {
+		this.exterieurComposant = exterieurComposant;
 	}
 
 }
