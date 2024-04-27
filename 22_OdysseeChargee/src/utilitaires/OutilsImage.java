@@ -10,12 +10,21 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
+import tuile.Carre;
+import tuile.Drapeau;
+import tuile.Pics;
+import tuile.Portail;
+import tuile.TriangleEquilateral;
+import tuile.TriangleRectangle;
+import tuile.VaisseauImage;
+
 /**
  * Cette classe contient des utilitaires pour le
  * traitement des images. Elle sera enrichie au fil de la session.
  * Notez les méthodes permettant de redimensionner une image.
  *
  * @author Caroline Houle
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class OutilsImage {
 
@@ -157,4 +166,22 @@ public class OutilsImage {
 			imgRedim.flush();
 		}
 	}// fin méthode
+	
+	/**
+	 * Lit, redimensionne et définit l'image pour chaque type de tuile
+	 * 
+	 * @param largeurCase La largeur de la case de la tuile
+	 * @param hauteurCase La hauteur de la case de la tuile
+	 * @param pixelsParMetre Le nombre de pixels par mètre
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static void lireImagesDesTuiles(double largeurCase, double hauteurCase, double pixelsParMetre) {
+		Carre.setImageRef("carre.jpg", (int) (largeurCase * pixelsParMetre), (int) (hauteurCase * pixelsParMetre));
+		TriangleEquilateral.setImageRef("triangle_equilateral.png", (int) (largeurCase * pixelsParMetre), (int) (hauteurCase * pixelsParMetre));
+		TriangleRectangle.setImageRef("triangle_rectangle.png", (int) (largeurCase * pixelsParMetre), (int) (hauteurCase * pixelsParMetre));
+		Portail.setImageRef("portail.png", (int) (largeurCase * pixelsParMetre), (int) (hauteurCase * pixelsParMetre));
+		Drapeau.setImageRef("drapeau.png", (int) (largeurCase * pixelsParMetre), (int) (hauteurCase * pixelsParMetre));
+		Pics.setImageRef("pics.png", (int) (largeurCase * pixelsParMetre), (int) ((hauteurCase / 2.0) * pixelsParMetre));
+		VaisseauImage.setImageRef("vaisseau.png", (int) ((largeurCase / 2.0) * pixelsParMetre), (int) ((hauteurCase / 2.0) * pixelsParMetre));
+	}
 }

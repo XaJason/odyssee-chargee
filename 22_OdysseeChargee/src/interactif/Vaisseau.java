@@ -29,8 +29,10 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private static final long serialVersionUID = -1773798144841043627L;
 
 	// PROPRIÉTÉS //
-	/** Vitesse limite du vaisseau (en m/s) **/
-	//private Vecteur2D VITESSE_LIMITE
+	/** Module de la vitesse limite du vaisseau (en m/s) **/
+	private double MODULE_VITESSE_LIMITE = 300;
+	/** Position du vaisseau à l'itération précédente **/
+	private Vecteur2D positionPrecedente;
 	/** Vitesse du vaisseau (en m/s) **/
 	private Vecteur2D vitesse = new Vecteur2D(0, 0); // par defaut
 	/** Accélération du vaisseau (en m/s^2) **/
@@ -66,6 +68,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	// Enuel René Valentin Kizozo Izia
 	public Vaisseau(Vecteur2D position, Vecteur2D vitesse, Vecteur2D accel, double rayon, double charge, double masse) {
 		super(position, charge);
+		this.positionPrecedente = new Vecteur2D(position);
 		this.vitesse = new Vecteur2D(vitesse);
 		this.accel = new Vecteur2D(accel);
 		this.rayon = rayon;
@@ -84,6 +87,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	// Enuel René Valentin Kizozo Izia
 	public Vaisseau(Vecteur2D position, double charge, double masse, VaisseauImage tuileDuVaisseau) {
 		super(position, charge);
+		this.positionPrecedente = new Vecteur2D(position);
 		this.masse = masse;
 		this.tuile = tuileDuVaisseau;
 		//this.rayon = VaisseauImage.getHauteurTuile()/2.0;
@@ -155,13 +159,14 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void avancerUnPas(double deltaT) {
-		// System.out.println("Vitesse avant : "+vitesse);
 		vitesse = MoteurPhysique.calculVitesse(deltaT, vitesse, accel);
-		// System.out.println("Vitesse après : "+vitesse);
-
-		// System.out.println("Position avant : "+getPosition());
+		// Limite la vitesse du vaisseau
+		if (vitesse.module() > MODULE_VITESSE_LIMITE) {
+			vitesse = vitesse.changerModule(MODULE_VITESSE_LIMITE);
+		}
+		
+		positionPrecedente = new Vecteur2D(getPosition());
 		super.setPosition(MoteurPhysique.calculPosition(deltaT, getPosition(), vitesse));
-		// System.out.println("Position après : "+getPosition());
 
 		creerLaGeometrie();
 	}
@@ -272,6 +277,36 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		}
 	}
 
+	/** 
+	 * Retourne la position du vaisseau à l'itération précédente
+	 * 
+	 * @return La position du vaisseau à l'itération précédente
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getPositionPrecedente() {
+		return positionPrecedente;
+	}
+
+	/**
+	 * Modifie la position du vaisseau à l'itération précédente
+	 * 
+	 * @param positionPrecedente La nouvelle position du vaisseau à l'itération précédente
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setPositionPrecedente(Vecteur2D positionPrecedente) {
+		this.positionPrecedente = new Vecteur2D(positionPrecedente);
+	}
+	
+	/**
+	 * Retourne le module de la vitesse limite du vaisseau
+	 * 
+	 * @return Le module de la vitesse limite du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getModuleVitesseLimite() {
+		return MODULE_VITESSE_LIMITE;
+	}
+	
 	/**
 	 * Retourne la vitesse du vaisseau
 	 * 

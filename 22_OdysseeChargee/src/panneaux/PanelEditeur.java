@@ -1,20 +1,20 @@
 package panneaux;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
 
 import dessin.Grille;
@@ -29,13 +29,13 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
-import javax.swing.JCheckBox;
 
 /**
  * Panel du mode éditeur
  * 
  * @author Jason Xa
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  * 
  */
 
@@ -85,7 +85,7 @@ public class PanelEditeur extends JPanel {
 	/** bouton permettant de gérer la suppression de tuile */
 	private JButton btnSupprimer;
 	/** bouton permettant de gérer la rotation de nouvelles tuiles */
-	private JButton btnRotation;
+	private JButton btnRotationPrePlacement;
 	/** bouton permettant de gérer la sauvegarde du niveau associée à la grille */
 	private JButton btnSauvegarder;
 	/** bouton permettant de la sélection de la tuile de type vaisseau */
@@ -150,7 +150,7 @@ public class PanelEditeur extends JPanel {
 	 * étiquette servant à identifier le bouton permettant de gérer la rotation de
 	 * nouvelles tuiles
 	 */
-	private JLabel lblRotation;
+	private JLabel lblRotationPrePlacement;
 	/**
 	 * étiquette servant à identifier le bouton permettant de gérer la sauvegarde du
 	 * niveau associée à la grille
@@ -173,6 +173,8 @@ public class PanelEditeur extends JPanel {
 	private JCheckBox chckbxGrille;
 	/** Type de la tuile selectionnée **/
 	private PanelTuileTemp panelTuileTemp;
+	private JToggleButton btnRotationPostPlacement;
+	private JLabel lblRotationPostPlacement;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -190,6 +192,14 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Kitimir Yim
 	public PanelEditeur() {
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (e.getButton() != MouseEvent.BUTTON1) {
+					supprimer();
+				}
+			}
+		});
 		setLayout(null);
 
 		grille = new Grille();
@@ -226,10 +236,7 @@ public class PanelEditeur extends JPanel {
 		btnCarre = new JButton();
 		btnCarre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new Carre());
-				panelTuileTemp.setTuile(new Carre());
-				afficherSelection();
-				repaint();
+				selectionnerCarre();
 			}
 		});
 		btnCarre.setBounds(50, 61, 85, 85);
@@ -239,10 +246,7 @@ public class PanelEditeur extends JPanel {
 		btnTriangleRectangle = new JButton();
 		btnTriangleRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new TriangleRectangle());
-				panelTuileTemp.setTuile(new TriangleRectangle());
-				afficherSelection();
-				repaint();
+				selectionnerTriangleRectangle();
 			}
 		});
 		btnTriangleRectangle.setBounds(178, 61, 85, 85);
@@ -252,11 +256,7 @@ public class PanelEditeur extends JPanel {
 		btnTriangleEquilateral = new JButton();
 		btnTriangleEquilateral.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new TriangleEquilateral());
-				panelTuileTemp.setTuile(new TriangleEquilateral());
-				afficherSelection();
-				repaint();
-
+				selectionnerTriangleEquilateral();
 			}
 		});
 		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
@@ -266,10 +266,7 @@ public class PanelEditeur extends JPanel {
 		btnPics = new JButton();
 		btnPics.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new Pics());
-				panelTuileTemp.setTuile(new Pics());
-				afficherSelection();
-				repaint();
+				selectionnerPics();
 			}
 
 		});
@@ -280,10 +277,7 @@ public class PanelEditeur extends JPanel {
 		btnPortail = new JButton();
 		btnPortail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new Portail());
-				panelTuileTemp.setTuile(new Portail());
-				afficherSelection();
-				repaint();
+				selectionnerPortail();
 
 			}
 		});
@@ -294,10 +288,7 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau = new JButton();
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new Drapeau());
-				panelTuileTemp.setTuile(new Drapeau());
-				afficherSelection();
-				repaint();
+				selectionnerDrapeau();
 			}
 		});
 		btnDrapeau.setBounds(118, 340, 85, 85);
@@ -305,18 +296,12 @@ public class PanelEditeur extends JPanel {
 		add(btnDrapeau);
 
 		lblTypeSelectionne = new JLabel("Type de la tuile sélectionnée: ");
-		lblTypeSelectionne.setBounds(10, 191, 156, 14);
+		lblTypeSelectionne.setBounds(30, 321, 269, 14);
 		add(lblTypeSelectionne);
 		btnReinitialiser = new JButton();
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.reinitialiser();
-				grille.setSupprimer(false);
-				grille.setTuile(null);
-				panelTuileTemp.setTuile(null);
-				repaint();
-				btnDrapeau.setEnabled(true);
-				btnVaisseau.setEnabled(true);
+				reinitialiser();
 			}
 		});
 		btnReinitialiser.setBounds(118, 599, 85, 85);
@@ -326,47 +311,38 @@ public class PanelEditeur extends JPanel {
 		btnSupprimer = new JButton();
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.gererSupprimer();
+				supprimer();
 			}
 		});
-		btnSupprimer.setBounds(118, 481, 85, 85);
+		btnSupprimer.setBounds(247, 599, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 		add(btnSupprimer);
 
-		btnRotation = new JButton();
-		btnRotation.addActionListener(new ActionListener() {
+		btnRotationPrePlacement = new JButton();
+		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setSupprimer(false);
-				grille.rotation();
-				panelTuileTemp.rotation();
-				panelTuileTemp.repaint();
-				repaint();
+				rotationnerAvant();
 			}
 		});
-		btnRotation.setBounds(247, 481, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotation);
-		add(btnRotation);
+		btnRotationPrePlacement.setBounds(118, 480, 85, 85);
+		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
+		add(btnRotationPrePlacement);
 
 		btnSauvegarder = new JButton();
 		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (niveauBienConstruit()) {
-					sauvegarderNiveau();
-				}
+				sauvegarder();
 			}
 
 		});
-		btnSauvegarder.setBounds(247, 599, 85, 85);
+		btnSauvegarder.setBounds(178, 727, 85, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
 		add(btnSauvegarder);
 
 		btnVaisseau = new JButton();
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setTuile(new VaisseauImage());
-				panelTuileTemp.setTuile(new VaisseauImage());
-				afficherSelection();
-				repaint();
+				selectionnerVaisseau();
 			}
 		});
 		btnVaisseau.setBounds(247, 340, 85, 85);
@@ -424,17 +400,17 @@ public class PanelEditeur extends JPanel {
 
 		lblSupprimer = new JLabel("Supprimer");
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(118, 576, 85, 13);
+		lblSupprimer.setBounds(247, 694, 85, 13);
 		add(lblSupprimer);
 
-		lblRotation = new JLabel("Rotation");
-		lblRotation.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRotation.setBounds(247, 576, 85, 13);
-		add(lblRotation);
+		lblRotationPrePlacement = new JLabel("Rotation Pre-Placement");
+		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRotationPrePlacement.setBounds(89, 575, 131, 13);
+		add(lblRotationPrePlacement);
 
 		lblSauvegarder = new JLabel("Sauvegarder");
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(247, 694, 85, 13);
+		lblSauvegarder.setBounds(178, 822, 85, 13);
 		add(lblSauvegarder);
 
 		lblInteractifs = new JLabel("Interactifs");
@@ -450,7 +426,7 @@ public class PanelEditeur extends JPanel {
 		chckbxGrille = new JCheckBox("Afficher la grille");
 		chckbxGrille.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.afficherGrille();
+				gererGrille();
 			}
 		});
 		chckbxGrille.setSelected(true);
@@ -458,15 +434,28 @@ public class PanelEditeur extends JPanel {
 		add(chckbxGrille);
 
 		panelTuileTemp = new PanelTuileTemp();
-		panelTuileTemp.setBounds(10, 215, 85, 85);
+		panelTuileTemp.setBounds(8, 599, 100, 100);
 		add(panelTuileTemp);
+
+		btnRotationPostPlacement = new JToggleButton("");
+		btnRotationPostPlacement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rotationnerApresPlacement();
+			}
+		});
+		btnRotationPostPlacement.setBounds(243, 480, 89, 85);
+		add(btnRotationPostPlacement);
+
+		lblRotationPostPlacement = new JLabel("Rotation Post-Placement");
+		lblRotationPostPlacement.setBounds(226, 574, 124, 14);
+		add(lblRotationPostPlacement);
 
 	}
 
 	/**
-	 * Sauvegardé le niveau crée dans le mode éditeur
+	 * Sauvegarder le niveau en argument
 	 * 
-	 * @param niveau Objet représentant le niveau
+	 * @param niveau le niveau à sauvegarder
 	 */
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
@@ -561,10 +550,164 @@ public class PanelEditeur extends JPanel {
 					btnVaisseau.setEnabled((boolean) evt.getNewValue());
 					panelTuileTemp.setTuile(grille.getTuile());
 					break;
+				case "FocusGrille":
+					grille.requestFocusInWindow();
+					break;
+				case "Sauvegarder":
+					sauvegarder();
+					break;
+				case "Sélectionner carré":
+					selectionnerCarre();
+					break;
+				case "Sélectionner triangle rectangle":
+					selectionnerTriangleRectangle();
+					break;
+				case "Sélectionner triangle équilatéral":
+					selectionnerTriangleEquilateral();
+					break;
 				}
 			}
 
 		});
 
+	}
+
+	/**
+	 * Sélectionne le vaisseau
+	 */
+	// Jason Xa
+	private void selectionnerVaisseau() {
+		grille.setTuile(new VaisseauImage());
+		panelTuileTemp.setTuile(new VaisseauImage());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne le bloc carré
+	 */
+	// Jason Xa
+	private void selectionnerCarre() {
+		grille.setTuile(new Carre());
+		panelTuileTemp.setTuile(new Carre());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne le bloc triangle rectangle
+	 */
+	// Jason Xa
+	private void selectionnerTriangleRectangle() {
+		grille.setTuile(new TriangleRectangle());
+		panelTuileTemp.setTuile(new TriangleRectangle());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne le bloc triangle équilatéral
+	 */
+	// Jason Xa
+	private void selectionnerTriangleEquilateral() {
+		grille.setTuile(new TriangleEquilateral());
+		panelTuileTemp.setTuile(new TriangleEquilateral());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne les pics
+	 */
+	// Jason Xa
+	private void selectionnerPics() {
+		grille.setTuile(new Pics());
+		panelTuileTemp.setTuile(new Pics());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne le portail
+	 */
+	// Jason Xa
+	private void selectionnerPortail() {
+		grille.setTuile(new Portail());
+		panelTuileTemp.setTuile(new Portail());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne le drapeau
+	 */
+	// Jason Xa
+	private void selectionnerDrapeau() {
+		grille.setTuile(new Drapeau());
+		panelTuileTemp.setTuile(new Drapeau());
+		afficherSelection();
+		repaint();
+	}
+
+	/**
+	 * Réinitialise cet éditeur de niveaux
+	 */
+	// Giroux
+	private void reinitialiser() {
+		grille.reinitialiser();
+		grille.setSupprimer(false);
+		grille.setTuile(null);
+		panelTuileTemp.setTuile(null);
+		repaint();
+		btnDrapeau.setEnabled(true);
+		btnVaisseau.setEnabled(true);
+	}
+
+	/**
+	 * Gère la suppression
+	 */
+	// Giroux
+	private void supprimer() {
+		grille.gererSupprimer();
+	}
+
+	/**
+	 * Gère la rotation de la tuile actuelle
+	 */
+	// Giroux
+	private void rotationnerAvant() {
+		grille.setSupprimer(false);
+		grille.rotation();
+		panelTuileTemp.rotation();
+		panelTuileTemp.repaint();
+		repaint();
+	}
+
+	/**
+	 * Gère la sauvegarde du niveau
+	 * 
+	 * @throws HeadlessException
+	 */
+	// Jason Xa
+	private void sauvegarder() throws HeadlessException {
+		if (niveauBienConstruit()) {
+			sauvegarderNiveau();
+		}
+	}
+
+	/**
+	 * Gère l'affichage de la grille
+	 */
+	// Giroux
+	private void gererGrille() {
+		grille.afficherGrille();
+	}
+
+	/**
+	 * Gère la rotation d'une tuile déjà placée
+	 */
+	// Giroux
+	private void rotationnerApresPlacement() {
+		grille.setRotationPostPlacement();
 	}
 }

@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -30,6 +33,7 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.Tuile;
 import tuile.VaisseauImage;
+import utilitaires.OutilsImage;
 
 /**
  * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
@@ -106,11 +110,17 @@ public class Grille extends JPanel implements Serializable {
 	private int nbPortails = 0;
 	/** premier portail **/
 	private Portail premierPortail;
+	/** Dernière abscisse de la souris (pixels) */
+	private double dernierX;
+	/** Dernière ordonnée de la souris (pixels) */
+	private double dernierY;
 
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+	/** Boolean qui indique si on mode rotation **/
+	private boolean rotationPostPlacement = false;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -128,6 +138,24 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public Grille() {
+		addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				gererTouchesClavierRelachees(e);
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				gererTouchesClavierEnfoncees(e);
+			}
+		});
+		addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				demanderFocusLevee();
+			}
+		});
 
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -146,11 +174,15 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON3) {
-					supprimer = true;
-				}
-				placerTuile(e);
+				gererSourisPesee(e);
+
 			}// fin mousePressed
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				gererSourisRelachee(e);
+				positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+			}
 		});
 
 		setLayout(null);
@@ -158,13 +190,10 @@ public class Grille extends JPanel implements Serializable {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				if (modeEditeur) {
-					if (supprimer) {
-						setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-					} else {
-						setCursor(new Cursor(Cursor.HAND_CURSOR));
-					}
-
+					gererCurseur();
 					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+					dernierX = e.getX();
+					dernierY = e.getY();
 					repaint();
 				}
 			}
@@ -176,6 +205,36 @@ public class Grille extends JPanel implements Serializable {
 		});
 	}// Fin constructeur
 
+	private void gererTouchesClavierEnfoncees(KeyEvent e) {
+		int code = e.getKeyCode();
+
+		if (e.isControlDown() && code == KeyEvent.VK_S) {
+			PCS.firePropertyChange("Sauvegarder", null, null);
+		}
+		switch (code) {
+		case KeyEvent.VK_Q:
+			PCS.firePropertyChange("Sélectionner carré", null, null);
+			System.out.println("LeBron James");
+			break;
+		case KeyEvent.VK_W:
+			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+			break;
+		case KeyEvent.VK_E:
+			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
+			break;
+
+		}
+
+	}
+
+	private void gererSourisRelachee(MouseEvent e) {
+		switch (e.getButton()) {
+		case MouseEvent.BUTTON3:
+			supprimer = false;
+			break;
+		}
+	}
+
 	/**
 	 * Permet de placer un tuile dans la grille
 	 */
@@ -185,6 +244,7 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 		if (!supprimer) {
 			if (tuile != null) {
+
 				sauvegarderEmplacement();
 			}
 		} else {
@@ -193,6 +253,7 @@ public class Grille extends JPanel implements Serializable {
 		afficherTab();
 
 		repaint();
+
 	}
 
 	/**
@@ -230,23 +291,7 @@ public class Grille extends JPanel implements Serializable {
 				dessinerQuadrillage();
 
 				tabEmplacement = new Tuile[nbCaseVerticale][nbCaseHorizontale];
-				Tuile.setLargeurTuile(largeurCase);
-				Tuile.setHauteurTuile(hauteurCase);
-
-				Carre.setImageRef("carre.jpg", (int) (largeurCase * pixelsParMetre),
-						(int) (hauteurCase * pixelsParMetre));
-				TriangleEquilateral.setImageRef("triangle_equilateral.png", (int) (largeurCase * pixelsParMetre),
-						(int) (hauteurCase * pixelsParMetre));
-				TriangleRectangle.setImageRef("triangle_rectangle.png", (int) (largeurCase * pixelsParMetre),
-						(int) (hauteurCase * pixelsParMetre));
-				Portail.setImageRef("portail.png", (int) (largeurCase * pixelsParMetre),
-						(int) (hauteurCase * pixelsParMetre));
-				Drapeau.setImageRef("drapeau.png", (int) (largeurCase * pixelsParMetre),
-						(int) (hauteurCase * pixelsParMetre));
-				Pics.setImageRef("pics.png", (int) (largeurCase * pixelsParMetre),
-						(int) ((hauteurCase / 2.0) * pixelsParMetre));
-				VaisseauImage.setImageRef("vaisseau.png", (int) ((largeurCase / 2.0) * pixelsParMetre),
-						(int) ((hauteurCase / 2.0) * pixelsParMetre));
+				definirDimensionsTuilesEtlireImages();
 
 				premiereFois = false;
 			}
@@ -255,11 +300,11 @@ public class Grille extends JPanel implements Serializable {
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
 
-			if (supprimer) {
-				setBackground(Color.red);
-			} else {
-				setBackground(new Color(255, 255, 128));
-			}
+//			if (supprimer) {
+//				setBackground(Color.red);
+//			} else {
+			setBackground(new Color(255, 255, 128));
+//			}
 
 			if (placePrise && !supprimer) {
 				g2dPrive.setColor(Color.orange);
@@ -279,6 +324,16 @@ public class Grille extends JPanel implements Serializable {
 		}
 	}// Fin méthode
 
+	/**
+	 * Définit les dimensions des tuiles et lit leur image
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void definirDimensionsTuilesEtlireImages() {
+		Tuile.setLargeurTuile(largeurCase);
+		Tuile.setHauteurTuile(hauteurCase);
+		OutilsImage.lireImagesDesTuiles(largeurCase, hauteurCase, pixelsParMetre);
+	}
+	
 	/**
 	 * Méthode qui détermine la grandeur de chaque case et qui crée le case
 	 * conrespondant
@@ -301,6 +356,41 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void positionnerCaseEtTuile(double posX, double posY) {
+
+		for (int i = 0; i < nbCaseVerticale; i++) {
+			if (posY >= i * hauteurCase && posY < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCaseHorizontale; j++) {
+					if (posX >= j * largeurCase && posX < ((j + 1) * largeurCase)) {
+						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
+						if (!supprimer && tuile != null) {
+							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
+							tuile.setX(largeurCase * j);
+							tuile.setY(hauteurCase * i);
+						}
+						if (tabEmplacement[i][j] != null) {
+							placePrise = true;
+						} else {
+							placePrise = false;
+						}
+						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
+					}
+				}
+
+			}
+
+		}
+
+	}// Fin méthode
+
+	/**
+	 * Méthode qui positionne la tuile et son fond bleu à l'emplacement de la souris
+	 * passée en paramètre
+	 * 
+	 * @param posX Position x de l'emplacement
+	 * @param posY Position y de l'emplacement
+	 */
+	// Giroux
+	private void positionnerCaseEtTuile(Tuile tuile, double posX, double posY) {
 
 		for (int i = 0; i < nbCaseVerticale; i++) {
 			if (posY >= i * hauteurCase && posY < ((i + 1) * hauteurCase)) {
@@ -351,11 +441,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void afficherGrille() {
-		if (grille == true) {
-			grille = false;
-		} else {
-			grille = true;
-		}
+		grille = !grille;
 		repaint();
 
 	}// Fin méthode
@@ -389,10 +475,6 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
-							switch (tuileTemp.getType()) {
-
-							}
-
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -405,11 +487,18 @@ public class Grille extends JPanel implements Serializable {
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
+								tuile = null;
+								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
+								tuile = null;
+								PCS.firePropertyChange("Vaisseau", null, false);
 							}
+						} else if (rotationPostPlacement) {
+							rotationPostPlacement();
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
+
 						}
 						System.out.println("Vous avez cliqué sur la col: " + (j + 1) + " et la ligne: " + (i + 1));
 						System.out.println("Vous avez cliqué sur la col: " + (j) + " et la ligne: " + (i));
@@ -433,8 +522,7 @@ public class Grille extends JPanel implements Serializable {
 		case "Drapeau":
 			tuileTemp = new Drapeau(tuile.getAngleRotation());
 //			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
-			tuile = null;
-			PCS.firePropertyChange("Drapeau", null, false);
+
 			break;
 		case "Pics":
 			tuileTemp = new Pics(tuile.getAngleRotation());
@@ -451,8 +539,7 @@ public class Grille extends JPanel implements Serializable {
 		case "Vaisseau":
 			tuileTemp = new VaisseauImage(tuile.getAngleRotation());
 //			tuile = new Carre(tuile.getAngleRotation(), tuile.getX(), tuile.getY());
-			tuile = null;
-			PCS.firePropertyChange("Vaisseau", null, false);
+
 			break;
 		}
 
@@ -501,7 +588,6 @@ public class Grille extends JPanel implements Serializable {
 				tuileTableau = tabEmplacement[i][j];
 				if (tuileTableau != null) {
 					if (!(dansModeJeu & tuileTableau.getType().equals("Vaisseau"))) {
-						System.out.println("Dans grille \"tuile\" : "+tuile);
 						tuileTableau.dessiner(g2d);
 					}
 				}
@@ -519,6 +605,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
+
 			g2d.fill(emplacementActuel);
 			if (tuile != null && !supprimer) {
 				tuile.dessiner(g2d);
@@ -557,7 +644,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	public void gererSupprimer() {
-		supprimer = true;
+		supprimer = !supprimer;
 		repaint();
 	}
 
@@ -585,7 +672,7 @@ public class Grille extends JPanel implements Serializable {
 							PCS.firePropertyChange("Drapeau", null, true);
 
 						}
-						
+
 						supprimerPortailAssocie(i, j);
 						tabEmplacement[i][j] = null;
 
@@ -597,10 +684,11 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient d'être supprimé
+	 * Permet de supprimer, s'il y a lieu, le portail associé à celui qui vient
+	 * d'être supprimé
 	 * 
 	 * @param i Le numéro de la ligne courante dans la boucle for
-	 * @param j Le numéro de la colonne courante dans la boucle for 
+	 * @param j Le numéro de la colonne courante dans la boucle for
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void supprimerPortailAssocie(int i, int j) {
@@ -609,30 +697,30 @@ public class Grille extends JPanel implements Serializable {
 			nbPortails--;
 			Portail portail = (Portail) tabEmplacement[i][j];
 			Portail portailAssocie = portail.getPortailAssocie();
-			
+
 			// Vérifie qu'il y ait un portail associé
 			if (portailAssocie != null) {
-				
+
 				// Boucle pour passer au travers de toutes les tuiles
 				for (int m = 0; m < nbCaseVerticale; m++) {
 					for (int n = 0; n < nbCaseHorizontale; n++) {
-						
+
 						// Vérifie qu'il y ait une tuile
 						if (tabEmplacement[m][n] != null) {
-							
+
 							// Vérifie si la tuile courante correspond au portail associé
-							if ( tabEmplacement[m][n].equals(portailAssocie) ) {
+							if (tabEmplacement[m][n].equals(portailAssocie)) {
 								tabEmplacement[m][n] = null;
 								nbPortails--;
-								//portail.setPortailAssocie(null);
-							}// fin 4e condition
-						}// fin 3e condition
-					}// fin 2e boucle
-				}// fin 1er boucle
-			}// fin 2e condition
-		}//fin 1ere condition
+								// portail.setPortailAssocie(null);
+							} // fin 4e condition
+						} // fin 3e condition
+					} // fin 2e boucle
+				} // fin 1er boucle
+			} // fin 2e condition
+		} // fin 1ere condition
 	}
-	
+
 	/**
 	 * Permet d'avoir l'emplacement des tuiles
 	 * 
@@ -671,6 +759,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void setTuile(Tuile tuile) {
+		positionnerCaseEtTuile(tuile, dernierX/pixelsParMetre, dernierY/pixelsParMetre);
 		this.tuile = tuile;
 	}
 
@@ -736,10 +825,10 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Modifie la condition indiquant si l'on est dans le mode jeu
-	 * En établissant qu'on est dans le mode jeu, la grille ne dessinera pas la
-	 * tuile du vaisseau, donc son image.
-	 * L'image du vaisseau le sera quand on dessinera le vaisseau (individuellement)
+	 * Modifie la condition indiquant si l'on est dans le mode jeu En établissant
+	 * qu'on est dans le mode jeu, la grille ne dessinera pas la tuile du vaisseau,
+	 * donc son image. L'image du vaisseau le sera quand on dessinera le vaisseau
+	 * (individuellement)
 	 * 
 	 * @param dansModeJeu La nouvelle valeur du booléan indiquant si l'on est dans
 	 *                    le mode jeu
@@ -750,8 +839,8 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD
-	 * Vérifie si la grille contient au moins une tuile du type spécifié.
+	 * <<<<<<< HEAD Vérifie si la grille contient au moins une tuile du type
+	 * spécifié.
 	 * 
 	 * @param typeTuile le type de tuile à rechercher dans la grille
 	 * @return true si au moins une tuile du type spécifié est présente, sinon false
@@ -787,12 +876,18 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-<<<<<<< HEAD
-=======
+	 * <<<<<<< HEAD
+	 * <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
+	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
+	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
+	 * =======
+	 * <<<<<<< HEAD
+	 * =======
 	 * =======
 	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
->>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
+	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
@@ -857,6 +952,104 @@ public class Grille extends JPanel implements Serializable {
 			}
 		}
 		return drapeauPresent;
+	}
+
+	public void rotationPostPlacement() {
+		for (int i = 0; i < nbCaseVerticale; i++) {
+			if (clique.getY() / pixelsParMetre >= i * hauteurCase
+					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCaseHorizontale; j++) {
+					if (clique.getX() / pixelsParMetre >= j * largeurCase
+							&& clique.getX() / pixelsParMetre < ((j + 1) * largeurCase)) {
+
+						if (tabEmplacement[i][j] == null || tabEmplacement[i][j].getVaisseau()) {
+							break;
+
+						} else {
+							tabEmplacement[i][j]
+									.setAngleRotation(tabEmplacement[i][j].getAngleRotation() + 0.5 * Math.PI);
+							repaint();
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+	public void setRotationPostPlacement() {
+		if (rotationPostPlacement) {
+			rotationPostPlacement = false;
+		} else {
+			rotationPostPlacement = true;
+		}
+	}
+
+	/**
+	 * Lance un évènement pour demander le focus
+	 */
+	// Jason Xa
+	private void demanderFocusLevee() {
+		PCS.firePropertyChange("FocusGrille", null, null);
+	}
+
+	/**
+	 * Gère les différentes touches de la souris lorsqu'elles sont pesées
+	 * 
+	 * @param e l'évènement de souris
+	 */
+	// Jason Xa
+	private void gererSourisPesee(MouseEvent e) {
+		switch (e.getButton()) {
+		case MouseEvent.BUTTON3:
+			supprimer = true;
+			placerTuile(e);
+			break;
+		case MouseEvent.BUTTON1:
+			placerTuile(e);
+			break;
+		}
+		gererCurseur();
+	}
+
+	/**
+	 * Gère les évènements au clavier (touche relâchée)
+	 * 
+	 * @param e l'évènement du clavier
+	 */
+	// Jason Xa
+	private void gererTouchesClavierRelachees(KeyEvent e) {
+		int code = e.getKeyCode();
+
+		switch (code) {
+		case KeyEvent.VK_SPACE:
+			gererSupprimer();
+			break;
+		case KeyEvent.VK_Q:
+			PCS.firePropertyChange("Sélectionner carré", null, null);
+			System.out.println("LeBron James");
+			break;
+		case KeyEvent.VK_W:
+			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+			break;
+		case KeyEvent.VK_E:
+			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
+			break;
+
+		}
+	}
+
+	/**
+	 * Gère la forme du curseur
+	 */
+	// Giroux
+	private void gererCurseur() {
+		if (supprimer) {
+			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		} else {
+			setCursor(new Cursor(Cursor.HAND_CURSOR));
+		}
 	}
 
 }

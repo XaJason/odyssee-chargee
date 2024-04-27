@@ -283,6 +283,27 @@ public class Vecteur2D implements Serializable {
 	}
 
 	/**
+	 * Méthode pour modifier le module du vecteur courant.
+	 * 
+	 * @param nouveauModule Le nouveau module du vecteur.
+	 * @return Un nouveau vecteur ayant la même orientation que le vecteur courant,
+	 * 		   mais dont le module a été modifié.
+	 */
+	public Vecteur2D changerModule(double nouveauModule) {
+		Vecteur2D nouveauVecteur;
+		
+		try {
+			nouveauVecteur = this.normalise().multiplie(nouveauModule);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Le module du vecteur est (presque) nulle, donc on ne le modifie pas.");
+			nouveauVecteur = new Vecteur2D(this);
+		} // fin try/catch
+		
+		return nouveauVecteur;
+	}
+	
+	/**
 	 * Methode pour normaliser le vecteur courant.
 	 * Un vecteur normalise possede la meme orientation, mais possede une longeur
 	 * unitaire.

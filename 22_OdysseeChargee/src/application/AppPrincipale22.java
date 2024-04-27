@@ -116,6 +116,10 @@ public class AppPrincipale22 extends JFrame {
 	 * Fichier
 	 */
 	private File objetFichier = null;
+	/**
+	 * Zone de la ZoneAnimationPhysique
+	 */
+	private ZoneAnimationPhysique zone;
 
 //	/** largeur d'une tuile */
 //	private final int LARGEUR_TUILE = 60;
@@ -137,7 +141,6 @@ public class AppPrincipale22 extends JFrame {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
@@ -171,9 +174,9 @@ public class AppPrincipale22 extends JFrame {
 		creerFenetres();
 		creerPanels();
 		creerMenu();
-//		lireImages();
-//		gererConstantes();
-	
+		//lireImages();
+		//gererConstantes();
+
 //		 if (leClip != null)
 //		 leClip.close();
 //		 chargerLeSon(NOM_FICHIER_SON_1);
@@ -273,6 +276,7 @@ public class AppPrincipale22 extends JFrame {
 				menuBar.setVisible(true);
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
+				panModeEditeur.getGrille().requestFocus();
 			}
 		});
 		btnModeEditeur.setBounds(600, 175, 150, 100);
@@ -312,7 +316,7 @@ public class AppPrincipale22 extends JFrame {
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
 		panModeJeu = new PanelJeu();
 
-		ZoneAnimationPhysique zone = panModeJeu.getZone();
+		zone = panModeJeu.getZone();
 
 		zone.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -438,6 +442,7 @@ public class AppPrincipale22 extends JFrame {
 				panSelecteurNiveau.setVisible(false);
 				setContentPane(panMenuPrincipal);
 				menuBar.setVisible(false);
+				zone.reinitialiserEtatBoutonsDansPanelJeu();
 			}
 
 		});
@@ -456,6 +461,7 @@ public class AppPrincipale22 extends JFrame {
 				setContentPane(panSelecteurNiveau);
 				mntmSelection.setSelected(true);
 				mntmEditeur.setSelected(false);
+				zone.reinitialiserEtatBoutonsDansPanelJeu();
 
 			}
 
@@ -467,12 +473,15 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panModeEditeur.setVisible(true);
-				panSelecteurNiveau.setVisible(false);
 				panMenuPrincipal.setVisible(false);
+				panSelecteurNiveau.setVisible(false);
+				panModeJeu.setVisible(false);
+				panModeEditeur.setVisible(true);
 				setContentPane(panModeEditeur);
 				mntmSelection.setSelected(false);
 				mntmEditeur.setSelected(true);
+
+				zone.reinitialiserEtatBoutonsDansPanelJeu();
 			}
 		});
 		menuBar.add(mntmEditeur);

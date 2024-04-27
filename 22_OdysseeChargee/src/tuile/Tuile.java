@@ -154,16 +154,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
-	 * Retourne la chaine de caractères représentant le type de la tuile
-	 * 
-	 * @return la chaine de caractères représentant le type de la tuile
-	 */
-	// Jason Xa
-	public String getType() {
-		return type;
-	}
-
-	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
 	 * 
 	 * @param g2d Le contexte graphique
@@ -172,14 +162,29 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void dessiner(Graphics2D g2d) {
 		AffineTransform transformationAffine = g2d.getTransform();
 		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		System.out.println("Dans tuile \"image\" : "+image);
 		setImageRefTuile();
-		System.out.println("Dans tuile \"image\" : "+image);
 		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
 		g2d.setTransform(transformationAffine);
 		dessinerContour(g2d);
 	}
-
+	
+	/**
+	 * Dessine l'image représentant la tuile selon ses coordonnées
+	 * 
+	 * @param g2d contexte graphique
+	 * @param x   abscisse gauche de la tuile (en mètre)
+	 * @param y   ordonnée supérieure de la tuile (en mètre)
+	 */
+	// Jason Xa
+	public void dessiner(Graphics2D g2d, int x, int y) {
+		AffineTransform transformationAffine = g2d.getTransform();
+		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		setImageRefTuile();
+		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
+		g2d.setTransform(transformationAffine);
+		dessinerContour(g2d);
+	}
+	
 	/**
 	 * Méthode qui dessine la boite de collision
 	 * 
@@ -198,23 +203,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 //				s.dessiner(g2dPrive);
 //			}
 //		}
-	}
-
-	/**
-	 * Dessine l'image représentant la tuile selon ses coordonnées
-	 * 
-	 * @param g2d contexte graphique
-	 * @param x   abscisse gauche de la tuile (en mètre)
-	 * @param y   ordonnée supérieure de la tuile (en mètre)
-	 */
-	// Jason Xa
-	public void dessiner(Graphics2D g2d, int x, int y) {
-		AffineTransform transformationAffine = g2d.getTransform();
-		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		setImageRefTuile();
-		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
-		g2d.setTransform(transformationAffine);
-		dessinerContour(g2d);
 	}
 
 	/**
@@ -257,6 +245,16 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 	}
 
+	/**
+	 * Retourne la chaine de caractères représentant le type de la tuile
+	 * 
+	 * @return la chaine de caractères représentant le type de la tuile
+	 */
+	// Jason Xa
+	public String getType() {
+		return type;
+	}
+	
 	/**
 	 * Définit le nouvel angle de rotation de la tuile
 	 * 

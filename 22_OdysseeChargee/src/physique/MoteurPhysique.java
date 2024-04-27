@@ -19,14 +19,23 @@ import tuile.Tuile;
  */
 public class MoteurPhysique {
 
+	/** Accélération gravitationnelle initial (celle de la Terre) (en m/s^2) **/
+	private static final double ACCEL_GRAV_INITIALE = 9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
+
+	/** Coefficient de frottement statique initial (acier-acier) **/
+	private static final double COEFF_FROT_STAT_INITIAL = 0.75;
+
+	/** Coefficient de frottement cinétique initial (acier-acier) **/
+	private static final double COEFF_FROT_CINE_INITIAL = 0.57;
+	
 	/** Accélération gravitationnelle (de la Terre par défaut) (en m/s^2) **/
-	private static double accelGrav = -9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
+	private static double accelGrav = ACCEL_GRAV_INITIALE;
 
 	/** Coefficient de frottement statique (acier-acier par défaut) **/
-	private static double coeffFrotStat = 0.75;
+	private static double coeffFrotStat = COEFF_FROT_STAT_INITIAL;
 
 	/** Coefficient de frottement cinétique (acier-acier par défaut) **/
-	private static double coeffFrotCine = 0.57;
+	private static double coeffFrotCine = COEFF_FROT_CINE_INITIAL;
 
 	/** Constante de Coulomb **/
 	private static final double K = 8.98755;
@@ -544,6 +553,12 @@ public class MoteurPhysique {
 //			System.out.println("Point B : " +segment.getExtremiteB());
 //			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
 			
+			
+			
+			
+			
+			
+			
 		// Collision entre les extrémités
 		} else if (collisionLateralSegment) {
 			vitApresCol = calculVitesseApresCollisionFaceLateraleSegment(vaisseau, segment);
@@ -612,38 +627,62 @@ public class MoteurPhysique {
 	private static Vecteur2D calculVitesseApresCollisionFaceLateraleSegment(Vaisseau vaisseau, Segment segment) {
 		try {
 			Vecteur2D vitApresCol;
+			Vecteur2D normaleSurfaceVersVaisseau = segment.getNormale();
 			Vecteur2D orientationDistanceSegmentVaisseau;
-			orientationDistanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque()).normalise();
 
+			/*
+			 *  Permet de vérifier si le vaisseau est du même côté de la plaque avant et pendant la collision
+			 */
+			Vecteur2D orientationDistanceSegmentVaisseauAvantCollision = vaisseau.getPositionPrecedente().soustrait(segment.getPointQuelconque()).normalise();
+			Vecteur2D orientationDistanceSegmentVaisseauPendantCollision = vaisseau.getPosition().soustrait(segment.getPointQuelconque()).normalise();
+			
+			if (Math.signum( orientationDistanceSegmentVaisseauAvantCollision.prodScalaire(normaleSurfaceVersVaisseau) )
+					== Math.signum( orientationDistanceSegmentVaisseauPendantCollision.prodScalaire(normaleSurfaceVersVaisseau) ) ) {
+				
+				orientationDistanceSegmentVaisseau = orientationDistanceSegmentVaisseauPendantCollision;
+			} else {
+				orientationDistanceSegmentVaisseau = orientationDistanceSegmentVaisseauAvantCollision;
+			}// fin if
+			
+			//Permet de s'assurer que la normale est bien orientée vers l'extérieur de la surface, donc vers le vaisseau
+			if (orientationDistanceSegmentVaisseau.prodScalaire(normaleSurfaceVersVaisseau) < 0) {
+				normaleSurfaceVersVaisseau = normaleSurfaceVersVaisseau.multiplie(-1);
+			}
+			
+			
+			/*
+			 * Calculer la vitesse finale du vaisseau après la collision
+			 */
 			Vecteur2D orientationVitesseInitiale = vaisseau.getVitesse().normalise();
 			Vecteur2D invOrientationVitesseInitiale = orientationVitesseInitiale.multiplie(-1);
-			Vecteur2D normaleSurface = segment.getNormale();
-
-			// Permet de s'assurer que la normale est bien orientée vers l'extérieur de la
-			// surface, donc vers le vaisseau
-			if (orientationDistanceSegmentVaisseau.prodScalaire(normaleSurface) < 0) {
-				normaleSurface = normaleSurface.multiplie(-1);
-			}
+			
 			Vecteur2D orientationVitesseFinale = orientationVitesseInitiale.additionne(
-					normaleSurface.multiplie(2 * invOrientationVitesseInitiale.prodScalaire(normaleSurface)));
+					normaleSurfaceVersVaisseau.multiplie(2 * invOrientationVitesseInitiale.prodScalaire(normaleSurfaceVersVaisseau)));
+			
 			double moduleVitApresCol = COEFF_E * vaisseau.getVitesse().module();
 			vitApresCol = orientationVitesseFinale.multiplie(moduleVitApresCol);
 
-			// Repositionner vaisseau après collision pour éviter bug
-			System.out.println("Point A : " +segment.getExtremiteA());
-			System.out.println("Point B : " +segment.getExtremiteB());
-			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
-			Vecteur2D distanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque());
+			
+			/*
+			 *  Repositionner le vaisseau après la collision pour éviter des effets non désirés
+			 */
+			//Vecteur2D distanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque());
+			
 			Vecteur2D dVaisseauExtrA = segment.getExtremiteA().soustrait(vaisseau.getPosition());
 			double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(segment.getAxe()));
-			Vecteur2D lieuCollision = segment.getExtremiteA().additionne(segment.getAxe().multiplie(dVaisseauExtrASurAxe)); //surveiller si additionne pu soustraire car pour plaque fallait soustraire, mais la l'axe est dans l'autre sens idk why
-			if (distanceSegmentVaisseau.prodScalaire(segment.getNormale()) > 0) {
-				vaisseau.setPosition(lieuCollision
-						.additionne(segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON)));
-			} else {
-				vaisseau.setPosition(lieuCollision.additionne(
-						segment.getNormale().multiplie(-1 * (vaisseau.getRayon() + EPSILON))));
-			}
+			Vecteur2D lieuCollision = segment.getExtremiteA().additionne(segment.getAxe().multiplie(dVaisseauExtrASurAxe)); //surveiller si additionne ou soustraire car pour plaque fallait soustraire, mais la l'axe est dans l'autre sens idk why
+			
+//			if (distanceSegmentVaisseau.prodScalaire(segment.getNormale()) > 0) {
+//				vaisseau.setPosition(lieuCollision
+//						.additionne(segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON)));
+//			} else {
+//				vaisseau.setPosition(lieuCollision.soustrait(
+//						segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON) ));
+//			}
+			
+			//Vecteur2D normalePlaquePourRepositionnement = invOrientationVitesseInitiale.prodScalaire(norm)
+			
+			vaisseau.setPosition(lieuCollision.additionne( normaleSurfaceVersVaisseau.multiplie(vaisseau.getRayon() + EPSILON) ));
 
 			// System.out.println("Vitesse après collision : " + vitApresCol);
 			// System.out.println("Ancienne pos : "+ vaisseau.getPosition());
@@ -676,12 +715,16 @@ public class MoteurPhysique {
 	public static Vecteur2D detectionCollisionsBorduresEtCalculVitesse(Vaisseau vaisseau, double largeurComposant,
 			double hauteurComposant) {
 		Vecteur2D vitApresCol = vaisseau.getVitesse();
+		double moduleVitApresCol = COEFF_E * vitApresCol.module();
 
 		// Bordure Gauche
 		if (vaisseau.getPosition().getX() - vaisseau.getRayon() <= 0) {
 			Vecteur2D normaleGauche = new Vecteur2D(1, 0);
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleGauche.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleGauche)));
+			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
+			
+			// Repositionnement du vaisseau
 			double correctionPositionX = vaisseau.getRayon();
 			vaisseau.setPosition(new Vecteur2D(correctionPositionX, vaisseau.getPosition().getY()));
 		}
@@ -691,6 +734,9 @@ public class MoteurPhysique {
 			Vecteur2D normaleDroite = new Vecteur2D(-1, 0);
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleDroite.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleDroite)));
+			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
+
+			// Repositionnement du vaisseau
 			double correctionPositionX = largeurComposant - vaisseau.getRayon();
 			vaisseau.setPosition(new Vecteur2D(correctionPositionX, vaisseau.getPosition().getY()));
 		}
@@ -700,6 +746,9 @@ public class MoteurPhysique {
 			Vecteur2D normaleHaut = new Vecteur2D(0, -1);
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleHaut.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleHaut)));
+			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
+
+			// Repositionnement du vaisseau
 			double correctionPositionY = hauteurComposant - vaisseau.getRayon();
 			vaisseau.setPosition(new Vecteur2D(vaisseau.getPosition().getX(), correctionPositionY));
 		}
@@ -709,13 +758,16 @@ public class MoteurPhysique {
 			Vecteur2D normaleBas = new Vecteur2D(0, 1);
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleBas.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleBas)));
+			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
+
+			// Repositionnement du vaisseau
 			double correctionPositionY = vaisseau.getRayon();
 			vaisseau.setPosition(new Vecteur2D(vaisseau.getPosition().getX(), correctionPositionY));
 		}
 
 		return vitApresCol;
 	}// fin méthode
-	
+
 	/**
 	 * Méthode qui vérifie si le vaisseau entre en collision avec le Pic
 	 * 
@@ -791,6 +843,36 @@ public class MoteurPhysique {
 	// Enuel René Valentin Kizozo Izia
 	public static void setCoeffFrotCine(double coeffFrotCine) {
 		MoteurPhysique.coeffFrotCine = coeffFrotCine;
+	}
+	
+	/**
+	 * Retourne l'accélération gravitationnelle initiale
+	 * 
+	 * @return L'accélération gravitationnelle initiale
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static double getAccelGravInitiale() {
+		return ACCEL_GRAV_INITIALE;
+	}
+
+	/**
+	 * Retourne le coefficient de frottement statique initial
+	 * 
+	 * @return Le coefficient de frottement statique initial
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static double getCoeffFrotStatInitial() {
+		return COEFF_FROT_STAT_INITIAL;
+	}
+	
+	/**
+	 * Retourne le coefficient de frottement cinétique initial
+	 * 
+	 * @return Le coefficient de frottement cinétique initial
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public static double getCoeffFrotCineInitial() {
+		return COEFF_FROT_CINE_INITIAL;
 	}
 	
 	/**
