@@ -338,6 +338,23 @@ public class AppPrincipale22 extends JFrame {
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
 		panModeJeu = new PanelJeu();
 
+		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("niveauCree")) {
+					panSelecteurNiveau.actualiserNiveaux();
+				}
+				if (evt.getPropertyName().equals("niveau essai")) {
+					Niveau niveauEssai = (Niveau) evt.getNewValue();
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
+					panModeJeu.setVisible(true);
+					panModeEditeur.setVisible(false);
+					setContentPane(panModeJeu);
+					panModeJeu.getZoneAnimationPhysique().requestFocus();
+				}
+			}
+		});
+		
 		zone = panModeJeu.getZone();
 
 		zone.addPropertyChangeListener(new PropertyChangeListener() {
@@ -398,22 +415,6 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 
-		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-
-				if (evt.getPropertyName().equals("niveauCree")) {
-					panSelecteurNiveau.actualiserNiveaux();
-				}
-				if (evt.getPropertyName().equals("niveau essai")) {
-					Niveau niveauEssai = (Niveau) evt.getNewValue();
-					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
-					panModeJeu.setVisible(true);
-					panModeEditeur.setVisible(false);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocus();
-				}
-			}
-		});
 
 	}
 

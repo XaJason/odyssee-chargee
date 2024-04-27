@@ -254,6 +254,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau = Sauvegarder.chargerNiveau("Niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
+		
 	}// fin constructeur
 
 	// SOUS-PROGRAMMES //
@@ -398,7 +399,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			lireImages();
 			premiereFois = false;
 		} // fin condition dans paintComponent
-
+	
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
 		// lireImages();
