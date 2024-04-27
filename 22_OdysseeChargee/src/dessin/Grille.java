@@ -355,11 +355,11 @@ public class Grille extends JPanel implements Serializable {
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
 
-			if (supprimer) {
-				setBackground(Color.red);
-			} else {
-			setBackground(new Color(255, 255, 128));
-			}
+//			if (supprimer) {
+//				setBackground(Color.red);
+//			} else {
+				setBackground(new Color(255, 255, 128));
+//			}
 
 			if (placePrise && !supprimer) {
 				g2dPrive.setColor(Color.orange);
@@ -1081,6 +1081,10 @@ public class Grille extends JPanel implements Serializable {
 				}
 			}
 
+			break;
+		case MouseEvent.BUTTON2:
+			supprimer = true;
+			repaint();
 			break;
 		}
 		gererCurseur();
