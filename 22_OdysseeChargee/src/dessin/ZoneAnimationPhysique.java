@@ -57,13 +57,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double hauteurDuComposantEnMetres = 300.0;
 
 	/** Pas de simulation initial (en seconde) **/
-	private final double DELTA_T_INITIAL = 0.05;
+	private final double DELTA_T_INITIAL = 0.001;
 	/** Pas de simulation (en seconde) **/
 	private double deltaT = DELTA_T_INITIAL;
 	/** Temps total écoulé, simulé (en seconde) **/
 	private double tempsTotalEcoule = 0;
 	/** Temps de la pause du thread d'animation (en milliseconde) **/
-	private int tempsDuSleep = 50;
+	private int tempsDuSleep = 1;
 	/** Booléen permettant de savoir si l'animation est en cours **/
 	private boolean enCoursDAnimation = false;
 	/** Booléen indiquant si c'est la première fois. **/
