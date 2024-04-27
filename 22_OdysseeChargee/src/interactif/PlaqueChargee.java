@@ -129,11 +129,11 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 		try {
 			this.extremiteA = position.additionne(axe.multiplie(longueur / 2));
 			this.extremiteB = position.additionne(axe.multiplie(-longueur / 2));
-			
-			this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur/2));
-			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur/2));
-			this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur/2));
-			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur/2));
+
+			this.coinSupGauche = extremiteA.additionne(normale.multiplie(epaisseur / 2));
+			this.coinSupDroit = extremiteA.additionne(normale.multiplie(-epaisseur / 2));
+			this.coinInfGauche = extremiteB.additionne(normale.multiplie(epaisseur / 2));
+			this.coinInfDroit = extremiteB.additionne(normale.multiplie(-epaisseur / 2));
 
 			creerLaGeometrie();
 		} catch (Exception e) {
@@ -141,7 +141,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 			e.printStackTrace();
 		} // fin try/catch
 	}// finc constructeur
-	
+
 	/**
 	 * Constructeur de la plaque chargée
 	 * Prend en paramètre sa charge et les points à ses extrémités
@@ -232,13 +232,13 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-		
+
 		if (Math.signum(getCharge()) > 0) {
 			g2dPrive.setColor(Color.green);
 		} else {
 			g2dPrive.setColor(Color.magenta);
 		}
-		
+
 		g2dPrive.draw(formePlaque);
 //		System.out.println("Plaque : "+this.toString(3));
 //		System.out.println("Sup gauche : "+coinSupGauche);
@@ -250,6 +250,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 	/**
 	 * Permet de dessiner l'image de la plaque
+	 * 
 	 * @param g2d Le contexte graphique
 	 */
 	// Giroux
@@ -270,13 +271,15 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	}
 
 	/**
-	 * Permet de savoir si le curseur de la souris est à l'intérieur de la plaque chargée
+	 * Permet de savoir si le curseur de la souris est à l'intérieur de la plaque
+	 * chargée
 	 * 
 	 * !!! Sert seulement à l'application pour tester la méthode contient
 	 * 
 	 * @param x La coordonnée X du curseur de la souris
 	 * @param y La coordonnée Y du curseur de la souris
-	 * @return Un booléen indiquant si le curseur se trouve à l'intérieur de la plaque chargée
+	 * @return Un booléen indiquant si le curseur se trouve à l'intérieur de la
+	 *         plaque chargée
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean contient(double x, double y) {

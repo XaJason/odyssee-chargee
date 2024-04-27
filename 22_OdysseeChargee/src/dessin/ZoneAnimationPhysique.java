@@ -40,10 +40,11 @@ import utilitaires.OutilsImage;
  * Composant illustrant la simulation :
  * La scène physique où sont représentés les objets intéractifs physique ainsi
  * que le niveau et ses tuiles
- *
- * @author Enuel René Valentin Kizozo Izia
- * @author Kitimir Yim
+ * 
  * @author Giroux
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Jason Xa
+ * @author Kitimir Yim
  * 
  */
 public class ZoneAnimationPhysique extends JPanel implements Runnable {
@@ -254,7 +255,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau = Sauvegarder.chargerNiveau("Niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
-		
+
 	}// fin constructeur
 
 	// SOUS-PROGRAMMES //
@@ -399,7 +400,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			lireImages();
 			premiereFois = false;
 		} // fin condition dans paintComponent
-	
+
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
 		// lireImages();
@@ -1000,13 +1001,13 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		listePlaquesChargees.clear();
 		repaint();
 	}
-	
+
 	/**
 	 * Modifie le niveau en y chargeant un nouveau niveau
 	 * 
 	 * @param niveau Le niveau que l'on veut charger
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void setNiveau(Niveau niveau) {
 		this.niveau = niveau;
 		niveau.getGrille().setDansModeJeu(true);
@@ -1014,7 +1015,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		listePlaquesChargees.clear();
 		repaint();
 	}
-	
 
 	/**
 	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveau

@@ -121,9 +121,9 @@ public class Grille extends JPanel implements Serializable {
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
-	/** Boolean qui indique si on mode rotation **/
+	/** Booléen qui indique l'état du mode de rotation post-placement **/
 	private boolean rotationPostPlacement = false;
-	/** Boolean qui indique qu'on déplace une tuile unique **/
+	/** Booléen qui indique l'état du déplacement d'une tuile unique **/
 	private boolean deplacementTuileUnique = false;
 
 	/**
@@ -853,12 +853,14 @@ public class Grille extends JPanel implements Serializable {
 	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
 	 * de l'argument
 	 * 
-	 * @param signum 1 si positif, 0 si nul, -1 si négatif
+	 * @param facteur Facteur scalaire déterminant l'angle et le sens de rotation
+	 *                appliqué à un facteur de 16e de rotation
+	 * 
 	 */
 	// Jason Xa
-	public void rotation(int signum) {
+	public void rotation(int facteur) {
 		if (tuile != null && tuile.getType() != "Vaisseau") {
-			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.125 * Math.PI);
+			tuile.setAngleRotation(tuile.getAngleRotation() + facteur * 0.125 * Math.PI); // 1/16 de rotation
 			repaint();
 		}
 	}
@@ -888,8 +890,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD Vérifie si la grille contient au moins une tuile du type
-	 * spécifié.
+	 * Vérifie si la grille contient au moins une tuile du type spécifié.
 	 * 
 	 * @param typeTuile le type de tuile à rechercher dans la grille
 	 * @return true si au moins une tuile du type spécifié est présente, sinon false
@@ -925,13 +926,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
-	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
-	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
-	 * ======= <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
-	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
-	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
+	 * Lie un portail au besoin
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
@@ -999,7 +994,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Méthode qui permet de rotationner une tuile déjà placer
+	 * Méthode qui permet de rotationner une tuile déjà placée
 	 * 
 	 * @param e l'évènement de la souris
 	 */

@@ -93,7 +93,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * Il faut ensuite appeler la methode initialiser() pour indiquer le tableau des
 	 * noms d'images a utiliser.
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	public PanelImagesAvecDefilement() {
 		super();
 		lblPourContenirImage = new JLabel(); // l'image sera chargee dans une etiquette
@@ -114,7 +114,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * @param tableauImages Le tableau des noms des images de texte, s�par�s par des
 	 *                      virgules.
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	public void setFichiersImages(String tableauImages[]) {
 		this.tableauImages = tableauImages;
 		nombrePages = tableauImages.length;
@@ -130,7 +130,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * 
 	 * @param nomFichierImage Le nom du fichier d'image a charger
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	private void changeImageCourante(String nomFichierImage) {
 		if (getWidth() == 0) {
 			// si le setSize/setBounds n'a pas encore ete fait, le dimensionnement de
@@ -170,7 +170,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * 
 	 * @param largeurCadre La largeur desiree, en pixels
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	public void setLargeurCadre(int largeurCadre) {
 		this.largeurCadre = largeurCadre;
 		if (nomFichierCourant != null) {
@@ -185,7 +185,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * 
 	 * @return La laregur du cadre, en pixels
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	public int getLargeurCadre() {
 		return largeurCadre;
 	}
@@ -195,7 +195,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * 
 	 * @return Un booleen qui vaut true si la nouvelle page est la premiere page
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	public boolean precedente() {
 		if (pageCourante > 0) {
 			pageCourante--;
@@ -212,7 +212,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * 
 	 * @return Un booleen qui vaut true si la nouvelle page est la derniere page
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	public boolean suivante() {
 		if (pageCourante < nombrePages - 1) {
 			pageCourante++;
@@ -230,7 +230,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 * 
 	 * @param g Le contexte graphique
 	 */
-	//Caroline Houle
+	// Caroline Houle
 	@Override
 	public void paintComponent(Graphics g) {
 		if (pasDeSize) {

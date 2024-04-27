@@ -54,7 +54,7 @@ public class FenetreAideInstructions extends JFrame {
 	 * Constructeur: cr�e une fen�tre qui inclut une instance d'image avec
 	 * d�filement
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public FenetreAideInstructions() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds((ConstanteComposantsSwing.DIM_HORIZONTALE_APP - ConstanteComposantsSwing.DIM_HORIZONTALE_SEC) / 2,
@@ -108,7 +108,6 @@ public class FenetreAideInstructions extends JFrame {
 		lblAideInstructions.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblAideInstructions.setBounds(264, 11, 342, 34);
 		contentPane.add(lblAideInstructions);
-
 
 	}// fin constructeur
 }// fin classe

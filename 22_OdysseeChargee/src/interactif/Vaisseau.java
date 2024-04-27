@@ -84,7 +84,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		super(position, charge);
 		this.masse = masse;
 		this.tuile = tuileDuVaisseau;
-		//this.rayon = VaisseauImage.getHauteurTuile()/2.0;
+		// this.rayon = VaisseauImage.getHauteurTuile()/2.0;
 		creerLaGeometrie();
 	}
 
@@ -120,19 +120,20 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		boolean dessinerCercle = true;
-		
-		// Choisit la couleur de fond du vaisseau (cercle) en fonction du signe de sa charge
+
+		// Choisit la couleur de fond du vaisseau (cercle) en fonction du signe de sa
+		// charge
 		if (Math.signum(getCharge()) > 0) {
 			g2dPrive.setColor(Color.green);
 
 		} else if (Math.signum(getCharge()) < 0) {
 			g2dPrive.setColor(Color.magenta);
-			
+
 		} else {
 			g2dPrive.setColor(Color.black);
 			dessinerCercle = false;
 		}
-		
+
 		// Dessine le fond du vaisseau
 		if (dessinerCercle) {
 			g2dPrive.fill(cercle);
@@ -141,8 +142,8 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		}
 
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
-		tuile.dessiner(g2d, ( getPosition().getX() - rayon ), ( getPosition().getY() - rayon ));
-		//tuile.dessiner(g2d);
+		tuile.dessiner(g2d, (getPosition().getX() - rayon), (getPosition().getY() - rayon));
+		// tuile.dessiner(g2d);
 	}
 
 	/**

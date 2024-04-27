@@ -46,35 +46,35 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private static final long serialVersionUID = -506870656338933836L;
 	/**
-	 * Zone des dessin
+	 * Panneau du menu principal
 	 */
 	private JPanel panMenuPrincipal;
 	/**
-	 * Fenêtre Instructions
+	 * Fenêtre des instructions
 	 */
 	private FenetreAideInstructions fenInstruction;
 	/**
-	 * Fenêtre Réglage
+	 * Fenêtre des réglages
 	 */
 	private FenetreReglage fenReglage;
 	/**
-	 * Panel du mode éditeur
+	 * Panneau de l'éditeur de niveaux
 	 */
 	private PanelEditeur panModeEditeur;
 	/**
-	 * Panel du mode jeu
+	 * Panneau de jeu
 	 */
 	private PanelJeu panModeJeu;
 	/**
-	 * Panel À propos
+	 * Panneau d'information sur l'application
 	 */
 	private FenetreAPropos pnlAPropos;
 	/**
-	 * Panel du sélecteur de niveaux
+	 * Panneau de sélection de niveaux
 	 */
 	private PanelSelecteurNiveaux panSelecteurNiveau;
 	/**
-	 * Barre du menu
+	 * Barre de menus
 	 */
 	private JMenuBar menuBar;
 	/**
@@ -102,7 +102,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private double volumeEntre0Et1 = 1;
 	/**
-	 * ` Chemin vers le fichier
+	 * Chemin vers le fichier
 	 */
 	private String pathDeFichier = null;
 	/**
@@ -354,7 +354,7 @@ public class AppPrincipale22 extends JFrame {
 				}
 			}
 		});
-		
+
 		zone = panModeJeu.getZone();
 
 		zone.addPropertyChangeListener(new PropertyChangeListener() {
@@ -414,7 +414,6 @@ public class AppPrincipale22 extends JFrame {
 				}
 			}
 		});
-
 
 	}
 
@@ -518,7 +517,7 @@ public class AppPrincipale22 extends JFrame {
 				panModeEditeur.getGrille().repaint();
 				zone.reinitialiser();
 				panModeEditeur.getGrille().setDansModeJeu(false);
-				
+
 			}
 		});
 		menuBar.add(mntmEditeur);
