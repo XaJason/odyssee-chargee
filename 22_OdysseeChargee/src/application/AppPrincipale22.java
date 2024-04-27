@@ -474,6 +474,7 @@ public class AppPrincipale22 extends JFrame {
 				setContentPane(panMenuPrincipal);
 				menuBar.setVisible(false);
 				zone.modifierBouton();
+				zone.reinitialiser();
 			}
 
 		});
@@ -493,6 +494,7 @@ public class AppPrincipale22 extends JFrame {
 				mntmSelection.setSelected(true);
 				mntmEditeur.setSelected(false);
 				zone.modifierBouton();
+				zone.reinitialiser();
 
 			}
 
@@ -514,6 +516,8 @@ public class AppPrincipale22 extends JFrame {
 				zone.modifierBouton();
 				panModeEditeur.getGrille().requestFocusInWindow();
 				panModeEditeur.getGrille().repaint();
+				zone.reinitialiser();
+				
 			}
 		});
 		menuBar.add(mntmEditeur);
