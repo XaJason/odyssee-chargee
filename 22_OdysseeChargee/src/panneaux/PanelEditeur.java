@@ -209,7 +209,7 @@ public class PanelEditeur extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton() != MouseEvent.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON3) {
 					supprimer();
 				}
 			}
@@ -533,7 +533,7 @@ public class PanelEditeur extends JPanel {
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
 
-		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br>OU MOLETTE<html>");
+		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br><html>");
 		lblSupprimer.setForeground(new Color(51, 51, 51));
 		lblSupprimer.setBounds(1200, 610, 75, 56);
 		add(lblSupprimer);

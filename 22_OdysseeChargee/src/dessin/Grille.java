@@ -358,7 +358,7 @@ public class Grille extends JPanel implements Serializable {
 //			if (supprimer) {
 //				setBackground(Color.red);
 //			} else {
-				setBackground(new Color(255, 255, 128));
+			setBackground(new Color(255, 255, 128));
 //			}
 
 			if (placePrise && !supprimer) {
@@ -1080,11 +1080,6 @@ public class Grille extends JPanel implements Serializable {
 					placerTuile(e);
 				}
 			}
-
-			break;
-		case MouseEvent.BUTTON2:
-			supprimer = true;
-			repaint();
 			break;
 		}
 		gererCurseur();
