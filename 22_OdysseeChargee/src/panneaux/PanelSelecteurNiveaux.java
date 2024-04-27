@@ -16,6 +16,7 @@ import niveau.GestionnaireDeNiveaux;
 import niveau.Niveau;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
+import javax.swing.JFileChooser;
 
 /**
  * Panel du sélecteur de niveaux

@@ -215,26 +215,31 @@ public class AppPrincipale22 extends JFrame {
 		fondEcran.setLayout(null);
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
+		btnModeEditeur.setFocusable(false);
 		btnModeEditeur.setBounds(808, 304, 303, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
 		fondEcran.add(btnModeEditeur);
 
 		JButton btnReglages = new JButton("Réglages");
+		btnReglages.setFocusable(false);
 		btnReglages.setBounds(838, 419, 243, 100);
 		OutilsImage.lireImageEtPlacerSurBouton("reglages.png", btnReglages);
 		fondEcran.add(btnReglages);
 
 		JButton btnAPropos = new JButton("À propos");
+		btnAPropos.setFocusable(false);
 		btnAPropos.setBounds(824, 530, 272, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("apropos.png", btnAPropos);
 		fondEcran.add(btnAPropos);
 
 		JButton btnInstructions = new JButton("Aide");
+		btnInstructions.setFocusable(false);
 		btnInstructions.setBounds(891, 645, 138, 80);
 		OutilsImage.lireImageEtPlacerSurBouton("aide.png", btnInstructions);
 		fondEcran.add(btnInstructions);
 
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.setFocusable(false);
 		btnQuitter.setBounds(839, 736, 242, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("quitter.png", btnQuitter);
 		fondEcran.add(btnQuitter);
@@ -242,10 +247,19 @@ public class AppPrincipale22 extends JFrame {
 
 
 		JButton btnModePrincipal = new JButton("Jouer");
-		btnModePrincipal.setBorderPainted(false);
+		btnModePrincipal.setFocusable(false);
 		btnModePrincipal.setBounds(891, 223, 138, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("jouer.png", btnModePrincipal);
 		fondEcran.add(btnModePrincipal);
+
+		JButton btnTitre = new JButton("New button");
+		btnTitre.setFocusable(false);
+		btnTitre.setBounds(746, 127, 428, 70);
+		OutilsImage.lireImageEtPlacerSurBouton("titre.png", btnTitre);
+
+		fondEcran.add(btnTitre);
+
+
 		btnModePrincipal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panSelecteurNiveau.setVisible(true);
