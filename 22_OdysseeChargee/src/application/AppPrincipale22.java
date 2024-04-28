@@ -551,7 +551,7 @@ public class AppPrincipale22 extends JFrame {
 		JMenuItem mntmApropos = new JMenuItem("À propos");
 		mntmApropos.setPreferredSize(new Dimension(100, 26));
 		mntmApropos.setMaximumSize(new Dimension(200, 32767));
-		mntmSelection.setMaximumSize(new Dimension(150, 300));
+		
 
 		mntmApropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -562,6 +562,16 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmApropos);
+		
+		JMenuItem mntmQuitter = new JMenuItem("Quitter");
+		mntmQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menuQuitter();
+			}
+		});
+		mntmQuitter.setPreferredSize(new Dimension(100, 26));
+		mntmQuitter.setMaximumSize(new Dimension(200, 32767));
+		menuBar.add(mntmQuitter);
 
 	}
 
