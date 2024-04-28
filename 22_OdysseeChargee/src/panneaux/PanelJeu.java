@@ -177,7 +177,7 @@ public class PanelJeu extends JPanel {
 		JPanel panelSortie = new JPanel();
 		panelSortie.setLayout(null);
 		panelSortie.setBorder(BorderFactory.createTitledBorder("Sorties"));
-		panelSortie.setBounds(1181, 44, 376, 274);
+		panelSortie.setBounds(1406, 44, 376, 274);
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
@@ -234,7 +234,7 @@ public class PanelJeu extends JPanel {
 		panel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 44, 447, 187);
+		panel.setBounds(10, 44, 376, 187);
 		add(panel);
 		panel.setLayout(null);
 
@@ -343,7 +343,7 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
-		zoneAnimationPhysique.setBounds(191, 0, 1000, 750);
+		zoneAnimationPhysique.setBounds(396, 44, 1000, 750);
 		add(zoneAnimationPhysique);
 
 		btnDemarrer = new JButton("Démarrer");
@@ -357,7 +357,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(10, 10, 89, 23);
+		btnDemarrer.setBounds(154, 10, 89, 23);
 		add(btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
@@ -371,7 +371,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnArreter.setBounds(605, 809, 89, 23);
+		btnArreter.setBounds(10, 732, 65, 21);
 		add(btnArreter);
 
 		btnRedemarrer = new JButton("Redémarrer");
@@ -385,7 +385,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnRedemarrer.setBounds(905, 809, 129, 23);
+		btnRedemarrer.setBounds(204, 732, 87, 21);
 		add(btnRedemarrer);
 
 		btnProchaineImage = new JButton("Prochaine image");
@@ -397,7 +397,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnProchaineImage.setBounds(726, 809, 154, 23);
+		btnProchaineImage.setBounds(85, 732, 109, 21);
 		add(btnProchaineImage);
 
 		btnReinitialiser = new JButton("Réinitialiser");
@@ -409,7 +409,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnReinitialiser.setBounds(1062, 809, 129, 23);
+		btnReinitialiser.setBounds(301, 732, 85, 21);
 		add(btnReinitialiser);
 	}
 
