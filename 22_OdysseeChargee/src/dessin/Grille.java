@@ -493,6 +493,19 @@ public class Grille extends JPanel implements Serializable {
 	}// Fin méthode
 
 	/**
+	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle
+	 * y est
+	 * 
+	 * @param condition vrai si l'on désire afficher le quadrillage
+	 */
+	// Jason Xa
+	public void afficherGrille(boolean condition) {
+		grille = condition;
+		repaint();
+
+	}// Fin méthode
+
+	/**
 	 * Méthode qui change le nombre de case par ligne (verticale)
 	 * 
 	 * @param nouvNbCase Le nouveau nombre de case par ligne
