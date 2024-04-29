@@ -20,11 +20,13 @@ public class Sauvegarder {
 	 * Chemin du dossier où sont sauvegardés les niveaux sur l'ordinateur de
 	 * l'utilisateur
 	 */
-	private static final String sousDossierDeTravail = "MesTrucs";
+	private static final String SOUS_DOSSIER_DE_TRAVAIL = "MesTrucs";
+	/**
+	 * Chemon pour le dossier de sauvegarde
+	 */
 	private static final String DOSSIER_SAUVEGARDE = new File(
 			javax.swing.filechooser.FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\"
-					+ sousDossierDeTravail)
-			.getPath();
+					+ SOUS_DOSSIER_DE_TRAVAIL).getPath();
 	/**
 	 * Type de fichier
 	 */

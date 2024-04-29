@@ -651,6 +651,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Affiche le message après la fin du jeu
+	 * @param typeTuile type de la tuile qui est en contact avec le vaisseau
 	 */
 	// Kitimir Yim
 	private void messageMort(String typeTuile) {

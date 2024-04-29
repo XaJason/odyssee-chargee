@@ -6,21 +6,37 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 import utilitaires.OutilsImage;
-
+/**
+ * Classe qui gère les fond d'écrans 
+ * @author Kitimir Yim
+ */
 public class FondEcran extends JPanel {
 	/**
 	 * Numéro de sérialisation
 	 */
 	private static final long serialVersionUID = -6371823752957467232L;
-	private Image backgroundImage;
+	/**
+	 * Image du fond d'écran
+	 */
+	private Image fondImage;
 
+	/**
+	 * Constructeur du fond d'écran
+	 * @param fond nom du fichier contenant l'image
+	 */
+	//Kitimir Yim
 	public FondEcran(String fond) {
-		backgroundImage = OutilsImage.lireImage(fond);
+		fondImage = OutilsImage.lireImage(fond);
 	}
-
+	/**
+	 *  Permet de dessiner l'image
+	 * 
+	 * @param g Le contexte graphique
+	 */
 	@Override
+	//Kitimir Yim
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(backgroundImage, 0, 0, this);
+		g.drawImage(fondImage, 0, 0, this);
 	}
 }
