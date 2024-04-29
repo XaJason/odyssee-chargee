@@ -428,21 +428,33 @@ public class PanelJeu extends JPanel {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				if (evt.getPropertyName().equals("changerVitesse")) {
-					double valeur = (double) evt.getNewValue();
-					vitesseString = String.format("%.2f", valeur);
-					labelVitesse.setText(vitesseString);
+					double valeurX = (double) evt.getOldValue();
+					String xString = String.format("%.2f", valeurX);
+					
+					double valeurY = (double) evt.getNewValue();
+					String yString = String.format("%.2f", valeurY);
+					
+					labelVitesse.setText(xString +"x, "+ yString + "y");
 				}
 
 				if (evt.getPropertyName().equals("changerAcceleration")) {
-					double valeur = (double) evt.getNewValue();
-					acceString = String.format("%.2f", valeur);
-					labelAcceleration.setText(acceString);
+					double valeurX = (double) evt.getOldValue();
+					String xString = String.format("%.2f", valeurX);
+					
+					double valeurY = (double) evt.getNewValue();
+					String yString = String.format("%.2f", valeurY);
+					
+					labelAcceleration.setText(xString +"x, "+ yString + "y");
 				}
 
 				if (evt.getPropertyName().equals("changerForceElec")) {
-					double valeur = (double) evt.getNewValue();
-					forceElecString = String.format("%.2f", valeur);
-					labelForceElectrique.setText(forceElecString);
+					double valeurX = (double) evt.getOldValue();
+					String xString = String.format("%.2f", valeurX);
+					
+					double valeurY = (double) evt.getNewValue();
+					String yString = String.format("%.2f", valeurY);
+					
+					labelForceElectrique.setText(xString +"x, "+ yString + "y");
 				}
 
 				if (evt.getPropertyName().equals("changerForceGravite")) {
@@ -457,9 +469,13 @@ public class PanelJeu extends JPanel {
 				}
 
 				if (evt.getPropertyName().equals("changerPosition")) {
-					double valeur = (double) evt.getNewValue();
-					positionString = String.format("%.2f", valeur);
-					labelPosition.setText(positionString);
+					double valeurX = (double) evt.getOldValue();
+					String xString = String.format("%.2f", valeurX);
+					
+					double valeurY = (double) evt.getNewValue();
+					String yString = String.format("%.2f", valeurY);
+					
+					labelPosition.setText(xString +"x ,"+ yString + "y");
 				}
 				if (evt.getPropertyName().equals("changementBouton")) {
 					reinitialiserZoneAnimation();

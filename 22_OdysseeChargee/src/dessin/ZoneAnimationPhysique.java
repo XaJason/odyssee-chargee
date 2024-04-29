@@ -260,12 +260,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Kitimir Yim
 	private void leveeSorties() {
-		PCS.firePropertyChange("changerVitesse", null, vaisseau.getVitesse().module());
-		PCS.firePropertyChange("changerAcceleration", null, vaisseau.getAccel().module());
-		PCS.firePropertyChange("changerForceElec", null, this.forcesElec.module());
+		PCS.firePropertyChange("changerVitesse", vaisseau.getVitesse().getX(), vaisseau.getVitesse().getY());
+		PCS.firePropertyChange("changerAcceleration",vaisseau.getAccel().getX(), vaisseau.getAccel().getY());
+		PCS.firePropertyChange("changerForceElec", this.forcesElec.getX(), this.forcesElec.getY());
 		PCS.firePropertyChange("changerForceGravite", null, this.forceGrav.module());
 		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.module() / Math.abs(vaisseau.getCharge()));
-		PCS.firePropertyChange("changerPosition", null, vaisseau.getPosition().module());
+		PCS.firePropertyChange("changerPosition", vaisseau.getPosition().getX(), vaisseau.getPosition().getY());
 
 	}
 	/**
