@@ -1,6 +1,5 @@
 package utilitaires;
 
-import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
@@ -141,6 +140,7 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 	 * @param point le point à vérifier
 	 * @return vrai si le point fait est contenu dans l'objet dessinable
 	 */
+	// Jason Xa
 	public boolean contient(Point2D.Double point) {
 		return forme.contains(point.getX(), point.getY());
 	}

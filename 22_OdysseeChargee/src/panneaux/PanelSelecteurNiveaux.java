@@ -1,12 +1,10 @@
 package panneaux;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +14,6 @@ import niveau.GestionnaireDeNiveaux;
 import niveau.Niveau;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
-import javax.swing.JFileChooser;
 
 /**
  * Panel du sélecteur de niveaux
@@ -70,23 +67,23 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		btnNiveauBase1 = new JButton("Niveau de base 1");
 		btnNiveauBase1.setBounds(313, 385, 224, 44);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaubase1.png", btnNiveauBase1 );
+		OutilsImage.lireImageEtPlacerSurBouton("niveaubase1.png", btnNiveauBase1);
 		fondEcran.add(btnNiveauBase1);
 
 		btnNiveauBase2 = new JButton("Niveau de base 2");
 		btnNiveauBase2.setBounds(313, 425, 224, 44);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaubase2.png", btnNiveauBase2 );
+		OutilsImage.lireImageEtPlacerSurBouton("niveaubase2.png", btnNiveauBase2);
 		fondEcran.add(btnNiveauBase2);
-		
+
 		btnNiveauBase3 = new JButton("Niveau de base 3");
 		btnNiveauBase3.setBounds(313, 465, 224, 44);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3 );
+		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3);
 		fondEcran.add(btnNiveauBase3);
-		
+
 		JButton btnIdée = new JButton("IDÉE : mettre les niveaux du mode jetpack");
 		btnIdée.setBounds(1340, 434, 280, 23);
 		fondEcran.add(btnIdée);
-		
+
 		btnNiveauBase2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau2", 0, -1);

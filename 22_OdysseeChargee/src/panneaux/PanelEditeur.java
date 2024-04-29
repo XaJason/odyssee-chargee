@@ -1,10 +1,17 @@
 package panneaux;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -29,20 +36,15 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
 
 /**
  * Panel du mode éditeur
  * 
+ * @author Enuel René Valentin Kizozo Izia
+ * @author Giroux
  * @author Jason Xa
  * @author Kitimir Yim
- * @author Enuel René Valentin Kizozo Izia
- * 
  */
-
 public class PanelEditeur extends JPanel {
 
 	/**
@@ -173,10 +175,20 @@ public class PanelEditeur extends JPanel {
 
 	/** Case à cocher pour l'affichage du quadrillage */
 	private JCheckBox chckbxGrille;
-	/** Type de la tuile selectionnée **/
+	/** Panneau d'affichage servant à afficher la tuile ou le mode sélectionné **/
 	private PanelTuileTemp panelTuileTemp;
+
 	private JToggleButton btnRotationPostPlacement;
+
+	/**
+	 * Étiquette servant à identifier le bouton à deux états pour la rotation
+	 * post-placement
+	 */
 	private JLabel lblRotationPostPlacement;
+	/**
+	 * Étiquette servant à identifier le bouton pour essayer le niveau construit
+	 */
+	private JLabel lblEssayer;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -194,6 +206,9 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	public PanelEditeur() {
+		setBackground(new Color(238, 246, 180));
+
+		setBounds(new Rectangle(0, 0, 1920, 1080));
 		addMouseWheelListener(new MouseWheelListener() {
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				rotationnerAvant(Integer.signum(e.getWheelRotation()));
@@ -202,7 +217,7 @@ public class PanelEditeur extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton() != MouseEvent.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON3) {
 					supprimer();
 				}
 			}
@@ -210,13 +225,14 @@ public class PanelEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
+		grille.setOpaque(false);
 		grille.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
 				grille.requestFocusInWindow();
 			}
 		});
-		grille.setBounds(410, 38, 1000, 750);
+		grille.setBounds(10, 10, 1000, 750);
 		add(grille);
 
 		// JSpinner spinnerQttCarre = new JSpinner();
@@ -239,16 +255,15 @@ public class PanelEditeur extends JPanel {
 
 		creerSectionBoutons();
 
-		btnEssayer = new JButton("<html><center>ESSAYER<br>\r\n[CTRL + E]<html>");
-		btnEssayer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				essayerNiveau();
-			}
-
-		});
-		btnEssayer.setBounds(342, 599, 85, 85);
-		add(btnEssayer);
-		grille.requestFocusInWindow();
+//		btnEssayer = new JButton("<html><center>ESSAYER<br>\r\n[CTRL + E]<html>");
+//		btnEssayer.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				essayerNiveau();
+//			}
+//		});
+//		btnEssayer.setBounds(342, 599, 85, 85);
+//		add(btnEssayer);
+//		grille.requestFocusInWindow();
 	}
 
 	/**
@@ -281,214 +296,198 @@ public class PanelEditeur extends JPanel {
 	// Jason Xa
 	private void creerSectionBoutons() {
 		leveeEvenement();
-		btnCarre = new JButton();
-		btnCarre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectionnerCarre();
-			}
-		});
-
-		btnCarre.setBounds(50, 61, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
-		add(btnCarre);
-
-		btnTriangleRectangle = new JButton();
-		btnTriangleRectangle.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectionnerTriangleRectangle();
-			}
-		});
-		btnTriangleRectangle.setBounds(178, 61, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
-		add(btnTriangleRectangle);
-
-		btnTriangleEquilateral = new JButton();
-		btnTriangleEquilateral.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectionnerTriangleEquilateral();
-			}
-		});
-
-		btnTriangleEquilateral.setBounds(302, 61, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
-		add(btnTriangleEquilateral);
-
-		btnPics = new JButton();
-		btnPics.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectionnerPics();
-			}
-		});
-		btnPics.setBounds(118, 215, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
-		add(btnPics);
-
-		btnPortail = new JButton();
-		btnPortail.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectionnerPortail();
-			}
-		});
-		btnPortail.setBounds(247, 215, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
-		add(btnPortail);
-
-		btnDrapeau = new JButton();
-		btnDrapeau.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectionnerDrapeau();
-			}
-		});
-		btnDrapeau.setBounds(118, 340, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
-		add(btnDrapeau);
-
-		lblTypeSelectionne = new JLabel("TUILE ACTUELLE:");
-		lblTypeSelectionne.setBounds(30, 321, 269, 14);
-		add(lblTypeSelectionne);
-		btnReinitialiser = new JButton();
-		btnReinitialiser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				reinitialiser();
-			}
-		});
-		btnReinitialiser.setBounds(118, 599, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
-		add(btnReinitialiser);
-
-		btnSupprimer = new JButton();
-		btnSupprimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				supprimer();
-			}
-		});
-		btnSupprimer.setBounds(247, 599, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
-		add(btnSupprimer);
-
-		btnRotationPrePlacement = new JButton();
-		btnRotationPrePlacement.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rotationnerAvant(4);
-			}
-		});
-		btnRotationPrePlacement.setBounds(118, 480, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
-		add(btnRotationPrePlacement);
-
-		btnSauvegarder = new JButton();
-		btnSauvegarder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sauvegarder();
-			}
-
-		});
-		btnSauvegarder.setBounds(10, 599, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
-		add(btnSauvegarder);
-
-		btnVaisseau = new JButton();
-		btnVaisseau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				selectionnerVaisseau();
-			}
-		});
-		btnVaisseau.setBounds(247, 340, 85, 85);
-		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
-		add(btnVaisseau);
-
-		lblCarre = new JLabel("[Q]");
-		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCarre.setBounds(27, 156, 131, 13);
-		add(lblCarre);
-
-		lblBlocs = new JLabel("BLOCS");
-		lblBlocs.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBlocs.setBounds(198, 38, 45, 13);
-		add(lblBlocs);
-
-		lblTriangleRectangle = new JLabel("[W]");
-		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTriangleRectangle.setBounds(155, 156, 131, 13);
-		add(lblTriangleRectangle);
-
-		lblTriangleEquilateral = new JLabel("[E]");
-		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTriangleEquilateral.setBounds(285, 156, 119, 13);
-		add(lblTriangleEquilateral);
-
-		lblPics = new JLabel("[A]");
-		lblPics.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPics.setBounds(118, 310, 85, 13);
-		add(lblPics);
-
-		lblPortail = new JLabel("[S]");
-		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPortail.setBounds(247, 310, 85, 13);
-		add(lblPortail);
-
-		lblDrapeau = new JLabel("[D]");
-		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDrapeau.setBounds(101, 435, 119, 13);
-		add(lblDrapeau);
-
-		lblVaisseau = new JLabel("[F]");
-		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblVaisseau.setBounds(215, 435, 148, 13);
-		add(lblVaisseau);
-
-		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
-		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReinitialiser.setBounds(127, 694, 67, 26);
-		add(lblReinitialiser);
-
-		lblSupprimer = new JLabel("<html><center>GÉRER LA SUPPRESSION<br>\r\n[ESPACE], CLIC DROIT OU MOLETTE<html>");
-		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSupprimer.setBounds(205, 694, 168, 39);
-		add(lblSupprimer);
-
-		lblRotationPrePlacement = new JLabel(
-				"<html><center>ROTATION PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT MOLETTE<html>");
-		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRotationPrePlacement.setBounds(65, 568, 190, 31);
-		add(lblRotationPrePlacement);
-
-		lblSauvegarder = new JLabel("<html><center>SAUVEGARDER<br>\r\n[CTRL + S]<html>");
-		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSauvegarder.setBounds(18, 707, 69, 26);
-		add(lblSauvegarder);
-
-		lblInteractifs = new JLabel("INTERACTIFS");
-		lblInteractifs.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInteractifs.setBounds(178, 192, 85, 13);
-		add(lblInteractifs);
-
-		lblActions = new JLabel("ACTIONS");
-		lblActions.setHorizontalAlignment(SwingConstants.CENTER);
-		lblActions.setBounds(10, 481, 85, 13);
-		add(lblActions);
 
 		chckbxGrille = new JCheckBox("Afficher la grille");
+		chckbxGrille.setForeground(new Color(51, 51, 51));
+		chckbxGrille.setContentAreaFilled(false);
+		chckbxGrille.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		chckbxGrille.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gererGrille();
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(1117, 122, 200, 21);
+		chckbxGrille.setBounds(1226, 27, 119, 27);
 		add(chckbxGrille);
+		btnCarre = new JButton();
+		btnCarre.setBounds(1095, 243, 60, 60);
+		add(btnCarre);
+		btnCarre.setText("Q");
+		btnCarre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectionnerCarre();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
+
+		btnTriangleRectangle = new JButton();
+		btnTriangleRectangle.setBounds(1207, 243, 60, 60);
+		add(btnTriangleRectangle);
+		btnTriangleRectangle.setText("W");
+		btnTriangleRectangle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectionnerTriangleRectangle();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
+
+		btnTriangleEquilateral = new JButton();
+		btnTriangleEquilateral.setBounds(1317, 243, 60, 60);
+		add(btnTriangleEquilateral);
+		btnTriangleEquilateral.setText("E");
+		btnTriangleEquilateral.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectionnerTriangleEquilateral();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
+
+		lblBlocs = new JLabel("BLOCS");
+		lblBlocs.setForeground(new Color(102, 51, 0));
+		lblBlocs.setBounds(1065, 197, 50, 22);
+		add(lblBlocs);
+		lblBlocs.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblBlocs.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblCarre = new JLabel("[Q]");
+		lblCarre.setForeground(new Color(51, 51, 51));
+		lblCarre.setBounds(1115, 321, 20, 18);
+		add(lblCarre);
+		lblCarre.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblTriangleRectangle = new JLabel("[W]");
+		lblTriangleRectangle.setForeground(new Color(51, 51, 51));
+		lblTriangleRectangle.setBounds(1226, 321, 22, 18);
+		add(lblTriangleRectangle);
+		lblTriangleRectangle.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblTriangleEquilateral = new JLabel("[E]");
+		lblTriangleEquilateral.setForeground(new Color(51, 51, 51));
+		lblTriangleEquilateral.setBounds(1339, 321, 17, 18);
+		add(lblTriangleEquilateral);
+		lblTriangleEquilateral.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblInteractifs = new JLabel("INTERACTIFS");
+		lblInteractifs.setForeground(new Color(102, 51, 0));
+		lblInteractifs.setBounds(1065, 356, 109, 22);
+		add(lblInteractifs);
+		lblInteractifs.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblInteractifs.setHorizontalAlignment(SwingConstants.CENTER);
+
+		btnPics = new JButton();
+		btnPics.setBounds(1097, 395, 60, 60);
+		add(btnPics);
+		btnPics.setText("A");
+		btnPics.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectionnerPics();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
+
+		btnPortail = new JButton();
+		btnPortail.setBounds(1182, 395, 60, 60);
+		add(btnPortail);
+		btnPortail.setText("S");
+		btnPortail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectionnerPortail();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
+
+		lblPics = new JLabel("[A]");
+		lblPics.setForeground(new Color(51, 51, 51));
+		lblPics.setBounds(1118, 470, 18, 18);
+		add(lblPics);
+		lblPics.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblPics.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblPortail = new JLabel("[S]");
+		lblPortail.setForeground(new Color(51, 51, 51));
+		lblPortail.setBounds(1203, 470, 18, 18);
+		add(lblPortail);
+		lblPortail.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblTypeSelectionne = new JLabel("<html><center>TUILE OU MODE<br>\r\nSÉLECTIONNÉ<html>");
+		lblTypeSelectionne.setForeground(new Color(102, 51, 0));
+		lblTypeSelectionne.setBounds(1050, 10, 130, 44);
+		add(lblTypeSelectionne);
+		lblTypeSelectionne.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+
+		btnDrapeau = new JButton();
+		btnDrapeau.setBounds(1267, 395, 60, 60);
+		add(btnDrapeau);
+		btnDrapeau.setText("D");
+		btnDrapeau.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectionnerDrapeau();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
+
+		btnVaisseau = new JButton();
+		btnVaisseau.setBounds(1352, 395, 60, 60);
+		add(btnVaisseau);
+		btnVaisseau.setText("F");
+		btnVaisseau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectionnerVaisseau();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
+
+		lblDrapeau = new JLabel("[D]");
+		lblDrapeau.setForeground(new Color(51, 51, 51));
+		lblDrapeau.setBounds(1288, 470, 18, 18);
+		add(lblDrapeau);
+		lblDrapeau.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
+
+		lblVaisseau = new JLabel("[F]");
+		lblVaisseau.setForeground(new Color(51, 51, 51));
+		lblVaisseau.setBounds(1374, 470, 17, 18);
+		add(lblVaisseau);
+		lblVaisseau.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+		lblVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
 
 		panelTuileTemp = new PanelTuileTemp();
-		panelTuileTemp.setBounds(10, 348, 100, 100);
+		panelTuileTemp.setOpaque(false);
+		panelTuileTemp.setRotation(false);
+		panelTuileTemp.setBounds(1065, 76, 100, 100);
 		add(panelTuileTemp);
 
-		btnRotationPostPlacement = new JToggleButton("");
+		lblActions = new JLabel("ACTIONS");
+		lblActions.setForeground(new Color(102, 51, 0));
+		lblActions.setBounds(1065, 510, 74, 22);
+		add(lblActions);
+		lblActions.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblActions.setHorizontalAlignment(SwingConstants.CENTER);
+
+		btnRotationPrePlacement = new JButton();
+		btnRotationPrePlacement.setBounds(1205, 101, 50, 50);
+		add(btnRotationPrePlacement);
+		btnRotationPrePlacement.setText("R");
+		btnRotationPrePlacement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rotationnerAvant(4); // quart de rotation
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
+
+		btnRotationPostPlacement = new JToggleButton("T");
+		btnRotationPostPlacement.setBounds(1095, 542, 60, 60);
+		add(btnRotationPostPlacement);
 		btnRotationPostPlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				grille.setRotationPostPlacement();
@@ -502,13 +501,94 @@ public class PanelEditeur extends JPanel {
 				}
 			}
 		});
-		btnRotationPostPlacement.setBounds(243, 480, 89, 85);
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
-		add(btnRotationPostPlacement);
 
-		lblRotationPostPlacement = new JLabel("<html><center>ROTATION POST-PLACEMENT<br>\r\n[T]<html>");
-		lblRotationPostPlacement.setBounds(247, 568, 138, 26);
+		lblRotationPostPlacement = new JLabel("<html><center>ROTATION<br>POST-PLACEMENT<br>\r\n[T]<html>");
+		lblRotationPostPlacement.setForeground(new Color(51, 51, 51));
+		lblRotationPostPlacement.setBounds(1085, 610, 81, 39);
 		add(lblRotationPostPlacement);
+		lblRotationPostPlacement.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
+
+		lblRotationPrePlacement = new JLabel(
+				"<html><trailing>ROTATION<br>PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT<br>MOLETTE<html>");
+		lblRotationPrePlacement.setForeground(new Color(102, 51, 0));
+		lblRotationPrePlacement.setBounds(1285, 90, 126, 72);
+		add(lblRotationPrePlacement);
+		lblRotationPrePlacement.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
+
+		btnSauvegarder = new JButton();
+		btnSauvegarder.setBounds(1317, 659, 60, 60);
+		add(btnSauvegarder);
+		btnSauvegarder.setText("Sauvegarder");
+		btnSauvegarder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sauvegarder();
+			}
+
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("sauvegarder.png", btnSauvegarder);
+
+		lblSauvegarder = new JLabel("<html><center>SAUVEGARDER<br>\r\n[CTRL + S]<html>");
+		lblSauvegarder.setForeground(new Color(51, 51, 51));
+		lblSauvegarder.setBounds(1314, 721, 66, 26);
+		add(lblSauvegarder);
+		lblSauvegarder.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
+		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
+		btnReinitialiser = new JButton();
+		btnReinitialiser.setBounds(1317, 542, 60, 60);
+		add(btnReinitialiser);
+		btnReinitialiser.setText("Réinitialiser");
+		btnReinitialiser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reinitialiser();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("reinitialiser.png", btnReinitialiser);
+
+		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
+		lblReinitialiser.setForeground(new Color(51, 51, 51));
+		lblReinitialiser.setBounds(1311, 610, 72, 26);
+		add(lblReinitialiser);
+		lblReinitialiser.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
+		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
+
+		btnSupprimer = new JButton();
+		btnSupprimer.setBounds(1207, 542, 60, 60);
+		add(btnSupprimer);
+		btnSupprimer.setText("Suppression");
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				supprimer();
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
+
+		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br><html>");
+		lblSupprimer.setForeground(new Color(51, 51, 51));
+		lblSupprimer.setBounds(1200, 610, 75, 56);
+		add(lblSupprimer);
+		lblSupprimer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
+		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
+
+		btnEssayer = new JButton("ESSAYER LE NIVEAU");
+		btnEssayer.setBounds(1095, 659, 60, 60);
+		add(btnEssayer);
+		btnEssayer.setFont(new Font("Comic Sans MS", Font.BOLD, 10));
+		btnEssayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				essayerNiveau();
+			}
+
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("essayer.png", btnEssayer);
+
+		lblEssayer = new JLabel("<html><center>ESSAYER LE NIVEAU<br>\r\n[CTRL + E]<html>");
+		lblEssayer.setForeground(new Color(51, 51, 51));
+		lblEssayer.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEssayer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
+		lblEssayer.setBounds(1079, 721, 93, 26);
+		add(lblEssayer);
 
 	}
 
@@ -531,7 +611,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void afficherSelection() {
-		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
+//		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
 
@@ -569,7 +649,9 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Retourne vrai si le niveau contient un vaisseau et un drapeau
+	 * Retourne vrai si le niveau contient un vaisseau et un drapeau. Affiche
+	 * également une fenêtre pop-up lorsque le niveau n'est pas bien construit comme
+	 * avertissement.
 	 * 
 	 * @return vrai si le niveau contient un vaisseau et un drapeau
 	 */
@@ -752,7 +834,7 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Réinitialise cet éditeur de niveaux
+	 * Réinitialise cet éditeur de niveaux sauf le niveau
 	 */
 	// Jason Xa
 	private void reinitialiserSaufNiveau() {
@@ -810,6 +892,6 @@ public class PanelEditeur extends JPanel {
 	// Giroux
 	private void rotationnerApresPlacement() {
 		grille.setRotationPostPlacement();
-		
+
 	}
 }

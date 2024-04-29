@@ -1,11 +1,12 @@
 package math;
 
-
-
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+
 /**
- * Classe qui permet d'instancer des matrices de rotation pour permettre de rotationner différents objets
+ * Classe qui permet d'instancer des matrices de rotation pour permettre de
+ * rotationner différents objets
+ * 
  * @author Giroux
  */
 public class MatriceRotation implements Serializable {
