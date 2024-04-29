@@ -21,8 +21,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import dessin.ZoneAnimationPhysique;
+import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  * Panel du mode de jeu
@@ -130,6 +133,7 @@ public class PanelJeu extends JPanel {
 	private JLabel labelPosition;
 
 	private JLabel lblIndiceChargeVaisseau;
+	private JComboBox cmbVitesseAnimation;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -302,6 +306,16 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
 		zoneAnimationPhysique.setNiveau(nomNiveau);
+	}
+	
+	/**
+	 * Modifie le niveau de la zone d'animation physique
+	 * 
+	 * @param niveau Le niveau
+	 */
+	//Kitimir Yim
+	public void modifierNiveauDeZoneAnimationPhysique(Niveau niveau) {
+		zoneAnimationPhysique.setNiveau(niveau);
 	}
 
 	/**
@@ -476,6 +490,7 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void lierTourniquetsAvecNiveau() {
 		spnMasseVaisseau = new JSpinner();
+		spnMasseVaisseau.setFocusable(false);
 		spnMasseVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
@@ -492,6 +507,7 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(spnMasseVaisseau);
 
 		spnChargeVaisseau = new JSpinner();
+		spnChargeVaisseau.setFocusable(false);
 		spnChargeVaisseau.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
@@ -508,6 +524,7 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(spnChargeVaisseau);
 
 		spnGravite = new JSpinner();
+		spnGravite.setFocusable(false);
 		spnGravite.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
@@ -524,6 +541,7 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(spnGravite);
 
 		spnChargePlaque = new JSpinner();
+		spnChargePlaque.setFocusable(false);
 		spnChargePlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// debut
@@ -540,6 +558,7 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(spnChargePlaque);
 
 		spnCoefFrictionStat = new JSpinner();
+		spnCoefFrictionStat.setFocusable(false);
 		spnCoefFrictionStat.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// début
@@ -555,6 +574,7 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(spnCoefFrictionStat);
 
 		spnCoefFrictionCine = new JSpinner();
+		spnCoefFrictionCine.setFocusable(false);
 		spnCoefFrictionCine.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				// début
@@ -569,28 +589,45 @@ public class PanelJeu extends JPanel {
 																										// zone d'entrée
 		panelEntree.add(spnCoefFrictionCine);
 
-		spnTempsSleep = new JSpinner();
-		spnTempsSleep.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				// debut
-				zoneAnimationPhysique.setTempsSleep((int) spnTempsSleep.getValue());
+//		spnTempsSleep = new JSpinner();
+//		spnTempsSleep.setFocusable(false);
+//		spnTempsSleep.addChangeListener(new ChangeListener() {
+//			public void stateChanged(ChangeEvent e) {
+//				// debut
+//				zoneAnimationPhysique.setTempsSleep( ((Double)spnTempsSleep.getValue()).intValue() );
+//				zoneAnimationPhysique.requestFocusInWindow();
+//				// fin
+//			}
+//		});
+//		spnTempsSleep.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getTempsSleep(), 5, 100, 5));
+//		spnTempsSleep.setBounds(225, 431, 140, 35);
+//		((JSpinner.DefaultEditor) spnTempsSleep.getEditor()).getTextField().setEditable(false); // Désactive la zone
+//																							// d'entrée
+//		panelEntree.add(spnTempsSleep);
+
+		cmbVitesseAnimation = new JComboBox();
+		cmbVitesseAnimation.setFocusable(false);
+		cmbVitesseAnimation.setFocusTraversalKeysEnabled(false);
+		cmbVitesseAnimation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changerVitesseAnimation();
 				zoneAnimationPhysique.requestFocusInWindow();
-				// fin
 			}
 		});
-		spnTempsSleep.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getTempsSleep(), 5, 100, 5));
-		spnTempsSleep.setBounds(225, 431, 140, 35);
-		((JSpinner.DefaultEditor) spnTempsSleep.getEditor()).getTextField().setEditable(false); // Désactive la zone
-																							// d'entrée
-		panelEntree.add(spnTempsSleep);
-
-		JLabel lblTempsSleep = new JLabel("Temps du sleep (Millisecondes) :");
-		lblTempsSleep.setBounds(10, 437, 180, 23);
-		panelEntree.add(lblTempsSleep);
+		cmbVitesseAnimation.setModel(new DefaultComboBoxModel(new String[] {"Très rapide", "Rapide", "Moyen", "Lent", "Très lent"}));
+		cmbVitesseAnimation.setSelectedIndex(2);
+		cmbVitesseAnimation.setBounds(225, 431, 140, 35);
+		panelEntree.add(cmbVitesseAnimation);
+		
+		JLabel lblVitesseAnimation = new JLabel("Vitesse d'animation :");
+		lblVitesseAnimation.setBounds(10, 437, 180, 23);
+		panelEntree.add(lblVitesseAnimation);
 
 		JLabel lblChargePlaqueSuite = new JLabel("en valeur absolue (Coulombs) :");
 		lblChargePlaqueSuite.setBounds(10, 235, 205, 26);
 		panelEntree.add(lblChargePlaqueSuite);
+		
+		
 	}
 
 	/**
@@ -603,7 +640,8 @@ public class PanelJeu extends JPanel {
 		btnDemarrer.setEnabled(true);
 		btnRedemarrer.setEnabled(false);
 
-		spnTempsSleep.setValue(zoneAnimationPhysique.getTempsSleepInitial());
+		//spnTempsSleep.setValue(zoneAnimationPhysique.getTempsSleepInitial());
+		cmbVitesseAnimation.setSelectedIndex(2);
 		spnChargeVaisseau.setValue(zoneAnimationPhysique.getChargeInitialeVaisseau());
 		spnMasseVaisseau.setValue(zoneAnimationPhysique.getMasseInitialeVaisseau());
 		spnChargePlaque.setValue(zoneAnimationPhysique.getChargeInitialePlaque());
@@ -612,6 +650,32 @@ public class PanelJeu extends JPanel {
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
 	}// fin methode reinitialiserZoneAnimation
 
+	/**
+	 * Permet de changer la vitesse de l'animation à l'aide du temps du sleep
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void changerVitesseAnimation() {
+		int valeur;
+		
+		switch (cmbVitesseAnimation.getSelectedIndex()) {
+			case 0:
+				valeur = 2;
+				break;
+			case 1:
+				valeur = 5;
+				break;
+			case 2:
+				valeur = 8;
+				break;
+			case 3:
+				valeur = 16;
+				break;
+			default:
+				valeur = 20;
+		}
+		zoneAnimationPhysique.setTempsSleep(valeur);
+	}
+	
 	/**
 	 * Méthode qui effectue les changements des propriétés lors des changements de
 	 * statut de la plaque
@@ -631,11 +695,13 @@ public class PanelJeu extends JPanel {
 		}
 	}
 
+	/**
+	 * Retourne la zone d'animation physique
+	 * 
+	 * @return La zone d'animation physique
+	 */
+	// Enuel René Valentin Kizozo Izia 
 	public ZoneAnimationPhysique getZoneAnimationPhysique() {
-		return zoneAnimationPhysique;
-	}
-
-	public ZoneAnimationPhysique getZone() {
 		return zoneAnimationPhysique;
 	}
 }

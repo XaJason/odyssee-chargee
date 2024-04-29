@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -121,6 +124,8 @@ public class Grille extends JPanel implements Serializable {
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 	/** Boolean qui indique si on mode rotation **/
 	private boolean rotationPostPlacement = false;
+	/** Boolean qui indique qu'on déplace une tuile unique **/
+	private boolean deplacementTuileUnique = false;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -169,6 +174,7 @@ public class Grille extends JPanel implements Serializable {
 			public void mouseEntered(MouseEvent e) {
 				if (modeEditeur) {
 					exterieurComposant = false;
+
 				}
 			}// fin mouseEntered
 
@@ -181,7 +187,7 @@ public class Grille extends JPanel implements Serializable {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				gererSourisRelachee(e);
-				positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+
 			}
 		});
 
@@ -189,48 +195,83 @@ public class Grille extends JPanel implements Serializable {
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if (modeEditeur) {
-					gererCurseur();
-					positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
-					dernierX = e.getX();
-					dernierY = e.getY();
-					repaint();
-				}
+
+				gererCurseur();
+				positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
+				dernierX = e.getX();
+				dernierY = e.getY();
+				repaint();
+
 			}
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				placerTuile(e);
+				if (rotationPostPlacement) {
+				} else {
+					placerTuile(e);
+				}
 			}
 		});
 	}// Fin constructeur
 
+	/**
+	 * Gère les touches du clavier lorsqu'elles sont enfoncées
+	 * 
+	 * @param e l'évènement du clavier
+	 */
+	// Jason Xa
 	private void gererTouchesClavierEnfoncees(KeyEvent e) {
 		int code = e.getKeyCode();
 
 		if (e.isControlDown() && code == KeyEvent.VK_S) {
 			PCS.firePropertyChange("Sauvegarder", null, null);
-		}
-		switch (code) {
-		case KeyEvent.VK_Q:
-			PCS.firePropertyChange("Sélectionner carré", null, null);
-			System.out.println("LeBron James");
-			break;
-		case KeyEvent.VK_W:
-			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
-			break;
-		case KeyEvent.VK_E:
-			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
-			break;
+		} else if (e.isControlDown() && code == KeyEvent.VK_R) {
+			PCS.firePropertyChange("Réinitialiser", null, null);
+		} else if (e.isControlDown() && code == KeyEvent.VK_E) {
+			PCS.firePropertyChange("Essayer le niveau", null, null);
+		} else {
+			switch (code) {
+			case KeyEvent.VK_Q:
+				PCS.firePropertyChange("Sélectionner carré", null, null);
+				break;
+			case KeyEvent.VK_W:
+				PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+				break;
+			case KeyEvent.VK_E:
+				PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
+				break;
+			case KeyEvent.VK_A:
+				PCS.firePropertyChange("Sélectionner pics", null, null);
+				break;
+			case KeyEvent.VK_S:
+				PCS.firePropertyChange("Sélectionner portail", null, null);
+				break;
+			case KeyEvent.VK_D:
+				if (!contientDrapeau()) {
+					PCS.firePropertyChange("Sélectionner drapeau", null, null);
+				}
+				break;
+			case KeyEvent.VK_F:
+				if (!contientVaisseau()) {
+					PCS.firePropertyChange("Sélectionner vaisseau", null, null);
+				}
+				break;
 
+			}
 		}
-
 	}
 
+	/**
+	 * Gère les évènements de la souris lorsqu'elle est relâchée
+	 * 
+	 * @param e l'évènement de la souris
+	 */
+	// Jason Xa
 	private void gererSourisRelachee(MouseEvent e) {
 		switch (e.getButton()) {
 		case MouseEvent.BUTTON3:
 			supprimer = false;
+			positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 			break;
 		}
 	}
@@ -244,13 +285,12 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile(e.getX() / pixelsParMetre, e.getY() / pixelsParMetre);
 		if (!supprimer) {
 			if (tuile != null) {
-
 				sauvegarderEmplacement();
+
 			}
 		} else {
 			supprimerCase();
 		}
-		afficherTab();
 
 		repaint();
 
@@ -300,11 +340,11 @@ public class Grille extends JPanel implements Serializable {
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
 
-//			if (supprimer) {
-//				setBackground(Color.red);
-//			} else {
+			if (supprimer) {
+				setBackground(Color.red);
+			} else {
 			setBackground(new Color(255, 255, 128));
-//			}
+			}
 
 			if (placePrise && !supprimer) {
 				g2dPrive.setColor(Color.orange);
@@ -313,6 +353,7 @@ public class Grille extends JPanel implements Serializable {
 			}
 
 			dessinerTuileLorsSurvol(g2dPrive);
+
 			dessinerLesTuiles(g2dPrive);
 
 			g2dPrive.setColor(Color.black);
@@ -475,6 +516,7 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
+
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -484,6 +526,7 @@ public class Grille extends JPanel implements Serializable {
 							tabEmplacement[i][j] = tuileTemp;
 							tuileTemp.setPoint();
 							gererPortails();
+							afficherTab();
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
@@ -494,8 +537,7 @@ public class Grille extends JPanel implements Serializable {
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
 							}
-						} else if (rotationPostPlacement) {
-							rotationPostPlacement();
+
 						} else {
 							System.out.println("Cet emplacement possède déjà un bloc");
 
@@ -605,9 +647,8 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
-
 			g2d.fill(emplacementActuel);
-			if (tuile != null && !supprimer) {
+			if (tuile != null && !supprimer && !rotationPostPlacement) {
 				tuile.dessiner(g2d);
 			}
 		}
@@ -759,7 +800,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void setTuile(Tuile tuile) {
-		positionnerCaseEtTuile(tuile, dernierX/pixelsParMetre, dernierY/pixelsParMetre);
+		positionnerCaseEtTuile(tuile, dernierX / pixelsParMetre, dernierY / pixelsParMetre);
 		this.tuile = tuile;
 	}
 
@@ -804,12 +845,15 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée
+	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
+	 * de l'argument
+	 * 
+	 * @param signum 1 si positif, 0 si nul, -1 si négatif
 	 */
 	// Jason Xa
-	public void rotation() {
-		if (tuile != null) {
-			tuile.setAngleRotation(tuile.getAngleRotation() + 0.5 * Math.PI);
+	public void rotation(int signum) {
+		if (tuile != null && tuile.getType() != "Vaisseau") {
+			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.125 * Math.PI);
 			repaint();
 		}
 	}
@@ -839,7 +883,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD Vérifie si la grille contient au moins une tuile du type
+	 * Vérifie si la grille contient au moins une tuile du type
 	 * spécifié.
 	 * 
 	 * @param typeTuile le type de tuile à rechercher dans la grille
@@ -876,18 +920,7 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * <<<<<<< HEAD
-	 * <<<<<<< HEAD ======= ======= >>>>>>> branch 'master' of
-	 * https://gitlab.com/Kitimir/22_odysseechargee.git >>>>>>> branch 'master' of
-	 * https://gitlab.com/Kitimir/22_odysseechargee.git Lie un portail si nécessaire
-	 * =======
-	 * <<<<<<< HEAD
-	 * =======
-	 * =======
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * Lie un portail si nécessaire
-	 * >>>>>>> branch 'master' of https://gitlab.com/Kitimir/22_odysseechargee.git
 	 * 
 	 * @param tuile L'autre tuile (contenant un portail) à laquelle lier un portail
 	 */
@@ -954,7 +987,14 @@ public class Grille extends JPanel implements Serializable {
 		return drapeauPresent;
 	}
 
-	public void rotationPostPlacement() {
+	/**
+	 * Méthode qui permet de rotationner une tuile déjà placer
+	 * 
+	 * @param e l'évènement de la souris
+	 */
+	// Giroux
+	public void rotationPostPlacement(MouseEvent e) {
+		clique = e.getPoint();
 		for (int i = 0; i < nbCaseVerticale; i++) {
 			if (clique.getY() / pixelsParMetre >= i * hauteurCase
 					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
@@ -978,12 +1018,22 @@ public class Grille extends JPanel implements Serializable {
 
 	}
 
+	/**
+	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
+	 */
+	// Giroux
 	public void setRotationPostPlacement() {
-		if (rotationPostPlacement) {
-			rotationPostPlacement = false;
-		} else {
-			rotationPostPlacement = true;
-		}
+		rotationPostPlacement = !rotationPostPlacement;
+	}
+
+	/**
+	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
+	 * 
+	 * @param rotationPostPlacement vrai si la rotation post-placement est activée
+	 */
+	// Jason Xa
+	public void setRotationPostPlacement(boolean rotationPostPlacement) {
+		this.rotationPostPlacement = rotationPostPlacement;
 	}
 
 	/**
@@ -1007,7 +1057,19 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			placerTuile(e);
+			if (!supprimer) {
+				reinitialiseStatutTuileUnique(e);
+			}
+			if (deplacementTuileUnique) {
+				deplacementTuileUnique = false;
+			} else {
+				if (rotationPostPlacement) {
+					rotationPostPlacement(e);
+				} else {
+					placerTuile(e);
+				}
+			}
+
 			break;
 		}
 		gererCurseur();
@@ -1026,18 +1088,14 @@ public class Grille extends JPanel implements Serializable {
 		case KeyEvent.VK_SPACE:
 			gererSupprimer();
 			break;
-		case KeyEvent.VK_Q:
-			PCS.firePropertyChange("Sélectionner carré", null, null);
-			System.out.println("LeBron James");
+		case KeyEvent.VK_R:
+			PCS.firePropertyChange("Rotation pré-placement", null, null);
 			break;
-		case KeyEvent.VK_W:
-			PCS.firePropertyChange("Sélectionner triangle rectangle", null, null);
+		case KeyEvent.VK_T:
+			PCS.firePropertyChange("Rotation post-placement", null, null);
 			break;
-		case KeyEvent.VK_E:
-			PCS.firePropertyChange("Sélectionner triangle équilatéral", null, null);
-			break;
-
 		}
+		gererCurseur();
 	}
 
 	/**
@@ -1047,9 +1105,76 @@ public class Grille extends JPanel implements Serializable {
 	private void gererCurseur() {
 		if (supprimer) {
 			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		} else if (rotationPostPlacement) {
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			Image image = toolkit.getImage("ressources/rotationPostPlacementVert.png");
+//			Point pointMilieuImage = new Point((int)(image.getWidth(null)/2),(int) (image.getHeight(null)/2));
+			Cursor c = toolkit.createCustomCursor(image, new Point(0, 0), "Le curseur");
+			setCursor(c);
+
 		} else {
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
+	}
+
+	/**
+	 * Méthode qui indique si en mode rotation ou non
+	 * 
+	 * @return Vrai si en rotation, ou faux dans le cas contraire
+	 */
+	// Giroux
+	public boolean getRotationPostPlacement() {
+		return rotationPostPlacement;
+	}
+
+	/**
+	 * Méthode qui permet de déplacer les tuiles uniques en reinitialisant leurs
+	 * conditions pour repermettre le déplacement
+	 * 
+	 * @param e le point où on clique
+	 */
+	// Giroux
+	private void reinitialiseStatutTuileUnique(MouseEvent e) {
+		clique = e.getPoint();
+		for (int i = 0; i < nbCaseVerticale; i++) {
+			if (clique.getY() / pixelsParMetre >= i * hauteurCase
+					&& clique.getY() / pixelsParMetre < ((i + 1) * hauteurCase)) {
+				for (int j = 0; j < nbCaseHorizontale; j++) {
+					if (clique.getX() / pixelsParMetre >= j * largeurCase
+							&& clique.getX() / pixelsParMetre < ((j + 1) * largeurCase)) {
+						if (tabEmplacement[i][j] != null && !rotationPostPlacement) {
+							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
+								deplacementTuileUnique = true;
+								drapeau = false;
+								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
+								setTuile(new Drapeau(tabEmplacement[i][j].getAngleRotation()));
+								tabEmplacement[i][j] = null;
+							} else if (tabEmplacement[i][j].getVaisseau() && vaisseau) {
+
+								deplacementTuileUnique = true;
+								vaisseau = false;
+								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
+								setTuile(new VaisseauImage(tabEmplacement[i][j].getAngleRotation()));
+								tabEmplacement[i][j] = null;
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * Associe une nouvelle valeur qui dit vrai si la souris est à l'extérieur de la
+	 * grille
+	 * 
+	 * @param exterieurComposant vrai si la souris est à l'extérieur de la grille
+	 */
+	// Jason Xa
+	public void setExterieurComposant(boolean exterieurComposant) {
+		this.exterieurComposant = exterieurComposant;
 	}
 
 }

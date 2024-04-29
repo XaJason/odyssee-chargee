@@ -38,6 +38,7 @@ import tuile.TriangleRectangle;
 import tuile.Tuile;
 import tuile.VaisseauImage;
 import utilitaires.ConstanteComposantsSwing;
+import utilitaires.OutilsImage;
 
 /**
  * Application permettant d'accéder au jeu Odyssée chargée
@@ -119,16 +120,16 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Zone de la ZoneAnimationPhysique
 	 */
-	private ZoneAnimationPhysique zone;
+	private ZoneAnimationPhysique zoneAnimation;
 
-//	/** largeur d'une tuile */
-//	private final int LARGEUR_TUILE = 60;
-//	/** hauteur d'une tuile */
-//	private final int HAUTEUR_TUILE = 60;
-//	/** hauteur d'une demi-tuile */
-//	private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
-//	/** Diamètre du vaisseau **/
-//	private final int DIAMETRE_VAISSEAU = LARGEUR_TUILE / 2;
+	// /** largeur d'une tuile */
+	// private final int LARGEUR_TUILE = 60;
+	// /** hauteur d'une tuile */
+	// private final int HAUTEUR_TUILE = 60;
+	// /** hauteur d'une demi-tuile */
+	// private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
+	// /** Diamètre du vaisseau **/
+	// private final int DIAMETRE_VAISSEAU = LARGEUR_TUILE / 2;
 
 	/**
 	 * Lance l'application
@@ -177,34 +178,37 @@ public class AppPrincipale22 extends JFrame {
 		//lireImages();
 		//gererConstantes();
 
-//		 if (leClip != null)
-//		 leClip.close();
-//		 chargerLeSon(NOM_FICHIER_SON_1);
-//		 leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		// if (leClip != null)
+		// leClip.close();
+		// chargerLeSon(NOM_FICHIER_SON_1);
+		// leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
-//	/**
-//	 * Gère les constantes réutilisées hors de cette classe
-//	 */
-//	// Jason Xa
-//	private void gererConstantes() {
-//		Tuile.setHauteurTuile(HAUTEUR_TUILE);
-//		Tuile.setLargeurTuile(LARGEUR_TUILE);
-//	}
+	// /**
+	// * Gère les constantes réutilisées hors de cette classe
+	// */
+	// // Jason Xa
+	// private void gererConstantes() {
+	// Tuile.setHauteurTuile(HAUTEUR_TUILE);
+	// Tuile.setLargeurTuile(LARGEUR_TUILE);
+	// }
 
-//	/**
-//	 * Lit, redimensionne et définit l'image pour chaque type de tuile
-//	 */
-//	// Enuel René Valentin Kizozo Izia
-//	private void lireImages() {
-//		Carre.setImageRef("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE);
-//		TriangleEquilateral.setImageRef("triangle_equilateral.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-//		TriangleRectangle.setImageRef("triangle_rectangle.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-//		Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-//		Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-//		Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
-//		VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU, DIAMETRE_VAISSEAU);
-//	}
+	// /**
+	// * Lit, redimensionne et définit l'image pour chaque type de tuile
+	// */
+	// // Enuel René Valentin Kizozo Izia
+	// private void lireImages() {
+	// Carre.setImageRef("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE);
+	// TriangleEquilateral.setImageRef("triangle_equilateral.png", LARGEUR_TUILE,
+	// HAUTEUR_TUILE);
+	// TriangleRectangle.setImageRef("triangle_rectangle.png", LARGEUR_TUILE,
+	// HAUTEUR_TUILE);
+	// Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+	// Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
+	// Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
+	// VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU,
+	// DIAMETRE_VAISSEAU);
+	// }
 
 	/**
 	 * Créer les boutons.
@@ -212,27 +216,72 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private void creerBoutons() {
 
+		FondEcran fondEcran = new FondEcran("fond.jpg");
+		fondEcran.setBounds(0, 0, 1920, 1080);
+		panMenuPrincipal.add(fondEcran);
+		fondEcran.setLayout(null);
+
+		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
+		btnModeEditeur.setFocusable(false);
+		btnModeEditeur.setBounds(472, 304, 303, 104);
+		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
+		fondEcran.add(btnModeEditeur);
+
+		JButton btnReglages = new JButton("Réglages");
+		btnReglages.setFocusable(false);
+		btnReglages.setBounds(502, 419, 243, 100);
+		OutilsImage.lireImageEtPlacerSurBouton("reglages.png", btnReglages);
+		fondEcran.add(btnReglages);
+
+		JButton btnAPropos = new JButton("À propos");
+		btnAPropos.setFocusable(false);
+		btnAPropos.setBounds(487, 530, 272, 104);
+		OutilsImage.lireImageEtPlacerSurBouton("apropos.png", btnAPropos);
+		fondEcran.add(btnAPropos);
+
+		JButton btnInstructions = new JButton("Aide");
+		btnInstructions.setFocusable(false);
+		btnInstructions.setBounds(554, 645, 138, 80);
+		OutilsImage.lireImageEtPlacerSurBouton("aide.png", btnInstructions);
+		fondEcran.add(btnInstructions);
+
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.setFocusable(false);
+		btnQuitter.setBounds(502, 736, 242, 70);
+		OutilsImage.lireImageEtPlacerSurBouton("quitter.png", btnQuitter);
+		fondEcran.add(btnQuitter);
+
+		JButton btnSelectionDeNiveau = new JButton("Jouer");
+		btnSelectionDeNiveau.setFocusable(false);
+		btnSelectionDeNiveau.setBounds(554, 190, 138, 70);
+		OutilsImage.lireImageEtPlacerSurBouton("jouer.png", btnSelectionDeNiveau);
+		fondEcran.add(btnSelectionDeNiveau);
+
+		JButton btnTitre = new JButton("New button");
+		btnTitre.setFocusable(false);
+		btnTitre.setBounds(115, 101, 428, 70);
+		OutilsImage.lireImageEtPlacerSurBouton("titre.png", btnTitre);
+
+		fondEcran.add(btnTitre);
+
+		btnSelectionDeNiveau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modifierEtatApplicationPourSelectionNiveau();
+			}
+		});
+
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
 
 			}
 		});
-		btnQuitter.setBounds(975, 175, 150, 100);
-		panMenuPrincipal.add(btnQuitter);
-
-		JButton btnInstructions = new JButton("Instructions");
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
 
 			}
 		});
-		btnInstructions.setBounds(225, 470, 150, 100);
-		panMenuPrincipal.add(btnInstructions);
-
-		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, pnlAPropos, "À propos de cette application",
@@ -240,47 +289,16 @@ public class AppPrincipale22 extends JFrame {
 
 			}
 		});
-
-		btnAPropos.setBounds(975, 470, 150, 100);
-		panMenuPrincipal.add(btnAPropos);
-
-		JButton btnReglages = new JButton("Réglages");
 		btnReglages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenReglage.setVisible(true);
 			}
 		});
-		btnReglages.setBounds(600, 470, 150, 100);
-		panMenuPrincipal.add(btnReglages);
-
-		JButton btnModePrincipal = new JButton("Jouer");
-		btnModePrincipal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panSelecteurNiveau.setVisible(true);
-				panMenuPrincipal.setVisible(false);
-				setContentPane(panSelecteurNiveau);
-				menuBar.setVisible(true);
-				mntmSelection.setSelected(true);
-				mntmEditeur.setSelected(false);
-			}
-		});
-		btnModePrincipal.setBounds(225, 175, 150, 100);
-		panMenuPrincipal.add(btnModePrincipal);
-
-		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
 		btnModeEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panModeEditeur.setVisible(true);
-				panMenuPrincipal.setVisible(false);
-				setContentPane(panModeEditeur);
-				menuBar.setVisible(true);
-				mntmSelection.setSelected(false);
-				mntmEditeur.setSelected(true);
-				panModeEditeur.getGrille().requestFocus();
+				modifierEtatApplicationPourModeEditeur();
 			}
 		});
-		btnModeEditeur.setBounds(600, 175, 150, 100);
-		panMenuPrincipal.add(btnModeEditeur);
 
 	}
 
@@ -316,14 +334,30 @@ public class AppPrincipale22 extends JFrame {
 		panSelecteurNiveau = new PanelSelecteurNiveaux();
 		panModeJeu = new PanelJeu();
 
-		zone = panModeJeu.getZone();
+		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
 
-		zone.addPropertyChangeListener(new PropertyChangeListener() {
+				if (evt.getPropertyName().equals("niveauCree")) {
+					panSelecteurNiveau.actualiserNiveaux();
+				}
+				if (evt.getPropertyName().equals("niveau essai")) {
+					Niveau niveauEssai = (Niveau) evt.getNewValue();
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
+					panModeJeu.setVisible(true);
+					panModeEditeur.setVisible(false);
+					setContentPane(panModeJeu);
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+				}
+			}
+		});
+		
+		zoneAnimation = panModeJeu.getZoneAnimationPhysique();
+
+		zoneAnimation.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (evt.getPropertyName().equals("retournerNiveau")) {
-					panModeJeu.setVisible(false);
-					panSelecteurNiveau.setVisible(true);
-					setContentPane(panSelecteurNiveau);
+					modifierEtatApplicationPourSelectionNiveau();
+					zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
 				}
 			}
 
@@ -338,7 +372,7 @@ public class AppPrincipale22 extends JFrame {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocus();
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 				}
 
 				if (evt.getPropertyName().equals("passerVersNiveau2")) {
@@ -346,7 +380,7 @@ public class AppPrincipale22 extends JFrame {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocus();
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau3")) {
@@ -354,7 +388,7 @@ public class AppPrincipale22 extends JFrame {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocus();
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 				}
 				if (evt.getPropertyName().equals("passerVersJeu")) {
 					chargerNiveauVersZoneAnimationPhysique(evt);
@@ -362,7 +396,7 @@ public class AppPrincipale22 extends JFrame {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocus();
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 				}
 
 				if (evt.getPropertyName().equals("niveauSelectionne")) {
@@ -370,20 +404,12 @@ public class AppPrincipale22 extends JFrame {
 					panSelecteurNiveau.setVisible(false);
 					panModeJeu.setVisible(true);
 					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocus();
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 
 				}
 			}
 		});
 
-		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-
-				if (evt.getPropertyName().equals("niveauCree")) {
-					panSelecteurNiveau.actualiserNiveaux();
-				}
-			}
-		});
 
 	}
 
@@ -442,27 +468,21 @@ public class AppPrincipale22 extends JFrame {
 				panSelecteurNiveau.setVisible(false);
 				setContentPane(panMenuPrincipal);
 				menuBar.setVisible(false);
-				zone.reinitialiserEtatBoutonsDansPanelJeu();
+				zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
 			}
 
 		});
 		menuBar.add(mntmPrincipale);
 
-		mntmSelection = new JMenuItem("Jouer");
+		mntmSelection = new JMenuItem("Sélection de niveaux");
 
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panMenuPrincipal.setVisible(false);
-				panModeEditeur.setVisible(false);
-				panSelecteurNiveau.setVisible(true);
-				setContentPane(panSelecteurNiveau);
-				mntmSelection.setSelected(true);
-				mntmEditeur.setSelected(false);
-				zone.reinitialiserEtatBoutonsDansPanelJeu();
-
+				modifierEtatApplicationPourSelectionNiveau();
+				zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
 			}
 
 		});
@@ -473,15 +493,8 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panMenuPrincipal.setVisible(false);
-				panSelecteurNiveau.setVisible(false);
-				panModeJeu.setVisible(false);
-				panModeEditeur.setVisible(true);
-				setContentPane(panModeEditeur);
-				mntmSelection.setSelected(false);
-				mntmEditeur.setSelected(true);
-
-				zone.reinitialiserEtatBoutonsDansPanelJeu();
+				modifierEtatApplicationPourModeEditeur();
+				zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
 			}
 		});
 		menuBar.add(mntmEditeur);
@@ -493,7 +506,6 @@ public class AppPrincipale22 extends JFrame {
 		mntmInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
-
 			}
 
 		});
@@ -506,7 +518,6 @@ public class AppPrincipale22 extends JFrame {
 		mntmReglage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenReglage.setVisible(true);
-
 			}
 
 		});
@@ -521,7 +532,6 @@ public class AppPrincipale22 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, pnlAPropos, "À propos de cette application",
 						JOptionPane.PLAIN_MESSAGE);
-
 			}
 
 		});
@@ -529,6 +539,50 @@ public class AppPrincipale22 extends JFrame {
 
 	}
 
+	/**
+	 * Série d'action effectuée afin de modifier l'état de l'application,
+	 * lorsqu'on accède à la sélection de niveau :
+	 * 
+	 * Mise à jour de la visibilité de certains panneaux de regroupement
+	 * et réinitialisation de l'état des boutons du Mode Jeu
+	 */
+	// Kitimir Yim
+	private void modifierEtatApplicationPourSelectionNiveau() {
+		panSelecteurNiveau.setVisible(true);
+		panMenuPrincipal.setVisible(false);
+		panModeEditeur.setVisible(false);
+		panModeJeu.setVisible(false);
+		
+		menuBar.setVisible(true);
+		mntmSelection.setSelected(true);
+		mntmEditeur.setSelected(false);
+		setContentPane(panSelecteurNiveau);
+	}
+	
+	/**
+	 * Série d'action effectuée afin de modifier l'état de l'application,
+	 * lorsqu'on accède à l'édition de niveau :
+	 * 
+	 * Mise à jour de la visibilité de certains panneaux de regroupement
+	 * et réinitialisation de l'état des boutons du Mode Jeu
+	 */
+	// Kitimir Yim
+	private void modifierEtatApplicationPourModeEditeur() {
+		panMenuPrincipal.setVisible(false);
+		panSelecteurNiveau.setVisible(false);
+		panModeJeu.setVisible(false);
+		panModeEditeur.setVisible(true);
+		
+		menuBar.setVisible(true);
+		mntmSelection.setSelected(false);
+		mntmEditeur.setSelected(true);
+		setContentPane(panModeEditeur);
+		
+		panModeEditeur.getGrille().requestFocusInWindow();
+		panModeEditeur.getGrille().setDansModeJeu(false);
+		//panModeEditeur.getGrille().repaint();
+	}
+	
 	/**
 	 * Methode privee pour lire le son et en faire un clip La méthode a éte trouvée
 	 * dans le materiel d'appoint (de Caroline Houle) mais a été implementé et

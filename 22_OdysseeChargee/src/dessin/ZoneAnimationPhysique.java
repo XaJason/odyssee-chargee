@@ -52,7 +52,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private double hauteurDuComposantEnMetres = 300.0;
 
 	/** Pas de simulation initial (en seconde) **/
-	private final double DELTA_T_INITIAL = 0.02;
+	private final double DELTA_T_INITIAL = 0.01;
 	/** Temps de la pause du thread d'animation initiale (en milliseconde) **/
 	private final int TEMPS_DU_SLEEP_INITIAL = 10;
 	
@@ -699,7 +699,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		double rayon = Tuile.getHauteurTuile() / 2;
 		double tempsActuel = System.currentTimeMillis();
-		double cooldown = 500; 
+		double cooldown = 750; 
 		
 		if (tempsActuel - dernierUsageDuPortail >= cooldown)  {
 
@@ -1031,19 +1031,41 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Modifie le niveau en y chargeant un nouveau niveau
+	 * Modifie le niveau en en chargeant un nouveau niveau
 	 * 
 	 * @param nomNiveau Le nom du niveau (une chaîne de caractère)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNiveau(String nomNiveau) {
 		this.niveau = Sauvegarder.chargerNiveau(nomNiveau);
+		modificationSupplementaireSetNiveau(niveau);
+		repaint();
+	}
+	
+	/**
+	 * Modifie le niveau en le remplaçant par un autre
+	 * 
+	 * @param niveau Le nouveau niveau
+	 */
+	//Kitimir Yim
+	public void setNiveau(Niveau niveau) {
+		this.niveau = niveau;
+		modificationSupplementaireSetNiveau(niveau);
+		repaint();
+	}
+	
+	/**
+	 * Modification supplémentaire à effectuer lorsque l'on modifie un niveau
+	 * 
+	 * @param niveau Le nouveau niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void modificationSupplementaireSetNiveau(Niveau niveau) {
 		niveau.getGrille().setDansModeJeu(true);
 		placerVaisseauPourDebutAnimation(niveau);
 		listePlaquesChargees.clear();
-		repaint();
 	}
-
+	
 	/**
 	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveau
 	 * 

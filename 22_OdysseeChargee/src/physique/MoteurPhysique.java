@@ -20,7 +20,7 @@ import tuile.Tuile;
 public class MoteurPhysique {
 
 	/** Accélération gravitationnelle initial (celle de la Terre) (en m/s^2) **/
-	private static final double ACCEL_GRAV_INITIALE = 9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
+	private static final double ACCEL_GRAV_INITIALE = -9.80665; // changer le signe pour + quand on aura mis l'origine en bas à droite
 
 	/** Coefficient de frottement statique initial (acier-acier) **/
 	private static final double COEFF_FROT_STAT_INITIAL = 0.75;
@@ -119,7 +119,7 @@ public class MoteurPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceGravEnY(double masse) {
-		return new Vecteur2D(0, -accelGrav * masse);
+		return new Vecteur2D(0, accelGrav * masse);
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class MoteurPhysique {
 		if (vitesse.module() < EPSILON) {
 			forceFrot = VEC_ZERO;
 		} else {
-			forceFrot = new Vecteur2D(-coeffFrottementCine * masse * accelGrav * Math.cos(angleRad), 0);
+			forceFrot = new Vecteur2D(-coeffFrottementCine * masse * Math.abs(accelGrav) * Math.cos(angleRad), 0);
 		}
 		return forceFrot;
 	}
@@ -183,7 +183,7 @@ public class MoteurPhysique {
 	public static Vecteur2D calculForceFrotStat(double masse, double coeffFrottementStat, Vecteur2D vitesse,
 			double angleDeg, double sommeAutresForcesParalleles) {
 		double angleRad = angleDeg * RAPPORT_RADIANS_DEGRES;
-		double frottementStatiqueMax = -coeffFrottementStat * masse * accelGrav * Math.cos(angleRad);
+		double frottementStatiqueMax = -coeffFrottementStat * masse * Math.abs(accelGrav) * Math.cos(angleRad);
 		Vecteur2D forceFrot;
 
 		if (vitesse.module() < EPSILON) {
