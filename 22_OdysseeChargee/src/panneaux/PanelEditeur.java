@@ -743,7 +743,12 @@ public class PanelEditeur extends JPanel {
 				case "Supprimer":
 					supprimer();
 					break;
-
+				case "Afficher":
+					/*
+					 * Coder ce que tu veux pour l'afficher dans le pnael tuile temporaire
+					 * Genre appeler la méthode setTuile du panelTuileTemp
+					 */
+					break;
 				}
 			}
 

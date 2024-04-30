@@ -1198,6 +1198,7 @@ public class Grille extends JPanel implements Serializable {
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
 								setTuile(new VaisseauImage(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
+								leveePourAfficherPanelTemp();
 							}
 						}
 
@@ -1208,6 +1209,12 @@ public class Grille extends JPanel implements Serializable {
 
 	}
 
+	/*
+	 * Pour PO : sert à coder l'affichage du vaisseau dans le panel de la tuile temporaire
+	 */
+	private void leveePourAfficherPanelTemp() {
+		PCS.firePropertyChange("Afficher vaisseau", null, null);
+	}
 	/**
 	 * Associe une nouvelle valeur qui dit vrai si la souris est à l'extérieur de la
 	 * grille

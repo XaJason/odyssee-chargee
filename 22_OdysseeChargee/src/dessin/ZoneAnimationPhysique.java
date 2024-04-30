@@ -197,7 +197,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// debut
-				actualiserTouchesEnfoncees(e, true);
+				if (modeJetpack) {
+					actualiserTouchesEnfoncees(e, true);
+				}
 				gererChargeClavier(e);
 				// fin
 			}
