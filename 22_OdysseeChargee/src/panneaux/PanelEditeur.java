@@ -308,7 +308,7 @@ public class PanelEditeur extends JPanel {
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(1226, 27, 119, 27);
+		chckbxGrille.setBounds(1226, 27, 121, 27);
 		add(chckbxGrille);
 		btnCarre = new JButton();
 		btnCarre.setBounds(1095, 243, 60, 60);
@@ -358,7 +358,7 @@ public class PanelEditeur extends JPanel {
 
 		lblCarre = new JLabel("[Q]");
 		lblCarre.setForeground(new Color(51, 51, 51));
-		lblCarre.setBounds(1115, 321, 20, 18);
+		lblCarre.setBounds(1115, 321, 21, 18);
 		add(lblCarre);
 		lblCarre.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -372,7 +372,7 @@ public class PanelEditeur extends JPanel {
 
 		lblTriangleEquilateral = new JLabel("[E]");
 		lblTriangleEquilateral.setForeground(new Color(51, 51, 51));
-		lblTriangleEquilateral.setBounds(1339, 321, 17, 18);
+		lblTriangleEquilateral.setBounds(1339, 321, 18, 18);
 		add(lblTriangleEquilateral);
 		lblTriangleEquilateral.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
@@ -456,7 +456,7 @@ public class PanelEditeur extends JPanel {
 
 		lblDrapeau = new JLabel("[D]");
 		lblDrapeau.setForeground(new Color(51, 51, 51));
-		lblDrapeau.setBounds(1288, 470, 18, 18);
+		lblDrapeau.setBounds(1288, 470, 19, 18);
 		add(lblDrapeau);
 		lblDrapeau.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
@@ -505,14 +505,14 @@ public class PanelEditeur extends JPanel {
 
 		lblRotationPostPlacement = new JLabel("<html><center>ROTATION<br>POST-PLACEMENT<br>\r\n[T]<html>");
 		lblRotationPostPlacement.setForeground(new Color(51, 51, 51));
-		lblRotationPostPlacement.setBounds(1085, 610, 81, 39);
+		lblRotationPostPlacement.setBounds(1085, 610, 82, 39);
 		add(lblRotationPostPlacement);
 		lblRotationPostPlacement.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 
 		lblRotationPrePlacement = new JLabel(
 				"<html><trailing>ROTATION<br>PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT<br>MOLETTE<html>");
 		lblRotationPrePlacement.setForeground(new Color(102, 51, 0));
-		lblRotationPrePlacement.setBounds(1285, 90, 126, 72);
+		lblRotationPrePlacement.setBounds(1285, 90, 130, 90);
 		add(lblRotationPrePlacement);
 		lblRotationPrePlacement.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
@@ -531,7 +531,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSauvegarder = new JLabel("<html><center>SAUVEGARDER<br>\r\n[CTRL + S]<html>");
 		lblSauvegarder.setForeground(new Color(51, 51, 51));
-		lblSauvegarder.setBounds(1314, 721, 66, 26);
+		lblSauvegarder.setBounds(1314, 721, 69, 26);
 		add(lblSauvegarder);
 		lblSauvegarder.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
@@ -548,7 +548,7 @@ public class PanelEditeur extends JPanel {
 
 		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
 		lblReinitialiser.setForeground(new Color(51, 51, 51));
-		lblReinitialiser.setBounds(1311, 610, 72, 26);
+		lblReinitialiser.setBounds(1311, 610, 74, 26);
 		add(lblReinitialiser);
 		lblReinitialiser.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -567,7 +567,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br><html>");
 		lblSupprimer.setForeground(new Color(51, 51, 51));
-		lblSupprimer.setBounds(1200, 610, 75, 56);
+		lblSupprimer.setBounds(1200, 610, 66, 39);
 		add(lblSupprimer);
 		lblSupprimer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -588,7 +588,7 @@ public class PanelEditeur extends JPanel {
 		lblEssayer.setForeground(new Color(51, 51, 51));
 		lblEssayer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEssayer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
-		lblEssayer.setBounds(1079, 721, 93, 26);
+		lblEssayer.setBounds(1079, 721, 96, 39);
 		add(lblEssayer);
 
 	}
@@ -858,16 +858,19 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Giroux
 	private void reinitialiser() {
-		grille.reinitialiser();
-		grille.setSupprimer(false);
-		grille.setTuile(null);
-		panelTuileTemp.setTuile(null);
-		grille.setRotationPostPlacement(false);
-		repaint();
-		btnDrapeau.setEnabled(true);
-		btnVaisseau.setEnabled(true);
-		desactiveBooleanPostRotastion();
-		desactiveBooleanSupprimer();
+		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveaux?",
+				"Confirmation de réinitialisation", JOptionPane.YES_NO_OPTION) == 0) {
+			grille.reinitialiser();
+			grille.setSupprimer(false);
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+			grille.setRotationPostPlacement(false);
+			repaint();
+			btnDrapeau.setEnabled(true);
+			btnVaisseau.setEnabled(true);
+			desactiveBooleanPostRotastion();
+			desactiveBooleanSupprimer();
+		}
 	}
 
 	/**
@@ -936,12 +939,12 @@ public class PanelEditeur extends JPanel {
 	// Giroux
 	private void rotationnerApresPlacement() {
 		gererRotationPostPlacement();
-		
 
 	}
-	
+
 	/**
-	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un bouton, un booléen, une image et un panneau
+	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
+	 * bouton, un booléen, une image et un panneau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void reinitialiserRotationPostPlacement() {
@@ -979,7 +982,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setRotation(false);
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 	}
-	
+
 	/**
 	 * Méthode qui désactive les booléans de rotation supprimer de grille et de
 	 * la fenêtre de la tuile temporaire
@@ -990,5 +993,5 @@ public class PanelEditeur extends JPanel {
 	private void desactiveBooleanSupprimer() {
 		grille.setSupprimer(false);
 		panelTuileTemp.setSupprimer(false);
-			}
+	}
 }
