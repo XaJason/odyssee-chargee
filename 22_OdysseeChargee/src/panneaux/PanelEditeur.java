@@ -36,6 +36,7 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
+import javax.swing.border.LineBorder;
 
 /**
  * Panel du mode éditeur
@@ -225,6 +226,7 @@ public class PanelEditeur extends JPanel {
 		setLayout(null);
 
 		grille = new Grille();
+		grille.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		grille.setOpaque(false);
 		grille.addFocusListener(new FocusAdapter() {
 			@Override
