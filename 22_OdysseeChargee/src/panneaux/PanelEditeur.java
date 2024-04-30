@@ -267,8 +267,8 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Vérifie les conditions pour essayer un niveau, lance un événement pour accéder au mode jeu
-	 * et réinitialise certains paramètres de la grille
+	 * Vérifie les conditions pour essayer un niveau, lance un événement pour
+	 * accéder au mode jeu et réinitialise certains paramètres de la grille
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void essayerNiveau() {
@@ -280,7 +280,7 @@ public class PanelEditeur extends JPanel {
 //					"Avertissement", JOptionPane.WARNING_MESSAGE, null);
 //		}
 	}
-	
+
 	/**
 	 * Permet d'accéder au mode jeu et réinitialise certains paramètres de la grille
 	 */
@@ -290,7 +290,7 @@ public class PanelEditeur extends JPanel {
 		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
 		reinitialiserSaufNiveau();
 	}
-	
+
 	/**
 	 * Création des boutons d'action pour la création du niveau
 	 */
@@ -308,7 +308,7 @@ public class PanelEditeur extends JPanel {
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(1226, 27, 119, 27);
+		chckbxGrille.setBounds(1226, 27, 121, 27);
 		add(chckbxGrille);
 		btnCarre = new JButton();
 		btnCarre.setBounds(1095, 243, 60, 60);
@@ -358,7 +358,7 @@ public class PanelEditeur extends JPanel {
 
 		lblCarre = new JLabel("[Q]");
 		lblCarre.setForeground(new Color(51, 51, 51));
-		lblCarre.setBounds(1115, 321, 20, 18);
+		lblCarre.setBounds(1115, 321, 21, 18);
 		add(lblCarre);
 		lblCarre.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -372,7 +372,7 @@ public class PanelEditeur extends JPanel {
 
 		lblTriangleEquilateral = new JLabel("[E]");
 		lblTriangleEquilateral.setForeground(new Color(51, 51, 51));
-		lblTriangleEquilateral.setBounds(1339, 321, 17, 18);
+		lblTriangleEquilateral.setBounds(1339, 321, 18, 18);
 		add(lblTriangleEquilateral);
 		lblTriangleEquilateral.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
@@ -456,7 +456,7 @@ public class PanelEditeur extends JPanel {
 
 		lblDrapeau = new JLabel("[D]");
 		lblDrapeau.setForeground(new Color(51, 51, 51));
-		lblDrapeau.setBounds(1288, 470, 18, 18);
+		lblDrapeau.setBounds(1288, 470, 19, 18);
 		add(lblDrapeau);
 		lblDrapeau.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
@@ -505,14 +505,14 @@ public class PanelEditeur extends JPanel {
 
 		lblRotationPostPlacement = new JLabel("<html><center>ROTATION<br>POST-PLACEMENT<br>\r\n[T]<html>");
 		lblRotationPostPlacement.setForeground(new Color(51, 51, 51));
-		lblRotationPostPlacement.setBounds(1085, 610, 81, 39);
+		lblRotationPostPlacement.setBounds(1085, 610, 82, 39);
 		add(lblRotationPostPlacement);
 		lblRotationPostPlacement.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 
 		lblRotationPrePlacement = new JLabel(
 				"<html><trailing>ROTATION<br>PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT<br>MOLETTE<html>");
 		lblRotationPrePlacement.setForeground(new Color(102, 51, 0));
-		lblRotationPrePlacement.setBounds(1285, 90, 126, 72);
+		lblRotationPrePlacement.setBounds(1285, 90, 130, 90);
 		add(lblRotationPrePlacement);
 		lblRotationPrePlacement.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
@@ -531,7 +531,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSauvegarder = new JLabel("<html><center>SAUVEGARDER<br>\r\n[CTRL + S]<html>");
 		lblSauvegarder.setForeground(new Color(51, 51, 51));
-		lblSauvegarder.setBounds(1314, 721, 66, 26);
+		lblSauvegarder.setBounds(1314, 721, 69, 26);
 		add(lblSauvegarder);
 		lblSauvegarder.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
@@ -548,7 +548,7 @@ public class PanelEditeur extends JPanel {
 
 		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
 		lblReinitialiser.setForeground(new Color(51, 51, 51));
-		lblReinitialiser.setBounds(1311, 610, 72, 26);
+		lblReinitialiser.setBounds(1311, 610, 74, 26);
 		add(lblReinitialiser);
 		lblReinitialiser.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -567,7 +567,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br><html>");
 		lblSupprimer.setForeground(new Color(51, 51, 51));
-		lblSupprimer.setBounds(1200, 610, 75, 56);
+		lblSupprimer.setBounds(1200, 610, 66, 39);
 		add(lblSupprimer);
 		lblSupprimer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -588,7 +588,7 @@ public class PanelEditeur extends JPanel {
 		lblEssayer.setForeground(new Color(51, 51, 51));
 		lblEssayer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEssayer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
-		lblEssayer.setBounds(1079, 721, 93, 26);
+		lblEssayer.setBounds(1079, 721, 96, 39);
 		add(lblEssayer);
 
 	}
@@ -641,11 +641,12 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Retourne vrai si le niveau contient un vaisseau, un drapeau et un nombre pair de portail.
-	 * Affiche également une fenêtre pop-up lorsque le niveau n'est pas bien construit comme
-	 * avertissement.
+	 * Retourne vrai si le niveau contient un vaisseau, un drapeau et un nombre pair
+	 * de portail. Affiche également une fenêtre pop-up lorsque le niveau n'est pas
+	 * bien construit comme avertissement.
 	 * 
-	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveau soit bien construit
+	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveau soit
+	 *                        bien construit
 	 * @return vrai si le niveau contient un vaisseau et un drapeau
 	 */
 	// Jason Xa
@@ -662,17 +663,18 @@ public class PanelEditeur extends JPanel {
 			tuilesManquantes = tuilesManquantes + "\n     - Drapeau d'arrivée";
 		}
 		if (!tuilesManquantes.isBlank()) {
-			JOptionPane.showMessageDialog(null,
-					"Objets à placer:" + tuilesManquantes + "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveau.",
-					"Niveau inadéquat", 2, null);
+			JOptionPane.showMessageDialog(null, "Objets à placer:" + tuilesManquantes
+					+ "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveau.", "Niveau inadéquat", 2,
+					null);
 		}
-		return ( grille.contientVaisseau() && grille.contientDrapeau() && grille.portailsTousLies() );
+		return (grille.contientVaisseau() && grille.contientDrapeau() && grille.portailsTousLies());
 	}
 
 	/**
 	 * Vérifie que tous les portails ont une paire
 	 * 
-	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles manquantes
+	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles
+	 *                         manquantes
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private String conditionPortails(String tuilesManquantes) {
@@ -681,6 +683,7 @@ public class PanelEditeur extends JPanel {
 		}
 		return tuilesManquantes;
 	}
+
 	/**
 	 * S'occupe de la levée d'évenement
 	 */
@@ -737,6 +740,9 @@ public class PanelEditeur extends JPanel {
 				case "Essayer le niveau":
 					transfertVersModeJeu();
 					break;
+				case "Supprimer":
+					supprimer();
+					break;
 
 				}
 			}
@@ -754,6 +760,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new VaisseauImage());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -766,6 +773,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new Carre());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -778,6 +786,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new TriangleRectangle());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -790,6 +799,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new TriangleEquilateral());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -802,6 +812,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new Pics());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -814,6 +825,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new Portail());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -827,6 +839,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(new Drapeau());
 		afficherSelection();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 
 	}
@@ -836,15 +849,19 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Giroux
 	private void reinitialiser() {
-		grille.reinitialiser();
-		grille.setSupprimer(false);
-		grille.setTuile(null);
-		panelTuileTemp.setTuile(null);
-		grille.setRotationPostPlacement(false);
-		repaint();
-		btnDrapeau.setEnabled(true);
-		btnVaisseau.setEnabled(true);
-		desactiveBooleanPostRotastion();
+		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveaux?",
+				"Confirmation de réinitialisation", JOptionPane.YES_NO_OPTION) == 0) {
+			grille.reinitialiser();
+			grille.setSupprimer(false);
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+			grille.setRotationPostPlacement(false);
+			repaint();
+			btnDrapeau.setEnabled(true);
+			btnVaisseau.setEnabled(true);
+			desactiveBooleanPostRotastion();
+			desactiveBooleanSupprimer();
+		}
 	}
 
 	/**
@@ -857,6 +874,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setTuile(null);
 		grille.setExterieurComposant(true);
 		grille.setRotationPostPlacement(false);
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -880,6 +898,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.rotation(signum);
 		panelTuileTemp.repaint();
 		desactiveBooleanPostRotastion();
+		desactiveBooleanSupprimer();
 		repaint();
 	}
 
@@ -893,6 +912,7 @@ public class PanelEditeur extends JPanel {
 		if (niveauBienConstruit("de sauvegarder")) {
 			sauvegarderNiveau();
 			desactiveBooleanPostRotastion();
+			desactiveBooleanSupprimer();
 		}
 	}
 
@@ -909,12 +929,13 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Giroux
 	private void rotationnerApresPlacement() {
-		grille.setRotationPostPlacement();
+		gererRotationPostPlacement();
 
 	}
-	
+
 	/**
-	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un bouton, un booléen, une image et un panneau
+	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
+	 * bouton, un booléen, une image et un panneau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void reinitialiserRotationPostPlacement() {
@@ -925,30 +946,43 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du bouton
+	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du
+	 * bouton
 	 */
-	//Giroux
+	// Giroux
 	private void gererRotationPostPlacement() {
 		grille.setRotationPostPlacement();
 		if (grille.getRotationPostPlacement()) {
-			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg",
-					btnRotationPostPlacement);
+			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg", btnRotationPostPlacement);
 			panelTuileTemp.setRotation(true);
 		} else {
 			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 			panelTuileTemp.setRotation(false);
 		}
 	}
-	
+
 	/**
-	 * Méthode qui désactive les booléans de rotation post placement de grille et de la fenêtre
-	 * de la tuile temporaire
-	 * @return 
+	 * Méthode qui désactive les booléans de rotation post placement de grille et de
+	 * la fenêtre de la tuile temporaire
+	 * 
+	 * @return
 	 */
-	//Giroux
+	// Giroux
 	private void desactiveBooleanPostRotastion() {
 		grille.setRotationPostPlacement(false);
 		panelTuileTemp.setRotation(false);
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+	}
+
+	/**
+	 * Méthode qui désactive les booléans de rotation supprimer de grille et de
+	 * la fenêtre de la tuile temporaire
+	 * 
+	 * @return
+	 */
+	// Giroux
+	private void desactiveBooleanSupprimer() {
+		grille.setSupprimer(false);
+		panelTuileTemp.setSupprimer(false);
 	}
 }

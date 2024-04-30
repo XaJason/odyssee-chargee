@@ -205,7 +205,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		// g2dPrive.draw(contour);
+		 g2d.draw(contour);
+		
 
 		if (!listeSegments.isEmpty()) {
 			for (Segment s : listeSegments) {

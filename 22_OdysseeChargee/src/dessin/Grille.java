@@ -709,6 +709,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void gererSupprimer() {
 		supprimer = !supprimer;
+		positionnerCaseEtTuile();
 		repaint();
 	}
 
@@ -1049,6 +1050,7 @@ public class Grille extends JPanel implements Serializable {
 						} else {
 							tabEmplacement[i][j]
 									.setAngleRotation(tabEmplacement[i][j].getAngleRotation() + 0.5 * Math.PI);
+									
 							repaint();
 						}
 
@@ -1138,7 +1140,9 @@ public class Grille extends JPanel implements Serializable {
 
 		switch (code) {
 		case KeyEvent.VK_SPACE:
-			gererSupprimer();
+			PCS.firePropertyChange("Supprimer", null, null);
+			
+			
 			break;
 		case KeyEvent.VK_R:
 			PCS.firePropertyChange("Rotation pré-placement", null, null);
