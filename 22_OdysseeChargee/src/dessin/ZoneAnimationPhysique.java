@@ -76,19 +76,15 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Vecteur nul **/
 	private final Vecteur2D VEC_ZERO = new Vecteur2D();
 
+	// Caractéristiques de la souris
 	/** Coordonnée en X du curseur de la souris sur le composant (en mètre) **/
 	private double sourisEnMetreX = -30; // Initialement à l'extérieur du composant
 	/** Coordonnée en Y du curseur de la souris sur le composant (en metre) **/
 	private double sourisEnMetreY = -30; // Initialement à l'extérieur du composant
+	/** Représente le curseur de la souris (en mètre) **/
+	private Point2D curseurSouris = new Point2D.Double(sourisEnMetreX, sourisEnMetreY);
 	/** Indique que le curseur de la souris est à l'intérieur du composant **/
 	private boolean sourisDansComposant = false;
-	/** Booléen qui indique si le bouton de la plaque est actionnée **/
-	private boolean placementPlaque = false;
-	/**
-	 * Booléen qui indique si l'on souhaite fixer une plaque sur tuile (après avoir
-	 * cliqué dessus)
-	 **/
-	private boolean fixerPlaqueSurTuile = false;
 
 	// Caractéristiques du niveau
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
@@ -125,6 +121,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private ArrayList<PlaqueChargee> listePlaquesChargees = new ArrayList<PlaqueChargee>();
 	/** Plaque chargée **/
 	private PlaqueChargee plaque = new PlaqueChargee(chargeDesPlaques); // Placée par défaut à l'extérieur du composant
+	/** Nombre de plaques restantes à placer **/
+	private int nbPlaquesRestantes = 10;
+	/** Booléen qui indique si le bouton de la plaque est actionnée **/
+	private boolean placementPlaque = false;
+	/** Booléen qui indique si l'on souhaite dessiner une plaque survolant une tuile (lorsqu'on bouge la souris) **/
+	private boolean survolerPlaqueSurTuile = false;
+	/**
+	 * Booléen qui indique si l'on souhaite fixer une plaque sur tuile (après avoir
+	 * cliqué dessus)
+	 **/
+	private boolean fixerPlaqueSurTuile = false;
 
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
@@ -141,6 +148,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Vaisseau vaisseau;
 	/** Charge du vaisseau (en Coulomb) **/
 	private double chargeVaisseau = CHARGE_INITIALE_VAISSEAU;
+	/** Dernière charge du vaisseau non nulle */
+	private double chargeVaisseauNonNulle = chargeVaisseau;
 	/** Masse du vaisseau (en kilogramme) **/
 	private double masseVaisseau = MASSE_INITIALE_VAISSEAU;
 	/** Composante en X de la position du vaisseau (en mètre) **/
@@ -156,15 +165,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Force électrique sur le vaisseau **/
 	private Vecteur2D forcesElec = VEC_ZERO;
 
-	private double dernierUsageDuPortail = 0;
-
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
-	/** Dernière charge du vaisseau non nulle */
-	private double chargeVaisseauNonNulle = chargeVaisseau;
+	
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -191,9 +197,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// debut
-				if (enCoursDAnimation) {
-					actualiserTouchesEnfoncees(e, true);
-				}
+				actualiserTouchesEnfoncees(e, true);
 				gererChargeClavier(e);
 				// fin
 			}
@@ -212,8 +216,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			public void mouseMoved(MouseEvent e) {
 				// debut
 				if (placementPlaque) {
-					sourisEnMetreX = e.getX() / pixelsParMetre;
-					sourisEnMetreY = e.getY() / pixelsParMetre;
+					transformerCoordonneesSouris(e);
 					survolerToutesLesTuilesPourTrouverCurseur();
 					repaint();
 				}
@@ -242,6 +245,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				// debut
 				if (placementPlaque) {
 					fixerPlaqueSurTuile = true;
+					transformerCoordonneesSouris(e);
 					survolerToutesLesTuilesPourTrouverCurseur();
 					fixerPlaqueSurTuile = false;
 					repaint();
@@ -253,9 +257,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setBounds(29, 31, 1232, 617);
 
 
-		niveau = Sauvegarder.chargerNiveau("Niveau_base1");
-		placerVaisseauPourDebutAnimation(niveau);
-		niveau.getGrille().setDansModeJeu(true);
+//		niveau = Sauvegarder.chargerNiveau("Niveau_base1");
+//		placerVaisseauPourDebutAnimation(niveau);
+//		niveau.getGrille().setDansModeJeu(true);
 	}// fin constructeur
 
 
@@ -265,14 +269,23 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Kitimir Yim
 	private void leveeSorties() {
-		PCS.firePropertyChange("changerVitesse", null, vaisseau.getVitesse().module());
-		PCS.firePropertyChange("changerAcceleration", null, vaisseau.getAccel().module());
-		PCS.firePropertyChange("changerForceElec", null, this.forcesElec.module());
-		PCS.firePropertyChange("changerForceGravite", null, this.forceGrav.module());
+		PCS.firePropertyChange("changerVitesse", vaisseau.getVitesse().getX(), vaisseau.getVitesse().getY());
+		PCS.firePropertyChange("changerAcceleration",vaisseau.getAccel().getX(), vaisseau.getAccel().getY());
+		PCS.firePropertyChange("changerForceElec", this.forcesElec.getX(), this.forcesElec.getY());
+		PCS.firePropertyChange("changerForceGravite", null, this.forceGrav.getY());
 		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.module() / Math.abs(vaisseau.getCharge()));
-		PCS.firePropertyChange("changerPosition", null, vaisseau.getPosition().module());
+		PCS.firePropertyChange("changerPosition", vaisseau.getPosition().getX(), vaisseau.getPosition().getY());
 
 	}
+	
+	/**
+	 * Met à jour l'étiquette du nombre de plaques restantes dans le panneau de jeu
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void leveeNbPlaquesRestantes() {
+		PCS.firePropertyChange("Plaques restantes", null, nbPlaquesRestantes);
+	}
+	
 	/**
 	 * Met à jour la charge du vaisseau partout (levée d'évènement pour le
 	 * tourniquet d'entrée du panneau de jeu)
@@ -307,6 +320,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	}
 
+	/**
+	 * Permet de transformer les coordonnées de la souris en fonction des transformations du paintComponent:
+	 * Soit, en mètre et avec l'origine en bas à gauche
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void transformerCoordonneesSouris(MouseEvent e) {
+		curseurSouris = e.getPoint();
+		sourisEnMetreX = e.getX()/pixelsParMetre;
+		sourisEnMetreY = hauteurDuComposantEnMetres - e.getY()/pixelsParMetre;
+		curseurSouris.setLocation(sourisEnMetreX, sourisEnMetreY);
+	}
+	
 	/**
 	 * Place le vaisseau au bon endroit dans la grille pour le début de l'animation,
 	 * en fonction de la position de la tuile du vaisseau dans la grille du niveau
@@ -349,12 +374,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		for (int i = 0; i < tabTuiles.length; i++) {
 			for (int j = 0; j < tabTuiles[i].length; j++) {
 				Tuile tuile = tabTuiles[i][j];
-
+				
 				if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
 						| tuile.getType().equals("Triangle équilatéral"))) {
-					Point2D.Double curseurSouris = new Point2D.Double(sourisEnMetreX, sourisEnMetreY);
-
+					
 					if (tuile.contient(curseurSouris)) {
+						
+						// Recréer les aires des tuiles, car elles ne sont pas chargeables dans un fichier binaire
+						if (tuile.getAires() == null) {
+							tuile.creerAires(tuile.getPointMilieu());
+						}// fin if
+						
 						Aire aireOuEstCurseur = tuile.survolerAiresDeTuile(curseurSouris);
 						if (aireOuEstCurseur != null) {
 							plaque.setPosition(new Vecteur2D(aireOuEstCurseur.getPointMilieuDeTuile().getX(),
@@ -364,24 +394,31 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 							/*
 							 * On prend la valeur absolue de la charge des plaques pour s'assurer que c'est
-							 * bien
-							 * la variable signePlaque qui lui attribue son signe
+							 * bien la variable signePlaque qui lui attribue son signe
 							 */
 							chargeDesPlaques = Math.abs(chargeDesPlaques);
 							plaque.setCharge(signePlaque * chargeDesPlaques);
 
-							if (fixerPlaqueSurTuile) {
+							if (fixerPlaqueSurTuile & nbPlaquesRestantes > 0) {
 								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(),
 										plaque.getPosition().getY());
 								listePlaquesChargees.add(new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()));
+								nbPlaquesRestantes--;
+								leveeNbPlaquesRestantes();
+							} // fin 4e if
+							
+							if (fixerPlaqueSurTuile & nbPlaquesRestantes == 0) {
+								JOptionPane.showMessageDialog(null, "Il ne vous reste plus de plaques !"
+										+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits.",
+									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
 							}
-						}
+						} // fin 3e if
 					} // fin 2e if
-				} // fin if
+				} // fin 1er if
 			} // fin 2e boucle for
 		} // fin 1re boucle for
 
-	}
+	} // fin méthode
 
 	/**
 	 * Définit les dimensions des tuiles et lit leur image
@@ -478,7 +515,19 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerPlaqueLorsSurvol(Graphics2D g2d) {
 		if (placementPlaque & sourisDansComposant) {
-			plaque.dessiner(g2d);
+			Tuile[][] tabTuiles = niveau.getGrille().getTableau();
+
+			for (int i = 0; i < tabTuiles.length; i++) {
+				for (int j = 0; j < tabTuiles[i].length; j++) {
+					Tuile tuile = tabTuiles[i][j];
+
+					if (tuile != null) {
+						if (tuile.contient(curseurSouris)) {
+							plaque.dessiner(g2d);
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -685,6 +734,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			break;
 		}
 	}
+	
 	/**
 	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation
 	 * et réinitialiser la zone d'animation
@@ -816,6 +866,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 
 		listePlaquesChargees.clear();
+		nbPlaquesRestantes = 10;
 		gauche = false;
 		droite = false;
 		haut = false;
@@ -831,6 +882,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
+	 * Démarrer l'animation à l'aide des flèches du clavier et met à jour le panneau de jeu en conséquence
+	 * (changement d'état des boutons « Démarrer » et « Prochaine image »)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void demarrerAvecFleches() {
+		if (!enCoursDAnimation) {
+			demarrer();
+			PCS.firePropertyChange("Démarrer", null, null);
+		}
+	}
+	
+	/**
 	 * Actualise les valeurs des booléens correspondant aux touches des flèches sur
 	 * le clavier
 	 * 
@@ -843,21 +906,25 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		int code = e.getKeyCode();
 
 		switch (code) {
-		case KeyEvent.VK_LEFT:
-			gauche = toucheEnfoncee;
-			break;
-
-		case KeyEvent.VK_RIGHT:
-			droite = toucheEnfoncee;
-			break;
-
-		case KeyEvent.VK_UP:
-			haut = toucheEnfoncee;
-			break;
-
-		case KeyEvent.VK_DOWN:
-			bas = toucheEnfoncee;
-			break;
+			case KeyEvent.VK_LEFT:
+				demarrerAvecFleches();
+				gauche = toucheEnfoncee;
+				break;
+	
+			case KeyEvent.VK_RIGHT:
+				demarrerAvecFleches();
+				droite = toucheEnfoncee;
+				break;
+	
+			case KeyEvent.VK_UP:
+				demarrerAvecFleches();
+				haut = toucheEnfoncee;
+				break;
+	
+			case KeyEvent.VK_DOWN:
+				demarrerAvecFleches();
+				bas = toucheEnfoncee;
+				break;
 		}// fin switch
 	}// fin méthode
 
@@ -992,6 +1059,26 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		repaint();
 	}
 
+	/**
+	 * Retourne le nombre de plaques restantes
+	 * 
+	 * @return Le nombre de plaques restantes
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public int getNbPlaquesRestantes() {
+		return nbPlaquesRestantes;
+	}
+
+	/**
+	 * Modifie le nombre de plaques restantes
+	 * 
+	 * @param nbPlaquesRestantes Le nombre de plaques restantes
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setNbPlaquesRestantes(int nbPlaquesRestantes) {
+		this.nbPlaquesRestantes = nbPlaquesRestantes;
+	}
+	
 	/**
 	 * Retourne la valeur du pas de simulation (deltaT)
 	 * 

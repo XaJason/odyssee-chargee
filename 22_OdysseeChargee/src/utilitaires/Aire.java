@@ -51,13 +51,7 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 		forme.closePath();
 
 		pointsExterieurs = new Point2D.Double[] { point1, point2 };
-
 		this.pointMilieuDeTuile = pointInterieur;
-
-		System.out.println("Point 1 : " + point1);
-		System.out.println("Point milieu : " + pointMilieuDeTuile);
-		System.out.println("Point 2 : " + point2);
-
 		segmentExterieur = new Line2D.Double(point1, point2);
 	}
 
@@ -141,7 +135,7 @@ public class Aire implements Dessinable, Selectionnable, Serializable {
 	 * @return vrai si le point fait est contenu dans l'objet dessinable
 	 */
 	// Jason Xa
-	public boolean contient(Point2D.Double point) {
+	public boolean contient(Point2D point) {
 		return forme.contains(point.getX(), point.getY());
 	}
 

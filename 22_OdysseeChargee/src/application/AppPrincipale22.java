@@ -29,14 +29,6 @@ import niveau.Niveau;
 import panneaux.PanelEditeur;
 import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
-import tuile.Carre;
-import tuile.Drapeau;
-import tuile.Pics;
-import tuile.Portail;
-import tuile.TriangleEquilateral;
-import tuile.TriangleRectangle;
-import tuile.Tuile;
-import tuile.VaisseauImage;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 
@@ -365,45 +357,28 @@ public class AppPrincipale22 extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				if (evt.getPropertyName().equals("passerVersNiveau1")) {
-
 					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base1");
-					panSelecteurNiveau.setVisible(false);
-					panModeJeu.setVisible(true);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+					miseAJourChargementNiveau();
 				}
-
 				if (evt.getPropertyName().equals("passerVersNiveau2")) {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base2");
-					panSelecteurNiveau.setVisible(false);
-					panModeJeu.setVisible(true);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+					miseAJourChargementNiveau();
 
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau3")) {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base3");
-					panSelecteurNiveau.setVisible(false);
-					panModeJeu.setVisible(true);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+					miseAJourChargementNiveau();
 				}
+				
+				ajoutNiveauxBase(evt);
+				
 				if (evt.getPropertyName().equals("passerVersJeu")) {
 					chargerNiveauVersZoneAnimationPhysique(evt);
-
-					panSelecteurNiveau.setVisible(false);
-					panModeJeu.setVisible(true);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+					miseAJourChargementNiveau();
 				}
-
 				if (evt.getPropertyName().equals("niveauSelectionne")) {
 					chargerNiveauVersZoneAnimationPhysique(evt);
-					panSelecteurNiveau.setVisible(false);
-					panModeJeu.setVisible(true);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
-
+					miseAJourChargementNiveau();
 				}
 			}
 		});
@@ -417,20 +392,48 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {
-
 		if (evt.getPropertyName().equals("passerVersJeu")) {
 			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau");
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
-
-		}
-
+		}// fin if
 		if (evt.getPropertyName().equals("niveauSelectionne")) {
 			Niveau niveauSelectionne = (Niveau) evt.getNewValue();
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauSelectionne.getNom());
+		}// fin if
+	}// fin méthode
 
-		}
-	}
-
+	/**
+	 * Ajout de de trois autres niveaux de base
+	 * 
+	 * @param evt L'événement qui a été lancé
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("passerVersNiveau4")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base4");
+			miseAJourChargementNiveau();
+		}// fin if
+		if (evt.getPropertyName().equals("passerVersNiveau5")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base5");
+			miseAJourChargementNiveau();
+		}// fin if
+		if (evt.getPropertyName().equals("passerVersNiveau6")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base6");
+			miseAJourChargementNiveau();
+		}// fin if
+	}// fin méthode
+	
+	/**
+	 * Mise à jour des panneaux de l'application lors du chargement d'un niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void miseAJourChargementNiveau() {
+		panSelecteurNiveau.setVisible(false);
+		panModeJeu.setVisible(true);
+		setContentPane(panModeJeu);
+		panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+	}// fin méthode
+	
 	/**
 	 * Bouton pour quitter l'application
 	 */

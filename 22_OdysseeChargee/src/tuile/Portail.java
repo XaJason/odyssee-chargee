@@ -48,7 +48,7 @@ public class Portail extends Tuile implements Serializable {
 	/** Représente la forme du portail **/
 	private Ellipse2D cercle;
 	/** Représente l'aire du portail **/
-	private Area airePortail;
+	private transient Area airePortail;
 	/** Représente l'aire d'une case **/
 	private Area aireCase;
 	/** Couleur du portail **/
@@ -121,7 +121,13 @@ public class Portail extends Tuile implements Serializable {
 		
 		//AffineTransform transformationAffine = g2dPrive.getTransform();
 		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2dPrive.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
+		/*
+		 *  Ajustement des paramètres pour dessiner l'image à cause des transformations
+		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 */
+		double yImage = y + hauteurTuile;
+		double hauteurTuileImage = -hauteurTuile;
+		g2dPrive.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
 		//g2dPrive.setTransform(transformationAffine);
 	}
 	

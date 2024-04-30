@@ -106,12 +106,12 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 	public void setPoint() {
 		super.setPoint();
 		xActuel = largeurTuile / 2;
-		yActuel = 0;
-		pointInitial.setLocation(largeurTuile / 2, 0);
+		yActuel = hauteurTuile;
+		pointInitial.setLocation(xActuel, yActuel);
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(basDroit)
 		xActuel += largeurTuile / 2;
-		yActuel += hauteurTuile;
+		yActuel -= hauteurTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
 		// Troisième point(BasGauche)
 		xActuel -= largeurTuile;
@@ -132,6 +132,7 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 		}
 		// pointMilieu = pointsCoin.get(3);
 		transformerPointMilieu();
+		creerGeometrieContour();
 		creerListeSegment();
 		creerAires(pointMilieu);
 	}

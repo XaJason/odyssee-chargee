@@ -61,7 +61,5 @@ public class MatriceRotation implements Serializable {
 		Point2D.Double pointFinal = new Point2D.Double(x, y);
 
 		return pointFinal;
-
 	}
-
 }

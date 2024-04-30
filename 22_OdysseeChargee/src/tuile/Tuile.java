@@ -78,7 +78,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	protected ArrayList<Segment> listeSegments = new ArrayList<Segment>();
 
 	/** aires de sélection pour les plaques chargées */
-	protected Aire[] aires;
+	protected transient Aire[] aires;
 
 	/**
 	 * index de l'aire survolée dans le tableau d'aires de sélection pour les
@@ -164,11 +164,17 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
 		AffineTransform transformationAffine = g2d.getTransform();
-		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		g2d.rotate(-angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		setImageRefTuile();
-		g2d.drawImage(image, (int) x, (int) y, (int) largeurTuile, (int) hauteurTuile, null);
+		/*
+		 *  Ajustement des paramètres pour dessiner l'image à cause des transformations
+		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 */
+		double yImage = y + hauteurTuile;
+		double hauteurTuileImage = -hauteurTuile;
+		g2d.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
 		g2d.setTransform(transformationAffine);
-		dessinerContour(g2d);
+		//dessinerContour(g2d);
 	}
 	
 	/**
@@ -200,12 +206,13 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
 		 g2d.draw(contour);
+		
 
-//		if (!listeSegments.isEmpty()) {
-//			for (Segment s : listeSegments) {
-//				s.dessiner(g2dPrive);
-//			}
-//		}
+		if (!listeSegments.isEmpty()) {
+			for (Segment s : listeSegments) {
+				s.dessiner(g2dPrive);
+			}
+		}
 	}
 
 	/**
@@ -427,14 +434,42 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
+	 *  Retourne le point milieu de la tuile
+	 * 	
+	 * @return Le point milieu de la tuile
+	 */
+	public Point2D.Double getPointMilieu() {
+		return pointMilieu;
+	}
+	
+	/**
+	 * Retourne la liste de coins de la tuile
+	 * 
+	 * @return La liste de coins de la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public ArrayList<Point2D.Double> getPointsCoin() {
+		return pointsCoin;
+	}
+	
+	/**
+	 * Retourne les aires séparant la tuile en parties égales
+	 * 
+	 * @return Les aires de la tuile
+	 */
+	public Aire[] getAires() {
+		return aires;
+	}
+	
+	/**
 	 * Méthode à redéfinir dans les sous classes pour mettre les points des coins
 	 * dans le arrayList pointsCoin
 	 */
 	// Giroux
 	public void setPoint() {
 		pointInitial = new Point2D.Double(0, 0);
-		rotation = new MatriceRotation(this.angleRotation);
-
+		rotation = new MatriceRotation(-this.angleRotation);
+		creerGeometrieContour();
 	}
 
 	/**
@@ -550,7 +585,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * @return vrai si le point fait est contenu dans l'objet dessinable
 	 */
 	// Jason Xa
-	public boolean contient(Point2D.Double point) {
+	public boolean contient(Point2D point) {
 		return contour.contains(point.getX(), point.getY());
 	}
 
@@ -564,7 +599,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 *         souris
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Aire survolerAiresDeTuile(Point2D.Double pointSurvole) {
+	public Aire survolerAiresDeTuile(Point2D pointSurvole) {
 		// Aire aireOuEstCurseur = null;
 		// while (aireOuEstCurseur == null) {
 		for (int i = 0; i < aires.length; i++) {
