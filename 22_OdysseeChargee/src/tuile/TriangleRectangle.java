@@ -4,7 +4,9 @@ import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import math.MatriceRotation;
 import utilitaires.OutilsImage;
 
 /**
@@ -106,6 +108,9 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		super.setPoint();
 		xActuel = 0;
 		yActuel = 0;
+		prePointsCoin.clear();
+		pointsCoin.clear();
+		listeSegments.clear();
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(basDroit)
 		xActuel += largeurTuile;
@@ -127,13 +132,13 @@ public class TriangleRectangle extends Tuile implements Serializable {
 			i.setLocation(i.getX() + x + largeurTuile / 2, i.getY() + y + hauteurTuile / 2);
 			pointsCoin.add(i);
 		}
-		// pointMilieu = pointsCoin.get(3);
 		transformerPointMilieu();
 		creerGeometrieContour();
 		creerListeSegment();
 		creerAires(pointMilieu);
 	}
 
+	
 	/**
 	 * Transformer le pointMilieu (qui ne fait pas partie du contour)
 	 * selon la rotation appliquée sur la tuile

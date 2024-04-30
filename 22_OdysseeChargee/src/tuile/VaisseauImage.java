@@ -150,6 +150,10 @@ public class VaisseauImage extends Tuile implements Serializable {
 	// Giroux
 	public void setPoint() {
 		super.setPoint();
+		prePointsCoin.clear();
+		pointsCoin.clear();
+		xActuel = 0;
+		yActuel = 0;
 		xActuel = largeurDemiTuile / 2.0;
 		pointInitial.setLocation(xActuel, yActuel);
 		prePointsCoin.add(pointInitial);
