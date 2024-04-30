@@ -24,13 +24,17 @@ public class PanelTuileTemp extends JPanel {
 	/** Tuile qui conteint l'instance de la tuile à placer **/
 	private Tuile tuile;
 	/**
-	 * Image de la rotation
+	 * Image de la du panel si ce n'est pas une tuile
 	 */
 	private Image image;
 	/**
-	 * Indique si la grille est en mode application ou pas
+	 * Indique si la grille est en mode rotation ou pas
 	 */
 	private boolean rotation = false;
+	/**
+	 * Indique si la grille est en mode supprimer
+	 */
+	private boolean supprimer;
 
 	/**
 	 * Création de la fenêtre
@@ -49,14 +53,19 @@ public class PanelTuileTemp extends JPanel {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (tuile != null) {
+		if (tuile != null && !rotation && !supprimer) {
 			Graphics2D g2dPrive = (Graphics2D) g2d.create();
-			g2dPrive.scale(getWidth() / Tuile.getHauteurTuile(), getHeight() / Tuile.getHauteurTuile());
+			g2dPrive.scale((getWidth() / Tuile.getHauteurTuile()) / 2, (getHeight() / Tuile.getHauteurTuile()) / 2);
+			g2dPrive.translate(Tuile.getHauteurTuile() / 2, Tuile.getHauteurTuile() / 2);
 			tuile.dessiner(g2dPrive, 0, 0);
 		}
 
-		if (rotation) {
+		else if (rotation) {
 			image = OutilsImage.lireImageEtRedimensionner("rotationPostPlacementVert.png", (int) (this.getWidth()),
+					(int) (this.getHeight()));
+			g2d.drawImage(image, 0, 0, null);
+		} else if (supprimer) {
+			image = OutilsImage.lireImageEtRedimensionner("supprimer.png", (int) (this.getWidth()),
 					(int) (this.getHeight()));
 			g2d.drawImage(image, 0, 0, null);
 		}
@@ -95,6 +104,15 @@ public class PanelTuileTemp extends JPanel {
 	// Giroux
 	public void setRotation(boolean rotation) {
 		this.rotation = rotation;
+		repaint();
+	}
+
+	/**
+	 * Gère la condition de suppression
+	 */
+	// Giroux
+	public void gererSupprimer() {
+		supprimer = !supprimer;
 		repaint();
 	}
 
