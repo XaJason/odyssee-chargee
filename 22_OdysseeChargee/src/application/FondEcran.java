@@ -25,8 +25,8 @@ public class FondEcran extends JPanel {
 	 * @param fond nom du fichier contenant l'image
 	 */
 	//Kitimir Yim
-	public FondEcran(String fond) {
-		fondImage = OutilsImage.lireImage(fond);
+	public FondEcran(String fond,double facteur) {
+		fondImage = OutilsImage.lireImageEtRedimensionner(fond,facteur);
 	}
 	/**
 	 *  Permet de dessiner l'image

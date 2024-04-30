@@ -92,7 +92,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Force appliquée par le réacteur dorsal sur le vaisseau (en Newton) **/
 	private Vecteur2D forceJetpack = new Vecteur2D(VEC_ZERO);
 	/** Booléen qui indique si le mode réacteur dorsal est activé **/
-	private boolean modeJetpack = false;
+	private boolean modeJetpack = true;
 
 	// Caractéristiques du clavier
 	/** Booléen qui indique l'état d'enfoncement de la touche flèche gauche **/
