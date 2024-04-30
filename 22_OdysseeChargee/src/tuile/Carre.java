@@ -34,8 +34,8 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	private Point2D.Double coinHautDroit;
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
-	/** Coin bas-gauche **/
-	private Double coinBasGauche;
+	/** Coin Haut-gauche **/
+	private Double coinHautGauche;
 
 	/**
 	 * Constructeur
@@ -100,9 +100,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static void setImageRef(String fichierImage, int largeurTuile, int hauteurTuile) {
-		System.out.println(image);
 		image = OutilsImage.lireImageEtRedimensionner(fichierImage, largeurTuile, hauteurTuile);
-		System.out.println(image);
 	}
 
 	/**
@@ -124,20 +122,19 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.add(pointInitial);
-		// Deuxième point(HautDroit)
-		xActuel = pointInitial.getX() + largeurTuile;
-		yActuel = pointInitial.getY();
-		coinHautDroit = new Point2D.Double(xActuel, yActuel);
-		// Troisième point(BasDroit)
-		yActuel += hauteurTuile;
+		// Deuxième point(BasDroit)
+		xActuel += largeurTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
-		// Quatrième point(BasGauche)
+		// Troisième point(HautDroit)
+		yActuel = pointInitial.getY() + hauteurTuile;
+		coinHautDroit = new Point2D.Double(xActuel, yActuel);
+		// Quatrième point(HautGauche)
 		xActuel -= largeurTuile;
-		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+		coinHautGauche = new Point2D.Double(xActuel, yActuel);
 		// Ajouter dans l'arrayList
-		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
-		prePointsCoin.add(coinBasGauche);
+		prePointsCoin.add(coinHautDroit);
+		prePointsCoin.add(coinHautGauche);
 
 		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
@@ -154,6 +151,7 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		}
 		// pointMilieu = pointsCoin.get(4);
 		transformerPointMilieu();
+		creerGeometrieContour();
 		creerListeSegment();
 		creerAires(pointMilieu);
 	}

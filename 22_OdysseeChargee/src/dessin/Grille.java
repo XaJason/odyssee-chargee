@@ -976,7 +976,6 @@ public class Grille extends JPanel implements Serializable {
         int rouge = random.nextInt(etendueRGB);
     	int vert = random.nextInt(etendueRGB);
     	int bleu = random.nextInt(etendueRGB);
-    	System.out.println(rouge + " " + vert + " " + bleu + " " + opacitePortails);
         return new Color(rouge, vert, bleu, opacitePortails);
 	}
 	
@@ -1033,7 +1032,6 @@ public class Grille extends JPanel implements Serializable {
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {
 		boolean lo = nbPortails%2 == 0;
-		System.out.println("Condition portails liés : "+lo);
 		return (nbPortails%2 == 0);
 		
 	}
@@ -1066,6 +1064,16 @@ public class Grille extends JPanel implements Serializable {
 
 	}
 
+	/**
+	 * Méthode qui indique si en mode rotation ou non
+	 * 
+	 * @return Vrai si en rotation, ou faux dans le cas contraire
+	 */
+	// Giroux
+	public boolean getRotationPostPlacement() {
+		return rotationPostPlacement;
+	}
+	
 	/**
 	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
 	 */
@@ -1164,16 +1172,6 @@ public class Grille extends JPanel implements Serializable {
 		} else {
 			setCursor(new Cursor(Cursor.HAND_CURSOR));
 		}
-	}
-
-	/**
-	 * Méthode qui indique si en mode rotation ou non
-	 * 
-	 * @return Vrai si en rotation, ou faux dans le cas contraire
-	 */
-	// Giroux
-	public boolean getRotationPostPlacement() {
-		return rotationPostPlacement;
 	}
 
 	/**

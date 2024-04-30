@@ -102,10 +102,10 @@ public class PanelJeu extends JPanel {
 	private JButton btnChargeNegative;
 	/** Étiquette qui indique la charge de la plaque **/
 	private JLabel lblEtatPlaque;
+	/** Étiquette qui indique le nombre de plaques disponibles à placer **/
+	JLabel lblNbDePlaqueRestante;
 	/** Boolean qui indique la nature de la charge de la plaque **/
 	private boolean plaquePositive = true;
-	/** Nombre restant de plaque **/
-	private int nbPlaqueRestante = 4;
 
 	/** Vitesse affichée **/
 	private String vitesseString = "0";
@@ -231,7 +231,7 @@ public class PanelJeu extends JPanel {
 		labelPosition.setBounds(216, 233, 76, 22);
 		panelSortie.add(labelPosition);
 
-		leveeEvenement();
+		leveesEvenements();
 
 		JPanel panelInfosPlaque = new JPanel();
 		panelInfosPlaque.setBorder(new TitledBorder(
@@ -285,8 +285,8 @@ public class PanelJeu extends JPanel {
 		lblEtatPlaque.setBounds(10, 11, 154, 14);
 		panelPlaque.add(lblEtatPlaque);
 
-		JLabel lblNbDePlaqueRestante = new JLabel("");
-		lblNbDePlaqueRestante.setText("Il vous reste: " + nbPlaqueRestante + " restante(s)");
+		lblNbDePlaqueRestante = new JLabel("");
+		lblNbDePlaqueRestante.setText("Il vous reste " + zoneAnimationPhysique.getNbPlaquesRestantes() + " plaques à placer");
 		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
@@ -409,7 +409,7 @@ public class PanelJeu extends JPanel {
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
-				reinitialiserZoneAnimation();
+				reinitialiserPanneauEtZoneAnimation();
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
@@ -419,10 +419,10 @@ public class PanelJeu extends JPanel {
 	}
 
 	/**
-	 * S'occupe de la levée d'évenement
+	 * S'occupe des levées d'évenements
 	 */
 	// Kitimir Yim
-	private void leveeEvenement() {
+	private void leveesEvenements() {
 
 		zoneAnimationPhysique.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -478,9 +478,11 @@ public class PanelJeu extends JPanel {
 					labelPosition.setText(xString +"x ,"+ yString + "y");
 				}
 				if (evt.getPropertyName().equals("changementBouton")) {
-					reinitialiserZoneAnimation();
+					reinitialiserPanneauEtZoneAnimation();
 				}
 				leveeEvenementCharge(evt);
+				evenementMiseAJourDemarrage(evt);
+				evenementPlaquesRestantes(evt);
 			}
 
 		});
@@ -501,6 +503,34 @@ public class PanelJeu extends JPanel {
 
 	}
 
+	/**
+	 * Gère la levée d'événement lié à la mise à jour du panneau du mode jeu
+	 * suite au démarrage de l'animation à l'aide des touches du clavier
+	 * 
+	 * @param evt L'événement qui a été lancé
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void evenementMiseAJourDemarrage(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("Démarrer")) {
+			btnProchaineImage.setEnabled(false);
+			btnDemarrer.setEnabled(false);
+			btnRedemarrer.setEnabled(true);
+			zoneAnimationPhysique.requestFocusInWindow();
+		}
+	}
+	
+	/**
+	 * Gère la levée d'événement lié à la mise à jour de l'étiquette
+	 * indiquant le nombre de plaques restantes à placer
+	 * 
+	 * @param evt L'événement qui a été lancé
+	 */
+	private void evenementPlaquesRestantes(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("Plaques restantes")) {
+			lblNbDePlaqueRestante.setText("Il vous reste " + evt.getNewValue() + " plaques à placer");
+		}
+	}
+	
 	/**
 	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveau)
 	 */
@@ -648,10 +678,10 @@ public class PanelJeu extends JPanel {
 	}
 
 	/**
-	 * Reinitialise tout exactement dans l'etat de demarrage de l'application
+	 * Réinitialise le panneau et la zone d'animation du mode Jeu à l'état qu'il avait lors du démarrage de l'application
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void reinitialiserZoneAnimation() {
+	private void reinitialiserPanneauEtZoneAnimation() {
 		btnProchaineImage.setEnabled(true);
 		btnDemarrer.setEnabled(true);
 		btnRedemarrer.setEnabled(false);

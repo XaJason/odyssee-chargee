@@ -109,10 +109,10 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(basDroit)
 		xActuel += largeurTuile;
-		yActuel += hauteurTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
 		// Troisième point(BasGauche)
 		xActuel -= largeurTuile;
+		yActuel += hauteurTuile;
 		coinBasGauche = new Point2D.Double(xActuel, yActuel);
 		// Ajouter dans l'arrayList
 		prePointsCoin.add(coinBasDroit);
@@ -129,6 +129,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		}
 		// pointMilieu = pointsCoin.get(3);
 		transformerPointMilieu();
+		creerGeometrieContour();
 		creerListeSegment();
 		creerAires(pointMilieu);
 	}

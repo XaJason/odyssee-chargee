@@ -318,6 +318,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerCarre();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
@@ -330,6 +331,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleRectangle();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
@@ -342,6 +344,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleEquilateral();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
@@ -389,6 +392,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPics();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
@@ -401,6 +405,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPortail();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
@@ -433,6 +438,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerDrapeau();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
@@ -444,6 +450,7 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerVaisseau();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
@@ -482,6 +489,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rotationnerAvant(4); // quart de rotation
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
@@ -561,6 +569,7 @@ public class PanelEditeur extends JPanel {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				supprimer();
+				reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
@@ -908,5 +917,16 @@ public class PanelEditeur extends JPanel {
 	private void rotationnerApresPlacement() {
 		grille.setRotationPostPlacement();
 
+	}
+	
+	/**
+	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un bouton, un booléen, une image et un panneau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void reinitialiserRotationPostPlacement() {
+		btnRotationPostPlacement.setEnabled(true);
+		grille.setRotationPostPlacement(false);
+		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+		panelTuileTemp.setRotation(false);
 	}
 }

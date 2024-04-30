@@ -39,7 +39,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
-	private Double coinBasGauche;
+	private Double coinHautGauche;
 
 	/**
 	 * Constructeur
@@ -106,12 +106,17 @@ public class VaisseauImage extends Tuile implements Serializable {
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
-		//g2dPrive.setColor(Color.red);
-		//g2d.draw(contour);
+		g2dPrive.setColor(Color.red);
+		g2dPrive.draw(contour);
 		//AffineTransform transformationAffine = g2dPrive.getTransform();
 		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		/*
+		 *  Ajustement d'un paramètre pour dessiner l'image à cause des transformations
+		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 */
+		double hauteurTuileImage = -(hauteurTuile / 2.0);
 		g2dPrive.drawImage(image, (int) (x + largeurDemiTuile / 2.0), (int) (y + largeurDemiTuile),
-				(int) (largeurTuile / 2.0), (int) (hauteurTuile / 2.0), null);
+				(int) (largeurTuile / 2.0), (int) hauteurTuileImage, null);
 		//g2dPrive.setTransform(transformationAffine);
 	}
 
@@ -124,7 +129,9 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d, double x, double y) {
-		g2d.drawImage(image, (int) (x), (int) (y), (int) (largeurTuile / 2.0), (int) (hauteurTuile / 2.0), null);
+		double yImage = y + hauteurTuile/2.0;
+		double hauteurTuileImage = -(hauteurTuile / 2.0);
+		g2d.drawImage(image, (int) (x), (int) yImage, (int) (largeurTuile / 2.0), (int) hauteurTuileImage, null);
 	}
 
 	/**
@@ -143,22 +150,22 @@ public class VaisseauImage extends Tuile implements Serializable {
 	// Giroux
 	public void setPoint() {
 		super.setPoint();
-		pointInitial.setLocation(largeurDemiTuile / 2.0, largeurDemiTuile);
+		xActuel = largeurDemiTuile / 2.0;
+		pointInitial.setLocation(xActuel, yActuel);
 		prePointsCoin.add(pointInitial);
-		// Deuxième point(HautDroit)
-		xActuel = pointInitial.getX() + largeurDemiTuile;
-		yActuel = pointInitial.getY();
-		coinHautDroit = new Point2D.Double(xActuel, yActuel);
-		// Troisième point(BasDroit)
-		yActuel += largeurDemiTuile;
+		// Deuxième point(BasDroit)
+		xActuel += largeurDemiTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
-		// Quatrième point(BasGauche)
+		// Troisième point(HautDroit)
+		yActuel += largeurDemiTuile;
+		coinHautDroit = new Point2D.Double(xActuel, yActuel);
+		// Quatrième point(HautGauche)
 		xActuel -= largeurDemiTuile;
-		coinBasGauche = new Point2D.Double(xActuel, yActuel);
+		coinHautGauche = new Point2D.Double(xActuel, yActuel);
 		// Ajouter dans l'arrayList
-		prePointsCoin.add(coinHautDroit);
 		prePointsCoin.add(coinBasDroit);
-		prePointsCoin.add(coinBasGauche);
+		prePointsCoin.add(coinHautDroit);
+		prePointsCoin.add(coinHautGauche);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
