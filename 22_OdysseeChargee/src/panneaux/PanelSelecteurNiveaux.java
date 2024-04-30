@@ -64,7 +64,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		setLayout(null);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
-		fondEcran = new FondEcran("fondNiveau.png");
+		fondEcran = new FondEcran("fondNiveau.png",1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
 		fondEcran.setLayout(null);

@@ -13,8 +13,10 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import application.FondEcran;
 import dessin.EvaluationEtoile;
 import utilitaires.ConstanteComposantsSwing;
+import java.awt.Color;
 
 /**
  * Fenêtre des réglages
@@ -71,6 +73,7 @@ public class FenetreReglage extends JFrame {
 		getContentPane().setLayout(null);
 
 		evaluationEtoile = new EvaluationEtoile(0);
+		evaluationEtoile.setOpaque(false);
 		evaluationEtoile.setBounds(363, 273, 160, 128);
 		getContentPane().add(evaluationEtoile);
 
@@ -86,6 +89,7 @@ public class FenetreReglage extends JFrame {
 		getContentPane().add(btnQuitter);
 
 		JSlider sliderSon = new JSlider();
+		sliderSon.setOpaque(false);
 		sliderSon.setValue(100);
 		sliderSon.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -99,14 +103,21 @@ public class FenetreReglage extends JFrame {
 		getContentPane().add(sliderSon);
 
 		lblVolume = new JLabel("Volume");
+		lblVolume.setForeground(new Color(255, 255, 255));
 		lblVolume.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVolume.setBounds(421, 126, 45, 13);
 		getContentPane().add(lblVolume);
 
 		lblEvalutation = new JLabel("Qu'en pensez vous d'Odyssée chargée?");
+		lblEvalutation.setForeground(new Color(255, 255, 255));
 		lblEvalutation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEvalutation.setBounds(306, 245, 275, 20);
 		getContentPane().add(lblEvalutation);
+		
+		FondEcran fondEcran = new FondEcran("fondReglage.png",1.7);
+		fondEcran.setBounds(0, 0, ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, ConstanteComposantsSwing.DIM_VERTICALE_SEC);
+		getContentPane().add(fondEcran);
+		fondEcran.setLayout(null);
 	}
 
 	/**
