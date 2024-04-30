@@ -308,7 +308,7 @@ public class PanelEditeur extends JPanel {
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(1226, 27, 119, 27);
+		chckbxGrille.setBounds(1226, 27, 121, 27);
 		add(chckbxGrille);
 		btnCarre = new JButton();
 		btnCarre.setBounds(1095, 243, 60, 60);
@@ -358,7 +358,7 @@ public class PanelEditeur extends JPanel {
 
 		lblCarre = new JLabel("[Q]");
 		lblCarre.setForeground(new Color(51, 51, 51));
-		lblCarre.setBounds(1115, 321, 20, 18);
+		lblCarre.setBounds(1115, 321, 21, 18);
 		add(lblCarre);
 		lblCarre.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -372,7 +372,7 @@ public class PanelEditeur extends JPanel {
 
 		lblTriangleEquilateral = new JLabel("[E]");
 		lblTriangleEquilateral.setForeground(new Color(51, 51, 51));
-		lblTriangleEquilateral.setBounds(1339, 321, 17, 18);
+		lblTriangleEquilateral.setBounds(1339, 321, 18, 18);
 		add(lblTriangleEquilateral);
 		lblTriangleEquilateral.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
@@ -456,7 +456,7 @@ public class PanelEditeur extends JPanel {
 
 		lblDrapeau = new JLabel("[D]");
 		lblDrapeau.setForeground(new Color(51, 51, 51));
-		lblDrapeau.setBounds(1288, 470, 18, 18);
+		lblDrapeau.setBounds(1288, 470, 19, 18);
 		add(lblDrapeau);
 		lblDrapeau.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
@@ -512,7 +512,7 @@ public class PanelEditeur extends JPanel {
 		lblRotationPrePlacement = new JLabel(
 				"<html><trailing>ROTATION<br>PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT<br>MOLETTE<html>");
 		lblRotationPrePlacement.setForeground(new Color(102, 51, 0));
-		lblRotationPrePlacement.setBounds(1285, 90, 126, 72);
+		lblRotationPrePlacement.setBounds(1285, 90, 130, 90);
 		add(lblRotationPrePlacement);
 		lblRotationPrePlacement.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
@@ -588,7 +588,7 @@ public class PanelEditeur extends JPanel {
 		lblEssayer.setForeground(new Color(51, 51, 51));
 		lblEssayer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEssayer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
-		lblEssayer.setBounds(1079, 721, 93, 26);
+		lblEssayer.setBounds(1079, 721, 96, 39);
 		add(lblEssayer);
 
 	}

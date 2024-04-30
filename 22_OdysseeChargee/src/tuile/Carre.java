@@ -121,6 +121,11 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 	// Giroux
 	public void setPoint() {
 		super.setPoint();
+		prePointsCoin.clear();
+		pointsCoin.clear();
+		xActuel = 0;
+		yActuel = 0;
+		listeSegments.clear();
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(BasDroit)
 		xActuel += largeurTuile;
@@ -149,9 +154,11 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+		System.out.println(pointsCoin);
 		// pointMilieu = pointsCoin.get(4);
 		transformerPointMilieu();
 		creerGeometrieContour();
+		System.out.println(pointsCoin);
 		creerListeSegment();
 		creerAires(pointMilieu);
 	}
