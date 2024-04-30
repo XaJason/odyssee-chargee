@@ -505,7 +505,7 @@ public class PanelEditeur extends JPanel {
 
 		lblRotationPostPlacement = new JLabel("<html><center>ROTATION<br>POST-PLACEMENT<br>\r\n[T]<html>");
 		lblRotationPostPlacement.setForeground(new Color(51, 51, 51));
-		lblRotationPostPlacement.setBounds(1085, 610, 81, 39);
+		lblRotationPostPlacement.setBounds(1085, 610, 82, 39);
 		add(lblRotationPostPlacement);
 		lblRotationPostPlacement.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 
@@ -531,7 +531,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSauvegarder = new JLabel("<html><center>SAUVEGARDER<br>\r\n[CTRL + S]<html>");
 		lblSauvegarder.setForeground(new Color(51, 51, 51));
-		lblSauvegarder.setBounds(1314, 721, 66, 26);
+		lblSauvegarder.setBounds(1314, 721, 69, 26);
 		add(lblSauvegarder);
 		lblSauvegarder.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSauvegarder.setHorizontalAlignment(SwingConstants.CENTER);
@@ -548,7 +548,7 @@ public class PanelEditeur extends JPanel {
 
 		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
 		lblReinitialiser.setForeground(new Color(51, 51, 51));
-		lblReinitialiser.setBounds(1311, 610, 72, 26);
+		lblReinitialiser.setBounds(1311, 610, 74, 26);
 		add(lblReinitialiser);
 		lblReinitialiser.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -567,7 +567,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br><html>");
 		lblSupprimer.setForeground(new Color(51, 51, 51));
-		lblSupprimer.setBounds(1200, 610, 75, 56);
+		lblSupprimer.setBounds(1200, 610, 66, 39);
 		add(lblSupprimer);
 		lblSupprimer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -602,8 +602,8 @@ public class PanelEditeur extends JPanel {
 	private void sauvegarder(Niveau niveau) {
 
 		GestionnaireDeNiveaux.ajouter(niveau);
-		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNom());
-		PCS.firePropertyChange("niveauCree", null, niveau);
+		Sauvegarder.sauvegarderNiveauMesTrucs(niveau, niveau.getNom());
+	
 	}
 
 	/**
@@ -633,20 +633,11 @@ public class PanelEditeur extends JPanel {
 	 * @throws HeadlessException l'exception indirecte
 	 */
 	// Kitimir Yim
-	private void sauvegarderNiveau() throws HeadlessException {
-		if (compteur < MAX_NIVEAUX) {
-			Object[] options = { "1", "2", "3" };
-			String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau:", "Choix du niveau",
-					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-			if (nom != null) {
-				Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
-				sauvegarder(niveauParDefaut);
-				compteur++;
-			}
-		} else {
-			System.out.println("Nombre maximal de niveaux atteint!");
-		}
+	private void sauvegarderNiveau(){
+		    String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+		            JOptionPane.PLAIN_MESSAGE);
+		        Niveau niveauParDefaut = new Niveau(grille, nom);
+		        sauvegarder(niveauParDefaut);
 	}
 
 	/**
@@ -858,16 +849,19 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Giroux
 	private void reinitialiser() {
-		grille.reinitialiser();
-		grille.setSupprimer(false);
-		grille.setTuile(null);
-		panelTuileTemp.setTuile(null);
-		grille.setRotationPostPlacement(false);
-		repaint();
-		btnDrapeau.setEnabled(true);
-		btnVaisseau.setEnabled(true);
-		desactiveBooleanPostRotastion();
-		desactiveBooleanSupprimer();
+		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveaux?",
+				"Confirmation de réinitialisation", JOptionPane.YES_NO_OPTION) == 0) {
+			grille.reinitialiser();
+			grille.setSupprimer(false);
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+			grille.setRotationPostPlacement(false);
+			repaint();
+			btnDrapeau.setEnabled(true);
+			btnVaisseau.setEnabled(true);
+			desactiveBooleanPostRotastion();
+			desactiveBooleanSupprimer();
+		}
 	}
 
 	/**
@@ -936,12 +930,12 @@ public class PanelEditeur extends JPanel {
 	// Giroux
 	private void rotationnerApresPlacement() {
 		gererRotationPostPlacement();
-		
 
 	}
-	
+
 	/**
-	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un bouton, un booléen, une image et un panneau
+	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
+	 * bouton, un booléen, une image et un panneau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void reinitialiserRotationPostPlacement() {
@@ -979,7 +973,7 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setRotation(false);
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 	}
-	
+
 	/**
 	 * Méthode qui désactive les booléans de rotation supprimer de grille et de
 	 * la fenêtre de la tuile temporaire
@@ -990,5 +984,5 @@ public class PanelEditeur extends JPanel {
 	private void desactiveBooleanSupprimer() {
 		grille.setSupprimer(false);
 		panelTuileTemp.setSupprimer(false);
-			}
+	}
 }

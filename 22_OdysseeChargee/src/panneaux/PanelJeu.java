@@ -308,6 +308,16 @@ public class PanelJeu extends JPanel {
 	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
 		zoneAnimationPhysique.setNiveau(nomNiveau);
 	}
+	
+	/**
+	 * Modifie le niveau de la zone d'animation physique
+	 * 
+	 * @param nomNiveau Le nom du niveau
+	 */
+	// Kitimir Yim
+	public void modifierNiveauDeZoneAnimationPhysiqueDeBase(String nomNiveau) {
+		zoneAnimationPhysique.setNiveauDeBase(nomNiveau);
+	}
 
 	/**
 	 * Modifie le niveau de la zone d'animation physique
