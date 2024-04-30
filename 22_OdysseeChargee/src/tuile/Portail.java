@@ -211,6 +211,10 @@ public class Portail extends Tuile implements Serializable {
 	// Giroux
 	public void setPoint() {
 		super.setPoint();
+		prePointsCoin.clear();
+		pointsCoin.clear();
+		xActuel = 0;
+		yActuel = 0;
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(HautDroit)
 		xActuel = pointInitial.getX() + largeurTuile;

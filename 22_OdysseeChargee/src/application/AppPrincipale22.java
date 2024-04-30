@@ -328,9 +328,6 @@ public class AppPrincipale22 extends JFrame {
 		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
-				if (evt.getPropertyName().equals("niveauCree")) {
-					panSelecteurNiveau.actualiserNiveaux();
-				}
 				if (evt.getPropertyName().equals("niveau essai")) {
 					Niveau niveauEssai = (Niveau) evt.getNewValue();
 					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
@@ -357,16 +354,16 @@ public class AppPrincipale22 extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				if (evt.getPropertyName().equals("passerVersNiveau1")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base1");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base1");
 					miseAJourChargementNiveau();
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau2")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base2");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base2");
 					miseAJourChargementNiveau();
 
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau3")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base3");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
 					miseAJourChargementNiveau();
 				}
 				

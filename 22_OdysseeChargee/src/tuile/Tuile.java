@@ -65,6 +65,10 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	protected ArrayList<Point2D.Double> prePointsCoin = new ArrayList<Point2D.Double>();
 	/** ArrayList qui contient les points des coins des blocs post-transformé **/
 	protected ArrayList<Point2D.Double> pointsCoin = new ArrayList<Point2D.Double>();
+	/**
+	 * 
+	 */
+	protected ArrayList<Point2D.Double> pointsCoinTemp = new ArrayList<Point2D.Double>();
 	/** Point initial(haut-gauche) du bloc **/
 	protected Point2D.Double pointInitial;
 	/** Path qui représente le contour du bloc **/
@@ -85,6 +89,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * plaques chargées
 	 */
 	private int indexAireSurvolee;
+	protected MatriceRotation matricePostCreation;
 
 	/**
 	 * Constructeur
@@ -174,7 +179,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		double hauteurTuileImage = -hauteurTuile;
 		g2d.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
 		g2d.setTransform(transformationAffine);
-		//dessinerContour(g2d);
+		dessinerContour(g2d);
 	}
 	
 	/**
@@ -205,7 +210,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		 g2d.draw(contour);
+		 //g2d.draw(contour);
 		
 
 		if (!listeSegments.isEmpty()) {
@@ -693,4 +698,12 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public static double getLargeurTuile() {
 		return largeurTuile;
 	}
+	
+	public void rotationPostCreation() {
+		matricePostCreation = new MatriceRotation(-this.angleRotation); 
+		
+		
+	}
+	
+	
 }

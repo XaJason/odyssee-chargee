@@ -602,8 +602,8 @@ public class PanelEditeur extends JPanel {
 	private void sauvegarder(Niveau niveau) {
 
 		GestionnaireDeNiveaux.ajouter(niveau);
-		Sauvegarder.sauvegarderNiveau(niveau, niveau.getNom());
-		PCS.firePropertyChange("niveauCree", null, niveau);
+		Sauvegarder.sauvegarderNiveauMesTrucs(niveau, niveau.getNom());
+	
 	}
 
 	/**
@@ -633,20 +633,11 @@ public class PanelEditeur extends JPanel {
 	 * @throws HeadlessException l'exception indirecte
 	 */
 	// Kitimir Yim
-	private void sauvegarderNiveau() throws HeadlessException {
-		if (compteur < MAX_NIVEAUX) {
-			Object[] options = { "1", "2", "3" };
-			String nom = (String) JOptionPane.showInputDialog(null, "Veuillez choisir un niveau:", "Choix du niveau",
-					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-			if (nom != null) {
-				Niveau niveauParDefaut = new Niveau(grille, "Niveau " + nom);
-				sauvegarder(niveauParDefaut);
-				compteur++;
-			}
-		} else {
-			System.out.println("Nombre maximal de niveaux atteint!");
-		}
+	private void sauvegarderNiveau(){
+		    String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+		            JOptionPane.PLAIN_MESSAGE);
+		        Niveau niveauParDefaut = new Niveau(grille, nom);
+		        sauvegarder(niveauParDefaut);
 	}
 
 	/**

@@ -1050,6 +1050,7 @@ public class Grille extends JPanel implements Serializable {
 						} else {
 							tabEmplacement[i][j]
 									.setAngleRotation(tabEmplacement[i][j].getAngleRotation() + 0.5 * Math.PI);
+							tabEmplacement[i][j].setPoint();
 									
 							repaint();
 						}
