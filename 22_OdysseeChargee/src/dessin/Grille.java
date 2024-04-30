@@ -709,6 +709,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void gererSupprimer() {
 		supprimer = !supprimer;
+		positionnerCaseEtTuile();
 		repaint();
 	}
 
