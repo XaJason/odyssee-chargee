@@ -42,6 +42,15 @@ public class FenetreAPropos extends JPanel {
 		JLabel lblSources = new JLabel("<html>" + "<br>Image des carrés: " + "<br>Image du drapeau: "
 				+ "<br>Image des pics: " + "<br>Image des portails: " + "<br>Image des triangles équilatérals: "
 				+ "<br>Image des triangles rectangles: " + "<br>Image du vaisseau: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
 
 		);
 
