@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -25,17 +26,13 @@ public class Sauvegarder {
 	 * Chemon pour le dossier de sauvegarde
 	 */
 	private static final String DOSSIER_SAUVEGARDE = new File(
-			javax.swing.filechooser.FileSystemView.getFileSystemView().getDefaultDirectory().getPath() + "\\"
-					+ SOUS_DOSSIER_DE_TRAVAIL).getPath();
+	        System.getProperty("user.home") + "\\OneDrive\\Documents\\" + SOUS_DOSSIER_DE_TRAVAIL).getPath();
 	/**
 	 * Type de fichier
 	 */
 	private static final String EXTENSION_FICHIER = ".dat";
 
-	/**
-	 * Nom du dossier où est sauvegarder les niveaux
-	 */
-	private static final String DOSSIER_SAUVEGARDE_RESSOURCE = "ressources/";
+
 
 	// Méthode pas utilisé encore
 	/**
@@ -45,16 +42,16 @@ public class Sauvegarder {
 	 * @param numeroNiveau numéro du niveau
 	 */
 	// Kitimir Yim
-	public static void sauvegarderNiveauMesTrucs(Niveau niveau, String numeroNiveau) {
+	public static void sauvegarderNiveauMesTrucs(Niveau niveau, String nomNiveau) {
 
-		String nomFichier = DOSSIER_SAUVEGARDE + "\\" + numeroNiveau + EXTENSION_FICHIER;
+		String nomFichier = nomNiveau + EXTENSION_FICHIER;
 
 		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
 		if (!dossierNiveaux.exists()) {
-			dossierNiveaux.mkdirs(); // Créer les dossiers parents si nécessaire
+			dossierNiveaux.mkdirs(); 
 		}
 
-		File fichierDeTravail = new File(nomFichier);
+		File fichierDeTravail = new File(dossierNiveaux + "\\" +nomFichier);
 
 		ObjectOutputStream oos = null;
 		if (fichierDeTravail.exists()) {
@@ -90,13 +87,13 @@ public class Sauvegarder {
 	 */
 	// Kitimir Yim
 	public static Niveau chargerNiveauMesTrucs(String identifiantNiveau) {
-		String nomFichier = DOSSIER_SAUVEGARDE + "\\" + identifiantNiveau + EXTENSION_FICHIER;
+		String nomFichier = identifiantNiveau + EXTENSION_FICHIER;
 
 		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
 		if (!dossierNiveaux.exists()) {
-			dossierNiveaux.mkdirs(); // Créer les dossiers parents si nécessaire
+			dossierNiveaux.mkdirs(); 
 		}
-		File fichierDeTravail = new File(nomFichier);
+		File fichierDeTravail = new File( dossierNiveaux + "\\" + nomFichier);
 
 		ObjectInputStream ois = null;
 		try {
@@ -123,41 +120,7 @@ public class Sauvegarder {
 		}
 	}
 
-	/**
-	 * Méthode static permettant la sauvegarde de niveau
-	 * 
-	 * @param niveau       Objet niveau que l'on veut sauvegarder
-	 * @param numeroNiveau numéro du niveau
-	 */
-	// Kitimir Yim
-	public static void sauvegarderNiveau(Niveau niveau, String numeroNiveau) {
 
-		String nomFichier = DOSSIER_SAUVEGARDE_RESSOURCE + numeroNiveau + EXTENSION_FICHIER;
-
-		File fichierDeTravail = new File(nomFichier);
-
-		ObjectOutputStream oos = null;
-		if (fichierDeTravail.exists()) {
-			JOptionPane.showMessageDialog(null,
-					" Le fichier " + fichierDeTravail.toString() + " existe déjà: il sera remplacé!");
-		}
-		try {
-			oos = new ObjectOutputStream(new FileOutputStream(fichierDeTravail));
-			oos.writeObject(niveau);
-			oos.close();
-			System.out.println("Niveau sauvegardé avec succès!");
-		} catch (IOException e) {
-			System.out.println("Erreur lors de la sauvegarde du niveau : " + e.getMessage());
-		} finally {
-
-			try {
-				oos.close();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
-				e.printStackTrace();
-			}
-		}
-	}
 
 	/**
 	 * Méthode static permettant le chargement de niveau
@@ -167,15 +130,18 @@ public class Sauvegarder {
 	 * @return niveau Le niveau que l'on souhaite charger
 	 */
 	// Kitimir Yim
-	public static Niveau chargerNiveau(String identifiantNiveau) {
-		String nomFichier = DOSSIER_SAUVEGARDE_RESSOURCE + identifiantNiveau + EXTENSION_FICHIER;
+	public static Niveau chargerNiveauDeBase(String identifiantNiveau) {
+		String nomFichier = identifiantNiveau + EXTENSION_FICHIER;
 
-		File fichierDeTravail = new File(nomFichier);
-
-		ObjectInputStream ois = null;
+	
+		ObjectInputStream ois=null;
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(nomFichier);
+		
+		if (is == null) {
+			JOptionPane.showMessageDialog(null, "Incapable de trouver ce fichier dans le BuildPath (ou dans le jar exécutable) : " + nomFichier );
+		}
 		try {
-			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
-
+			ois = new ObjectInputStream(is);
 			Niveau niveau = (Niveau) ois.readObject();
 
 			GestionnaireDeNiveaux.ajouter(niveau);
@@ -195,4 +161,6 @@ public class Sauvegarder {
 			}
 		}
 	}
+	
+	
 }

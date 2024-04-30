@@ -257,9 +257,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setBounds(29, 31, 1232, 617);
 
 
-//		niveau = Sauvegarder.chargerNiveau("Niveau_base1");
-//		placerVaisseauPourDebutAnimation(niveau);
-//		niveau.getGrille().setDansModeJeu(true);
+		niveau = Sauvegarder.chargerNiveauDeBase("Niveau_base1");
+		placerVaisseauPourDebutAnimation(niveau);
+		niveau.getGrille().setDansModeJeu(true);
 	}// fin constructeur
 
 
@@ -1161,7 +1161,19 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNiveau(String nomNiveau) {
-		this.niveau = Sauvegarder.chargerNiveau(nomNiveau);
+		this.niveau = Sauvegarder.chargerNiveauMesTrucs(nomNiveau);
+		modificationSupplementaireSetNiveau(niveau);
+		repaint();
+	}
+	
+	/**
+	 * Modifie le niveau en en chargeant un nouveau niveau
+	 * 
+	 * @param nomNiveau Le nom du niveau (une chaîne de caractère)
+	 */
+	//Kitimir Yim
+	public void setNiveauDeBase(String nomNiveau) {
+		this.niveau = Sauvegarder.chargerNiveauDeBase(nomNiveau);
 		modificationSupplementaireSetNiveau(niveau);
 		repaint();
 	}

@@ -111,30 +111,6 @@ public class PanelSelecteurNiveaux extends JPanel {
 		creerTroisBoutonsNiveaux();
 	}
 
-	/**
-	 * Actualise les boutons représentant les niveaux disponibles
-	 */
-	// Kitimir Yim
-	public void actualiserNiveaux() {
-		// removeAll(); // Supprimer tous les composants existants
-
-		ArrayList<Niveau> niveaux = GestionnaireDeNiveaux.getRepertoireNiveau();
-
-		int yPosition = 90;
-		for (Niveau niveau : niveaux) {
-			JButton btnNiveau = new JButton(niveau.getNom());
-			btnNiveau.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					PCS.firePropertyChange("niveauSelectionne", null, niveau);
-				}
-			});
-			btnNiveau.setBounds(50, yPosition, 200, 30);
-			add(btnNiveau);
-			yPosition += 40;
-		}
-
-		repaint();
-	}
 	
 	/**
 	 * Créer trois autres boutons permettant d'accéder aux niveaux de base 4, 5 et 6
