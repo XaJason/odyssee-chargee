@@ -184,12 +184,14 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				transformerCoordonneesSouris(e);
 				gererSourisPesee(e);
 
 			}// fin mousePressed
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				transformerCoordonneesSouris(e);
 				gererSourisRelachee(e);
 
 			}
@@ -1112,14 +1114,14 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case MouseEvent.BUTTON1:
 			if (!supprimer) {
-				transformerCoordonneesSouris(e);
+				//transformerCoordonneesSouris(e);
 				reinitialiseStatutTuileUnique();
 			}
 			if (deplacementTuileUnique) {
 				deplacementTuileUnique = false;
 			} else {
 				if (rotationPostPlacement) {
-					transformerCoordonneesSouris(e);
+					//transformerCoordonneesSouris(e);
 					rotationPostPlacement();
 				} else {
 					placerTuile(e);

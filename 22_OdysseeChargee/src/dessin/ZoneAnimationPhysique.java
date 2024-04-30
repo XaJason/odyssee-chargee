@@ -125,8 +125,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private int nbPlaquesRestantes = 10;
 	/** Booléen qui indique si le bouton de la plaque est actionnée **/
 	private boolean placementPlaque = false;
-	/** Booléen qui indique si l'on souhaite dessiner une plaque survolant une tuile (lorsqu'on bouge la souris) **/
-	private boolean survolerPlaqueSurTuile = false;
 	/**
 	 * Booléen qui indique si l'on souhaite fixer une plaque sur tuile (après avoir
 	 * cliqué dessus)
@@ -245,13 +243,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// debut
-				if (placementPlaque) {
-					fixerPlaqueSurTuile = true;
-					transformerCoordonneesSouris(e);
-					survolerToutesLesTuilesPourTrouverCurseur();
-					fixerPlaqueSurTuile = false;
-					repaint();
-				}
+				transformerCoordonneesSouris(e);
+				gererPlaquesAvecSouris(e);
 				// fin
 			}
 		});
@@ -322,6 +315,56 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	}
 
+	/**
+	 * Gère le placement ou la suppression des plaques lors des cliques de souris
+	 * 
+	 * @param e L'événement de la souris
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void gererPlaquesAvecSouris(MouseEvent e) {
+		switch (e.getButton()) {
+			case MouseEvent.BUTTON1:
+				fixerPlaque(e);
+				break;
+			case MouseEvent.BUTTON3:
+				System.out.println("\nDétection clic droit");
+				supprimerPlaque(e);
+				break;
+		}//fin switch/case
+		repaint();
+	}//fin méthode
+	
+	/**
+	 * Permet de définir l'emplacemet d'une plaque sur le composant d'animation
+	 * en fonction d'où se situe le curseur de la souris
+	 * 
+	 * @param e L'événement de la souris
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void fixerPlaque(MouseEvent e) {
+		if (placementPlaque) {
+			fixerPlaqueSurTuile = true;
+			survolerToutesLesTuilesPourTrouverCurseur();
+			fixerPlaqueSurTuile = false;
+		}//fin if
+	}//fin méthode
+	
+	/**
+	 * Permet de supprimer la plaque sur laquelle on vient de cliquer à l'aide de la souris
+	 * 
+	 * @param e L'événement de la souris
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void supprimerPlaque(MouseEvent e) {
+		for (int i = 0; i < listePlaquesChargees.size(); i++) {
+			if (listePlaquesChargees.get(i).contient(sourisEnMetreX, sourisEnMetreY)) {
+				listePlaquesChargees.remove(i);
+				nbPlaquesRestantes++;
+				leveeNbPlaquesRestantes();
+			}//fin if
+		}//fin for
+	}//fin méthode
+	
 	/**
 	 * Permet de transformer les coordonnées de la souris en fonction des transformations du paintComponent:
 	 * Soit, en mètre et avec l'origine en bas à gauche
@@ -401,24 +444,30 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							chargeDesPlaques = Math.abs(chargeDesPlaques);
 							plaque.setCharge(signePlaque * chargeDesPlaques);
 
+							if (fixerPlaqueSurTuile & nbPlaquesRestantes == 0) {
+								JOptionPane.showMessageDialog(null, "Il ne vous reste plus de plaques !"
+										+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits.",
+									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+							}//fin 4e if
+							
 							if (fixerPlaqueSurTuile & nbPlaquesRestantes > 0) {
 								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(),
 										plaque.getPosition().getY());
 								listePlaquesChargees.add(new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()));
 								nbPlaquesRestantes--;
 								leveeNbPlaquesRestantes();
-							} // fin 4e if
-							
-							if (fixerPlaqueSurTuile & nbPlaquesRestantes == 0) {
-								JOptionPane.showMessageDialog(null, "Il ne vous reste plus de plaques !"
-										+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits.",
-									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
-							}
+								
+								if (nbPlaquesRestantes == 0) {
+									JOptionPane.showMessageDialog(null, "Attention! Vous venez de placer votre dernière plaque."
+											+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits ou commencez à jouer!",
+										"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+								}//fin 6e if
+							} // fin 5e if
 						} // fin 3e if
 					} // fin 2e if
 				} // fin 1er if
 			} // fin 2e boucle for
-		} // fin 1re boucle for
+		} // fin 1ere boucle for
 
 	} // fin méthode
 
@@ -516,7 +565,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void dessinerPlaqueLorsSurvol(Graphics2D g2d) {
-		if (placementPlaque & sourisDansComposant) {
+		if (placementPlaque & sourisDansComposant & nbPlaquesRestantes > 0) {
 			Tuile[][] tabTuiles = niveau.getGrille().getTableau();
 
 			for (int i = 0; i < tabTuiles.length; i++) {

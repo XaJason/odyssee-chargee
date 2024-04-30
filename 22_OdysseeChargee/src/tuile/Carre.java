@@ -158,7 +158,6 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 		// pointMilieu = pointsCoin.get(4);
 		transformerPointMilieu();
 		creerGeometrieContour();
-		System.out.println(pointsCoin);
 		creerListeSegment();
 		creerAires(pointMilieu);
 	}

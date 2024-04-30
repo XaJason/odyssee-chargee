@@ -239,7 +239,7 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 			g2dPrive.setColor(Color.magenta);
 		}
 
-		g2dPrive.draw(formePlaque);
+		g2dPrive.fill(formePlaque);
 //		System.out.println("Plaque : "+this.toString(3));
 //		System.out.println("Sup gauche : "+coinSupGauche);
 //		System.out.println("Inf gauche : "+coinInfGauche);
@@ -273,8 +273,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	/**
 	 * Permet de savoir si le curseur de la souris est à l'intérieur de la plaque
 	 * chargée
-	 * 
-	 * !!! Sert seulement à l'application pour tester la méthode contient
 	 * 
 	 * @param x La coordonnée X du curseur de la souris
 	 * @param y La coordonnée Y du curseur de la souris

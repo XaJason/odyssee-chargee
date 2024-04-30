@@ -107,17 +107,18 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	public void setPoint() {
 		super.setPoint();
 		xActuel = 0;
-		yActuel = 0;
+		yActuel = hauteurTuile;
 		prePointsCoin.clear();
 		pointsCoin.clear();
 		listeSegments.clear();
+		pointInitial.setLocation(xActuel, yActuel);
 		prePointsCoin.add(pointInitial);
 		// Deuxième point(basDroit)
 		xActuel += largeurTuile;
+		yActuel -= hauteurTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
 		// Troisième point(BasGauche)
 		xActuel -= largeurTuile;
-		yActuel += hauteurTuile;
 		coinBasGauche = new Point2D.Double(xActuel, yActuel);
 		// Ajouter dans l'arrayList
 		prePointsCoin.add(coinBasDroit);
@@ -126,6 +127,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		pointMilieu = pointMilieuTriangle(prePointsCoin);
 		// prePointsCoin.add(pointMilieu);
 		// Transformer
+		
 		for (Point2D.Double i : prePointsCoin) {
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
 			i = rotation.rotationner(i);
