@@ -272,12 +272,13 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void essayerNiveau() {
-		if (grille.contientVaisseau() & grille.contientDrapeau()) {
+		if (niveauBienConstruit("d'essayer")) {
 			transfertVersModeJeu();
-		} else {
-			JOptionPane.showMessageDialog(null, "La grille est vide. Placez au moins un vaisseau et un drapeau !",
-					"Avertissement", JOptionPane.WARNING_MESSAGE, null);
 		}
+//		} else {
+//			JOptionPane.showMessageDialog(null, "Il manque des tuiles. Placez au moins un vaisseau, un drapeau et/ou un portail!",
+//					"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+//		}
 	}
 	
 	/**
@@ -649,32 +650,46 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Retourne vrai si le niveau contient un vaisseau et un drapeau. Affiche
-	 * également une fenêtre pop-up lorsque le niveau n'est pas bien construit comme
+	 * Retourne vrai si le niveau contient un vaisseau, un drapeau et un nombre pair de portail.
+	 * Affiche également une fenêtre pop-up lorsque le niveau n'est pas bien construit comme
 	 * avertissement.
 	 * 
+	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveau soit bien construit
 	 * @return vrai si le niveau contient un vaisseau et un drapeau
 	 */
 	// Jason Xa
-	private boolean niveauBienConstruit() {
+	private boolean niveauBienConstruit(String tacheAEffectuer) {
 		String tuilesManquantes = "";
 		boolean vaisseauPresent = grille.contientVaisseau();
 		boolean drapeauPresent = grille.contientDrapeau();
 
+		tuilesManquantes = conditionPortails(tuilesManquantes);
 		if (!vaisseauPresent) {
-			tuilesManquantes = tuilesManquantes + "\nVaisseau (personnage)";
+			tuilesManquantes = tuilesManquantes + "\n     - Vaisseau (personnage)";
 		}
 		if (!drapeauPresent) {
-			tuilesManquantes = tuilesManquantes + "\nDrapeau d'arrivée";
+			tuilesManquantes = tuilesManquantes + "\n     - Drapeau d'arrivée";
 		}
 		if (!tuilesManquantes.isBlank()) {
 			JOptionPane.showMessageDialog(null,
-					"Objets à placer:" + tuilesManquantes + "\n\nVeuillez le(s) placer avant de sauvegarder le niveau.",
+					"Objets à placer:" + tuilesManquantes + "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveau.",
 					"Niveau inadéquat", 2, null);
 		}
-		return grille.contientVaisseau() && grille.contientDrapeau();
+		return ( grille.contientVaisseau() && grille.contientDrapeau() && grille.portailsTousLies() );
 	}
 
+	/**
+	 * Vérifie que tous les portails ont une paire
+	 * 
+	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles manquantes
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private String conditionPortails(String tuilesManquantes) {
+		if (!grille.portailsTousLies()) {
+			tuilesManquantes = tuilesManquantes + "\n     - Portail";
+		}
+		return tuilesManquantes;
+	}
 	/**
 	 * S'occupe de la levée d'évenement
 	 */
@@ -873,7 +888,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void sauvegarder() throws HeadlessException {
-		if (niveauBienConstruit()) {
+		if (niveauBienConstruit("de sauvegarder")) {
 			sauvegarderNiveau();
 		}
 	}

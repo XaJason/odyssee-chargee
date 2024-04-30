@@ -39,6 +39,7 @@ import utilitaires.OutilsImage;
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
  * @author Giroux
+ * @author Jason Xa
  * 
  */
 public class ZoneAnimationPhysique extends JPanel implements Runnable {
@@ -54,7 +55,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Pas de simulation initial (en seconde) **/
 	private final double DELTA_T_INITIAL = 0.01;
 	/** Temps de la pause du thread d'animation initiale (en milliseconde) **/
-	private final int TEMPS_DU_SLEEP_INITIAL = 10;
+	private final int TEMPS_DU_SLEEP_INITIAL = 8;
+//	/** Temps de refroidissement initial des portails (en milliseconde) **/
+//	private final double COOLDOWN_PORTAIL = 400;
 	
 	/** Pas de simulation (en seconde) **/
 	private double deltaT = DELTA_T_INITIAL;
@@ -62,6 +65,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private int tempsDuSleep = TEMPS_DU_SLEEP_INITIAL;
 	/** Temps total écoulé, simulé (en seconde) **/
 	private double tempsTotalEcoule = 0;
+//	/** Temps de refroidissement des portails (en milliseconde) **/
+//	private double cooldownPortail = COOLDOWN_PORTAIL;
 	/** Booléen permettant de savoir si l'animation est en cours **/
 	private boolean enCoursDAnimation = false;
 	/** Booléen indiquant si c'est la première fois. **/
@@ -398,9 +403,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+		
 		// Transformations affines pour que l'origine soit en bas à droite
-		// g2d.translate(0, getHeight());
-		// g2d.scale(1, -1);
+		 g2d.translate(0, getHeight());
+		 g2d.scale(1, -1);
 
 		if (premiereFois) {
 			pixelsParMetre = getWidth() / largeurDuComposantEnMetres;
@@ -414,8 +420,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} // fin condition dans paintComponent
 
 
+		
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
-
 		
 		
 		g2dPrive.scale(pixelsParMetre, pixelsParMetre);
@@ -640,7 +646,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 							System.out.println("Vous êtes mort!");
 							break;
 						case "Portail":
-							teleportation(tuile);
+							Portail portailInitial = (Portail) tuile;
+							portailInitial.teleportation(vaisseau);
+							//teleportation(tuile);
 							break;
 						}
 					}
@@ -687,31 +695,31 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	}
 
-	/**
-	 * Gère la téléportation d'un portail à un autre
-	 * 
-	 * @param tuile tuile du portail
-	 */
-	// Kitimir Yim
-	private void teleportation(Tuile tuile) {
-		Portail portailIni = (Portail) tuile;
-		Portail portailFinal = portailIni.getPortailAssocie();
-
-		double rayon = Tuile.getHauteurTuile() / 2;
-		double tempsActuel = System.currentTimeMillis();
-		double cooldown = 750; 
-		
-		if (tempsActuel - dernierUsageDuPortail >= cooldown)  {
-
-			dernierUsageDuPortail = tempsActuel;
-			Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
-			Double posDeYPortail = portailFinal.getPointZero().getY() + rayon;
-			Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
-			vaisseau.setPosition(posPortailFinal);
-		} else {
-			System.out.println("Le portail est en cours de refroidissement.");
-		}
-	}
+//	/**
+//	 * Gère la téléportation d'un portail à un autre
+//	 * 
+//	 * @param tuile tuile du portail
+//	 */
+//	// Kitimir Yim
+//	private void teleportation(Tuile tuile) {
+//		Portail portailIni = (Portail) tuile;
+//		Portail portailFinal = portailIni.getPortailAssocie();
+//
+//		double rayon = Tuile.getHauteurTuile() / 2;
+//		double tempsActuel = System.currentTimeMillis();
+//		//cooldownPortail = 500; 
+//		
+//		if (tempsActuel - dernierUsageDuPortail >= cooldownPortail)  {
+//
+//			dernierUsageDuPortail = tempsActuel;
+//			Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
+//			Double posDeYPortail = portailFinal.getPointZero().getY() + rayon;
+//			Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
+//			vaisseau.setPosition(posPortailFinal);
+//		} else {
+//			System.out.println("Le portail est en cours de refroidissement.");
+//		}
+//	}
 
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
@@ -758,10 +766,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setMasse(masseVaisseau);
 		vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 		vaisseau.setVitesse(VEC_ZERO);
-		vaisseau.setAccel(VEC_ZERO);
-		vaisseau.setSommeDesForces(VEC_ZERO);
-
+		//vaisseau.setAccel(VEC_ZERO);
+		
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
+		
 		gauche = false;
 		droite = false;
 		haut = false;
@@ -780,6 +789,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		enCoursDAnimation = false;
 		//premiereFois = true;
 		tempsTotalEcoule = 0;
+		leveeSorties();
 		repaint();
 		
 		// On pause l'application pour que le thread ait le temps de mourir avant d'en relancer un autre
@@ -800,11 +810,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setMasse(MASSE_INITIALE_VAISSEAU);
 		vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 		vaisseau.setVitesse(VEC_ZERO);
-		vaisseau.setAccel(VEC_ZERO);
-		vaisseau.setSommeDesForces(VEC_ZERO);
+		//vaisseau.setAccel(VEC_ZERO);
+		
+		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 
 		listePlaquesChargees.clear();
-		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		gauche = false;
 		droite = false;
 		haut = false;
@@ -815,6 +826,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		// reinitialiser = true;
 		tempsTotalEcoule = 0;
 
+		leveeSorties();
 		repaint();
 	}
 
@@ -1018,8 +1030,33 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	public void setTempsSleep(int tempsDuSleep) {
 		this.tempsDuSleep = tempsDuSleep;
+		setCooldownPortail();
 	}
 
+	/**
+	 * Modifie le temps de refroidissement des portails en fonction du temps du sleep
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void setCooldownPortail() {
+		switch (tempsDuSleep) {
+			case 2:
+				Portail.setCooldownPortail(600);
+				break;
+			case 5:
+				Portail.setCooldownPortail(800);
+				break;
+			case 8:
+				Portail.setCooldownPortail(1000);
+				break;
+			case 16:
+				Portail.setCooldownPortail(1500);
+				break;
+			case 20:
+				Portail.setCooldownPortail(2000);
+				break;
+		}
+	}
+	
 	/**
 	 * Retourne le niveau
 	 * 

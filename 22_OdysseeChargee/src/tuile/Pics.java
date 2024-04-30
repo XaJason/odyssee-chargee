@@ -95,20 +95,21 @@ public class Pics extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Dessine l'image représentant les pics selon ses coordonnées
+	 * Dessine l'image représentant les pics selon les coordonnées de sa tuile dans la grille
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
 	// Jason Xa
 	public void dessiner(Graphics2D g2d) {
+		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
-		g2d.setColor(Color.red);
+		//g2dPrive.setColor(Color.red);
 		// g2d.draw(contour);
-		AffineTransform transformationAffine = g2d.getTransform();
-		g2d.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2d.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) (hauteurTuile / 2.0),
+		//AffineTransform transformationAffine = g2dPrive.getTransform();
+		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
+		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) (hauteurTuile / 2.0),
 				null);
-		g2d.setTransform(transformationAffine);
+		//g2dPrive.setTransform(transformationAffine);
 	}
 
 	/**

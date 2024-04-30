@@ -30,7 +30,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 
 	// PROPRIÉTÉS //
 	/** Module de la vitesse limite du vaisseau (en m/s) **/
-	private double MODULE_VITESSE_LIMITE = 300;
+	private final double MODULE_VITESSE_LIMITE = 300;
 	/** Position du vaisseau à l'itération précédente **/
 	private Vecteur2D positionPrecedente;
 	/** Vitesse du vaisseau (en m/s) **/

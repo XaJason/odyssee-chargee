@@ -158,15 +158,15 @@ public class Etoile implements Dessinable {
 	 */
 	// Nils Lahaye
 	public void dessiner(Graphics2D g2d) {
-		g2d = (Graphics2D) g2d.create();
+		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 
 		// Si l'etoile est une demi-etoile, on la dessine a moitie (horizontalement)
 		if (demiEtoile)
-			g2d.clipRect((int) x, (int) y, (int) rayonExterieur, (int) rayonExterieur * 2);
+			g2dPrive.clipRect((int) x, (int) y, (int) rayonExterieur, (int) rayonExterieur * 2);
 
-		g2d.fill(pathEtoile);
+		g2dPrive.fill(pathEtoile);
 
-		g2d.dispose();
+		g2dPrive.dispose();
 	}
 
 	/**

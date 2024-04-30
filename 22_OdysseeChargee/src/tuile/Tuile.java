@@ -31,10 +31,12 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -7235372039893162386L;
-	/** l'abscisse gauche de la tuile (en mètre) */
+	/** L'abscisse du coin supérieur gauche de la tuile (en mètre) */
 	protected double x;
-	/** l'ordonnée supérieure la tuile en (en mètre) */
+	/** L'ordonnée du coin supérieur gauche de la tuile en (en mètre) */
 	protected double y;
+	/** Géométrie de base d'une tuile (un carré) **/
+	Rectangle2D.Double geometrieDeBase;
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
 	/** Détermine si la tuile est un drapeau **/
@@ -97,6 +99,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		y = 0;
 		this.image = image;
 		this.type = type;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -114,7 +117,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 		this.image = image;
 		this.type = type;
-
+		creerLaGeometrie();
 	}
 
 	/**
@@ -130,6 +133,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.angleRotation = angleRotation;
 		this.image = image;
 		this.type = type;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -149,11 +153,11 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 		this.image = image;
 		this.type = type;
-
+		creerLaGeometrie();
 	}
 
 	/**
-	 * Dessine l'image représentant la tuile selon ses coordonnées
+	 * Dessine l'image représentant la tuile selon ses coordonnées dans la grille
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -168,7 +172,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 	
 	/**
-	 * Dessine l'image représentant la tuile selon ses coordonnées
+	 * Dessine l'image représentant la tuile selon les coordonnées passé en paramètre
 	 * 
 	 * @param g2d contexte graphique
 	 * @param x   abscisse gauche de la tuile (en mètre)
@@ -222,6 +226,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setX(double x) {
 		this.x = x;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -242,6 +247,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setY(double y) {
 		this.y = y;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -455,6 +461,14 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
+	 * Créer la géométrie de base d'une tuile (un carré)
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void creerLaGeometrie() {
+		geometrieDeBase = new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile);
+	}
+	
+	/**
 	 * Méthode qui instancie le path qui fait le contour du bloc
 	 */
 	// Giroux
@@ -624,7 +638,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * Méthode qui forme l'aire d'un objet spécial (pics, drapeau, portail)
 	 * Redéfini dans les tuiles qui sont des objets spéciaux
 	 * 
-	 * @return la forme de l.objet spécial dans un area
+	 * @return La forme de l'objet spécial dans un Area
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Area formerAireObjetSpecial() {

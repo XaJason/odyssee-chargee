@@ -43,7 +43,6 @@ import utilitaires.OutilsImage;
 /**
  * Application permettant d'accéder au jeu Odyssée chargée
  * 
- * @author Jason Xa
  * @author Kitimir Yim
  * @author Enuel René Valentin Kizozo Izia
  */

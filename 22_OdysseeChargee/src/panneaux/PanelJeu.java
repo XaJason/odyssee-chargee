@@ -636,7 +636,6 @@ public class PanelJeu extends JPanel {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void reinitialiserZoneAnimation() {
-		zoneAnimationPhysique.reinitialiser();
 		btnProchaineImage.setEnabled(true);
 		btnDemarrer.setEnabled(true);
 		btnRedemarrer.setEnabled(false);
@@ -649,6 +648,8 @@ public class PanelJeu extends JPanel {
 		spnGravite.setValue(MoteurPhysique.getAccelGravInitiale());
 		spnCoefFrictionStat.setValue(MoteurPhysique.getCoeffFrotStatInitial());
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
+		
+		zoneAnimationPhysique.reinitialiser();
 	}// fin methode reinitialiserZoneAnimation
 
 	/**

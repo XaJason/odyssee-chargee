@@ -229,7 +229,7 @@ public class MoteurPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D appliqueForceVersHaut(double masse) {
-		return new Vecteur2D(0, -ACCEL_JETPACK * masse); // Changer les signes éventuellement
+		return new Vecteur2D(0, ACCEL_JETPACK * masse);
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class MoteurPhysique {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D appliqueForceVersBas(double masse) {
-		return new Vecteur2D(0, ACCEL_JETPACK * masse); // Changer les signes éventuellement
+		return new Vecteur2D(0, -ACCEL_JETPACK * masse);
 	}
 
 	/**
@@ -889,7 +889,10 @@ public class MoteurPhysique {
 	
 	/**
 	 * Retourne la tolérance utilisée dans les comparaisons réelles avec zéro
+	 * 
+	 * @return La tolérance utilisée dans les comparaisons réelles avec zéro
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public static double getEpsilon() {
 		return EPSILON;
 	}
