@@ -434,9 +434,8 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau.setBounds(1267, 395, 60, 60);
 		add(btnDrapeau);
 		btnDrapeau.setText("D");
-		btnDrapeau.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
+		btnDrapeau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				selectionnerDrapeau();
 				reinitialiserRotationPostPlacement();
 			}
@@ -499,15 +498,7 @@ public class PanelEditeur extends JPanel {
 		add(btnRotationPostPlacement);
 		btnRotationPostPlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grille.setRotationPostPlacement();
-				if (grille.getRotationPostPlacement()) {
-					OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg",
-							btnRotationPostPlacement);
-					panelTuileTemp.setRotation(true);
-				} else {
-					OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
-					panelTuileTemp.setRotation(false);
-				}
+				gererRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
@@ -771,6 +762,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new VaisseauImage());
 		panelTuileTemp.setTuile(new VaisseauImage());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -782,6 +774,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Carre());
 		panelTuileTemp.setTuile(new Carre());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -793,6 +786,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new TriangleRectangle());
 		panelTuileTemp.setTuile(new TriangleRectangle());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -804,6 +798,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new TriangleEquilateral());
 		panelTuileTemp.setTuile(new TriangleEquilateral());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -815,6 +810,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Pics());
 		panelTuileTemp.setTuile(new Pics());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -826,6 +822,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Portail());
 		panelTuileTemp.setTuile(new Portail());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -838,6 +835,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Drapeau());
 		panelTuileTemp.setTuile(new Drapeau());
 		afficherSelection();
+		desactiveBooleanPostRotastion();
 		repaint();
 
 	}
@@ -855,6 +853,7 @@ public class PanelEditeur extends JPanel {
 		repaint();
 		btnDrapeau.setEnabled(true);
 		btnVaisseau.setEnabled(true);
+		desactiveBooleanPostRotastion();
 	}
 
 	/**
@@ -876,6 +875,8 @@ public class PanelEditeur extends JPanel {
 	// Giroux
 	private void supprimer() {
 		grille.gererSupprimer();
+		panelTuileTemp.gererSupprimer();
+		desactiveBooleanPostRotastion();
 	}
 
 	/**
@@ -887,6 +888,7 @@ public class PanelEditeur extends JPanel {
 		grille.rotation(signum);
 		panelTuileTemp.rotation(signum);
 		panelTuileTemp.repaint();
+		desactiveBooleanPostRotastion();
 		repaint();
 	}
 
@@ -899,6 +901,7 @@ public class PanelEditeur extends JPanel {
 	private void sauvegarder() throws HeadlessException {
 		if (niveauBienConstruit("de sauvegarder")) {
 			sauvegarderNiveau();
+			desactiveBooleanPostRotastion();
 		}
 	}
 
@@ -928,5 +931,33 @@ public class PanelEditeur extends JPanel {
 		grille.setRotationPostPlacement(false);
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 		panelTuileTemp.setRotation(false);
+	}
+
+	/**
+	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du bouton
+	 */
+	//Giroux
+	private void gererRotationPostPlacement() {
+		grille.setRotationPostPlacement();
+		if (grille.getRotationPostPlacement()) {
+			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg",
+					btnRotationPostPlacement);
+			panelTuileTemp.setRotation(true);
+		} else {
+			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+			panelTuileTemp.setRotation(false);
+		}
+	}
+	
+	/**
+	 * Méthode qui désactive les booléans de rotation post placement de grille et de la fenêtre
+	 * de la tuile temporaire
+	 * @return 
+	 */
+	//Giroux
+	private void desactiveBooleanPostRotastion() {
+		grille.setRotationPostPlacement(false);
+		panelTuileTemp.setRotation(false);
+		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 	}
 }
