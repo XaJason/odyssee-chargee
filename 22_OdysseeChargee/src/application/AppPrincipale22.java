@@ -367,7 +367,7 @@ public class AppPrincipale22 extends JFrame {
 					miseAJourChargementNiveau();
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau6")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveauBase6");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
 					miseAJourChargementNiveau();
 				}
 
