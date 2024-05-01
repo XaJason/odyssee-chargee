@@ -94,6 +94,9 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	/** Matrice de rotation utilisée lorsqu'on appuie sur les boutons de rotation  **/
 	protected MatriceRotation matricePostCreation;
 
+	/** Géométrie de base d'une tuile **/
+	private Rectangle2D.Double geometrieDeBase;
+	
 	/**
 	 * Constructeur
 	 * 
@@ -107,6 +110,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		y = 0;
 		this.image = image;
 		this.type = type;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -124,6 +128,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 		this.image = image;
 		this.type = type;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -139,6 +144,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.angleRotation = angleRotation;
 		this.image = image;
 		this.type = type;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -158,8 +164,16 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 		this.image = image;
 		this.type = type;
+		creerLaGeometrie();
 	}
 
+	/**
+	 * Crée la géométrie de base d'une tuile
+	 */
+	public void creerLaGeometrie() {
+		geometrieDeBase = new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile);
+	}
+	
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées dans la grille
 	 * 
@@ -210,13 +224,13 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		// g2d.draw(contour);
+		//g2d.draw(contour);
 
-//		if (!listeSegments.isEmpty()) {
-//			for (Segment s : listeSegments) {
-//				s.dessiner(g2dPrive);
-//			}
-//		}
+		if (!listeSegments.isEmpty()) {
+			for (Segment s : listeSegments) {
+				s.dessiner(g2dPrive);
+			}
+		}
 	}
 
 	/**
@@ -237,6 +251,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setX(double x) {
 		this.x = x;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -257,6 +272,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setY(double y) {
 		this.y = y;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -277,6 +293,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setAngleRotation(double d) {
 		this.angleRotation = d;
+		creerLaGeometrie();
 	}
 
 	/**
@@ -494,6 +511,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		pointInitial = new Point2D.Double(0, 0);
 		rotation = new MatriceRotation(-this.angleRotation);
 		creerGeometrieContour();
+		creerLaGeometrie();
 	}
 
 	/**
