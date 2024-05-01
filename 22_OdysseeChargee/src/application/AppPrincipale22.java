@@ -214,7 +214,7 @@ public class AppPrincipale22 extends JFrame {
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
-		btnModeEditeur.setBounds(472, 304, 303, 104);
+		btnModeEditeur.setBounds(424, 304, 403, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
 		fondEcran.add(btnModeEditeur);
 
@@ -250,7 +250,7 @@ public class AppPrincipale22 extends JFrame {
 
 		JButton btnTitre = new JButton("New button");
 		btnTitre.setFocusable(false);
-		btnTitre.setBounds(115, 101, 428, 70);
+		btnTitre.setBounds(115, 101, 428, 86);
 		OutilsImage.lireImageEtPlacerSurBouton("titre.png", btnTitre);
 
 		fondEcran.add(btnTitre);
@@ -411,17 +411,14 @@ public class AppPrincipale22 extends JFrame {
 	// Enuel René Valentin Kizozo Izia
 	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("passerVersNiveau4")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base4");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base4");
 			miseAJourChargementNiveau();
 		} // fin if
 		if (evt.getPropertyName().equals("passerVersNiveau5")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base5");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
 			miseAJourChargementNiveau();
 		} // fin if
-		if (evt.getPropertyName().equals("passerVersNiveau6")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base6");
-			miseAJourChargementNiveau();
-		} // fin if
+	
 	}// fin méthode
 
 	/**
