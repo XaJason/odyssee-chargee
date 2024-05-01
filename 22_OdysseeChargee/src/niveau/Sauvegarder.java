@@ -38,7 +38,6 @@ public class Sauvegarder {
 	 * 
 	 * @param niveau       Objet niveau que l'on veut sauvegarder
 	 * @param nomNiveau    le nom du niveau
-	 * @param numeroNiveau numéro du niveau
 	 */
 	// Kitimir Yim
 	public static void sauvegarderNiveauMesTrucs(Niveau niveau, String nomNiveau) {

@@ -355,6 +355,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * Permet de transformer les coordonnées de la souris en fonction des
 	 * transformations du paintComponent:
 	 * Soit, en mètre et avec l'origine en bas à gauche
+	 * 
+	 * @param e L'événement de la souris
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void transformerCoordonneesSouris(MouseEvent e) {
@@ -795,6 +797,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Affiche le message après la fin du jeu
+	 * 
+	 * @param typeTuile La chaîne de caractère indiquant le type de la tuile
 	 */
 	// Kitimir Yim
 	private void messageMort(String typeTuile) {

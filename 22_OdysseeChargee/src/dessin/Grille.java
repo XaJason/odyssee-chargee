@@ -227,6 +227,8 @@ public class Grille extends JPanel implements Serializable {
 	 * Permet de transformer les coordonnées de la souris en fonction des
 	 * transformations du paintComponent: Soit, en mètre et avec l'origine en bas à
 	 * gauche
+	 * 
+	 * @param e L'événement de la souris
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void transformerCoordonneesSouris(MouseEvent e) {
@@ -306,6 +308,8 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Permet de placer un tuile dans la grille
+	 * 
+	 * @param e L'événement de la souris
 	 */
 	// Giroux
 	private void placerTuile(MouseEvent e) {
@@ -451,6 +455,8 @@ public class Grille extends JPanel implements Serializable {
 	/**
 	 * Méthode qui positionne la tuile et son fond bleu à l'emplacement de la souris
 	 * passée en paramètre
+	 * 
+	 * @param tuile La tuile à positionner
 	 */
 	// Giroux
 	private void positionnerCaseEtTuile(Tuile tuile) {
@@ -983,6 +989,8 @@ public class Grille extends JPanel implements Serializable {
 
 	/**
 	 * Permet de générer une couleur aléatoire pour un portail
+	 * 
+	 * @return Une couleur pour le portail
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private Color genererCouleurPortail() {
@@ -1042,6 +1050,8 @@ public class Grille extends JPanel implements Serializable {
 	/**
 	 * Retourne vrai si la grille ne contient que des portails liés Donc qu'il y a
 	 * un nombre pair de portails
+	 * 
+	 * @return Un booléen qui indique si tous les portails de la grille sont liés à un autre
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {

@@ -103,7 +103,7 @@ public class PanelJeu extends JPanel {
 	/** Étiquette qui indique la charge de la plaque **/
 	private JLabel lblEtatPlaque;
 	/** Étiquette qui indique le nombre de plaques disponibles à placer **/
-	JLabel lblNbDePlaqueRestante;
+	private JLabel lblNbDePlaqueRestante;
 	/** Boolean qui indique la nature de la charge de la plaque **/
 	private boolean plaquePositive = true;
 
@@ -133,7 +133,7 @@ public class PanelJeu extends JPanel {
 	/** Label de la position **/
 	private JLabel labelPosition;
 	/** Le fond d'écran du panneau **/
-	FondEcran fondEcran;
+	private FondEcran fondEcran;
 	/**
 	 * Étiquette pour indiquer à l'utilisateur les touches à utiliser pour contrôler
 	 * la nature de la charge du vaisseau
@@ -553,6 +553,7 @@ public class PanelJeu extends JPanel {
 	 * 
 	 * @param evt L'événement qui a été lancé
 	 */
+	// Enuel René Valentin Kizozo Izia
 	private void evenementPlaquesRestantes(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("Plaques restantes")) {
 			lblNbDePlaqueRestante.setText("Il vous reste " + evt.getNewValue() + " plaques à placer");

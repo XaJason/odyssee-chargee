@@ -16,6 +16,7 @@ import utilitaires.OutilsImage;
  * Panel du sélecteur de niveau
  * 
  * @author Kitimir Yim
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class PanelSelecteurNiveaux extends JPanel {
 	/**
@@ -40,7 +41,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	/** Bouton permettant d'accéder au niveau de base 6 **/
 	private JButton btnNiveauBase6;
 	/** Le fond d'écran du panneau **/
-	FondEcran fondEcran;
+	private FondEcran fondEcran;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur

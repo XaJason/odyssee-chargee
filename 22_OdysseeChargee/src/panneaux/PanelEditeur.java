@@ -321,7 +321,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerCarre();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
@@ -334,7 +334,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleRectangle();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
@@ -347,7 +347,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleEquilateral();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
@@ -395,7 +395,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPics();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
@@ -408,7 +408,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPortail();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
@@ -440,7 +440,7 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerDrapeau();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
@@ -452,7 +452,7 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerVaisseau();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
@@ -491,7 +491,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rotationnerAvant(4); // quart de rotation
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
@@ -563,7 +563,7 @@ public class PanelEditeur extends JPanel {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				supprimer();
-				reinitialiserRotationPostPlacement();
+				//reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
@@ -678,6 +678,7 @@ public class PanelEditeur extends JPanel {
 	 * 
 	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles
 	 *                         manquantes
+	 * @return La chaîne de caractères mise à jour avec la nouvelle tuille manquante s'il y a lieu 
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private String conditionPortails(String tuilesManquantes) {
@@ -767,7 +768,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new VaisseauImage());
 		panelTuileTemp.setTuile(new VaisseauImage());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -780,7 +781,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Carre());
 		panelTuileTemp.setTuile(new Carre());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -793,7 +794,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new TriangleRectangle());
 		panelTuileTemp.setTuile(new TriangleRectangle());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -806,7 +807,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new TriangleEquilateral());
 		panelTuileTemp.setTuile(new TriangleEquilateral());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -819,7 +820,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Pics());
 		panelTuileTemp.setTuile(new Pics());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -832,7 +833,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Portail());
 		panelTuileTemp.setTuile(new Portail());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -846,7 +847,7 @@ public class PanelEditeur extends JPanel {
 		grille.setTuile(new Drapeau());
 		panelTuileTemp.setTuile(new Drapeau());
 		afficherSelection();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 
@@ -867,7 +868,7 @@ public class PanelEditeur extends JPanel {
 			repaint();
 			btnDrapeau.setEnabled(true);
 			btnVaisseau.setEnabled(true);
-			desactiveBooleanPostRotastion();
+			desactiveBooleanPostRotation();
 			desactiveBooleanSupprimer();
 		}
 	}
@@ -893,7 +894,7 @@ public class PanelEditeur extends JPanel {
 	private void supprimer() {
 		grille.gererSupprimer();
 		panelTuileTemp.gererSupprimer();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 	}
 
 	/**
@@ -907,7 +908,7 @@ public class PanelEditeur extends JPanel {
 		grille.rotation(facteur);
 		panelTuileTemp.rotation(facteur);
 		panelTuileTemp.repaint();
-		desactiveBooleanPostRotastion();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -921,7 +922,7 @@ public class PanelEditeur extends JPanel {
 	private void sauvegarder() throws HeadlessException {
 		if (niveauBienConstruit("de sauvegarder")) {
 			sauvegarderNiveau();
-			desactiveBooleanPostRotastion();
+			desactiveBooleanPostRotation();
 			desactiveBooleanSupprimer();
 		}
 	}
@@ -943,17 +944,17 @@ public class PanelEditeur extends JPanel {
 
 	}
 
-	/**
-	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
-	 * bouton, un booléen, une image et un panneau
-	 */
-	// Enuel René Valentin Kizozo Izia
-	private void reinitialiserRotationPostPlacement() {
-		btnRotationPostPlacement.setEnabled(true);
-		grille.setRotationPostPlacement(false);
-		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
-		panelTuileTemp.setRotation(false);
-	}
+//	/**
+//	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
+//	 * bouton, un booléen, une image et un panneau
+//	 */
+//	// Enuel René Valentin Kizozo Izia
+//	private void reinitialiserRotationPostPlacement() {
+//		btnRotationPostPlacement.setEnabled(true);
+//		grille.setRotationPostPlacement(false);
+//		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+//		panelTuileTemp.setRotation(false);
+//	}
 
 	/**
 	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du
@@ -974,11 +975,10 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Méthode qui désactive les booléans de rotation post placement de grille et de
 	 * la fenêtre de la tuile temporaire
-	 * 
-	 * @return
 	 */
 	// Giroux
-	private void desactiveBooleanPostRotastion() {
+	private void desactiveBooleanPostRotation() {
+		btnRotationPostPlacement.setEnabled(true);
 		grille.setRotationPostPlacement(false);
 		panelTuileTemp.setRotation(false);
 		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
@@ -987,8 +987,6 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Méthode qui désactive les booléans de rotation supprimer de grille et de
 	 * la fenêtre de la tuile temporaire
-	 * 
-	 * @return
 	 */
 	// Giroux
 	private void desactiveBooleanSupprimer() {

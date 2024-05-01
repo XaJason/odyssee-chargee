@@ -369,10 +369,6 @@ public class AppPrincipale22 extends JFrame {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
 					miseAJourChargementNiveau();
 				}
-				if (evt.getPropertyName().equals("passerVersNiveau6")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
-					miseAJourChargementNiveau();
-				}
 
 				ajoutNiveauxBase(evt);
 
@@ -421,7 +417,10 @@ public class AppPrincipale22 extends JFrame {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
 			miseAJourChargementNiveau();
 		} // fin if
-	
+		if (evt.getPropertyName().equals("passerVersNiveau6")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
+			miseAJourChargementNiveau();
+		}// fin if
 	}// fin méthode
 
 	/**

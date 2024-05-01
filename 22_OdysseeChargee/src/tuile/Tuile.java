@@ -36,8 +36,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	protected double x;
 	/** L'ordonnée du coin supérieur gauche de la tuile en (en mètre) */
 	protected double y;
-	/** Géométrie de base d'une tuile (un carré) **/
-	Rectangle2D.Double geometrieDeBase;
 	/** l'angle de rotation de la tuile en (rad) */
 	protected double angleRotation;
 	/** Détermine si la tuile est un drapeau **/
@@ -92,6 +90,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * plaques chargées
 	 */
 	private int indexAireSurvolee;
+	
+	/** Matrice de rotation utilisée lorsqu'on appuie sur les boutons de rotation  **/
 	protected MatriceRotation matricePostCreation;
 
 	/**
@@ -107,7 +107,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		y = 0;
 		this.image = image;
 		this.type = type;
-		creerLaGeometrie();
 	}
 
 	/**
@@ -125,7 +124,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 		this.image = image;
 		this.type = type;
-		creerLaGeometrie();
 	}
 
 	/**
@@ -141,7 +139,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.angleRotation = angleRotation;
 		this.image = image;
 		this.type = type;
-		creerLaGeometrie();
 	}
 
 	/**
@@ -161,7 +158,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		this.y = y;
 		this.image = image;
 		this.type = type;
-		creerLaGeometrie();
 	}
 
 	/**
@@ -241,7 +237,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setX(double x) {
 		this.x = x;
-		creerLaGeometrie();
 	}
 
 	/**
@@ -262,7 +257,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	// Jason Xa
 	public void setY(double y) {
 		this.y = y;
-		creerLaGeometrie();
 	}
 
 	/**
@@ -466,6 +460,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * 
 	 * @return Le point milieu de la tuile
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public Point2D.Double getPointMilieu() {
 		return pointMilieu;
 	}
@@ -485,6 +480,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * 
 	 * @return Les aires de la tuile
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public Aire[] getAires() {
 		return aires;
 	}
@@ -521,14 +517,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		double milieuY = sommets.get(0).getY() - (Math.abs(milieuSegment.getY() - sommets.get(0).getY())) * (2.0 / 3.0);
 		Point2D.Double milieu = new Point2D.Double(milieuX, milieuY);
 		return milieu;
-	}
-
-	/**
-	 * Créer la géométrie de base d'une tuile (un carré)
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void creerLaGeometrie() {
-		geometrieDeBase = new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile);
 	}
 
 	/**
