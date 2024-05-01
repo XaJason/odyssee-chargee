@@ -23,7 +23,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import dessin.ZoneAnimationPhysique;
-import niveaux.Niveau;
+import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
 
@@ -73,19 +73,19 @@ public class PanelJeu extends JPanel {
 
 	/**
 	 * Tourniquet pour définir l'accélération gravtitationnelle présente dans le
-	 * niveaux
+	 * niveau
 	 **/
 	private JSpinner spnGravite;
 
 	/**
 	 * Tourniquet pour définir le coéfficient de frottement statique des surfaces du
-	 * niveaux
+	 * niveau
 	 **/
 	private JSpinner spnCoefFrictionStat;
 
 	/**
 	 * Tourniquet pour définir le coéfficient de frottement cinétique des surfaces
-	 * du niveaux
+	 * du niveau
 	 **/
 	private JSpinner spnCoefFrictionCine;
 
@@ -301,9 +301,9 @@ public class PanelJeu extends JPanel {
 	}
 
 	/**
-	 * Modifie le niveaux de la zone d'animation physique
+	 * Modifie le niveau de la zone d'animation physique
 	 * 
-	 * @param nomNiveau Le nom du niveaux
+	 * @param nomNiveau Le nom du niveau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
@@ -311,9 +311,9 @@ public class PanelJeu extends JPanel {
 	}
 
 	/**
-	 * Modifie le niveaux de la zone d'animation physique
+	 * Modifie le niveau de la zone d'animation physique
 	 * 
-	 * @param nomNiveau Le nom du niveaux
+	 * @param nomNiveau Le nom du niveau
 	 */
 	// Kitimir Yim
 	public void modifierNiveauDeZoneAnimationPhysiqueDeBase(String nomNiveau) {
@@ -321,9 +321,9 @@ public class PanelJeu extends JPanel {
 	}
 
 	/**
-	 * Modifie le niveaux de la zone d'animation physique
+	 * Modifie le niveau de la zone d'animation physique
 	 * 
-	 * @param niveaux Le niveaux
+	 * @param niveau Le niveau
 	 */
 	// Kitimir Yim
 	public void modifierNiveauDeZoneAnimationPhysique(Niveau niveau) {
@@ -543,7 +543,7 @@ public class PanelJeu extends JPanel {
 	}
 
 	/**
-	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveaux)
+	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveau)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void lierTourniquetsAvecNiveau() {

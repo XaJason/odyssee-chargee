@@ -1,9 +1,9 @@
-package niveaux;
+package niveau;
 
 import java.util.ArrayList;
 
 /**
- * Classe qui gère les différents niveaux
+ * Classe qui gère les différents niveau
  * 
  * @author Giroux
  * @author Kitimir Yim
@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 public class GestionnaireDeNiveaux {
 
-	/** ArrayList contenant les niveaux **/
+	/** ArrayList contenant les niveau **/
 	private static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
 
 	/**
-	 * Ajoute un niveaux à l'ArrayList
+	 * Ajoute un niveau à l'ArrayList
 	 * 
-	 * @param niveauAAjouter Le niveaux à ajouter
+	 * @param niveauAAjouter Le niveau à ajouter
 	 */
 	// Giroux
 	public static void ajouter(Niveau niveauAAjouter) {
@@ -27,9 +27,9 @@ public class GestionnaireDeNiveaux {
 	}
 
 	/**
-	 * Permet de supprimer un niveaux
+	 * Permet de supprimer un niveau
 	 * 
-	 * @param nom le nom du niveaux à supprimer
+	 * @param nom le nom du niveau à supprimer
 	 */
 	// Giroux
 	public void supprimerNiveau(String nom) {
@@ -44,10 +44,10 @@ public class GestionnaireDeNiveaux {
 
 	// GETTERS ET SETTERS
 	/**
-	 * Permet d'aller chercher le niveaux selon son nom
+	 * Permet d'aller chercher le niveau selon son nom
 	 * 
-	 * @param nom Le nom du niveaux
-	 * @return Le niveaux voulu, ou rien si le nom de correspond pas
+	 * @param nom Le nom du niveau
+	 * @return Le niveau voulu, ou rien si le nom de correspond pas
 	 */
 	// Giroux
 	public Niveau getNiveau(String nom) {
@@ -65,10 +65,10 @@ public class GestionnaireDeNiveaux {
 	}
 
 	/**
-	 * Permet d'aller chercher le niveaux selon son numéro
+	 * Permet d'aller chercher le niveau selon son numéro
 	 * 
-	 * @param index Le numéro du niveaux
-	 * @return Le niveaux voulu
+	 * @param index Le numéro du niveau
+	 * @return Le niveau voulu
 	 */
 	// Kitimir Yim
 	public Niveau getNiveau(int index) {
@@ -77,11 +77,11 @@ public class GestionnaireDeNiveaux {
 	}
 
 	/**
-	 * Permet de remplacer le niveaux se trouvant à l'emplacement passer en paramètre
-	 * par l'objet niveaux passer en paramètre
+	 * Permet de remplacer le niveau se trouvant à l'emplacement passer en paramètre
+	 * par l'objet niveau passer en paramètre
 	 * 
-	 * @param index  L'index du niveaux à remplacer
-	 * @param niveaux Le nouveau niveaux (qui remplace l'ancien se trouvant à l'index)
+	 * @param index  L'index du niveau à remplacer
+	 * @param niveau Le nouveau niveau (qui remplace l'ancien se trouvant à l'index)
 	 */
 	// Kitimir Yim
 	public void setNiveau(int index, Niveau niveau) {
@@ -89,9 +89,9 @@ public class GestionnaireDeNiveaux {
 	}
 
 	/**
-	 * Renvoie la liste des niveaux.
+	 * Renvoie la liste des niveau.
 	 *
-	 * @return La liste des niveaux.
+	 * @return La liste des niveau.
 	 */
 	// Kitimir Yim
 	public static ArrayList<Niveau> getRepertoireNiveau() {

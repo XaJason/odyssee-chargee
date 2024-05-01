@@ -25,7 +25,7 @@ public class FenetreAPropos extends JPanel {
 	private String sourcePics = "https://game-icons.net/1x1/delapouite/spiky-pit.html";
 	/** Source de la texture d'obsidienne pour les blocs */
 	private String sourcePortail = "https://game-icons.net/1x1/lorc/portal.html";
-	/** Source de l'icône pour réinitialiser dans l'éditeur de niveaux */
+	/** Source de l'icône pour réinitialiser dans l'éditeur de niveau */
 	private String sourceReinitialiser = "https://game-icons.net/1x1/lorc/cycle.html";
 	/** Source de l'icône pour la rotation pré-placement */
 	private String sourceRotationPrePlacement = "https://game-icons.net/1x1/delapouite/clockwise-rotation.html";

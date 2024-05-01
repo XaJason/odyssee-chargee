@@ -1,4 +1,4 @@
-package niveaux;
+package niveau;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,14 +11,14 @@ import java.io.ObjectOutputStream;
 import javax.swing.JOptionPane;
 
 /**
- * Classe servant à sauvegarder des niveaux Inspirée par le matériel
+ * Classe servant à sauvegarder des niveau Inspirée par le matériel
  * d'appoint, mais grandement modifier pour fonctionner pour notre jeu
  * 
  * @author Kitimir Yim
  */
 public class Sauvegarder {
 	/**
-	 * Chemin du dossier où sont sauvegardés les niveaux sur l'ordinateur de
+	 * Chemin du dossier où sont sauvegardés les niveau sur l'ordinateur de
 	 * l'utilisateur
 	 */
 	private static final String SOUS_DOSSIER_DE_TRAVAIL = "MesTrucs";
@@ -34,10 +34,10 @@ public class Sauvegarder {
 
 	// Méthode pas utilisé encore
 	/**
-	 * Méthode static permettant la sauvegarde de niveaux dans mesTrucs
+	 * Méthode static permettant la sauvegarde de niveau dans mesTrucs
 	 * 
-	 * @param niveaux       Objet niveaux que l'on veut sauvegarder
-	 * @param numeroNiveau numéro du niveaux
+	 * @param niveau       Objet niveau que l'on veut sauvegarder
+	 * @param numeroNiveau numéro du niveau
 	 */
 	// Kitimir Yim
 	public static void sauvegarderNiveauMesTrucs(Niveau niveau, String nomNiveau) {
@@ -62,7 +62,7 @@ public class Sauvegarder {
 			oos.close();
 			System.out.println("Niveau sauvegardé avec succès.");
 		} catch (IOException e) {
-			System.out.println("Erreur lors de la sauvegarde du niveaux : " + e.getMessage());
+			System.out.println("Erreur lors de la sauvegarde du niveau : " + e.getMessage());
 		} finally {
 
 			try {
@@ -77,11 +77,11 @@ public class Sauvegarder {
 
 	// Méthode pas utilisé encore
 	/**
-	 * Méthode static permettant le chargement de niveaux dans mesTrucs
+	 * Méthode static permettant le chargement de niveau dans mesTrucs
 	 * 
-	 * @param identifiantNiveau L'identifiant du niveaux (son numéro d'index ou son
+	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
 	 *                          nom)
-	 * @return niveaux Le niveaux que l'on souhaite charger
+	 * @return niveau Le niveau que l'on souhaite charger
 	 */
 	// Kitimir Yim
 	public static Niveau chargerNiveauMesTrucs(String identifiantNiveau) {
@@ -104,7 +104,7 @@ public class Sauvegarder {
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;
 		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("Erreur lors du chargement du niveaux : " + e.getMessage());
+			System.out.println("Erreur lors du chargement du niveau : " + e.getMessage());
 			return null;
 		} finally {
 
@@ -119,11 +119,11 @@ public class Sauvegarder {
 	}
 
 	/**
-	 * Méthode static permettant le chargement de niveaux
+	 * Méthode static permettant le chargement de niveau
 	 * 
-	 * @param identifiantNiveau L'identifiant du niveaux (son numéro d'index ou son
+	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
 	 *                          nom)
-	 * @return niveaux Le niveaux que l'on souhaite charger
+	 * @return niveau Le niveau que l'on souhaite charger
 	 */
 	// Kitimir Yim
 	public static Niveau chargerNiveauDeBase(String identifiantNiveau) {
@@ -145,7 +145,7 @@ public class Sauvegarder {
 			System.out.println("Niveau chargé avec succès.");
 			return niveau;
 		} catch (IOException | ClassNotFoundException e) {
-			System.out.println("Erreur lors du chargement du niveaux : " + e.getMessage());
+			System.out.println("Erreur lors du chargement du niveau : " + e.getMessage());
 			return null;
 		} finally {
 

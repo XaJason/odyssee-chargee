@@ -13,7 +13,7 @@ import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 
 /**
- * Panel du sélecteur de niveaux
+ * Panel du sélecteur de niveau
  * 
  * @author Kitimir Yim
  */
@@ -27,17 +27,17 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
-	/** Bouton permettant d'accéder au niveaux de base 1 **/
+	/** Bouton permettant d'accéder au niveau de base 1 **/
 	private JButton btnNiveauBase1;
-	/** Bouton permettant d'accéder au niveaux de base 2 **/
+	/** Bouton permettant d'accéder au niveau de base 2 **/
 	private JButton btnNiveauBase2;
-	/** Bouton permettant d'accéder au niveaux de base 3 **/
+	/** Bouton permettant d'accéder au niveau de base 3 **/
 	private JButton btnNiveauBase3;
-	/** Bouton permettant d'accéder au niveaux de base 4 **/
+	/** Bouton permettant d'accéder au niveau de base 4 **/
 	private JButton btnNiveauBase4;
-	/** Bouton permettant d'accéder au niveaux de base 5 **/
+	/** Bouton permettant d'accéder au niveau de base 5 **/
 	private JButton btnNiveauBase5;
-	/** Bouton permettant d'accéder au niveaux de base 6 **/
+	/** Bouton permettant d'accéder au niveau de base 6 **/
 	private JButton btnNiveauBase6;
 	/** Le fond d'écran du panneau **/
 	FondEcran fondEcran;
@@ -66,7 +66,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 		add(fondEcran);
 		fondEcran.setLayout(null);
 
-		JButton btnPasserModeJeu = new JButton("Sélectionnez vos niveaux");
+		JButton btnPasserModeJeu = new JButton("Sélectionnez vos niveau");
 		btnPasserModeJeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersJeu", 0, -1);
@@ -109,7 +109,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 	}
 
 	/**
-	 * Créer trois autres boutons permettant d'accéder aux niveaux de base 4, 5 et 6
+	 * Créer trois autres boutons permettant d'accéder aux niveau de base 4, 5 et 6
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void creerTroisBoutonsNiveaux() {

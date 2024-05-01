@@ -25,7 +25,7 @@ import dessin.ZoneAnimationPhysique;
 import fenetres.FenetreAPropos;
 import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
-import niveaux.Niveau;
+import niveau.Niveau;
 import panneaux.PanelEditeur;
 import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
@@ -57,7 +57,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private FenetreReglage fenReglage;
 	/**
-	 * Panneau de l'éditeur de niveaux
+	 * Panneau de l'éditeur de niveau
 	 */
 	private PanelEditeur panModeEditeur;
 	/**
@@ -69,7 +69,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private FenetreAPropos pnlAPropos;
 	/**
-	 * Panneau de sélection de niveaux
+	 * Panneau de sélection de niveau
 	 */
 	private PanelSelecteurNiveaux panSelecteurNiveau;
 	/**
@@ -81,7 +81,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private JMenuItem mntmEditeur;
 	/**
-	 * Item du menu pour le mode sélection de niveaux
+	 * Item du menu pour le mode sélection de niveau
 	 */
 	private JMenuItem mntmSelection;
 	/**
@@ -212,7 +212,7 @@ public class AppPrincipale22 extends JFrame {
 		panMenuPrincipal.add(fondEcran);
 		fondEcran.setLayout(null);
 
-		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
+		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
 		btnModeEditeur.setBounds(472, 304, 303, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
@@ -328,7 +328,7 @@ public class AppPrincipale22 extends JFrame {
 		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 
-				if (evt.getPropertyName().equals("niveaux essai")) {
+				if (evt.getPropertyName().equals("niveau essai")) {
 					Niveau niveauEssai = (Niveau) evt.getNewValue();
 					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
 					panModeJeu.setVisible(true);
@@ -383,14 +383,14 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * Chargement des niveaux vers la zone d'animation physique
+	 * Chargement des niveau vers la zone d'animation physique
 	 * 
 	 * @param evt L'événement qui a été lancé
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("passerVersJeu")) {
-			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveaux");
+			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau");
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
 		} // fin if
 		if (evt.getPropertyName().equals("niveauSelectionne")) {
@@ -400,7 +400,7 @@ public class AppPrincipale22 extends JFrame {
 	}// fin méthode
 
 	/**
-	 * Ajout de de trois autres niveaux de base
+	 * Ajout de de trois autres niveau de base
 	 * 
 	 * @param evt L'événement qui a été lancé
 	 */
@@ -421,7 +421,7 @@ public class AppPrincipale22 extends JFrame {
 	}// fin méthode
 
 	/**
-	 * Mise à jour des panneaux de l'application lors du chargement d'un niveaux
+	 * Mise à jour des panneaux de l'application lors du chargement d'un niveau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void miseAJourChargementNiveau() {
@@ -471,7 +471,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmPrincipale);
 
-		mntmSelection = new JMenuItem("Sélection de niveaux");
+		mntmSelection = new JMenuItem("Sélection de niveau");
 
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
@@ -484,7 +484,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmSelection);
-		mntmEditeur = new JMenuItem("Éditeur de niveaux");
+		mntmEditeur = new JMenuItem("Éditeur de niveau");
 		mntmEditeur.setPreferredSize(new Dimension(100, 26));
 		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
@@ -547,7 +547,7 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Série d'action effectuée afin de modifier l'état de l'application,
-	 * lorsqu'on accède à la sélection de niveaux :
+	 * lorsqu'on accède à la sélection de niveau :
 	 * 
 	 * Mise à jour de la visibilité de certains panneaux de regroupement
 	 * et réinitialisation de l'état des boutons du Mode Jeu
@@ -567,7 +567,7 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Série d'action effectuée afin de modifier l'état de l'application,
-	 * lorsqu'on accède à l'édition de niveaux :
+	 * lorsqu'on accède à l'édition de niveau :
 	 * 
 	 * Mise à jour de la visibilité de certains panneaux de regroupement
 	 * et réinitialisation de l'état des boutons du Mode Jeu

@@ -40,7 +40,7 @@ import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
 
 /**
- * Grille permettant le placement de différentes tuiles (éditeur de niveaux)
+ * Grille permettant le placement de différentes tuiles (éditeur de niveau)
  * 
  * @author Giroux
  * @author Jason Xa
@@ -245,7 +245,7 @@ public class Grille extends JPanel implements Serializable {
 		} else if (e.isControlDown() && code == KeyEvent.VK_R) {
 			PCS.firePropertyChange("Réinitialiser", null, null);
 		} else if (e.isControlDown() && code == KeyEvent.VK_E) {
-			PCS.firePropertyChange("Essayer le niveaux", null, null);
+			PCS.firePropertyChange("Essayer le niveau", null, null);
 		} else {
 			switch (code) {
 			case KeyEvent.VK_Q:
