@@ -57,7 +57,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private FenetreReglage fenReglage;
 	/**
-	 * Panneau de l'éditeur de niveaux
+	 * Panneau de l'éditeur de niveau
 	 */
 	private PanelEditeur panModeEditeur;
 	/**
@@ -69,7 +69,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private FenetreAPropos pnlAPropos;
 	/**
-	 * Panneau de sélection de niveaux
+	 * Panneau de sélection de niveau
 	 */
 	private PanelSelecteurNiveaux panSelecteurNiveau;
 	/**
@@ -81,7 +81,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private JMenuItem mntmEditeur;
 	/**
-	 * Item du menu pour le mode sélection de niveaux
+	 * Item du menu pour le mode sélection de niveau
 	 */
 	private JMenuItem mntmSelection;
 	/**
@@ -166,8 +166,8 @@ public class AppPrincipale22 extends JFrame {
 		creerFenetres();
 		creerPanels();
 		creerMenu();
-		//lireImages();
-		//gererConstantes();
+		// lireImages();
+		// gererConstantes();
 
 		// if (leClip != null)
 		// leClip.close();
@@ -207,12 +207,12 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private void creerBoutons() {
 
-		FondEcran fondEcran = new FondEcran("fond.jpg",1);
+		FondEcran fondEcran = new FondEcran("fond.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		panMenuPrincipal.add(fondEcran);
 		fondEcran.setLayout(null);
 
-		JButton btnModeEditeur = new JButton("Éditeur de niveaux");
+		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
 		btnModeEditeur.setBounds(472, 304, 303, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
@@ -338,7 +338,7 @@ public class AppPrincipale22 extends JFrame {
 				}
 			}
 		});
-		
+
 		zoneAnimation = panModeJeu.getZoneAnimationPhysique();
 		zoneAnimation.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
@@ -366,9 +366,9 @@ public class AppPrincipale22 extends JFrame {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
 					miseAJourChargementNiveau();
 				}
-				
+
 				ajoutNiveauxBase(evt);
-				
+
 				if (evt.getPropertyName().equals("passerVersJeu")) {
 					chargerNiveauVersZoneAnimationPhysique(evt);
 					miseAJourChargementNiveau();
@@ -392,15 +392,15 @@ public class AppPrincipale22 extends JFrame {
 		if (evt.getPropertyName().equals("passerVersJeu")) {
 			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau");
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
-		}// fin if
+		} // fin if
 		if (evt.getPropertyName().equals("niveauSelectionne")) {
 			Niveau niveauSelectionne = (Niveau) evt.getNewValue();
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauSelectionne.getNom());
-		}// fin if
+		} // fin if
 	}// fin méthode
 
 	/**
-	 * Ajout de de trois autres niveaux de base
+	 * Ajout de de trois autres niveau de base
 	 * 
 	 * @param evt L'événement qui a été lancé
 	 */
@@ -409,17 +409,17 @@ public class AppPrincipale22 extends JFrame {
 		if (evt.getPropertyName().equals("passerVersNiveau4")) {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base4");
 			miseAJourChargementNiveau();
-		}// fin if
+		} // fin if
 		if (evt.getPropertyName().equals("passerVersNiveau5")) {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base5");
 			miseAJourChargementNiveau();
-		}// fin if
+		} // fin if
 		if (evt.getPropertyName().equals("passerVersNiveau6")) {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base6");
 			miseAJourChargementNiveau();
-		}// fin if
+		} // fin if
 	}// fin méthode
-	
+
 	/**
 	 * Mise à jour des panneaux de l'application lors du chargement d'un niveau
 	 */
@@ -430,7 +430,7 @@ public class AppPrincipale22 extends JFrame {
 		setContentPane(panModeJeu);
 		panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
 	}// fin méthode
-	
+
 	/**
 	 * Bouton pour quitter l'application
 	 */
@@ -471,7 +471,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmPrincipale);
 
-		mntmSelection = new JMenuItem("Sélection de niveaux");
+		mntmSelection = new JMenuItem("Sélection de niveau");
 
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
@@ -484,7 +484,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmSelection);
-		mntmEditeur = new JMenuItem("Éditeur de niveaux");
+		mntmEditeur = new JMenuItem("Éditeur de niveau");
 		mntmEditeur.setPreferredSize(new Dimension(100, 26));
 		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
@@ -523,7 +523,6 @@ public class AppPrincipale22 extends JFrame {
 		JMenuItem mntmApropos = new JMenuItem("À propos");
 		mntmApropos.setPreferredSize(new Dimension(100, 26));
 		mntmApropos.setMaximumSize(new Dimension(200, 32767));
-		
 
 		mntmApropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -533,7 +532,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmApropos);
-		
+
 		JMenuItem mntmQuitter = new JMenuItem("Quitter");
 		mntmQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -559,13 +558,13 @@ public class AppPrincipale22 extends JFrame {
 		panMenuPrincipal.setVisible(false);
 		panModeEditeur.setVisible(false);
 		panModeJeu.setVisible(false);
-		
+
 		menuBar.setVisible(true);
 		mntmSelection.setSelected(true);
 		mntmEditeur.setSelected(false);
 		setContentPane(panSelecteurNiveau);
 	}
-	
+
 	/**
 	 * Série d'action effectuée afin de modifier l'état de l'application,
 	 * lorsqu'on accède à l'édition de niveau :
@@ -579,17 +578,17 @@ public class AppPrincipale22 extends JFrame {
 		panSelecteurNiveau.setVisible(false);
 		panModeJeu.setVisible(false);
 		panModeEditeur.setVisible(true);
-		
+
 		menuBar.setVisible(true);
 		mntmSelection.setSelected(false);
 		mntmEditeur.setSelected(true);
 		setContentPane(panModeEditeur);
-		
+
 		panModeEditeur.getGrille().requestFocusInWindow();
 		panModeEditeur.getGrille().setDansModeJeu(false);
-		//panModeEditeur.getGrille().repaint();
+		// panModeEditeur.getGrille().repaint();
 	}
-	
+
 	/**
 	 * Methode privee pour lire le son et en faire un clip La méthode a éte trouvée
 	 * dans le materiel d'appoint (de Caroline Houle) mais a été implementé et

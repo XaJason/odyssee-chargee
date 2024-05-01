@@ -6,8 +6,10 @@ import java.awt.Image;
 import javax.swing.JPanel;
 
 import utilitaires.OutilsImage;
+
 /**
- * Classe qui gère les fond d'écrans 
+ * Classe qui gère les fond d'écrans
+ * 
  * @author Kitimir Yim
  */
 public class FondEcran extends JPanel {
@@ -22,19 +24,22 @@ public class FondEcran extends JPanel {
 
 	/**
 	 * Constructeur du fond d'écran
-	 * @param fond nom du fichier contenant l'image
+	 * 
+	 * @param fond    nom du fichier contenant l'image
+	 * @param facteur facteur de redimensionnement
 	 */
-	//Kitimir Yim
-	public FondEcran(String fond,double facteur) {
-		fondImage = OutilsImage.lireImageEtRedimensionner(fond,facteur);
+	// Kitimir Yim
+	public FondEcran(String fond, double facteur) {
+		fondImage = OutilsImage.lireImageEtRedimensionner(fond, facteur);
 	}
+
 	/**
-	 *  Permet de dessiner l'image
+	 * Permet de dessiner l'image
 	 * 
 	 * @param g Le contexte graphique
 	 */
 	@Override
-	//Kitimir Yim
+	// Kitimir Yim
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(fondImage, 0, 0, this);

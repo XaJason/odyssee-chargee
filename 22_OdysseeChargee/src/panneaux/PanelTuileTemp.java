@@ -37,13 +37,6 @@ public class PanelTuileTemp extends JPanel {
 	private boolean supprimer;
 
 	/**
-	 * Création de la fenêtre
-	 */
-	public PanelTuileTemp() {
-
-	}
-
-	/**
 	 * permet de dessiner la tuile
 	 * 
 	 * @param g contexte graphique
@@ -74,7 +67,7 @@ public class PanelTuileTemp extends JPanel {
 	/**
 	 * Permet de changer le type de la tuile
 	 * 
-	 * @param tuile
+	 * @param tuile le type de la nouvelle tuile
 	 */
 	// Giroux
 	public void setTuile(Tuile tuile) {
@@ -115,11 +108,12 @@ public class PanelTuileTemp extends JPanel {
 		supprimer = !supprimer;
 		repaint();
 	}
-	
+
 	/**
 	 * Permet de mettre l'état de la fenêtre en suppression
 	 * 
-	 * @param rotation Vrai si en supprimer, faux sinon
+	 * @param supprimer Vrai si en supprimer, faux sinon
+	 * 
 	 */
 	// Giroux
 	public void setSupprimer(boolean supprimer) {

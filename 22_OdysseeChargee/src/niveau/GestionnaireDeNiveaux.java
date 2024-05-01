@@ -3,7 +3,7 @@ package niveau;
 import java.util.ArrayList;
 
 /**
- * Classe qui gère les différents niveaux
+ * Classe qui gère les différents niveau
  * 
  * @author Giroux
  * @author Kitimir Yim
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class GestionnaireDeNiveaux {
 
-	/** ArrayList contenant les niveaux **/
+	/** ArrayList contenant les niveau **/
 	private static ArrayList<Niveau> repertoireNiveau = new ArrayList<Niveau>();
 
 	/**
@@ -89,9 +89,9 @@ public class GestionnaireDeNiveaux {
 	}
 
 	/**
-	 * Renvoie la liste des niveaux.
+	 * Renvoie la liste des niveau.
 	 *
-	 * @return La liste des niveaux.
+	 * @return La liste des niveau.
 	 */
 	// Kitimir Yim
 	public static ArrayList<Niveau> getRepertoireNiveau() {

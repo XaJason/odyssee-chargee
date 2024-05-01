@@ -172,8 +172,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		g2d.rotate(-angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		setImageRefTuile();
 		/*
-		 *  Ajustement des paramètres pour dessiner l'image à cause des transformations
-		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 * Ajustement des paramètres pour dessiner l'image à cause des transformations
+		 * du paintComponent de Grille permettant de mettre l'origine en bas à gauche
 		 */
 		double yImage = y + hauteurTuile;
 		double hauteurTuileImage = -hauteurTuile;
@@ -181,9 +181,10 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		g2d.setTransform(transformationAffine);
 		dessinerContour(g2d);
 	}
-	
+
 	/**
-	 * Dessine l'image représentant la tuile selon les coordonnées passé en paramètre
+	 * Dessine l'image représentant la tuile selon les coordonnées passé en
+	 * paramètre
 	 * 
 	 * @param g2d contexte graphique
 	 * @param x   abscisse gauche de la tuile (en mètre)
@@ -198,7 +199,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		g2d.setTransform(transformationAffine);
 		dessinerContour(g2d);
 	}
-	
+
 	/**
 	 * Méthode qui dessine la boite de collision
 	 * 
@@ -210,8 +211,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		 //g2d.draw(contour);
-		
+		// g2d.draw(contour);
 
 		if (!listeSegments.isEmpty()) {
 			for (Segment s : listeSegments) {
@@ -271,7 +271,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public String getType() {
 		return type;
 	}
-	
+
 	/**
 	 * Définit le nouvel angle de rotation de la tuile
 	 * 
@@ -439,14 +439,14 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	}
 
 	/**
-	 *  Retourne le point milieu de la tuile
-	 * 	
+	 * Retourne le point milieu de la tuile
+	 * 
 	 * @return Le point milieu de la tuile
 	 */
 	public Point2D.Double getPointMilieu() {
 		return pointMilieu;
 	}
-	
+
 	/**
 	 * Retourne la liste de coins de la tuile
 	 * 
@@ -456,7 +456,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public ArrayList<Point2D.Double> getPointsCoin() {
 		return pointsCoin;
 	}
-	
+
 	/**
 	 * Retourne les aires séparant la tuile en parties égales
 	 * 
@@ -465,7 +465,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public Aire[] getAires() {
 		return aires;
 	}
-	
+
 	/**
 	 * Méthode à redéfinir dans les sous classes pour mettre les points des coins
 	 * dans le arrayList pointsCoin
@@ -490,12 +490,12 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		// Point 1 va être le sommet, le segment va être entre P2 et P3
 
 		// Trouver le milieu du segment
-		double moyenX = (Math.abs(sommets.get(2).getX() - sommets.get(1).getX()) / 2) + sommets.get(2).getX();
-		double moyenY = (Math.abs(sommets.get(2).getY() - sommets.get(1).getY()) / 2) + sommets.get(2).getY();
+		double moyenX = sommets.get(2).getX() + (Math.abs(sommets.get(2).getX() - sommets.get(1).getX()) / 2);
+		double moyenY = sommets.get(2).getY() + (Math.abs(sommets.get(2).getY() - sommets.get(1).getY()) / 2);
 		Point2D.Double milieuSegment = new Point2D.Double(moyenX, moyenY);
 		// Trouver le 2/3 de la médiane
-		double milieuX = (Math.abs(milieuSegment.getX() - sommets.get(0).getX())) * (2.0 / 3.0) + sommets.get(0).getX();
-		double milieuY = (Math.abs(milieuSegment.getY() - sommets.get(0).getY())) * (2.0 / 3.0) + sommets.get(0).getY();
+		double milieuX = sommets.get(0).getX() + (Math.abs(milieuSegment.getX() - sommets.get(0).getX())) * (2.0 / 3.0);
+		double milieuY = sommets.get(0).getY() - (Math.abs(milieuSegment.getY() - sommets.get(0).getY())) * (2.0 / 3.0);
 		Point2D.Double milieu = new Point2D.Double(milieuX, milieuY);
 		return milieu;
 	}
@@ -507,7 +507,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void creerLaGeometrie() {
 		geometrieDeBase = new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile);
 	}
-	
+
 	/**
 	 * Méthode qui instancie le path qui fait le contour du bloc
 	 */
@@ -698,12 +698,14 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public static double getLargeurTuile() {
 		return largeurTuile;
 	}
-	
+
+	/**
+	 * Renouvelle la matrice de rotation post-placement
+	 */
+	// Giroux
 	public void rotationPostCreation() {
-		matricePostCreation = new MatriceRotation(-this.angleRotation); 
-		
-		
+		matricePostCreation = new MatriceRotation(-this.angleRotation);
+
 	}
-	
-	
+
 }

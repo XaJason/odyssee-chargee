@@ -3,7 +3,6 @@ package tuile;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -95,7 +94,8 @@ public class Pics extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Dessine l'image représentant les pics selon les coordonnées de sa tuile dans la grille
+	 * Dessine l'image représentant les pics selon les coordonnées de sa tuile dans
+	 * la grille
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -105,15 +105,16 @@ public class Pics extends Tuile implements Serializable {
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
 		g2dPrive.draw(contour);
-		//AffineTransform transformationAffine = g2dPrive.getTransform();
+		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		/*
-		 *  Ajustement d'un paramètre pour dessiner l'image à cause des transformations
-		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 * Ajustement d'un paramètre pour dessiner l'image à cause des transformations
+		 * du paintComponent de Grille permettant de mettre l'origine en bas à gauche
 		 */
 		double hauteurTuileImage = -(hauteurTuile / 2.0);
 		g2dPrive.rotate(-angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) hauteurTuileImage, null);
-		//g2dPrive.setTransform(transformationAffine);
+		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) hauteurTuileImage,
+				null);
+		// g2dPrive.setTransform(transformationAffine);
 	}
 
 	/**
@@ -143,7 +144,7 @@ public class Pics extends Tuile implements Serializable {
 		xActuel += largeurTuile;
 		coinBasDroit = new Point2D.Double(xActuel, yActuel);
 		// Troisième point(HautDroit)
-		yActuel += hauteurTuile/2.0;
+		yActuel += hauteurTuile / 2.0;
 		coinHautDroit = new Point2D.Double(xActuel, yActuel);
 		// Quatrième point(HautGauche)
 		xActuel -= largeurTuile;

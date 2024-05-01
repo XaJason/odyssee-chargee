@@ -8,7 +8,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -24,8 +26,6 @@ import dessin.ZoneAnimationPhysique;
 import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.OutilsImage;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 /**
  * Panel du mode de jeu
@@ -58,9 +58,6 @@ public class PanelJeu extends JPanel {
 
 	/** Bouton pour réinitialiser les paramètres de l'animation */
 	private JButton btnReinitialiser;
-
-	/** Tourniquet pour définir le pas de simulation de l'animation */
-	private JSpinner spnTempsSleep;
 
 	/** Tourniquet pour définir la masse du vaisseau */
 	private JSpinner spnMasseVaisseau;
@@ -133,8 +130,15 @@ public class PanelJeu extends JPanel {
 	/** Label de la position **/
 	private JLabel labelPosition;
 
+	/**
+	 * Étiquette pour indiquer à l'utilisateur les touches à utiliser pour contrôler
+	 * la nature de la charge du vaisseau
+	 */
 	private JLabel lblIndiceChargeVaisseau;
-	private JComboBox cmbVitesseAnimation;
+	/**
+	 * Liste déroulante pour la sélection de la vitesse d'animation
+	 */
+	private JComboBox<Object> cmbVitesseAnimation;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -286,7 +290,8 @@ public class PanelJeu extends JPanel {
 		panelPlaque.add(lblEtatPlaque);
 
 		lblNbDePlaqueRestante = new JLabel("");
-		lblNbDePlaqueRestante.setText("Il vous reste " + zoneAnimationPhysique.getNbPlaquesRestantes() + " plaques à placer");
+		lblNbDePlaqueRestante
+				.setText("Il vous reste " + zoneAnimationPhysique.getNbPlaquesRestantes() + " plaques à placer");
 		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
@@ -308,7 +313,7 @@ public class PanelJeu extends JPanel {
 	public void modifierNiveauDeZoneAnimationPhysique(String nomNiveau) {
 		zoneAnimationPhysique.setNiveau(nomNiveau);
 	}
-	
+
 	/**
 	 * Modifie le niveau de la zone d'animation physique
 	 * 
@@ -324,7 +329,7 @@ public class PanelJeu extends JPanel {
 	 * 
 	 * @param niveau Le niveau
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	public void modifierNiveauDeZoneAnimationPhysique(Niveau niveau) {
 		zoneAnimationPhysique.setNiveau(niveau);
 	}
@@ -388,7 +393,7 @@ public class PanelJeu extends JPanel {
 		btnArreter.setBounds(10, 732, 65, 21);
 		add(btnArreter);
 
-		btnRedemarrer = new JButton("Redémarrer");
+		btnRedemarrer = new JButton("Recommencer");
 		btnRedemarrer.setEnabled(false);
 		btnRedemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -400,7 +405,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnRedemarrer.setBounds(204, 732, 87, 21);
+		btnRedemarrer.setBounds(198, 732, 99, 21);
 		add(btnRedemarrer);
 
 		btnProchaineImage = new JButton("Prochaine image");
@@ -440,31 +445,31 @@ public class PanelJeu extends JPanel {
 				if (evt.getPropertyName().equals("changerVitesse")) {
 					double valeurX = (double) evt.getOldValue();
 					String xString = String.format("%.2f", valeurX);
-					
+
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
-					
-					labelVitesse.setText(xString +"x, "+ yString + "y");
+
+					labelVitesse.setText(xString + "x, " + yString + "y");
 				}
 
 				if (evt.getPropertyName().equals("changerAcceleration")) {
 					double valeurX = (double) evt.getOldValue();
 					String xString = String.format("%.2f", valeurX);
-					
+
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
-					
-					labelAcceleration.setText(xString +"x, "+ yString + "y");
+
+					labelAcceleration.setText(xString + "x, " + yString + "y");
 				}
 
 				if (evt.getPropertyName().equals("changerForceElec")) {
 					double valeurX = (double) evt.getOldValue();
 					String xString = String.format("%.2f", valeurX);
-					
+
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
-					
-					labelForceElectrique.setText(xString +"x, "+ yString + "y");
+
+					labelForceElectrique.setText(xString + "x, " + yString + "y");
 				}
 
 				if (evt.getPropertyName().equals("changerForceGravite")) {
@@ -481,11 +486,11 @@ public class PanelJeu extends JPanel {
 				if (evt.getPropertyName().equals("changerPosition")) {
 					double valeurX = (double) evt.getOldValue();
 					String xString = String.format("%.2f", valeurX);
-					
+
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
-					
-					labelPosition.setText(xString +"x ,"+ yString + "y");
+
+					labelPosition.setText(xString + "x ," + yString + "y");
 				}
 				if (evt.getPropertyName().equals("changementBouton")) {
 					reinitialiserPanneauEtZoneAnimation();
@@ -528,7 +533,7 @@ public class PanelJeu extends JPanel {
 			zoneAnimationPhysique.requestFocusInWindow();
 		}
 	}
-	
+
 	/**
 	 * Gère la levée d'événement lié à la mise à jour de l'étiquette
 	 * indiquant le nombre de plaques restantes à placer
@@ -540,7 +545,7 @@ public class PanelJeu extends JPanel {
 			lblNbDePlaqueRestante.setText("Il vous reste " + evt.getNewValue() + " plaques à placer");
 		}
 	}
-	
+
 	/**
 	 * Lier les tourniques des entrées avec la zone d'animation physique (le niveau)
 	 */
@@ -573,8 +578,8 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnChargeVaisseau.setModel(
-				new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -10.0, 10.0, 0.5));
+		spnChargeVaisseau
+				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -10.0, 10.0, 0.5));
 		spnChargeVaisseau.setBounds(225, 81, 140, 35);
 		((JSpinner.DefaultEditor) spnChargeVaisseau.getEditor()).getTextField().setEditable(false); // Désactive la zone
 		// d'entrée
@@ -662,7 +667,7 @@ public class PanelJeu extends JPanel {
 //																							// d'entrée
 //		panelEntree.add(spnTempsSleep);
 
-		cmbVitesseAnimation = new JComboBox();
+		cmbVitesseAnimation = new JComboBox<Object>();
 		cmbVitesseAnimation.setFocusable(false);
 		cmbVitesseAnimation.setFocusTraversalKeysEnabled(false);
 		cmbVitesseAnimation.addActionListener(new ActionListener() {
@@ -671,11 +676,12 @@ public class PanelJeu extends JPanel {
 				zoneAnimationPhysique.requestFocusInWindow();
 			}
 		});
-		cmbVitesseAnimation.setModel(new DefaultComboBoxModel(new String[] {"Très rapide", "Rapide", "Moyen", "Lent", "Très lent"}));
+		cmbVitesseAnimation.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Très rapide", "Rapide", "Moyen", "Lent", "Très lent" }));
 		cmbVitesseAnimation.setSelectedIndex(2);
 		cmbVitesseAnimation.setBounds(225, 431, 140, 35);
 		panelEntree.add(cmbVitesseAnimation);
-		
+
 		JLabel lblVitesseAnimation = new JLabel("Vitesse d'animation :");
 		lblVitesseAnimation.setBounds(10, 437, 180, 23);
 		panelEntree.add(lblVitesseAnimation);
@@ -683,12 +689,12 @@ public class PanelJeu extends JPanel {
 		JLabel lblChargePlaqueSuite = new JLabel("en valeur absolue (Coulombs) :");
 		lblChargePlaqueSuite.setBounds(10, 235, 205, 26);
 		panelEntree.add(lblChargePlaqueSuite);
-		
-		
+
 	}
 
 	/**
-	 * Réinitialise le panneau et la zone d'animation du mode Jeu à l'état qu'il avait lors du démarrage de l'application
+	 * Réinitialise le panneau et la zone d'animation du mode Jeu à l'état qu'il
+	 * avait lors du démarrage de l'application
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void reinitialiserPanneauEtZoneAnimation() {
@@ -696,7 +702,7 @@ public class PanelJeu extends JPanel {
 		btnDemarrer.setEnabled(true);
 		btnRedemarrer.setEnabled(false);
 
-		//spnTempsSleep.setValue(zoneAnimationPhysique.getTempsSleepInitial());
+		// spnTempsSleep.setValue(zoneAnimationPhysique.getTempsSleepInitial());
 		cmbVitesseAnimation.setSelectedIndex(2);
 		spnChargeVaisseau.setValue(zoneAnimationPhysique.getChargeInitialeVaisseau());
 		spnMasseVaisseau.setValue(zoneAnimationPhysique.getMasseInitialeVaisseau());
@@ -704,7 +710,7 @@ public class PanelJeu extends JPanel {
 		spnGravite.setValue(MoteurPhysique.getAccelGravInitiale());
 		spnCoefFrictionStat.setValue(MoteurPhysique.getCoeffFrotStatInitial());
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
-		
+
 		zoneAnimationPhysique.reinitialiser();
 	}// fin methode reinitialiserZoneAnimation
 
@@ -714,26 +720,26 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void changerVitesseAnimation() {
 		int valeur;
-		
+
 		switch (cmbVitesseAnimation.getSelectedIndex()) {
-			case 0:
-				valeur = 2;
-				break;
-			case 1:
-				valeur = 5;
-				break;
-			case 2:
-				valeur = 8;
-				break;
-			case 3:
-				valeur = 16;
-				break;
-			default:
-				valeur = 20;
+		case 0:
+			valeur = 2;
+			break;
+		case 1:
+			valeur = 5;
+			break;
+		case 2:
+			valeur = 8;
+			break;
+		case 3:
+			valeur = 16;
+			break;
+		default:
+			valeur = 20;
 		}
 		zoneAnimationPhysique.setTempsSleep(valeur);
 	}
-	
+
 	/**
 	 * Méthode qui effectue les changements des propriétés lors des changements de
 	 * statut de la plaque
@@ -758,7 +764,7 @@ public class PanelJeu extends JPanel {
 	 * 
 	 * @return La zone d'animation physique
 	 */
-	// Enuel René Valentin Kizozo Izia 
+	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysique getZoneAnimationPhysique() {
 		return zoneAnimationPhysique;
 	}

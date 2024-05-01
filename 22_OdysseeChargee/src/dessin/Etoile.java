@@ -1,4 +1,4 @@
-package interactif;
+package dessin;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;

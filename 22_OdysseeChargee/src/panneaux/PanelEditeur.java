@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import dessin.Grille;
 import niveau.GestionnaireDeNiveaux;
@@ -36,7 +37,6 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
-import javax.swing.border.LineBorder;
 
 /**
  * Panel du mode éditeur
@@ -179,6 +179,7 @@ public class PanelEditeur extends JPanel {
 	/** Panneau d'affichage servant à afficher la tuile ou le mode sélectionné **/
 	private PanelTuileTemp panelTuileTemp;
 
+	/** Bouton à deux états pour gérer le mode de rotation post-placement */
 	private JToggleButton btnRotationPostPlacement;
 
 	/**
@@ -605,7 +606,7 @@ public class PanelEditeur extends JPanel {
 
 		GestionnaireDeNiveaux.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveauMesTrucs(niveau, niveau.getNom());
-	
+
 	}
 
 	/**
@@ -635,11 +636,11 @@ public class PanelEditeur extends JPanel {
 	 * @throws HeadlessException l'exception indirecte
 	 */
 	// Kitimir Yim
-	private void sauvegarderNiveau(){
-		    String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
-		            JOptionPane.PLAIN_MESSAGE);
-		        Niveau niveauParDefaut = new Niveau(grille, nom);
-		        sauvegarder(niveauParDefaut);
+	private void sauvegarderNiveau() {
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+				JOptionPane.PLAIN_MESSAGE);
+		Niveau niveauParDefaut = new Niveau(grille, nom);
+		sauvegarder(niveauParDefaut);
 	}
 
 	/**
@@ -745,7 +746,12 @@ public class PanelEditeur extends JPanel {
 				case "Supprimer":
 					supprimer();
 					break;
-
+				case "Afficher":
+					/*
+					 * Coder ce que tu veux pour l'afficher dans le pnael tuile temporaire
+					 * Genre appeler la méthode setTuile du panelTuileTemp
+					 */
+					break;
 				}
 			}
 
@@ -847,11 +853,11 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Réinitialise cet éditeur de niveaux
+	 * Réinitialise cet éditeur de niveau
 	 */
 	// Giroux
 	private void reinitialiser() {
-		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveaux?",
+		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveau?",
 				"Confirmation de réinitialisation", JOptionPane.YES_NO_OPTION) == 0) {
 			grille.reinitialiser();
 			grille.setSupprimer(false);
@@ -867,7 +873,7 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Réinitialise cet éditeur de niveaux sauf le niveau
+	 * Réinitialise cet éditeur de niveau sauf le niveau
 	 */
 	// Jason Xa
 	private void reinitialiserSaufNiveau() {
@@ -892,12 +898,14 @@ public class PanelEditeur extends JPanel {
 
 	/**
 	 * Gère la rotation de la tuile actuelle
+	 * 
+	 * @param facteur nombre de seixième de rotation horaire à appliquer
 	 */
 	// Giroux
-	private void rotationnerAvant(int signum) {
+	private void rotationnerAvant(int facteur) {
 		grille.setSupprimer(false);
-		grille.rotation(signum);
-		panelTuileTemp.rotation(signum);
+		grille.rotation(facteur);
+		panelTuileTemp.rotation(facteur);
 		panelTuileTemp.repaint();
 		desactiveBooleanPostRotastion();
 		desactiveBooleanSupprimer();
@@ -907,7 +915,7 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Gère la sauvegarde du niveau
 	 * 
-	 * @throws HeadlessException
+	 * @throws HeadlessException exception sans tête
 	 */
 	// Jason Xa
 	private void sauvegarder() throws HeadlessException {

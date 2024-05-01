@@ -1,5 +1,6 @@
 package fenetres;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -16,7 +17,6 @@ import javax.swing.event.ChangeListener;
 import application.FondEcran;
 import dessin.EvaluationEtoile;
 import utilitaires.ConstanteComposantsSwing;
-import java.awt.Color;
 
 /**
  * Fenêtre des réglages
@@ -113,9 +113,10 @@ public class FenetreReglage extends JFrame {
 		lblEvalutation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEvalutation.setBounds(306, 245, 275, 20);
 		getContentPane().add(lblEvalutation);
-		
-		FondEcran fondEcran = new FondEcran("fondReglage.png",1.7);
-		fondEcran.setBounds(0, 0, ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, ConstanteComposantsSwing.DIM_VERTICALE_SEC);
+
+		FondEcran fondEcran = new FondEcran("fondReglage.png", 1.7);
+		fondEcran.setBounds(0, 0, ConstanteComposantsSwing.DIM_HORIZONTALE_SEC,
+				ConstanteComposantsSwing.DIM_VERTICALE_SEC);
 		getContentPane().add(fondEcran);
 		fondEcran.setLayout(null);
 	}

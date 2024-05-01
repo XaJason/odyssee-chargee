@@ -13,8 +13,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import interactif.Etoile;
-
 /**
  * Classe qui represente l'évaluation en étoiles de l'application
  *
