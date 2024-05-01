@@ -699,6 +699,10 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		return largeurTuile;
 	}
 
+	/**
+	 * Renouvelle la matrice de rotation post-placement
+	 */
+	// Giroux
 	public void rotationPostCreation() {
 		matricePostCreation = new MatriceRotation(-this.angleRotation);
 

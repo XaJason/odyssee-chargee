@@ -37,6 +37,7 @@ public class Sauvegarder {
 	 * Méthode static permettant la sauvegarde de niveau dans mesTrucs
 	 * 
 	 * @param niveau       Objet niveau que l'on veut sauvegarder
+	 * @param nomNiveau    le nom du niveau
 	 * @param numeroNiveau numéro du niveau
 	 */
 	// Kitimir Yim

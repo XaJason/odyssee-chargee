@@ -25,7 +25,8 @@ public class FondEcran extends JPanel {
 	/**
 	 * Constructeur du fond d'écran
 	 * 
-	 * @param fond nom du fichier contenant l'image
+	 * @param fond    nom du fichier contenant l'image
+	 * @param facteur facteur de redimensionnement
 	 */
 	// Kitimir Yim
 	public FondEcran(String fond, double facteur) {

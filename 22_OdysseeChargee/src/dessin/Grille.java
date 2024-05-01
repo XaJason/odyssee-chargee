@@ -1029,8 +1029,11 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Retourne vrai si la grille ne contient que des portails liés Donc qu'il y a
-	 * un nombre pair de portails
+	 * Retourne vrai si la grille ne contient que des portails liés: un nombre pair
+	 * de portails
+	 * 
+	 * @return vrai si vrai si la grille ne contient que des portails liés: un
+	 *         nombre pair de portails
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {

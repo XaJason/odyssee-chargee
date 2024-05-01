@@ -59,9 +59,6 @@ public class PanelJeu extends JPanel {
 	/** Bouton pour réinitialiser les paramètres de l'animation */
 	private JButton btnReinitialiser;
 
-	/** Tourniquet pour définir le pas de simulation de l'animation */
-	private JSpinner spnTempsSleep;
-
 	/** Tourniquet pour définir la masse du vaisseau */
 	private JSpinner spnMasseVaisseau;
 
@@ -141,7 +138,7 @@ public class PanelJeu extends JPanel {
 	/**
 	 * Liste déroulante pour la sélection de la vitesse d'animation
 	 */
-	private JComboBox cmbVitesseAnimation;
+	private JComboBox<Object> cmbVitesseAnimation;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -670,7 +667,7 @@ public class PanelJeu extends JPanel {
 //																							// d'entrée
 //		panelEntree.add(spnTempsSleep);
 
-		cmbVitesseAnimation = new JComboBox();
+		cmbVitesseAnimation = new JComboBox<Object>();
 		cmbVitesseAnimation.setFocusable(false);
 		cmbVitesseAnimation.setFocusTraversalKeysEnabled(false);
 		cmbVitesseAnimation.addActionListener(new ActionListener() {
@@ -679,8 +676,8 @@ public class PanelJeu extends JPanel {
 				zoneAnimationPhysique.requestFocusInWindow();
 			}
 		});
-		cmbVitesseAnimation.setModel(
-				new DefaultComboBoxModel(new String[] { "Très rapide", "Rapide", "Moyen", "Lent", "Très lent" }));
+		cmbVitesseAnimation.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Très rapide", "Rapide", "Moyen", "Lent", "Très lent" }));
 		cmbVitesseAnimation.setSelectedIndex(2);
 		cmbVitesseAnimation.setBounds(225, 431, 140, 35);
 		panelEntree.add(cmbVitesseAnimation);
