@@ -107,7 +107,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		g2dPrive.draw(contour);
+		//g2dPrive.draw(contour);
 		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		/*
