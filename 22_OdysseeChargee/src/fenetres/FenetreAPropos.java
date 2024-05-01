@@ -15,6 +15,26 @@ import javax.swing.SwingConstants;
 public class FenetreAPropos extends JPanel {
 	/** Constante permettant la sérialisation de la classe **/
 	private static final long serialVersionUID = -3110011146750233775L;
+	/** Source de la texture d'obsidienne pour les blocs */
+	private String sourceObsidienne = "https://i.pinimg.com/originals/03/49/c2/0349c21114b361fdc9a442e582fd27c7.jpg";
+	/** Source du drapeau */
+	private String sourceDrapeau = "https://game-icons.net/1x1/lorc/flying-flag.html";
+	/** Source de l'icône pour essayer */
+	private String sourceEssayer = "https://game-icons.net/1x1/guard13007/play-button.html";
+	/** Source des pics */
+	private String sourcePics = "https://game-icons.net/1x1/delapouite/spiky-pit.html";
+	/** Source de la texture d'obsidienne pour les blocs */
+	private String sourcePortail = "https://game-icons.net/1x1/lorc/portal.html";
+	/** Source de l'icône pour réinitialiser dans l'éditeur de niveaux */
+	private String sourceReinitialiser = "https://game-icons.net/1x1/lorc/cycle.html";
+	/** Source de l'icône pour la rotation pré-placement */
+	private String sourceRotationPrePlacement = "https://game-icons.net/1x1/delapouite/clockwise-rotation.html";
+	/** Source de l'icône pour sauvegarder */
+	private String sourceSauvegarder = "https://game-icons.net/1x1/delapouite/save.html";
+	/** Source de l'icône pour la suppression */
+	private String sourceSupprimer = "https://game-icons.net/1x1/delapouite/trash-can.html";
+	/** Source du vaisseau */
+	private String sourceVaisseau = "https://iconduck.com/icons/2658/unidentified-code-object-ufo";
 
 	/**
 	 * Cr�ation du panel
