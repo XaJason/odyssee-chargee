@@ -214,7 +214,7 @@ public class AppPrincipale22 extends JFrame {
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
-		btnModeEditeur.setBounds(472, 304, 303, 104);
+		btnModeEditeur.setBounds(424, 304, 403, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
 		fondEcran.add(btnModeEditeur);
 
@@ -250,7 +250,7 @@ public class AppPrincipale22 extends JFrame {
 
 		JButton btnTitre = new JButton("New button");
 		btnTitre.setFocusable(false);
-		btnTitre.setBounds(115, 101, 428, 70);
+		btnTitre.setBounds(115, 101, 428, 86);
 		OutilsImage.lireImageEtPlacerSurBouton("titre.png", btnTitre);
 
 		fondEcran.add(btnTitre);
