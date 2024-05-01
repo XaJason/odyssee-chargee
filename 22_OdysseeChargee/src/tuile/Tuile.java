@@ -212,11 +212,11 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		g2dPrive.setColor(Color.red);
 		// g2d.draw(contour);
 
-		if (!listeSegments.isEmpty()) {
-			for (Segment s : listeSegments) {
-				s.dessiner(g2dPrive);
-			}
-		}
+//		if (!listeSegments.isEmpty()) {
+//			for (Segment s : listeSegments) {
+//				s.dessiner(g2dPrive);
+//			}
+//		}
 	}
 
 	/**
