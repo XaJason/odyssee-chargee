@@ -1,5 +1,6 @@
 package panneaux;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,9 +23,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import application.FondEcran;
 import dessin.ZoneAnimationPhysique;
 import niveau.Niveau;
 import physique.MoteurPhysique;
+import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 
 /**
@@ -129,7 +132,8 @@ public class PanelJeu extends JPanel {
 	private JLabel labelChampElectrique;
 	/** Label de la position **/
 	private JLabel labelPosition;
-
+	/** Le fond d'écran du panneau **/
+	FondEcran fondEcran;
 	/**
 	 * Étiquette pour indiquer à l'utilisateur les touches à utiliser pour contrôler
 	 * la nature de la charge du vaisseau
@@ -146,6 +150,9 @@ public class PanelJeu extends JPanel {
 	// Kitimir Yim
 	public PanelJeu() {
 		setLayout(null);
+		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
+		
+		
 
 		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
@@ -301,6 +308,10 @@ public class PanelJeu extends JPanel {
 		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIndiceChargeVaisseau.setBounds(550, 702, 603, 22);
 		add(lblIndiceChargeVaisseau);
+		
+		fondEcran = new FondEcran("fondJeu.jpg", 1);
+		fondEcran.setBounds(0, 0, 1920, 1080);
+		add(fondEcran);
 
 	}
 
@@ -431,6 +442,8 @@ public class PanelJeu extends JPanel {
 		});
 		btnReinitialiser.setBounds(301, 732, 85, 21);
 		add(btnReinitialiser);
+		
+		
 	}
 
 	/**

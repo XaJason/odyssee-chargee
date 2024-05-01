@@ -126,6 +126,10 @@ public class Grille extends JPanel implements Serializable {
 	private boolean rotationPostPlacement = false;
 	/** Booléen qui indique l'état du déplacement d'une tuile unique **/
 	private boolean deplacementTuileUnique = false;
+	/**
+	 * Compte qui permet de de déterminer si le deplacement des tuiles uniques peut être fais
+	 */
+	private int compterCoupClique = 0;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -205,7 +209,15 @@ public class Grille extends JPanel implements Serializable {
 			public void mouseDragged(MouseEvent e) {
 				if (rotationPostPlacement) {
 				} else {
-					placerTuile(e);
+					reinitialiseStatutTuileUnique();
+					if (deplacementTuileUnique) {
+						compterCoupClique++;
+						if (compterCoupClique > 1) {
+							placerTuile(e);
+						}
+					} else {
+						placerTuile(e);
+					}
 				}
 			}
 		});
@@ -284,6 +296,11 @@ public class Grille extends JPanel implements Serializable {
 			supprimer = false;
 			positionnerCaseEtTuile();
 			break;
+		case MouseEvent.BUTTON1:
+			if (compterCoupClique > 1) {
+				placerTuile(e);
+				break;
+			}
 		}
 	}
 
@@ -545,10 +562,14 @@ public class Grille extends JPanel implements Serializable {
 
 							if (tuileTemp.getDrapeau() && !drapeau) {
 								drapeau = true;
+								deplacementTuileUnique = false;
+								compterCoupClique = 0;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
+								deplacementTuileUnique = false;
+								compterCoupClique = 0;
 								tuile = null;
 								PCS.firePropertyChange("Vaisseau", null, false);
 							}
@@ -1104,18 +1125,25 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
+			if(supprimer) {
+				supprimerCase();
+			}
 			if (rotationPostPlacement) {
 				rotationPostPlacement();
 			} else {
 				reinitialiseStatutTuileUnique();
-				
-				placerTuile(e);
-				
+				if (deplacementTuileUnique) {
+					compterCoupClique++;
+					if (compterCoupClique > 1) {
+						placerTuile(e);
+					}
+				} else {
+					placerTuile(e);
+				}
 			}
 
 			break;
 
-			
 //			
 //			if (!supprimer && !rotationPostPlacement) {
 //				transformerCoordonneesSouris(e);
@@ -1188,19 +1216,21 @@ public class Grille extends JPanel implements Serializable {
 			if (sourisEnMetreY >= i * hauteurCase && sourisEnMetreY < ((i + 1) * hauteurCase)) {
 				for (int j = 0; j < nbCaseHorizontale; j++) {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
-						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique) {
+						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique && tuile==null) {
 							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
 								deplacementTuileUnique = true;
 								drapeau = false;
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
 								setTuile(new Drapeau(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
+								PCS.firePropertyChange("Sélectionner drapeau", null, null);
 							} else if (tabEmplacement[i][j].getVaisseau() && vaisseau) {
 								deplacementTuileUnique = true;
 								vaisseau = false;
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
 								setTuile(new VaisseauImage(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
+								PCS.firePropertyChange("Sélectionner vaisseau", null, null);
 							}
 						}
 
