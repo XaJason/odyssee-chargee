@@ -56,28 +56,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 
 	// CONSTRUCTEUR //
 	/**
-	 * Constructeur du vaisseau pour test
-	 * 
-	 * @param position La position du vaisseau
-	 * @param vitesse  La vitesse du vaisseau
-	 * @param accel    L'accélération du vaisseau
-	 * @param rayon    Le rayon du vaisseau
-	 * @param charge   La charge du vaisseau
-	 * @param masse    La masse du vaisse
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public Vaisseau(Vecteur2D position, Vecteur2D vitesse, Vecteur2D accel, double rayon, double charge, double masse) {
-		super(position, charge);
-		this.positionPrecedente = new Vecteur2D(position);
-		this.vitesse = new Vecteur2D(vitesse);
-		this.accel = new Vecteur2D(accel);
-		this.rayon = rayon;
-		this.masse = masse;
-		creerLaGeometrie();
-	}
-
-	/**
-	 * Constructeur du vaisseau pour version officielle
+	 * Constructeur du vaisseau
 	 * 
 	 * @param position        La position du vaisseau
 	 * @param charge          La charge du vaisseau

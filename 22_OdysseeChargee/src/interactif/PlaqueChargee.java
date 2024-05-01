@@ -61,38 +61,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur de la plaque chargée
-	 * Pour application test, à enlever éventuellement
-	 * 
-	 * @param position La position de la plaque
-	 * @param normale  La normale de la plaque
-	 * @param longueur La longueur de la plaque
-	 * @param largeur  La largeur de la plaque
-	 * @param charge   La charge de la plaque
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public PlaqueChargee(Vecteur2D position, Vecteur2D normale, double longueur, double largeur, double charge) {
-		super(position, charge);
-		this.normale = new Vecteur2D(normale);
-		this.longueur = longueur;
-		this.epaisseur = largeur;
-
-		this.axe = new Vecteur2D(normale.getY(), -normale.getX());
-
-		this.extremiteA = position.additionne(axe.multiplie(longueur / 2));
-		this.coinSupGauche = extremiteA.additionne(normale.multiplie(largeur / 2));
-		this.coinSupDroit = extremiteA.additionne(normale.multiplie(-largeur / 2));
-
-		this.extremiteB = position.additionne(axe.multiplie(-longueur / 2));
-		this.coinInfGauche = extremiteB.additionne(normale.multiplie(largeur / 2));
-		this.coinInfDroit = extremiteB.additionne(normale.multiplie(-largeur / 2));
-
-		creerLaGeometrie();
-	}
-
-	/**
-	 * Constructeur de la plaque chargée
-	 * Ne prend que sa charge en paramètre
-	 * Officiel
 	 * 
 	 * @param charge La charge de la plaque
 	 */
@@ -117,8 +85,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 	/**
 	 * Constructeur de la plaque chargée
-	 * Prend sa position et sa charge en paramètre
-	 * Officiel
 	 * 
 	 * @param position La position de la plaque
 	 * @param charge   La charge de la plaque
@@ -144,8 +110,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 	/**
 	 * Constructeur de la plaque chargée
-	 * Prend en paramètre sa charge et les points à ses extrémités
-	 * Officiel
 	 * 
 	 * @param charge La charge de la plaque
 	 * @param p0     La coordonnée du premier point
@@ -177,8 +141,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 
 	/**
 	 * Constructeur de la plaque chargée
-	 * Prend en paramètre sa position, sa charge et les points à ses extrémités
-	 * Officiel
 	 * 
 	 * @param position La position de la plaque
 	 * @param charge   La charge de la plaque

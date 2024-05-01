@@ -130,6 +130,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * cliqué dessus)
 	 **/
 	private boolean fixerPlaqueSurTuile = false;
+	/** Booléen qui indique si l'on souhaite supprimer une plaque **/
+	private boolean supprimerPlaque = false;
 
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
@@ -217,7 +219,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				// debut
 				if (placementPlaque) {
 					transformerCoordonneesSouris(e);
-					survolerToutesLesTuilesPourTrouverCurseur();
+					survolerTuilesPourTrouverCurseur();
 					repaint();
 				}
 				// fin
@@ -326,8 +328,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 			fixerPlaque(e);
 			break;
 		case MouseEvent.BUTTON3:
-			System.out.println("\nDétection clic droit");
-			supprimerPlaque(e);
+			supprimerPlaque = true;
+			survolerTuilesPourTrouverCurseur();
+			supprimerPlaque = false;
 			break;
 		}// fin switch/case
 		repaint();
@@ -341,28 +344,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void fixerPlaque(MouseEvent e) {
-		if (placementPlaque) {
+		if (placementPlaque) { 
 			fixerPlaqueSurTuile = true;
-			survolerToutesLesTuilesPourTrouverCurseur();
+			survolerTuilesPourTrouverCurseur();
 			fixerPlaqueSurTuile = false;
-		} // fin if
-	}// fin méthode
-
-	/**
-	 * Permet de supprimer la plaque sur laquelle on vient de cliquer à l'aide de la
-	 * souris
-	 * 
-	 * @param e L'événement de la souris
-	 */
-	// Enuel René Valentin Kizozo Izia
-	private void supprimerPlaque(MouseEvent e) {
-		for (int i = 0; i < listePlaquesChargees.size(); i++) {
-			if (listePlaquesChargees.get(i).contient(sourisEnMetreX, sourisEnMetreY)) {
-				listePlaquesChargees.remove(i);
-				nbPlaquesRestantes++;
-				leveeNbPlaquesRestantes();
-			} // fin if
-		} // fin for
+		}// fin if
 	}// fin méthode
 
 	/**
@@ -408,13 +394,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Permet de survoler toutes les tuiles du niveau pour trouver l du curseur de
-	 * la souris.
-	 * Ainsi, on peut trouver où placer la plaque, à l'aide de la position de
+	 * Permet de survoler toutes les tuiles du niveau pour trouver sur quelle tuile
+	 * se situe le curseur de la souris.
+	 * 
+	 * Ainsi, on sait où placer la plaque, à l'aide de la position de
 	 * l'objet Aire sur lequel le curseur se trouve
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void survolerToutesLesTuilesPourTrouverCurseur() {
+	private void survolerTuilesPourTrouverCurseur() {
 		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
 
 		for (int i = 0; i < tabTuiles.length; i++) {
@@ -426,55 +413,97 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 					if (tuile.contient(curseurSouris)) {
 
-						// Recréer les aires des tuiles, car elles ne sont pas chargeables dans un
-						// fichier binaire
-						if (tuile.getAires() == null) {
-							tuile.creerAires(tuile.getPointMilieu());
-						} // fin if
+						if (tuile.getPlaque() != null & fixerPlaqueSurTuile) {
+							fixerPlaqueSurTuile = false;
+							JOptionPane.showMessageDialog(null,
+									"Vous ne pouvez pas placer plusieurs plaques au même endroit !",
+									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+						}// fin 3e if
 
-						Aire aireOuEstCurseur = tuile.survolerAiresDeTuile(curseurSouris);
-						if (aireOuEstCurseur != null) {
-							plaque.setPosition(new Vecteur2D(aireOuEstCurseur.getPointMilieuDeTuile().getX(),
-									aireOuEstCurseur.getPointMilieuDeTuile().getY()));
-							plaque.miseAJourExtremiteA();
-							plaque.miseAJourExtremiteB();
-
-							/*
-							 * On prend la valeur absolue de la charge des plaques pour s'assurer que c'est
-							 * bien la variable signePlaque qui lui attribue son signe
-							 */
-							chargeDesPlaques = Math.abs(chargeDesPlaques);
-							plaque.setCharge(signePlaque * chargeDesPlaques);
-
-							if (fixerPlaqueSurTuile & nbPlaquesRestantes == 0) {
-								JOptionPane.showMessageDialog(null,
-										"Il ne vous reste plus de plaques !"
-												+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits.",
-										"Avertissement", JOptionPane.WARNING_MESSAGE, null);
-							} // fin 4e if
-
-							if (fixerPlaqueSurTuile & nbPlaquesRestantes > 0) {
-								Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(),
-										plaque.getPosition().getY());
-								listePlaquesChargees.add(new PlaqueChargee(positionNouvellePlaque, plaque.getCharge()));
-								nbPlaquesRestantes--;
-								leveeNbPlaquesRestantes();
-
-								if (nbPlaquesRestantes == 0) {
-									JOptionPane.showMessageDialog(null,
-											"Attention! Vous venez de placer votre dernière plaque."
-													+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits ou commencez à jouer!",
-											"Avertissement", JOptionPane.WARNING_MESSAGE, null);
-								} // fin 6e if
-							} // fin 5e if
-						} // fin 3e if
-					} // fin 2e if
+						if (supprimerPlaque) {
+							supprimerPlaque(tuile);
+						} else {
+							placerPlaque(tuile);
+						}// fin 4e if
+						
+					}// fin 2e if
 				} // fin 1er if
 			} // fin 2e boucle for
 		} // fin 1ere boucle for
 
 	} // fin méthode
 
+	/**
+	 * Placer une plaque sur une tuile, à l'aide de la position de
+	 * l'objet Aire sur lequel le curseur de la souris se trouve
+	 * 
+	 * @param tuile La tuile sur laquelle on souhaite placer une plaque
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void placerPlaque(Tuile tuile) {
+		
+		// Recréer les aires des tuiles, car elles ne sont pas chargeables dans un
+		// fichier binaire
+		if (tuile.getAires() == null) {
+			tuile.creerAires(tuile.getPointMilieu());
+		} // fin 1er if
+
+		Aire aireOuEstCurseur = tuile.survolerAiresDeTuile(curseurSouris);
+		if (aireOuEstCurseur != null) {
+			plaque.setPosition(new Vecteur2D(aireOuEstCurseur.getPointMilieuDeTuile().getX(),
+					aireOuEstCurseur.getPointMilieuDeTuile().getY()));
+			plaque.miseAJourExtremiteA();
+			plaque.miseAJourExtremiteB();
+
+			/*
+			 * On prend la valeur absolue de la charge des plaques pour s'assurer que c'est
+			 * bien la variable signePlaque qui lui attribue son signe
+			 */
+			chargeDesPlaques = Math.abs(chargeDesPlaques);
+			plaque.setCharge(signePlaque * chargeDesPlaques);
+
+			if (fixerPlaqueSurTuile & nbPlaquesRestantes == 0) {
+				JOptionPane.showMessageDialog(null,
+						"Il ne vous reste plus de plaques !"
+								+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits.",
+								"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+			} // fin 3e if
+
+			if (fixerPlaqueSurTuile & nbPlaquesRestantes > 0) {
+				Vecteur2D positionNouvellePlaque = new Vecteur2D(plaque.getPosition().getX(),
+						plaque.getPosition().getY());
+				PlaqueChargee plaqueAPlacer = new PlaqueChargee(positionNouvellePlaque, plaque.getCharge());
+				listePlaquesChargees.add(plaqueAPlacer);
+				tuile.setPlaque(plaqueAPlacer);
+				nbPlaquesRestantes--;
+				leveeNbPlaquesRestantes();
+				repaint();
+				if (nbPlaquesRestantes == 0) {
+					JOptionPane.showMessageDialog(null,
+							"Attention! Vous venez de placer votre dernière plaque."
+									+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits ou commencez à jouer!",
+									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+				} // fin 5e if
+			} // fin 4e if
+		} // fin 2e if
+	}
+	
+	/**
+	 * Permet de supprimer la plaque sur laquelle on vient de cliquer à l'aide de la
+	 * souris
+	 * 
+	 * @param tuile La tuile sur laquelle se trouve la plaque que l'on souhaite supprimer
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void supprimerPlaque(Tuile tuile) {
+		if (tuile.getPlaque() != null) {
+					listePlaquesChargees.remove(tuile.getPlaque());
+					tuile.setPlaque(null);
+					nbPlaquesRestantes++;
+					leveeNbPlaquesRestantes();
+		}// fin 1er if
+	}// fin méthode
+	
 	/**
 	 * Définit les dimensions des tuiles et lit leur image
 	 */
@@ -575,13 +604,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 					Tuile tuile = tabTuiles[i][j];
 
 					if (tuile != null) {
-						if (tuile.contient(curseurSouris)) {
-							plaque.dessiner(g2d);
-						}
-					}
-				}
-			}
-		}
+
+						if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
+								| tuile.getType().equals("Triangle équilatéral"))) {
+
+							if (tuile.contient(curseurSouris)) {
+								plaque.dessiner(g2d);
+							}//fin 4e if
+						}// fin 3e if
+					}// fin 2e if
+				}//fin 2e boucle
+			}//fin 1ere boucle
+		}//fin 1er if
 	}
 
 	/**

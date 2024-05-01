@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import interactif.PlaqueChargee;
 import math.MatriceRotation;
 import physique.Segment;
 import utilitaires.Aire;
@@ -43,6 +44,8 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	protected boolean drapeau = false;
 	/** Détermine si la tuile est un vaisseau **/
 	protected boolean vaisseau = false;
+	/** La plaque placée sur la tuile, s'il y a lieu **/
+	private PlaqueChargee plaque;
 
 	/** l'image représentant la tuile */
 	private transient Image image;
@@ -328,6 +331,26 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		}
 	}
 
+	/**
+	 * Retourne la plaque placée sur la tuile
+	 * 
+	 * @return La plaque placée sur la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public PlaqueChargee getPlaque() {
+		return plaque;
+	}
+	
+	/**
+	 * Modifie la plaque placée sur la tuile
+	 * 
+	 * @param plaque La plaque placée sur la tuile
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setPlaque(PlaqueChargee plaque) {
+		this.plaque = plaque;
+	}
+	
 	/**
 	 * Lit, redimensionne et définit l'image pour chaque type de tuile si l'image
 	 * n'a pas été chargé

@@ -400,7 +400,7 @@ public class AppPrincipale22 extends JFrame {
 	}// fin méthode
 
 	/**
-	 * Ajout de de trois autres niveau de base
+	 * Ajout de trois autres niveaux de base
 	 * 
 	 * @param evt L'événement qui a été lancé
 	 */
