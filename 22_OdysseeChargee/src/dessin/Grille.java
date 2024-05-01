@@ -22,11 +22,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Random;
-
-/**
- * @author Giroux
- * @author Jason Xa
- */
 import javax.swing.JPanel;
 
 import tuile.Carre;
@@ -537,7 +532,6 @@ public class Grille extends JPanel implements Serializable {
 						clonerTuile();
 
 						if ((tuileTemp.getDrapeau() && drapeau) || (tuileTemp.getVaisseau() && vaisseau)) {
-
 							break;
 						}
 						tuileTemp.setX(largeurCase * j);
@@ -712,7 +706,6 @@ public class Grille extends JPanel implements Serializable {
 		positionnerCaseEtTuile();
 		repaint();
 	}
-
 
 	/**
 	 * Permet de supprimer une tuile précise
@@ -972,11 +965,11 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private Color genererCouleurPortail() {
-        Random random = new Random();
-        int rouge = random.nextInt(etendueRGB);
-    	int vert = random.nextInt(etendueRGB);
-    	int bleu = random.nextInt(etendueRGB);
-        return new Color(rouge, vert, bleu, opacitePortails);
+		Random random = new Random();
+		int rouge = random.nextInt(etendueRGB);
+		int vert = random.nextInt(etendueRGB);
+		int bleu = random.nextInt(etendueRGB);
+		return new Color(rouge, vert, bleu, opacitePortails);
 	}
 
 	/**
@@ -1031,7 +1024,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {
-		return (nbPortails%2 == 0);
+		return (nbPortails % 2 == 0);
 	}
 
 	/**
@@ -1051,7 +1044,7 @@ public class Grille extends JPanel implements Serializable {
 							tabEmplacement[i][j]
 									.setAngleRotation(tabEmplacement[i][j].getAngleRotation() + 0.5 * Math.PI);
 							tabEmplacement[i][j].setPoint();
-									
+
 							repaint();
 						}
 
@@ -1071,7 +1064,7 @@ public class Grille extends JPanel implements Serializable {
 	public boolean getRotationPostPlacement() {
 		return rotationPostPlacement;
 	}
-	
+
 	/**
 	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
 	 */
@@ -1111,21 +1104,33 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			if (!supprimer) {
-				transformerCoordonneesSouris(e);
-				reinitialiseStatutTuileUnique();
-			}
-			if (deplacementTuileUnique) {
-				deplacementTuileUnique = false;
+			if (rotationPostPlacement) {
+				rotationPostPlacement();
 			} else {
-				if (rotationPostPlacement) {
-					transformerCoordonneesSouris(e);
-					rotationPostPlacement();
-				} else {
-					placerTuile(e);
-				}
+				reinitialiseStatutTuileUnique();
+				
+				placerTuile(e);
+				
 			}
+
 			break;
+
+			
+//			
+//			if (!supprimer && !rotationPostPlacement) {
+//				transformerCoordonneesSouris(e);
+//				reinitialiseStatutTuileUnique();
+//			} else if (deplacementTuileUnique) {
+//				deplacementTuileUnique = false;
+//			} else if (rotationPostPlacement) {
+//				transformerCoordonneesSouris(e);
+//				rotationPostPlacement();
+//			} else if (supprimer) {
+//				supprimerCase();
+//			} else {
+//				placerTuile(e);
+//			}
+//			break;
 		}
 		gererCurseur();
 	}
@@ -1142,8 +1147,7 @@ public class Grille extends JPanel implements Serializable {
 		switch (code) {
 		case KeyEvent.VK_SPACE:
 			PCS.firePropertyChange("Supprimer", null, null);
-			
-			
+
 			break;
 		case KeyEvent.VK_R:
 			PCS.firePropertyChange("Rotation pré-placement", null, null);
@@ -1184,7 +1188,7 @@ public class Grille extends JPanel implements Serializable {
 			if (sourisEnMetreY >= i * hauteurCase && sourisEnMetreY < ((i + 1) * hauteurCase)) {
 				for (int j = 0; j < nbCaseHorizontale; j++) {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
-						if (tabEmplacement[i][j] != null && !rotationPostPlacement) {
+						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique) {
 							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
 								deplacementTuileUnique = true;
 								drapeau = false;
@@ -1192,7 +1196,6 @@ public class Grille extends JPanel implements Serializable {
 								setTuile(new Drapeau(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
 							} else if (tabEmplacement[i][j].getVaisseau() && vaisseau) {
-
 								deplacementTuileUnique = true;
 								vaisseau = false;
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
