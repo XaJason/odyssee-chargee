@@ -26,9 +26,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import dessin.Grille;
-import niveau.GestionnaireDeNiveaux;
-import niveau.Niveau;
-import niveau.Sauvegarder;
+import niveaux.GestionnaireDeNiveaux;
+import niveaux.Niveau;
+import niveaux.Sauvegarder;
 import tuile.Carre;
 import tuile.Drapeau;
 import tuile.Pics;
@@ -58,12 +58,12 @@ public class PanelEditeur extends JPanel {
 	 */
 	private Grille grille;
 	/**
-	 * compteur pour le nombre max de niveau
+	 * compteur pour le nombre max de niveaux
 	 */
 	private int compteur = 0;
 
 	/**
-	 * nombre max de niveau possible dans la liste
+	 * nombre max de niveaux possible dans la liste
 	 */
 	private static final int MAX_NIVEAUX = 10;
 
@@ -93,12 +93,12 @@ public class PanelEditeur extends JPanel {
 	private JButton btnSupprimer;
 	/** bouton permettant de gérer la rotation de nouvelles tuiles */
 	private JButton btnRotationPrePlacement;
-	/** bouton permettant de gérer la sauvegarde du niveau associée à la grille */
+	/** bouton permettant de gérer la sauvegarde du niveaux associée à la grille */
 	private JButton btnSauvegarder;
 	/** bouton permettant de la sélection de la tuile de type vaisseau */
 	private JButton btnVaisseau;
 	/**
-	 * Bouton pour essayer le niveau créé
+	 * Bouton pour essayer le niveaux créé
 	 */
 	private JButton btnEssayer;
 	/**
@@ -158,7 +158,7 @@ public class PanelEditeur extends JPanel {
 	private JLabel lblRotationPrePlacement;
 	/**
 	 * étiquette servant à identifier le bouton permettant de gérer la sauvegarde du
-	 * niveau associée à la grille
+	 * niveaux associée à la grille
 	 */
 	private JLabel lblSauvegarder;
 	/**
@@ -187,7 +187,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	private JLabel lblRotationPostPlacement;
 	/**
-	 * Étiquette servant à identifier le bouton pour essayer le niveau construit
+	 * Étiquette servant à identifier le bouton pour essayer le niveaux construit
 	 */
 	private JLabel lblEssayer;
 
@@ -269,7 +269,7 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Vérifie les conditions pour essayer un niveau, lance un événement pour
+	 * Vérifie les conditions pour essayer un niveaux, lance un événement pour
 	 * accéder au mode jeu et réinitialise certains paramètres de la grille
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -289,12 +289,12 @@ public class PanelEditeur extends JPanel {
 	// Kitimir Yim
 	private void transfertVersModeJeu() {
 		Niveau niveauParDefaut = new Niveau(grille, "Niveau d'essai");
-		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
+		PCS.fireIndexedPropertyChange("niveaux essai", 0, 0, niveauParDefaut);
 		reinitialiserSaufNiveau();
 	}
 
 	/**
-	 * Création des boutons d'action pour la création du niveau
+	 * Création des boutons d'action pour la création du niveaux
 	 */
 	// Jason Xa
 	private void creerSectionBoutons() {
@@ -596,9 +596,9 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Sauvegarder le niveau en argument
+	 * Sauvegarder le niveaux en argument
 	 * 
-	 * @param niveau le niveau à sauvegarder
+	 * @param niveaux le niveaux à sauvegarder
 	 */
 	// Kitimir Yim
 	private void sauvegarder(Niveau niveau) {
@@ -629,27 +629,27 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Sauvegarde un niveau selon certaines conditions non reliées à la construction
-	 * du niveau
+	 * Sauvegarde un niveaux selon certaines conditions non reliées à la construction
+	 * du niveaux
 	 * 
 	 * @throws HeadlessException l'exception indirecte
 	 */
 	// Kitimir Yim
 	private void sauvegarderNiveau() {
-		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveaux:", "Nom du niveaux",
 				JOptionPane.PLAIN_MESSAGE);
 		Niveau niveauParDefaut = new Niveau(grille, nom);
 		sauvegarder(niveauParDefaut);
 	}
 
 	/**
-	 * Retourne vrai si le niveau contient un vaisseau, un drapeau et un nombre pair
-	 * de portail. Affiche également une fenêtre pop-up lorsque le niveau n'est pas
+	 * Retourne vrai si le niveaux contient un vaisseau, un drapeau et un nombre pair
+	 * de portail. Affiche également une fenêtre pop-up lorsque le niveaux n'est pas
 	 * bien construit comme avertissement.
 	 * 
-	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveau soit
+	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveaux soit
 	 *                        bien construit
-	 * @return vrai si le niveau contient un vaisseau et un drapeau
+	 * @return vrai si le niveaux contient un vaisseau et un drapeau
 	 */
 	// Jason Xa
 	private boolean niveauBienConstruit(String tacheAEffectuer) {
@@ -666,7 +666,7 @@ public class PanelEditeur extends JPanel {
 		}
 		if (!tuilesManquantes.isBlank()) {
 			JOptionPane.showMessageDialog(null, "Objets à placer:" + tuilesManquantes
-					+ "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveau.", "Niveau inadéquat", 2,
+					+ "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveaux.", "Niveau inadéquat", 2,
 					null);
 		}
 		return (grille.contientVaisseau() && grille.contientDrapeau() && grille.portailsTousLies());
@@ -739,7 +739,7 @@ public class PanelEditeur extends JPanel {
 				case "Réinitialiser":
 					reinitialiser();
 					break;
-				case "Essayer le niveau":
+				case "Essayer le niveaux":
 					transfertVersModeJeu();
 					break;
 				case "Supprimer":
@@ -872,7 +872,7 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Réinitialise cet éditeur de niveaux sauf le niveau
+	 * Réinitialise cet éditeur de niveaux sauf le niveaux
 	 */
 	// Jason Xa
 	private void reinitialiserSaufNiveau() {
@@ -910,7 +910,7 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Gère la sauvegarde du niveau
+	 * Gère la sauvegarde du niveaux
 	 * 
 	 * @throws HeadlessException
 	 */

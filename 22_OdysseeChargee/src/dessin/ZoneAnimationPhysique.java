@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 
 import interactif.PlaqueChargee;
 import interactif.Vaisseau;
-import niveau.Niveau;
-import niveau.Sauvegarder;
+import niveaux.Niveau;
+import niveaux.Sauvegarder;
 import physique.MoteurPhysique;
 import physique.Segment;
 import physique.Vecteur2D;
@@ -34,7 +34,7 @@ import utilitaires.OutilsImage;
 /**
  * Composant illustrant la simulation :
  * La scène physique où sont représentés les objets intéractifs physique ainsi
- * que le niveau et ses tuiles
+ * que le niveaux et ses tuiles
  *
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
@@ -47,9 +47,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// PROPRIÉTÉS //
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -8878846015876118047L;
-	/** Largeur du niveau (en mètre) **/
+	/** Largeur du niveaux (en mètre) **/
 	private double largeurDuComposantEnMetres = 400.0;
-	/** Hauteur du niveau (en mètre) **/
+	/** Hauteur du niveaux (en mètre) **/
 	private double hauteurDuComposantEnMetres = 300.0;
 
 	/** Pas de simulation initial (en seconde) **/
@@ -86,7 +86,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Indique que le curseur de la souris est à l'intérieur du composant **/
 	private boolean sourisDansComposant = false;
 
-	// Caractéristiques du niveau
+	// Caractéristiques du niveaux
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Niveau niveau;
 	/** Force appliquée par le réacteur dorsal sur le vaisseau (en Newton) **/
@@ -113,9 +113,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private Image imagePlaque = OutilsImage.lireImage("PlaqueChargePositive.png");
 
 	// Caractéristiques des plaques chargées
-	/** Charge initiale des plaques du niveau (en Coulomb) **/
+	/** Charge initiale des plaques du niveaux (en Coulomb) **/
 	private final double CHARGE_INITIALE_DES_PLAQUES = 5.0;
-	/** Charge des plaques du niveau (en Coulomb) **/
+	/** Charge des plaques du niveaux (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
 	/** Liste des plaques chargées **/
 	private ArrayList<PlaqueChargee> listePlaquesChargees = new ArrayList<PlaqueChargee>();
@@ -379,9 +379,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	/**
 	 * Place le vaisseau au bon endroit dans la grille pour le début de l'animation,
-	 * en fonction de la position de la tuile du vaisseau dans la grille du niveau
+	 * en fonction de la position de la tuile du vaisseau dans la grille du niveaux
 	 * 
-	 * @param niveau Le niveau dans lequel se trouve le vaisseau
+	 * @param niveaux Le niveaux dans lequel se trouve le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void placerVaisseauPourDebutAnimation(Niveau niveau) {
@@ -396,7 +396,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 					vaisseau = new Vaisseau(posVaisseau, chargeVaisseau, masseVaisseau, (VaisseauImage) tuile);
 
 					// Définir la position initial du vaisseau à l'aide de son emplacement dans le
-					// niveau (sa tuile)
+					// niveaux (sa tuile)
 					posDeSauvegardeX = tuile.getPointZero().getX() + vaisseau.getRayon();
 					posDeSauvegardeY = tuile.getPointZero().getY() + vaisseau.getRayon();
 					posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
@@ -407,7 +407,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Permet de survoler toutes les tuiles du niveau pour trouver l du curseur de
+	 * Permet de survoler toutes les tuiles du niveaux pour trouver l du curseur de
 	 * la souris.
 	 * Ainsi, on peut trouver où placer la plaque, à l'aide de la position de
 	 * l'objet Aire sur lequel le curseur se trouve
@@ -524,7 +524,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Permet de dessiner le niveau
+	 * Permet de dessiner le niveaux
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -548,7 +548,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Permet de dessiner la ou les plaques qui ont été placées dans le niveau
+	 * Permet de dessiner la ou les plaques qui ont été placées dans le niveaux
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -687,7 +687,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Teste la collision avec toutes les plaques du niveau
+	 * Teste la collision avec toutes les plaques du niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void testerCollisionsAvecPlaque() {
@@ -763,7 +763,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Kitimir Yim
 	private void messageMort(String typeTuile) {
-		Object[] options = { "Recommencer", "Sélecteur de niveau" };
+		Object[] options = { "Recommencer", "Sélecteur de niveaux" };
 		int choix = 0;
 		if (typeTuile.equals("Pic")) {
 			choix = JOptionPane.showOptionDialog(null, "Vous avez touché les pics! Que voulez-vous faire?", "Game Over",
@@ -1087,9 +1087,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Retourne la charge des plaques du niveau
+	 * Retourne la charge des plaques du niveaux
 	 * 
-	 * @return La charge des plaques du niveau
+	 * @return La charge des plaques du niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public double getChargeDesPlaques() {
@@ -1200,9 +1200,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Retourne le niveau
+	 * Retourne le niveaux
 	 * 
-	 * @return Le niveau
+	 * @return Le niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Niveau getNiveau() {
@@ -1210,9 +1210,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Modifie le niveau en en chargeant un nouveau niveau
+	 * Modifie le niveaux en en chargeant un nouveau niveaux
 	 * 
-	 * @param nomNiveau Le nom du niveau (une chaîne de caractère)
+	 * @param nomNiveau Le nom du niveaux (une chaîne de caractère)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setNiveau(String nomNiveau) {
@@ -1222,9 +1222,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Modifie le niveau en en chargeant un nouveau niveau
+	 * Modifie le niveaux en en chargeant un nouveau niveaux
 	 * 
-	 * @param nomNiveau Le nom du niveau (une chaîne de caractère)
+	 * @param nomNiveau Le nom du niveaux (une chaîne de caractère)
 	 */
 	// Kitimir Yim
 	public void setNiveauDeBase(String nomNiveau) {
@@ -1234,9 +1234,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Modifie le niveau en le remplaçant par un autre
+	 * Modifie le niveaux en le remplaçant par un autre
 	 * 
-	 * @param niveau Le nouveau niveau
+	 * @param niveaux Le nouveau niveaux
 	 */
 	// Kitimir Yim
 	public void setNiveau(Niveau niveau) {
@@ -1246,9 +1246,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Modification supplémentaire à effectuer lorsque l'on modifie un niveau
+	 * Modification supplémentaire à effectuer lorsque l'on modifie un niveaux
 	 * 
-	 * @param niveau Le nouveau niveau
+	 * @param niveaux Le nouveau niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void modificationSupplementaireSetNiveau(Niveau niveau) {
@@ -1258,10 +1258,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
-	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveau
+	 * Modifie la valeur du booléen permettant de placer une plaque dans le niveaux
 	 * 
 	 * @param btnActionnee La nouvelle valeur du booléen permettant de placer une
-	 *                     plaque dans le niveau (vrai si le bouton est enclenché)
+	 *                     plaque dans le niveaux (vrai si le bouton est enclenché)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setPlacementPlaque(boolean btnActionnee) {

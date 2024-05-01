@@ -37,7 +37,7 @@ public class FenetreAPropos extends JPanel {
 	private String sourceVaisseau = "https://iconduck.com/icons/2658/unidentified-code-object-ufo";
 
 	/**
-	 * Cr�ation du panel
+	 * Création du panel
 	 */
 	// Kitimir Yim
 	public FenetreAPropos() {

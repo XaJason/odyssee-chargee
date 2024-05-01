@@ -27,17 +27,17 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
-	/** Bouton permettant d'accéder au niveau de base 1 **/
+	/** Bouton permettant d'accéder au niveaux de base 1 **/
 	private JButton btnNiveauBase1;
-	/** Bouton permettant d'accéder au niveau de base 2 **/
+	/** Bouton permettant d'accéder au niveaux de base 2 **/
 	private JButton btnNiveauBase2;
-	/** Bouton permettant d'accéder au niveau de base 3 **/
+	/** Bouton permettant d'accéder au niveaux de base 3 **/
 	private JButton btnNiveauBase3;
-	/** Bouton permettant d'accéder au niveau de base 4 **/
+	/** Bouton permettant d'accéder au niveaux de base 4 **/
 	private JButton btnNiveauBase4;
-	/** Bouton permettant d'accéder au niveau de base 5 **/
+	/** Bouton permettant d'accéder au niveaux de base 5 **/
 	private JButton btnNiveauBase5;
-	/** Bouton permettant d'accéder au niveau de base 6 **/
+	/** Bouton permettant d'accéder au niveaux de base 6 **/
 	private JButton btnNiveauBase6;
 	/** Le fond d'écran du panneau **/
 	FondEcran fondEcran;

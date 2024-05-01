@@ -1,4 +1,4 @@
-package niveau;
+package niveaux;
 
 import java.awt.Graphics2D;
 import java.io.Serializable;
@@ -9,7 +9,7 @@ import dessin.Grille;
 
 /**
  * Composant illustrant la simulation :
- * Un niveau est une scène physique où sont représentés des objets intéractifs
+ * Un niveaux est une scène physique où sont représentés des objets intéractifs
  * physique et des tuiles
  *
  * @author Giroux
@@ -22,16 +22,16 @@ public class Niveau extends JPanel implements Serializable {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = 7452459522695790433L;
 
-	/** Nom du niveau **/
+	/** Nom du niveaux **/
 	private String nom;
 	/** Objet représentant la grille ainsi que toutes ses tuiles **/
 	private Grille grille;
 
 	/**
-	 * Constructeur du niveau
+	 * Constructeur du niveaux
 	 * 
 	 * @param grille Objet représentant la grille ainsi que toutes ses tuiles
-	 * @param nom    Nom que l'on donne au niveau
+	 * @param nom    Nom que l'on donne au niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Niveau(Grille grille, String nom) {
@@ -41,12 +41,12 @@ public class Niveau extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Permet de créer la géométrie d'un objet niveau
+	 * Permet de créer la géométrie d'un objet niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
 		/*
-		 * Dessiner tous les bounding box des tuiles du niveau
+		 * Dessiner tous les bounding box des tuiles du niveaux
 		 * Ou du moins définir où les objets sont, mais de manière physique,
 		 * pas à l'aide d'un tableau
 		 * 
@@ -68,7 +68,7 @@ public class Niveau extends JPanel implements Serializable {
 
 	// SOUS-PROGRAMMES //
 	/**
-	 * Permet de dessiner des les tuiles de l'objet niveau
+	 * Permet de dessiner des les tuiles de l'objet niveaux
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -79,9 +79,9 @@ public class Niveau extends JPanel implements Serializable {
 
 	// GETTERS ET SETTERS //
 	/**
-	 * Permet d'avoir le nom du niveau
+	 * Permet d'avoir le nom du niveaux
 	 * 
-	 * @return Le nom du niveau
+	 * @return Le nom du niveaux
 	 */
 	// Giroux
 	public String getNom() {
@@ -89,9 +89,9 @@ public class Niveau extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Permet de changer le nom du niveau
+	 * Permet de changer le nom du niveaux
 	 * 
-	 * @param nom Le nouveau nom du niveau
+	 * @param nom Le nouveau nom du niveaux
 	 */
 	// Giroux
 	public void setNom(String nom) {
@@ -99,9 +99,9 @@ public class Niveau extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Retourne la grille du niveau
+	 * Retourne la grille du niveaux
 	 * 
-	 * @return La grille du niveau
+	 * @return La grille du niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public Grille getGrille() {
@@ -109,9 +109,9 @@ public class Niveau extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Modifie la grille du niveau
+	 * Modifie la grille du niveaux
 	 * 
-	 * @param grille La nouvelle grille du niveau
+	 * @param grille La nouvelle grille du niveaux
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setGrille(Grille grille) {

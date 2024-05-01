@@ -245,7 +245,7 @@ public class Grille extends JPanel implements Serializable {
 		} else if (e.isControlDown() && code == KeyEvent.VK_R) {
 			PCS.firePropertyChange("Réinitialiser", null, null);
 		} else if (e.isControlDown() && code == KeyEvent.VK_E) {
-			PCS.firePropertyChange("Essayer le niveau", null, null);
+			PCS.firePropertyChange("Essayer le niveaux", null, null);
 		} else {
 			switch (code) {
 			case KeyEvent.VK_Q:
