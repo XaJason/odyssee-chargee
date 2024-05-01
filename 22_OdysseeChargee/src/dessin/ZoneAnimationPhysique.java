@@ -1221,19 +1221,19 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private void setCooldownPortail() {
 		switch (tempsDuSleep) {
 		case 2:
-			Portail.setCooldownPortail(600);
-			break;
-		case 5:
-			Portail.setCooldownPortail(800);
-			break;
-		case 8:
 			Portail.setCooldownPortail(1000);
 			break;
-		case 16:
+		case 5:
 			Portail.setCooldownPortail(1500);
 			break;
-		case 20:
+		case 8:
 			Portail.setCooldownPortail(2000);
+			break;
+		case 16:
+			Portail.setCooldownPortail(2500);
+			break;
+		case 20:
+			Portail.setCooldownPortail(3000);
 			break;
 		}
 	}

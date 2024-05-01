@@ -56,7 +56,7 @@ public class Portail extends Tuile implements Serializable {
 	/** Association du portail **/
 	private Portail portailAssocie = null;
 	/** Durée de refroidissement initial des portails (en milliseconde) **/
-	private static final double COOLDOWN_PORTAIL = 400;
+	private static final double COOLDOWN_PORTAIL = 2000;
 	/** Durée de refroidissement des portails (en milliseconde) **/
 	private static double cooldownPortail = COOLDOWN_PORTAIL;
 	/** Temps du dernier usage du portail (en milliseconde) **/
