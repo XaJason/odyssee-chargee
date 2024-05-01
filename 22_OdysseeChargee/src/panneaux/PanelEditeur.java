@@ -842,7 +842,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerDrapeau() {
-
+		
 		grille.setTuile(new Drapeau());
 		panelTuileTemp.setTuile(new Drapeau());
 		afficherSelection();
