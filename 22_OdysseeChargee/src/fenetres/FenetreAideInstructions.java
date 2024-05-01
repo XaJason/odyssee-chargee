@@ -44,7 +44,31 @@ public class FenetreAideInstructions extends JFrame {
 	/**
 	 * Tableau des images
 	 */
-	private String tableauImages[] = { "Version Beta-1.jpg" };
+	private String tableauImages[] = {
+		    "22_Instructions-01.jpg",
+		    "22_Instructions-02.jpg",
+		    "22_Instructions-03.jpg",
+		    "22_Instructions-04.jpg",
+		    "22_Instructions-05.jpg",
+		    "22_Instructions-06.jpg",
+		    "22_Instructions-07.jpg",
+		    "22_Instructions-08.jpg",
+		    "22_Instructions-09.jpg",
+		    "22_Instructions-10.jpg",
+		    "22_Instructions-11.jpg",
+		    "22_Instructions-12.jpg",
+		    "22_Instructions-13.jpg",
+		    "22_Instructions-14.jpg",
+		    "22_Instructions-15.jpg",
+		    "22_Instructions-16.jpg",
+		    "22_Instructions-17.jpg",
+		    "22_Instructions-18.jpg",
+		    "22_Instructions-19.jpg",
+		    "22_Instructions-20.jpg",
+		    "22_Instructions-21.jpg",
+		    "22_Instructions-22.jpg"
+		};
+	
 	/**
 	 * Label attention
 	 */
@@ -58,8 +82,8 @@ public class FenetreAideInstructions extends JFrame {
 	public FenetreAideInstructions() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds((ConstanteComposantsSwing.DIM_HORIZONTALE_APP - ConstanteComposantsSwing.DIM_HORIZONTALE_SEC) / 2,
-				(ConstanteComposantsSwing.DIM_VERTICALE_APP - ConstanteComposantsSwing.DIM_VERTICALE_SEC) / 2,
-				ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, ConstanteComposantsSwing.DIM_VERTICALE_SEC);
+				(ConstanteComposantsSwing.DIM_VERTICALE_APP - 800) / 2,
+				ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, 800);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -633,7 +633,6 @@ public class PanelEditeur extends JPanel {
 	 * Sauvegarde un niveau selon certaines conditions non reliées à la construction
 	 * du niveau
 	 * 
-	 * @throws HeadlessException l'exception indirecte
 	 */
 	// Kitimir Yim
 	private void sauvegarderNiveau() {
