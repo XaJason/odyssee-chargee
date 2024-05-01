@@ -67,7 +67,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	/** ArrayList qui contient les points des coins des blocs post-transformé **/
 	protected ArrayList<Point2D.Double> pointsCoin = new ArrayList<Point2D.Double>();
 	/**
-	 * 
+	 * ArrayList qui contient les points d'un bloc déja posée
 	 */
 	protected ArrayList<Point2D.Double> pointsCoinTemp = new ArrayList<Point2D.Double>();
 	/** Point initial(haut-gauche) du bloc **/
