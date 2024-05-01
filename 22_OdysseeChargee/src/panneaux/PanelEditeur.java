@@ -23,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import dessin.Grille;
 import niveau.GestionnaireDeNiveaux;
@@ -36,7 +37,6 @@ import tuile.TriangleEquilateral;
 import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 import utilitaires.OutilsImage;
-import javax.swing.border.LineBorder;
 
 /**
  * Panel du mode éditeur
@@ -605,7 +605,7 @@ public class PanelEditeur extends JPanel {
 
 		GestionnaireDeNiveaux.ajouter(niveau);
 		Sauvegarder.sauvegarderNiveauMesTrucs(niveau, niveau.getNom());
-	
+
 	}
 
 	/**
@@ -635,11 +635,11 @@ public class PanelEditeur extends JPanel {
 	 * @throws HeadlessException l'exception indirecte
 	 */
 	// Kitimir Yim
-	private void sauvegarderNiveau(){
-		    String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
-		            JOptionPane.PLAIN_MESSAGE);
-		        Niveau niveauParDefaut = new Niveau(grille, nom);
-		        sauvegarder(niveauParDefaut);
+	private void sauvegarderNiveau() {
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+				JOptionPane.PLAIN_MESSAGE);
+		Niveau niveauParDefaut = new Niveau(grille, nom);
+		sauvegarder(niveauParDefaut);
 	}
 
 	/**

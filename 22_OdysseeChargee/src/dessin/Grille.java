@@ -715,7 +715,6 @@ public class Grille extends JPanel implements Serializable {
 		repaint();
 	}
 
-
 	/**
 	 * Permet de supprimer une tuile précise
 	 */
@@ -974,11 +973,11 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private Color genererCouleurPortail() {
-        Random random = new Random();
-        int rouge = random.nextInt(etendueRGB);
-    	int vert = random.nextInt(etendueRGB);
-    	int bleu = random.nextInt(etendueRGB);
-        return new Color(rouge, vert, bleu, opacitePortails);
+		Random random = new Random();
+		int rouge = random.nextInt(etendueRGB);
+		int vert = random.nextInt(etendueRGB);
+		int bleu = random.nextInt(etendueRGB);
+		return new Color(rouge, vert, bleu, opacitePortails);
 	}
 
 	/**
@@ -1033,7 +1032,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {
-		return (nbPortails%2 == 0);
+		return (nbPortails % 2 == 0);
 	}
 
 	/**
@@ -1053,7 +1052,7 @@ public class Grille extends JPanel implements Serializable {
 							tabEmplacement[i][j]
 									.setAngleRotation(tabEmplacement[i][j].getAngleRotation() + 0.5 * Math.PI);
 							tabEmplacement[i][j].setPoint();
-									
+
 							repaint();
 						}
 
@@ -1073,7 +1072,7 @@ public class Grille extends JPanel implements Serializable {
 	public boolean getRotationPostPlacement() {
 		return rotationPostPlacement;
 	}
-	
+
 	/**
 	 * Méthode qui modifie l'état de la grille, met en mode rotation ou l'enlève
 	 */
@@ -1114,14 +1113,14 @@ public class Grille extends JPanel implements Serializable {
 			break;
 		case MouseEvent.BUTTON1:
 			if (!supprimer) {
-				//transformerCoordonneesSouris(e);
+				// transformerCoordonneesSouris(e);
 				reinitialiseStatutTuileUnique();
 			}
 			if (deplacementTuileUnique) {
 				deplacementTuileUnique = false;
 			} else {
 				if (rotationPostPlacement) {
-					//transformerCoordonneesSouris(e);
+					// transformerCoordonneesSouris(e);
 					rotationPostPlacement();
 				} else {
 					placerTuile(e);
@@ -1144,8 +1143,7 @@ public class Grille extends JPanel implements Serializable {
 		switch (code) {
 		case KeyEvent.VK_SPACE:
 			PCS.firePropertyChange("Supprimer", null, null);
-			
-			
+
 			break;
 		case KeyEvent.VK_R:
 			PCS.firePropertyChange("Rotation pré-placement", null, null);
@@ -1212,11 +1210,13 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/*
-	 * Pour PO : sert à coder l'affichage du vaisseau dans le panel de la tuile temporaire
+	 * Pour PO : sert à coder l'affichage du vaisseau dans le panel de la tuile
+	 * temporaire
 	 */
 	private void leveePourAfficherPanelTemp() {
 		PCS.firePropertyChange("Afficher vaisseau", null, null);
 	}
+
 	/**
 	 * Associe une nouvelle valeur qui dit vrai si la souris est à l'extérieur de la
 	 * grille

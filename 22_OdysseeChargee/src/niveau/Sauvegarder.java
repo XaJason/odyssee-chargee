@@ -26,13 +26,11 @@ public class Sauvegarder {
 	 * Chemon pour le dossier de sauvegarde
 	 */
 	private static final String DOSSIER_SAUVEGARDE = new File(
-	        System.getProperty("user.home") + "\\OneDrive\\Documents\\" + SOUS_DOSSIER_DE_TRAVAIL).getPath();
+			System.getProperty("user.home") + "\\OneDrive\\Documents\\" + SOUS_DOSSIER_DE_TRAVAIL).getPath();
 	/**
 	 * Type de fichier
 	 */
 	private static final String EXTENSION_FICHIER = ".dat";
-
-
 
 	// Méthode pas utilisé encore
 	/**
@@ -48,10 +46,10 @@ public class Sauvegarder {
 
 		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
 		if (!dossierNiveaux.exists()) {
-			dossierNiveaux.mkdirs(); 
+			dossierNiveaux.mkdirs();
 		}
 
-		File fichierDeTravail = new File(dossierNiveaux + "\\" +nomFichier);
+		File fichierDeTravail = new File(dossierNiveaux + "\\" + nomFichier);
 
 		ObjectOutputStream oos = null;
 		if (fichierDeTravail.exists()) {
@@ -91,9 +89,9 @@ public class Sauvegarder {
 
 		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
 		if (!dossierNiveaux.exists()) {
-			dossierNiveaux.mkdirs(); 
+			dossierNiveaux.mkdirs();
 		}
-		File fichierDeTravail = new File( dossierNiveaux + "\\" + nomFichier);
+		File fichierDeTravail = new File(dossierNiveaux + "\\" + nomFichier);
 
 		ObjectInputStream ois = null;
 		try {
@@ -120,8 +118,6 @@ public class Sauvegarder {
 		}
 	}
 
-
-
 	/**
 	 * Méthode static permettant le chargement de niveau
 	 * 
@@ -133,12 +129,12 @@ public class Sauvegarder {
 	public static Niveau chargerNiveauDeBase(String identifiantNiveau) {
 		String nomFichier = identifiantNiveau + EXTENSION_FICHIER;
 
-	
-		ObjectInputStream ois=null;
+		ObjectInputStream ois = null;
 		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(nomFichier);
-		
+
 		if (is == null) {
-			JOptionPane.showMessageDialog(null, "Incapable de trouver ce fichier dans le BuildPath (ou dans le jar exécutable) : " + nomFichier );
+			JOptionPane.showMessageDialog(null,
+					"Incapable de trouver ce fichier dans le BuildPath (ou dans le jar exécutable) : " + nomFichier);
 		}
 		try {
 			ois = new ObjectInputStream(is);
@@ -161,6 +157,5 @@ public class Sauvegarder {
 			}
 		}
 	}
-	
-	
+
 }

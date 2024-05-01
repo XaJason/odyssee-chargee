@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import application.FondEcran;
-import niveau.GestionnaireDeNiveaux;
-import niveau.Niveau;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 
@@ -64,7 +61,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		setLayout(null);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
-		fondEcran = new FondEcran("fondNiveau.png",1);
+		fondEcran = new FondEcran("fondNiveau.png", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
 		fondEcran.setLayout(null);
@@ -107,11 +104,10 @@ public class PanelSelecteurNiveaux extends JPanel {
 		btnNiveauBase3.setBounds(313, 465, 224, 44);
 		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3);
 		fondEcran.add(btnNiveauBase3);
-		
+
 		creerTroisBoutonsNiveaux();
 	}
 
-	
 	/**
 	 * Créer trois autres boutons permettant d'accéder aux niveaux de base 4, 5 et 6
 	 */
@@ -125,7 +121,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 		});
 		btnNiveauBase4.setBounds(1365, 385, 224, 44);
 		fondEcran.add(btnNiveauBase4);
-		
+
 		btnNiveauBase5 = new JButton("Niveau de base 5");
 		btnNiveauBase5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,7 +130,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 		});
 		btnNiveauBase5.setBounds(1365, 425, 224, 44);
 		fondEcran.add(btnNiveauBase5);
-		
+
 		btnNiveauBase6 = new JButton("Niveau de base 6");
 		btnNiveauBase6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

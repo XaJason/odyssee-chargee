@@ -3,12 +3,11 @@ package tuile;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.geom.Point2D.Double;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import interactif.Vaisseau;
@@ -62,7 +61,7 @@ public class Portail extends Tuile implements Serializable {
 	private static double cooldownPortail = COOLDOWN_PORTAIL;
 	/** Temps du dernier usage du portail (en milliseconde) **/
 	private double tempsDernierUsage = 0;
-	
+
 	/**
 	 * Constructeur
 	 * 
@@ -97,7 +96,6 @@ public class Portail extends Tuile implements Serializable {
 		creerLaGeometrie();
 	}
 
-	
 	// SOUS-PROGRAMMES //
 	/**
 	 * Permet de créer la géométrie d'un portail.
@@ -105,9 +103,9 @@ public class Portail extends Tuile implements Serializable {
 	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
 		cercle = new Ellipse2D.Double(x, y, largeurTuile, hauteurTuile);
-		position = new Vecteur2D(x + largeurTuile/2, y + hauteurTuile/2);
+		position = new Vecteur2D(x + largeurTuile / 2, y + hauteurTuile / 2);
 	}
-	
+
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
 	 * 
@@ -118,19 +116,19 @@ public class Portail extends Tuile implements Serializable {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		g2dPrive.setColor(couleur);
 		g2dPrive.fill(cercle);
-		
-		//AffineTransform transformationAffine = g2dPrive.getTransform();
+
+		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		/*
-		 *  Ajustement des paramètres pour dessiner l'image à cause des transformations
-		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 * Ajustement des paramètres pour dessiner l'image à cause des transformations
+		 * du paintComponent de Grille permettant de mettre l'origine en bas à gauche
 		 */
 		double yImage = y + hauteurTuile;
 		double hauteurTuileImage = -hauteurTuile;
 		g2dPrive.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
-		//g2dPrive.setTransform(transformationAffine);
+		// g2dPrive.setTransform(transformationAffine);
 	}
-	
+
 	/**
 	 * Téléportation le vaisseau du portail courant au portail associé
 	 * 
@@ -142,59 +140,65 @@ public class Portail extends Tuile implements Serializable {
 		Vecteur2D posVaisseauDansPortail = vaisseau.getPosition().soustrait(coinSupGauchePortailIni);
 
 		double tempsActuel = System.currentTimeMillis();
-		
-		if (tempsActuel - tempsDernierUsage >= cooldownPortail)  {
+
+		if (tempsActuel - tempsDernierUsage >= cooldownPortail) {
 			tempsDernierUsage = tempsActuel;
 			portailAssocie.setTempsDernierUsage(tempsActuel);
-			
+
 			ajusterPositionVaisseau(vaisseau, posVaisseauDansPortail);
 		} else {
 			System.out.println("Le portail est en cours de refroidissement.");
 		}
 	}
-	
+
 	/**
-	 * Vérifie si le vaisseau est complètement à l'intérieur du portail lors de la téléportation
-	 * Si ce n'est pas le cas, modifie la position du vaisseau dans le portailpour éviter des bugs
+	 * Vérifie si le vaisseau est complètement à l'intérieur du portail lors de la
+	 * téléportation
+	 * Si ce n'est pas le cas, modifie la position du vaisseau dans le portailpour
+	 * éviter des bugs
 	 * 
-	 * @param vaisseau Le vaisseau
-	 * @param posVaisseauDansPortail La position du vaisseau dans le référentiel d'un portail
+	 * @param vaisseau               Le vaisseau
+	 * @param posVaisseauDansPortail La position du vaisseau dans le référentiel
+	 *                               d'un portail
 	 */
 	private void ajusterPositionVaisseau(Vaisseau vaisseau, Vecteur2D posVaisseauDansPortail) {
 		Vecteur2D coinSupGauchePortailFinal = new Vecteur2D(portailAssocie.x, portailAssocie.y);
 		Vecteur2D nouvellePosVaisseau = coinSupGauchePortailFinal.additionne(posVaisseauDansPortail);
-		
+
 		Area aireVaisseau = vaisseau.formerAireDuVaisseau();
 		aireVaisseau.subtract(aireCase);
 		boolean completementDansPortail = aireVaisseau.isEmpty();
-		
+
 		// Ajuste la position du vaisseau s'il n'est pas complètement dans le portail
 		if (!completementDansPortail) {
 			try {
-				Vecteur2D orientationDistanceVaisseauPortail = this.position.soustrait(vaisseau.getPosition()).normalise();
-				nouvellePosVaisseau = nouvellePosVaisseau.additionne(orientationDistanceVaisseauPortail.multiplie(2*vaisseau.getRayon()));
+				Vecteur2D orientationDistanceVaisseauPortail = this.position.soustrait(vaisseau.getPosition())
+						.normalise();
+				nouvellePosVaisseau = nouvellePosVaisseau
+						.additionne(orientationDistanceVaisseauPortail.multiplie(2 * vaisseau.getRayon()));
 				vaisseau.setPosition(nouvellePosVaisseau);
 			} catch (Exception e) {
 				nouvellePosVaisseau = vaisseau.getPosition();
-				System.out.println("Le vaisseau est sur le centre du portail, donc on ne truque pas son repositionnment.");
+				System.out.println(
+						"Le vaisseau est sur le centre du portail, donc on ne truque pas son repositionnment.");
 			}
-		}else {
+		} else {
 			vaisseau.setPosition(nouvellePosVaisseau);
 		}
 	}
-	
+
 	/**
 	 * Méthode qui forme le Portail dans un area
 	 * 
 	 * @return la forme du Portail dans un area
 	 */
 	// Kitimir Yim
-	public Area formerAireObjetSpecial() {	
+	public Area formerAireObjetSpecial() {
 		aireCase = new Area(new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile));
 		airePortail = new Area(cercle);
 		return airePortail;
 	}
-	
+
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
 	 * 
@@ -204,7 +208,7 @@ public class Portail extends Tuile implements Serializable {
 	public String toString() {
 		return "Portail ";
 	}
-	
+
 	/**
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
@@ -240,7 +244,7 @@ public class Portail extends Tuile implements Serializable {
 			pointsCoin.add(i);
 		}
 	}
-	
+
 	/**
 	 * Retourne l'image représentant le portail
 	 * 
@@ -291,8 +295,8 @@ public class Portail extends Tuile implements Serializable {
 	// Enuel René Valentin Kizozo Izia
 	public Color getCouleur() {
 		return couleur;
-	}	
-	
+	}
+
 	/**
 	 * Modifie la couleur du portail
 	 * 
@@ -302,8 +306,7 @@ public class Portail extends Tuile implements Serializable {
 	public void setCouleur(Color couleur) {
 		this.couleur = couleur;
 	}
-	
-	
+
 	/**
 	 * Retourne le temps du dernier usage du portail
 	 * 
@@ -313,7 +316,7 @@ public class Portail extends Tuile implements Serializable {
 	public double getTempsDernierUsage() {
 		return tempsDernierUsage;
 	}
-	
+
 	/**
 	 * Modifie le temps du dernier usage du portail
 	 * 
@@ -323,7 +326,7 @@ public class Portail extends Tuile implements Serializable {
 	public void setTempsDernierUsage(double tempsDernierUsage) {
 		this.tempsDernierUsage = tempsDernierUsage;
 	}
-	
+
 	/**
 	 * Retourne la durée de refroidissement des portails
 	 * 

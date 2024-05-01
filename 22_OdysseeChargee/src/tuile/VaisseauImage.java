@@ -3,7 +3,6 @@ package tuile;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -98,7 +97,8 @@ public class VaisseauImage extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Dessine l'image représentant le vaisseau selon les coordonnées de sa tuile dans la grille (fixe)
+	 * Dessine l'image représentant le vaisseau selon les coordonnées de sa tuile
+	 * dans la grille (fixe)
 	 * 
 	 * @param g2d Le contexte graphique
 	 */
@@ -108,20 +108,21 @@ public class VaisseauImage extends Tuile implements Serializable {
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
 		g2dPrive.draw(contour);
-		//AffineTransform transformationAffine = g2dPrive.getTransform();
+		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		/*
-		 *  Ajustement d'un paramètre pour dessiner l'image à cause des transformations
-		 *  du paintComponent de Grille permettant de mettre l'origine en bas à gauche
+		 * Ajustement d'un paramètre pour dessiner l'image à cause des transformations
+		 * du paintComponent de Grille permettant de mettre l'origine en bas à gauche
 		 */
 		double hauteurTuileImage = -(hauteurTuile / 2.0);
 		g2dPrive.drawImage(image, (int) (x + largeurDemiTuile / 2.0), (int) (y + largeurDemiTuile),
 				(int) (largeurTuile / 2.0), (int) hauteurTuileImage, null);
-		//g2dPrive.setTransform(transformationAffine);
+		// g2dPrive.setTransform(transformationAffine);
 	}
 
 	/**
-	 * Dessine l'image représentant le vaisseau selon la position de l'objet Vaisseau lors de l'animation
+	 * Dessine l'image représentant le vaisseau selon la position de l'objet
+	 * Vaisseau lors de l'animation
 	 * 
 	 * @param g2d contexte graphique
 	 * @param x   abscisse gauche de la tuile du vaisseau (px)
@@ -129,7 +130,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void dessiner(Graphics2D g2d, double x, double y) {
-		double yImage = y + hauteurTuile/2.0;
+		double yImage = y + hauteurTuile / 2.0;
 		double hauteurTuileImage = -(hauteurTuile / 2.0);
 		g2d.drawImage(image, (int) (x), (int) yImage, (int) (largeurTuile / 2.0), (int) hauteurTuileImage, null);
 	}

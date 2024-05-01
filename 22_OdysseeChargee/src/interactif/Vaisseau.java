@@ -165,7 +165,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		if (vitesse.module() > MODULE_VITESSE_LIMITE) {
 			vitesse = vitesse.changerModule(MODULE_VITESSE_LIMITE);
 		}
-		
+
 		positionPrecedente = new Vecteur2D(getPosition());
 		super.setPosition(MoteurPhysique.calculPosition(deltaT, getPosition(), vitesse));
 
@@ -278,7 +278,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		}
 	}
 
-	/** 
+	/**
 	 * Retourne la position du vaisseau à l'itération précédente
 	 * 
 	 * @return La position du vaisseau à l'itération précédente
@@ -291,13 +291,14 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	/**
 	 * Modifie la position du vaisseau à l'itération précédente
 	 * 
-	 * @param positionPrecedente La nouvelle position du vaisseau à l'itération précédente
+	 * @param positionPrecedente La nouvelle position du vaisseau à l'itération
+	 *                           précédente
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setPositionPrecedente(Vecteur2D positionPrecedente) {
 		this.positionPrecedente = new Vecteur2D(positionPrecedente);
 	}
-	
+
 	/**
 	 * Retourne le module de la vitesse limite du vaisseau
 	 * 
@@ -307,7 +308,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public double getModuleVitesseLimite() {
 		return MODULE_VITESSE_LIMITE;
 	}
-	
+
 	/**
 	 * Retourne la vitesse du vaisseau
 	 * 

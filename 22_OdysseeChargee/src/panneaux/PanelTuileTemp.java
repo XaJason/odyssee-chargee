@@ -115,7 +115,7 @@ public class PanelTuileTemp extends JPanel {
 		supprimer = !supprimer;
 		repaint();
 	}
-	
+
 	/**
 	 * Permet de mettre l'état de la fenêtre en suppression
 	 * 
