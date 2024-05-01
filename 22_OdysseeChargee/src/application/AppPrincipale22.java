@@ -411,17 +411,14 @@ public class AppPrincipale22 extends JFrame {
 	// Enuel René Valentin Kizozo Izia
 	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("passerVersNiveau4")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base4");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base4");
 			miseAJourChargementNiveau();
 		} // fin if
 		if (evt.getPropertyName().equals("passerVersNiveau5")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base5");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
 			miseAJourChargementNiveau();
 		} // fin if
-		if (evt.getPropertyName().equals("passerVersNiveau6")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique("Niveau_base6");
-			miseAJourChargementNiveau();
-		} // fin if
+	
 	}// fin méthode
 
 	/**
