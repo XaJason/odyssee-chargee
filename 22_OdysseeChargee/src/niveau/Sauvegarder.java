@@ -85,7 +85,7 @@ public class Sauvegarder {
 	 */
 	// Kitimir Yim
 	public static Niveau chargerNiveauMesTrucs(String identifiantNiveau) {
-		String nomFichier = identifiantNiveau + EXTENSION_FICHIER;
+		String nomFichier = identifiantNiveau;
 
 		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
 		if (!dossierNiveaux.exists()) {

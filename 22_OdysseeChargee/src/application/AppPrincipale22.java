@@ -14,6 +14,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,6 +28,7 @@ import fenetres.FenetreAPropos;
 import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
 import niveau.Niveau;
+import niveau.Sauvegarder;
 import panneaux.PanelEditeur;
 import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
@@ -217,43 +219,43 @@ public class AppPrincipale22 extends JFrame {
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
-		btnModeEditeur.setBounds(424, 304, 403, 104);
+		btnModeEditeur.setBounds(771, 304, 403, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("editeur.png", btnModeEditeur);
 		fondEcran.add(btnModeEditeur);
 
 		JButton btnReglages = new JButton("Réglages");
 		btnReglages.setFocusable(false);
-		btnReglages.setBounds(502, 419, 243, 100);
+		btnReglages.setBounds(839, 510, 243, 100);
 		OutilsImage.lireImageEtPlacerSurBouton("reglages.png", btnReglages);
 		fondEcran.add(btnReglages);
 
 		JButton btnAPropos = new JButton("À propos");
 		btnAPropos.setFocusable(false);
-		btnAPropos.setBounds(487, 530, 272, 104);
+		btnAPropos.setBounds(824, 621, 272, 104);
 		OutilsImage.lireImageEtPlacerSurBouton("apropos.png", btnAPropos);
 		fondEcran.add(btnAPropos);
 
 		JButton btnInstructions = new JButton("Aide");
 		btnInstructions.setFocusable(false);
-		btnInstructions.setBounds(554, 645, 138, 80);
+		btnInstructions.setBounds(891, 419, 138, 80);
 		OutilsImage.lireImageEtPlacerSurBouton("aide.png", btnInstructions);
 		fondEcran.add(btnInstructions);
 
 		JButton btnQuitter = new JButton("Quitter");
 		btnQuitter.setFocusable(false);
-		btnQuitter.setBounds(502, 736, 242, 70);
+		btnQuitter.setBounds(839, 736, 242, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("quitter.png", btnQuitter);
 		fondEcran.add(btnQuitter);
 
 		JButton btnSelectionDeNiveau = new JButton("Jouer");
 		btnSelectionDeNiveau.setFocusable(false);
-		btnSelectionDeNiveau.setBounds(554, 190, 138, 70);
+		btnSelectionDeNiveau.setBounds(891, 223, 138, 70);
 		OutilsImage.lireImageEtPlacerSurBouton("jouer.png", btnSelectionDeNiveau);
 		fondEcran.add(btnSelectionDeNiveau);
 
 		JButton btnTitre = new JButton("New button");
 		btnTitre.setFocusable(false);
-		btnTitre.setBounds(115, 101, 428, 86);
+		btnTitre.setBounds(699, 60, 522, 86);
 		OutilsImage.lireImageEtPlacerSurBouton("titre.png", btnTitre);
 
 		fondEcran.add(btnTitre);
@@ -373,33 +375,41 @@ public class AppPrincipale22 extends JFrame {
 				ajoutNiveauxBase(evt);
 
 				if (evt.getPropertyName().equals("passerVersJeu")) {
-					chargerNiveauVersZoneAnimationPhysique(evt);
-					miseAJourChargementNiveau();
+					chargerNiveauVersZoneAnimationPhysique();
+				
 				}
-				if (evt.getPropertyName().equals("niveauSelectionne")) {
-					chargerNiveauVersZoneAnimationPhysique(evt);
-					miseAJourChargementNiveau();
-				}
+				
 			}
 		});
 
 	}
 
 	/**
-	 * Chargement des niveau vers la zone d'animation physique
+	 * Chargement des niveau avec un JFileChooser vers la zone d'animation physique
 	 * 
-	 * @param evt L'événement qui a été lancé
 	 */
-	// Enuel René Valentin Kizozo Izia
-	private void chargerNiveauVersZoneAnimationPhysique(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("passerVersJeu")) {
-			String nomNiveau = JOptionPane.showInputDialog("Entrez le nom du niveau");
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique(nomNiveau);
-		} // fin if
-		if (evt.getPropertyName().equals("niveauSelectionne")) {
-			Niveau niveauSelectionne = (Niveau) evt.getNewValue();
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauSelectionne.getNom());
-		} // fin if
+	//Kitimir Yim
+	private void chargerNiveauVersZoneAnimationPhysique() {
+		
+			JFileChooser fichierNiveaux = new JFileChooser();
+			String userHome = System.getProperty("user.home");
+			String oneDrive = userHome + File.separator + "OneDrive";
+			String documents = oneDrive + File.separator + "Documents";
+			String mesTrucs = documents + File.separator + "MesTrucs";
+			fichierNiveaux.setCurrentDirectory(new File(mesTrucs));
+			
+			int resultat = fichierNiveaux.showOpenDialog(AppPrincipale22.this);
+
+			if (resultat == JFileChooser.APPROVE_OPTION) {
+
+				File fichierChoisi = fichierNiveaux.getSelectedFile();
+				String nomFichier = fichierChoisi.getName();
+				Niveau niveau = Sauvegarder.chargerNiveauMesTrucs(nomFichier);
+				panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveau);
+				miseAJourChargementNiveau();
+			}
+		
+	
 	}// fin méthode
 
 	/**

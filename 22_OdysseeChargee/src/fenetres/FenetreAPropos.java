@@ -35,7 +35,8 @@ public class FenetreAPropos extends JPanel {
 	private String sourceSupprimer = "https://game-icons.net/1x1/delapouite/trash-can.html";
 	/** Source du vaisseau */
 	private String sourceVaisseau = "https://iconduck.com/icons/2658/unidentified-code-object-ufo";
-
+	
+	private String sourceBouton = "https://www.textstudio.com/logo/831/PIXEL";
 	/**
 	 * Création du panel
 	 */
@@ -62,7 +63,7 @@ public class FenetreAPropos extends JPanel {
 		JLabel lblSources = new JLabel("<html>" + "<br>Image des carrés: " + "<br>Image du drapeau: "
 				+ "<br>Image des pics: " + "<br>Image des portails: " + "<br>Image des triangles équilatérals: "
 				+ "<br>Image des triangles rectangles: " + "<br>Image du vaisseau: " + "<br>Musique de fond: "
-				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
+				+ "<br>Source des boutons style pixel: "+ sourceBouton + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
 				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
 				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
 				+ "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: " + "<br>Musique de fond: "
