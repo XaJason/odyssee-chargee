@@ -282,8 +282,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/**
 	 * Met à jour la charge du vaisseau partout (levée d'évènement pour le
 	 * tourniquet d'entrée du panneau de jeu)
+	 * 
+	 * @param chargeVaisseau la nouvelle charge électrique du vaisseau (Coulombs)
 	 */
-	// Jason Xa
 	private void rafraichirChargeVaisseau(double chargeVaisseau) {
 		setChargeVaisseau(chargeVaisseau);
 		PCS.firePropertyChange("Charge négative", null, chargeVaisseau);

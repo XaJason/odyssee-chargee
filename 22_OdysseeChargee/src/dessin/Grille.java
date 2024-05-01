@@ -441,6 +441,8 @@ public class Grille extends JPanel implements Serializable {
 	/**
 	 * Méthode qui positionne la tuile et son fond bleu à l'emplacement de la souris
 	 * passée en paramètre
+	 * 
+	 * @param tuile la tuile à positionner
 	 */
 	// Giroux
 	private void positionnerCaseEtTuile(Tuile tuile) {

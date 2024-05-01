@@ -133,7 +133,14 @@ public class PanelJeu extends JPanel {
 	/** Label de la position **/
 	private JLabel labelPosition;
 
+	/**
+	 * Étiquette pour indiquer à l'utilisateur les touches à utiliser pour contrôler
+	 * la nature de la charge du vaisseau
+	 */
 	private JLabel lblIndiceChargeVaisseau;
+	/**
+	 * Liste déroulante pour la sélection de la vitesse d'animation
+	 */
 	private JComboBox cmbVitesseAnimation;
 
 	/**
@@ -389,7 +396,7 @@ public class PanelJeu extends JPanel {
 		btnArreter.setBounds(10, 732, 65, 21);
 		add(btnArreter);
 
-		btnRedemarrer = new JButton("Redémarrer");
+		btnRedemarrer = new JButton("Recommencer");
 		btnRedemarrer.setEnabled(false);
 		btnRedemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -401,7 +408,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnRedemarrer.setBounds(204, 732, 87, 21);
+		btnRedemarrer.setBounds(198, 732, 99, 21);
 		add(btnRedemarrer);
 
 		btnProchaineImage = new JButton("Prochaine image");

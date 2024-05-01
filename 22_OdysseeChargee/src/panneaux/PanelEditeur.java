@@ -179,6 +179,7 @@ public class PanelEditeur extends JPanel {
 	/** Panneau d'affichage servant à afficher la tuile ou le mode sélectionné **/
 	private PanelTuileTemp panelTuileTemp;
 
+	/** Bouton à deux états pour gérer le mode de rotation post-placement */
 	private JToggleButton btnRotationPostPlacement;
 
 	/**
@@ -897,12 +898,14 @@ public class PanelEditeur extends JPanel {
 
 	/**
 	 * Gère la rotation de la tuile actuelle
+	 * 
+	 * @param facteur nombre de seixième de rotation horaire à appliquer
 	 */
 	// Giroux
-	private void rotationnerAvant(int signum) {
+	private void rotationnerAvant(int facteur) {
 		grille.setSupprimer(false);
-		grille.rotation(signum);
-		panelTuileTemp.rotation(signum);
+		grille.rotation(facteur);
+		panelTuileTemp.rotation(facteur);
 		panelTuileTemp.repaint();
 		desactiveBooleanPostRotastion();
 		desactiveBooleanSupprimer();
@@ -912,7 +915,7 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Gère la sauvegarde du niveau
 	 * 
-	 * @throws HeadlessException
+	 * @throws HeadlessException exception sans tête
 	 */
 	// Jason Xa
 	private void sauvegarder() throws HeadlessException {
