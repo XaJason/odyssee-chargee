@@ -73,7 +73,8 @@ public class PanelSelecteurNiveaux extends JPanel {
 				PCS.firePropertyChange("passerVersJeu", 0, -1);
 			}
 		});
-		btnPasserModeJeu.setBounds(858, 430, 200, 30);
+		btnPasserModeJeu.setBounds(860, 435, 200, 44);
+		OutilsImage.lireImageEtPlacerSurBouton("choisir.png", btnPasserModeJeu);
 		fondEcran.add(btnPasserModeJeu);
 
 		btnNiveauBase1 = new JButton("Niveau de base 1");
@@ -106,7 +107,12 @@ public class PanelSelecteurNiveaux extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3);
 		fondEcran.add(btnNiveauBase3);
 
+		
+		
 		creerTroisBoutonsNiveaux();
+		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase4.png", btnNiveauBase4);
+		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase5.png", btnNiveauBase5);
+		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase6.png", btnNiveauBase6);
 	}
 
 	/**
