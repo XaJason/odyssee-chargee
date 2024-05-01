@@ -12,6 +12,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -139,6 +140,8 @@ public class AppPrincipale22 extends JFrame {
 			public void run() {
 				try {
 					AppPrincipale22 frame = new AppPrincipale22();
+					ImageIcon icon = new ImageIcon("ressources/vaisseau.png");
+					frame.setIconImage(icon.getImage());
 					frame.setVisible(true);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					frame.panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
