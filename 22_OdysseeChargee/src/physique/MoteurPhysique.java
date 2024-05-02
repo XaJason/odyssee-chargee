@@ -555,7 +555,7 @@ public class MoteurPhysique {
 		// Déterminer si le vaisseau est en collision avec les extrémités
 		boolean collisionExtremiteA = dVaisseauExtrA.module() < vaisseau.getRayon();
 		boolean collisionExtremiteB = dVaisseauExtrB.module() < vaisseau.getRayon();
-
+ 
 		// Collision aux extrémités
 		/*
 		 * Gérer les collisions avec des coins des surfaces qui correspond aux
