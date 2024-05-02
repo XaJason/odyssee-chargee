@@ -170,6 +170,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	/**
 	 * Crée la géométrie de base d'une tuile
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public void creerLaGeometrie() {
 		geometrieDeBase = new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile);
 	}

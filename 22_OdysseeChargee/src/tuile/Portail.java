@@ -32,7 +32,7 @@ public class Portail extends Tuile implements Serializable {
 	/** chaine de caractères représentant la tuile de type portail */
 	private static String type = "Portail";
 	/** Position du centre du portail **/
-	Vecteur2D position;
+	private Vecteur2D position;
 	// Coins du carré//
 	/** position du x pour délimiter les points **/
 	private double xActuel;
@@ -161,6 +161,7 @@ public class Portail extends Tuile implements Serializable {
 	 * @param posVaisseauDansPortail La position du vaisseau dans le référentiel
 	 *                               d'un portail
 	 */
+	// Enuel René Valentin Kizozo Izia
 	private void ajusterPositionVaisseau(Vaisseau vaisseau, Vecteur2D posVaisseauDansPortail) {
 		Vecteur2D coinSupGauchePortailFinal = new Vecteur2D(portailAssocie.x, portailAssocie.y);
 		Vecteur2D nouvellePosVaisseau = coinSupGauchePortailFinal.additionne(posVaisseauDansPortail);

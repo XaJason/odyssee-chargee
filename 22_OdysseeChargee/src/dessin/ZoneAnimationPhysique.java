@@ -287,6 +287,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * 
 	 * @param chargeVaisseau la nouvelle charge électrique du vaisseau (Coulombs)
 	 */
+	// Jason Xa
 	private void rafraichirChargeVaisseau(double chargeVaisseau) {
 		setChargeVaisseau(chargeVaisseau);
 		PCS.firePropertyChange("Charge négative", null, chargeVaisseau);
