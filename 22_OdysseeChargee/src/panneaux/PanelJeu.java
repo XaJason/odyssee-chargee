@@ -29,6 +29,7 @@ import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
+import javax.swing.JCheckBox;
 
 /**
  * Panel du mode de jeu
@@ -253,15 +254,18 @@ public class PanelJeu extends JPanel {
 		panelInfosPlaque.setLayout(null);
 
 		panelPlaque = new JPanel();
-		panelPlaque.setBounds(6, 16, 276, 165);
+		panelPlaque.setBounds(6, 32, 276, 149);
 		panelInfosPlaque.add(panelPlaque);
 		panelPlaque.setLayout(null);
 
 		tglbtnPlaque = new JToggleButton("");
 		tglbtnPlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
+				
 				zoneAnimationPhysique.setPlacementPlaque(tglbtnPlaque.isSelected());
 				zoneAnimationPhysique.requestFocusInWindow();
+				
+				imagePlaqueSelectionnee();
 			}
 		});
 		tglbtnPlaque.setBounds(53, 57, 212, 31);
@@ -269,11 +273,14 @@ public class PanelJeu extends JPanel {
 		panelPlaque.add(tglbtnPlaque);
 
 		btnChargePositive = new JButton("");
+		btnChargePositive.setEnabled(false);
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnChargePositive.setEnabled(false);
 				changementStatutPlaque(true);
 				changerBoutonSignePositif();
 				zoneAnimationPhysique.requestFocusInWindow();
+				repaint();
 			}
 		});
 		btnChargePositive.setBounds(10, 36, 33, 31);
@@ -301,6 +308,15 @@ public class PanelJeu extends JPanel {
 				.setText("Il vous reste " + zoneAnimationPhysique.getNbPlaquesRestantes() + " plaques à placer");
 		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
+		
+		JCheckBox chckbxJetpack = new JCheckBox("Mode Jetpack");
+		chckbxJetpack.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				gererModeJetpack(chckbxJetpack);
+			}
+		});
+		chckbxJetpack.setBounds(6, 0, 286, 23);
+		panelInfosPlaque.add(chckbxJetpack);
 
 		lblIndiceChargeVaisseau = new JLabel(
 				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
@@ -762,7 +778,15 @@ public class PanelJeu extends JPanel {
 	 */
 	// Giroux
 	private void changementStatutPlaque(boolean positif) {
-		if (positif) {
+		if (positif && tglbtnPlaque.isSelected()) {
+			plaquePositive = true;
+			lblEtatPlaque.setText("La plaque est: positive");
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositiveSelectionner.png", tglbtnPlaque);
+		} else if(!positif && tglbtnPlaque.isSelected()) {
+			plaquePositive = false;
+			lblEtatPlaque.setText("La plaque est: négative");
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegativeSelectionner.png", tglbtnPlaque);
+		} else if(positif && !tglbtnPlaque.isSelected()) {
 			plaquePositive = true;
 			lblEtatPlaque.setText("La plaque est: positive");
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
@@ -771,6 +795,8 @@ public class PanelJeu extends JPanel {
 			lblEtatPlaque.setText("La plaque est: négative");
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", tglbtnPlaque);
 		}
+		
+		repaint();
 	}
 
 	/**
@@ -781,5 +807,31 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysique getZoneAnimationPhysique() {
 		return zoneAnimationPhysique;
+	}
+	
+	/**
+	 * Permet de déterminer s'il y a mode jetpack ou pas
+	 * @param chckbxJetpack Le checkbox associé au mode jetpack
+	 */
+	//Giroux
+	private void gererModeJetpack(JCheckBox chckbxJetpack) {
+		if(chckbxJetpack.isSelected()) {
+			zoneAnimationPhysique.setModeJetpack(true);
+		} else {
+			zoneAnimationPhysique.setModeJetpack(false);
+		}
+		zoneAnimationPhysique.requestFocusInWindow();
+	}
+
+	/**
+	 * Méthode qui met l'image de la plaque selectionnée lorsque celle-ci l'est
+	 */
+	//Giroux
+	private void imagePlaqueSelectionnee() {
+		if(btnChargePositive.isEnabled()) {
+			changementStatutPlaque(false);
+		} else if(btnChargeNegative.isEnabled()) {
+			changementStatutPlaque(true);
+		}
 	}
 }
