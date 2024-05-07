@@ -30,6 +30,7 @@ import physique.MoteurPhysique;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
 
 /**
  * Panel du mode de jeu
@@ -98,9 +99,9 @@ public class PanelJeu extends JPanel {
 	/** Bouton à deux états pour sélectionner la plaque **/
 	private JToggleButton tglbtnPlaque;
 	/** Bouton pour mettre la plaque positive **/
-	private JButton btnChargePositive;
+	private JToggleButton btnChargePositive;
 	/** Bouton pour mettre la plaque negative **/
-	private JButton btnChargeNegative;
+	private JToggleButton btnChargeNegative;
 	/** Étiquette qui indique la charge de la plaque **/
 	private JLabel lblEtatPlaque;
 	/** Étiquette qui indique le nombre de plaques disponibles à placer **/
@@ -144,6 +145,7 @@ public class PanelJeu extends JPanel {
 	 * Liste déroulante pour la sélection de la vitesse d'animation
 	 */
 	private JComboBox<Object> cmbVitesseAnimation;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -272,22 +274,22 @@ public class PanelJeu extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
 		panelPlaque.add(tglbtnPlaque);
 
-		btnChargePositive = new JButton("");
-		btnChargePositive.setEnabled(false);
+		btnChargePositive = new JToggleButton("");
+		btnChargePositive.setSelected(true);
+		buttonGroup.add(btnChargePositive);
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnChargePositive.setEnabled(false);
 				changementStatutPlaque(true);
 				changerBoutonSignePositif();
 				zoneAnimationPhysique.requestFocusInWindow();
-				repaint();
 			}
 		});
 		btnChargePositive.setBounds(10, 36, 33, 31);
 		OutilsImage.lireImageEtPlacerSurBouton("ChargePositive.png", btnChargePositive);
 		panelPlaque.add(btnChargePositive);
 
-		btnChargeNegative = new JButton("");
+		btnChargeNegative = new JToggleButton("");
+		buttonGroup.add(btnChargeNegative);
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
@@ -367,8 +369,6 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void changerBoutonSignePositif() {
 		zoneAnimationPhysique.setPlaquePositive(true);
-		btnChargePositive.setEnabled(false);
-		btnChargeNegative.setEnabled(true);
 	}
 
 	/**
@@ -377,8 +377,7 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void changerBoutonSigneNegatif() {
 		zoneAnimationPhysique.setPlaquePositive(false);
-		btnChargeNegative.setEnabled(false);
-		btnChargePositive.setEnabled(true);
+
 	}
 
 	/**
@@ -822,16 +821,17 @@ public class PanelJeu extends JPanel {
 		}
 		zoneAnimationPhysique.requestFocusInWindow();
 	}
+	
 
 	/**
 	 * Méthode qui met l'image de la plaque selectionnée lorsque celle-ci l'est
 	 */
 	//Giroux
 	private void imagePlaqueSelectionnee() {
-		if(btnChargePositive.isEnabled()) {
-			changementStatutPlaque(false);
-		} else if(btnChargeNegative.isEnabled()) {
+		if(btnChargePositive.isSelected()) {
 			changementStatutPlaque(true);
+		} else if(btnChargeNegative.isSelected()) {
+			changementStatutPlaque(false);
 		}
 	}
 }
