@@ -256,6 +256,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau = Sauvegarder.chargerNiveauDeBase("Niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
+		
 	}// fin constructeur
 
 	/**
@@ -949,7 +950,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		demarrer();
+		
 	}
 
 	/**

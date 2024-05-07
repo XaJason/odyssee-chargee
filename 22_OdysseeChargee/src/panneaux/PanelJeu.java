@@ -329,6 +329,80 @@ public class PanelJeu extends JPanel {
 		fondEcran = new FondEcran("fondJeu.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
+		fondEcran.setLayout(null);
+		
+				btnDemarrer = new JButton("Démarrer");
+				btnDemarrer.setBounds(420, 813, 175, 40);
+				fondEcran.add(btnDemarrer);
+				btnDemarrer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// debut
+						zoneAnimationPhysique.demarrer();
+						btnProchaineImage.setEnabled(false);
+						btnDemarrer.setEnabled(false);
+						btnRedemarrer.setEnabled(true);
+						zoneAnimationPhysique.requestFocusInWindow();
+						// fin
+					}
+				});
+				OutilsImage.lireImageEtPlacerSurBouton("demarrer.png", btnDemarrer);
+				
+						btnArreter = new JButton("Arrêter");
+						btnArreter.setBounds(620, 813, 175, 40);
+						fondEcran.add(btnArreter);
+						btnArreter.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								// debut
+								zoneAnimationPhysique.arreter();
+								btnProchaineImage.setEnabled(true);
+								btnDemarrer.setEnabled(true);
+								zoneAnimationPhysique.requestFocusInWindow();
+								// fin
+							}
+						});
+						OutilsImage.lireImageEtPlacerSurBouton("arreter.png", btnArreter);
+						
+								btnProchaineImage = new JButton("Prochaine image");
+								btnProchaineImage.setBounds(1220, 813, 190, 40);
+								fondEcran.add(btnProchaineImage);
+								btnProchaineImage.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										// debut
+										zoneAnimationPhysique.prochaineImage();
+										zoneAnimationPhysique.requestFocusInWindow();
+										// fin
+									}
+								});
+								OutilsImage.lireImageEtPlacerSurBouton("prochaineimage.png", btnProchaineImage);
+								
+										btnRedemarrer = new JButton("Recommencer");
+										btnRedemarrer.setBounds(820, 813, 175, 40);
+										fondEcran.add(btnRedemarrer);
+										btnRedemarrer.setEnabled(false);
+										btnRedemarrer.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												// debut
+												zoneAnimationPhysique.redemarrer();
+												btnProchaineImage.setEnabled(false);
+												btnDemarrer.setEnabled(false);
+												zoneAnimationPhysique.requestFocusInWindow();
+												// fin
+											}
+										});
+										OutilsImage.lireImageEtPlacerSurBouton("recommencer.png", btnRedemarrer);
+										
+												btnReinitialiser = new JButton("Réinitialiser");
+												btnReinitialiser.setBounds(1020, 813, 175, 40);
+												fondEcran.add(btnReinitialiser);
+												btnReinitialiser.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+														// debut
+														reinitialiserPanneauEtZoneAnimation();
+														zoneAnimationPhysique.requestFocusInWindow();
+														// fin
+													}
+												});
+												OutilsImage.lireImageEtPlacerSurBouton("réinitialiser.png", btnReinitialiser);
 
 	}
 
@@ -456,7 +530,8 @@ public class PanelJeu extends JPanel {
 		});
 		btnReinitialiser.setBounds(301, 732, 85, 21);
 		add(btnReinitialiser);
-
+		
+		
 	}
 
 	/**
@@ -519,7 +594,8 @@ public class PanelJeu extends JPanel {
 					labelPosition.setText(xString + "x ," + yString + "y");
 				}
 				if (evt.getPropertyName().equals("changementBouton")) {
-					reinitialiserPanneauEtZoneAnimation();
+					recommencerPanneauEtZoneAnimation();
+					
 				}
 				leveeEvenementCharge(evt);
 				evenementMiseAJourDemarrage(evt);
@@ -739,6 +815,21 @@ public class PanelJeu extends JPanel {
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
 
 		zoneAnimationPhysique.reinitialiser();
+	}// fin methode reinitialiserZoneAnimation
+	
+	
+	/**
+	 * Reecommencer le panneau et la zone d'animation du mode Jeu à l'état qu'il
+	 * avait lors du démarrage de l'application
+	 */
+	// Kitimir Yim
+	private void recommencerPanneauEtZoneAnimation() {
+		btnProchaineImage.setEnabled(true);
+		btnDemarrer.setEnabled(true);
+		btnRedemarrer.setEnabled(true);
+
+
+		zoneAnimationPhysique.redemarrer();
 	}// fin methode reinitialiserZoneAnimation
 
 	/**
