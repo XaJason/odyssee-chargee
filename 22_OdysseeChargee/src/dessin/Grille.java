@@ -572,6 +572,7 @@ public class Grille extends JPanel implements Serializable {
 								compterCoupClique = 0;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
+								
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
 								deplacementTuileUnique = false;
@@ -1231,6 +1232,7 @@ public class Grille extends JPanel implements Serializable {
 							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
 								deplacementTuileUnique = true;
 								drapeau = false;
+								PCS.firePropertyChange("Drapeau", null, true);
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
 								setTuile(new Drapeau(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
@@ -1238,6 +1240,7 @@ public class Grille extends JPanel implements Serializable {
 							} else if (tabEmplacement[i][j].getVaisseau() && vaisseau) {
 								deplacementTuileUnique = true;
 								vaisseau = false;
+								PCS.firePropertyChange("Vaisseau", null, true);
 								tuileTemp = new Drapeau(tabEmplacement[i][j].getAngleRotation());
 								setTuile(new VaisseauImage(tabEmplacement[i][j].getAngleRotation()));
 								tabEmplacement[i][j] = null;
