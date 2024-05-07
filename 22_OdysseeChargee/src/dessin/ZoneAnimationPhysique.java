@@ -950,7 +950,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		demarrer();
+		
 	}
 
 	/**

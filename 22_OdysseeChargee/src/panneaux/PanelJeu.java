@@ -594,7 +594,8 @@ public class PanelJeu extends JPanel {
 					labelPosition.setText(xString + "x ," + yString + "y");
 				}
 				if (evt.getPropertyName().equals("changementBouton")) {
-					reinitialiserPanneauEtZoneAnimation();
+					recommencerPanneauEtZoneAnimation();
+					
 				}
 				leveeEvenementCharge(evt);
 				evenementMiseAJourDemarrage(evt);
@@ -814,6 +815,21 @@ public class PanelJeu extends JPanel {
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
 
 		zoneAnimationPhysique.reinitialiser();
+	}// fin methode reinitialiserZoneAnimation
+	
+	
+	/**
+	 * Reecommencer le panneau et la zone d'animation du mode Jeu à l'état qu'il
+	 * avait lors du démarrage de l'application
+	 */
+	// Kitimir Yim
+	private void recommencerPanneauEtZoneAnimation() {
+		btnProchaineImage.setEnabled(true);
+		btnDemarrer.setEnabled(true);
+		btnRedemarrer.setEnabled(true);
+
+
+		zoneAnimationPhysique.redemarrer();
 	}// fin methode reinitialiserZoneAnimation
 
 	/**
