@@ -90,13 +90,15 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	 * plaques chargées
 	 */
 	private int indexAireSurvolee;
-	
-	/** Matrice de rotation utilisée lorsqu'on appuie sur les boutons de rotation  **/
+
+	/**
+	 * Matrice de rotation utilisée lorsqu'on appuie sur les boutons de rotation
+	 **/
 	protected MatriceRotation matricePostCreation;
 
 	/** Géométrie de base d'une tuile **/
 	private Rectangle2D.Double geometrieDeBase;
-	
+
 	/**
 	 * Constructeur
 	 * 
@@ -174,7 +176,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void creerLaGeometrie() {
 		geometrieDeBase = new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile);
 	}
-	
+
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées dans la grille
 	 * 
@@ -193,7 +195,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		double hauteurTuileImage = -hauteurTuile;
 		g2d.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
 		g2d.setTransform(transformationAffine);
-		//dessinerContour(g2d);
 	}
 
 	/**
@@ -225,7 +226,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		//g2d.draw(contour);
+		// g2d.draw(contour);
 
 		if (!listeSegments.isEmpty()) {
 			for (Segment s : listeSegments) {
@@ -352,7 +353,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public PlaqueChargee getPlaque() {
 		return plaque;
 	}
-	
+
 	/**
 	 * Modifie la plaque placée sur la tuile
 	 * 
@@ -362,7 +363,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void setPlaque(PlaqueChargee plaque) {
 		this.plaque = plaque;
 	}
-	
+
 	/**
 	 * Lit, redimensionne et définit l'image pour chaque type de tuile si l'image
 	 * n'a pas été chargé
