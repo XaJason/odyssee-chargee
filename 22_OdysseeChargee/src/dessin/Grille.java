@@ -690,10 +690,11 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
-			g2d.fill(emplacementActuel);
+			
 			if (tuile != null && !supprimer && !rotationPostPlacement) {
 				tuile.dessiner(g2d);
 			}
+			g2d.fill(emplacementActuel);
 		}
 	}
 
