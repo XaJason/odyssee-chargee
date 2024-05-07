@@ -45,6 +45,8 @@ public class FenetreAPropos extends JPanel {
 	private String fondReglages = "https://in.pinterest.com/pin/713328028467976805/";
 	/**Source du fond du menu jeu*/
 	private String fondJeu = "https://www.pinterest.com/pin/solar-eclipse-illustration-space-planet-abstract-space-art-digital-art-cyan-2k-wallpaper-hdwallpaper-d--733664595531549031/";
+	/**Source des boutons d'animation en style tron*/
+	private String sourceBoutonAnimation = "https://fontmeme.com/fonts/tron-font/";
 	/**
 	 * Création du panel
 	 */
@@ -86,6 +88,7 @@ public class FenetreAPropos extends JPanel {
                 "<br>Source du fond du menu éditeur: " + fondEditeur + 
                 "<br>Source du fond du menu réglages: " + fondReglages + 
                 "<br>Source du fond du menu jeu: " + fondJeu +
+                "<br>Source des boutons d'animation: " + sourceBoutonAnimation +
                 "</html>");
 
 
