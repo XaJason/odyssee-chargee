@@ -1,6 +1,5 @@
 package panneaux;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,8 +8,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,8 +30,6 @@ import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
 
 /**
  * Panel du mode de jeu
@@ -147,6 +146,9 @@ public class PanelJeu extends JPanel {
 	private JComboBox<Object> cmbVitesseAnimation;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JCheckBox chckbxModeJetpack;
+	private JLabel label;
+
+	private JLabel lblIndiceFleches;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -178,7 +180,7 @@ public class PanelJeu extends JPanel {
 		lblGravite.setBounds(10, 155, 215, 26);
 		panelEntree.add(lblGravite);
 
-		JLabel lblChargePlaques = new JLabel("Charge de la plaque");
+		JLabel lblChargePlaques = new JLabel("Charge des plaques");
 		lblChargePlaques.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblChargePlaques.setBounds(10, 215, 215, 26);
 		panelEntree.add(lblChargePlaques);
@@ -233,26 +235,32 @@ public class PanelJeu extends JPanel {
 		panelSortie.add(lblPosition);
 
 		labelVitesse = new JLabel(vitesseString);
+		labelVitesse.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelVitesse.setBounds(216, 37, 76, 22);
 		panelSortie.add(labelVitesse);
 
 		labelAcceleration = new JLabel(acceString);
+		labelAcceleration.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelAcceleration.setBounds(216, 73, 76, 22);
 		panelSortie.add(labelAcceleration);
 
 		labelForceElectrique = new JLabel(forceElecString);
+		labelForceElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelForceElectrique.setBounds(216, 113, 76, 22);
 		panelSortie.add(labelForceElectrique);
 
 		labelForceGravite = new JLabel(forceGravString);
+		labelForceGravite.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelForceGravite.setBounds(216, 153, 76, 22);
 		panelSortie.add(labelForceGravite);
 
 		labelChampElectrique = new JLabel(champElecString);
+		labelChampElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelChampElectrique.setBounds(216, 197, 76, 22);
 		panelSortie.add(labelChampElectrique);
 
 		labelPosition = new JLabel(positionString);
+		labelPosition.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelPosition.setBounds(216, 233, 76, 22);
 		panelSortie.add(labelPosition);
 
@@ -333,21 +341,12 @@ public class PanelJeu extends JPanel {
 		chckbxModeJetpack.setBounds(6, 0, 286, 23);
 		panelInfosPlaque.add(chckbxModeJetpack);
 
-		lblIndiceChargeVaisseau = new JLabel(
-				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
-		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIndiceChargeVaisseau.setBounds(550, 702, 603, 22);
-		add(lblIndiceChargeVaisseau);
-
 		fondEcran = new FondEcran("fondJeu.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
 		fondEcran.setLayout(null);
-		
+
 		creerBoutonsDAnimationSurFondEcran();
-		
-		
 
 	}
 
@@ -407,7 +406,7 @@ public class PanelJeu extends JPanel {
 		zoneAnimationPhysique.setBounds(396, 44, 1000, 750);
 		add(zoneAnimationPhysique);
 	}
-	
+
 	/**
 	 * Créer les boutons d'animation sur le fond d'écran du panneau mode jeu
 	 */
@@ -483,6 +482,25 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("réinitialiser.png", btnReinitialiser);
+
+		lblIndiceChargeVaisseau = new JLabel(
+				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
+		lblIndiceChargeVaisseau.setBounds(595, 891, 603, 22);
+		fondEcran.add(lblIndiceChargeVaisseau);
+		lblIndiceChargeVaisseau.setForeground(Color.GREEN);
+		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
+
+		label = new JLabel("New label");
+		label.setBounds(671, 959, 46, 14);
+		fondEcran.add(label);
+
+		lblIndiceFleches = new JLabel("Utilisez les flèches du clavier pour influencer l'accélération du vaisseau!");
+		lblIndiceFleches.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIndiceFleches.setForeground(Color.GREEN);
+		lblIndiceFleches.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblIndiceFleches.setBounds(595, 924, 603, 22);
+		fondEcran.add(lblIndiceFleches);
 	}
 
 	/**
@@ -501,7 +519,7 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelVitesse.setText(xString + "x, " + yString + "y");
+					labelVitesse.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerAcceleration")) {
@@ -511,7 +529,7 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelAcceleration.setText(xString + "x, " + yString + "y");
+					labelAcceleration.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerForceElec")) {
@@ -521,7 +539,7 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelForceElectrique.setText(xString + "x, " + yString + "y");
+					labelForceElectrique.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerForceGravite")) {
@@ -542,11 +560,11 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelPosition.setText(xString + "x ," + yString + "y");
+					labelPosition.setText(xString + "i ," + yString + "j");
 				}
 				if (evt.getPropertyName().equals("Recommencer")) {
 					recommencerPanneauEtZoneAnimation();
-					
+
 				}
 				leveeEvenementCharge(evt);
 				evenementMiseAJourDemarrage(evt);
@@ -679,13 +697,15 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// début
 				MoteurPhysique.setCoeffFrotStat((double) spnCoefFrictionStat.getValue());
-				spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0, MoteurPhysique.getCoeffFrotStat(), 0.05));
+				spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0,
+						MoteurPhysique.getCoeffFrotStat(), 0.05));
 				((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
+		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(),
+				MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
 		spnCoefFrictionStat.setBounds(225, 291, 140, 35);
 		((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false); // Désactive la
 																										// zone d'entrée
@@ -697,13 +717,15 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// début
 				MoteurPhysique.setCoeffFrotCine((double) spnCoefFrictionCine.getValue());
-				spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
+				spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(),
+						MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
 				((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0, MoteurPhysique.getCoeffFrotStat(), 0.05));
+		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0,
+				MoteurPhysique.getCoeffFrotStat(), 0.05));
 		spnCoefFrictionCine.setBounds(225, 361, 140, 35);
 		((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false); // Désactive la
 																										// zone d'entrée
@@ -773,8 +795,7 @@ public class PanelJeu extends JPanel {
 
 		zoneAnimationPhysique.reinitialiser();
 	}// fin methode reinitialiserZoneAnimation
-	
-	
+
 	/**
 	 * Reecommencer le panneau et la zone d'animation du mode Jeu à l'état qu'il
 	 * avait lors du démarrage de l'application
@@ -860,14 +881,10 @@ public class PanelJeu extends JPanel {
 	 */
 	// Giroux
 	private void gererModeJetpack(JCheckBox chckbxJetpack) {
-		if (chckbxJetpack.isSelected()) {
-			zoneAnimationPhysique.setModeJetpack(true);
-		} else {
-			zoneAnimationPhysique.setModeJetpack(false);
-		}
+		zoneAnimationPhysique.setModeJetpack(chckbxJetpack.isSelected());
+		lblIndiceFleches.setVisible(chckbxJetpack.isSelected());
 		zoneAnimationPhysique.requestFocusInWindow();
 	}
-	
 
 	/**
 	 * Modifie le booléen indiquant si le mode jetpack est activé
@@ -878,6 +895,7 @@ public class PanelJeu extends JPanel {
 	public void setModeJetpack(boolean modeJetpack) {
 		chckbxModeJetpack.setSelected(modeJetpack);
 		zoneAnimationPhysique.setModeJetpack(modeJetpack);
+		lblIndiceFleches.setVisible(modeJetpack);
 	}
 
 	/**
@@ -885,9 +903,9 @@ public class PanelJeu extends JPanel {
 	 */
 	// Giroux
 	private void imagePlaqueSelectionnee() {
-		if(btnChargePositive.isSelected()) {
+		if (btnChargePositive.isSelected()) {
 			changementStatutPlaque(true);
-		} else if(btnChargeNegative.isSelected()) {
+		} else if (btnChargeNegative.isSelected()) {
 			changementStatutPlaque(false);
 		}
 	}
