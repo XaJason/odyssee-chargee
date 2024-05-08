@@ -147,7 +147,7 @@ public class PanelJeu extends JPanel {
 	/**
 	 * Regroupe les deux boutons de charge
 	 */
-	private final ButtonGroup buttonGroupCharges = new ButtonGroup();
+	private ButtonGroup buttonGroupCharges = new ButtonGroup();
 	/**
 	 * Check box qui conrespond au mode jetpack
 	 */

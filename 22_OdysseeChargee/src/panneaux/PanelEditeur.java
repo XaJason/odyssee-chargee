@@ -979,19 +979,6 @@ public class PanelEditeur extends JPanel {
 
 	}
 
-	// /**
-	// * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
-	// * bouton, un booléen, une image et un panneau
-	// */
-	// // Enuel René Valentin Kizozo Izia
-	// private void reinitialiserRotationPostPlacement() {
-	// btnRotationPostPlacement.setEnabled(true);
-	// grille.setRotationPostPlacement(false);
-	// OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png",
-	// btnRotationPostPlacement);
-	// panelTuileTemp.setRotation(false);
-	// }
-
 	/**
 	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du
 	 * bouton
