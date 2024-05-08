@@ -303,6 +303,7 @@ public class AppPrincipale22 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourModeEditeur();
 				dansEditeur = true;
+				panModeEditeur.setSauvegarde(false);
 			}
 		});
 
@@ -488,14 +489,32 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmPrincipale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dansEditeur = false;
-				panMenuPrincipal.setVisible(true);
-				panModeEditeur.setVisible(false);
-				panSelecteurNiveau.setVisible(false);
-				setContentPane(panMenuPrincipal);
-				menuBar.setVisible(false);
-				panModeJeu.reinitialiserPanneauEtZoneAnimation();
+				if(dansEditeur) {
+					if(ouiOuNon()) {
+						modifierEtatApplicationPourMenuPrincipal();
+						panModeJeu.reinitialiserPanneauEtZoneAnimation();
+					}else {
+						dansEditeur = true;
+					} if(panModeEditeur.getSauvegarde()) {
+						modifierEtatApplicationPourMenuPrincipal();
+						panModeJeu.reinitialiserPanneauEtZoneAnimation();
+				
+					}
+
+				}
+
+				if(!dansEditeur) {
+
+					modifierEtatApplicationPourMenuPrincipal();
+					panModeJeu.reinitialiserPanneauEtZoneAnimation();
+					
+				}
+		
+			
+
 			}
+
+
 
 		});
 		menuBar.add(mntmPrincipale);
@@ -511,11 +530,15 @@ public class AppPrincipale22 extends JFrame {
 					if(ouiOuNon()) {
 						modifierEtatApplicationPourSelectionNiveau();
 						panModeJeu.reinitialiserPanneauEtZoneAnimation();
-						dansEditeur = false;
-					}else if(panModeEditeur.getSauvegarde()) {
+						
+					}else {
+						dansEditeur = true;
+					
+					}
+					if(panModeEditeur.getSauvegarde()) {
 						modifierEtatApplicationPourSelectionNiveau();
 						panModeJeu.reinitialiserPanneauEtZoneAnimation();
-						dansEditeur = false;
+						
 					}
 
 				}
@@ -524,19 +547,14 @@ public class AppPrincipale22 extends JFrame {
 
 					modifierEtatApplicationPourSelectionNiveau();
 					panModeJeu.reinitialiserPanneauEtZoneAnimation();
-					dansEditeur = false;
+					
 				}
+			
+			
 
 			}
 
-			private boolean ouiOuNon() {
-				if (!panModeEditeur.getSauvegarde()) {
-					int choix = JOptionPane.showConfirmDialog(null, "Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-					return choix == JOptionPane.YES_OPTION;
-				} else {
-					return false;
-				}
-			}
+		
 
 		});
 		menuBar.add(mntmSelection);
@@ -546,10 +564,12 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dansEditeur = true;
+			
 
 				modifierEtatApplicationPourModeEditeur();
 				panModeJeu.reinitialiserPanneauEtZoneAnimation();
+				dansEditeur = true;
+				panModeEditeur.setSauvegarde(false);
 			}
 		});
 		menuBar.add(mntmEditeur);
@@ -601,6 +621,21 @@ public class AppPrincipale22 extends JFrame {
 		mntmQuitter.setMaximumSize(new Dimension(200, 32767));
 		menuBar.add(mntmQuitter);
 
+	}
+	/**
+	 * Série d'action effectuée afin de modifier l'état de l'application,
+	 * lorsqu'on accède au menu principal:
+	 * 
+	 * Mise à jour de la visibilité de certains panneaux de regroupement
+	 * et réinitialisation de l'état des boutons du Mode Jeu
+	 */
+	// Kitimir Yim
+	private void modifierEtatApplicationPourMenuPrincipal() {
+		panMenuPrincipal.setVisible(true);
+		panModeEditeur.setVisible(false);
+		panSelecteurNiveau.setVisible(false);
+		setContentPane(panMenuPrincipal);
+		menuBar.setVisible(false);
 	}
 
 	/**
@@ -700,6 +735,20 @@ public class AppPrincipale22 extends JFrame {
 		if (leClip != null && leClip.isRunning()) {
 			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
 			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
+		}
+	}
+	/**
+	 * Vérifie si la sauvegarde a été effectué
+	 * @return boolean vrai ou faux
+	 */
+	//Kitimir Yim
+	private boolean ouiOuNon() {
+		if (!panModeEditeur.getSauvegarde()) {
+			int choix = JOptionPane.showConfirmDialog(null, "Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			return choix == JOptionPane.YES_OPTION;
+		} else {
+			
+			return false;
 		}
 	}
 }

@@ -313,6 +313,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void placerTuile(MouseEvent e) {
+		PCS.firePropertyChange("Modification", null, null);
 		transformerCoordonneesSouris(e);
 		positionnerCaseEtTuile();
 		if (!supprimer) {

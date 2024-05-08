@@ -98,7 +98,7 @@ public class Sauvegarder {
 
             GestionnaireDeNiveaux.ajouter(niveau);
 
-            JOptionPane.showMessageDialog(null, "Niveau chargé avec succès.");
+            
             return niveau;
         } catch (IOException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Erreur lors du chargement du niveau : " + e.getMessage());
@@ -138,7 +138,7 @@ public class Sauvegarder {
 
             GestionnaireDeNiveaux.ajouter(niveau);
 
-            JOptionPane.showMessageDialog(null, "Niveau chargé avec succès.");
+           
             return niveau;
         } catch (IOException | ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Erreur lors du chargement du niveau : " + e.getMessage());
