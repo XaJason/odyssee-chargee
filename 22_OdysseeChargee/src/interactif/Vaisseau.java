@@ -79,7 +79,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		this.positionPrecedente = new Vecteur2D(position);
 		this.masse = masse;
 		this.tuile = tuileDuVaisseau;
-		// this.rayon = VaisseauImage.getHauteurTuile()/2.0;
 		creerLaGeometrie();
 	}
 
@@ -138,7 +137,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 
 		// Dessine l'image du vaisseau à l'aide de la méthode dessiner de sa tuile
 		tuile.dessiner(g2d, (getPosition().getX() - rayon), (getPosition().getY() - rayon));
-		// tuile.dessiner(g2d);
 	}
 
 	/**
@@ -169,16 +167,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void gererCollisionAvecPlaque(PlaqueChargee plaque) {
-		/*
-		 * À modifier éventuellement, car il n'y a pas que des collisions avec des
-		 * plaques
-		 * Faire de la surdéfinition (même méthodes avec comme paramètre, chaque objet
-		 * différent)
-		 * OU
-		 * Faire du polymorphisme, une méthode avec comme paramètre InteractifPhysique,
-		 * mais faudra gérer différement les paramètres des méthodes
-		 * detectionCollisions et calculVitesseApresCollision
-		 */
 		vitesse = MoteurPhysique.detectionCollisionsAvecPlaqueEtCalculeVitesse(this, plaque);
 		creerLaGeometrie();
 	}
@@ -191,20 +179,8 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void gererCollisionAvecSegment(Segment segment) {
-		/*
-		 * À modifier éventuellement, car il n'y a pas que des collisions avec des
-		 * plaques
-		 * Faire de la surdéfinition (même méthodes avec comme paramètre, chaque objet
-		 * différent)
-		 * OU
-		 * Faire du polymorphisme, une méthode avec comme paramètre InteractifPhysique,
-		 * mais faudra gérer différement les paramètres des méthodes
-		 * detectionCollisions et calculVitesseApresCollision
-		 */
-		// Vecteur2D vitPrecedente = vitesse;
 		vitesse = MoteurPhysique.detectionCollisionsAvecSegmentEtCalculeVitesse(this, segment);
 		creerLaGeometrie();
-		// return (vitPrecedente.module() != vitesse.module());
 	}
 
 	/**
@@ -460,7 +436,6 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		if (!ancienEtatDeCollision & nouvelEtatDeCollision) {
 			this.enCollision = nouvelEtatDeCollision;
 			tempsDerniereCollision = tempsActuel;
-			// setDureeCollision(0); //pas nécessaire?
 		}
 		// Vrai Vrai
 		else if (ancienEtatDeCollision & nouvelEtatDeCollision) {
@@ -470,12 +445,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		else if (ancienEtatDeCollision & !nouvelEtatDeCollision) {
 			this.enCollision = nouvelEtatDeCollision;
 			setDureeCollision(0);
-		} // fin if
+		} 
 
-		// Faux Faux => Il n'y a rien à faire !
+		// Faux Faux
 		else {
 			setDureeCollision(0);
-		}
+		}// fin if
 	}// fin méthode
 
 	/**

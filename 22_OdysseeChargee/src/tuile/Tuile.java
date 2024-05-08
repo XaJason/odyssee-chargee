@@ -671,5 +671,14 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		matricePostCreation = new MatriceRotation(-this.angleRotation);
 
 	}
-
+	
+	/**
+	 * Retourne la géométrie de base
+	 * 
+	 * @return La géométrie de base
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Rectangle2D.Double getGeometrieDeBase() {
+		return geometrieDeBase;
+	}
 }

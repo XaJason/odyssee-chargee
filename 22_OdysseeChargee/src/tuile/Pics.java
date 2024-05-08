@@ -104,17 +104,13 @@ public class Pics extends Tuile implements Serializable {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		// g2dPrive.draw(contour);
-		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		/*
 		 * Ajustement d'un paramètre pour dessiner l'image à cause des transformations
 		 * du paintComponent de Grille permettant de mettre l'origine en bas à gauche
 		 */
 		double hauteurTuileImage = -(hauteurTuile / 2.0);
 		g2dPrive.rotate(-angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) hauteurTuileImage,
-				null);
-		// g2dPrive.setTransform(transformationAffine);
+		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) hauteurTuileImage, null);
 	}
 
 	/**

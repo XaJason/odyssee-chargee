@@ -427,23 +427,15 @@ public class MoteurPhysique {
 		// Collision aux extrémités
 		if ((collisionExtremiteA | collisionExtremiteB) & !vaisseauEntreExtremite) {
 			vitApresCol = calculVitesseApresCollisionExtremitePlaque(vaisseau, plaque, collisionExtremiteA);
-			// System.out.println("Collision aux extrémités !");
 			// Collision entre les extrémités
 		} else if (collisionPlaque) {
 			vitApresCol = calculVitesseApresCollisionFaceLateralePlaque(vaisseau, plaque);
-			// System.out.println("Collision entre les extrémités !");
-			// System.out.println("Ajustements vaisseau dû à une collision avec la plaque :
-			// " + vaisseau.toString(3) + "\n");
 
 			// Pas de collision
 		} else {
 			vitApresCol = vaisseau.getVitesse();
 		}
 
-		// System.out.println("\nDistance vaisseau plaque : " +
-		// distanceVaisseauPointSurPlaque.module());
-		// System.out.println("Plus petite distance vaisseau plaque : " +
-		// plusPetiteDistanceVaisseauPlaque + "\n");
 
 		return vitApresCol;
 	}
@@ -466,17 +458,12 @@ public class MoteurPhysique {
 		// Repositionner vaisseau après collision pour éviter bug
 		try {
 			Vecteur2D normaleCollisionExtremite = vaisseau.getVitesse().multiplie(-1).normalise();
-			// System.out.println("Orientation normale : " + normaleCollisionExtremite);
 			if (collisionExtremiteA) {
 				vaisseau.setPosition(
 						plaque.getExtremiteA().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
-				// System.out.println("Ajustement vaisseau dû à une potentielle collision : " +
-				// vaisseau.toString(3) + "\n");
 			} else {
 				vaisseau.setPosition(
 						plaque.getExtremiteB().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
-				// System.out.println("Ajustement vaisseau dû à une collision avec la plaque : "
-				// + vaisseau.toString(3) + "\n");
 			} // fin if
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -528,9 +515,6 @@ public class MoteurPhysique {
 						plaque.getNormale().multiplie(-1 * (vaisseau.getRayon() + plaque.getLargeur() / 2))));
 			}
 
-			// System.out.println("Vitesse après collision : " + vitApresCol);
-			// System.out.println("Ancienne pos : "+ vaisseau.getPosition());
-			// System.out.println("Nouvelle pos : "+ vaisseau.getPosition());
 			return vitApresCol;
 		} catch (Exception e) {
 			/*
@@ -545,7 +529,6 @@ public class MoteurPhysique {
 		} // fin try catch
 	}// fin méthode
 
-	// COLLISION AVEC SEGMENT, REMPLACERA ÉVENTUELLEMENT COLLISION AVEC PLAQUE
 	/**
 	 * Détecte s'il y a une collision entre le vaisseau et un segment,
 	 * puis calcule la vitesse du vaisseau après la collision (s'il y a lieu)
@@ -590,10 +573,6 @@ public class MoteurPhysique {
 			vaisseau.setCollisionTrouvee(true);
 			vitApresCol = calculVitesseApresCollisionExtremiteSegment(vaisseau, segment, collisionExtremiteA);
 
-//			System.out.println("Collision aux extrémités !");
-//			System.out.println("Point A : " +segment.getExtremiteA());
-//			System.out.println("Point B : " +segment.getExtremiteB());
-//			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
 
 			// Collision entre les extrémités
 		} else if (collisionLateralSegment) {
@@ -601,24 +580,12 @@ public class MoteurPhysique {
 			vaisseau.setCollisionTrouvee(true);
 			vaisseau.setForceNormale(calculForceNormale(vaisseau, segment));
 			vitApresCol = calculVitesseApresCollisionFaceLateraleSegment(vaisseau, segment);
-//			System.out.println("Collision entre les extrémités !");
-//			System.out.println("Point A : " +segment.getExtremiteA());
-//			System.out.println("Point B : " +segment.getExtremiteB());
-//			System.out.println("Point quelconque : " +segment.getPointQuelconque() + "\n");
-			// System.out.println("Ajustements vaisseau dû à une collision avec la plaque :
-			// " + vaisseau.toString(3) + "\n");
 
 			// Pas de collision
 		} else {
-			// vaisseau.setEnCollision(false);
-			// vaisseau.setForceNormale(VEC_ZERO);
 			vitApresCol = vaisseau.getVitesse();
 		}
 
-		// System.out.println("\nDistance vaisseau plaque : " +
-		// distanceVaisseauPointSurPlaque.module());
-		// System.out.println("Plus petite distance vaisseau plaque : " +
-		// plusPetiteDistanceVaisseauPlaque + "\n");
 
 		return vitApresCol;
 	}
@@ -641,17 +608,12 @@ public class MoteurPhysique {
 		// Repositionner vaisseau après collision pour éviter bug
 		try {
 			Vecteur2D normaleCollisionExtremite = vaisseau.getVitesse().multiplie(-1).normalise();
-			// System.out.println("Orientation normale : " + normaleCollisionExtremite);
 			if (collisionExtremiteA) {
 				vaisseau.setPosition(
 						segment.getExtremiteA().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
-				// System.out.println("Ajustement vaisseau dû à une potentielle collision : " +
-				// vaisseau.toString(3) + "\n");
 			} else {
 				vaisseau.setPosition(
 						segment.getExtremiteB().additionne(normaleCollisionExtremite.multiplie(vaisseau.getRayon())));
-				// System.out.println("Ajustement vaisseau dû à une collision avec la plaque : "
-				// + vaisseau.toString(3) + "\n");
 			} // fin if
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -717,8 +679,6 @@ public class MoteurPhysique {
 			 * Repositionner le vaisseau après la collision pour éviter des effets non
 			 * désirés
 			 */
-			// Vecteur2D distanceSegmentVaisseau =
-			// vaisseau.getPosition().soustrait(segment.getPointQuelconque());
 			Vecteur2D dVaisseauExtrA = segment.getExtremiteA().soustrait(vaisseau.getPosition());
 			double dVaisseauExtrASurAxe = Math.abs(dVaisseauExtrA.prodScalaire(segment.getAxe()));
 			Vecteur2D lieuCollision = segment.getExtremiteA()
@@ -727,23 +687,10 @@ public class MoteurPhysique {
 																					// fallait soustraire, mais la l'axe
 																					// est dans l'autre sens idk why
 
-//			if (distanceSegmentVaisseau.prodScalaire(segment.getNormale()) > 0) {
-//				vaisseau.setPosition(lieuCollision
-//						.additionne(segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON)));
-//			} else {
-//				vaisseau.setPosition(lieuCollision.soustrait(
-//						segment.getNormale().multiplie(vaisseau.getRayon() + EPSILON) ));
-//			}
-
-			// Vecteur2D normalePlaquePourRepositionnement =
-			// invOrientationVitesseInitiale.prodScalaire(norm)
 
 			vaisseau.setPosition(
 					lieuCollision.additionne(normaleSurfaceVersVaisseau.multiplie(vaisseau.getRayon() + EPSILON)));
 
-			// System.out.println("Vitesse après collision : " + vitApresCol);
-			// System.out.println("Ancienne pos : "+ vaisseau.getPosition());
-			// System.out.println("Nouvelle pos : "+ vaisseau.getPosition());
 			return vitApresCol;
 		} catch (Exception e) {
 			/*
@@ -837,11 +784,6 @@ public class MoteurPhysique {
 			double correctionPositionY = vaisseau.getRayon();
 			vaisseau.setPosition(new Vecteur2D(vaisseau.getPosition().getX(), correctionPositionY));
 		}
-
-//		else {
-//			vaisseau.setEnCollision(false);
-//			vaisseau.setForceNormale(VEC_ZERO);
-//		}
 
 		return vitApresCol;
 	}// fin méthode

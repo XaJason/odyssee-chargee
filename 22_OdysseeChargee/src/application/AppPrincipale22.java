@@ -111,9 +111,7 @@ public class AppPrincipale22 extends JFrame {
 	 * Fichier
 	 */
 	private File objetFichier = null;
-	/**
-	 * Zone de la ZoneAnimationPhysique
-	 */
+	
 	/**
 	 * Boolean de si dans le mode Editeur
 	 */
@@ -121,15 +119,6 @@ public class AppPrincipale22 extends JFrame {
 
 	/** Zone d'animation physique du panneau de jeu */
 	private ZoneAnimationPhysique zoneAnimation;
-
-	// /** largeur d'une tuile */
-	// private final int LARGEUR_TUILE = 60;
-	// /** hauteur d'une tuile */
-	// private final int HAUTEUR_TUILE = 60;
-	// /** hauteur d'une demi-tuile */
-	// private final int HAUTEUR_DEMI_TUILE = HAUTEUR_TUILE / 2;
-	// /** Diamètre du vaisseau **/
-	// private final int DIAMETRE_VAISSEAU = LARGEUR_TUILE / 2;
 
 	/**
 	 * Lance l'application
@@ -177,31 +166,13 @@ public class AppPrincipale22 extends JFrame {
 		creerFenetres();
 		creerPanels();
 		creerMenu();
-		// lireImages();
-		// gererConstantes();
+		
 
 		if (leClip != null)
 			leClip.close();
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
-
-	// /**
-	// * Lit, redimensionne et définit l'image pour chaque type de tuile
-	// */
-	// // Enuel René Valentin Kizozo Izia
-	// private void lireImages() {
-	// Carre.setImageRef("carre.jpg", LARGEUR_TUILE, HAUTEUR_TUILE);
-	// TriangleEquilateral.setImageRef("triangle_equilateral.png", LARGEUR_TUILE,
-	// HAUTEUR_TUILE);
-	// TriangleRectangle.setImageRef("triangle_rectangle.png", LARGEUR_TUILE,
-	// HAUTEUR_TUILE);
-	// Portail.setImageRef("portail.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-	// Drapeau.setImageRef("drapeau.png", LARGEUR_TUILE, HAUTEUR_TUILE);
-	// Pics.setImageRef("pics.png", LARGEUR_TUILE, HAUTEUR_DEMI_TUILE);
-	// VaisseauImage.setImageRef("vaisseau.png", DIAMETRE_VAISSEAU,
-	// DIAMETRE_VAISSEAU);
-	// }
 
 	/**
 	 * Créer les boutons.

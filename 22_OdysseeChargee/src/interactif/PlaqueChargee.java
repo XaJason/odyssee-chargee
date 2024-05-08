@@ -2,7 +2,6 @@ package interactif;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 
 import physique.Vecteur2D;
 import utilitaires.Dessinable;
-import utilitaires.OutilsImage;
 
 /**
  * Classe plaque: représentation sommaire d'une plaque à l'aide d'un segment de
@@ -50,13 +48,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 	private Vecteur2D coinInfGauche;
 	/** Position du coin inféieur droit **/
 	private Vecteur2D coinInfDroit;
-
-	/** L'image de la plaque positive **/
-	private Image imgPositive = OutilsImage.lireImageEtRedimensionner("PlaqueChargePositive.png", (int) longueur,
-			(int) epaisseur);
-	/** L,image de la plaque négative **/
-	private Image imgNegative = OutilsImage.lireImageEtRedimensionner("PlaqueChargeNegative.png", (int) longueur,
-			(int) epaisseur);
 
 	// CONSTRUCTEUR //
 	/**
@@ -202,34 +193,6 @@ public class PlaqueChargee extends InteractifPhysique implements Dessinable, Ser
 		}
 
 		g2dPrive.fill(formePlaque);
-//		System.out.println("Plaque : "+this.toString(3));
-//		System.out.println("Sup gauche : "+coinSupGauche);
-//		System.out.println("Inf gauche : "+coinInfGauche);
-//		System.out.println("Sup droit : "+coinSupDroit);
-//		System.out.println("Inf droit : "+coinInfDroit);
-		// dessinerSonImage(g2d);
-	}
-
-	/**
-	 * Permet de dessiner l'image de la plaque
-	 * 
-	 * @param g2d Le contexte graphique
-	 */
-	// Giroux
-	private void dessinerSonImage(Graphics2D g2d) {
-		/*
-		 * Faut éventuellement implémenter une rotation de l'image selon la normale
-		 * pour qu'elle soit dessiner avec la bonne orientation
-		 * 
-		 * En ce moment l'image est perpendiculaireà l'image
-		 * La normale de l'image est vers le bas(ou le haut), et celle de la plaque est
-		 * vers la droite
-		 */
-		if (Math.signum(getCharge()) > 0) {
-			g2d.drawImage(imgPositive, (int) coinSupGauche.getX(), (int) coinSupGauche.getY(), null);
-		} else {
-			g2d.drawImage(imgNegative, (int) coinSupGauche.getX(), (int) coinSupGauche.getY(), null);
-		}
 	}
 
 	/**

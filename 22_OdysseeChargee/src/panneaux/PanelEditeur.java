@@ -57,15 +57,6 @@ public class PanelEditeur extends JPanel {
 	 * Grille du mode éditeur
 	 */
 	private Grille grille;
-	/**
-	 * compteur pour le nombre max de niveau
-	 */
-	private int compteur = 0;
-
-	/**
-	 * nombre max de niveau possible dans la liste
-	 */
-	private static final int MAX_NIVEAUX = 10;
 
 	/** bouton permettant la sélection de la tuile de type carré */
 	private JButton btnCarre;
@@ -236,35 +227,9 @@ public class PanelEditeur extends JPanel {
 		grille.setBounds(10, 10, 1000, 750);
 		add(grille);
 
-		// JSpinner spinnerQttCarre = new JSpinner();
-		// spinnerQttCarre.addChangeListener(new ChangeListener() {
-		// public void stateChanged(ChangeEvent e) {
-		// Object objetInit = spinnerQttCarre.getValue();
-		// Number chiffreTransfo = (Number) objetInit;
-		// grille.changerQttCarre(chiffreTransfo.intValue());
-		//
-		// }
-		// });
-		// spinnerQttCarre.setModel(new SpinnerNumberModel(grille.getNbCarre(), 2, 64,
-		// 1));
-		// spinnerQttCarre.setBounds(715, 6, 54, 20);
-		// add(spinnerQttCarre);
-
-		// JLabel lblQttCarre = new JLabel("Combien de carré par ligne:");
-		// lblQttCarre.setBounds(530, 9, 199, 14);
-		// add(lblQttCarre);
 
 		creerSectionBoutons();
 
-		// btnEssayer = new JButton("<html><center>ESSAYER<br>\r\n[CTRL + E]<html>");
-		// btnEssayer.addActionListener(new ActionListener() {
-		// public void actionPerformed(ActionEvent e) {
-		// essayerNiveau();
-		// }
-		// });
-		// btnEssayer.setBounds(342, 599, 85, 85);
-		// add(btnEssayer);
-		// grille.requestFocusInWindow();
 		modificationGrille();
 	}
 
@@ -277,11 +242,6 @@ public class PanelEditeur extends JPanel {
 		if (niveauBienConstruit("d'essayer")) {
 			transfertVersModeJeu();
 		}
-		// } else {
-		// JOptionPane.showMessageDialog(null, "Il manque des tuiles. Placez au moins un
-		// vaisseau, un drapeau et/ou un portail!",
-		// "Avertissement", JOptionPane.WARNING_MESSAGE, null);
-		// }
 	}
 
 	/**
@@ -321,7 +281,6 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerCarre();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
@@ -334,7 +293,6 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleRectangle();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
@@ -347,7 +305,6 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleEquilateral();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
@@ -395,7 +352,6 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPics();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
@@ -408,7 +364,6 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPortail();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
@@ -440,7 +395,6 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerDrapeau();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
@@ -452,7 +406,6 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerVaisseau();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
@@ -491,7 +444,6 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rotationnerAvant(4); // quart de rotation
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
@@ -563,7 +515,6 @@ public class PanelEditeur extends JPanel {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				supprimer();
-				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
@@ -615,8 +566,6 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void afficherSelection() {
-		// lblTypeSelectionne.setText(preTexteTypeSelectionne +
-		// grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
 
@@ -754,12 +703,6 @@ public class PanelEditeur extends JPanel {
 					break;
 				case "Supprimer":
 					supprimer();
-					break;
-				case "Afficher":
-					/*
-					 * Coder ce que tu veux pour l'afficher dans le pnael tuile temporaire
-					 * Genre appeler la méthode setTuile du panelTuileTemp
-					 */
 					break;
 				}
 			}
@@ -978,19 +921,6 @@ public class PanelEditeur extends JPanel {
 		gererRotationPostPlacement();
 
 	}
-
-	// /**
-	// * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
-	// * bouton, un booléen, une image et un panneau
-	// */
-	// // Enuel René Valentin Kizozo Izia
-	// private void reinitialiserRotationPostPlacement() {
-	// btnRotationPostPlacement.setEnabled(true);
-	// grille.setRotationPostPlacement(false);
-	// OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png",
-	// btnRotationPostPlacement);
-	// panelTuileTemp.setRotation(false);
-	// }
 
 	/**
 	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du

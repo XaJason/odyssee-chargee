@@ -105,9 +105,6 @@ public class PanelJeu extends JPanel {
 	private JLabel lblEtatPlaque;
 	/** Étiquette qui indique le nombre de plaques disponibles à placer **/
 	private JLabel lblNbDePlaqueRestante;
-//	/** Boolean qui indique la nature de la charge de la plaque **/
-//	private boolean plaquePositive = true;
-
 	/** Vitesse affichée **/
 	private String vitesseString = "0";
 	/** Force électrique affichée **/
@@ -739,22 +736,6 @@ public class PanelJeu extends JPanel {
 																										// zone d'entrée
 		panelEntree.add(spnCoefFrictionCine);
 
-//		spnTempsSleep = new JSpinner();
-//		spnTempsSleep.setFocusable(false);
-//		spnTempsSleep.addChangeListener(new ChangeListener() {
-//			public void stateChanged(ChangeEvent e) {
-//				// debut
-//				zoneAnimationPhysique.setTempsSleep( ((Double)spnTempsSleep.getValue()).intValue() );
-//				zoneAnimationPhysique.requestFocusInWindow();
-//				// fin
-//			}
-//		});
-//		spnTempsSleep.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getTempsSleep(), 5, 100, 5));
-//		spnTempsSleep.setBounds(225, 431, 140, 35);
-//		((JSpinner.DefaultEditor) spnTempsSleep.getEditor()).getTextField().setEditable(false); // Désactive la zone
-//																							// d'entrée
-//		panelEntree.add(spnTempsSleep);
-
 		cmbVitesseAnimation = new JComboBox<Object>();
 		cmbVitesseAnimation.setFocusable(false);
 		cmbVitesseAnimation.setFocusTraversalKeysEnabled(false);
@@ -792,7 +773,6 @@ public class PanelJeu extends JPanel {
 		btnDemarrer.setEnabled(true);
 		btnRecommencer.setEnabled(false);
 
-		// spnTempsSleep.setValue(zoneAnimationPhysique.getTempsSleepInitial());
 		cmbVitesseAnimation.setSelectedIndex(2);
 		spnChargeVaisseau.setValue(zoneAnimationPhysique.getChargeInitialeVaisseau());
 		spnMasseVaisseau.setValue(zoneAnimationPhysique.getMasseInitialeVaisseau());
@@ -802,7 +782,7 @@ public class PanelJeu extends JPanel {
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
 
 		zoneAnimationPhysique.reinitialiser();
-	}// fin methode reinitialiserZoneAnimation
+	}// fin methode 
 
 	/**
 	 * Reecommencer le panneau et la zone d'animation du mode Jeu à l'état qu'il
@@ -815,7 +795,7 @@ public class PanelJeu extends JPanel {
 		btnRecommencer.setEnabled(false);
 
 		zoneAnimationPhysique.recommencer();
-	}// fin methode reinitialiserZoneAnimation
+	}// fin methode 
 
 	/**
 	 * Permet de changer la vitesse de l'animation à l'aide du temps du sleep

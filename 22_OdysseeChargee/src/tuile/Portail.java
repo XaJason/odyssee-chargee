@@ -117,7 +117,6 @@ public class Portail extends Tuile implements Serializable {
 		g2dPrive.setColor(couleur);
 		g2dPrive.fill(cercle);
 
-		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		g2dPrive.rotate(angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
 		/*
 		 * Ajustement des paramètres pour dessiner l'image à cause des transformations
@@ -126,7 +125,6 @@ public class Portail extends Tuile implements Serializable {
 		double yImage = y + hauteurTuile;
 		double hauteurTuileImage = -hauteurTuile;
 		g2dPrive.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
-		// g2dPrive.setTransform(transformationAffine);
 	}
 
 	/**
