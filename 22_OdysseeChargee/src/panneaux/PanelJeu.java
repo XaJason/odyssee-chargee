@@ -164,26 +164,32 @@ public class PanelJeu extends JPanel {
 		panelEntree.setLayout(null);
 
 		JLabel lblMasseVaisseau = new JLabel("Masse du vaisseau (kg) :");
-		lblMasseVaisseau.setBounds(10, 15, 180, 26);
+		lblMasseVaisseau.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblMasseVaisseau.setBounds(10, 15, 215, 26);
 		panelEntree.add(lblMasseVaisseau);
 
 		JLabel lblCharge = new JLabel("Charge du vaisseau (Coulomb) :");
-		lblCharge.setBounds(10, 88, 180, 26);
+		lblCharge.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblCharge.setBounds(10, 88, 215, 26);
 		panelEntree.add(lblCharge);
 
 		JLabel lblGravite = new JLabel("Gravité (m/s²) :");
-		lblGravite.setBounds(10, 155, 120, 26);
+		lblGravite.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblGravite.setBounds(10, 155, 215, 26);
 		panelEntree.add(lblGravite);
 
 		JLabel lblChargePlaques = new JLabel("Charge de la plaque");
-		lblChargePlaques.setBounds(10, 215, 180, 26);
+		lblChargePlaques.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblChargePlaques.setBounds(10, 215, 215, 26);
 		panelEntree.add(lblChargePlaques);
 
 		JLabel lblCoefFrotStat = new JLabel("Coefficient de frottement statique :");
+		lblCoefFrotStat.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblCoefFrotStat.setBounds(10, 295, 215, 26);
 		panelEntree.add(lblCoefFrotStat);
 
 		JLabel lblCoefFrotCine = new JLabel("Coefficient de frottement cinétique :");
+		lblCoefFrotCine.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblCoefFrotCine.setBounds(10, 365, 215, 26);
 		panelEntree.add(lblCoefFrotCine);
 
@@ -197,27 +203,33 @@ public class PanelJeu extends JPanel {
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
-		lblVitesse.setBounds(35, 37, 100, 26);
+		lblVitesse.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblVitesse.setBounds(35, 37, 171, 26);
 		panelSortie.add(lblVitesse);
 
 		JLabel lblAcceleration = new JLabel("Accélération (m/s^2):");
-		lblAcceleration.setBounds(35, 73, 128, 26);
+		lblAcceleration.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblAcceleration.setBounds(35, 73, 171, 26);
 		panelSortie.add(lblAcceleration);
 
 		JLabel lblForceElectrique = new JLabel("Force électrique (N):");
-		lblForceElectrique.setBounds(35, 113, 128, 26);
+		lblForceElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblForceElectrique.setBounds(35, 113, 171, 26);
 		panelSortie.add(lblForceElectrique);
 
 		JLabel lblForceGravite = new JLabel("Force gravité (N):");
-		lblForceGravite.setBounds(35, 153, 100, 26);
+		lblForceGravite.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblForceGravite.setBounds(35, 153, 171, 26);
 		panelSortie.add(lblForceGravite);
 
 		JLabel lblChampElectrique = new JLabel("Champ électrique (N/m):");
-		lblChampElectrique.setBounds(35, 197, 128, 26);
+		lblChampElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblChampElectrique.setBounds(35, 197, 171, 26);
 		panelSortie.add(lblChampElectrique);
 
 		JLabel lblPosition = new JLabel("Position (m):");
-		lblPosition.setBounds(35, 233, 100, 26);
+		lblPosition.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblPosition.setBounds(35, 233, 171, 26);
 		panelSortie.add(lblPosition);
 
 		labelVitesse = new JLabel(vitesseString);
@@ -301,13 +313,15 @@ public class PanelJeu extends JPanel {
 		panelPlaque.add(btnChargeNegative);
 
 		lblEtatPlaque = new JLabel("La plaque est: positive ");
-		lblEtatPlaque.setBounds(10, 11, 154, 14);
+		lblEtatPlaque.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblEtatPlaque.setBounds(10, 11, 255, 14);
 		panelPlaque.add(lblEtatPlaque);
 
 		lblNbDePlaqueRestante = new JLabel("");
+		lblNbDePlaqueRestante.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNbDePlaqueRestante
 				.setText("Il vous reste " + zoneAnimationPhysique.getNbPlaquesRestantes() + " plaques à placer");
-		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
+		lblNbDePlaqueRestante.setBounds(10, 120, 255, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
 		chckbxModeJetpack = new JCheckBox("Mode Jetpack");
@@ -727,11 +741,13 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(cmbVitesseAnimation);
 
 		JLabel lblVitesseAnimation = new JLabel("Vitesse d'animation :");
-		lblVitesseAnimation.setBounds(10, 437, 180, 23);
+		lblVitesseAnimation.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblVitesseAnimation.setBounds(10, 437, 215, 23);
 		panelEntree.add(lblVitesseAnimation);
 
 		JLabel lblChargePlaqueSuite = new JLabel("en valeur absolue (Coulombs) :");
-		lblChargePlaqueSuite.setBounds(10, 235, 205, 26);
+		lblChargePlaqueSuite.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblChargePlaqueSuite.setBounds(10, 235, 215, 26);
 		panelEntree.add(lblChargePlaqueSuite);
 
 	}
