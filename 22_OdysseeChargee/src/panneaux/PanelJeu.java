@@ -145,7 +145,7 @@ public class PanelJeu extends JPanel {
 	 */
 	private JComboBox<Object> cmbVitesseAnimation;
 	/**
-	 * Regroupe les deux boutons de charge 
+	 * Regroupe les deux boutons de charge
 	 */
 	private final ButtonGroup buttonGroupCharges = new ButtonGroup();
 	/**
@@ -588,11 +588,12 @@ public class PanelJeu extends JPanel {
 	 */
 	// Jason Xa
 	private void leveeEvenementCharge(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("Charge négative")) {
+		switch (evt.getPropertyName()) {
+		case "Charge négative":
 			double valeur = (double) evt.getNewValue();
 			spnChargeVaisseau.setValue(valeur);
-		}
-		if (evt.getPropertyName().equals("FocusZoneAnimationPhysique")) {
+			break;
+		case "FocusZoneAnimationPhysique":
 			zoneAnimationPhysique.requestFocusInWindow();
 		}
 	}

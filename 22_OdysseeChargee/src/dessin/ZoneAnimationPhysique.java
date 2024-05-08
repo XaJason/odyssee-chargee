@@ -206,7 +206,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				PCS.firePropertyChange("FocusZoneAnimationPhysique", null, null);
+				lancerFocusPerdu();
 			}
 		});
 		addKeyListener(new KeyAdapter() {
@@ -1484,6 +1484,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		// p.setCharge(signePlaque*chargeDesPlaques);
 		// }// fin for
 		repaint();
+	}
+
+	/**
+	 * Lance l'évènement qui demande le focus dans la fenêtre
+	 */
+	// Jason Xa
+	private void lancerFocusPerdu() {
+		PCS.firePropertyChange("FocusZoneAnimationPhysique", null, null);
 	}
 
 }
