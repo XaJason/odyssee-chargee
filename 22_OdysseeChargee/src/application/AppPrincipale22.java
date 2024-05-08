@@ -519,7 +519,7 @@ public class AppPrincipale22 extends JFrame {
 		});
 		menuBar.add(mntmPrincipale);
 
-		mntmSelection = new JMenuItem("Sélection de niveau");
+		mntmSelection = new JMenuItem("Jouer");
 
 		mntmSelection.setPreferredSize(new Dimension(100, 26));
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
@@ -558,7 +558,7 @@ public class AppPrincipale22 extends JFrame {
 
 		});
 		menuBar.add(mntmSelection);
-		mntmEditeur = new JMenuItem("Éditeur de niveau");
+		mntmEditeur = new JMenuItem("Éditeur de niveaux");
 		mntmEditeur.setPreferredSize(new Dimension(100, 26));
 		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
