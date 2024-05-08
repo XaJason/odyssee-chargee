@@ -565,7 +565,6 @@ public class AppPrincipale22 extends JFrame {
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-
 				modifierEtatApplicationPourModeEditeur();
 				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 				dansEditeur = true;
@@ -745,9 +744,9 @@ public class AppPrincipale22 extends JFrame {
 	private boolean ouiOuNon() {
 		if (!panModeEditeur.getSauvegarde()) {
 			int choix = JOptionPane.showConfirmDialog(null, "Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			dansEditeur =false;
 			return choix == JOptionPane.YES_OPTION;
 		} else {
-			
 			return false;
 		}
 	}
