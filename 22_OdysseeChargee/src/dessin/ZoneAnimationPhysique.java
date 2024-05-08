@@ -913,32 +913,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	}
 
-//	/**
-//	 * Gère la téléportation d'un portail à un autre
-//	 * 
-//	 * @param tuile tuile du portail
-//	 */
-//	// Kitimir Yim
-//	private void teleportation(Tuile tuile) {
-//		Portail portailIni = (Portail) tuile;
-//		Portail portailFinal = portailIni.getPortailAssocie();
-//
-//		double rayon = Tuile.getHauteurTuile() / 2;
-//		double tempsActuel = System.currentTimeMillis();
-//		//cooldownPortail = 500; 
-//		
-//		if (tempsActuel - dernierUsageDuPortail >= cooldownPortail)  {
-//
-//			dernierUsageDuPortail = tempsActuel;
-//			Double posDeXPortail = portailFinal.getPointZero().getX() + rayon;
-//			Double posDeYPortail = portailFinal.getPointZero().getY() + rayon;
-//			Vecteur2D posPortailFinal = new Vecteur2D(posDeXPortail, posDeYPortail);
-//			vaisseau.setPosition(posPortailFinal);
-//		} else {
-//			System.out.println("Le portail est en cours de refroidissement.");
-//		}
-//	}
-
 	/**
 	 * Démarre le thread s'il n'est pas deja demarré
 	 */
