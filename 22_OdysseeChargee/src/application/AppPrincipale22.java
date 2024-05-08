@@ -212,10 +212,13 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private void creerBoutons() {
 
+		
 		FondEcran fondEcran = new FondEcran("fond.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		panMenuPrincipal.add(fondEcran);
 		fondEcran.setLayout(null);
+		
+		
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
@@ -360,15 +363,18 @@ public class AppPrincipale22 extends JFrame {
 
 				if (evt.getPropertyName().equals("passerVersNiveau1")) {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base1");
+					panModeJeu.setModeJetpack(false);
 					miseAJourChargementNiveau();
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau2")) {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base2");
+					panModeJeu.setModeJetpack(false);
 					miseAJourChargementNiveau();
 
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau3")) {
 					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
+					panModeJeu.setModeJetpack(false);
 					miseAJourChargementNiveau();
 				}
 
@@ -421,14 +427,17 @@ public class AppPrincipale22 extends JFrame {
 	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("passerVersNiveau4")) {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base4");
+			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
 		} // fin if
 		if (evt.getPropertyName().equals("passerVersNiveau5")) {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
+			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
 		} // fin if
 		if (evt.getPropertyName().equals("passerVersNiveau6")) {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
+			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
 		}// fin if
 	}// fin méthode

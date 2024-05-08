@@ -92,7 +92,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Force appliquée par le réacteur dorsal sur le vaisseau (en Newton) **/
 	private Vecteur2D forceJetpack = new Vecteur2D(VEC_ZERO);
 	/** Booléen qui indique si le mode réacteur dorsal est activé **/
-	private boolean modeJetpack = true;
+	private boolean modeJetpack = false;
 
 	// Caractéristiques du clavier
 	/** Booléen qui indique l'état d'enfoncement de la touche flèche gauche **/
@@ -264,7 +264,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau = Sauvegarder.chargerNiveauDeBase("Niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
+		
 	}// fin constructeur
+
+	/**
+	 * Méthode qui déterminer si le mode JetPack est activé ou non
+	 * @param modeJetpack Vrai si on l'active, faux sinon
+	 */
+	//Giroux
+	public void setModeJetpack(boolean modeJetpack) {
+		this.modeJetpack = modeJetpack;
+	}
 
 	// SOUS-PROGRAMMES //
 	/**
@@ -867,28 +877,34 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		switch (choix) {
 		case 0:
-			//reinitialiserEtatBoutonsDansPanelJeu();
-			recommencer();
+			miseAJourEtatBoutonsPourRecommencer();
 			break;
 		case 1:
-			PCS.firePropertyChange("retournerNiveau", null, 0);
-			break;
-		default:
-
+			miseAJourEtatBoutonsPourReinitialiser();
 			break;
 		}
 	}
 
-//	/**
-//	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation
-//	 * et réinitialiser la zone d'animation
-//	 */
-//	// Kitimir Yim
-//	public void reinitialiserEtatBoutonsDansPanelJeu() {
-//		PCS.firePropertyChange("changementBouton", null, null);
-//
-//	}
+	/**
+	 * Envoie le message pour mettre à jour les boutons de contrôle d'animation
+	 * et la zone d'animation selon le bouton Recommencer
+	 */
+	// Kitimir Yim
+	public void miseAJourEtatBoutonsPourRecommencer() {
+		PCS.firePropertyChange("Recommencer", null, null);
 
+	}
+
+	/**
+	 * Envoie le message pour mettre à jour les boutons de contrôle d'animation
+	 * et la zone d'animation selon le bouton Réinitialiser
+	 */
+	// Kitimir Yim
+	public void miseAJourEtatBoutonsPourReinitialiser() {
+		PCS.firePropertyChange("retournerNiveau", null, 0);
+
+	}
+	
 //	/**
 //	 * Gère la téléportation d'un portail à un autre
 //	 * 
@@ -994,7 +1010,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		//demarrer();
 	}
 
 	/**

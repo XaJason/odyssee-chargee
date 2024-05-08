@@ -777,8 +777,14 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerCarre() {
-		grille.setTuile(new Carre());
-		panelTuileTemp.setTuile(new Carre());
+		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Carré" ) {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+
+			grille.setTuile(new Carre());
+			panelTuileTemp.setTuile(new Carre());
+		}
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
@@ -790,8 +796,13 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerTriangleRectangle() {
-		grille.setTuile(new TriangleRectangle());
-		panelTuileTemp.setTuile(new TriangleRectangle());
+		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle rectangle" ) {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+			grille.setTuile(new TriangleRectangle());
+			panelTuileTemp.setTuile(new TriangleRectangle());
+		}
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
@@ -803,8 +814,13 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerTriangleEquilateral() {
-		grille.setTuile(new TriangleEquilateral());
-		panelTuileTemp.setTuile(new TriangleEquilateral());
+		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle équilatéral" ) {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+			grille.setTuile(new TriangleEquilateral());
+			panelTuileTemp.setTuile(new TriangleEquilateral());
+		}
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
@@ -816,8 +832,14 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerPics() {
-		grille.setTuile(new Pics());
-		panelTuileTemp.setTuile(new Pics());
+		
+		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Pics" ) {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+			grille.setTuile(new Pics());
+			panelTuileTemp.setTuile(new Pics());
+		}
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
@@ -829,8 +851,13 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerPortail() {
-		grille.setTuile(new Portail());
-		panelTuileTemp.setTuile(new Portail());
+		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Portail" ) {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+			grille.setTuile(new Portail());
+			panelTuileTemp.setTuile(new Portail());
+		}
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
@@ -842,7 +869,6 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerDrapeau() {
-		
 		grille.setTuile(new Drapeau());
 		panelTuileTemp.setTuile(new Drapeau());
 		afficherSelection();

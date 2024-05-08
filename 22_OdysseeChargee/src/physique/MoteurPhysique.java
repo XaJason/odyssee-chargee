@@ -143,6 +143,10 @@ public class MoteurPhysique {
 
 	/**
 	 * Calcule et retourne un vecteur exprimant la force normale s'appliquant sur le vaisseau
+	 * 
+	 * @param vaisseau Objet représentant un vaisseau
+	 * @param segment Objet représent la surface d'un bloc (soit un segment)
+	 * @return Le vecteur de la force normale s'appliquant sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceNormale(Vaisseau vaisseau, Segment segment) {

@@ -29,6 +29,8 @@ import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
+import javax.swing.JCheckBox;
+import javax.swing.ButtonGroup;
 
 /**
  * Panel du mode de jeu
@@ -57,7 +59,7 @@ public class PanelJeu extends JPanel {
 	private JButton btnProchaineImage;
 
 	/** Bouton pour redémarrer l'animation */
-	private JButton btnRedemarrer;
+	private JButton btnRecommencer;
 
 	/** Bouton pour réinitialiser les paramètres de l'animation */
 	private JButton btnReinitialiser;
@@ -97,9 +99,9 @@ public class PanelJeu extends JPanel {
 	/** Bouton à deux états pour sélectionner la plaque **/
 	private JToggleButton tglbtnPlaque;
 	/** Bouton pour mettre la plaque positive **/
-	private JButton btnChargePositive;
+	private JToggleButton btnChargePositive;
 	/** Bouton pour mettre la plaque negative **/
-	private JButton btnChargeNegative;
+	private JToggleButton btnChargeNegative;
 	/** Étiquette qui indique la charge de la plaque **/
 	private JLabel lblEtatPlaque;
 	/** Étiquette qui indique le nombre de plaques disponibles à placer **/
@@ -143,6 +145,8 @@ public class PanelJeu extends JPanel {
 	 * Liste déroulante pour la sélection de la vitesse d'animation
 	 */
 	private JComboBox<Object> cmbVitesseAnimation;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JCheckBox chckbxModeJetpack;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -151,8 +155,6 @@ public class PanelJeu extends JPanel {
 	public PanelJeu() {
 		setLayout(null);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
-		
-		
 
 		panelEntree = new JPanel();
 		panelEntree.setBorder(BorderFactory.createTitledBorder("Entrées"));
@@ -185,7 +187,7 @@ public class PanelJeu extends JPanel {
 		lblCoefFrotCine.setBounds(10, 365, 215, 26);
 		panelEntree.add(lblCoefFrotCine);
 
-		creerZoneAnimationPhysiqueEtBoutonsDAnimation();
+		creerZoneAnimationPhysique();
 		lierTourniquetsAvecNiveau();
 
 		JPanel panelSortie = new JPanel();
@@ -253,22 +255,27 @@ public class PanelJeu extends JPanel {
 		panelInfosPlaque.setLayout(null);
 
 		panelPlaque = new JPanel();
-		panelPlaque.setBounds(6, 16, 276, 165);
+		panelPlaque.setBounds(6, 32, 276, 149);
 		panelInfosPlaque.add(panelPlaque);
 		panelPlaque.setLayout(null);
 
 		tglbtnPlaque = new JToggleButton("");
 		tglbtnPlaque.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
+
 				zoneAnimationPhysique.setPlacementPlaque(tglbtnPlaque.isSelected());
 				zoneAnimationPhysique.requestFocusInWindow();
+
+				imagePlaqueSelectionnee();
 			}
 		});
 		tglbtnPlaque.setBounds(53, 57, 212, 31);
 		OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
 		panelPlaque.add(tglbtnPlaque);
 
-		btnChargePositive = new JButton("");
+		btnChargePositive = new JToggleButton("");
+		btnChargePositive.setSelected(true);
+		buttonGroup.add(btnChargePositive);
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(true);
@@ -280,7 +287,8 @@ public class PanelJeu extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("ChargePositive.png", btnChargePositive);
 		panelPlaque.add(btnChargePositive);
 
-		btnChargeNegative = new JButton("");
+		btnChargeNegative = new JToggleButton("");
+		buttonGroup.add(btnChargeNegative);
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);
@@ -302,16 +310,30 @@ public class PanelJeu extends JPanel {
 		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
+		chckbxModeJetpack = new JCheckBox("Mode Jetpack");
+		chckbxModeJetpack.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				gererModeJetpack(chckbxModeJetpack);
+			}
+		});
+		chckbxModeJetpack.setBounds(6, 0, 286, 23);
+		panelInfosPlaque.add(chckbxModeJetpack);
+
 		lblIndiceChargeVaisseau = new JLabel(
 				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
 		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIndiceChargeVaisseau.setBounds(550, 702, 603, 22);
 		add(lblIndiceChargeVaisseau);
-		
+
 		fondEcran = new FondEcran("fondJeu.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
+		fondEcran.setLayout(null);
+		
+		creerBoutonsDAnimationSurFondEcran();
+		
+		
 
 	}
 
@@ -351,8 +373,6 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void changerBoutonSignePositif() {
 		zoneAnimationPhysique.setPlaquePositive(true);
-		btnChargePositive.setEnabled(false);
-		btnChargeNegative.setEnabled(true);
 	}
 
 	/**
@@ -361,36 +381,43 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	private void changerBoutonSigneNegatif() {
 		zoneAnimationPhysique.setPlaquePositive(false);
-		btnChargeNegative.setEnabled(false);
-		btnChargePositive.setEnabled(true);
+
 	}
 
 	/**
-	 * Créer la zone d'animation physique et
-	 * les boutons d'animation sur le panneau mode jeu
+	 * Créer la zone d'animation physique sur le panneau mode jeu
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void creerZoneAnimationPhysiqueEtBoutonsDAnimation() {
+	private void creerZoneAnimationPhysique() {
 		zoneAnimationPhysique = new ZoneAnimationPhysique();
 		zoneAnimationPhysique.setBounds(396, 44, 1000, 750);
 		add(zoneAnimationPhysique);
-
+	}
+	
+	/**
+	 * Créer les boutons d'animation sur le fond d'écran du panneau mode jeu
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void creerBoutonsDAnimationSurFondEcran() {
 		btnDemarrer = new JButton("Démarrer");
+		btnDemarrer.setBounds(420, 813, 175, 40);
+		fondEcran.add(btnDemarrer);
 		btnDemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
 				zoneAnimationPhysique.demarrer();
 				btnProchaineImage.setEnabled(false);
 				btnDemarrer.setEnabled(false);
-				btnRedemarrer.setEnabled(true);
+				btnRecommencer.setEnabled(true);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		btnDemarrer.setBounds(154, 760, 89, 23);
-		add(btnDemarrer);
+		OutilsImage.lireImageEtPlacerSurBouton("demarrer.png", btnDemarrer);
 
 		btnArreter = new JButton("Arrêter");
+		btnArreter.setBounds(620, 813, 175, 40);
+		fondEcran.add(btnArreter);
 		btnArreter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
@@ -401,25 +428,11 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnArreter.setBounds(10, 732, 65, 21);
-		add(btnArreter);
-
-		btnRedemarrer = new JButton("Recommencer");
-		btnRedemarrer.setEnabled(false);
-		btnRedemarrer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// debut
-				zoneAnimationPhysique.recommencer();
-				btnProchaineImage.setEnabled(true);
-				btnDemarrer.setEnabled(true);
-				zoneAnimationPhysique.requestFocusInWindow();
-				// fin
-			}
-		});
-		btnRedemarrer.setBounds(198, 732, 99, 21);
-		add(btnRedemarrer);
+		OutilsImage.lireImageEtPlacerSurBouton("arreter.png", btnArreter);
 
 		btnProchaineImage = new JButton("Prochaine image");
+		btnProchaineImage.setBounds(1220, 813, 190, 40);
+		fondEcran.add(btnProchaineImage);
 		btnProchaineImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
@@ -428,10 +441,25 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnProchaineImage.setBounds(85, 732, 109, 21);
-		add(btnProchaineImage);
+		OutilsImage.lireImageEtPlacerSurBouton("prochaineimage.png", btnProchaineImage);
+
+		btnRecommencer = new JButton("Recommencer");
+		btnRecommencer.setBounds(820, 813, 175, 40);
+		fondEcran.add(btnRecommencer);
+		btnRecommencer.setEnabled(false);
+		btnRecommencer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// debut
+				recommencerPanneauEtZoneAnimation();
+				zoneAnimationPhysique.requestFocusInWindow();
+				// fin
+			}
+		});
+		OutilsImage.lireImageEtPlacerSurBouton("recommencer.png", btnRecommencer);
 
 		btnReinitialiser = new JButton("Réinitialiser");
+		btnReinitialiser.setBounds(1020, 813, 175, 40);
+		fondEcran.add(btnReinitialiser);
 		btnReinitialiser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
@@ -440,10 +468,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		btnReinitialiser.setBounds(301, 732, 85, 21);
-		add(btnReinitialiser);
-		
-		
+		OutilsImage.lireImageEtPlacerSurBouton("réinitialiser.png", btnReinitialiser);
 	}
 
 	/**
@@ -505,8 +530,9 @@ public class PanelJeu extends JPanel {
 
 					labelPosition.setText(xString + "x ," + yString + "y");
 				}
-				if (evt.getPropertyName().equals("changementBouton")) {
-					reinitialiserPanneauEtZoneAnimation();
+				if (evt.getPropertyName().equals("Recommencer")) {
+					recommencerPanneauEtZoneAnimation();
+					
 				}
 				leveeEvenementCharge(evt);
 				evenementMiseAJourDemarrage(evt);
@@ -542,7 +568,7 @@ public class PanelJeu extends JPanel {
 		if (evt.getPropertyName().equals("Démarrer")) {
 			btnProchaineImage.setEnabled(false);
 			btnDemarrer.setEnabled(false);
-			btnRedemarrer.setEnabled(true);
+			btnRecommencer.setEnabled(true);
 			zoneAnimationPhysique.requestFocusInWindow();
 		}
 	}
@@ -718,7 +744,7 @@ public class PanelJeu extends JPanel {
 	public void reinitialiserPanneauEtZoneAnimation() {
 		btnProchaineImage.setEnabled(true);
 		btnDemarrer.setEnabled(true);
-		btnRedemarrer.setEnabled(false);
+		btnRecommencer.setEnabled(false);
 
 		// spnTempsSleep.setValue(zoneAnimationPhysique.getTempsSleepInitial());
 		cmbVitesseAnimation.setSelectedIndex(2);
@@ -730,6 +756,20 @@ public class PanelJeu extends JPanel {
 		spnCoefFrictionCine.setValue(MoteurPhysique.getCoeffFrotCineInitial());
 
 		zoneAnimationPhysique.reinitialiser();
+	}// fin methode reinitialiserZoneAnimation
+	
+	
+	/**
+	 * Reecommencer le panneau et la zone d'animation du mode Jeu à l'état qu'il
+	 * avait lors du démarrage de l'application
+	 */
+	// Kitimir Yim
+	private void recommencerPanneauEtZoneAnimation() {
+		btnProchaineImage.setEnabled(true);
+		btnDemarrer.setEnabled(true);
+		btnRecommencer.setEnabled(false);
+
+		zoneAnimationPhysique.recommencer();
 	}// fin methode reinitialiserZoneAnimation
 
 	/**
@@ -766,15 +806,25 @@ public class PanelJeu extends JPanel {
 	 */
 	// Giroux
 	private void changementStatutPlaque(boolean positif) {
-		if (positif) {
-			//plaquePositive = true;
+		if (positif && tglbtnPlaque.isSelected()) {
+			zoneAnimationPhysique.setPlaquePositive(true);
+			lblEtatPlaque.setText("La plaque est: positive");
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositiveSelectionner.png", tglbtnPlaque);
+		} else if (!positif && tglbtnPlaque.isSelected()) {
+			zoneAnimationPhysique.setPlaquePositive(false);
+			lblEtatPlaque.setText("La plaque est: négative");
+			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegativeSelectionner.png", tglbtnPlaque);
+		} else if (positif && !tglbtnPlaque.isSelected()) {
+			zoneAnimationPhysique.setPlaquePositive(false);
 			lblEtatPlaque.setText("La plaque est: positive");
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
 		} else {
-			//plaquePositive = false;
+			zoneAnimationPhysique.setPlaquePositive(true);
 			lblEtatPlaque.setText("La plaque est: négative");
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", tglbtnPlaque);
 		}
+
+		repaint();
 	}
 
 	/**
@@ -785,5 +835,44 @@ public class PanelJeu extends JPanel {
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysique getZoneAnimationPhysique() {
 		return zoneAnimationPhysique;
+	}
+
+	/**
+	 * Permet de déterminer s'il y a mode jetpack ou pas
+	 * 
+	 * @param chckbxJetpack Le checkbox associé au mode jetpack
+	 */
+	// Giroux
+	private void gererModeJetpack(JCheckBox chckbxJetpack) {
+		if (chckbxJetpack.isSelected()) {
+			zoneAnimationPhysique.setModeJetpack(true);
+		} else {
+			zoneAnimationPhysique.setModeJetpack(false);
+		}
+		zoneAnimationPhysique.requestFocusInWindow();
+	}
+	
+
+	/**
+	 * Modifie le booléen indiquant si le mode jetpack est activé
+	 * 
+	 * @param modeJetpack nouveau booléen indiquant si le mode jetpack est activé
+	 */
+	// Jason Xa
+	public void setModeJetpack(boolean modeJetpack) {
+		chckbxModeJetpack.setSelected(modeJetpack);
+		zoneAnimationPhysique.setModeJetpack(modeJetpack);
+	}
+
+	/**
+	 * Méthode qui met l'image de la plaque selectionnée lorsque celle-ci l'est
+	 */
+	// Giroux
+	private void imagePlaqueSelectionnee() {
+		if(btnChargePositive.isSelected()) {
+			changementStatutPlaque(true);
+		} else if(btnChargeNegative.isSelected()) {
+			changementStatutPlaque(false);
+		}
 	}
 }
