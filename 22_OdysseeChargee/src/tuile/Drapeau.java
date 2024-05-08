@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.awt.geom.Area;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
-import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 import utilitaires.OutilsImage;

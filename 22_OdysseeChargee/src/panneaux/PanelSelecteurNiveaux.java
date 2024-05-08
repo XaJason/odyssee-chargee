@@ -107,8 +107,6 @@ public class PanelSelecteurNiveaux extends JPanel {
 		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3);
 		fondEcran.add(btnNiveauBase3);
 
-		
-		
 		creerTroisBoutonsNiveaux();
 		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase4.png", btnNiveauBase4);
 		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase5.png", btnNiveauBase5);

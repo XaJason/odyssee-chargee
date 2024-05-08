@@ -22,6 +22,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Random;
+
 import javax.swing.JPanel;
 
 import tuile.Carre;
@@ -127,7 +128,8 @@ public class Grille extends JPanel implements Serializable {
 	/** Booléen qui indique l'état du déplacement d'une tuile unique **/
 	private boolean deplacementTuileUnique = false;
 	/**
-	 * Compte qui permet de de déterminer si le deplacement des tuiles uniques peut être fais
+	 * Compte qui permet de de déterminer si le deplacement des tuiles uniques peut
+	 * être fais
 	 */
 	private int compterCoupClique = 0;
 
@@ -517,8 +519,7 @@ public class Grille extends JPanel implements Serializable {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle
-	 * y est
+	 * Modifie la valeur d'affichage de la grille
 	 * 
 	 * @param condition vrai si l'on désire afficher le quadrillage
 	 */
@@ -573,7 +574,7 @@ public class Grille extends JPanel implements Serializable {
 								compterCoupClique = 0;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
-								
+
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
 								deplacementTuileUnique = false;
@@ -692,7 +693,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
-			
+
 			if (tuile != null && !supprimer && !rotationPostPlacement) {
 				tuile.dessiner(g2d);
 			}
@@ -891,8 +892,8 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
-	 * de l'argument
+	 * Applique une fraction de rotation horaire à la tuile sélectionnée selon le
+	 * facteur
 	 * 
 	 * @param facteur Facteur scalaire déterminant l'angle et le sens de rotation
 	 *                appliqué à un facteur de 16e de rotation
@@ -1054,7 +1055,8 @@ public class Grille extends JPanel implements Serializable {
 	 * Retourne vrai si la grille ne contient que des portails liés Donc qu'il y a
 	 * un nombre pair de portails
 	 * 
-	 * @return Un booléen qui indique si tous les portails de la grille sont liés à un autre
+	 * @return Un booléen qui indique si tous les portails de la grille sont liés à
+	 *         un autre
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {
@@ -1138,7 +1140,7 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			if(supprimer) {
+			if (supprimer) {
 				supprimerCase();
 			}
 			if (rotationPostPlacement) {
@@ -1229,7 +1231,8 @@ public class Grille extends JPanel implements Serializable {
 			if (sourisEnMetreY >= i * hauteurCase && sourisEnMetreY < ((i + 1) * hauteurCase)) {
 				for (int j = 0; j < nbCaseHorizontale; j++) {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
-						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique && tuile==null) {
+						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique
+								&& tuile == null) {
 							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
 								deplacementTuileUnique = true;
 								drapeau = false;

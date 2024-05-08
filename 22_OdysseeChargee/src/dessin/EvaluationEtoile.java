@@ -14,7 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Classe qui represente l'évaluation en étoiles de l'application
+ * Classe qui répresente l'évaluation en étoiles de l'application
  *
  * @author Kitimir Yim
  */
@@ -28,11 +28,11 @@ public class EvaluationEtoile extends JPanel {
 	 */
 	private double note;
 	/**
-	 * Nombre d'étoile
+	 * Nombre d'étoiles
 	 */
 	private double nombreEtoiles = 5;
 	/**
-	 * Rayon exterieur de l'étoile
+	 * Rayon extérieur de l'étoile
 	 */
 	private int rayonExterieur = 10;
 	/**
@@ -48,11 +48,11 @@ public class EvaluationEtoile extends JPanel {
 	 */
 	private double y = 0;
 	/**
-	 * Compteur de clic
+	 * Compteur de clics
 	 */
 	private int nombreClic = 0;
 	/**
-	 * Statut de l,évaluation
+	 * Statut de l'évaluation
 	 */
 	private boolean evaluationFini = false;
 	/**
