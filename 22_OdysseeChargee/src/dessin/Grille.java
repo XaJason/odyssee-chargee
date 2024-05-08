@@ -22,6 +22,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Random;
+
 import javax.swing.JPanel;
 
 import tuile.Carre;
@@ -304,6 +305,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void placerTuile(MouseEvent e) {
+		PCS.firePropertyChange("Modification", null, null);
 		transformerCoordonneesSouris(e);
 		positionnerCaseEtTuile();
 		if (!supprimer) {
@@ -498,8 +500,7 @@ public class Grille extends JPanel implements Serializable {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle
-	 * y est
+	 * Modifie la valeur d'affichage de la grille
 	 * 
 	 * @param condition vrai si l'on désire afficher le quadrillage
 	 */
@@ -872,8 +873,8 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
-	 * de l'argument
+	 * Applique une fraction de rotation horaire à la tuile sélectionnée selon le
+	 * facteur
 	 * 
 	 * @param facteur Facteur scalaire déterminant l'angle et le sens de rotation
 	 *                appliqué à un facteur de 16e de rotation

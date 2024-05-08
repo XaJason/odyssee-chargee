@@ -1,6 +1,5 @@
 package panneaux;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,8 +8,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,8 +30,6 @@ import niveau.Niveau;
 import physique.MoteurPhysique;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
 
 /**
  * Panel du mode de jeu
@@ -153,6 +152,9 @@ public class PanelJeu extends JPanel {
 	 * Check box qui conrespond au mode jetpack
 	 */
 	private JCheckBox chckbxModeJetpack;
+	private JLabel label;
+
+	private JLabel lblIndiceFleches;
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -170,26 +172,32 @@ public class PanelJeu extends JPanel {
 		panelEntree.setLayout(null);
 
 		JLabel lblMasseVaisseau = new JLabel("Masse du vaisseau (kg) :");
-		lblMasseVaisseau.setBounds(10, 15, 180, 26);
+		lblMasseVaisseau.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblMasseVaisseau.setBounds(10, 15, 215, 26);
 		panelEntree.add(lblMasseVaisseau);
 
 		JLabel lblCharge = new JLabel("Charge du vaisseau (Coulomb) :");
-		lblCharge.setBounds(10, 88, 180, 26);
+		lblCharge.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblCharge.setBounds(10, 88, 215, 26);
 		panelEntree.add(lblCharge);
 
 		JLabel lblGravite = new JLabel("Gravité (m/s²) :");
-		lblGravite.setBounds(10, 155, 120, 26);
+		lblGravite.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblGravite.setBounds(10, 155, 215, 26);
 		panelEntree.add(lblGravite);
 
-		JLabel lblChargePlaques = new JLabel("Charge de la plaque");
-		lblChargePlaques.setBounds(10, 215, 180, 26);
+		JLabel lblChargePlaques = new JLabel("Charge des plaques");
+		lblChargePlaques.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblChargePlaques.setBounds(10, 215, 215, 26);
 		panelEntree.add(lblChargePlaques);
 
 		JLabel lblCoefFrotStat = new JLabel("Coefficient de frottement statique :");
+		lblCoefFrotStat.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblCoefFrotStat.setBounds(10, 295, 215, 26);
 		panelEntree.add(lblCoefFrotStat);
 
 		JLabel lblCoefFrotCine = new JLabel("Coefficient de frottement cinétique :");
+		lblCoefFrotCine.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblCoefFrotCine.setBounds(10, 365, 215, 26);
 		panelEntree.add(lblCoefFrotCine);
 
@@ -203,50 +211,62 @@ public class PanelJeu extends JPanel {
 		add(panelSortie);
 
 		JLabel lblVitesse = new JLabel("Vitesse (m/s):");
-		lblVitesse.setBounds(35, 37, 100, 26);
+		lblVitesse.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblVitesse.setBounds(35, 37, 171, 26);
 		panelSortie.add(lblVitesse);
 
 		JLabel lblAcceleration = new JLabel("Accélération (m/s^2):");
-		lblAcceleration.setBounds(35, 73, 128, 26);
+		lblAcceleration.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblAcceleration.setBounds(35, 73, 171, 26);
 		panelSortie.add(lblAcceleration);
 
 		JLabel lblForceElectrique = new JLabel("Force électrique (N):");
-		lblForceElectrique.setBounds(35, 113, 128, 26);
+		lblForceElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblForceElectrique.setBounds(35, 113, 171, 26);
 		panelSortie.add(lblForceElectrique);
 
 		JLabel lblForceGravite = new JLabel("Force gravité (N):");
-		lblForceGravite.setBounds(35, 153, 100, 26);
+		lblForceGravite.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblForceGravite.setBounds(35, 153, 171, 26);
 		panelSortie.add(lblForceGravite);
 
 		JLabel lblChampElectrique = new JLabel("Champ électrique (N/m):");
-		lblChampElectrique.setBounds(35, 197, 128, 26);
+		lblChampElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblChampElectrique.setBounds(35, 197, 171, 26);
 		panelSortie.add(lblChampElectrique);
 
 		JLabel lblPosition = new JLabel("Position (m):");
-		lblPosition.setBounds(35, 233, 100, 26);
+		lblPosition.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblPosition.setBounds(35, 233, 171, 26);
 		panelSortie.add(lblPosition);
 
 		labelVitesse = new JLabel(vitesseString);
+		labelVitesse.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelVitesse.setBounds(216, 37, 76, 22);
 		panelSortie.add(labelVitesse);
 
 		labelAcceleration = new JLabel(acceString);
+		labelAcceleration.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelAcceleration.setBounds(216, 73, 76, 22);
 		panelSortie.add(labelAcceleration);
 
 		labelForceElectrique = new JLabel(forceElecString);
+		labelForceElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelForceElectrique.setBounds(216, 113, 76, 22);
 		panelSortie.add(labelForceElectrique);
 
 		labelForceGravite = new JLabel(forceGravString);
+		labelForceGravite.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelForceGravite.setBounds(216, 153, 76, 22);
 		panelSortie.add(labelForceGravite);
 
 		labelChampElectrique = new JLabel(champElecString);
+		labelChampElectrique.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelChampElectrique.setBounds(216, 197, 76, 22);
 		panelSortie.add(labelChampElectrique);
 
 		labelPosition = new JLabel(positionString);
+		labelPosition.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		labelPosition.setBounds(216, 233, 76, 22);
 		panelSortie.add(labelPosition);
 
@@ -307,13 +327,15 @@ public class PanelJeu extends JPanel {
 		panelPlaque.add(btnChargeNegative);
 
 		lblEtatPlaque = new JLabel("La plaque est: positive ");
-		lblEtatPlaque.setBounds(10, 11, 154, 14);
+		lblEtatPlaque.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblEtatPlaque.setBounds(10, 11, 255, 14);
 		panelPlaque.add(lblEtatPlaque);
 
 		lblNbDePlaqueRestante = new JLabel("");
+		lblNbDePlaqueRestante.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNbDePlaqueRestante
 				.setText("Il vous reste " + zoneAnimationPhysique.getNbPlaquesRestantes() + " plaques à placer");
-		lblNbDePlaqueRestante.setBounds(10, 120, 154, 14);
+		lblNbDePlaqueRestante.setBounds(10, 120, 255, 14);
 		panelPlaque.add(lblNbDePlaqueRestante);
 
 		chckbxModeJetpack = new JCheckBox("Mode Jetpack");
@@ -325,21 +347,12 @@ public class PanelJeu extends JPanel {
 		chckbxModeJetpack.setBounds(6, 0, 286, 23);
 		panelInfosPlaque.add(chckbxModeJetpack);
 
-		lblIndiceChargeVaisseau = new JLabel(
-				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
-		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIndiceChargeVaisseau.setBounds(550, 702, 603, 22);
-		add(lblIndiceChargeVaisseau);
-
 		fondEcran = new FondEcran("fondJeu.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
 		fondEcran.setLayout(null);
-		
+
 		creerBoutonsDAnimationSurFondEcran();
-		
-		
 
 	}
 
@@ -399,7 +412,7 @@ public class PanelJeu extends JPanel {
 		zoneAnimationPhysique.setBounds(396, 44, 1000, 750);
 		add(zoneAnimationPhysique);
 	}
-	
+
 	/**
 	 * Créer les boutons d'animation sur le fond d'écran du panneau mode jeu
 	 */
@@ -475,6 +488,25 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("réinitialiser.png", btnReinitialiser);
+
+		lblIndiceChargeVaisseau = new JLabel(
+				"Utilisez les touches \"A\", \"S\", \"D\" pour contrôler la charge électrique du vaisseau!");
+		lblIndiceChargeVaisseau.setBounds(595, 891, 603, 22);
+		fondEcran.add(lblIndiceChargeVaisseau);
+		lblIndiceChargeVaisseau.setForeground(Color.GREEN);
+		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
+
+		label = new JLabel("New label");
+		label.setBounds(671, 959, 46, 14);
+		fondEcran.add(label);
+
+		lblIndiceFleches = new JLabel("Utilisez les flèches du clavier pour influencer l'accélération du vaisseau!");
+		lblIndiceFleches.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIndiceFleches.setForeground(Color.GREEN);
+		lblIndiceFleches.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		lblIndiceFleches.setBounds(595, 924, 603, 22);
+		fondEcran.add(lblIndiceFleches);
 	}
 
 	/**
@@ -493,7 +525,7 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelVitesse.setText(xString + "x, " + yString + "y");
+					labelVitesse.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerAcceleration")) {
@@ -503,7 +535,7 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelAcceleration.setText(xString + "x, " + yString + "y");
+					labelAcceleration.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerForceElec")) {
@@ -513,7 +545,7 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelForceElectrique.setText(xString + "x, " + yString + "y");
+					labelForceElectrique.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerForceGravite")) {
@@ -534,11 +566,11 @@ public class PanelJeu extends JPanel {
 					double valeurY = (double) evt.getNewValue();
 					String yString = String.format("%.2f", valeurY);
 
-					labelPosition.setText(xString + "x ," + yString + "y");
+					labelPosition.setText(xString + "i ," + yString + "j");
 				}
 				if (evt.getPropertyName().equals("Recommencer")) {
 					recommencerPanneauEtZoneAnimation();
-					
+
 				}
 				leveeEvenementCharge(evt);
 				evenementMiseAJourDemarrage(evt);
@@ -671,13 +703,15 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// début
 				MoteurPhysique.setCoeffFrotStat((double) spnCoefFrictionStat.getValue());
-				spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0, MoteurPhysique.getCoeffFrotStat(), 0.05));
+				spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0,
+						MoteurPhysique.getCoeffFrotStat(), 0.05));
 				((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
+		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(),
+				MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
 		spnCoefFrictionStat.setBounds(225, 291, 140, 35);
 		((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false); // Désactive la
 																										// zone d'entrée
@@ -689,13 +723,15 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// début
 				MoteurPhysique.setCoeffFrotCine((double) spnCoefFrictionCine.getValue());
-				spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
+				spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(),
+						MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
 				((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0, MoteurPhysique.getCoeffFrotStat(), 0.05));
+		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0,
+				MoteurPhysique.getCoeffFrotStat(), 0.05));
 		spnCoefFrictionCine.setBounds(225, 361, 140, 35);
 		((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false); // Désactive la
 																										// zone d'entrée
@@ -733,11 +769,13 @@ public class PanelJeu extends JPanel {
 		panelEntree.add(cmbVitesseAnimation);
 
 		JLabel lblVitesseAnimation = new JLabel("Vitesse d'animation :");
-		lblVitesseAnimation.setBounds(10, 437, 180, 23);
+		lblVitesseAnimation.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblVitesseAnimation.setBounds(10, 437, 215, 23);
 		panelEntree.add(lblVitesseAnimation);
 
 		JLabel lblChargePlaqueSuite = new JLabel("en valeur absolue (Coulombs) :");
-		lblChargePlaqueSuite.setBounds(10, 235, 205, 26);
+		lblChargePlaqueSuite.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblChargePlaqueSuite.setBounds(10, 235, 215, 26);
 		panelEntree.add(lblChargePlaqueSuite);
 
 	}
@@ -763,8 +801,7 @@ public class PanelJeu extends JPanel {
 
 		zoneAnimationPhysique.reinitialiser();
 	}// fin methode reinitialiserZoneAnimation
-	
-	
+
 	/**
 	 * Reecommencer le panneau et la zone d'animation du mode Jeu à l'état qu'il
 	 * avait lors du démarrage de l'application
@@ -850,14 +887,10 @@ public class PanelJeu extends JPanel {
 	 */
 	// Giroux
 	private void gererModeJetpack(JCheckBox chckbxJetpack) {
-		if (chckbxJetpack.isSelected()) {
-			zoneAnimationPhysique.setModeJetpack(true);
-		} else {
-			zoneAnimationPhysique.setModeJetpack(false);
-		}
+		zoneAnimationPhysique.setModeJetpack(chckbxJetpack.isSelected());
+		lblIndiceFleches.setVisible(chckbxJetpack.isSelected());
 		zoneAnimationPhysique.requestFocusInWindow();
 	}
-	
 
 	/**
 	 * Modifie le booléen indiquant si le mode jetpack est activé
@@ -868,6 +901,7 @@ public class PanelJeu extends JPanel {
 	public void setModeJetpack(boolean modeJetpack) {
 		chckbxModeJetpack.setSelected(modeJetpack);
 		zoneAnimationPhysique.setModeJetpack(modeJetpack);
+		lblIndiceFleches.setVisible(modeJetpack);
 	}
 
 	/**
@@ -875,9 +909,9 @@ public class PanelJeu extends JPanel {
 	 */
 	// Giroux
 	private void imagePlaqueSelectionnee() {
-		if(btnChargePositive.isSelected()) {
+		if (btnChargePositive.isSelected()) {
 			changementStatutPlaque(true);
-		} else if(btnChargeNegative.isSelected()) {
+		} else if (btnChargeNegative.isSelected()) {
 			changementStatutPlaque(false);
 		}
 	}

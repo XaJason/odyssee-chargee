@@ -312,9 +312,9 @@ public class Vecteur2D implements Serializable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public double orientation() {
-		return Math.atan(y/x);
+		return Math.atan(y / x);
 	}
-	
+
 	/**
 	 * Methode pour normaliser le vecteur courant.
 	 * Un vecteur normalise possede la meme orientation, mais possede une longeur

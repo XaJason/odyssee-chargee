@@ -63,7 +63,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private double tempsDerniereCollision;
 	/** Durée de la collision (en milliseconde) **/
 	private double dureeCollision = 0;
-	
+
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur du vaisseau
@@ -201,12 +201,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		 * mais faudra gérer différement les paramètres des méthodes
 		 * detectionCollisions et calculVitesseApresCollision
 		 */
-		//Vecteur2D vitPrecedente = vitesse;
+		// Vecteur2D vitPrecedente = vitesse;
 		vitesse = MoteurPhysique.detectionCollisionsAvecSegmentEtCalculeVitesse(this, segment);
 		creerLaGeometrie();
-		//return (vitPrecedente.module() != vitesse.module());
+		// return (vitPrecedente.module() != vitesse.module());
 	}
-	
+
 	/**
 	 * Détermine s'il y a une collision avec les bordures de la zone d'animation,
 	 * puis modifie la vitesse en conséquence
@@ -257,7 +257,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public Vecteur2D getSommeDesForces() {
 		return sommeForces;
 	}
-	
+
 	/**
 	 * Recalcule l'accélération du vaisseau à l'aide de la nouvelle somme des forces
 	 * passée en paramètre
@@ -414,7 +414,8 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	}
 
 	/**
-	 * Retourne le booléen qui indique si une collision avec un segment a été trouvée
+	 * Retourne le booléen qui indique si une collision avec un segment a été
+	 * trouvée
 	 * 
 	 * @return Le booléen qui indique si une collision avec un segment a été trouvée
 	 */
@@ -426,13 +427,14 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	/**
 	 * Modifie le booléen qui indique si une collision avec un segment a été trouvée
 	 * 
-	 * @param collisionTrouvee Le nouveau booléen qui indique si une collision avec un segment a été trouvée
+	 * @param collisionTrouvee Le nouveau booléen qui indique si une collision avec
+	 *                         un segment a été trouvée
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setCollisionTrouvee(boolean collisionTrouvee) {
-		this.collisionTrouvee= collisionTrouvee;
+		this.collisionTrouvee = collisionTrouvee;
 	}
-	
+
 	/**
 	 * Retourne le booléen qui indique si le vaisseau est en collision
 	 * 
@@ -446,35 +448,36 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	/**
 	 * Modifie le booléen qui indique si le vaisseau est en collision
 	 * 
-	 * @param nouvelEtatDeCollision Le nouveau booléen qui indique si le vaisseau est en collision
+	 * @param nouvelEtatDeCollision Le nouveau booléen qui indique si le vaisseau
+	 *                              est en collision
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setEnCollision(boolean nouvelEtatDeCollision) {
 		double tempsActuel = System.currentTimeMillis();
 		boolean ancienEtatDeCollision = enCollision;
-		
+
 		// Faux Vrai
 		if (!ancienEtatDeCollision & nouvelEtatDeCollision) {
 			this.enCollision = nouvelEtatDeCollision;
 			tempsDerniereCollision = tempsActuel;
-			//setDureeCollision(0); //pas nécessaire?
+			// setDureeCollision(0); //pas nécessaire?
 		}
 		// Vrai Vrai
 		else if (ancienEtatDeCollision & nouvelEtatDeCollision) {
 			setDureeCollision(tempsActuel - tempsDerniereCollision);
-		} 
+		}
 		// Vrai Faux
 		else if (ancienEtatDeCollision & !nouvelEtatDeCollision) {
 			this.enCollision = nouvelEtatDeCollision;
 			setDureeCollision(0);
-		}// fin if
-		
+		} // fin if
+
 		// Faux Faux => Il n'y a rien à faire !
 		else {
 			setDureeCollision(0);
 		}
 	}// fin méthode
-	
+
 	/**
 	 * Retourne la durée de la collision
 	 * 
@@ -492,9 +495,9 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setDureeCollision(double dureeCollision) {
-	this.dureeCollision = dureeCollision;
+		this.dureeCollision = dureeCollision;
 	}
-	
+
 	/**
 	 * Retourne la force normale agissant sur le vaisseau
 	 * 
@@ -504,7 +507,7 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	public Vecteur2D getForceNormale() {
 		return forceNormale;
 	}
-	
+
 	/**
 	 * Modifie la force normale agissant sur le vaisseau
 	 * 

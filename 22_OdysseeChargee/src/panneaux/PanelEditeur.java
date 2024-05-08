@@ -194,7 +194,7 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Boolean de si sauvegarder ou pas
 	 */
-	private boolean sauvegarde=false;
+	private boolean sauvegarde = false;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -262,15 +262,16 @@ public class PanelEditeur extends JPanel {
 
 		creerSectionBoutons();
 
-//		btnEssayer = new JButton("<html><center>ESSAYER<br>\r\n[CTRL + E]<html>");
-//		btnEssayer.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				essayerNiveau();
-//			}
-//		});
-//		btnEssayer.setBounds(342, 599, 85, 85);
-//		add(btnEssayer);
-//		grille.requestFocusInWindow();
+		// btnEssayer = new JButton("<html><center>ESSAYER<br>\r\n[CTRL + E]<html>");
+		// btnEssayer.addActionListener(new ActionListener() {
+		// public void actionPerformed(ActionEvent e) {
+		// essayerNiveau();
+		// }
+		// });
+		// btnEssayer.setBounds(342, 599, 85, 85);
+		// add(btnEssayer);
+		// grille.requestFocusInWindow();
+		modificationGrille();
 	}
 
 	/**
@@ -282,10 +283,11 @@ public class PanelEditeur extends JPanel {
 		if (niveauBienConstruit("d'essayer")) {
 			transfertVersModeJeu();
 		}
-//		} else {
-//			JOptionPane.showMessageDialog(null, "Il manque des tuiles. Placez au moins un vaisseau, un drapeau et/ou un portail!",
-//					"Avertissement", JOptionPane.WARNING_MESSAGE, null);
-//		}
+		// } else {
+		// JOptionPane.showMessageDialog(null, "Il manque des tuiles. Placez au moins un
+		// vaisseau, un drapeau et/ou un portail!",
+		// "Avertissement", JOptionPane.WARNING_MESSAGE, null);
+		// }
 	}
 
 	/**
@@ -325,7 +327,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerCarre();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("carre.jpg", btnCarre);
@@ -338,7 +340,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleRectangle();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_rectangle.png", btnTriangleRectangle);
@@ -351,7 +353,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerTriangleEquilateral();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("triangle_equilateral.png", btnTriangleEquilateral);
@@ -399,7 +401,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPics();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("pics.png", btnPics);
@@ -412,7 +414,7 @@ public class PanelEditeur extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectionnerPortail();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("portail.png", btnPortail);
@@ -444,7 +446,7 @@ public class PanelEditeur extends JPanel {
 		btnDrapeau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerDrapeau();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("drapeau.png", btnDrapeau);
@@ -456,7 +458,7 @@ public class PanelEditeur extends JPanel {
 		btnVaisseau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectionnerVaisseau();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("vaisseau.png", btnVaisseau);
@@ -495,7 +497,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rotationnerAvant(4); // quart de rotation
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("rotation.png", btnRotationPrePlacement);
@@ -567,7 +569,7 @@ public class PanelEditeur extends JPanel {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				supprimer();
-				//reinitialiserRotationPostPlacement();
+				// reinitialiserRotationPostPlacement();
 			}
 		});
 		OutilsImage.lireImageEtPlacerSurBouton("supprimer.png", btnSupprimer);
@@ -619,7 +621,8 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void afficherSelection() {
-//		lblTypeSelectionne.setText(preTexteTypeSelectionne + grille.getTuile().getType());
+		// lblTypeSelectionne.setText(preTexteTypeSelectionne +
+		// grille.getTuile().getType());
 		grille.setSupprimer(false);
 	}
 
@@ -640,10 +643,15 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Kitimir Yim
 	private void sauvegarderNiveau() {
-		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
-				JOptionPane.PLAIN_MESSAGE);
-		Niveau niveauParDefaut = new Niveau(grille, nom);
-		sauvegarder(niveauParDefaut);
+		   String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau", JOptionPane.PLAIN_MESSAGE);
+
+		    if (nom != null && !nom.trim().isEmpty()) {
+		        Niveau niveauParDefaut = new Niveau(grille, nom);
+		        sauvegarder(niveauParDefaut);
+		    } else {
+		        
+		    	JOptionPane.showMessageDialog(null, "La sauvegarde est annulée.", "Annulation de sauvegarde", JOptionPane.WARNING_MESSAGE);
+		    }
 	}
 
 	/**
@@ -681,7 +689,8 @@ public class PanelEditeur extends JPanel {
 	 * 
 	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles
 	 *                         manquantes
-	 * @return La chaîne de caractères mise à jour avec la nouvelle tuille manquante s'il y a lieu 
+	 * @return La chaîne de caractères mise à jour avec la nouvelle tuille manquante
+	 *         s'il y a lieu
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private String conditionPortails(String tuilesManquantes) {
@@ -781,7 +790,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerCarre() {
-		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Carré" ) {
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Carré") {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -800,7 +809,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerTriangleRectangle() {
-		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle rectangle" ) {
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle rectangle") {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -818,7 +827,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerTriangleEquilateral() {
-		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle équilatéral" ) {
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle équilatéral") {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -836,8 +845,8 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerPics() {
-		
-		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Pics" ) {
+
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Pics") {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -855,7 +864,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerPortail() {
-		if(!(grille.getTuile() == null) && grille.getTuile().getType() == "Portail" ) {
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Portail") {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -974,17 +983,18 @@ public class PanelEditeur extends JPanel {
 
 	}
 
-//	/**
-//	 * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
-//	 * bouton, un booléen, une image et un panneau
-//	 */
-//	// Enuel René Valentin Kizozo Izia
-//	private void reinitialiserRotationPostPlacement() {
-//		btnRotationPostPlacement.setEnabled(true);
-//		grille.setRotationPostPlacement(false);
-//		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
-//		panelTuileTemp.setRotation(false);
-//	}
+	// /**
+	// * Réinitialiser tous les facteurs de la rotation d'une tuile déjà placée: un
+	// * bouton, un booléen, une image et un panneau
+	// */
+	// // Enuel René Valentin Kizozo Izia
+	// private void reinitialiserRotationPostPlacement() {
+	// btnRotationPostPlacement.setEnabled(true);
+	// grille.setRotationPostPlacement(false);
+	// OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png",
+	// btnRotationPostPlacement);
+	// panelTuileTemp.setRotation(false);
+	// }
 
 	/**
 	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du
@@ -1024,8 +1034,40 @@ public class PanelEditeur extends JPanel {
 		panelTuileTemp.setSupprimer(false);
 	}
 
+	/**
+	 * Getter pour le boolean de sauvegarde
+	 * 
+	 * @return sauvegarde boolean
+	 */
+	// Kitimir Yim
 	public boolean getSauvegarde() {
-		
+
 		return this.sauvegarde;
+	}
+
+	/**
+	 * Setter pour le boolean de sauvegarde
+	 */
+	// Kitimir Yim
+	public void setSauvegarde(boolean choix) {
+
+		this.sauvegarde = choix;
+	}
+
+	/**
+	 * Récupere le message de la grille
+	 */
+	// Kitimir Yim
+	private void modificationGrille() {
+		grille.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("Modification")) {
+					sauvegarde = false;
+
+				}
+
+			}
+		});
 	}
 }
