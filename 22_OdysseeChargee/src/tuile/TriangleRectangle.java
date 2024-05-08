@@ -123,7 +123,6 @@ public class TriangleRectangle extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasGauche);
 		// Ajouter le point milieu
 		pointMilieu = pointMilieuTriangle(prePointsCoin);
-		// prePointsCoin.add(pointMilieu);
 		// Transformer
 
 		for (Point2D.Double i : prePointsCoin) {

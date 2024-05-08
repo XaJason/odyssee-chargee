@@ -226,13 +226,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		//g2d.draw(contour);
-
-//		if (!listeSegments.isEmpty()) {
-//			for (Segment s : listeSegments) {
-//				s.dessiner(g2dPrive);
-//			}
-//		}
 	}
 
 	/**
@@ -512,7 +505,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void setPoint() {
 		pointInitial = new Point2D.Double(0, 0);
 		rotation = new MatriceRotation(-this.angleRotation);
-		creerGeometrieContour();
+		
 		creerLaGeometrie();
 	}
 

@@ -145,7 +145,13 @@ public class PanelJeu extends JPanel {
 	 * Liste déroulante pour la sélection de la vitesse d'animation
 	 */
 	private JComboBox<Object> cmbVitesseAnimation;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	/**
+	 * Regroupe les deux boutons de charge 
+	 */
+	private final ButtonGroup buttonGroupCharges = new ButtonGroup();
+	/**
+	 * Check box qui conrespond au mode jetpack
+	 */
 	private JCheckBox chckbxModeJetpack;
 
 	/**
@@ -275,7 +281,7 @@ public class PanelJeu extends JPanel {
 
 		btnChargePositive = new JToggleButton("");
 		btnChargePositive.setSelected(true);
-		buttonGroup.add(btnChargePositive);
+		buttonGroupCharges.add(btnChargePositive);
 		btnChargePositive.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(true);
@@ -288,7 +294,7 @@ public class PanelJeu extends JPanel {
 		panelPlaque.add(btnChargePositive);
 
 		btnChargeNegative = new JToggleButton("");
-		buttonGroup.add(btnChargeNegative);
+		buttonGroupCharges.add(btnChargeNegative);
 		btnChargeNegative.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changementStatutPlaque(false);

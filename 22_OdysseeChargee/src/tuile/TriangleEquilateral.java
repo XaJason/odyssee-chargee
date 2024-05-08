@@ -126,7 +126,6 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 		prePointsCoin.add(coinBasGauche);
 		// Ajouter le point milieu
 		pointMilieu = pointMilieuTriangle(prePointsCoin);
-		// prePointsCoin.add(pointMilieu);
 		// Transformer
 		for (Point2D.Double i : prePointsCoin) {
 			i.setLocation(i.getX() - largeurTuile / 2, i.getY() - hauteurTuile / 2);
@@ -135,7 +134,6 @@ public class TriangleEquilateral extends Tuile implements Serializable {
 
 			pointsCoin.add(i);
 		}
-		// pointMilieu = pointsCoin.get(3);
 		transformerPointMilieu();
 		creerGeometrieContour();
 		creerListeSegment();

@@ -143,8 +143,6 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 
 		pointMilieu = new Point2D.Double(pointInitial.getX() + largeurTuile / 2.0,
 				pointInitial.getY() + hauteurTuile / 2.0);
-
-		// prePointsCoin.add(pointMilieu);
 		// Transformer les points qui sont au coin
 		for (Point2D.Double i : prePointsCoin) {
 			// Prendre le centre
@@ -155,7 +153,6 @@ public class Carre extends Tuile implements Serializable, Selectionnable {
 			pointsCoin.add(i);
 		}
 		System.out.println(pointsCoin);
-		// pointMilieu = pointsCoin.get(4);
 		transformerPointMilieu();
 		creerGeometrieContour();
 		creerListeSegment();
