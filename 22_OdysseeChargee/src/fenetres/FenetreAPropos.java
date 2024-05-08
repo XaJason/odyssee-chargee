@@ -35,18 +35,19 @@ public class FenetreAPropos extends JPanel {
 	private String sourceSupprimer = "https://game-icons.net/1x1/delapouite/trash-can.html";
 	/** Source du vaisseau */
 	private String sourceVaisseau = "https://iconduck.com/icons/2658/unidentified-code-object-ufo";
-	/**Source des boutons en style pixel*/
+	/** Source des boutons en style pixel */
 	private String sourceBouton = "https://www.textstudio.com/logo/831/PIXEL";
-	/**Source fond du menu principal*/
+	/** Source fond du menu principal */
 	private String fondMenu = "https://www.peakpx.com/en/hd-wallpaper-desktop-avwgs";
-	/**Source du fond du menu éditeur*/
+	/** Source du fond du menu éditeur */
 	private String fondEditeur = "https://www.reddit.com/r/PixelArt/comments/fbz129/oc_inside_a_spaceship_cockpit_i_might_do_more_of/?rdt=65513";
-	/**Source du fond du menu réglages*/
+	/** Source du fond du menu réglages */
 	private String fondReglages = "https://in.pinterest.com/pin/713328028467976805/";
-	/**Source du fond du menu jeu*/
+	/** Source du fond du menu jeu */
 	private String fondJeu = "https://www.pinterest.com/pin/solar-eclipse-illustration-space-planet-abstract-space-art-digital-art-cyan-2k-wallpaper-hdwallpaper-d--733664595531549031/";
-	/**Source des boutons d'animation en style tron*/
+	/** Source des boutons d'animation en style tron */
 	private String sourceBoutonAnimation = "https://fontmeme.com/fonts/tron-font/";
+
 	/**
 	 * Création du panel
 	 */
@@ -70,27 +71,17 @@ public class FenetreAPropos extends JPanel {
 		JPanel pnlSources = new JPanel();
 		tabOnglets.addTab("Sources", null, pnlSources, null);
 
-		JLabel lblSources = new JLabel("<html>" + 
-                "<br>Image des carrés: " + sourceObsidienne + 
-                "<br>Image du drapeau: " + sourceDrapeau + 
-                "<br>Image des pics: " + sourcePics + 
-                "<br>Image des portails: " + sourcePortail + 
-                "<br>Image des triangles équilatéraux: " + sourceObsidienne + 
-                "<br>Image des triangles rectangles: " + sourceObsidienne + 
-                "<br>Image du vaisseau: " + sourceVaisseau + 
-                "<br>Image du bouton essayer: " + sourceEssayer +
-                "<br>Image du bouton réinitialiser: " + sourceReinitialiser +
-                "<br>Image du bouton rotation: " + sourceRotationPrePlacement +
-                "<br>Image du bouton supprimer: " + sourceSupprimer +
-                "<br>Bouton de sauvegarde: " + sourceSauvegarder + 
-                "<br>Source des boutons style pixel: "+ sourceBouton +
-                "<br>Source fond du menu principal: " + fondMenu + 
-                "<br>Source du fond du menu éditeur: " + fondEditeur + 
-                "<br>Source du fond du menu réglages: " + fondReglages + 
-                "<br>Source du fond du menu jeu: " + fondJeu +
-                "<br>Source des boutons d'animation: " + sourceBoutonAnimation +
-                "</html>");
-
+		JLabel lblSources = new JLabel("<html>" + "<br>Image des carrés: " + sourceObsidienne + "<br>Image du drapeau: "
+				+ sourceDrapeau + "<br>Image des pics: " + sourcePics + "<br>Image des portails: " + sourcePortail
+				+ "<br>Image des triangles équilatéraux: " + sourceObsidienne + "<br>Image des triangles rectangles: "
+				+ sourceObsidienne + "<br>Image du vaisseau: " + sourceVaisseau + "<br>Image du bouton essayer: "
+				+ sourceEssayer + "<br>Image du bouton réinitialiser: " + sourceReinitialiser
+				+ "<br>Image du bouton rotation: " + sourceRotationPrePlacement + "<br>Image du bouton supprimer: "
+				+ sourceSupprimer + "<br>Bouton de sauvegarde: " + sourceSauvegarder
+				+ "<br>Source des boutons style pixel: " + sourceBouton + "<br>Source fond du menu principal: "
+				+ fondMenu + "<br>Source du fond du menu éditeur: " + fondEditeur
+				+ "<br>Source du fond du menu réglages: " + fondReglages + "<br>Source du fond du menu jeu: " + fondJeu
+				+ "<br>Source des boutons d'animation: " + sourceBoutonAnimation + "</html>");
 
 		lblSources.setVerticalAlignment(SwingConstants.TOP);
 		pnlSources.add(lblSources);

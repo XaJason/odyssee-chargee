@@ -226,7 +226,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		//g2d.draw(contour);
+		// g2d.draw(contour);
 
 //		if (!listeSegments.isEmpty()) {
 //			for (Segment s : listeSegments) {
@@ -648,61 +648,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		// }
 		// return aireOuEstCurseur;
 		return null;
-	}
-
-	/**
-	 * Vérifie si le point survolé est contenu dans une aire de tuile et effectue le
-	 * dessin conditionnel de sélection de plaque chargée
-	 * 
-	 * @param pointSurvole le point survolé
-	 */
-	// Jason Xa
-	public void survol(Point2D.Double pointSurvole) {
-		// Vérifier si le point survolé est dans une aire de la tuile
-		for (int i = 0; i < aires.length; i++) {
-			if (aires[i].contient(pointSurvole)) {
-				indexAireSurvolee = i;
-				break;
-			}
-		}
-
-		if (indexAireSurvolee != 1) { // À implémenter: instructions à exécuter lorsqu'une aire de tuile est survolée
-			// Idées: retourner la géométrie (plaque chargée) à dessiner (Pierre-Olivier)
-		}
-	}
-
-	/**
-	 * Vérifie si le point cliqué est contenu dans une aire de tuile et effectue le
-	 * dessin conditionnel de sélection de plaque chargée
-	 * 
-	 * @param pointSurvole le point survolé
-	 */
-	// Jason Xa
-	public void clic(Point2D.Double pointSurvole) {
-		// Vérifier si le point survolé est dans une aire de la tuile
-		for (int i = 0; i < aires.length; i++) {
-			if (aires[i].contient(pointSurvole)) {
-				indexAireSurvolee = i;
-				break;
-			}
-		}
-
-		// Créer une PlaqueChargee si une aire est cliquée
-		if (indexAireSurvolee != 1) {
-			creerPlaqueChargeePourAire(); // Stockage des plaques chargées dans la grille ou la tuile (Enuel)
-		}
-	}
-
-	/**
-	 * Crée une plaque chargée à partir de le l'index de l'aire sélectionnée et
-	 * modifie la propriété associée de Tuile
-	 */
-	// Jason Xa
-	private void creerPlaqueChargeePourAire() {
-		// À implémenter: utiliser les méthodes d'Aire pour les informations sur les
-		// trois points (les deux points extérieurs et le point intérieur)
-		// plaqueChargee = new PlaqueChargee(null, null, angleRotation, angleRotation,
-		// angleRotation);
 	}
 
 	/**

@@ -142,31 +142,33 @@ public class MoteurPhysique {
 	}
 
 	/**
-	 * Calcule et retourne un vecteur exprimant la force normale s'appliquant sur le vaisseau
+	 * Calcule et retourne un vecteur exprimant la force normale s'appliquant sur le
+	 * vaisseau
 	 * 
 	 * @param vaisseau Objet représentant un vaisseau
-	 * @param segment Objet représent la surface d'un bloc (soit un segment)
+	 * @param segment  Objet représent la surface d'un bloc (soit un segment)
 	 * @return Le vecteur de la force normale s'appliquant sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceNormale(Vaisseau vaisseau, Segment segment) {
-		Vecteur2D forceNormale = segment.getNormale().multiplie( vaisseau.getMasse()*Math.abs(accelGrav) );
-		
-		// Corriger l'orientation de la normale si elle n'est pas orientée vers le vaisseau
+		Vecteur2D forceNormale = segment.getNormale().multiplie(vaisseau.getMasse() * Math.abs(accelGrav));
+
+		// Corriger l'orientation de la normale si elle n'est pas orientée vers le
+		// vaisseau
 		Vecteur2D distanceSegmentVaisseau = vaisseau.getPosition().soustrait(segment.getPointQuelconque());
 		if (distanceSegmentVaisseau.prodScalaire(segment.getNormale()) < 0) {
 			forceNormale.multiplie(-1);
 		}
 		return forceNormale;
 	}
-	
+
 	/**
 	 * Calcule et retourne le module de la force de frottement cinétique
 	 * s'appliquant sur le vaisseau
 	 * 
 	 * @param vaisseau Objet représentant un vaisseau
 	 * @return Le module de la force de frottement cinétique
-	 * s'appliquant sur le vaisseau
+	 *         s'appliquant sur le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static double calculModuleForceFrotCine(Vaisseau vaisseau) {
@@ -177,42 +179,48 @@ public class MoteurPhysique {
 	 * Calcule et retourne un vecteur exprimant la force de frottement
 	 * s'appliquant sur le vaisseau
 	 * 
-	 * @param vaisseau					  Objet représentant un vaisseau
-	 * @param sommeForcesSurVaisseau	  Somme de toutes les forces
-	 *                                    parallèles au frottement statique agissant sur le vaisseau
+	 * @param vaisseau               Objet représentant un vaisseau
+	 * @param sommeForcesSurVaisseau Somme de toutes les forces
+	 *                               parallèles au frottement statique agissant sur
+	 *                               le vaisseau
 	 * @return Un vecteur représentant la force de frottement statique exercée sur
 	 *         le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public static Vecteur2D calculForceFrottement(Vaisseau vaisseau, Vecteur2D sommeForcesSurVaisseau) {
-		Vecteur2D orientationMouvementVaisseau = new Vecteur2D( -1*vaisseau.getForceNormale().getY(), vaisseau.getForceNormale().getX() );
-		// Corriger l'orientation du mouvement du vaisseau à l'aide de la vitesse du vaisseau
+		Vecteur2D orientationMouvementVaisseau = new Vecteur2D(-1 * vaisseau.getForceNormale().getY(),
+				vaisseau.getForceNormale().getX());
+		// Corriger l'orientation du mouvement du vaisseau à l'aide de la vitesse du
+		// vaisseau
 		if (vaisseau.getVitesse().prodScalaire(orientationMouvementVaisseau) < 0) {
 			orientationMouvementVaisseau = orientationMouvementVaisseau.multiplie(-1);
 		}
-		double sommeAutresForcesParalleles = Math.abs( sommeForcesSurVaisseau.prodScalaire(orientationMouvementVaisseau)/orientationMouvementVaisseau.module() );//Éventuellement gérer l'exception
-		
+		double sommeAutresForcesParalleles = Math.abs(sommeForcesSurVaisseau.prodScalaire(orientationMouvementVaisseau)
+				/ orientationMouvementVaisseau.module());// Éventuellement gérer l'exception
+
 		double moduleFrotStatiqueMax = vaisseau.getForceNormale().multiplie(coeffFrotStat).module();
 		Vecteur2D forceFrot = VEC_ZERO;
 
 		// Aucun frottement
 		if (vaisseau.getVitesse().module() < EPSILON) {
 			forceFrot = VEC_ZERO;
-			
-		// Frottement cinétique
+
+			// Frottement cinétique
 		} else if (sommeAutresForcesParalleles > moduleFrotStatiqueMax) {
-			forceFrot = orientationMouvementVaisseau.multiplie(-1*calculModuleForceFrotCine(vaisseau));
-			
-		// Frottement statique
+			forceFrot = orientationMouvementVaisseau.multiplie(-1 * calculModuleForceFrotCine(vaisseau));
+
+			// Frottement statique
 		} else if (sommeAutresForcesParalleles < moduleFrotStatiqueMax - EPSILON) {
-			forceFrot = orientationMouvementVaisseau.multiplie(-1*sommeAutresForcesParalleles/orientationMouvementVaisseau.module());
-			
-		// Frottement statique maximal
-		} else if (sommeAutresForcesParalleles >= moduleFrotStatiqueMax - EPSILON 
-				& sommeAutresForcesParalleles <= moduleFrotStatiqueMax + EPSILON){
-			forceFrot = orientationMouvementVaisseau.multiplie(-1*moduleFrotStatiqueMax/orientationMouvementVaisseau.module());
+			forceFrot = orientationMouvementVaisseau
+					.multiplie(-1 * sommeAutresForcesParalleles / orientationMouvementVaisseau.module());
+
+			// Frottement statique maximal
+		} else if (sommeAutresForcesParalleles >= moduleFrotStatiqueMax - EPSILON
+				& sommeAutresForcesParalleles <= moduleFrotStatiqueMax + EPSILON) {
+			forceFrot = orientationMouvementVaisseau
+					.multiplie(-1 * moduleFrotStatiqueMax / orientationMouvementVaisseau.module());
 		}
-		
+
 		return forceFrot;
 	}
 
@@ -571,7 +579,7 @@ public class MoteurPhysique {
 		// Déterminer si le vaisseau est en collision avec les extrémités
 		boolean collisionExtremiteA = dVaisseauExtrA.module() < vaisseau.getRayon();
 		boolean collisionExtremiteB = dVaisseauExtrB.module() < vaisseau.getRayon();
- 
+
 		// Collision aux extrémités
 		/*
 		 * Gérer les collisions avec des coins des surfaces qui correspond aux
@@ -581,7 +589,7 @@ public class MoteurPhysique {
 			vaisseau.setEnCollision(true);
 			vaisseau.setCollisionTrouvee(true);
 			vitApresCol = calculVitesseApresCollisionExtremiteSegment(vaisseau, segment, collisionExtremiteA);
-			
+
 //			System.out.println("Collision aux extrémités !");
 //			System.out.println("Point A : " +segment.getExtremiteA());
 //			System.out.println("Point B : " +segment.getExtremiteB());
@@ -591,7 +599,7 @@ public class MoteurPhysique {
 		} else if (collisionLateralSegment) {
 			vaisseau.setEnCollision(true);
 			vaisseau.setCollisionTrouvee(true);
-			vaisseau.setForceNormale( calculForceNormale(vaisseau, segment) );
+			vaisseau.setForceNormale(calculForceNormale(vaisseau, segment));
 			vitApresCol = calculVitesseApresCollisionFaceLateraleSegment(vaisseau, segment);
 //			System.out.println("Collision entre les extrémités !");
 //			System.out.println("Point A : " +segment.getExtremiteA());
@@ -602,8 +610,8 @@ public class MoteurPhysique {
 
 			// Pas de collision
 		} else {
-			//vaisseau.setEnCollision(false);
-			//vaisseau.setForceNormale(VEC_ZERO);
+			// vaisseau.setEnCollision(false);
+			// vaisseau.setForceNormale(VEC_ZERO);
 			vitApresCol = vaisseau.getVitesse();
 		}
 
@@ -772,7 +780,7 @@ public class MoteurPhysique {
 			vaisseau.setCollisionTrouvee(true);
 			Vecteur2D normaleGauche = new Vecteur2D(1, 0);
 			vaisseau.setForceNormale(normaleGauche);
-			
+
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleGauche.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleGauche)));
 			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
@@ -788,7 +796,7 @@ public class MoteurPhysique {
 			vaisseau.setCollisionTrouvee(true);
 			Vecteur2D normaleDroite = new Vecteur2D(-1, 0);
 			vaisseau.setForceNormale(normaleDroite);
-			
+
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleDroite.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleDroite)));
 			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
@@ -804,7 +812,7 @@ public class MoteurPhysique {
 			vaisseau.setCollisionTrouvee(true);
 			Vecteur2D normaleHaut = new Vecteur2D(0, -1);
 			vaisseau.setForceNormale(normaleHaut);
-			
+
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleHaut.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleHaut)));
 			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
@@ -820,7 +828,7 @@ public class MoteurPhysique {
 			vaisseau.setCollisionTrouvee(true);
 			Vecteur2D normaleBas = new Vecteur2D(0, 1);
 			vaisseau.setForceNormale(normaleBas);
-			
+
 			vitApresCol = vaisseau.getVitesse()
 					.soustrait(normaleBas.multiplie(2 * vaisseau.getVitesse().prodScalaire(normaleBas)));
 			vitApresCol = vitApresCol.changerModule(moduleVitApresCol);
@@ -834,7 +842,7 @@ public class MoteurPhysique {
 //			vaisseau.setEnCollision(false);
 //			vaisseau.setForceNormale(VEC_ZERO);
 //		}
-		
+
 		return vitApresCol;
 	}// fin méthode
 

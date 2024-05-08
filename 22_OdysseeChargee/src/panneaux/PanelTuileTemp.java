@@ -76,15 +76,15 @@ public class PanelTuileTemp extends JPanel {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
-	 * de l'argument
+	 * Applique un ou plusieurs 16e de rotation dans le sens horaire selon le
+	 * facteur
 	 * 
-	 * @param signum 1 si positif, 0 si nul, -1 si négatif
+	 * @param facteur de 16e de rotation dans le sens horaire à appliquer
 	 */
 	// Jason Xa
-	public void rotation(int signum) {
+	public void rotation(int facteur) {
 		if (tuile != null && tuile.getType() != "Vaisseau") {
-			tuile.setAngleRotation(tuile.getAngleRotation() + signum * 0.125 * Math.PI);
+			tuile.setAngleRotation(tuile.getAngleRotation() + facteur * 0.125 * Math.PI);
 			repaint();
 		}
 	}
