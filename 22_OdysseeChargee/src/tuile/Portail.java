@@ -49,7 +49,7 @@ public class Portail extends Tuile implements Serializable {
 	/** Représente l'aire du portail **/
 	private transient Area airePortail;
 	/** Représente l'aire d'une case **/
-	private Area aireCase;
+	private transient Area aireCase;
 	/** Couleur du portail **/
 	private Color couleur;
 

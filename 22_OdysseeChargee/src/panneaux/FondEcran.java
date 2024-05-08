@@ -38,9 +38,9 @@ public class FondEcran extends JPanel {
 	 * 
 	 * @param g Le contexte graphique
 	 */
-	@Override
 	// Kitimir Yim
-	protected void paintComponent(Graphics g) {
+	@Override
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(fondImage, 0, 0, this);
 	}
