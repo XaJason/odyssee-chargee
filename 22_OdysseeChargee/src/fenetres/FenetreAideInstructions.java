@@ -49,12 +49,9 @@ public class FenetreAideInstructions extends JFrame {
 			"22_Instructions-08.jpg", "22_Instructions-09.jpg", "22_Instructions-10.jpg", "22_Instructions-11.jpg",
 			"22_Instructions-12.jpg", "22_Instructions-13.jpg", "22_Instructions-14.jpg", "22_Instructions-15.jpg",
 			"22_Instructions-16.jpg", "22_Instructions-17.jpg", "22_Instructions-18.jpg", "22_Instructions-19.jpg",
-			"22_Instructions-20.jpg", "22_Instructions-21.jpg", "22_Instructions-22.jpg" };
+			"22_Instructions-20.jpg", "22_Instructions-21.jpg", "22_Instructions-22.jpg","22_Instructions-23.jpg","22_Instructions-24.jpg","22_Instructions-25.jpg" };
 
-	/**
-	 * Label attention
-	 */
-	private JLabel lblAttention;
+
 
 	/**
 	 * Constructeur: cr�e une fen�tre qui inclut une instance d'image avec
