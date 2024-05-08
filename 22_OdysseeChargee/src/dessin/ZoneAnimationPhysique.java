@@ -114,7 +114,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 	// Caractéristiques des plaques chargées
 	/** Charge initiale des plaques du niveau (en Coulomb) **/
-	private final double CHARGE_INITIALE_DES_PLAQUES = 5.0;
+	private final double CHARGE_INITIALE_DES_PLAQUES = 10.0;
 	/** Charge des plaques du niveau (en Coulomb) **/
 	private double chargeDesPlaques = CHARGE_INITIALE_DES_PLAQUES;
 	/** Liste des plaques chargées **/
@@ -132,10 +132,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private boolean fixerPlaqueSurTuile = false;
 	/** Booléen qui indique si l'on souhaite supprimer une plaque **/
 	private boolean supprimerPlaque = false;
-
+	/** Booléen qui indique si l'on souhaite réinitialiser l'état des tuiles **/
+	private boolean reinitialiserEtatTuiles = false;
+	
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
-	private final double CHARGE_INITIALE_VAISSEAU = -5.0;
+	private final double CHARGE_INITIALE_VAISSEAU = -10.0;
 	/** Masse initiale du vaisseau (en kilogramme) **/
 	private final double MASSE_INITIALE_VAISSEAU = 0.020;
 	/** Composante en X de la position initiale du vaisseau (en mètre) **/
@@ -161,11 +163,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Vecteur position du vaisseau (en mètre) **/
 	private Vecteur2D posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
 	/** Force gravitationnelle agissant sur le vaisseau **/
-	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
-	/** Sommes des forces agissant sur le vaisseau **/
-	private Vecteur2D sommeForcesSurVaisseau;
-	/** Force électrique sur le vaisseau **/
+	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);	
+	/** Forces électriques agissant sur le vaisseau **/
 	private Vecteur2D forcesElec = VEC_ZERO;
+	/** Force de frottement agissant sur le vaisseau **/
+	private Vecteur2D forceFrot = VEC_ZERO;
+	/** Somme des forces agissant sur le vaisseau **/
+	private Vecteur2D sommeForcesSurVaisseau;
+	/** Compteur de collision non trouvée **/
+	private double cptrCollisionNonTrouvee;
+	/** Constante de récurrence de collision trouvée **/
+	private final int RECURRENCE_COLLISION = 3;
 
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
@@ -424,21 +432,26 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
 						| tuile.getType().equals("Triangle équilatéral"))) {
 
-					if (tuile.contient(curseurSouris)) {
+					if (reinitialiserEtatTuiles) {
+						tuile.setPlaque(null);
+					} else {
 
-						if (tuile.getPlaque() != null & fixerPlaqueSurTuile) {
-							fixerPlaqueSurTuile = false;
-							JOptionPane.showMessageDialog(null,
-									"Vous ne pouvez pas placer plusieurs plaques au même endroit !",
-									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+						if (tuile.contient(curseurSouris)) {
+
+							if (tuile.getPlaque() != null & fixerPlaqueSurTuile) {
+								fixerPlaqueSurTuile = false;
+								JOptionPane.showMessageDialog(null,
+										"Vous ne pouvez pas placer plusieurs plaques au même endroit !",
+										"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+							}// fin 4e if
+
+							if (supprimerPlaque) {
+								supprimerPlaque(tuile);
+							} else {
+								placerPlaque(tuile);
+							}// fin 5e if
+
 						}// fin 3e if
-
-						if (supprimerPlaque) {
-							supprimerPlaque(tuile);
-						} else {
-							placerPlaque(tuile);
-						}// fin 4e if
-						
 					}// fin 2e if
 				} // fin 1er if
 			} // fin 2e boucle for
@@ -689,7 +702,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 
 		// Initialise les forces électriques agissant sur le vaisseau
-		forcesElec = VEC_ZERO;
+		forcesElec = new Vecteur2D(VEC_ZERO);
 		for (PlaqueChargee p : listePlaquesChargees) {
 			forcesElec = forcesElec.additionne(MoteurPhysique.calculForceElectriqueGenereeParPlaque(vaisseau, p));
 		}
@@ -698,11 +711,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		// Initialise les forces du réacteur dorsal agissant sur le vaisseau
 		appliquerForcesDuJetpack();
 		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceJetpack);
-
-		/*
-		 * Éventuellement il faudra initialiser
-		 * les forces de frottement (statique et cinétique)
-		 */
+		
+		// Initialise la force de frottement agissant sur le vaisseau
+		System.out.println(vaisseau.getDureeCollision());
+		if (vaisseau.getDureeCollision() > 2000) {
+			// Initialise la force normale agissant sur le vaisseau
+			sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(vaisseau.getForceNormale());
+			
+			forceFrot = MoteurPhysique.calculForceFrottement(vaisseau, sommeForcesSurVaisseau);
+			sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceFrot);
+		}
+		
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
@@ -728,12 +747,33 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		 * pourrait entrer en collision
 		 * Peut-être passer à travers une liste contenant tous les objets de la scène?
 		 */
+		vaisseau.setCollisionTrouvee(false);
 		testerCollisionsAvecPlaque();
 		testerCollisionAvecSurfaceDesBlocs();
-		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
+		testerCollisionsAvecBordures();
 		testerCollisionsAvecObjetsSpeciaux();
+		gererEtatCollisionEtForceNormale();
 	}
 
+	/**
+	 * Gère l'état de collision et la force normale du vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void gererEtatCollisionEtForceNormale() {
+		if (vaisseau.getCollisionTrouvee()) {
+			cptrCollisionNonTrouvee = 0;
+		}
+		
+		if (!vaisseau.getCollisionTrouvee()) {
+			vaisseau.setForceNormale(VEC_ZERO);
+			cptrCollisionNonTrouvee++;
+			if (cptrCollisionNonTrouvee%RECURRENCE_COLLISION == 0) {
+				vaisseau.setEnCollision(false);
+				
+			}
+		}
+	}
+	
 	/**
 	 * Teste la collision avec toutes les plaques du niveau
 	 */
@@ -750,7 +790,9 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void testerCollisionAvecSurfaceDesBlocs() {
+		
 		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
+		
 
 		for (int i = 0; i < tabTuiles.length; i++) {
 			for (int j = 0; j < tabTuiles[i].length; j++) {
@@ -761,12 +803,21 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 					for (Segment segment : tuile.getListeSegments()) {
 						vaisseau.gererCollisionAvecSegment(segment);
 					}
-
 				} // fin if
 			} // fin 2e boucle for
 		} // fin 1re boucle for
-	}
+		
+		
+	}// fin méthode
 
+	/**
+	 * Teste la collision avec toutes les bordures du niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void testerCollisionsAvecBordures() {
+		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
+	}
+	
 	/**
 	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux
 	 * (drapeau, pics, portail)
@@ -826,27 +877,34 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 		switch (choix) {
 		case 0:
-			reinitialiserEtatBoutonsDansPanelJeu();
+			miseAJourEtatBoutonsPourRecommencer();
 			break;
 		case 1:
-			PCS.firePropertyChange("retournerNiveau", null, 0);
-			break;
-		default:
-
+			miseAJourEtatBoutonsPourReinitialiser();
 			break;
 		}
 	}
 
 	/**
-	 * Envoie le message pour réinitialiser les boutons de contrôle d'animation
-	 * et réinitialiser la zone d'animation
+	 * Envoie le message pour mettre à jour les boutons de contrôle d'animation
+	 * et la zone d'animation selon le bouton Recommencer
 	 */
 	// Kitimir Yim
-	public void reinitialiserEtatBoutonsDansPanelJeu() {
-		PCS.firePropertyChange("changementBouton", null, null);
+	public void miseAJourEtatBoutonsPourRecommencer() {
+		PCS.firePropertyChange("Recommencer", null, null);
 
 	}
 
+	/**
+	 * Envoie le message pour mettre à jour les boutons de contrôle d'animation
+	 * et la zone d'animation selon le bouton Réinitialiser
+	 */
+	// Kitimir Yim
+	public void miseAJourEtatBoutonsPourReinitialiser() {
+		PCS.firePropertyChange("retournerNiveau", null, 0);
+
+	}
+	
 //	/**
 //	 * Gère la téléportation d'un portail à un autre
 //	 * 
@@ -913,16 +971,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 * tué
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void redemarrer() {
+	public void recommencer() {
 		vaisseau.setCharge(chargeVaisseau);
 		vaisseau.setMasse(masseVaisseau);
 		vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 		vaisseau.setVitesse(VEC_ZERO);
+		vaisseau.setForceNormale(VEC_ZERO);
 		// vaisseau.setAccel(VEC_ZERO);
 
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 
+		cptrCollisionNonTrouvee = 0;
 		gauche = false;
 		droite = false;
 		haut = false;
@@ -950,7 +1010,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	/**
@@ -962,13 +1021,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		vaisseau.setMasse(MASSE_INITIALE_VAISSEAU);
 		vaisseau.setPosition(new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY));
 		vaisseau.setVitesse(VEC_ZERO);
+		vaisseau.setForceNormale(VEC_ZERO);
 		// vaisseau.setAccel(VEC_ZERO);
 
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
-
+		cptrCollisionNonTrouvee = 0;
+		
+		retirerPlaquesDesTuiles();
 		listePlaquesChargees.clear();
 		nbPlaquesRestantes = 10;
+		leveeNbPlaquesRestantes();
 		gauche = false;
 		droite = false;
 		haut = false;
@@ -984,12 +1047,22 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	}
 
 	/**
+	 * Passe au travers de toutes les tuiles pour retirer leur plaque, s'il y a lieu
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void retirerPlaquesDesTuiles() {
+		reinitialiserEtatTuiles = true;
+		survolerTuilesPourTrouverCurseur();
+		reinitialiserEtatTuiles = false;
+	}
+	
+	/**
 	 * Démarrer l'animation à l'aide des flèches du clavier et met à jour le panneau
 	 * de jeu en conséquence
 	 * (changement d'état des boutons « Démarrer » et « Prochaine image »)
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public void demarrerAvecFleches() {
+	private void demarrerAvecFleches() {
 		if (!enCoursDAnimation) {
 			demarrer();
 			PCS.firePropertyChange("Démarrer", null, null);
@@ -1066,6 +1139,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		forceJetpack = new Vecteur2D(forceTemp);
 	}// fin methode
 
+	
 	// GETTERS ET SETTERS //
 	/**
 	 * Retourne la charge du vaisseau

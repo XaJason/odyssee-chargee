@@ -39,12 +39,13 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	private Vecteur2D accel = new Vecteur2D(0, 0); // par defaut
 	/** Somme des forces appliquée sur le vaisseau (en Newton) **/
 	private Vecteur2D sommeForces = new Vecteur2D(0, 0); // par defaut
+	/** Force normale agissant sur le vaisseau **/
+	private Vecteur2D forceNormale = new Vecteur2D(0, 0); // par defaut;
 
 	/** Rayon du vaisseau (en mètre) **/
 	private double rayon = 5.0;
 	/** Masse du vaisseau (en kg) **/
 	private double masse;
-
 	/** Forme servant de primitive pour le vaisseau **/
 	private Ellipse2D.Double cercle;
 
@@ -54,6 +55,15 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	 **/
 	private VaisseauImage tuile;
 
+	/** Booléen qui indique si une collision avec un segment a été trouvée **/
+	private boolean collisionTrouvee = false;
+	/** Booléen qui indique si le vaisseau est en collision **/
+	private boolean enCollision = false;
+	/** Temps de la dernière collision (en milliseconde) **/
+	private double tempsDerniereCollision;
+	/** Durée de la collision (en milliseconde) **/
+	private double dureeCollision = 0;
+	
 	// CONSTRUCTEUR //
 	/**
 	 * Constructeur du vaisseau
@@ -191,10 +201,12 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		 * mais faudra gérer différement les paramètres des méthodes
 		 * detectionCollisions et calculVitesseApresCollision
 		 */
+		//Vecteur2D vitPrecedente = vitesse;
 		vitesse = MoteurPhysique.detectionCollisionsAvecSegmentEtCalculeVitesse(this, segment);
 		creerLaGeometrie();
+		//return (vitPrecedente.module() != vitesse.module());
 	}
-
+	
 	/**
 	 * Détermine s'il y a une collision avec les bordures de la zone d'animation,
 	 * puis modifie la vitesse en conséquence
@@ -236,6 +248,16 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 	}
 
 	// GETTERS ET SETTERS //
+	/**
+	 * Retourne la somme des forces agissant sur le vaisseau
+	 * 
+	 * @return La somme des forces agissant sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getSommeDesForces() {
+		return sommeForces;
+	}
+	
 	/**
 	 * Recalcule l'accélération du vaisseau à l'aide de la nouvelle somme des forces
 	 * passée en paramètre
@@ -391,4 +413,105 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		this.tuile = tuileDuVaisseau;
 	}
 
+	/**
+	 * Retourne le booléen qui indique si une collision avec un segment a été trouvée
+	 * 
+	 * @return Le booléen qui indique si une collision avec un segment a été trouvée
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public boolean getCollisionTrouvee() {
+		return collisionTrouvee;
+	}
+
+	/**
+	 * Modifie le booléen qui indique si une collision avec un segment a été trouvée
+	 * 
+	 * @param collisionTrouvee Le nouveau booléen qui indique si une collision avec un segment a été trouvée
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setCollisionTrouvee(boolean collisionTrouvee) {
+		this.collisionTrouvee= collisionTrouvee;
+	}
+	
+	/**
+	 * Retourne le booléen qui indique si le vaisseau est en collision
+	 * 
+	 * @return Le booléen qui indique si le vaisseau est en collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public boolean getEnCollision() {
+		return enCollision;
+	}
+
+	/**
+	 * Modifie le booléen qui indique si le vaisseau est en collision
+	 * 
+	 * @param nouvelEtatDeCollision Le nouveau booléen qui indique si le vaisseau est en collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setEnCollision(boolean nouvelEtatDeCollision) {
+		double tempsActuel = System.currentTimeMillis();
+		boolean ancienEtatDeCollision = enCollision;
+		
+		// Faux Vrai
+		if (!ancienEtatDeCollision & nouvelEtatDeCollision) {
+			this.enCollision = nouvelEtatDeCollision;
+			tempsDerniereCollision = tempsActuel;
+			//setDureeCollision(0); //pas nécessaire?
+		}
+		// Vrai Vrai
+		else if (ancienEtatDeCollision & nouvelEtatDeCollision) {
+			setDureeCollision(tempsActuel - tempsDerniereCollision);
+		} 
+		// Vrai Faux
+		else if (ancienEtatDeCollision & !nouvelEtatDeCollision) {
+			this.enCollision = nouvelEtatDeCollision;
+			setDureeCollision(0);
+		}// fin if
+		
+		// Faux Faux => Il n'y a rien à faire !
+		else {
+			setDureeCollision(0);
+		}
+	}// fin méthode
+	
+	/**
+	 * Retourne la durée de la collision
+	 * 
+	 * @return La durée de la collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double getDureeCollision() {
+		return dureeCollision;
+	}
+
+	/**
+	 * Modifie la durée de la collision
+	 * 
+	 * @param dureeCollision La nouvelle durée de la collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setDureeCollision(double dureeCollision) {
+	this.dureeCollision = dureeCollision;
+	}
+	
+	/**
+	 * Retourne la force normale agissant sur le vaisseau
+	 * 
+	 * @return La force normale agissant sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getForceNormale() {
+		return forceNormale;
+	}
+	
+	/**
+	 * Modifie la force normale agissant sur le vaisseau
+	 * 
+	 * @param forceNormale La nouvelle force normale agissant sur le vaisseau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setForceNormale(Vecteur2D forceNormale) {
+		this.forceNormale = forceNormale;
+	}
 }

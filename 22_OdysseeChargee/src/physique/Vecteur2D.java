@@ -16,6 +16,7 @@ import java.io.Serializable;
  * ecrite par Simon Vezina dans le cadre du cours de physique.
  * 
  * @author Simon Vézina et Caroline Houle
+ * @author Enuel René Valentin Kizozo Izia
  */
 public class Vecteur2D implements Serializable {
 	/** Constante permettant la sérialisation de la classe **/
@@ -289,6 +290,7 @@ public class Vecteur2D implements Serializable {
 	 * @return Un nouveau vecteur ayant la même orientation que le vecteur courant,
 	 *         mais dont le module a été modifié.
 	 */
+	// Enuel René Valentin Kizozo Izia
 	public Vecteur2D changerModule(double nouveauModule) {
 		Vecteur2D nouveauVecteur;
 
@@ -303,6 +305,16 @@ public class Vecteur2D implements Serializable {
 		return nouveauVecteur;
 	}
 
+	/**
+	 * Méthode pour obtenir l'orientation d'un vecteur quelconque.
+	 * 
+	 * @return L'orientation du vecteur.
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public double orientation() {
+		return Math.atan(y/x);
+	}
+	
 	/**
 	 * Methode pour normaliser le vecteur courant.
 	 * Un vecteur normalise possede la meme orientation, mais possede une longeur
