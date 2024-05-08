@@ -755,7 +755,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void testerCollisionAvecSurfaceDesBlocs() {
-
 		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
 
 		for (int i = 0; i < tabTuiles.length; i++) {
@@ -764,6 +763,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 				if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
 						| tuile.getType().equals("Triangle équilatéral"))) {
+					// Gère collision avec les coins
+					for (Point2D.Double coin : tuile.getPointsCoin()) {
+						vaisseau.gererCollisionAvecCoin(coin);
+					}
+					// Gère collisions avec les faces latérales
 					for (Segment segment : tuile.getListeSegments()) {
 						vaisseau.gererCollisionAvecSegment(segment);
 					}
