@@ -142,6 +142,8 @@ public class Drapeau extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
+		
+		creerGeometrieContour();
 	}
 
 	/**

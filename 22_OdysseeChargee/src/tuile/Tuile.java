@@ -195,6 +195,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 		double hauteurTuileImage = -hauteurTuile;
 		g2d.drawImage(image, (int) x, (int) yImage, (int) largeurTuile, (int) hauteurTuileImage, null);
 		g2d.setTransform(transformationAffine);
+		//dessinerContour(g2d);
 	}
 
 	/**

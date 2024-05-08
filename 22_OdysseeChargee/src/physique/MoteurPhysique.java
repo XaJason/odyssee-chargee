@@ -303,9 +303,9 @@ public class MoteurPhysique {
 
 			orientationChamp = plaque.getPosition().soustrait(vaisseau.getPosition()).normalise();
 
-			// change l'orientation s'il y a répulsion
-			if (Math.signum(vaisseau.getCharge()) == Math.signum(plaque.getCharge())) {
-				orientationChamp.multiplie(-1);
+			// change l'orientation s'il la plaque est chargée positivement
+			if (Math.signum(plaque.getCharge()) > 0) {
+				orientationChamp = orientationChamp.multiplie(-1);
 			}
 
 			return orientationChamp.multiplie(moduleChamp);
