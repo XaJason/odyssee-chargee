@@ -14,8 +14,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import application.FondEcran;
 import dessin.EvaluationEtoile;
+import panneaux.FondEcran;
 import utilitaires.ConstanteComposantsSwing;
 
 /**

@@ -305,7 +305,6 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void placerTuile(MouseEvent e) {
-		PCS.firePropertyChange("Modification", null, null);
 		transformerCoordonneesSouris(e);
 		positionnerCaseEtTuile();
 		if (!supprimer) {
@@ -570,6 +569,7 @@ public class Grille extends JPanel implements Serializable {
 						}
 						System.out.println("Vous avez cliqué sur la col: " + (j + 1) + " et la ligne: " + (i + 1));
 						System.out.println("Vous avez cliqué sur la col: " + (j) + " et la ligne: " + (i));
+						PCS.firePropertyChange("Modification", null, null);
 					}
 				}
 
@@ -744,7 +744,7 @@ public class Grille extends JPanel implements Serializable {
 
 						supprimerPortailAssocie(i, j);
 						tabEmplacement[i][j] = null;
-
+						PCS.firePropertyChange("Modification", null, null);
 					}
 				}
 			}
@@ -885,6 +885,7 @@ public class Grille extends JPanel implements Serializable {
 		if (tuile != null && tuile.getType() != "Vaisseau") {
 			tuile.setAngleRotation(tuile.getAngleRotation() + facteur * 0.125 * Math.PI); // 1/16 de rotation
 			repaint();
+			
 		}
 	}
 
@@ -1063,6 +1064,7 @@ public class Grille extends JPanel implements Serializable {
 							tabEmplacement[i][j].setPoint();
 
 							repaint();
+							PCS.firePropertyChange("Modification", null, null);
 						}
 
 					}

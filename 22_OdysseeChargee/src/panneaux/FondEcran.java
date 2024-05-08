@@ -1,4 +1,4 @@
-package application;
+package panneaux;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -33,12 +33,12 @@ public class FondEcran extends JPanel {
 		fondImage = OutilsImage.lireImageEtRedimensionner(fond, facteur);
 	}
 
-	@Override
 	/**
 	 * Permet de dessiner l'image
 	 * 
 	 * @param g Le contexte graphique
 	 */
+	@Override
 	// Kitimir Yim
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

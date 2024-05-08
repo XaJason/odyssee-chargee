@@ -29,6 +29,7 @@ import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
 import niveau.Niveau;
 import niveau.Sauvegarder;
+import panneaux.FondEcran;
 import panneaux.PanelEditeur;
 import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
@@ -111,7 +112,6 @@ public class AppPrincipale22 extends JFrame {
 	 * Fichier
 	 */
 	private File objetFichier = null;
-	
 	/**
 	 * Boolean de si dans le mode Editeur
 	 */
@@ -263,7 +263,7 @@ public class AppPrincipale22 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourModeEditeur();
 				dansEditeur = true;
-				panModeEditeur.setSauvegarde(false);
+				panModeEditeur.setSauvegarde(true);
 			}
 		});
 
@@ -520,7 +520,8 @@ public class AppPrincipale22 extends JFrame {
 				modifierEtatApplicationPourModeEditeur();
 				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 				dansEditeur = true;
-				panModeEditeur.setSauvegarde(false);
+				panModeEditeur.setSauvegarde(true);
+
 			}
 		});
 		menuBar.add(mntmEditeur);
@@ -631,6 +632,7 @@ public class AppPrincipale22 extends JFrame {
 
 		panModeEditeur.getGrille().requestFocusInWindow();
 		panModeEditeur.getGrille().setDansModeJeu(false);
+
 		// panModeEditeur.getGrille().repaint();
 	}
 

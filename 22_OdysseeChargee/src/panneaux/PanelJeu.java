@@ -24,7 +24,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import application.FondEcran;
 import dessin.ZoneAnimationPhysique;
 import niveau.Niveau;
 import physique.MoteurPhysique;
@@ -144,7 +143,7 @@ public class PanelJeu extends JPanel {
 	/**
 	 * Regroupe les deux boutons de charge
 	 */
-	private final ButtonGroup buttonGroupCharges = new ButtonGroup();
+	private ButtonGroup buttonGroupCharges = new ButtonGroup();
 	/**
 	 * Check box qui conrespond au mode jetpack
 	 */

@@ -179,7 +179,7 @@ public class PanelEditeur extends JPanel {
 	/**
 	 * Boolean de si sauvegarder ou pas
 	 */
-	private boolean sauvegarde = false;
+	private boolean sauvegarde = true;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
