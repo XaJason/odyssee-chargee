@@ -586,7 +586,9 @@ public class PanelJeu extends JPanel {
 			double valeur = (double) evt.getNewValue();
 			spnChargeVaisseau.setValue(valeur);
 		}
-
+		if (evt.getPropertyName().equals("FocusZoneAnimationPhysique")) {
+			zoneAnimationPhysique.requestFocusInWindow();
+		}
 	}
 
 	/**
