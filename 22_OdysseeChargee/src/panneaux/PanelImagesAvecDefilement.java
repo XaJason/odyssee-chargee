@@ -1,4 +1,4 @@
-package fenetres;
+package panneaux;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -81,12 +81,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	private boolean pasDeSize = false;
 
 	/**
-	 * Tableau d'objets ImageIcon pour contenir les images.
-	 */
-	private ImageIcon tableauIcon[] = null;
-
-	/**
-	 * Cree un composant destin� a contenir une serie de pages (images)
+	 * Crée un composant destin� a contenir une serie de pages (images)
 	 * S,Il n'y a qu'une seule image a montrer, on peut appeler setFichierImage
 	 * S'il y a plusieurs fichiers a associer, dans lesquels on voudra naviguer avec
 	 * precedente/suivante, alors on appellera setFichiersImages
