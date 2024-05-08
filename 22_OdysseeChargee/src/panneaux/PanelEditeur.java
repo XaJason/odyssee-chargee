@@ -1043,6 +1043,8 @@ public class PanelEditeur extends JPanel {
 
 	/**
 	 * Setter pour le boolean de sauvegarde
+	 * 
+	 * @param choix nouvelle valeur de vérité pour la sauvegarde
 	 */
 	// Kitimir Yim
 	public void setSauvegarde(boolean choix) {

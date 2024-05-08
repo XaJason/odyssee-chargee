@@ -119,6 +119,7 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private boolean dansEditeur = false;
 
+	/** Zone d'animation physique du panneau de jeu */
 	private ZoneAnimationPhysique zoneAnimation;
 
 	// /** largeur d'une tuile */
@@ -726,8 +727,10 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private boolean ouiOuNon() {
 		if (!panModeEditeur.getSauvegarde()) {
-			int choix = JOptionPane.showConfirmDialog(null, "Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-			dansEditeur =false;
+			int choix = JOptionPane.showConfirmDialog(null,
+					"Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation",
+					JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			dansEditeur = false;
 
 			return choix == JOptionPane.YES_OPTION;
 		} else {

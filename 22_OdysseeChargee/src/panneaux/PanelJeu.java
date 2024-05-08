@@ -152,8 +152,11 @@ public class PanelJeu extends JPanel {
 	 * Check box qui conrespond au mode jetpack
 	 */
 	private JCheckBox chckbxModeJetpack;
-	private JLabel label;
 
+	/**
+	 * Étiquette d'indice pour l'utilisation des flèches du clavier lorsque le mode
+	 * jetpack est activé
+	 */
 	private JLabel lblIndiceFleches;
 
 	/**
@@ -496,10 +499,6 @@ public class PanelJeu extends JPanel {
 		lblIndiceChargeVaisseau.setForeground(Color.GREEN);
 		lblIndiceChargeVaisseau.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		lblIndiceChargeVaisseau.setHorizontalAlignment(SwingConstants.CENTER);
-
-		label = new JLabel("New label");
-		label.setBounds(671, 959, 46, 14);
-		fondEcran.add(label);
 
 		lblIndiceFleches = new JLabel("Utilisez les flèches du clavier pour influencer l'accélération du vaisseau!");
 		lblIndiceFleches.setHorizontalAlignment(SwingConstants.CENTER);
