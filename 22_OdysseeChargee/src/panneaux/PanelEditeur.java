@@ -317,7 +317,7 @@ public class PanelEditeur extends JPanel {
 			}
 		});
 		chckbxGrille.setSelected(true);
-		chckbxGrille.setBounds(1226, 27, 121, 27);
+		chckbxGrille.setBounds(1226, 27, 119, 27);
 		add(chckbxGrille);
 		btnCarre = new JButton();
 		btnCarre.setBounds(1095, 243, 60, 60);
@@ -360,35 +360,35 @@ public class PanelEditeur extends JPanel {
 
 		lblBlocs = new JLabel("BLOCS");
 		lblBlocs.setForeground(new Color(102, 51, 0));
-		lblBlocs.setBounds(1065, 197, 50, 22);
+		lblBlocs.setBounds(1065, 197, 51, 22);
 		add(lblBlocs);
 		lblBlocs.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		lblBlocs.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblCarre = new JLabel("[Q]");
 		lblCarre.setForeground(new Color(51, 51, 51));
-		lblCarre.setBounds(1115, 321, 21, 18);
+		lblCarre.setBounds(1115, 321, 20, 18);
 		add(lblCarre);
 		lblCarre.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblCarre.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblTriangleRectangle = new JLabel("[W]");
 		lblTriangleRectangle.setForeground(new Color(51, 51, 51));
-		lblTriangleRectangle.setBounds(1226, 321, 22, 18);
+		lblTriangleRectangle.setBounds(1226, 321, 21, 18);
 		add(lblTriangleRectangle);
 		lblTriangleRectangle.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblTriangleEquilateral = new JLabel("[E]");
 		lblTriangleEquilateral.setForeground(new Color(51, 51, 51));
-		lblTriangleEquilateral.setBounds(1339, 321, 18, 18);
+		lblTriangleEquilateral.setBounds(1339, 321, 17, 18);
 		add(lblTriangleEquilateral);
 		lblTriangleEquilateral.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblTriangleEquilateral.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblInteractifs = new JLabel("INTERACTIFS");
 		lblInteractifs.setForeground(new Color(102, 51, 0));
-		lblInteractifs.setBounds(1065, 356, 109, 22);
+		lblInteractifs.setBounds(1065, 356, 111, 22);
 		add(lblInteractifs);
 		lblInteractifs.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		lblInteractifs.setHorizontalAlignment(SwingConstants.CENTER);
@@ -428,14 +428,14 @@ public class PanelEditeur extends JPanel {
 
 		lblPortail = new JLabel("[S]");
 		lblPortail.setForeground(new Color(51, 51, 51));
-		lblPortail.setBounds(1203, 470, 18, 18);
+		lblPortail.setBounds(1203, 470, 17, 18);
 		add(lblPortail);
 		lblPortail.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
 
 		lblTypeSelectionne = new JLabel("<html><center>TUILE OU MODE<br>\r\nSÉLECTIONNÉ<html>");
 		lblTypeSelectionne.setForeground(new Color(102, 51, 0));
-		lblTypeSelectionne.setBounds(1050, 10, 130, 44);
+		lblTypeSelectionne.setBounds(1050, 10, 131, 66);
 		add(lblTypeSelectionne);
 		lblTypeSelectionne.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 
@@ -465,7 +465,7 @@ public class PanelEditeur extends JPanel {
 
 		lblDrapeau = new JLabel("[D]");
 		lblDrapeau.setForeground(new Color(51, 51, 51));
-		lblDrapeau.setBounds(1288, 470, 19, 18);
+		lblDrapeau.setBounds(1288, 470, 18, 18);
 		add(lblDrapeau);
 		lblDrapeau.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblDrapeau.setHorizontalAlignment(SwingConstants.CENTER);
@@ -485,7 +485,7 @@ public class PanelEditeur extends JPanel {
 
 		lblActions = new JLabel("ACTIONS");
 		lblActions.setForeground(new Color(102, 51, 0));
-		lblActions.setBounds(1065, 510, 74, 22);
+		lblActions.setBounds(1065, 510, 75, 22);
 		add(lblActions);
 		lblActions.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		lblActions.setHorizontalAlignment(SwingConstants.CENTER);
@@ -514,14 +514,14 @@ public class PanelEditeur extends JPanel {
 
 		lblRotationPostPlacement = new JLabel("<html><center>ROTATION<br>POST-PLACEMENT<br>\r\n[T]<html>");
 		lblRotationPostPlacement.setForeground(new Color(51, 51, 51));
-		lblRotationPostPlacement.setBounds(1085, 610, 82, 39);
+		lblRotationPostPlacement.setBounds(1085, 610, 84, 39);
 		add(lblRotationPostPlacement);
 		lblRotationPostPlacement.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 
 		lblRotationPrePlacement = new JLabel(
 				"<html><trailing>ROTATION<br>PRÉ-PLACEMENT<br>\r\n[R] OU DÉFILEMENT<br>MOLETTE<html>");
 		lblRotationPrePlacement.setForeground(new Color(102, 51, 0));
-		lblRotationPrePlacement.setBounds(1285, 90, 130, 90);
+		lblRotationPrePlacement.setBounds(1285, 90, 127, 72);
 		add(lblRotationPrePlacement);
 		lblRotationPrePlacement.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		lblRotationPrePlacement.setHorizontalAlignment(SwingConstants.CENTER);
@@ -557,7 +557,7 @@ public class PanelEditeur extends JPanel {
 
 		lblReinitialiser = new JLabel("<html><center>RÉINITIALISER<br>\r\n[CTRL + R]<html>");
 		lblReinitialiser.setForeground(new Color(51, 51, 51));
-		lblReinitialiser.setBounds(1311, 610, 74, 26);
+		lblReinitialiser.setBounds(1311, 610, 77, 26);
 		add(lblReinitialiser);
 		lblReinitialiser.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblReinitialiser.setHorizontalAlignment(SwingConstants.CENTER);
@@ -576,7 +576,7 @@ public class PanelEditeur extends JPanel {
 
 		lblSupprimer = new JLabel("<html><center>SUPPRESSION<br>\r\n[ESPACE],<br>CLIC DROIT<br><html>");
 		lblSupprimer.setForeground(new Color(51, 51, 51));
-		lblSupprimer.setBounds(1200, 610, 66, 39);
+		lblSupprimer.setBounds(1200, 610, 68, 39);
 		add(lblSupprimer);
 		lblSupprimer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
 		lblSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -597,7 +597,7 @@ public class PanelEditeur extends JPanel {
 		lblEssayer.setForeground(new Color(51, 51, 51));
 		lblEssayer.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEssayer.setFont(new Font("Comic Sans MS", Font.PLAIN, 9));
-		lblEssayer.setBounds(1079, 721, 96, 39);
+		lblEssayer.setBounds(1079, 721, 97, 39);
 		add(lblEssayer);
 
 	}

@@ -108,7 +108,7 @@ public class FenetreReglage extends JFrame {
 		lblVolume.setBounds(421, 126, 45, 13);
 		getContentPane().add(lblVolume);
 
-		lblEvalutation = new JLabel("Qu'en pensez vous d'Odyssée chargée?");
+		lblEvalutation = new JLabel("Que pensez vous d'Odyssée chargée?");
 		lblEvalutation.setForeground(new Color(255, 255, 255));
 		lblEvalutation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEvalutation.setBounds(306, 245, 275, 20);
