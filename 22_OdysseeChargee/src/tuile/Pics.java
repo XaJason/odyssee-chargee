@@ -104,7 +104,7 @@ public class Pics extends Tuile implements Serializable {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
 		g2dPrive.setColor(Color.red);
-		//g2dPrive.draw(contour);
+		// g2dPrive.draw(contour);
 		// AffineTransform transformationAffine = g2dPrive.getTransform();
 		/*
 		 * Ajustement d'un paramètre pour dessiner l'image à cause des transformations
@@ -160,7 +160,7 @@ public class Pics extends Tuile implements Serializable {
 			i.setLocation(i.getX() + largeurTuile / 2 + x, i.getY() + hauteurTuile / 2 + y);
 			pointsCoin.add(i);
 		}
-
+		creerGeometrieContour();
 	}
 
 	/**

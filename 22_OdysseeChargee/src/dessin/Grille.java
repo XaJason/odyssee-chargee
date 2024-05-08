@@ -22,6 +22,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Random;
+
 import javax.swing.JPanel;
 
 import tuile.Carre;
@@ -127,7 +128,8 @@ public class Grille extends JPanel implements Serializable {
 	/** Booléen qui indique l'état du déplacement d'une tuile unique **/
 	private boolean deplacementTuileUnique = false;
 	/**
-	 * Compte qui permet de de déterminer si le deplacement des tuiles uniques peut être fais
+	 * Compte qui permet de de déterminer si le deplacement des tuiles uniques peut
+	 * être fais
 	 */
 	private int compterCoupClique = 0;
 
@@ -207,19 +209,9 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if (rotationPostPlacement) {
-				} else {
-					reinitialiseStatutTuileUnique();
-					if (deplacementTuileUnique) {
-						compterCoupClique++;
-						if (compterCoupClique > 1) {
-							placerTuile(e);
-						}
-					} else {
-						placerTuile(e);
-					}
-				}
+				gererSourieCliqueGlisser(e);
 			}
+
 		});
 	}// Fin constructeur
 
@@ -313,12 +305,12 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Giroux
 	private void placerTuile(MouseEvent e) {
+		PCS.firePropertyChange("Modification", null, null);
 		transformerCoordonneesSouris(e);
 		positionnerCaseEtTuile();
 		if (!supprimer) {
 			if (tuile != null) {
 				sauvegarderEmplacement();
-
 			}
 		} else {
 			supprimerCase();
@@ -372,11 +364,7 @@ public class Grille extends JPanel implements Serializable {
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
 
-//			if (supprimer) {
-//				setBackground(Color.red);
-//			} else {
 			setBackground(new Color(255, 255, 128));
-//			}
 
 			if (supprimer) {
 				g2dPrive.setColor(new Color(255, 0, 0, 100));
@@ -433,7 +421,6 @@ public class Grille extends JPanel implements Serializable {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
 						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
 						if (!supprimer && tuile != null) {
-							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
 							tuile.setX(largeurCase * j);
 							tuile.setY(hauteurCase * i);
 						}
@@ -442,7 +429,6 @@ public class Grille extends JPanel implements Serializable {
 						} else {
 							placePrise = false;
 						}
-						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
 				}
 
@@ -467,7 +453,6 @@ public class Grille extends JPanel implements Serializable {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
 						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
 						if (!supprimer && tuile != null) {
-							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
 							tuile.setX(largeurCase * j);
 							tuile.setY(hauteurCase * i);
 						}
@@ -476,7 +461,6 @@ public class Grille extends JPanel implements Serializable {
 						} else {
 							placePrise = false;
 						}
-						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
 				}
 
@@ -516,8 +500,7 @@ public class Grille extends JPanel implements Serializable {
 	}// Fin méthode
 
 	/**
-	 * Méthode qui fait afficher la grille si elle n'y est pas, ou l'enlève si elle
-	 * y est
+	 * Modifie la valeur d'affichage de la grille
 	 * 
 	 * @param condition vrai si l'on désire afficher le quadrillage
 	 */
@@ -572,7 +555,7 @@ public class Grille extends JPanel implements Serializable {
 								compterCoupClique = 0;
 								tuile = null;
 								PCS.firePropertyChange("Drapeau", null, false);
-								
+
 							} else if (tuileTemp.getVaisseau() && !vaisseau) {
 								vaisseau = true;
 								deplacementTuileUnique = false;
@@ -691,7 +674,7 @@ public class Grille extends JPanel implements Serializable {
 	// Giroux
 	public void dessinerTuileLorsSurvol(Graphics2D g2d) {
 		if (!exterieurComposant) {
-			
+
 			if (tuile != null && !supprimer && !rotationPostPlacement) {
 				tuile.dessiner(g2d);
 			}
@@ -890,8 +873,8 @@ public class Grille extends JPanel implements Serializable {
 	}
 
 	/**
-	 * Applique un quart de rotation horaire à la tuile sélectionnée selon le signe
-	 * de l'argument
+	 * Applique une fraction de rotation horaire à la tuile sélectionnée selon le
+	 * facteur
 	 * 
 	 * @param facteur Facteur scalaire déterminant l'angle et le sens de rotation
 	 *                appliqué à un facteur de 16e de rotation
@@ -1053,7 +1036,8 @@ public class Grille extends JPanel implements Serializable {
 	 * Retourne vrai si la grille ne contient que des portails liés Donc qu'il y a
 	 * un nombre pair de portails
 	 * 
-	 * @return Un booléen qui indique si tous les portails de la grille sont liés à un autre
+	 * @return Un booléen qui indique si tous les portails de la grille sont liés à
+	 *         un autre
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public boolean portailsTousLies() {
@@ -1137,7 +1121,7 @@ public class Grille extends JPanel implements Serializable {
 			placerTuile(e);
 			break;
 		case MouseEvent.BUTTON1:
-			if(supprimer) {
+			if (supprimer) {
 				supprimerCase();
 			}
 			if (rotationPostPlacement) {
@@ -1156,21 +1140,6 @@ public class Grille extends JPanel implements Serializable {
 
 			break;
 
-//			
-//			if (!supprimer && !rotationPostPlacement) {
-//				transformerCoordonneesSouris(e);
-//				reinitialiseStatutTuileUnique();
-//			} else if (deplacementTuileUnique) {
-//				deplacementTuileUnique = false;
-//			} else if (rotationPostPlacement) {
-//				transformerCoordonneesSouris(e);
-//				rotationPostPlacement();
-//			} else if (supprimer) {
-//				supprimerCase();
-//			} else {
-//				placerTuile(e);
-//			}
-//			break;
 		}
 		gererCurseur();
 	}
@@ -1209,7 +1178,6 @@ public class Grille extends JPanel implements Serializable {
 		} else if (rotationPostPlacement) {
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
 			Image image = toolkit.getImage("ressources/rotationPostPlacementVert.png");
-//			Point pointMilieuImage = new Point((int)(image.getWidth(null)/2),(int) (image.getHeight(null)/2));
 			Cursor c = toolkit.createCustomCursor(image, new Point(0, 0), "Le curseur");
 			setCursor(c);
 
@@ -1228,7 +1196,8 @@ public class Grille extends JPanel implements Serializable {
 			if (sourisEnMetreY >= i * hauteurCase && sourisEnMetreY < ((i + 1) * hauteurCase)) {
 				for (int j = 0; j < nbCaseHorizontale; j++) {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
-						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique && tuile==null) {
+						if (tabEmplacement[i][j] != null && !rotationPostPlacement && !deplacementTuileUnique
+								&& tuile == null) {
 							if (tabEmplacement[i][j].getDrapeau() && drapeau) {
 								deplacementTuileUnique = true;
 								drapeau = false;
@@ -1266,5 +1235,25 @@ public class Grille extends JPanel implements Serializable {
 		this.exterieurComposant = exterieurComposant;
 	}
 
+	/**
+	 * Méthode qui indique quoi faire quand clique et glisse
+	 * 
+	 * @param e L'évenement sourie
+	 */
+	// Giroux
+	private void gererSourieCliqueGlisser(MouseEvent e) {
+		if (rotationPostPlacement) {
+		} else {
+			reinitialiseStatutTuileUnique();
+			if (deplacementTuileUnique) {
+				compterCoupClique++;
+				if (compterCoupClique > 1) {
+					placerTuile(e);
+				}
+			} else {
+				placerTuile(e);
+			}
+		}
+	}
 }
 // Fin classe

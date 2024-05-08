@@ -30,6 +30,8 @@ import tuile.Tuile;
 import tuile.VaisseauImage;
 import utilitaires.Aire;
 import utilitaires.OutilsImage;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * Composant illustrant la simulation :
@@ -134,7 +136,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private boolean supprimerPlaque = false;
 	/** Booléen qui indique si l'on souhaite réinitialiser l'état des tuiles **/
 	private boolean reinitialiserEtatTuiles = false;
-	
+
 	// Caractéristiques du vaisseau (Constantes)
 	/** Charge initiale du vaisseau (en Coulomb) **/
 	private final double CHARGE_INITIALE_VAISSEAU = -10.0;
@@ -163,7 +165,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	/** Vecteur position du vaisseau (en mètre) **/
 	private Vecteur2D posVaisseau = new Vecteur2D(posDeSauvegardeX, posDeSauvegardeY);
 	/** Force gravitationnelle agissant sur le vaisseau **/
-	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);	
+	private Vecteur2D forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
 	/** Forces électriques agissant sur le vaisseau **/
 	private Vecteur2D forcesElec = VEC_ZERO;
 	/** Force de frottement agissant sur le vaisseau **/
@@ -201,6 +203,12 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public ZoneAnimationPhysique() {
+		addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				lancerFocusPerdu();
+			}
+		});
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -264,14 +272,15 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		niveau = Sauvegarder.chargerNiveauDeBase("Niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
-		
+
 	}// fin constructeur
 
 	/**
 	 * Méthode qui déterminer si le mode JetPack est activé ou non
+	 * 
 	 * @param modeJetpack Vrai si on l'active, faux sinon
 	 */
-	//Giroux
+	// Giroux
 	public void setModeJetpack(boolean modeJetpack) {
 		this.modeJetpack = modeJetpack;
 	}
@@ -363,11 +372,11 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void fixerPlaque(MouseEvent e) {
-		if (placementPlaque) { 
+		if (placementPlaque) {
 			fixerPlaqueSurTuile = true;
 			survolerTuilesPourTrouverCurseur();
 			fixerPlaqueSurTuile = false;
-		}// fin if
+		} // fin if
 	}// fin méthode
 
 	/**
@@ -443,16 +452,16 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 								JOptionPane.showMessageDialog(null,
 										"Vous ne pouvez pas placer plusieurs plaques au même endroit !",
 										"Avertissement", JOptionPane.WARNING_MESSAGE, null);
-							}// fin 4e if
+							} // fin 4e if
 
 							if (supprimerPlaque) {
 								supprimerPlaque(tuile);
 							} else {
 								placerPlaque(tuile);
-							}// fin 5e if
+							} // fin 5e if
 
-						}// fin 3e if
-					}// fin 2e if
+						} // fin 3e if
+					} // fin 2e if
 				} // fin 1er if
 			} // fin 2e boucle for
 		} // fin 1ere boucle for
@@ -467,7 +476,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void placerPlaque(Tuile tuile) {
-		
+
 		// Recréer les aires des tuiles, car elles ne sont pas chargeables dans un
 		// fichier binaire
 		if (tuile.getAires() == null) {
@@ -492,7 +501,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				JOptionPane.showMessageDialog(null,
 						"Il ne vous reste plus de plaques !"
 								+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits.",
-								"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+						"Avertissement", JOptionPane.WARNING_MESSAGE, null);
 			} // fin 3e if
 
 			if (fixerPlaqueSurTuile & nbPlaquesRestantes > 0) {
@@ -505,31 +514,31 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				leveeNbPlaquesRestantes();
 				repaint();
 				if (nbPlaquesRestantes == 0) {
-					JOptionPane.showMessageDialog(null,
-							"Attention! Vous venez de placer votre dernière plaque."
-									+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits ou commencez à jouer!",
-									"Avertissement", JOptionPane.WARNING_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Attention! Vous venez de placer votre dernière plaque."
+							+ "\nRetirez-en si vous souhaitez en placer à d'autres endroits ou commencez à jouer!",
+							"Avertissement", JOptionPane.WARNING_MESSAGE, null);
 				} // fin 5e if
 			} // fin 4e if
 		} // fin 2e if
 	}
-	
+
 	/**
 	 * Permet de supprimer la plaque sur laquelle on vient de cliquer à l'aide de la
 	 * souris
 	 * 
-	 * @param tuile La tuile sur laquelle se trouve la plaque que l'on souhaite supprimer
+	 * @param tuile La tuile sur laquelle se trouve la plaque que l'on souhaite
+	 *              supprimer
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void supprimerPlaque(Tuile tuile) {
 		if (tuile.getPlaque() != null) {
-					listePlaquesChargees.remove(tuile.getPlaque());
-					tuile.setPlaque(null);
-					nbPlaquesRestantes++;
-					leveeNbPlaquesRestantes();
-		}// fin 1er if
+			listePlaquesChargees.remove(tuile.getPlaque());
+			tuile.setPlaque(null);
+			nbPlaquesRestantes++;
+			leveeNbPlaquesRestantes();
+		} // fin 1er if
 	}// fin méthode
-	
+
 	/**
 	 * Définit les dimensions des tuiles et lit leur image
 	 */
@@ -631,17 +640,18 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 
 					if (tuile != null) {
 
-						if (tuile != null && (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
-								| tuile.getType().equals("Triangle équilatéral"))) {
+						if (tuile != null
+								&& (tuile.getType().equals("Carré") | tuile.getType().equals("Triangle rectangle")
+										| tuile.getType().equals("Triangle équilatéral"))) {
 
 							if (tuile.contient(curseurSouris)) {
 								plaque.dessiner(g2d);
-							}//fin 4e if
-						}// fin 3e if
-					}// fin 2e if
-				}//fin 2e boucle
-			}//fin 1ere boucle
-		}//fin 1er if
+							} // fin 4e if
+						} // fin 3e if
+					} // fin 2e if
+				} // fin 2e boucle
+			} // fin 1ere boucle
+		} // fin 1er if
 	}
 
 	/**
@@ -711,17 +721,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		// Initialise les forces du réacteur dorsal agissant sur le vaisseau
 		appliquerForcesDuJetpack();
 		sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceJetpack);
-		
+
 		// Initialise la force de frottement agissant sur le vaisseau
 		System.out.println(vaisseau.getDureeCollision());
 		if (vaisseau.getDureeCollision() > 2000) {
 			// Initialise la force normale agissant sur le vaisseau
 			sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(vaisseau.getForceNormale());
-			
+
 			forceFrot = MoteurPhysique.calculForceFrottement(vaisseau, sommeForcesSurVaisseau);
 			sommeForcesSurVaisseau = sommeForcesSurVaisseau.additionne(forceFrot);
 		}
-		
+
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		vaisseau.avancerUnPas(deltaT);
 
@@ -763,17 +773,17 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		if (vaisseau.getCollisionTrouvee()) {
 			cptrCollisionNonTrouvee = 0;
 		}
-		
+
 		if (!vaisseau.getCollisionTrouvee()) {
 			vaisseau.setForceNormale(VEC_ZERO);
 			cptrCollisionNonTrouvee++;
-			if (cptrCollisionNonTrouvee%RECURRENCE_COLLISION == 0) {
+			if (cptrCollisionNonTrouvee % RECURRENCE_COLLISION == 0) {
 				vaisseau.setEnCollision(false);
-				
+
 			}
 		}
 	}
-	
+
 	/**
 	 * Teste la collision avec toutes les plaques du niveau
 	 */
@@ -790,9 +800,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void testerCollisionAvecSurfaceDesBlocs() {
-		
+
 		Tuile[][] tabTuiles = niveau.getGrille().getTableau();
-		
 
 		for (int i = 0; i < tabTuiles.length; i++) {
 			for (int j = 0; j < tabTuiles[i].length; j++) {
@@ -806,8 +815,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 				} // fin if
 			} // fin 2e boucle for
 		} // fin 1re boucle for
-		
-		
+
 	}// fin méthode
 
 	/**
@@ -817,7 +825,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	private void testerCollisionsAvecBordures() {
 		vaisseau.gererCollisionAvecBordures(largeurDuComposantEnMetres, hauteurDuComposantEnMetres);
 	}
-	
+
 	/**
 	 * Méthode qui teste si le vaisseau entre en collision avec des objets spéciaux
 	 * (drapeau, pics, portail)
@@ -904,7 +912,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		PCS.firePropertyChange("retournerNiveau", null, 0);
 
 	}
-	
+
 //	/**
 //	 * Gère la téléportation d'un portail à un autre
 //	 * 
@@ -1027,7 +1035,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		cptrCollisionNonTrouvee = 0;
-		
+
 		retirerPlaquesDesTuiles();
 		listePlaquesChargees.clear();
 		nbPlaquesRestantes = 10;
@@ -1055,7 +1063,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		survolerTuilesPourTrouverCurseur();
 		reinitialiserEtatTuiles = false;
 	}
-	
+
 	/**
 	 * Démarrer l'animation à l'aide des flèches du clavier et met à jour le panneau
 	 * de jeu en conséquence
@@ -1139,7 +1147,6 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		forceJetpack = new Vecteur2D(forceTemp);
 	}// fin methode
 
-	
 	// GETTERS ET SETTERS //
 	/**
 	 * Retourne la charge du vaisseau
@@ -1477,6 +1484,14 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		// p.setCharge(signePlaque*chargeDesPlaques);
 		// }// fin for
 		repaint();
+	}
+
+	/**
+	 * Lance l'évènement qui demande le focus dans la fenêtre
+	 */
+	// Jason Xa
+	private void lancerFocusPerdu() {
+		PCS.firePropertyChange("FocusZoneAnimationPhysique", null, null);
 	}
 
 }
