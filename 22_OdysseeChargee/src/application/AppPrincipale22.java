@@ -186,15 +186,6 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	// /**
-	// * Gère les constantes réutilisées hors de cette classe
-	// */
-	// // Jason Xa
-	// private void gererConstantes() {
-	// Tuile.setHauteurTuile(HAUTEUR_TUILE);
-	// Tuile.setLargeurTuile(LARGEUR_TUILE);
-	// }
-
-	// /**
 	// * Lit, redimensionne et définit l'image pour chaque type de tuile
 	// */
 	// // Enuel René Valentin Kizozo Izia
@@ -217,13 +208,10 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private void creerBoutons() {
 
-
 		FondEcran fondEcran = new FondEcran("fond.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		panMenuPrincipal.add(fondEcran);
 		fondEcran.setLayout(null);
-
-
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
@@ -402,7 +390,7 @@ public class AppPrincipale22 extends JFrame {
 	 * Chargement des niveau avec un JFileChooser vers la zone d'animation physique
 	 * 
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private void chargerNiveauVersZoneAnimationPhysique() {
 
 		JFileChooser fichierNiveaux = new JFileChooser();
@@ -422,7 +410,6 @@ public class AppPrincipale22 extends JFrame {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveau);
 			miseAJourChargementNiveau();
 		}
-
 
 	}// fin méthode
 
@@ -447,7 +434,7 @@ public class AppPrincipale22 extends JFrame {
 			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
 			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
-		}// fin if
+		} // fin if
 	}// fin méthode
 
 	/**
@@ -489,32 +476,29 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmPrincipale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(dansEditeur) {
-					if(ouiOuNon()) {
+				if (dansEditeur) {
+					if (ouiOuNon()) {
 						modifierEtatApplicationPourMenuPrincipal();
 						panModeJeu.reinitialiserPanneauEtZoneAnimation();
-					}else {
+					} else {
 						dansEditeur = true;
-					} if(panModeEditeur.getSauvegarde()) {
+					}
+					if (panModeEditeur.getSauvegarde()) {
 						modifierEtatApplicationPourMenuPrincipal();
 						panModeJeu.reinitialiserPanneauEtZoneAnimation();
-				
+
 					}
 
 				}
 
-				if(!dansEditeur) {
+				if (!dansEditeur) {
 
 					modifierEtatApplicationPourMenuPrincipal();
 					panModeJeu.reinitialiserPanneauEtZoneAnimation();
-					
+
 				}
-		
-			
 
 			}
-
-
 
 		});
 		menuBar.add(mntmPrincipale);
@@ -526,35 +510,31 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(dansEditeur) {
-					if(ouiOuNon()) {
+				if (dansEditeur) {
+					if (ouiOuNon()) {
 						modifierEtatApplicationPourSelectionNiveau();
 						panModeJeu.reinitialiserPanneauEtZoneAnimation();
-						
-					}else {
+
+					} else {
 						dansEditeur = true;
-					
+
 					}
-					if(panModeEditeur.getSauvegarde()) {
+					if (panModeEditeur.getSauvegarde()) {
 						modifierEtatApplicationPourSelectionNiveau();
 						panModeJeu.reinitialiserPanneauEtZoneAnimation();
-						
+
 					}
 
 				}
 
-				if(!dansEditeur) {
+				if (!dansEditeur) {
 
 					modifierEtatApplicationPourSelectionNiveau();
 					panModeJeu.reinitialiserPanneauEtZoneAnimation();
-					
+
 				}
-			
-			
 
 			}
-
-		
 
 		});
 		menuBar.add(mntmSelection);
@@ -564,7 +544,6 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
 
 				modifierEtatApplicationPourModeEditeur();
 				panModeJeu.reinitialiserPanneauEtZoneAnimation();
@@ -622,6 +601,7 @@ public class AppPrincipale22 extends JFrame {
 		menuBar.add(mntmQuitter);
 
 	}
+
 	/**
 	 * Série d'action effectuée afin de modifier l'état de l'application,
 	 * lorsqu'on accède au menu principal:
@@ -737,17 +717,21 @@ public class AppPrincipale22 extends JFrame {
 			volume.setValue(20f * (float) Math.log10((float) valeurEntre0Et1));
 		}
 	}
+
 	/**
 	 * Vérifie si la sauvegarde a été effectué
+	 * 
 	 * @return boolean vrai ou faux
 	 */
-	//Kitimir Yim
+	// Kitimir Yim
 	private boolean ouiOuNon() {
 		if (!panModeEditeur.getSauvegarde()) {
-			int choix = JOptionPane.showConfirmDialog(null, "Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			int choix = JOptionPane.showConfirmDialog(null,
+					"Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation",
+					JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			return choix == JOptionPane.YES_OPTION;
 		} else {
-			
+
 			return false;
 		}
 	}
