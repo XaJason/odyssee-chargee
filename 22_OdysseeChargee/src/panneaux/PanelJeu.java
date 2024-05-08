@@ -24,7 +24,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import application.FondEcran;
 import dessin.ZoneAnimationPhysique;
 import niveau.Niveau;
 import physique.MoteurPhysique;

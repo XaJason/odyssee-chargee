@@ -1,4 +1,4 @@
-package application;
+package panneaux;
 
 import java.awt.Graphics;
 import java.awt.Image;

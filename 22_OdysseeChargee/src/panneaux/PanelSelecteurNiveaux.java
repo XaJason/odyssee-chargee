@@ -8,7 +8,6 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import application.FondEcran;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 

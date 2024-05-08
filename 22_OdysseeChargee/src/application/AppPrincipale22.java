@@ -29,6 +29,7 @@ import fenetres.FenetreAideInstructions;
 import fenetres.FenetreReglage;
 import niveau.Niveau;
 import niveau.Sauvegarder;
+import panneaux.FondEcran;
 import panneaux.PanelEditeur;
 import panneaux.PanelJeu;
 import panneaux.PanelSelecteurNiveaux;
