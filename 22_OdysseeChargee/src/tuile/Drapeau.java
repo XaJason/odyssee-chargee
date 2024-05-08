@@ -151,11 +151,7 @@ public class Drapeau extends Tuile implements Serializable {
 	 */
 	// Kitimir Yim
 	public Area formerAireObjetSpecial() {
-
-		Rectangle2D rectangle = new Rectangle2D.Double(getPointZero().getX(), getPointZero().getY(), largeurTuile,
-				hauteurTuile);
-
-		Area aireDrapeau = new Area(rectangle);
+		Area aireDrapeau = new Area(contour);
 		return aireDrapeau;
 	}
 
