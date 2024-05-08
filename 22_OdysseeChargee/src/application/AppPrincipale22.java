@@ -114,6 +114,11 @@ public class AppPrincipale22 extends JFrame {
 	/**
 	 * Zone de la ZoneAnimationPhysique
 	 */
+	/**
+	 * Boolean de si dans le mode Editeur
+	 */
+	private boolean dansEditeur = false;
+
 	private ZoneAnimationPhysique zoneAnimation;
 
 	// /** largeur d'une tuile */
@@ -174,10 +179,10 @@ public class AppPrincipale22 extends JFrame {
 		// lireImages();
 		// gererConstantes();
 
-		 if (leClip != null)
-		 leClip.close();
-		 chargerLeSon(NOM_FICHIER_SON_1);
-		 leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		if (leClip != null)
+			leClip.close();
+		chargerLeSon(NOM_FICHIER_SON_1);
+		leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	// /**
@@ -212,13 +217,13 @@ public class AppPrincipale22 extends JFrame {
 	// Kitimir Yim
 	private void creerBoutons() {
 
-		
+
 		FondEcran fondEcran = new FondEcran("fond.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		panMenuPrincipal.add(fondEcran);
 		fondEcran.setLayout(null);
-		
-		
+
+
 
 		JButton btnModeEditeur = new JButton("Éditeur de niveau");
 		btnModeEditeur.setFocusable(false);
@@ -266,6 +271,7 @@ public class AppPrincipale22 extends JFrame {
 		btnSelectionDeNiveau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourSelectionNiveau();
+				dansEditeur = false;
 			}
 		});
 
@@ -296,6 +302,7 @@ public class AppPrincipale22 extends JFrame {
 		btnModeEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourModeEditeur();
+				dansEditeur = true;
 			}
 		});
 
@@ -382,9 +389,9 @@ public class AppPrincipale22 extends JFrame {
 
 				if (evt.getPropertyName().equals("passerVersJeu")) {
 					chargerNiveauVersZoneAnimationPhysique();
-				
+
 				}
-				
+
 			}
 		});
 
@@ -396,26 +403,26 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	//Kitimir Yim
 	private void chargerNiveauVersZoneAnimationPhysique() {
-		
-			JFileChooser fichierNiveaux = new JFileChooser();
-			String userHome = System.getProperty("user.home");
-			String oneDrive = userHome + File.separator + "OneDrive";
-			String documents = oneDrive + File.separator + "Documents";
-			String mesTrucs = documents + File.separator + "MesTrucs";
-			fichierNiveaux.setCurrentDirectory(new File(mesTrucs));
-			
-			int resultat = fichierNiveaux.showOpenDialog(AppPrincipale22.this);
 
-			if (resultat == JFileChooser.APPROVE_OPTION) {
+		JFileChooser fichierNiveaux = new JFileChooser();
+		String userHome = System.getProperty("user.home");
+		String oneDrive = userHome + File.separator + "OneDrive";
+		String documents = oneDrive + File.separator + "Documents";
+		String mesTrucs = documents + File.separator + "MesTrucs";
+		fichierNiveaux.setCurrentDirectory(new File(mesTrucs));
 
-				File fichierChoisi = fichierNiveaux.getSelectedFile();
-				String nomFichier = fichierChoisi.getName();
-				Niveau niveau = Sauvegarder.chargerNiveauMesTrucs(nomFichier);
-				panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveau);
-				miseAJourChargementNiveau();
-			}
-		
-	
+		int resultat = fichierNiveaux.showOpenDialog(AppPrincipale22.this);
+
+		if (resultat == JFileChooser.APPROVE_OPTION) {
+
+			File fichierChoisi = fichierNiveaux.getSelectedFile();
+			String nomFichier = fichierChoisi.getName();
+			Niveau niveau = Sauvegarder.chargerNiveauMesTrucs(nomFichier);
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveau);
+			miseAJourChargementNiveau();
+		}
+
+
 	}// fin méthode
 
 	/**
@@ -481,7 +488,7 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmPrincipale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				dansEditeur = false;
 				panMenuPrincipal.setVisible(true);
 				panModeEditeur.setVisible(false);
 				panSelecteurNiveau.setVisible(false);
@@ -500,8 +507,35 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				modifierEtatApplicationPourSelectionNiveau();
-				panModeJeu.reinitialiserPanneauEtZoneAnimation();
+				if(dansEditeur) {
+					if(ouiOuNon()) {
+						modifierEtatApplicationPourSelectionNiveau();
+						panModeJeu.reinitialiserPanneauEtZoneAnimation();
+						dansEditeur = false;
+					}else if(panModeEditeur.getSauvegarde()) {
+						modifierEtatApplicationPourSelectionNiveau();
+						panModeJeu.reinitialiserPanneauEtZoneAnimation();
+						dansEditeur = false;
+					}
+
+				}
+
+				if(!dansEditeur) {
+
+					modifierEtatApplicationPourSelectionNiveau();
+					panModeJeu.reinitialiserPanneauEtZoneAnimation();
+					dansEditeur = false;
+				}
+
+			}
+
+			private boolean ouiOuNon() {
+				if (!panModeEditeur.getSauvegarde()) {
+					int choix = JOptionPane.showConfirmDialog(null, "Vous n'avez pas sauvegardé vos modifications. Êtes-vous sûr de vouloir quitter ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					return choix == JOptionPane.YES_OPTION;
+				} else {
+					return false;
+				}
 			}
 
 		});
@@ -512,6 +546,8 @@ public class AppPrincipale22 extends JFrame {
 
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dansEditeur = true;
+
 				modifierEtatApplicationPourModeEditeur();
 				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 			}
