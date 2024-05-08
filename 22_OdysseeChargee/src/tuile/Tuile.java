@@ -86,12 +86,6 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	protected transient Aire[] aires;
 
 	/**
-	 * index de l'aire survolée dans le tableau d'aires de sélection pour les
-	 * plaques chargées
-	 */
-	private int indexAireSurvolee;
-
-	/**
 	 * Matrice de rotation utilisée lorsqu'on appuie sur les boutons de rotation
 	 **/
 	protected MatriceRotation matricePostCreation;
@@ -505,7 +499,7 @@ public class Tuile /* extends OutilsImage */ implements Dessinable, Serializable
 	public void setPoint() {
 		pointInitial = new Point2D.Double(0, 0);
 		rotation = new MatriceRotation(-this.angleRotation);
-		
+
 		creerLaGeometrie();
 	}
 

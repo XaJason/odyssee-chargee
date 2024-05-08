@@ -81,12 +81,6 @@ public class PanelEditeur extends JPanel {
 	private JButton btnDrapeau;
 	/** étiquette servant à afficher le type de tuile sélectionné */
 	private JLabel lblTypeSelectionne;
-
-	/**
-	 * chaine de caractères pour l'étiquette d'affichage de type de tuile
-	 * sélectionné
-	 */
-	private String preTexteTypeSelectionne = "Type de tuile sélectionné: ";
 	/** bouton permettant la réinitialisation de la grille */
 	private JButton btnReinitialiser;
 	/** bouton permettant de gérer la suppression de tuile */
@@ -643,15 +637,17 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Kitimir Yim
 	private void sauvegarderNiveau() {
-		   String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau", JOptionPane.PLAIN_MESSAGE);
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+				JOptionPane.PLAIN_MESSAGE);
 
-		    if (nom != null && !nom.trim().isEmpty()) {
-		        Niveau niveauParDefaut = new Niveau(grille, nom);
-		        sauvegarder(niveauParDefaut);
-		    } else {
-		        
-		    	JOptionPane.showMessageDialog(null, "La sauvegarde est annulée.", "Annulation de sauvegarde", JOptionPane.WARNING_MESSAGE);
-		    }
+		if (nom != null && !nom.trim().isEmpty()) {
+			Niveau niveauParDefaut = new Niveau(grille, nom);
+			sauvegarder(niveauParDefaut);
+		} else {
+
+			JOptionPane.showMessageDialog(null, "La sauvegarde est annulée.", "Annulation de sauvegarde",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	/**
