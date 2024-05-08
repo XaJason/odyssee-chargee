@@ -292,7 +292,7 @@ public class AppPrincipale22 extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourModeEditeur();
 				dansEditeur = true;
-				panModeEditeur.setSauvegarde(false);
+				panModeEditeur.setSauvegarde(true);
 			}
 		});
 
@@ -549,7 +549,8 @@ public class AppPrincipale22 extends JFrame {
 				modifierEtatApplicationPourModeEditeur();
 				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 				dansEditeur = true;
-				panModeEditeur.setSauvegarde(false);
+				panModeEditeur.setSauvegarde(true);
+			
 			}
 		});
 		menuBar.add(mntmEditeur);
@@ -660,6 +661,7 @@ public class AppPrincipale22 extends JFrame {
 
 		panModeEditeur.getGrille().requestFocusInWindow();
 		panModeEditeur.getGrille().setDansModeJeu(false);
+		
 		// panModeEditeur.getGrille().repaint();
 	}
 
