@@ -643,10 +643,15 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Kitimir Yim
 	private void sauvegarderNiveau() {
-		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
-				JOptionPane.PLAIN_MESSAGE);
-		Niveau niveauParDefaut = new Niveau(grille, nom);
-		sauvegarder(niveauParDefaut);
+		   String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau", JOptionPane.PLAIN_MESSAGE);
+
+		    if (nom != null && !nom.trim().isEmpty()) {
+		        Niveau niveauParDefaut = new Niveau(grille, nom);
+		        sauvegarder(niveauParDefaut);
+		    } else {
+		        
+		    	JOptionPane.showMessageDialog(null, "La sauvegarde est annulée.", "Annulation de sauvegarde", JOptionPane.WARNING_MESSAGE);
+		    }
 	}
 
 	/**

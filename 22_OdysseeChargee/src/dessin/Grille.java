@@ -209,19 +209,9 @@ public class Grille extends JPanel implements Serializable {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				if (rotationPostPlacement) {
-				} else {
-					reinitialiseStatutTuileUnique();
-					if (deplacementTuileUnique) {
-						compterCoupClique++;
-						if (compterCoupClique > 1) {
-							placerTuile(e);
-						}
-					} else {
-						placerTuile(e);
-					}
-				}
+				gererSourieCliqueGlisser(e);
 			}
+
 		});
 	}// Fin constructeur
 
@@ -321,7 +311,6 @@ public class Grille extends JPanel implements Serializable {
 		if (!supprimer) {
 			if (tuile != null) {
 				sauvegarderEmplacement();
-
 			}
 		} else {
 			supprimerCase();
@@ -375,11 +364,7 @@ public class Grille extends JPanel implements Serializable {
 			g2dPrive.scale(pixelsParMetre, pixelsParMetre);
 			g2dPrive.setStroke(new BasicStroke((float) (1 / pixelsParMetre)));
 
-//			if (supprimer) {
-//				setBackground(Color.red);
-//			} else {
 			setBackground(new Color(255, 255, 128));
-//			}
 
 			if (supprimer) {
 				g2dPrive.setColor(new Color(255, 0, 0, 100));
@@ -436,7 +421,6 @@ public class Grille extends JPanel implements Serializable {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
 						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
 						if (!supprimer && tuile != null) {
-							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
 							tuile.setX(largeurCase * j);
 							tuile.setY(hauteurCase * i);
 						}
@@ -445,7 +429,6 @@ public class Grille extends JPanel implements Serializable {
 						} else {
 							placePrise = false;
 						}
-						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
 				}
 
@@ -470,7 +453,6 @@ public class Grille extends JPanel implements Serializable {
 					if (sourisEnMetreX >= j * largeurCase && sourisEnMetreX < ((j + 1) * largeurCase)) {
 						emplacementActuel.setFrame(largeurCase * j, hauteurCase * i, largeurCase, hauteurCase);
 						if (!supprimer && tuile != null) {
-							// tuile.redimensionnerImage((int) hauteurCase, (int) largeurCase);
 							tuile.setX(largeurCase * j);
 							tuile.setY(hauteurCase * i);
 						}
@@ -479,7 +461,6 @@ public class Grille extends JPanel implements Serializable {
 						} else {
 							placePrise = false;
 						}
-						// System.out.println("Ligne: " + (i + 1) + " Col: " + (j + 1));
 					}
 				}
 
@@ -1159,21 +1140,6 @@ public class Grille extends JPanel implements Serializable {
 
 			break;
 
-//			
-//			if (!supprimer && !rotationPostPlacement) {
-//				transformerCoordonneesSouris(e);
-//				reinitialiseStatutTuileUnique();
-//			} else if (deplacementTuileUnique) {
-//				deplacementTuileUnique = false;
-//			} else if (rotationPostPlacement) {
-//				transformerCoordonneesSouris(e);
-//				rotationPostPlacement();
-//			} else if (supprimer) {
-//				supprimerCase();
-//			} else {
-//				placerTuile(e);
-//			}
-//			break;
 		}
 		gererCurseur();
 	}
@@ -1212,7 +1178,6 @@ public class Grille extends JPanel implements Serializable {
 		} else if (rotationPostPlacement) {
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
 			Image image = toolkit.getImage("ressources/rotationPostPlacementVert.png");
-//			Point pointMilieuImage = new Point((int)(image.getWidth(null)/2),(int) (image.getHeight(null)/2));
 			Cursor c = toolkit.createCustomCursor(image, new Point(0, 0), "Le curseur");
 			setCursor(c);
 
@@ -1270,5 +1235,25 @@ public class Grille extends JPanel implements Serializable {
 		this.exterieurComposant = exterieurComposant;
 	}
 
+	/**
+	 * Méthode qui indique quoi faire quand clique et glisse
+	 * 
+	 * @param e L'évenement sourie
+	 */
+	// Giroux
+	private void gererSourieCliqueGlisser(MouseEvent e) {
+		if (rotationPostPlacement) {
+		} else {
+			reinitialiseStatutTuileUnique();
+			if (deplacementTuileUnique) {
+				compterCoupClique++;
+				if (compterCoupClique > 1) {
+					placerTuile(e);
+				}
+			} else {
+				placerTuile(e);
+			}
+		}
+	}
 }
 // Fin classe
