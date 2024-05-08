@@ -104,8 +104,8 @@ public class PanelJeu extends JPanel {
 	private JLabel lblEtatPlaque;
 	/** Étiquette qui indique le nombre de plaques disponibles à placer **/
 	private JLabel lblNbDePlaqueRestante;
-	/** Boolean qui indique la nature de la charge de la plaque **/
-	private boolean plaquePositive = true;
+//	/** Boolean qui indique la nature de la charge de la plaque **/
+//	private boolean plaquePositive = true;
 
 	/** Vitesse affichée **/
 	private String vitesseString = "0";
@@ -409,9 +409,9 @@ public class PanelJeu extends JPanel {
 		btnRedemarrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// debut
-				zoneAnimationPhysique.redemarrer();
-				btnProchaineImage.setEnabled(false);
-				btnDemarrer.setEnabled(false);
+				zoneAnimationPhysique.recommencer();
+				btnProchaineImage.setEnabled(true);
+				btnDemarrer.setEnabled(true);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
@@ -593,7 +593,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		spnChargeVaisseau
-				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -10.0, 10.0, 0.5));
+				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialeVaisseau(), -20.0, 20.0, 1.0));
 		spnChargeVaisseau.setBounds(225, 81, 140, 35);
 		((JSpinner.DefaultEditor) spnChargeVaisseau.getEditor()).getTextField().setEditable(false); // Désactive la zone
 		// d'entrée
@@ -610,7 +610,7 @@ public class PanelJeu extends JPanel {
 				// fin
 			}
 		});
-		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.getAccelGrav(), -24.9, 24.8, 1));
+		spnGravite.setModel(new SpinnerNumberModel(MoteurPhysique.getAccelGrav(), -25, 25, 1));
 		spnGravite.setBounds(225, 151, 140, 35);
 		((JSpinner.DefaultEditor) spnGravite.getEditor()).getTextField().setEditable(false); // Désactive la zone
 																								// d'entrée
@@ -627,7 +627,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		spnChargePlaque
-				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 10.0, 0.5));
+				.setModel(new SpinnerNumberModel(zoneAnimationPhysique.getChargeInitialePlaque(), 0.0, 20.0, 1.0));
 		spnChargePlaque.setBounds(225, 221, 140, 35);
 		((JSpinner.DefaultEditor) spnChargePlaque.getEditor()).getTextField().setEditable(false); // Désactive la zone
 																									// d'entrée
@@ -639,11 +639,13 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// début
 				MoteurPhysique.setCoeffFrotStat((double) spnCoefFrictionStat.getValue());
+				spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0, MoteurPhysique.getCoeffFrotStat(), 0.05));
+				((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), 0.50, 1.0, 0.05));
+		spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
 		spnCoefFrictionStat.setBounds(225, 291, 140, 35);
 		((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false); // Désactive la
 																										// zone d'entrée
@@ -655,11 +657,13 @@ public class PanelJeu extends JPanel {
 			public void stateChanged(ChangeEvent e) {
 				// début
 				MoteurPhysique.setCoeffFrotCine((double) spnCoefFrictionCine.getValue());
+				spnCoefFrictionStat.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotStat(), MoteurPhysique.getCoeffFrotCine(), 1.0, 0.05));
+				((JSpinner.DefaultEditor) spnCoefFrictionStat.getEditor()).getTextField().setEditable(false);
 				zoneAnimationPhysique.requestFocusInWindow();
 				// fin
 			}
 		});
-		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.35, 0.70, 0.05));
+		spnCoefFrictionCine.setModel(new SpinnerNumberModel(MoteurPhysique.getCoeffFrotCine(), 0.0, MoteurPhysique.getCoeffFrotStat(), 0.05));
 		spnCoefFrictionCine.setBounds(225, 361, 140, 35);
 		((JSpinner.DefaultEditor) spnCoefFrictionCine.getEditor()).getTextField().setEditable(false); // Désactive la
 																										// zone d'entrée
@@ -711,7 +715,7 @@ public class PanelJeu extends JPanel {
 	 * avait lors du démarrage de l'application
 	 */
 	// Enuel René Valentin Kizozo Izia
-	private void reinitialiserPanneauEtZoneAnimation() {
+	public void reinitialiserPanneauEtZoneAnimation() {
 		btnProchaineImage.setEnabled(true);
 		btnDemarrer.setEnabled(true);
 		btnRedemarrer.setEnabled(false);
@@ -763,11 +767,11 @@ public class PanelJeu extends JPanel {
 	// Giroux
 	private void changementStatutPlaque(boolean positif) {
 		if (positif) {
-			plaquePositive = true;
+			//plaquePositive = true;
 			lblEtatPlaque.setText("La plaque est: positive");
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
 		} else {
-			plaquePositive = false;
+			//plaquePositive = false;
 			lblEtatPlaque.setText("La plaque est: négative");
 			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", tglbtnPlaque);
 		}

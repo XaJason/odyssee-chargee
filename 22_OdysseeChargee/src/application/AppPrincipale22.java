@@ -174,10 +174,10 @@ public class AppPrincipale22 extends JFrame {
 		// lireImages();
 		// gererConstantes();
 
-		// if (leClip != null)
-		// leClip.close();
-		// chargerLeSon(NOM_FICHIER_SON_1);
-		// leClip.loop(Clip.LOOP_CONTINUOUSLY);
+		 if (leClip != null)
+		 leClip.close();
+		 chargerLeSon(NOM_FICHIER_SON_1);
+		 leClip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	// /**
@@ -349,7 +349,7 @@ public class AppPrincipale22 extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (evt.getPropertyName().equals("retournerNiveau")) {
 					modifierEtatApplicationPourSelectionNiveau();
-					zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
+					panModeJeu.reinitialiserPanneauEtZoneAnimation();
 				}
 			}
 
@@ -478,7 +478,7 @@ public class AppPrincipale22 extends JFrame {
 				panSelecteurNiveau.setVisible(false);
 				setContentPane(panMenuPrincipal);
 				menuBar.setVisible(false);
-				zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
+				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 			}
 
 		});
@@ -492,7 +492,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmSelection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourSelectionNiveau();
-				zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
+				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 			}
 
 		});
@@ -504,7 +504,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmEditeur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourModeEditeur();
-				zoneAnimation.reinitialiserEtatBoutonsDansPanelJeu();
+				panModeJeu.reinitialiserPanneauEtZoneAnimation();
 			}
 		});
 		menuBar.add(mntmEditeur);
