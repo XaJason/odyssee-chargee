@@ -191,6 +191,10 @@ public class PanelEditeur extends JPanel {
 	 * Étiquette servant à identifier le bouton pour essayer le niveau construit
 	 */
 	private JLabel lblEssayer;
+	/**
+	 * Boolean de si sauvegarder ou pas
+	 */
+	private boolean sauvegarde=false;
 
 	/**
 	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
@@ -946,6 +950,7 @@ public class PanelEditeur extends JPanel {
 	// Jason Xa
 	private void sauvegarder() throws HeadlessException {
 		if (niveauBienConstruit("de sauvegarder")) {
+			sauvegarde = true;
 			sauvegarderNiveau();
 			desactiveBooleanPostRotation();
 			desactiveBooleanSupprimer();
@@ -1017,5 +1022,10 @@ public class PanelEditeur extends JPanel {
 	private void desactiveBooleanSupprimer() {
 		grille.setSupprimer(false);
 		panelTuileTemp.setSupprimer(false);
+	}
+
+	public boolean getSauvegarde() {
+		
+		return this.sauvegarde;
 	}
 }
