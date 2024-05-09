@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 import physique.MoteurPhysique;
@@ -171,6 +172,18 @@ public class Vaisseau extends InteractifPhysique implements Dessinable, Serializ
 		creerLaGeometrie();
 	}
 
+	/**
+	 * Détermine s'il y a collision avec un coin,
+	 * puis modifie la vitesse du vaisseau en conséquence
+	 * 
+	 * @param coin Le coin d'un bloc avec laquelle le vaisseau entre en collision
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void gererCollisionAvecCoin(Point2D.Double coin) {
+		vitesse = MoteurPhysique.detectionCollisionAvecCoinEtCalculeVitesse(this, coin);
+		creerLaGeometrie();
+	}
+	
 	/**
 	 * Détermine s'il y a collision avec un segment,
 	 * puis modifie la vitesse du vaisseau en conséquence
