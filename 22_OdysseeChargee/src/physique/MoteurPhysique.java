@@ -535,7 +535,7 @@ public class MoteurPhysique {
 	 * puis calcule la vitesse du vaisseau après la collision (s'il y a lieu)
 	 * 
 	 * @param vaisseau Objet représentant le vaisseau
-	 * @param point  Objet représentant le coin d'un bloc (un point)
+	 * @param coin Objet représentant le coin d'un bloc (un point)
 	 * @return La nouvelle vitesse du vaisseau, après la collision (s'il y a lieu)
 	 */
 	// Enuel René Valentin Kizozo Izia
