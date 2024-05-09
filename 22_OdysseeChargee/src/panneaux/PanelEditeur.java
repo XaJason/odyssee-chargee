@@ -325,7 +325,7 @@ public class PanelEditeur extends JPanel {
 
 		lblTriangleRectangle = new JLabel("[W]");
 		lblTriangleRectangle.setForeground(new Color(51, 51, 51));
-		lblTriangleRectangle.setBounds(1226, 321, 21, 18);
+		lblTriangleRectangle.setBounds(1217, 321, 41, 18);
 		add(lblTriangleRectangle);
 		lblTriangleRectangle.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblTriangleRectangle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -377,7 +377,7 @@ public class PanelEditeur extends JPanel {
 
 		lblPortail = new JLabel("[S]");
 		lblPortail.setForeground(new Color(51, 51, 51));
-		lblPortail.setBounds(1203, 470, 17, 18);
+		lblPortail.setBounds(1193, 470, 39, 18);
 		add(lblPortail);
 		lblPortail.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		lblPortail.setHorizontalAlignment(SwingConstants.CENTER);
