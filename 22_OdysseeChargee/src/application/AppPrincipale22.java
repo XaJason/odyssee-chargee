@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -105,13 +106,9 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private double volumeEntre0Et1 = 1;
 	/**
-	 * Chemin vers le fichier
+	 * Url du fichier
 	 */
-	private String pathDeFichier = null;
-	/**
-	 * Fichier
-	 */
-	private File objetFichier = null;
+	private URL urlFichier = null;
 	/**
 	 * Boolean de si dans le mode Editeur
 	 */
@@ -649,19 +646,26 @@ public class AppPrincipale22 extends JFrame {
 		try {
 			// si ce n'est pas la premiere fois, on evite de reacceder au fichier sur disque
 			// (consomme du temps)
-			if (audioStr == null) {
-				pathDeFichier = getClass().getClassLoader().getResource(fichier).getFile();
-				objetFichier = new File(pathDeFichier);
+			if (urlFichier==null) {
+				urlFichier = getClass().getClassLoader().getResource(NOM_FICHIER_SON_1);
+			
 			}
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Incapable d'ouvrir le fichier de son ");
 			e.printStackTrace();
 			return;
 		}
 		try {
-			audioStr = AudioSystem.getAudioInputStream(objetFichier);
+			if (audioStr != null) {
+				audioStr.close();
+				leClip.close();
+			}
+			audioStr = AudioSystem.getAudioInputStream( urlFichier );
 			leClip = AudioSystem.getClip();
 			leClip.open(audioStr);
+
+
 
 			// ces 2 lignes sont necessaires seulement si on souhaite gerer le volume
 			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
