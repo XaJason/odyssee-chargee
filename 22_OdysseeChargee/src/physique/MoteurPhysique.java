@@ -545,11 +545,13 @@ public class MoteurPhysique {
 		double distanceVaisseauCoin = positionCoin.soustrait(vaisseau.getPosition()).module();
 		
 		if (distanceVaisseauCoin < vaisseau.getRayon() + EPSILON) {
+			vaisseau.setCollisionTrouvee(true);
 			vitApresCol = vaisseau.getVitesse().multiplie(-COEFF_E);
+			vaisseau.setPosition(vaisseau.getPositionPrecedente())	;
 		}
 		return vitApresCol;
 	}
-	
+
 	/**
 	 * Détecte s'il y a une collision entre le vaisseau et un segment,
 	 * puis calcule la vitesse du vaisseau après la collision (s'il y a lieu)

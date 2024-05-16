@@ -27,6 +27,7 @@ import javax.swing.event.ChangeListener;
 import dessin.ZoneAnimationPhysique;
 import niveau.Niveau;
 import physique.MoteurPhysique;
+import physique.Vecteur2D;
 import utilitaires.ConstanteComposantsSwing;
 import utilitaires.OutilsImage;
 
@@ -524,20 +525,20 @@ public class PanelJeu extends JPanel {
 				}
 
 				if (evt.getPropertyName().equals("changerAcceleration")) {
-					double valeurX = (double) evt.getOldValue();
+					double valeurX = ( (Vecteur2D) evt.getNewValue() ).getX();
 					String xString = String.format("%.2f", valeurX);
 
-					double valeurY = (double) evt.getNewValue();
+					double valeurY = ( (Vecteur2D) evt.getNewValue() ).getY();
 					String yString = String.format("%.2f", valeurY);
 
 					labelAcceleration.setText(xString + "i, " + yString + "j");
 				}
 
 				if (evt.getPropertyName().equals("changerForceElec")) {
-					double valeurX = (double) evt.getOldValue();
+					double valeurX = ( (Vecteur2D) evt.getNewValue() ).getX();
 					String xString = String.format("%.2f", valeurX);
 
-					double valeurY = (double) evt.getNewValue();
+					double valeurY = ( (Vecteur2D) evt.getNewValue() ).getY();
 					String yString = String.format("%.2f", valeurY);
 
 					labelForceElectrique.setText(xString + "i, " + yString + "j");
@@ -546,11 +547,16 @@ public class PanelJeu extends JPanel {
 				if (evt.getPropertyName().equals("changerForceGravite")) {
 					double valeur = (double) evt.getNewValue();
 					forceGravString = String.format("%.2f", valeur);
-					labelForceGravite.setText(forceGravString);
+					labelForceGravite.setText(forceGravString + "j");
 				}
 				if (evt.getPropertyName().equals("changerChampElec")) {
-					double valeur = (double) evt.getNewValue();
-					champElecString = String.format("%.2f", valeur);
+					double valeurX = ( (Vecteur2D) evt.getNewValue() ).getX();
+					String xString = String.format("%.2f", valeurX);
+
+					double valeurY = ( (Vecteur2D) evt.getNewValue() ).getY();
+					String yString = String.format("%.2f", valeurY);
+					
+					champElecString = xString + "i, " + yString + "j";
 					labelChampElectrique.setText(champElecString);
 				}
 

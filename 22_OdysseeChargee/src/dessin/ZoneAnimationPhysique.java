@@ -280,10 +280,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Kitimir Yim
 	private void leveeSorties() {
 		PCS.firePropertyChange("changerVitesse", vaisseau.getVitesse().getX(), vaisseau.getVitesse().getY());
-		PCS.firePropertyChange("changerAcceleration", vaisseau.getAccel().getX(), vaisseau.getAccel().getY());
-		PCS.firePropertyChange("changerForceElec", this.forcesElec.getX(), this.forcesElec.getY());
+		PCS.firePropertyChange("changerAcceleration", null, vaisseau.getAccel());
+		PCS.firePropertyChange("changerForceElec", null, this.forcesElec);
 		PCS.firePropertyChange("changerForceGravite", null, this.forceGrav.getY());
-		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.module() / Math.abs(vaisseau.getCharge()));
+		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.multiplie(1 / Math.abs(vaisseau.getCharge())));
 		PCS.firePropertyChange("changerPosition", vaisseau.getPosition().getX(), vaisseau.getPosition().getY());
 
 	}
@@ -768,8 +768,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 						vaisseau.gererCollisionAvecCoin(coin);
 					}
 					// Gère collisions avec les faces latérales
-					for (Segment segment : tuile.getListeSegments()) {
-						vaisseau.gererCollisionAvecSegment(segment);
+					if (!vaisseau.getCollisionTrouvee()) {
+						for (Segment segment : tuile.getListeSegments()) {
+							vaisseau.gererCollisionAvecSegment(segment);
+						}
 					}
 				} // fin if
 			} // fin 2e boucle for
@@ -921,6 +923,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 
+		vaisseau.setEnCollision(false);
+		vaisseau.setCollisionTrouvee(false);
 		cptrCollisionNonTrouvee = 0;
 		gauche = false;
 		droite = false;
@@ -955,6 +959,8 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 		vaisseau.setSommeDesForces(sommeForcesSurVaisseau);
 		cptrCollisionNonTrouvee = 0;
+		vaisseau.setEnCollision(false);
+		vaisseau.setCollisionTrouvee(false);
 
 		retirerPlaquesDesTuiles();
 		listePlaquesChargees.clear();
@@ -1131,7 +1137,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	public void setForceGrav() {
 		forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
-		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+		//sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 	}
 
 	/**
