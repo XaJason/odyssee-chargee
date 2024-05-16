@@ -280,10 +280,10 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Kitimir Yim
 	private void leveeSorties() {
 		PCS.firePropertyChange("changerVitesse", vaisseau.getVitesse().getX(), vaisseau.getVitesse().getY());
-		PCS.firePropertyChange("changerAcceleration", vaisseau.getAccel().getX(), vaisseau.getAccel().getY());
-		PCS.firePropertyChange("changerForceElec", this.forcesElec.getX(), this.forcesElec.getY());
+		PCS.firePropertyChange("changerAcceleration", null, vaisseau.getAccel());
+		PCS.firePropertyChange("changerForceElec", null, this.forcesElec);
 		PCS.firePropertyChange("changerForceGravite", null, this.forceGrav.getY());
-		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.module() / Math.abs(vaisseau.getCharge()));
+		PCS.firePropertyChange("changerChampElec", null, this.forcesElec.multiplie(1 / Math.abs(vaisseau.getCharge())));
 		PCS.firePropertyChange("changerPosition", vaisseau.getPosition().getX(), vaisseau.getPosition().getY());
 
 	}
@@ -1137,7 +1137,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 	// Enuel René Valentin Kizozo Izia
 	public void setForceGrav() {
 		forceGrav = MoteurPhysique.calculForceGravEnY(masseVaisseau);
-		sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
+		//sommeForcesSurVaisseau = new Vecteur2D(forceGrav);
 	}
 
 	/**
