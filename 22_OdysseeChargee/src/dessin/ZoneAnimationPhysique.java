@@ -1015,22 +1015,22 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		int code = e.getKeyCode();
 
 		switch (code) {
-		case KeyEvent.VK_A:
+		case KeyEvent.VK_LEFT:
 			demarrerAvecFleches();
 			gauche = toucheEnfoncee;
 			break;
 
-		case KeyEvent.VK_D:
+		case KeyEvent.VK_RIGHT:
 			demarrerAvecFleches();
 			droite = toucheEnfoncee;
 			break;
 
-		case KeyEvent.VK_W:
+		case KeyEvent.VK_UP:
 			demarrerAvecFleches();
 			haut = toucheEnfoncee;
 			break;
 
-		case KeyEvent.VK_S:
+		case KeyEvent.VK_DOWN:
 			demarrerAvecFleches();
 			bas = toucheEnfoncee;
 			break;
