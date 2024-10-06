@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -20,7 +21,7 @@ import utilitaires.ConstanteComposantsSwing;
 
 /**
  * Fenêtre des réglages
- * 
+ *
  * @author Kitimir Yim
  */
 public class FenetreReglage extends JFrame {
@@ -31,34 +32,23 @@ public class FenetreReglage extends JFrame {
 	private static final long serialVersionUID = -4125957740472303897L;
 
 	/**
-	 * Ajouter le support pour lancer des évenements de type PropertyChange
+	 * Ancienne valeur du slider pour le son
 	 */
-	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
+	private int ancienneValeurSlider = 0;
 	/**
 	 * Composant de l'évaluateur d'étoile
 	 */
 	private EvaluationEtoile evaluationEtoile;
-	/**
-	 * Ancienne valeur du slider pour le son
-	 */
-	private int ancienneValeurSlider = 0;
+	/** étiquette identifiant l'évaluateur en étoiles */
+	private JLabel lblEvalutation;
 
 	/** étiquette identifiant le curseur associé au volume */
 	private JLabel lblVolume;
 
-	/** étiquette identifiant l'évaluateur en étoiles */
-	private JLabel lblEvalutation;
-
 	/**
-	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * 
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
-	 *                 propriété.
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
-	// Kitimir Yim
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		PCS.addPropertyChangeListener(listener);
-	}
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
 	/**
 	 * Implémente la fenêtre et ses fonctionnalités
@@ -66,7 +56,7 @@ public class FenetreReglage extends JFrame {
 	// Kitimir Yim
 	public FenetreReglage() {
 		setTitle("Réglages");
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setBounds((ConstanteComposantsSwing.DIM_HORIZONTALE_APP - ConstanteComposantsSwing.DIM_HORIZONTALE_SEC) / 2,
 				(ConstanteComposantsSwing.DIM_VERTICALE_APP - ConstanteComposantsSwing.DIM_VERTICALE_SEC) / 2,
 				ConstanteComposantsSwing.DIM_HORIZONTALE_SEC, ConstanteComposantsSwing.DIM_VERTICALE_SEC);
@@ -79,6 +69,7 @@ public class FenetreReglage extends JFrame {
 
 		JButton btnQuitter = new JButton("Retourner à l'application");
 		btnQuitter.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
 
@@ -92,6 +83,7 @@ public class FenetreReglage extends JFrame {
 		sliderSon.setOpaque(false);
 		sliderSon.setValue(100);
 		sliderSon.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				int nouvelleValeur = sliderSon.getValue();
 				PCS.firePropertyChange("changerSon", ancienneValeurSlider, nouvelleValeur);
@@ -119,6 +111,18 @@ public class FenetreReglage extends JFrame {
 				ConstanteComposantsSwing.DIM_VERTICALE_SEC);
 		getContentPane().add(fondEcran);
 		fondEcran.setLayout(null);
+	}
+
+	/**
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 *
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
+	 */
+	// Kitimir Yim
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
 	}
 
 	/**

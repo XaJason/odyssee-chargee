@@ -6,28 +6,26 @@ import physique.Vecteur2D;
 
 /**
  * Classe intéractif physique : classe mères de tous les objets ayant des
- * propriétés physiques
- * et intéragissant physiquement entre eux
- * 
+ * propriétés physiques et intéragissant physiquement entre eux
+ *
  * @author Enuel René Valentin Kizozo Izia
  */
 public abstract class InteractifPhysique {
+
+	/** Charge de l'objet intéractif physique **/
+	private double charge = 20;
+
+	/** Nombre de pixels par mètre. **/
+	private double pixelsParMetre = 1;
 
 	/** Position de l'objet intéractif physique **/
 	private Vecteur2D position = new Vecteur2D(-30, -30); // Placée par défaut à l'extérieur du composant pour ne pas le
 															// voir
 
-	/** Nombre de pixels par mètre. **/
-	private double pixelsParMetre = 1;
-
-	/** Charge de l'objet intéractif physique **/
-	private double charge = 20;
-
-	// CONSTRUCTEUR //
 	/**
-	 * Constructeur de l'objet intéractif physique
-	 * Ne prend que sa charge en paramètre
-	 * 
+	 * Constructeur de l'objet intéractif physique Ne prend que sa charge en
+	 * paramètre
+	 *
 	 * @param charge La charge de l'objet intéractif
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -36,9 +34,9 @@ public abstract class InteractifPhysique {
 	}
 
 	/**
-	 * Constructeur de l'objet intéractif physique
-	 * Prend en paramètre sa position et sa charge
-	 * 
+	 * Constructeur de l'objet intéractif physique Prend en paramètre sa position et
+	 * sa charge
+	 *
 	 * @param position La position de l'objet intéractif
 	 * @param charge   La charge de l'objet intéractif
 	 */
@@ -48,7 +46,6 @@ public abstract class InteractifPhysique {
 		this.charge = charge;
 	}
 
-	// SOUS-PROGRAMMES //
 	/**
 	 * Permet de créer la géométrie de l'objet intéractif physique.
 	 */
@@ -58,37 +55,15 @@ public abstract class InteractifPhysique {
 	/**
 	 * Permet de dessiner un objet intéractif physique, sur le contexte graphique
 	 * passé en parametre.
-	 * 
+	 *
 	 * @param g2d Le contexte graphique
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public abstract void dessiner(Graphics2D g2d);
 
-	// GETTERS & SETTERS //
-	/**
-	 * Retourne la position de l'objet intéractif physique
-	 * 
-	 * @return La position de l'objet intéractif physique
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public Vecteur2D getPosition() {
-		return position;
-	}
-
-	/**
-	 * Modifie la position de l'objet intéractif physique
-	 * 
-	 * @param position Position de l'objet intéractif physique
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void setPosition(Vecteur2D position) {
-		this.position = new Vecteur2D(position);
-		creerLaGeometrie();
-	}
-
 	/**
 	 * Retourne la charge de l'objet intéractif physique
-	 * 
+	 *
 	 * @return La charge de l'objet intéractif physique
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -97,18 +72,8 @@ public abstract class InteractifPhysique {
 	}
 
 	/**
-	 * Modifie la charge de l'objet intéractif physique
-	 * 
-	 * @param charge Charge de l'objet intéractif physique
-	 */
-	// Enuel René Valentin Kizozo Izia
-	public void setCharge(double charge) {
-		this.charge = charge;
-	}
-
-	/**
 	 * Retourne le nombre de pixels par mètre
-	 * 
+	 *
 	 * @return Le nombre de pixels par mètre
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -117,14 +82,45 @@ public abstract class InteractifPhysique {
 	}
 
 	/**
+	 * Retourne la position de l'objet intéractif physique
+	 *
+	 * @return La position de l'objet intéractif physique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Vecteur2D getPosition() {
+		return position;
+	}
+
+	/**
+	 * Modifie la charge de l'objet intéractif physique
+	 *
+	 * @param charge Charge de l'objet intéractif physique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setCharge(double charge) {
+		this.charge = charge;
+	}
+
+	/**
 	 * Modifier le nombre de pixels par mètre afin de dessiner des objets en unité
 	 * physique réelle (en mètre et non en pixels)
-	 * 
+	 *
 	 * @param pixelsParMetre Le nombre de pixels par metre (rapport)
 	 */
 	// Enuel René Valentin Kizozo Izia
 	public void setPixelsParMetre(double pixelsParMetre) {
 		this.pixelsParMetre = pixelsParMetre;
-	}// fin methode setPixelsParMetre
+	}
+
+	/**
+	 * Modifie la position de l'objet intéractif physique
+	 *
+	 * @param position Position de l'objet intéractif physique
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public void setPosition(Vecteur2D position) {
+		this.position = new Vecteur2D(position);
+		creerLaGeometrie();
+	}
 
 }

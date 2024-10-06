@@ -19,9 +19,9 @@ import tuile.TriangleRectangle;
 import tuile.VaisseauImage;
 
 /**
- * Cette classe contient des utilitaires pour le
- * traitement des images. Elle sera enrichie au fil de la session.
- * Notez les méthodes permettant de redimensionner une image.
+ * Cette classe contient des utilitaires pour le traitement des images. Elle
+ * sera enrichie au fil de la session. Notez les méthodes permettant de
+ * redimensionner une image.
  *
  * @author Caroline Houle
  * @author Enuel René Valentin Kizozo Izia
@@ -29,8 +29,8 @@ import tuile.VaisseauImage;
 public class OutilsImage {
 
 	/**
-	 * Lit le fichier d'image donne en paramètre et retourne
-	 * un objet Image correspondant
+	 * Lit le fichier d'image donne en paramètre et retourne un objet Image
+	 * correspondant
 	 *
 	 * @param nomFichier Le nom du fichier d'image
 	 * @return Un objet Image pour cette image
@@ -45,69 +45,11 @@ public class OutilsImage {
 			try {
 				img = ImageIO.read(urlFichier);
 			} catch (IOException e) {
-				System.out.println("Erreur de lecture du fichier d'image: " + nomFichier);
+
 			}
 		}
 		return (img);
-	}// fin méthode
-
-	/**
-	 * Lit le fichier d'image donne en paramètre, redimensionne
-	 * l'image en appliquant le même facteur de redimensionnement en largeur et en
-	 * hauteur
-	 * (ce qui évite toute distortion dans l'image).
-	 * <p>
-	 * Retourne un objet Image correspondant.
-	 * <p>
-	 * Voir aussi la deuxième signature de cette méthode,
-	 * qui permet de spécifier des résolutions précises en largeur et hauteur.
-	 *
-	 * @param nomFichier  Le nom du fichier d'image
-	 * @param facteurZoom Facteur de redimensionnement (1 signifie ne rien changer)
-	 * @return Un objet Image pour cette image redimensionnée
-	 */
-	// Caroline Houle
-	public static Image lireImageEtRedimensionner(String nomFichier, double facteurZoom) {
-		Image img = null;
-		Image imgRedim = null;
-
-		img = lireImage(nomFichier);
-		if (img != null) {
-			imgRedim = img.getScaledInstance((int) (facteurZoom * img.getWidth(null)),
-					(int) (facteurZoom * img.getHeight(null)), Image.SCALE_SMOOTH);
-		}
-		return (imgRedim);
-	}// fin méthode
-
-	/**
-	 * Lit le fichier d'image donné en paramètre, redimensionne
-	 * l'image à la nouvelles résolution désirée.
-	 * <p>
-	 * Retourne un objet Image correspondant
-	 * <p>
-	 * Attention : si resoX et resoY ne sont pas proportionnels aux dimensions
-	 * initiales de l'image, cela introduit une distortion (semblera plus etirée
-	 * dans une
-	 * direction)
-	 * Voir aussi la deuxième signature de cette méthode qui permet plutôt de donner
-	 * un facteur de redimensionnement.
-	 *
-	 * @param nomFichier Le nom du fichier d'image
-	 * @param resoX      Nouvelle largeur en pixels
-	 * @param resoY      Nouvelle hauteur en pixels
-	 * @return Un objet Image pour cette image redimensionnée
-	 */
-	// Caroline Houle
-	public static Image lireImageEtRedimensionner(String nomFichier, int resoX, int resoY) {
-		Image img = null;
-		Image imgRedim = null;
-
-		img = lireImage(nomFichier);
-		if (img != null) {
-			imgRedim = img.getScaledInstance(resoX, resoY, Image.SCALE_SMOOTH);
-		}
-		return (imgRedim);
-	}// fin méthode
+	}
 
 	/**
 	 * Associe une image à un bouton en redimensionnant l'image adéquatement.
@@ -136,7 +78,7 @@ public class OutilsImage {
 			// on se débarrasse de l'image de base
 			imgRedim.flush();
 		}
-	}// fin méthode
+	}
 
 	/**
 	 * Associe une image a un bouton en redimensionnant l'image adéquatement.
@@ -165,11 +107,66 @@ public class OutilsImage {
 			// on se débarrasse de l'image de base
 			imgRedim.flush();
 		}
-	}// fin méthode
+	}
+
+	/**
+	 * Lit le fichier d'image donne en paramètre, redimensionne l'image en
+	 * appliquant le même facteur de redimensionnement en largeur et en hauteur (ce
+	 * qui évite toute distortion dans l'image).
+	 * <p>
+	 * Retourne un objet Image correspondant.
+	 * <p>
+	 * Voir aussi la deuxième signature de cette méthode, qui permet de spécifier
+	 * des résolutions précises en largeur et hauteur.
+	 *
+	 * @param nomFichier  Le nom du fichier d'image
+	 * @param facteurZoom Facteur de redimensionnement (1 signifie ne rien changer)
+	 * @return Un objet Image pour cette image redimensionnée
+	 */
+	// Caroline Houle
+	public static Image lireImageEtRedimensionner(String nomFichier, double facteurZoom) {
+		Image img = null;
+		Image imgRedim = null;
+
+		img = lireImage(nomFichier);
+		if (img != null) {
+			imgRedim = img.getScaledInstance((int) (facteurZoom * img.getWidth(null)),
+					(int) (facteurZoom * img.getHeight(null)), Image.SCALE_SMOOTH);
+		}
+		return (imgRedim);
+	}
+
+	/**
+	 * Lit le fichier d'image donné en paramètre, redimensionne l'image à la
+	 * nouvelles résolution désirée.
+	 * <p>
+	 * Retourne un objet Image correspondant
+	 * <p>
+	 * Attention : si resoX et resoY ne sont pas proportionnels aux dimensions
+	 * initiales de l'image, cela introduit une distortion (semblera plus etirée
+	 * dans une direction) Voir aussi la deuxième signature de cette méthode qui
+	 * permet plutôt de donner un facteur de redimensionnement.
+	 *
+	 * @param nomFichier Le nom du fichier d'image
+	 * @param resoX      Nouvelle largeur en pixels
+	 * @param resoY      Nouvelle hauteur en pixels
+	 * @return Un objet Image pour cette image redimensionnée
+	 */
+	// Caroline Houle
+	public static Image lireImageEtRedimensionner(String nomFichier, int resoX, int resoY) {
+		Image img = null;
+		Image imgRedim = null;
+
+		img = lireImage(nomFichier);
+		if (img != null) {
+			imgRedim = img.getScaledInstance(resoX, resoY, Image.SCALE_SMOOTH);
+		}
+		return (imgRedim);
+	}
 
 	/**
 	 * Lit, redimensionne et définit l'image pour chaque type de tuile
-	 * 
+	 *
 	 * @param largeurCase    La largeur de la case de la tuile
 	 * @param hauteurCase    La hauteur de la case de la tuile
 	 * @param pixelsParMetre Le nombre de pixels par mètre

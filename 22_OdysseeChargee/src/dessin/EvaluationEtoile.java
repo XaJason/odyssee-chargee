@@ -24,13 +24,25 @@ public class EvaluationEtoile extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Note de l'application
+	 * Espace entre les étoiles
 	 */
-	private double note;
+	private int espacementEtoile = 30;
+	/**
+	 * Statut de l'évaluation
+	 */
+	private boolean evaluationFini = false;
+	/**
+	 * Compteur de clics
+	 */
+	private int nombreClic = 0;
 	/**
 	 * Nombre d'étoiles
 	 */
 	private double nombreEtoiles = 5;
+	/**
+	 * Note de l'application
+	 */
+	private double note;
 	/**
 	 * Rayon extérieur de l'étoile
 	 */
@@ -47,18 +59,6 @@ public class EvaluationEtoile extends JPanel {
 	 * Postion de l'étoile en y
 	 */
 	private double y = 0;
-	/**
-	 * Compteur de clics
-	 */
-	private int nombreClic = 0;
-	/**
-	 * Statut de l'évaluation
-	 */
-	private boolean evaluationFini = false;
-	/**
-	 * Espace entre les étoiles
-	 */
-	private int espacementEtoile = 30;
 
 	/**
 	 * Implémente l'évaluation de l'application
@@ -91,6 +91,7 @@ public class EvaluationEtoile extends JPanel {
 		JSpinner spinner = new JSpinner(spinnerModel);
 
 		spinner.addChangeListener(new ChangeListener() {
+			@Override
 			public void stateChanged(ChangeEvent e) {
 				double nouvelleNote = (double) spinner.getValue();
 				setNote(nouvelleNote);
@@ -136,12 +137,12 @@ public class EvaluationEtoile extends JPanel {
 	 * @param g L'objet Graphics utilisé pour dessiner.
 	 */
 	// Kitimir Yim
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
 
 		dessinerEtoiles(g2d);
-		// dessinerRectangle(g2d);
 
 	}
 
@@ -175,8 +176,9 @@ public class EvaluationEtoile extends JPanel {
 			g2d.setColor(Color.YELLOW);
 
 			if (i + 0.5 <= note) {
-				if (i + 0.5 == note)
+				if (i + 0.5 == note) {
 					etoile.setDemiEtoile(true);
+				}
 				etoile.dessiner(g2d);
 			}
 		}

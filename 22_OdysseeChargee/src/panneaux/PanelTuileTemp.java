@@ -11,7 +11,7 @@ import utilitaires.OutilsImage;
 
 /**
  * Classe qui permet d'afficher la tuile sélectionner sous forme de fenêtre
- * 
+ *
  * @author Giroux
  * @author Jason Xa
  */
@@ -21,8 +21,6 @@ public class PanelTuileTemp extends JPanel {
 	 * Numéro de sérialisation
 	 */
 	private static final long serialVersionUID = 2236980579144572642L;
-	/** Tuile qui conteint l'instance de la tuile à placer **/
-	private Tuile tuile;
 	/**
 	 * Image de la du panel si ce n'est pas une tuile
 	 */
@@ -35,13 +33,25 @@ public class PanelTuileTemp extends JPanel {
 	 * Indique si la grille est en mode supprimer
 	 */
 	private boolean supprimer;
+	/** Tuile qui conteint l'instance de la tuile à placer **/
+	private Tuile tuile;
+
+	/**
+	 * Gère la condition de suppression
+	 */
+	// Giroux
+	public void gererSupprimer() {
+		supprimer = !supprimer;
+		repaint();
+	}
 
 	/**
 	 * permet de dessiner la tuile
-	 * 
+	 *
 	 * @param g contexte graphique
 	 */
 	// Giroux
+	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
@@ -54,31 +64,19 @@ public class PanelTuileTemp extends JPanel {
 		}
 
 		else if (rotation) {
-			image = OutilsImage.lireImageEtRedimensionner("rotationPostPlacementVert.png", (int) (this.getWidth()),
-					(int) (this.getHeight()));
+			image = OutilsImage.lireImageEtRedimensionner("rotationPostPlacementVert.png", (this.getWidth()),
+					(this.getHeight()));
 			g2d.drawImage(image, 0, 0, null);
 		} else if (supprimer) {
-			image = OutilsImage.lireImageEtRedimensionner("supprimer.png", (int) (this.getWidth()),
-					(int) (this.getHeight()));
+			image = OutilsImage.lireImageEtRedimensionner("supprimer.png", (this.getWidth()), (this.getHeight()));
 			g2d.drawImage(image, 0, 0, null);
 		}
 	}
 
 	/**
-	 * Permet de changer le type de la tuile
-	 * 
-	 * @param tuile le type de la nouvelle tuile
-	 */
-	// Giroux
-	public void setTuile(Tuile tuile) {
-		this.tuile = tuile;
-		repaint();
-	}
-
-	/**
 	 * Applique un ou plusieurs 16e de rotation dans le sens horaire selon le
 	 * facteur
-	 * 
+	 *
 	 * @param facteur de 16e de rotation dans le sens horaire à appliquer
 	 */
 	// Jason Xa
@@ -91,7 +89,7 @@ public class PanelTuileTemp extends JPanel {
 
 	/**
 	 * Permet de mettre l'état de la fenêtre en rotation
-	 * 
+	 *
 	 * @param rotation Vrai si en rotation, faux sinon
 	 */
 	// Giroux
@@ -101,23 +99,25 @@ public class PanelTuileTemp extends JPanel {
 	}
 
 	/**
-	 * Gère la condition de suppression
-	 */
-	// Giroux
-	public void gererSupprimer() {
-		supprimer = !supprimer;
-		repaint();
-	}
-
-	/**
 	 * Permet de mettre l'état de la fenêtre en suppression
-	 * 
+	 *
 	 * @param supprimer Vrai si en supprimer, faux sinon
-	 * 
+	 *
 	 */
 	// Giroux
 	public void setSupprimer(boolean supprimer) {
 		this.supprimer = supprimer;
+		repaint();
+	}
+
+	/**
+	 * Permet de changer le type de la tuile
+	 *
+	 * @param tuile le type de la nouvelle tuile
+	 */
+	// Giroux
+	public void setTuile(Tuile tuile) {
+		this.tuile = tuile;
 		repaint();
 	}
 }

@@ -11,36 +11,36 @@ import utilitaires.OutilsImage;
 /**
  * Représente l'objet interactif fixe unique plaçable qui agit comme un drapeau
  * d'arrivée
- * 
+ *
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
  */
 public class Drapeau extends Tuile implements Serializable {
+	/** l'image représentant un drapeau */
+	private static transient Image image;
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = 6952589919609649643L;
-	/** l'image représentant un drapeau */
-	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type drapeau */
 	private static String type = "Drapeau";
-	// Coins du carré//
-	/** position du x pour délimiter les points **/
-	private double xActuel;
-	/** position du y pour délimiter les points **/
-	private double yActuel;
-	/** Coin haut-droit **/
-	private Point2D.Double coinHautDroit;
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
+	/** Coin haut-droit **/
+	private Point2D.Double coinHautDroit;
+
+	/** position du x pour délimiter les points **/
+	private double xActuel;
+	/** position du y pour délimiter les points **/
+	private double yActuel;
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public Drapeau() {
@@ -51,7 +51,7 @@ public class Drapeau extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
@@ -63,10 +63,10 @@ public class Drapeau extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param x l'abscisse gauche de la tuile (px)
 	 * @param y l'ordonnée supérieure la tuile (px)
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public Drapeau(int x, int y) {
@@ -77,7 +77,7 @@ public class Drapeau extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le drapeau d'arrivée
-	 * 
+	 *
 	 * @return L'image représentant le drapeau d'arrivée
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -87,7 +87,7 @@ public class Drapeau extends Tuile implements Serializable {
 
 	/**
 	 * Définit l'image représentant le drapeau d'arrivée
-	 * 
+	 *
 	 * @param fichierImage Le fichier de l'image représentant le drapeau d'arrivée
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
@@ -98,19 +98,22 @@ public class Drapeau extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui affiche le type lorsqu'on le print
-	 * 
-	 * @return Une chaine indiquant que l'objet est un drapeau
+	 * Méthode qui forme le drapeau dans un area
+	 *
+	 * @return la forme du drapeau dans un area
 	 */
-	// Giroux
-	public String toString() {
-		return "Drapeau " + pointsCoin.toString();
+	// Kitimir Yim
+	@Override
+	public Area formerAireObjetSpecial() {
+		Area aireDrapeau = new Area(contour);
+		return aireDrapeau;
 	}
 
 	/**
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
 	// Giroux
+	@Override
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.clear();
@@ -145,14 +148,14 @@ public class Drapeau extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui forme le drapeau dans un area
-	 * 
-	 * @return la forme du drapeau dans un area
+	 * Méthode qui affiche le type lorsqu'on le print
+	 *
+	 * @return Une chaine indiquant que l'objet est un drapeau
 	 */
-	// Kitimir Yim
-	public Area formerAireObjetSpecial() {
-		Area aireDrapeau = new Area(contour);
-		return aireDrapeau;
+	// Giroux
+	@Override
+	public String toString() {
+		return "Drapeau " + pointsCoin.toString();
 	}
 
 }

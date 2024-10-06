@@ -13,7 +13,7 @@ import utilitaires.OutilsImage;
 
 /**
  * Panel du sélecteur de niveau
- * 
+ *
  * @author Kitimir Yim
  * @author Enuel René Valentin Kizozo Izia
  */
@@ -22,13 +22,9 @@ public class PanelSelecteurNiveaux extends JPanel {
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -8288362081093027798L;
-	/**
-	 * Ajouter le support pour lancer des évenements de type PropertyChange
-	 */
-	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
-
 	/** Bouton permettant d'accéder au niveau de base 1 **/
 	private JButton btnNiveauBase1;
+
 	/** Bouton permettant d'accéder au niveau de base 2 **/
 	private JButton btnNiveauBase2;
 	/** Bouton permettant d'accéder au niveau de base 3 **/
@@ -41,17 +37,10 @@ public class PanelSelecteurNiveaux extends JPanel {
 	private JButton btnNiveauBase6;
 	/** Le fond d'écran du panneau **/
 	private FondEcran fondEcran;
-
 	/**
-	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * 
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
-	 *                 propriété.
+	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
-	// Kitimir Yim
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		PCS.addPropertyChangeListener(listener);
-	}
+	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -68,6 +57,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		JButton btnPasserModeJeu = new JButton("Sélectionnez vos niveau");
 		btnPasserModeJeu.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersJeu", 0, -1);
 			}
@@ -78,6 +68,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		btnNiveauBase1 = new JButton("Niveau de base 1");
 		btnNiveauBase1.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau1", 0, -1);
 			}
@@ -88,6 +79,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		btnNiveauBase2 = new JButton("Niveau de base 2");
 		btnNiveauBase2.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau2", 0, -1);
 			}
@@ -98,6 +90,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		btnNiveauBase3 = new JButton("Niveau de base 3");
 		btnNiveauBase3.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau3", 0, -1);
 			}
@@ -113,12 +106,25 @@ public class PanelSelecteurNiveaux extends JPanel {
 	}
 
 	/**
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 *
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
+	 */
+	// Kitimir Yim
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
+	}
+
+	/**
 	 * Créer trois autres boutons permettant d'accéder aux niveau de base 4, 5 et 6
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void creerTroisBoutonsNiveaux() {
 		btnNiveauBase4 = new JButton("Niveau de base 4");
 		btnNiveauBase4.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau4", 0, -1);
 			}
@@ -128,6 +134,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		btnNiveauBase5 = new JButton("Niveau de base 5");
 		btnNiveauBase5.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau5", 0, -1);
 			}
@@ -137,6 +144,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 
 		btnNiveauBase6 = new JButton("Niveau de base 6");
 		btnNiveauBase6.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				PCS.firePropertyChange("passerVersNiveau6", 0, -1);
 			}

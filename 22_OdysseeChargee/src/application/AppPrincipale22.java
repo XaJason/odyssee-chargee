@@ -2,6 +2,7 @@ package application;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -23,6 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 import dessin.ZoneAnimationPhysique;
 import fenetres.FenetreAPropos;
@@ -39,7 +41,7 @@ import utilitaires.OutilsImage;
 
 /**
  * Application permettant d'accéder au jeu Odyssée chargée
- * 
+ *
  * @author Kitimir Yim
  * @author Enuel René Valentin Kizozo Izia
  */
@@ -49,10 +51,16 @@ public class AppPrincipale22 extends JFrame {
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = -506870656338933836L;
+
 	/**
-	 * Panneau du menu principal
+	 * Flux d'entrée audio.
 	 */
-	private JPanel panMenuPrincipal;
+	private AudioInputStream audioStr;
+
+	/**
+	 * Boolean de si dans le mode Editeur
+	 */
+	private boolean dansEditeur = false;
 	/**
 	 * Fenêtre des instructions
 	 */
@@ -62,21 +70,9 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private FenetreReglage fenReglage;
 	/**
-	 * Panneau de l'éditeur de niveau
+	 * Clip par défaut du son
 	 */
-	private PanelEditeur panModeEditeur;
-	/**
-	 * Panneau de jeu
-	 */
-	private PanelJeu panModeJeu;
-	/**
-	 * Panneau d'information sur l'application
-	 */
-	private FenetreAPropos pnlAPropos;
-	/**
-	 * Panneau de sélection de niveau
-	 */
-	private PanelSelecteurNiveaux panSelecteurNiveau;
+	private Clip leClip = null;
 	/**
 	 * Barre de menus
 	 */
@@ -90,61 +86,40 @@ public class AppPrincipale22 extends JFrame {
 	 */
 	private JMenuItem mntmSelection;
 	/**
-	 * Clip par défaut du son
-	 */
-	private Clip leClip = null;
-	/**
 	 * String du fichier de la musique de fond
 	 */
 	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
 	/**
-	 * Flux d'entrée audio.
+	 * Panneau du menu principal
 	 */
-	private AudioInputStream audioStr;
+	private JPanel panMenuPrincipal;
 	/**
-	 * Volume du son
+	 * Panneau de l'éditeur de niveau
 	 */
-	private double volumeEntre0Et1 = 1;
+	private PanelEditeur panModeEditeur;
+	/**
+	 * Panneau de jeu
+	 */
+	private PanelJeu panModeJeu;
+	/**
+	 * Panneau de sélection de niveau
+	 */
+	private PanelSelecteurNiveaux panSelecteurNiveau;
+	/**
+	 * Panneau d'information sur l'application
+	 */
+	private FenetreAPropos pnlAPropos;
 	/**
 	 * Url du fichier
 	 */
 	private URL urlFichier = null;
 	/**
-	 * Boolean de si dans le mode Editeur
+	 * Volume du son
 	 */
-	private boolean dansEditeur = false;
+	private double volumeEntre0Et1 = 1;
 
 	/** Zone d'animation physique du panneau de jeu */
 	private ZoneAnimationPhysique zoneAnimation;
-
-	/**
-	 * Lance l'application
-	 * 
-	 * @param args Paramètre d'entrée de la commande de démarrage
-	 */
-	// Kitimir Yim
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
-		}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AppPrincipale22 frame = new AppPrincipale22();
-					ImageIcon icon = new ImageIcon("ressources/vaisseau.png");
-					frame.setIconImage(icon.getImage());
-					frame.setVisible(true);
-					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					frame.panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Créer la page principale.
@@ -156,19 +131,250 @@ public class AppPrincipale22 extends JFrame {
 		setContentPane(panMenuPrincipal);
 		panMenuPrincipal.setLayout(null);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(0, 25, ConstanteComposantsSwing.DIM_HORIZONTALE_APP, ConstanteComposantsSwing.DIM_VERTICALE_APP);
 
 		creerBoutons();
 		creerFenetres();
 		creerPanels();
 		creerMenu();
-		
 
-		if (leClip != null)
+		if (leClip != null) {
 			leClip.close();
+		}
 		chargerLeSon(NOM_FICHIER_SON_1);
 		leClip.loop(Clip.LOOP_CONTINUOUSLY);
+	}
+
+	/**
+	 * Lance l'application
+	 *
+	 * @param args Paramètre d'entrée de la commande de démarrage
+	 */
+	// Kitimir Yim
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					AppPrincipale22 frame = new AppPrincipale22();
+					ImageIcon icon = new ImageIcon("ressources/vaisseau.png");
+					frame.setIconImage(icon.getImage());
+					frame.setVisible(true);
+					frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+					frame.panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Créer les fenêtres pour les réglages, les instructions et les À propos
+	 */
+	// Kitimir Yim
+	public void creerFenetres() {
+
+		pnlAPropos = new FenetreAPropos();
+		fenInstruction = new FenetreAideInstructions();
+		fenReglage = new FenetreReglage();
+
+		fenReglage.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("changerSon")) {
+					int son = (int) evt.getNewValue();
+					double nouvelleValeurSon = (double) son / 100;
+					modifierVolume(nouvelleValeurSon);
+
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * Créer les panels pour le mode éditeur et le mode jeu
+	 */
+	// Kitimir Yim
+	public void creerPanels() {
+		panModeEditeur = new PanelEditeur();
+		panSelecteurNiveau = new PanelSelecteurNiveaux();
+		panModeJeu = new PanelJeu();
+
+		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("niveau essai")) {
+					Niveau niveauEssai = (Niveau) evt.getNewValue();
+					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
+					panModeJeu.setVisible(true);
+					panModeEditeur.setVisible(false);
+					setContentPane(panModeJeu);
+					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+				}
+			}
+		});
+
+		zoneAnimation = panModeJeu.getZoneAnimationPhysique();
+		zoneAnimation.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (evt.getPropertyName().equals("retournerNiveau")) {
+					modifierEtatApplicationPourSelectionNiveau();
+					panModeJeu.reinitialiserPanneauEtZoneAnimation();
+				}
+			}
+
+		});
+
+		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("passerVersNiveau1")) {
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base1");
+					panModeJeu.setModeJetpack(false);
+					miseAJourChargementNiveau();
+				}
+				if (evt.getPropertyName().equals("passerVersNiveau2")) {
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base2");
+					panModeJeu.setModeJetpack(false);
+					miseAJourChargementNiveau();
+
+				}
+				if (evt.getPropertyName().equals("passerVersNiveau3")) {
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
+					panModeJeu.setModeJetpack(false);
+					miseAJourChargementNiveau();
+				}
+
+				ajoutNiveauxBase(evt);
+
+				if (evt.getPropertyName().equals("passerVersJeu")) {
+					chargerNiveauVersZoneAnimationPhysique();
+
+				}
+
+			}
+		});
+
+	}
+
+	/**
+	 * Bouton pour quitter l'application
+	 */
+	// Kitimir Yim
+	public void menuQuitter() {
+		int option = JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir quitter l'application?",
+				"Confirmation", JOptionPane.YES_NO_OPTION);
+
+		if (option == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * Ajout de trois autres niveaux de base
+	 *
+	 * @param evt L'événement qui a été lancé
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("passerVersNiveau4")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base4");
+			panModeJeu.setModeJetpack(true);
+			miseAJourChargementNiveau();
+		}
+		if (evt.getPropertyName().equals("passerVersNiveau5")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
+			panModeJeu.setModeJetpack(true);
+			miseAJourChargementNiveau();
+		}
+		if (evt.getPropertyName().equals("passerVersNiveau6")) {
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
+			panModeJeu.setModeJetpack(true);
+			miseAJourChargementNiveau();
+		}
+	}
+
+	/**
+	 * Methode privee pour lire le son et en faire un clip La méthode a éte trouvée
+	 * dans le materiel d'appoint (de Caroline Houle) mais a été implementé et
+	 * modifier pour notre code
+	 *
+	 * @param fichier Le fichier son
+	 */
+	// Kitimir Yim
+	private void chargerLeSon(String fichier) {
+
+		try {
+			// si ce n'est pas la premiere fois, on evite de reacceder au fichier sur disque
+			// (consomme du temps)
+			if (urlFichier == null) {
+				urlFichier = getClass().getClassLoader().getResource(NOM_FICHIER_SON_1);
+
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Incapable d'ouvrir le fichier de son ");
+			e.printStackTrace();
+			return;
+		}
+		try {
+			if (audioStr != null) {
+				audioStr.close();
+				leClip.close();
+			}
+			audioStr = AudioSystem.getAudioInputStream(urlFichier);
+			leClip = AudioSystem.getClip();
+			leClip.open(audioStr);
+
+			// ces 2 lignes sont necessaires seulement si on souhaite gerer le volume
+			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
+			volume.setValue(20f * (float) Math.log10((float) volumeEntre0Et1));
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Probl�me � la cr�ation du clip (son)! " + fichier);
+			e.printStackTrace();
+			return;
+		}
+
+	}
+
+	/**
+	 * Chargement des niveau avec un JFileChooser vers la zone d'animation physique
+	 *
+	 */
+	// Kitimir Yim
+	private void chargerNiveauVersZoneAnimationPhysique() {
+
+		JFileChooser fichierNiveaux = new JFileChooser();
+		String userHome = System.getProperty("user.home");
+		String oneDrive = userHome + File.separator + "OneDrive";
+		String documents = oneDrive + File.separator + "Documents";
+		String mesTrucs = documents + File.separator + "MesTrucs";
+		fichierNiveaux.setCurrentDirectory(new File(mesTrucs));
+
+		int resultat = fichierNiveaux.showOpenDialog(AppPrincipale22.this);
+
+		if (resultat == JFileChooser.APPROVE_OPTION) {
+
+			File fichierChoisi = fichierNiveaux.getSelectedFile();
+			String nomFichier = fichierChoisi.getName();
+			Niveau niveau = Sauvegarder.chargerNiveauMesTrucs(nomFichier);
+			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveau);
+			miseAJourChargementNiveau();
+		}
+
 	}
 
 	/**
@@ -226,6 +432,7 @@ public class AppPrincipale22 extends JFrame {
 		fondEcran.add(btnTitre);
 
 		btnSelectionDeNiveau.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourSelectionNiveau();
 				dansEditeur = false;
@@ -233,18 +440,21 @@ public class AppPrincipale22 extends JFrame {
 		});
 
 		btnQuitter.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
 
 			}
 		});
 		btnInstructions.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
 
 			}
 		});
 		btnAPropos.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, pnlAPropos, "À propos de cette application",
 						JOptionPane.PLAIN_MESSAGE);
@@ -252,11 +462,13 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 		btnReglages.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenReglage.setVisible(true);
 			}
 		});
 		btnModeEditeur.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				modifierEtatApplicationPourModeEditeur();
 				dansEditeur = true;
@@ -264,170 +476,6 @@ public class AppPrincipale22 extends JFrame {
 			}
 		});
 
-	}
-
-	/**
-	 * Créer les fenêtres pour les réglages, les instructions et les À propos
-	 */
-	// Kitimir Yim
-	public void creerFenetres() {
-
-		pnlAPropos = new FenetreAPropos();
-		fenInstruction = new FenetreAideInstructions();
-		fenReglage = new FenetreReglage();
-
-		fenReglage.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("changerSon")) {
-					int son = (int) evt.getNewValue();
-					double nouvelleValeurSon = (double) son / 100;
-					modifierVolume(nouvelleValeurSon);
-
-				}
-			}
-		});
-
-	}
-
-	/**
-	 * Créer les panels pour le mode éditeur et le mode jeu
-	 */
-	// Kitimir Yim
-	public void creerPanels() {
-		panModeEditeur = new PanelEditeur();
-		panSelecteurNiveau = new PanelSelecteurNiveaux();
-		panModeJeu = new PanelJeu();
-
-		panModeEditeur.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-
-				if (evt.getPropertyName().equals("niveau essai")) {
-					Niveau niveauEssai = (Niveau) evt.getNewValue();
-					panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveauEssai);
-					panModeJeu.setVisible(true);
-					panModeEditeur.setVisible(false);
-					setContentPane(panModeJeu);
-					panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
-				}
-			}
-		});
-
-		zoneAnimation = panModeJeu.getZoneAnimationPhysique();
-		zoneAnimation.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (evt.getPropertyName().equals("retournerNiveau")) {
-					modifierEtatApplicationPourSelectionNiveau();
-					panModeJeu.reinitialiserPanneauEtZoneAnimation();
-				}
-			}
-
-		});
-
-		panSelecteurNiveau.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-
-				if (evt.getPropertyName().equals("passerVersNiveau1")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base1");
-					panModeJeu.setModeJetpack(false);
-					miseAJourChargementNiveau();
-				}
-				if (evt.getPropertyName().equals("passerVersNiveau2")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base2");
-					panModeJeu.setModeJetpack(false);
-					miseAJourChargementNiveau();
-
-				}
-				if (evt.getPropertyName().equals("passerVersNiveau3")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
-					panModeJeu.setModeJetpack(false);
-					miseAJourChargementNiveau();
-				}
-
-				ajoutNiveauxBase(evt);
-
-				if (evt.getPropertyName().equals("passerVersJeu")) {
-					chargerNiveauVersZoneAnimationPhysique();
-
-				}
-
-			}
-		});
-
-	}
-
-	/**
-	 * Chargement des niveau avec un JFileChooser vers la zone d'animation physique
-	 * 
-	 */
-	// Kitimir Yim
-	private void chargerNiveauVersZoneAnimationPhysique() {
-
-		JFileChooser fichierNiveaux = new JFileChooser();
-		String userHome = System.getProperty("user.home");
-		String oneDrive = userHome + File.separator + "OneDrive";
-		String documents = oneDrive + File.separator + "Documents";
-		String mesTrucs = documents + File.separator + "MesTrucs";
-		fichierNiveaux.setCurrentDirectory(new File(mesTrucs));
-
-		int resultat = fichierNiveaux.showOpenDialog(AppPrincipale22.this);
-
-		if (resultat == JFileChooser.APPROVE_OPTION) {
-
-			File fichierChoisi = fichierNiveaux.getSelectedFile();
-			String nomFichier = fichierChoisi.getName();
-			Niveau niveau = Sauvegarder.chargerNiveauMesTrucs(nomFichier);
-			panModeJeu.modifierNiveauDeZoneAnimationPhysique(niveau);
-			miseAJourChargementNiveau();
-		}
-
-	}// fin méthode
-
-	/**
-	 * Ajout de trois autres niveaux de base
-	 * 
-	 * @param evt L'événement qui a été lancé
-	 */
-	// Enuel René Valentin Kizozo Izia
-	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("passerVersNiveau4")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base4");
-			panModeJeu.setModeJetpack(true);
-			miseAJourChargementNiveau();
-		} // fin if
-		if (evt.getPropertyName().equals("passerVersNiveau5")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
-			panModeJeu.setModeJetpack(true);
-			miseAJourChargementNiveau();
-		} // fin if
-		if (evt.getPropertyName().equals("passerVersNiveau6")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
-			panModeJeu.setModeJetpack(true);
-			miseAJourChargementNiveau();
-		} // fin if
-	}// fin méthode
-
-	/**
-	 * Mise à jour des panneaux de l'application lors du chargement d'un niveau
-	 */
-	// Enuel René Valentin Kizozo Izia
-	private void miseAJourChargementNiveau() {
-		panSelecteurNiveau.setVisible(false);
-		panModeJeu.setVisible(true);
-		setContentPane(panModeJeu);
-		panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
-	}// fin méthode
-
-	/**
-	 * Bouton pour quitter l'application
-	 */
-	// Kitimir Yim
-	public void menuQuitter() {
-		int option = JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir quitter l'application?",
-				"Confirmation", JOptionPane.YES_NO_OPTION);
-
-		if (option == JOptionPane.YES_OPTION) {
-			System.exit(0);
-		}
 	}
 
 	/**
@@ -444,6 +492,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmPrincipale.setMaximumSize(new Dimension(200, 32767));
 
 		mntmPrincipale.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (dansEditeur) {
 					if (ouiOuNon()) {
@@ -478,6 +527,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmSelection.setMaximumSize(new Dimension(200, 32767));
 
 		mntmSelection.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (dansEditeur) {
 					if (ouiOuNon()) {
@@ -512,6 +562,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmEditeur.setMaximumSize(new Dimension(200, 32767));
 
 		mntmEditeur.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				modifierEtatApplicationPourModeEditeur();
@@ -528,6 +579,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmInstructions.setPreferredSize(new Dimension(100, 26));
 
 		mntmInstructions.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenInstruction.setVisible(true);
 			}
@@ -540,6 +592,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmReglage.setPreferredSize(new Dimension(100, 26));
 
 		mntmReglage.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				fenReglage.setVisible(true);
 			}
@@ -552,6 +605,7 @@ public class AppPrincipale22 extends JFrame {
 		mntmApropos.setMaximumSize(new Dimension(200, 32767));
 
 		mntmApropos.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, pnlAPropos, "À propos de cette application",
 						JOptionPane.PLAIN_MESSAGE);
@@ -562,6 +616,7 @@ public class AppPrincipale22 extends JFrame {
 
 		JMenuItem mntmQuitter = new JMenuItem("Quitter");
 		mntmQuitter.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				menuQuitter();
 			}
@@ -573,11 +628,22 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * Série d'action effectuée afin de modifier l'état de l'application,
-	 * lorsqu'on accède au menu principal:
-	 * 
-	 * Mise à jour de la visibilité de certains panneaux de regroupement
-	 * et réinitialisation de l'état des boutons du Mode Jeu
+	 * Mise à jour des panneaux de l'application lors du chargement d'un niveau
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private void miseAJourChargementNiveau() {
+		panSelecteurNiveau.setVisible(false);
+		panModeJeu.setVisible(true);
+		setContentPane(panModeJeu);
+		panModeJeu.getZoneAnimationPhysique().requestFocusInWindow();
+	}
+
+	/**
+	 * Série d'action effectuée afin de modifier l'état de l'application, lorsqu'on
+	 * accède au menu principal:
+	 *
+	 * Mise à jour de la visibilité de certains panneaux de regroupement et
+	 * réinitialisation de l'état des boutons du Mode Jeu
 	 */
 	// Kitimir Yim
 	private void modifierEtatApplicationPourMenuPrincipal() {
@@ -589,31 +655,11 @@ public class AppPrincipale22 extends JFrame {
 	}
 
 	/**
-	 * Série d'action effectuée afin de modifier l'état de l'application,
-	 * lorsqu'on accède à la sélection de niveau :
-	 * 
-	 * Mise à jour de la visibilité de certains panneaux de regroupement
-	 * et réinitialisation de l'état des boutons du Mode Jeu
-	 */
-	// Kitimir Yim
-	private void modifierEtatApplicationPourSelectionNiveau() {
-		panSelecteurNiveau.setVisible(true);
-		panMenuPrincipal.setVisible(false);
-		panModeEditeur.setVisible(false);
-		panModeJeu.setVisible(false);
-
-		menuBar.setVisible(true);
-		mntmSelection.setSelected(true);
-		mntmEditeur.setSelected(false);
-		setContentPane(panSelecteurNiveau);
-	}
-
-	/**
-	 * Série d'action effectuée afin de modifier l'état de l'application,
-	 * lorsqu'on accède à l'édition de niveau :
-	 * 
-	 * Mise à jour de la visibilité de certains panneaux de regroupement
-	 * et réinitialisation de l'état des boutons du Mode Jeu
+	 * Série d'action effectuée afin de modifier l'état de l'application, lorsqu'on
+	 * accède à l'édition de niveau :
+	 *
+	 * Mise à jour de la visibilité de certains panneaux de regroupement et
+	 * réinitialisation de l'état des boutons du Mode Jeu
 	 */
 	// Kitimir Yim
 	private void modifierEtatApplicationPourModeEditeur() {
@@ -630,58 +676,31 @@ public class AppPrincipale22 extends JFrame {
 		panModeEditeur.getGrille().requestFocusInWindow();
 		panModeEditeur.getGrille().setDansModeJeu(false);
 
-		// panModeEditeur.getGrille().repaint();
 	}
 
 	/**
-	 * Methode privee pour lire le son et en faire un clip La méthode a éte trouvée
-	 * dans le materiel d'appoint (de Caroline Houle) mais a été implementé et
-	 * modifier pour notre code
-	 * 
-	 * @param fichier Le fichier son
+	 * Série d'action effectuée afin de modifier l'état de l'application, lorsqu'on
+	 * accède à la sélection de niveau :
+	 *
+	 * Mise à jour de la visibilité de certains panneaux de regroupement et
+	 * réinitialisation de l'état des boutons du Mode Jeu
 	 */
 	// Kitimir Yim
-	private void chargerLeSon(String fichier) {
+	private void modifierEtatApplicationPourSelectionNiveau() {
+		panSelecteurNiveau.setVisible(true);
+		panMenuPrincipal.setVisible(false);
+		panModeEditeur.setVisible(false);
+		panModeJeu.setVisible(false);
 
-		try {
-			// si ce n'est pas la premiere fois, on evite de reacceder au fichier sur disque
-			// (consomme du temps)
-			if (urlFichier==null) {
-				urlFichier = getClass().getClassLoader().getResource(NOM_FICHIER_SON_1);
-			
-			}
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Incapable d'ouvrir le fichier de son ");
-			e.printStackTrace();
-			return;
-		}
-		try {
-			if (audioStr != null) {
-				audioStr.close();
-				leClip.close();
-			}
-			audioStr = AudioSystem.getAudioInputStream( urlFichier );
-			leClip = AudioSystem.getClip();
-			leClip.open(audioStr);
-
-
-
-			// ces 2 lignes sont necessaires seulement si on souhaite gerer le volume
-			FloatControl volume = (FloatControl) leClip.getControl(FloatControl.Type.MASTER_GAIN);
-			volume.setValue(20f * (float) Math.log10((float) volumeEntre0Et1));
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Probl�me � la cr�ation du clip (son)! " + fichier);
-			e.printStackTrace();
-			return;
-		}
-
-	}// fin methode
+		menuBar.setVisible(true);
+		mntmSelection.setSelected(true);
+		mntmEditeur.setSelected(false);
+		setContentPane(panSelecteurNiveau);
+	}
 
 	/**
 	 * Pour la gestion du volume si désiré
-	 * 
+	 *
 	 * @param valeurEntre0Et1 valeur du volume, 1=volume original du son 0=aucun
 	 *                        volume La méthode a éte trouvée dans le materiel
 	 *                        d'appoint (de Caroline Houle) mais a été implementé
@@ -698,7 +717,7 @@ public class AppPrincipale22 extends JFrame {
 
 	/**
 	 * Vérifie si la sauvegarde a été effectué
-	 * 
+	 *
 	 * @return boolean vrai ou faux
 	 */
 	// Kitimir Yim

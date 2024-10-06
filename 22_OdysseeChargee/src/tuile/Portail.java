@@ -16,7 +16,7 @@ import utilitaires.OutilsImage;
 
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme un portail
- * 
+ *
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
@@ -33,7 +33,7 @@ public class Portail extends Tuile implements Serializable {
 	private static String type = "Portail";
 	/** Position du centre du portail **/
 	private Vecteur2D position;
-	// Coins du carré//
+
 	/** position du x pour délimiter les points **/
 	private double xActuel;
 	/** position du y pour délimiter les points **/
@@ -64,7 +64,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public Portail() {
@@ -74,7 +74,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
@@ -85,10 +85,10 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param x l'abscisse gauche de la tuile (px)
 	 * @param y l'ordonnée supérieure la tuile (px)
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public Portail(int x, int y) {
@@ -96,11 +96,11 @@ public class Portail extends Tuile implements Serializable {
 		creerLaGeometrie();
 	}
 
-	// SOUS-PROGRAMMES //
 	/**
 	 * Permet de créer la géométrie d'un portail.
 	 */
 	// Enuel René Valentin Kizozo Izia
+	@Override
 	public void creerLaGeometrie() {
 		cercle = new Ellipse2D.Double(x, y, largeurTuile, hauteurTuile);
 		position = new Vecteur2D(x + largeurTuile / 2, y + hauteurTuile / 2);
@@ -108,10 +108,11 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Dessine l'image représentant la tuile selon ses coordonnées
-	 * 
+	 *
 	 * @param g2d Le contexte graphique
 	 */
 	// Enuel René Valentin Kizozo Izia
+	@Override
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		g2dPrive.setColor(couleur);
@@ -129,7 +130,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Téléportation le vaisseau du portail courant au portail associé
-	 * 
+	 *
 	 * @param vaisseau Le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -145,16 +146,15 @@ public class Portail extends Tuile implements Serializable {
 
 			ajusterPositionVaisseau(vaisseau, posVaisseauDansPortail);
 		} else {
-			System.out.println("Le portail est en cours de refroidissement.");
+
 		}
 	}
 
 	/**
 	 * Vérifie si le vaisseau est complètement à l'intérieur du portail lors de la
-	 * téléportation
-	 * Si ce n'est pas le cas, modifie la position du vaisseau dans le portailpour
-	 * éviter des bugs
-	 * 
+	 * téléportation Si ce n'est pas le cas, modifie la position du vaisseau dans le
+	 * portailpour éviter des bugs
+	 *
 	 * @param vaisseau               Le vaisseau
 	 * @param posVaisseauDansPortail La position du vaisseau dans le référentiel
 	 *                               d'un portail
@@ -188,10 +188,11 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Méthode qui forme le Portail dans un area
-	 * 
+	 *
 	 * @return la forme du Portail dans un area
 	 */
 	// Kitimir Yim
+	@Override
 	public Area formerAireObjetSpecial() {
 		aireCase = new Area(new Rectangle2D.Double(x, y, largeurTuile, hauteurTuile));
 		airePortail = new Area(cercle);
@@ -200,10 +201,11 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Méthode qui affiche le type lorsqu'on le print
-	 * 
+	 *
 	 * @return Une chaine indiquant que l'objet est un portail
 	 */
 	// Giroux
+	@Override
 	public String toString() {
 		return "Portail ";
 	}
@@ -212,6 +214,7 @@ public class Portail extends Tuile implements Serializable {
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
 	// Giroux
+	@Override
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.clear();
@@ -246,7 +249,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le portail
-	 * 
+	 *
 	 * @return L'image représentant le portail
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -256,7 +259,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Définit l'image représentant le portail
-	 * 
+	 *
 	 * @param fichierImage Le fichier de l'image représentant le portail
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
@@ -268,7 +271,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Retourne le portail associé
-	 * 
+	 *
 	 * @return portailAssocie portail relié à un autre
 	 */
 	// Kitimir Yim
@@ -278,7 +281,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Modifie le portail associé
-	 * 
+	 *
 	 * @param portailAssocie Le nouveau portail associé
 	 */
 	// Kitimir Yim
@@ -288,7 +291,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Retourne la couleur du portail
-	 * 
+	 *
 	 * @return La couleur du portail
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -298,7 +301,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Modifie la couleur du portail
-	 * 
+	 *
 	 * @param couleur La nouvelle couleur du portail
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -308,7 +311,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Retourne le temps du dernier usage du portail
-	 * 
+	 *
 	 * @return Le temps du dernier usage du portail
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -318,7 +321,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Modifie le temps du dernier usage du portail
-	 * 
+	 *
 	 * @param tempsDernierUsage Le nouveau temps du dernier usage du portail
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -328,7 +331,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Retourne la durée de refroidissement des portails
-	 * 
+	 *
 	 * @return La durée de refroidissement des portails
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -338,7 +341,7 @@ public class Portail extends Tuile implements Serializable {
 
 	/**
 	 * Modifie la durée de refroidissement des portails
-	 * 
+	 *
 	 * @param cooldownPortail La nouvelle durée de refroidissement des portails
 	 */
 	// Enuel René Valentin Kizozo Izia

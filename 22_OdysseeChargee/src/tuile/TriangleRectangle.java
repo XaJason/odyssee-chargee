@@ -10,33 +10,33 @@ import utilitaires.OutilsImage;
 /**
  * Représente l'objet fixe plaçable en forme de triangle rectangle (coin en bas
  * à gauche par défaut)
- * 
+ *
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
  */
 public class TriangleRectangle extends Tuile implements Serializable {
+	/** l'image représentant un triangle rectangle */
+	private static transient Image image;
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = 6670803928887029811L;
-	/** l'image représentant un triangle rectangle */
-	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type triangle rectangle */
 	private static String type = "Triangle rectangle";
-	// Coins du triangle//
-	/** position du x pour délimiter les points **/
-	private double xActuel;
-	/** position du y pour délimiter les points **/
-	private double yActuel;
 	/** Coin bas-droit **/
 	private Double coinBasDroit;
 	/** Coin bas-gauche **/
 	private Double coinBasGauche;
 
+	/** position du x pour délimiter les points **/
+	private double xActuel;
+	/** position du y pour délimiter les points **/
+	private double yActuel;
+
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public TriangleRectangle() {
@@ -45,7 +45,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
@@ -55,10 +55,10 @@ public class TriangleRectangle extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param x l'abscisse gauche de la tuile (px)
 	 * @param y l'ordonnée supérieure la tuile (px)
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public TriangleRectangle(int x, int y) {
@@ -67,7 +67,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le triangle rectangle
-	 * 
+	 *
 	 * @return L'image représentant le triangle rectangle
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -77,7 +77,7 @@ public class TriangleRectangle extends Tuile implements Serializable {
 
 	/**
 	 * Définit l'image représentant le triangle rectangle
-	 * 
+	 *
 	 * @param fichierImage Le fichier de l'image représentant le triangle rectangle
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
@@ -88,20 +88,11 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui affiche le type lorsqu'on le print
-	 * 
-	 * @return Une chaine indiquant que l'objet est un triangle rectangle
-	 */
-	// Giroux
-	public String toString() {
-		return "Triangle rectangle ";
-	}
-
-	/**
 	 * Méthode qui ajoute les coins du triangle dans l'arrayList prePointsCoin, puis
 	 * qui les transforme avant de les mettre dans pointsCoin
 	 */
 	// Giroux
+	@Override
 	public void setPoint() {
 		super.setPoint();
 		xActuel = 0;
@@ -138,8 +129,19 @@ public class TriangleRectangle extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Transformer le pointMilieu (qui ne fait pas partie du contour)
-	 * selon la rotation appliquée sur la tuile
+	 * Méthode qui affiche le type lorsqu'on le print
+	 *
+	 * @return Une chaine indiquant que l'objet est un triangle rectangle
+	 */
+	// Giroux
+	@Override
+	public String toString() {
+		return "Triangle rectangle ";
+	}
+
+	/**
+	 * Transformer le pointMilieu (qui ne fait pas partie du contour) selon la
+	 * rotation appliquée sur la tuile
 	 */
 	// Enuel René Valentin Kizozo Izia
 	private void transformerPointMilieu() {

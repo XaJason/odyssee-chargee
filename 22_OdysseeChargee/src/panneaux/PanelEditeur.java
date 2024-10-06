@@ -40,7 +40,7 @@ import utilitaires.OutilsImage;
 
 /**
  * Panel du mode éditeur
- * 
+ *
  * @author Enuel René Valentin Kizozo Izia
  * @author Giroux
  * @author Jason Xa
@@ -53,44 +53,43 @@ public class PanelEditeur extends JPanel {
 	 */
 	private static final long serialVersionUID = -1637257199908540129L;
 
-	/**
-	 * Grille du mode éditeur
-	 */
-	private Grille grille;
-
 	/** bouton permettant la sélection de la tuile de type carré */
 	private JButton btnCarre;
-	/** bouton permettant la sélection de la tuile de type triangle rectangle */
-	private JButton btnTriangleRectangle;
-	/** bouton permettant la sélection de la tuile de type triangle équilatéral */
-	private JButton btnTriangleEquilateral;
-	/** bouton permettant la sélection de la tuile de type pics */
-	private JButton btnPics;
-	/** bouton permettant la sélection de la tuile de type portail */
-	private JButton btnPortail;
+
 	/** bouton permettant la sélection de la tuile de type drapeau */
 	private JButton btnDrapeau;
-	/** étiquette servant à afficher le type de tuile sélectionné */
-	private JLabel lblTypeSelectionne;
-	/** bouton permettant la réinitialisation de la grille */
-	private JButton btnReinitialiser;
-	/** bouton permettant de gérer la suppression de tuile */
-	private JButton btnSupprimer;
-	/** bouton permettant de gérer la rotation de nouvelles tuiles */
-	private JButton btnRotationPrePlacement;
-	/** bouton permettant de gérer la sauvegarde du niveau associée à la grille */
-	private JButton btnSauvegarder;
-	/** bouton permettant de la sélection de la tuile de type vaisseau */
-	private JButton btnVaisseau;
 	/**
 	 * Bouton pour essayer le niveau créé
 	 */
 	private JButton btnEssayer;
+	/** bouton permettant la sélection de la tuile de type pics */
+	private JButton btnPics;
+	/** bouton permettant la sélection de la tuile de type portail */
+	private JButton btnPortail;
+	/** bouton permettant la réinitialisation de la grille */
+	private JButton btnReinitialiser;
+	/** Bouton à deux états pour gérer le mode de rotation post-placement */
+	private JToggleButton btnRotationPostPlacement;
+	/** bouton permettant de gérer la rotation de nouvelles tuiles */
+	private JButton btnRotationPrePlacement;
+	/** bouton permettant de gérer la sauvegarde du niveau associée à la grille */
+	private JButton btnSauvegarder;
+	/** bouton permettant de gérer la suppression de tuile */
+	private JButton btnSupprimer;
+	/** bouton permettant la sélection de la tuile de type triangle équilatéral */
+	private JButton btnTriangleEquilateral;
+	/** bouton permettant la sélection de la tuile de type triangle rectangle */
+	private JButton btnTriangleRectangle;
+	/** bouton permettant de la sélection de la tuile de type vaisseau */
+	private JButton btnVaisseau;
+	/** Case à cocher pour l'affichage du quadrillage */
+	private JCheckBox chckbxGrille;
 	/**
-	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
-	 * de type carré
+	 * Grille du mode éditeur
 	 */
-	private JLabel lblCarre;
+	private Grille grille;
+	/** étiquette servant à identifier le regroupement de boutons d'action */
+	private JLabel lblActions;
 	/**
 	 * étiquette servant à identifier le regroupement de boutons permettant la
 	 * sélection de tuile (blocs)
@@ -98,14 +97,23 @@ public class PanelEditeur extends JPanel {
 	private JLabel lblBlocs;
 	/**
 	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
-	 * de type triangle rectangle
+	 * de type carré
 	 */
-	private JLabel lblTriangleRectangle;
+	private JLabel lblCarre;
 	/**
 	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
-	 * de type triangle équilatéral
+	 * de type drapeau
 	 */
-	private JLabel lblTriangleEquilateral;
+	private JLabel lblDrapeau;
+	/**
+	 * Étiquette servant à identifier le bouton pour essayer le niveau construit
+	 */
+	private JLabel lblEssayer;
+	/**
+	 * étiquette servant à identifier le regroupement de boutons permettant la
+	 * sélection de tuile interactive
+	 */
+	private JLabel lblInteractifs;
 	/**
 	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
 	 * de type pics
@@ -117,25 +125,15 @@ public class PanelEditeur extends JPanel {
 	 */
 	private JLabel lblPortail;
 	/**
-	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
-	 * de type drapeau
-	 */
-	private JLabel lblDrapeau;
-	/**
-	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
-	 * de type vaisseau
-	 */
-	private JLabel lblVaisseau;
-	/**
 	 * étiquette servant à identifier bouton permettant la réinitialisation de la
 	 * grille
 	 */
 	private JLabel lblReinitialiser;
 	/**
-	 * étiquette servant à identifier le bouton permettant de gérer la suppression
-	 * de tuile
+	 * Étiquette servant à identifier le bouton à deux états pour la rotation
+	 * post-placement
 	 */
-	private JLabel lblSupprimer;
+	private JLabel lblRotationPostPlacement;
 	/**
 	 * étiquette servant à identifier le bouton permettant de gérer la rotation de
 	 * nouvelles tuiles
@@ -147,50 +145,41 @@ public class PanelEditeur extends JPanel {
 	 */
 	private JLabel lblSauvegarder;
 	/**
-	 * étiquette servant à identifier le regroupement de boutons permettant la
-	 * sélection de tuile interactive
+	 * étiquette servant à identifier le bouton permettant de gérer la suppression
+	 * de tuile
 	 */
-	private JLabel lblInteractifs;
-	/** étiquette servant à identifier le regroupement de boutons d'action */
-	private JLabel lblActions;
+	private JLabel lblSupprimer;
 
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type triangle équilatéral
+	 */
+	private JLabel lblTriangleEquilateral;
+
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type triangle rectangle
+	 */
+	private JLabel lblTriangleRectangle;
+	/** étiquette servant à afficher le type de tuile sélectionné */
+	private JLabel lblTypeSelectionne;
+
+	/**
+	 * étiquette servant à identifier le bouton permettant la sélection de la tuile
+	 * de type vaisseau
+	 */
+	private JLabel lblVaisseau;
+
+	/** Panneau d'affichage servant à afficher la tuile ou le mode sélectionné **/
+	private PanelTuileTemp panelTuileTemp;
 	/**
 	 * Ajouter le support pour lancer des évenements de type PropertyChange
 	 */
 	private final PropertyChangeSupport PCS = new PropertyChangeSupport(this);
-
-	/** Case à cocher pour l'affichage du quadrillage */
-	private JCheckBox chckbxGrille;
-	/** Panneau d'affichage servant à afficher la tuile ou le mode sélectionné **/
-	private PanelTuileTemp panelTuileTemp;
-
-	/** Bouton à deux états pour gérer le mode de rotation post-placement */
-	private JToggleButton btnRotationPostPlacement;
-
-	/**
-	 * Étiquette servant à identifier le bouton à deux états pour la rotation
-	 * post-placement
-	 */
-	private JLabel lblRotationPostPlacement;
-	/**
-	 * Étiquette servant à identifier le bouton pour essayer le niveau construit
-	 */
-	private JLabel lblEssayer;
 	/**
 	 * Boolean de si sauvegarder ou pas
 	 */
 	private boolean sauvegarde = true;
-
-	/**
-	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
-	 * 
-	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
-	 *                 propriété.
-	 */
-	// Kitimir Yim
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		PCS.addPropertyChangeListener(listener);
-	}
 
 	/**
 	 * Implémente le panel et ses fonctionnalités
@@ -201,6 +190,7 @@ public class PanelEditeur extends JPanel {
 
 		setBounds(new Rectangle(0, 0, 1920, 1080));
 		addMouseWheelListener(new MouseWheelListener() {
+			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				rotationnerAvant(Integer.signum(e.getWheelRotation()));
 			}
@@ -227,31 +217,78 @@ public class PanelEditeur extends JPanel {
 		grille.setBounds(10, 10, 1000, 750);
 		add(grille);
 
-
 		creerSectionBoutons();
 
 		modificationGrille();
 	}
 
 	/**
-	 * Vérifie les conditions pour essayer un niveau, lance un événement pour
-	 * accéder au mode jeu et réinitialise certains paramètres de la grille
+	 * Voici la méthode qui permettra à un objet de s'ajouter en tant qu'écouteur
+	 *
+	 * @param listener L'objet PropertyChangeListener à ajouter comme écouteur de
+	 *                 propriété.
 	 */
-	// Enuel René Valentin Kizozo Izia
-	private void essayerNiveau() {
-		if (niveauBienConstruit("d'essayer")) {
-			transfertVersModeJeu();
-		}
+	// Kitimir Yim
+	@Override
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		PCS.addPropertyChangeListener(listener);
 	}
 
 	/**
-	 * Permet d'accéder au mode jeu et réinitialise certains paramètres de la grille
+	 * Retourne l'objet grille
+	 *
+	 * @return grille
+	 */
+	// Enuel René Valentin Kizozo Izia
+	public Grille getGrille() {
+		return grille;
+	}
+
+	/**
+	 * Getter pour le boolean de sauvegarde
+	 *
+	 * @return sauvegarde boolean
 	 */
 	// Kitimir Yim
-	private void transfertVersModeJeu() {
-		Niveau niveauParDefaut = new Niveau(grille, "Niveau d'essai");
-		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
-		reinitialiserSaufNiveau();
+	public boolean getSauvegarde() {
+
+		return this.sauvegarde;
+	}
+
+	/**
+	 * Setter pour le boolean de sauvegarde
+	 *
+	 * @param choix nouvelle valeur de vérité pour la sauvegarde
+	 */
+	// Kitimir Yim
+	public void setSauvegarde(boolean choix) {
+
+		this.sauvegarde = choix;
+	}
+
+	/**
+	 * Affiche le type de tuile sélectionné et désactive le mode de suppression de
+	 * tuile
+	 */
+	// Jason Xa
+	private void afficherSelection() {
+		grille.setSupprimer(false);
+	}
+
+	/**
+	 * Vérifie que tous les portails ont une paire
+	 *
+	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles
+	 *                         manquantes
+	 * @return La chaîne de caractères mise à jour avec la nouvelle tuille manquante
+	 *         s'il y a lieu
+	 */
+	// Enuel René Valentin Kizozo Izia
+	private String conditionPortails(String tuilesManquantes) {
+		if (!grille.portailsTousLies()) {
+			tuilesManquantes = tuilesManquantes + "\n     - Portail";
+		}
+		return tuilesManquantes;
 	}
 
 	/**
@@ -266,6 +303,7 @@ public class PanelEditeur extends JPanel {
 		chckbxGrille.setContentAreaFilled(false);
 		chckbxGrille.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
 		chckbxGrille.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				gererGrille();
 			}
@@ -393,6 +431,7 @@ public class PanelEditeur extends JPanel {
 		add(btnDrapeau);
 		btnDrapeau.setText("D");
 		btnDrapeau.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				selectionnerDrapeau();
 			}
@@ -404,6 +443,7 @@ public class PanelEditeur extends JPanel {
 		add(btnVaisseau);
 		btnVaisseau.setText("F");
 		btnVaisseau.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				selectionnerVaisseau();
 			}
@@ -442,6 +482,7 @@ public class PanelEditeur extends JPanel {
 		add(btnRotationPrePlacement);
 		btnRotationPrePlacement.setText("R");
 		btnRotationPrePlacement.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				rotationnerAvant(4); // quart de rotation
 			}
@@ -452,6 +493,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPostPlacement.setBounds(1095, 542, 60, 60);
 		add(btnRotationPostPlacement);
 		btnRotationPostPlacement.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				gererRotationPostPlacement();
 			}
@@ -477,6 +519,7 @@ public class PanelEditeur extends JPanel {
 		add(btnSauvegarder);
 		btnSauvegarder.setText("Sauvegarder");
 		btnSauvegarder.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				sauvegarder();
 			}
@@ -495,6 +538,7 @@ public class PanelEditeur extends JPanel {
 		add(btnReinitialiser);
 		btnReinitialiser.setText("Réinitialiser");
 		btnReinitialiser.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				reinitialiser();
 			}
@@ -513,6 +557,7 @@ public class PanelEditeur extends JPanel {
 		add(btnSupprimer);
 		btnSupprimer.setText("Suppression");
 		btnSupprimer.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				supprimer();
 			}
@@ -531,6 +576,7 @@ public class PanelEditeur extends JPanel {
 		add(btnEssayer);
 		btnEssayer.setFont(new Font("Comic Sans MS", Font.BOLD, 10));
 		btnEssayer.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				essayerNiveau();
 			}
@@ -548,101 +594,60 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Sauvegarder le niveau en argument
-	 * 
-	 * @param niveau le niveau à sauvegarder
+	 * Méthode qui désactive les booléans de rotation post placement de grille et de
+	 * la fenêtre de la tuile temporaire
 	 */
-	// Kitimir Yim
-	private void sauvegarder(Niveau niveau) {
-
-		GestionnaireDeNiveaux.ajouter(niveau);
-		Sauvegarder.sauvegarderNiveauMesTrucs(niveau, niveau.getNom());
-
+	// Giroux
+	private void desactiveBooleanPostRotation() {
+		btnRotationPostPlacement.setEnabled(true);
+		grille.setRotationPostPlacement(false);
+		panelTuileTemp.setRotation(false);
+		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
 	}
 
 	/**
-	 * Affiche le type de tuile sélectionné et désactive le mode de suppression de
-	 * tuile
+	 * Méthode qui désactive les booléans de rotation supprimer de grille et de la
+	 * fenêtre de la tuile temporaire
 	 */
-	// Jason Xa
-	private void afficherSelection() {
+	// Giroux
+	private void desactiveBooleanSupprimer() {
 		grille.setSupprimer(false);
+		panelTuileTemp.setSupprimer(false);
 	}
 
 	/**
-	 * Retourne l'objet grille
-	 * 
-	 * @return grille
+	 * Vérifie les conditions pour essayer un niveau, lance un événement pour
+	 * accéder au mode jeu et réinitialise certains paramètres de la grille
 	 */
 	// Enuel René Valentin Kizozo Izia
-	public Grille getGrille() {
-		return grille;
+	private void essayerNiveau() {
+		if (niveauBienConstruit("d'essayer")) {
+			transfertVersModeJeu();
+		}
 	}
 
 	/**
-	 * Sauvegarde un niveau selon certaines conditions non reliées à la construction
-	 * du niveau
-	 * 
+	 * Gère l'affichage de la grille
 	 */
-	// Kitimir Yim
-	private void sauvegarderNiveau() {
-		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
-				JOptionPane.PLAIN_MESSAGE);
+	// Giroux
+	private void gererGrille() {
+		grille.afficherGrille();
+	}
 
-		if (nom != null && !nom.trim().isEmpty()) {
-			Niveau niveauParDefaut = new Niveau(grille, nom);
-			sauvegarder(niveauParDefaut);
+	/**
+	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du
+	 * bouton
+	 */
+	// Giroux
+	private void gererRotationPostPlacement() {
+		grille.setRotationPostPlacement();
+		if (grille.getRotationPostPlacement()) {
+			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg", btnRotationPostPlacement);
+			panelTuileTemp.setRotation(true);
 		} else {
-
-			JOptionPane.showMessageDialog(null, "La sauvegarde est annulée.", "Annulation de sauvegarde",
-					JOptionPane.WARNING_MESSAGE);
+			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+			panelTuileTemp.setRotation(false);
 		}
-	}
-
-	/**
-	 * Retourne vrai si le niveau contient un vaisseau, un drapeau et un nombre pair
-	 * de portail. Affiche également une fenêtre pop-up lorsque le niveau n'est pas
-	 * bien construit comme avertissement.
-	 * 
-	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveau soit
-	 *                        bien construit
-	 * @return vrai si le niveau contient un vaisseau et un drapeau
-	 */
-	// Jason Xa
-	private boolean niveauBienConstruit(String tacheAEffectuer) {
-		String tuilesManquantes = "";
-		boolean vaisseauPresent = grille.contientVaisseau();
-		boolean drapeauPresent = grille.contientDrapeau();
-
-		tuilesManquantes = conditionPortails(tuilesManquantes);
-		if (!vaisseauPresent) {
-			tuilesManquantes = tuilesManquantes + "\n     - Vaisseau (personnage)";
-		}
-		if (!drapeauPresent) {
-			tuilesManquantes = tuilesManquantes + "\n     - Drapeau d'arrivée";
-		}
-		if (!tuilesManquantes.isBlank()) {
-			JOptionPane.showMessageDialog(null, "Objets à placer:" + tuilesManquantes
-					+ "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveau.", "Niveau inadéquat", 2,
-					null);
-		}
-		return (grille.contientVaisseau() && grille.contientDrapeau() && grille.portailsTousLies());
-	}
-
-	/**
-	 * Vérifie que tous les portails ont une paire
-	 * 
-	 * @param tuilesManquantes Une chaîne de caractères indiquant les tuiles
-	 *                         manquantes
-	 * @return La chaîne de caractères mise à jour avec la nouvelle tuille manquante
-	 *         s'il y a lieu
-	 */
-	// Enuel René Valentin Kizozo Izia
-	private String conditionPortails(String tuilesManquantes) {
-		if (!grille.portailsTousLies()) {
-			tuilesManquantes = tuilesManquantes + "\n     - Portail";
-		}
-		return tuilesManquantes;
 	}
 
 	/**
@@ -652,6 +657,7 @@ public class PanelEditeur extends JPanel {
 	private void leveeEvenement() {
 
 		grille.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				switch (evt.getPropertyName()) {
 				case "Drapeau":
@@ -712,16 +718,158 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Sélectionne le vaisseau
+	 * Récupere le message de la grille
+	 */
+	// Kitimir Yim
+	private void modificationGrille() {
+		grille.addPropertyChangeListener(new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+
+				if (evt.getPropertyName().equals("Modification")) {
+					sauvegarde = false;
+
+				}
+
+			}
+		});
+	}
+
+	/**
+	 * Retourne vrai si le niveau contient un vaisseau, un drapeau et un nombre pair
+	 * de portail. Affiche également une fenêtre pop-up lorsque le niveau n'est pas
+	 * bien construit comme avertissement.
+	 *
+	 * @param tacheAEffectuer La tâche à effectuer qui nécessite que le niveau soit
+	 *                        bien construit
+	 * @return vrai si le niveau contient un vaisseau et un drapeau
 	 */
 	// Jason Xa
-	private void selectionnerVaisseau() {
-		grille.setTuile(new VaisseauImage());
-		panelTuileTemp.setTuile(new VaisseauImage());
-		afficherSelection();
+	private boolean niveauBienConstruit(String tacheAEffectuer) {
+		String tuilesManquantes = "";
+		boolean vaisseauPresent = grille.contientVaisseau();
+		boolean drapeauPresent = grille.contientDrapeau();
+
+		tuilesManquantes = conditionPortails(tuilesManquantes);
+		if (!vaisseauPresent) {
+			tuilesManquantes = tuilesManquantes + "\n     - Vaisseau (personnage)";
+		}
+		if (!drapeauPresent) {
+			tuilesManquantes = tuilesManquantes + "\n     - Drapeau d'arrivée";
+		}
+		if (!tuilesManquantes.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Objets à placer:" + tuilesManquantes
+					+ "\n\nVeuillez le(s) placer avant " + tacheAEffectuer + " le niveau.", "Niveau inadéquat", 2,
+					null);
+		}
+		return (grille.contientVaisseau() && grille.contientDrapeau() && grille.portailsTousLies());
+	}
+
+	/**
+	 * Réinitialise cet éditeur de niveau
+	 */
+	// Giroux
+	private void reinitialiser() {
+		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveau?",
+				"Confirmation de réinitialisation", JOptionPane.YES_NO_OPTION) == 0) {
+			grille.reinitialiser();
+			grille.setSupprimer(false);
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+			grille.setRotationPostPlacement(false);
+			repaint();
+			btnDrapeau.setEnabled(true);
+			btnVaisseau.setEnabled(true);
+			desactiveBooleanPostRotation();
+			desactiveBooleanSupprimer();
+		}
+	}
+
+	/**
+	 * Réinitialise cet éditeur de niveau sauf le niveau
+	 */
+	// Jason Xa
+	private void reinitialiserSaufNiveau() {
+		grille.setSupprimer(false);
+		grille.setTuile(null);
+		panelTuileTemp.setTuile(null);
+		grille.setExterieurComposant(true);
+		grille.setRotationPostPlacement(false);
+		desactiveBooleanSupprimer();
+		repaint();
+	}
+
+	/**
+	 * Gère la rotation d'une tuile déjà placée
+	 */
+	// Giroux
+	private void rotationnerApresPlacement() {
+		gererRotationPostPlacement();
+
+	}
+
+	/**
+	 * Gère la rotation de la tuile actuelle
+	 *
+	 * @param facteur nombre de seixième de rotation horaire à appliquer
+	 */
+	// Giroux
+	private void rotationnerAvant(int facteur) {
+		grille.setSupprimer(false);
+		grille.rotation(facteur);
+		panelTuileTemp.rotation(facteur);
+		panelTuileTemp.repaint();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
+	}
+
+	/**
+	 * Gère la sauvegarde du niveau
+	 *
+	 * @throws HeadlessException exception sans tête
+	 */
+	// Jason Xa
+	private void sauvegarder() throws HeadlessException {
+		if (niveauBienConstruit("de sauvegarder")) {
+			sauvegarde = true;
+			sauvegarderNiveau();
+			desactiveBooleanPostRotation();
+			desactiveBooleanSupprimer();
+		}
+	}
+
+	/**
+	 * Sauvegarder le niveau en argument
+	 *
+	 * @param niveau le niveau à sauvegarder
+	 */
+	// Kitimir Yim
+	private void sauvegarder(Niveau niveau) {
+
+		GestionnaireDeNiveaux.ajouter(niveau);
+		Sauvegarder.sauvegarderNiveauMesTrucs(niveau, niveau.getNom());
+
+	}
+
+	/**
+	 * Sauvegarde un niveau selon certaines conditions non reliées à la construction
+	 * du niveau
+	 *
+	 */
+	// Kitimir Yim
+	private void sauvegarderNiveau() {
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du niveau:", "Nom du niveau",
+				JOptionPane.PLAIN_MESSAGE);
+
+		if (nom != null && !nom.trim().isEmpty()) {
+			Niveau niveauParDefaut = new Niveau(grille, nom);
+			sauvegarder(niveauParDefaut);
+		} else {
+
+			JOptionPane.showMessageDialog(null, "La sauvegarde est annulée.", "Annulation de sauvegarde",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	/**
@@ -744,39 +892,17 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Sélectionne le bloc triangle rectangle
+	 * Sélectionne le drapeau
 	 */
 	// Jason Xa
-	private void selectionnerTriangleRectangle() {
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle rectangle") {
-			grille.setTuile(null);
-			panelTuileTemp.setTuile(null);
-		} else {
-			grille.setTuile(new TriangleRectangle());
-			panelTuileTemp.setTuile(new TriangleRectangle());
-		}
+	private void selectionnerDrapeau() {
+		grille.setTuile(new Drapeau());
+		panelTuileTemp.setTuile(new Drapeau());
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
-	}
 
-	/**
-	 * Sélectionne le bloc triangle équilatéral
-	 */
-	// Jason Xa
-	private void selectionnerTriangleEquilateral() {
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle équilatéral") {
-			grille.setTuile(null);
-			panelTuileTemp.setTuile(null);
-		} else {
-			grille.setTuile(new TriangleEquilateral());
-			panelTuileTemp.setTuile(new TriangleEquilateral());
-		}
-		afficherSelection();
-		desactiveBooleanPostRotation();
-		desactiveBooleanSupprimer();
-		repaint();
 	}
 
 	/**
@@ -817,49 +943,50 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Sélectionne le drapeau
+	 * Sélectionne le bloc triangle équilatéral
 	 */
 	// Jason Xa
-	private void selectionnerDrapeau() {
-		grille.setTuile(new Drapeau());
-		panelTuileTemp.setTuile(new Drapeau());
+	private void selectionnerTriangleEquilateral() {
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle équilatéral") {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+			grille.setTuile(new TriangleEquilateral());
+			panelTuileTemp.setTuile(new TriangleEquilateral());
+		}
 		afficherSelection();
 		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
-
 	}
 
 	/**
-	 * Réinitialise cet éditeur de niveau
-	 */
-	// Giroux
-	private void reinitialiser() {
-		if (JOptionPane.showConfirmDialog(this, "Êtes-vous sûr de vouloir réinitialiser l'éditeur de niveau?",
-				"Confirmation de réinitialisation", JOptionPane.YES_NO_OPTION) == 0) {
-			grille.reinitialiser();
-			grille.setSupprimer(false);
-			grille.setTuile(null);
-			panelTuileTemp.setTuile(null);
-			grille.setRotationPostPlacement(false);
-			repaint();
-			btnDrapeau.setEnabled(true);
-			btnVaisseau.setEnabled(true);
-			desactiveBooleanPostRotation();
-			desactiveBooleanSupprimer();
-		}
-	}
-
-	/**
-	 * Réinitialise cet éditeur de niveau sauf le niveau
+	 * Sélectionne le bloc triangle rectangle
 	 */
 	// Jason Xa
-	private void reinitialiserSaufNiveau() {
-		grille.setSupprimer(false);
-		grille.setTuile(null);
-		panelTuileTemp.setTuile(null);
-		grille.setExterieurComposant(true);
-		grille.setRotationPostPlacement(false);
+	private void selectionnerTriangleRectangle() {
+		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle rectangle") {
+			grille.setTuile(null);
+			panelTuileTemp.setTuile(null);
+		} else {
+			grille.setTuile(new TriangleRectangle());
+			panelTuileTemp.setTuile(new TriangleRectangle());
+		}
+		afficherSelection();
+		desactiveBooleanPostRotation();
+		desactiveBooleanSupprimer();
+		repaint();
+	}
+
+	/**
+	 * Sélectionne le vaisseau
+	 */
+	// Jason Xa
+	private void selectionnerVaisseau() {
+		grille.setTuile(new VaisseauImage());
+		panelTuileTemp.setTuile(new VaisseauImage());
+		afficherSelection();
+		desactiveBooleanPostRotation();
 		desactiveBooleanSupprimer();
 		repaint();
 	}
@@ -875,127 +1002,12 @@ public class PanelEditeur extends JPanel {
 	}
 
 	/**
-	 * Gère la rotation de la tuile actuelle
-	 * 
-	 * @param facteur nombre de seixième de rotation horaire à appliquer
-	 */
-	// Giroux
-	private void rotationnerAvant(int facteur) {
-		grille.setSupprimer(false);
-		grille.rotation(facteur);
-		panelTuileTemp.rotation(facteur);
-		panelTuileTemp.repaint();
-		desactiveBooleanPostRotation();
-		desactiveBooleanSupprimer();
-		repaint();
-	}
-
-	/**
-	 * Gère la sauvegarde du niveau
-	 * 
-	 * @throws HeadlessException exception sans tête
-	 */
-	// Jason Xa
-	private void sauvegarder() throws HeadlessException {
-		if (niveauBienConstruit("de sauvegarder")) {
-			sauvegarde = true;
-			sauvegarderNiveau();
-			desactiveBooleanPostRotation();
-			desactiveBooleanSupprimer();
-		}
-	}
-
-	/**
-	 * Gère l'affichage de la grille
-	 */
-	// Giroux
-	private void gererGrille() {
-		grille.afficherGrille();
-	}
-
-	/**
-	 * Gère la rotation d'une tuile déjà placée
-	 */
-	// Giroux
-	private void rotationnerApresPlacement() {
-		gererRotationPostPlacement();
-
-	}
-
-	/**
-	 * Méthode qui met la grille en mode post-rotation et qui change la couleur du
-	 * bouton
-	 */
-	// Giroux
-	private void gererRotationPostPlacement() {
-		grille.setRotationPostPlacement();
-		if (grille.getRotationPostPlacement()) {
-			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg", btnRotationPostPlacement);
-			panelTuileTemp.setRotation(true);
-		} else {
-			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
-			panelTuileTemp.setRotation(false);
-		}
-	}
-
-	/**
-	 * Méthode qui désactive les booléans de rotation post placement de grille et de
-	 * la fenêtre de la tuile temporaire
-	 */
-	// Giroux
-	private void desactiveBooleanPostRotation() {
-		btnRotationPostPlacement.setEnabled(true);
-		grille.setRotationPostPlacement(false);
-		panelTuileTemp.setRotation(false);
-		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
-	}
-
-	/**
-	 * Méthode qui désactive les booléans de rotation supprimer de grille et de
-	 * la fenêtre de la tuile temporaire
-	 */
-	// Giroux
-	private void desactiveBooleanSupprimer() {
-		grille.setSupprimer(false);
-		panelTuileTemp.setSupprimer(false);
-	}
-
-	/**
-	 * Getter pour le boolean de sauvegarde
-	 * 
-	 * @return sauvegarde boolean
+	 * Permet d'accéder au mode jeu et réinitialise certains paramètres de la grille
 	 */
 	// Kitimir Yim
-	public boolean getSauvegarde() {
-
-		return this.sauvegarde;
-	}
-
-	/**
-	 * Setter pour le boolean de sauvegarde
-	 * 
-	 * @param choix nouvelle valeur de vérité pour la sauvegarde
-	 */
-	// Kitimir Yim
-	public void setSauvegarde(boolean choix) {
-
-		this.sauvegarde = choix;
-	}
-
-	/**
-	 * Récupere le message de la grille
-	 */
-	// Kitimir Yim
-	private void modificationGrille() {
-		grille.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-
-				if (evt.getPropertyName().equals("Modification")) {
-					sauvegarde = false;
-
-				}
-
-			}
-		});
+	private void transfertVersModeJeu() {
+		Niveau niveauParDefaut = new Niveau(grille, "Niveau d'essai");
+		PCS.fireIndexedPropertyChange("niveau essai", 0, 0, niveauParDefaut);
+		reinitialiserSaufNiveau();
 	}
 }

@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Classe qui permet d'instancer des matrices de rotation pour permettre de
  * rotationner différents objets
- * 
+ *
  * @author Giroux
  */
 public class MatriceRotation implements Serializable {
@@ -19,7 +19,7 @@ public class MatriceRotation implements Serializable {
 
 	/**
 	 * Matrice qui possède un angle en radian pour rotationner les blocs
-	 * 
+	 *
 	 * @param angleRotation l'angle en radian
 	 */
 	// Giroux
@@ -28,20 +28,9 @@ public class MatriceRotation implements Serializable {
 	}
 
 	/**
-	 * Méthode qui permet d'instancier le tableau de rotation
-	 */
-	// Giroux
-	private void setRotation() {
-		rotation[0][0] = Math.cos(angleRotation);
-		rotation[0][1] = -Math.sin(angleRotation);
-		rotation[1][0] = Math.sin(angleRotation);
-		rotation[1][1] = Math.cos(angleRotation);
-	}
-
-	/**
 	 * Méthode qui permet de retationner un point précis selon l'angle de rotation à
 	 * l'aide de la matrice de rotation
-	 * 
+	 *
 	 * @param pointARotationner Le point à retationner
 	 * @return Le point transformé
 	 */
@@ -61,5 +50,16 @@ public class MatriceRotation implements Serializable {
 		Point2D.Double pointFinal = new Point2D.Double(x, y);
 
 		return pointFinal;
+	}
+
+	/**
+	 * Méthode qui permet d'instancier le tableau de rotation
+	 */
+	// Giroux
+	private void setRotation() {
+		rotation[0][0] = Math.cos(angleRotation);
+		rotation[0][1] = -Math.sin(angleRotation);
+		rotation[1][0] = Math.sin(angleRotation);
+		rotation[1][1] = Math.cos(angleRotation);
 	}
 }

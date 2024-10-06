@@ -13,36 +13,36 @@ import utilitaires.OutilsImage;
 
 /**
  * Représente l'objet dynamique plaçable unique agissant comme un vaisseau
- * 
+ *
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
  */
 public class VaisseauImage extends Tuile implements Serializable {
+	/** l'image représentant un triangle rectangle */
+	private static transient Image image;
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = 5393283819635096303L;
-	/** l'image représentant un triangle rectangle */
-	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type vaisseau */
 	private static String type = "Vaisseau";
-	// Coins du carré//
+	/** Coin bas-droit **/
+	private Double coinBasDroit;
+	/** Coin haut-droit **/
+	private Point2D.Double coinHautDroit;
+	/** Coin bas-gauche **/
+	private Double coinHautGauche;
+
 	/** position du x pour délimiter les points **/
 	private double xActuel;
 	/** position du y pour délimiter les points **/
 	private double yActuel;
-	/** Coin haut-droit **/
-	private Point2D.Double coinHautDroit;
-	/** Coin bas-droit **/
-	private Double coinBasDroit;
-	/** Coin bas-gauche **/
-	private Double coinHautGauche;
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public VaisseauImage() {
@@ -52,7 +52,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
@@ -63,10 +63,10 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param x l'abscisse gauche de la tuile (px)
 	 * @param y l'ordonnée supérieure la tuile (px)
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public VaisseauImage(int x, int y) {
@@ -76,7 +76,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant le vaisseau
-	 * 
+	 *
 	 * @return L'image représentant le vaisseau
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -86,7 +86,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 
 	/**
 	 * Définit l'image représentant le vaisseau
-	 * 
+	 *
 	 * @param fichierImage    Le fichier de l'image représentant le vaisseau
 	 * @param largeurVaisseau La largeur du vaisseau
 	 * @param hauteurVaisseau La hauteur du vaisseau
@@ -99,10 +99,11 @@ public class VaisseauImage extends Tuile implements Serializable {
 	/**
 	 * Dessine l'image représentant le vaisseau selon les coordonnées de sa tuile
 	 * dans la grille (fixe)
-	 * 
+	 *
 	 * @param g2d Le contexte graphique
 	 */
 	// Enuel René Valentin Kizozo Izia
+	@Override
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
@@ -120,7 +121,7 @@ public class VaisseauImage extends Tuile implements Serializable {
 	/**
 	 * Dessine l'image représentant le vaisseau selon la position de l'objet
 	 * Vaisseau lors de l'animation
-	 * 
+	 *
 	 * @param g2d contexte graphique
 	 * @param x   abscisse gauche de la tuile du vaisseau (px)
 	 * @param y   ordonnée supérieure de la tuile du vaisseau (px)
@@ -133,19 +134,31 @@ public class VaisseauImage extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui affiche le type lorsqu'on le print
-	 * 
-	 * @return Une chaine indiquant que l'objet est un vaisseau
+	 * Méthode qui forme le vaisseau dans un area
+	 *
+	 * @return la forme du vaisseau dans un area
 	 */
-	// Giroux
-	public String toString() {
-		return "Vaisseau ";
+	// Kitimir Yim
+	public Area formeVaisseau() {
+
+		double diametre = Math.min(largeurTuile, hauteurTuile);
+		double rayon = diametre / 2.0;
+
+		double centreX = pointInitial.getX() + largeurTuile / 2.0;
+		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
+
+		Ellipse2D cercle = new Ellipse2D.Double(centreX - rayon, centreY - rayon, diametre, diametre);
+
+		Area vaisseauArea = new Area(cercle);
+		return vaisseauArea;
+
 	}
 
 	/**
 	 * Méthode qui ajoute les coins du carré dans l'arrayList points
 	 */
 	// Giroux
+	@Override
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.clear();
@@ -182,24 +195,14 @@ public class VaisseauImage extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui forme le vaisseau dans un area
-	 * 
-	 * @return la forme du vaisseau dans un area
+	 * Méthode qui affiche le type lorsqu'on le print
+	 *
+	 * @return Une chaine indiquant que l'objet est un vaisseau
 	 */
-	// Kitimir Yim
-	public Area formeVaisseau() {
-
-		double diametre = Math.min(largeurTuile, hauteurTuile);
-		double rayon = diametre / 2.0;
-
-		double centreX = pointInitial.getX() + largeurTuile / 2.0;
-		double centreY = pointInitial.getY() + hauteurTuile / 2.0;
-
-		Ellipse2D cercle = new Ellipse2D.Double(centreX - rayon, centreY - rayon, diametre, diametre);
-
-		Area vaisseauArea = new Area(cercle);
-		return vaisseauArea;
-
+	// Giroux
+	@Override
+	public String toString() {
+		return "Vaisseau ";
 	}
 
 }

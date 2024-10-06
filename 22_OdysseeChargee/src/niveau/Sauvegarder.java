@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * Classe servant à sauvegarder des niveau Inspirée par le matériel d'appoint,
  * mais grandement modifier pour fonctionner pour notre jeu
- * 
+ *
  * @author Kitimir Yim
  */
 public class Sauvegarder {
@@ -33,8 +33,87 @@ public class Sauvegarder {
 	private static final String EXTENSION_FICHIER = ".dat";
 
 	/**
+	 * Méthode static permettant le chargement de niveau
+	 *
+	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
+	 *                          nom)
+	 * @return niveau Le niveau que l'on souhaite charger
+	 */
+	public static Niveau chargerNiveauDeBase(String identifiantNiveau) {
+		String nomFichier = identifiantNiveau + EXTENSION_FICHIER;
+
+		ObjectInputStream ois = null;
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(nomFichier);
+
+		if (is == null) {
+			JOptionPane.showMessageDialog(null,
+					"Incapable de trouver ce fichier dans le BuildPath (ou dans le jar exécutable) : " + nomFichier);
+		}
+		try {
+			ois = new ObjectInputStream(is);
+			Niveau niveau = (Niveau) ois.readObject();
+
+			GestionnaireDeNiveaux.ajouter(niveau);
+
+			return niveau;
+		} catch (IOException | ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Erreur lors du chargement du niveau : " + e.getMessage());
+			return null;
+		} finally {
+
+			try {
+				ois.close();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Méthode static permettant le chargement de niveau dans MesTrucs
+	 *
+	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
+	 *                          nom)
+	 * @return niveau Le niveau que l'on souhaite charger
+	 */
+	public static Niveau chargerNiveauMesTrucs(String identifiantNiveau) {
+		String nomFichier = identifiantNiveau;
+
+		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
+		if (!dossierNiveaux.exists()) {
+			dossierNiveaux.mkdirs();
+		}
+		File fichierDeTravail = new File(dossierNiveaux + "\\" + nomFichier);
+
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
+
+			Niveau niveau = (Niveau) ois.readObject();
+
+			GestionnaireDeNiveaux.ajouter(niveau);
+
+			return niveau;
+		} catch (IOException | ClassNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "Erreur lors du chargement du niveau : " + e.getMessage());
+			return null;
+		} finally {
+
+			try {
+				if (ois != null) {
+					ois.close();
+				}
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
 	 * Méthode static permettant la sauvegarde de niveau dans MesTrucs
-	 * 
+	 *
 	 * @param niveau    Objet niveau que l'on veut sauvegarder
 	 * @param nomNiveau le nom du niveau
 	 */
@@ -65,86 +144,9 @@ public class Sauvegarder {
 		} finally {
 
 			try {
-				if (oos != null)
+				if (oos != null) {
 					oos.close();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
-				e.printStackTrace();
-			}
-		}
-	}
-
-	/**
-	 * Méthode static permettant le chargement de niveau dans MesTrucs
-	 * 
-	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
-	 *                          nom)
-	 * @return niveau Le niveau que l'on souhaite charger
-	 */
-	public static Niveau chargerNiveauMesTrucs(String identifiantNiveau) {
-		String nomFichier = identifiantNiveau;
-
-		File dossierNiveaux = new File(DOSSIER_SAUVEGARDE);
-		if (!dossierNiveaux.exists()) {
-			dossierNiveaux.mkdirs();
-		}
-		File fichierDeTravail = new File(dossierNiveaux + "\\" + nomFichier);
-
-		ObjectInputStream ois = null;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichierDeTravail));
-
-			Niveau niveau = (Niveau) ois.readObject();
-
-			GestionnaireDeNiveaux.ajouter(niveau);
-
-			return niveau;
-		} catch (IOException | ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Erreur lors du chargement du niveau : " + e.getMessage());
-			return null;
-		} finally {
-
-			try {
-				if (ois != null)
-					ois.close();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
-				e.printStackTrace();
-			}
-		}
-	}
-
-	/**
-	 * Méthode static permettant le chargement de niveau
-	 * 
-	 * @param identifiantNiveau L'identifiant du niveau (son numéro d'index ou son
-	 *                          nom)
-	 * @return niveau Le niveau que l'on souhaite charger
-	 */
-	public static Niveau chargerNiveauDeBase(String identifiantNiveau) {
-		String nomFichier = identifiantNiveau + EXTENSION_FICHIER;
-
-		ObjectInputStream ois = null;
-		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(nomFichier);
-
-		if (is == null) {
-			JOptionPane.showMessageDialog(null,
-					"Incapable de trouver ce fichier dans le BuildPath (ou dans le jar exécutable) : " + nomFichier);
-		}
-		try {
-			ois = new ObjectInputStream(is);
-			Niveau niveau = (Niveau) ois.readObject();
-
-			GestionnaireDeNiveaux.ajouter(niveau);
-
-			return niveau;
-		} catch (IOException | ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Erreur lors du chargement du niveau : " + e.getMessage());
-			return null;
-		} finally {
-
-			try {
-				ois.close();
+				}
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
 				e.printStackTrace();

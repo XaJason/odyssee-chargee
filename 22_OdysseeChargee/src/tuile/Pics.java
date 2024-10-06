@@ -13,36 +13,36 @@ import utilitaires.OutilsImage;
 /**
  * Représente l'objet interactif fixe plaçable qui agit comme une plaque de pics
  * (au bas de la tuile par défaut)
- * 
+ *
  * @author Jason Xa
  * @author Giroux
  * @author Enuel René Valentin Kizozo Izia
  * @author Kitimir Yim
  */
 public class Pics extends Tuile implements Serializable {
+	/** l'image représentant des pics */
+	private static transient Image image;
 	/**
 	 * Numéro d'identification pour la sérialisation
 	 */
 	private static final long serialVersionUID = 2291455130727306069L;
-	/** l'image représentant des pics */
-	private static transient Image image;
 	/** chaine de caractères représentant la tuile de type pics */
 	private static String type = "Pics";
-	// Coins du rectangle//
+	/** Coin bas-droit **/
+	private Double coinBasDroit;
+	/** Coin haut-droit **/
+	private Point2D.Double coinHautDroit;
+	/** Coin bas-gauche **/
+	private Double coinHautGauche;
+
 	/** position du x pour délimiter les points **/
 	private double xActuel;
 	/** position du y pour délimiter les points **/
 	private double yActuel;
-	/** Coin haut-droit **/
-	private Point2D.Double coinHautDroit;
-	/** Coin bas-droit **/
-	private Double coinBasDroit;
-	/** Coin bas-gauche **/
-	private Double coinHautGauche;
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public Pics() {
@@ -51,7 +51,7 @@ public class Pics extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param angleRotation l'angle de rotation de la tuile (rad)
 	 */
 	// Jason Xa
@@ -61,10 +61,10 @@ public class Pics extends Tuile implements Serializable {
 
 	/**
 	 * Constructeur
-	 * 
+	 *
 	 * @param x l'abscisse gauche de la tuile (px)
 	 * @param y l'ordonnée supérieure la tuile (px)
-	 * 
+	 *
 	 */
 	// Jason Xa
 	public Pics(int x, int y) {
@@ -73,7 +73,7 @@ public class Pics extends Tuile implements Serializable {
 
 	/**
 	 * Retourne l'image représentant les pics
-	 * 
+	 *
 	 * @return L'image représentant les pics
 	 */
 	// Enuel René Valentin Kizozo Izia
@@ -83,7 +83,7 @@ public class Pics extends Tuile implements Serializable {
 
 	/**
 	 * Définit l'image représentant les pics
-	 * 
+	 *
 	 * @param fichierImage Le fichier de l'image représentant les pics
 	 * @param largeurTuile La largeur de la tuile
 	 * @param hauteurTuile La hauteur de la tuile
@@ -96,10 +96,11 @@ public class Pics extends Tuile implements Serializable {
 	/**
 	 * Dessine l'image représentant les pics selon les coordonnées de sa tuile dans
 	 * la grille
-	 * 
+	 *
 	 * @param g2d Le contexte graphique
 	 */
 	// Jason Xa
+	@Override
 	public void dessiner(Graphics2D g2d) {
 		Graphics2D g2dPrive = (Graphics2D) g2d.create();
 		creerGeometrieContour();
@@ -110,17 +111,22 @@ public class Pics extends Tuile implements Serializable {
 		 */
 		double hauteurTuileImage = -(hauteurTuile / 2.0);
 		g2dPrive.rotate(-angleRotation, x + largeurTuile / 2.0, y + hauteurTuile / 2.0);
-		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) hauteurTuileImage, null);
+		g2dPrive.drawImage(image, (int) x, (int) (y + largeurTuile / 2.0), (int) largeurTuile, (int) hauteurTuileImage,
+				null);
 	}
 
 	/**
-	 * Méthode qui affiche le type lorsqu'on le print
-	 * 
-	 * @return Une chaine indiquant que l'objet est un pic
+	 * Méthode qui forme le pic dans un area
+	 *
+	 * @return la forme du pic dans un area
 	 */
-	// Giroux
-	public String toString() {
-		return "Pics " + pointsCoin.toString();
+	// Kitimir Yim
+	@Override
+	public Area formerAireObjetSpecial() {
+
+		Area airePics = new Area(contour);
+		return airePics;
+
 	}
 
 	/**
@@ -128,6 +134,7 @@ public class Pics extends Tuile implements Serializable {
 	 * puis qui les transforme avant de les mettre dans pointsCoin
 	 */
 	// Giroux
+	@Override
 	public void setPoint() {
 		super.setPoint();
 		prePointsCoin.clear();
@@ -160,16 +167,14 @@ public class Pics extends Tuile implements Serializable {
 	}
 
 	/**
-	 * Méthode qui forme le pic dans un area
-	 * 
-	 * @return la forme du pic dans un area
+	 * Méthode qui affiche le type lorsqu'on le print
+	 *
+	 * @return Une chaine indiquant que l'objet est un pic
 	 */
-	// Kitimir Yim
-	public Area formerAireObjetSpecial() {
-
-		Area airePics = new Area(contour);
-		return airePics;
-
+	// Giroux
+	@Override
+	public String toString() {
+		return "Pics " + pointsCoin.toString();
 	}
 
 }

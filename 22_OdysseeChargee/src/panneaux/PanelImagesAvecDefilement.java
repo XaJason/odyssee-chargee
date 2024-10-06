@@ -14,20 +14,18 @@ import javax.swing.ScrollPaneConstants;
 /**
  * Ce composant personnalise permet d'afficher une ou plusieurs images
  * accompagnees d'une barre de defilement vertical. Le tout est placee dans un
- * jpanel.
- * Avec ses methodes suivant/precedent, il servira typiquement a afficher des
- * iamges qui representent des pages de texte cons�cutives.
- * 
+ * jpanel. Avec ses methodes suivant/precedent, il servira typiquement a
+ * afficher des iamges qui representent des pages de texte cons�cutives.
+ *
  * Pour utiliser ce composant: le placer sur l'interface (avec ou sans
  * WindowBuilder). Ensuite, executer sa methode setFichiersImages.
- * 
+ *
  * L'image est redimensionnee de facon a cadrer exactement dans le jpanel.
- * 
- * Caracteristiques modifiables:
- * - la couleur du fond, c'est a dire du cadre derriere le texte (via
- * setBackground)
- * - la largeur de ce cadre en pixels (setLargeurCadre)
- * 
+ *
+ * Caracteristiques modifiables: - la couleur du fond, c'est a dire du cadre
+ * derriere le texte (via setBackground) - la largeur de ce cadre en pixels
+ * (setLargeurCadre)
+ *
  * @author Caroline Houle
  *
  */
@@ -47,23 +45,18 @@ public class PanelImagesAvecDefilement extends JPanel {
 	 */
 	private int largeurCadre = 6;
 	/**
-	 * Nom du fichier
-	 */
-	private String nomFichierCourant = null;
-	/**
-	 * JScrollPane utilisé pour afficher les images avec défilement.
-	 */
-	private JScrollPane sp;
-
-	/**
 	 * JLabel utilisé pour contenir l'image affichée.
 	 */
 	private JLabel lblPourContenirImage;
-
 	/**
 	 * Nombre de pages dans le document.
 	 */
 	private int nombrePages;
+
+	/**
+	 * Nom du fichier
+	 */
+	private String nomFichierCourant = null;
 
 	/**
 	 * Page courante affichée.
@@ -71,22 +64,27 @@ public class PanelImagesAvecDefilement extends JPanel {
 	private int pageCourante = 0;
 
 	/**
-	 * Tableau contenant les chemins des fichiers images.
-	 */
-	private String[] tableauImages;
-
-	/**
 	 * Indique si la taille des images est inconnue.
 	 */
 	private boolean pasDeSize = false;
 
 	/**
-	 * Crée un composant destin� a contenir une serie de pages (images)
-	 * S,Il n'y a qu'une seule image a montrer, on peut appeler setFichierImage
-	 * S'il y a plusieurs fichiers a associer, dans lesquels on voudra naviguer avec
-	 * precedente/suivante, alors on appellera setFichiersImages
-	 * Il faut ensuite appeler la methode initialiser() pour indiquer le tableau des
-	 * noms d'images a utiliser.
+	 * JScrollPane utilisé pour afficher les images avec défilement.
+	 */
+	private JScrollPane sp;
+
+	/**
+	 * Tableau contenant les chemins des fichiers images.
+	 */
+	private String[] tableauImages;
+
+	/**
+	 * Crée un composant destin� a contenir une serie de pages (images) S,Il n'y a
+	 * qu'une seule image a montrer, on peut appeler setFichierImage S'il y a
+	 * plusieurs fichiers a associer, dans lesquels on voudra naviguer avec
+	 * precedente/suivante, alors on appellera setFichiersImages Il faut ensuite
+	 * appeler la methode initialiser() pour indiquer le tableau des noms d'images a
+	 * utiliser.
 	 */
 	// Caroline Houle
 	public PanelImagesAvecDefilement() {
@@ -102,10 +100,55 @@ public class PanelImagesAvecDefilement extends JPanel {
 	}
 
 	/**
+	 * Retourne la largeur courante du cadre autour du scrollpane Cet espace permet
+	 * de voir la couleur de l'arriere plan du panel
+	 *
+	 * @return La laregur du cadre, en pixels
+	 */
+	// Caroline Houle
+	public int getLargeurCadre() {
+		return largeurCadre;
+	}
+
+	/**
+	 * Permet dessiner le panneau
+	 *
+	 * @param g Le contexte graphique
+	 */
+	// Caroline Houle
+	@Override
+	public void paintComponent(Graphics g) {
+		if (pasDeSize) {
+			// si setFichiersdImage avait ete appele avant que laes dimensions du panel ne
+			// soient connues, il faut l'appeler de nouveau
+			changeImageCourante(tableauImages[pageCourante]);
+			pasDeSize = false;
+		}
+	}
+
+	/**
+	 * Recule d'une page parmi celles fournies lors de l'initialisation.
+	 *
+	 * @return Un booleen qui vaut true si la nouvelle page est la premiere page
+	 */
+	// Caroline Houle
+	public boolean precedente() {
+		if (pageCourante > 0) {
+			pageCourante--;
+			changeImageCourante(tableauImages[pageCourante]);
+		}
+		if (pageCourante == 0) {
+			return (false);
+		} else {
+			return (true);
+		}
+	}
+
+	/**
 	 * Permet d'indiquer quelles seront les multiples fichiers d'image � utiliser.
-	 * On peut ensuite utiliser les methodes precedente() et suivante()
-	 * pour naviguer parmi elles.
-	 * 
+	 * On peut ensuite utiliser les methodes precedente() et suivante() pour
+	 * naviguer parmi elles.
+	 *
 	 * @param tableauImages Le tableau des noms des images de texte, s�par�s par des
 	 *                      virgules.
 	 */
@@ -118,11 +161,44 @@ public class PanelImagesAvecDefilement extends JPanel {
 	}
 
 	/**
+	 * Modifie la largeur courante du cadre autour du scrollpane Cet espace permet
+	 * de voir la couleur de l'arriere plan du panel
+	 *
+	 * @param largeurCadre La largeur desiree, en pixels
+	 */
+	// Caroline Houle
+	public void setLargeurCadre(int largeurCadre) {
+		this.largeurCadre = largeurCadre;
+		if (nomFichierCourant != null) {
+			changeImageCourante(nomFichierCourant); // car il faut refaire l'image et le scrollpane selon la taille
+													// cadre
+		}
+	}
+
+	/**
+	 * Avance d'une page parmi celles fournies lors de l'initialisation.
+	 *
+	 * @return Un booleen qui vaut true si la nouvelle page est la derniere page
+	 */
+	// Caroline Houle
+	public boolean suivante() {
+		if (pageCourante < nombrePages - 1) {
+			pageCourante++;
+			changeImageCourante(tableauImages[pageCourante]);
+		}
+		if (pageCourante == nombrePages - 1) {
+			return (false);
+		} else {
+			return (true);
+		}
+
+	}
+
+	/**
 	 * Methode privee qui place l'image dans le composant et lui associe une barre
-	 * de defilement.
-	 * L'image est redimensionnee de maniere a ce qu'elle occupe toute la largeur du
-	 * composant (a part un petit cadre).
-	 * 
+	 * de defilement. L'image est redimensionnee de maniere a ce qu'elle occupe
+	 * toute la largeur du composant (a part un petit cadre).
+	 *
 	 * @param nomFichierImage Le nom du fichier d'image a charger
 	 */
 	// Caroline Houle
@@ -159,81 +235,4 @@ public class PanelImagesAvecDefilement extends JPanel {
 
 	}
 
-	/**
-	 * Modifie la largeur courante du cadre autour du scrollpane
-	 * Cet espace permet de voir la couleur de l'arriere plan du panel
-	 * 
-	 * @param largeurCadre La largeur desiree, en pixels
-	 */
-	// Caroline Houle
-	public void setLargeurCadre(int largeurCadre) {
-		this.largeurCadre = largeurCadre;
-		if (nomFichierCourant != null) {
-			changeImageCourante(nomFichierCourant); // car il faut refaire l'image et le scrollpane selon la taille
-													// cadre
-		}
-	}
-
-	/**
-	 * Retourne la largeur courante du cadre autour du scrollpane
-	 * Cet espace permet de voir la couleur de l'arriere plan du panel
-	 * 
-	 * @return La laregur du cadre, en pixels
-	 */
-	// Caroline Houle
-	public int getLargeurCadre() {
-		return largeurCadre;
-	}
-
-	/**
-	 * Recule d'une page parmi celles fournies lors de l'initialisation.
-	 * 
-	 * @return Un booleen qui vaut true si la nouvelle page est la premiere page
-	 */
-	// Caroline Houle
-	public boolean precedente() {
-		if (pageCourante > 0) {
-			pageCourante--;
-			changeImageCourante(tableauImages[pageCourante]);
-		}
-		if (pageCourante == 0)
-			return (false);
-		else
-			return (true);
-	}
-
-	/**
-	 * Avance d'une page parmi celles fournies lors de l'initialisation.
-	 * 
-	 * @return Un booleen qui vaut true si la nouvelle page est la derniere page
-	 */
-	// Caroline Houle
-	public boolean suivante() {
-		if (pageCourante < nombrePages - 1) {
-			pageCourante++;
-			changeImageCourante(tableauImages[pageCourante]);
-		}
-		if (pageCourante == nombrePages - 1)
-			return (false);
-		else
-			return (true);
-
-	}
-
-	/**
-	 * Permet dessiner le panneau
-	 * 
-	 * @param g Le contexte graphique
-	 */
-	// Caroline Houle
-	@Override
-	public void paintComponent(Graphics g) {
-		if (pasDeSize) {
-			// si setFichiersdImage avait ete appele avant que laes dimensions du panel ne
-			// soient connues, il faut l'appeler de nouveau
-			changeImageCourante(tableauImages[pageCourante]);
-			pasDeSize = false;
-		}
-	}
-
-} // fin classe
+}
