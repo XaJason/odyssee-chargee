@@ -21,12 +21,6 @@ Odyssée Chargée is an innovative physics-based simulation game that brings ele
 - Java 17 or higher ([Download here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html))
 - Git (for cloning the repository)
 
-## 📚 Documentation
-
-JavaDoc documentation for all public members is available in the `doc/` directory. To view:
-1. Navigate to the `doc/` folder
-2. Open `index.html` in your web browser
-
 ## 🎮 How to Play
 
 ### Controls
