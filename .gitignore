@@ -16,6 +16,7 @@
 bin/
 build/
 out/
+doc/
 *.class
 
 # IDE files (keep .project/.classpath for Eclipse, or exclude if preferred)

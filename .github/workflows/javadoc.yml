@@ -1,0 +1,17 @@
+name: Publish Javadoc
+on:
+  push:
+    branches: [main]
+jobs:
+  javadoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+      - run: javadoc -d doc -sourcepath src -subpackages application:dessin:fenetres:interactif:math:niveau:panneaux:physique:tuile:utilitaires
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./doc
