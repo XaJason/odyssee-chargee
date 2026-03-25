@@ -10,6 +10,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: "17"
+          distribution: "temurin"
       - run: javadoc -d doc -sourcepath src -subpackages application:dessin:fenetres:interactif:math:niveau:panneaux:physique:tuile:utilitaires
       - uses: peaceiris/actions-gh-pages@v3
         with:
