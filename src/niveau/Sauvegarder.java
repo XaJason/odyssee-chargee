@@ -83,7 +83,7 @@ public class Sauvegarder {
 		String nomFichierNiveau = identifiantNiveau + EXTENSION_FICHIER;
 
 		ObjectInputStream ois = null;
-		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream(nomFichierNiveau);
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(nomFichierNiveau);
 
 		if (is == null) {
 			JOptionPane.showMessageDialog(null,
@@ -103,7 +103,9 @@ public class Sauvegarder {
 		} finally {
 
 			try {
-				ois.close();
+				if (ois != null) {
+					ois.close();
+				}
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "Erreur rencontrée lors de la fermeture!");
 				e.printStackTrace();

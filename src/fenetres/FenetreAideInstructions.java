@@ -45,13 +45,13 @@ public class FenetreAideInstructions extends JFrame {
 	/**
 	 * Tableau des images
 	 */
-	private String tableauImages[] = { "22_Instructions-01.jpg", "22_Instructions-02.jpg", "22_Instructions-03.jpg",
-			"22_Instructions-04.jpg", "22_Instructions-05.jpg", "22_Instructions-06.jpg", "22_Instructions-07.jpg",
-			"22_Instructions-08.jpg", "22_Instructions-09.jpg", "22_Instructions-10.jpg", "22_Instructions-11.jpg",
-			"22_Instructions-12.jpg", "22_Instructions-13.jpg", "22_Instructions-14.jpg", "22_Instructions-15.jpg",
-			"22_Instructions-16.jpg", "22_Instructions-17.jpg", "22_Instructions-18.jpg", "22_Instructions-19.jpg",
-			"22_Instructions-20.jpg", "22_Instructions-21.jpg", "22_Instructions-22.jpg", "22_Instructions-23.jpg",
-			"22_Instructions-24.jpg", "22_Instructions-25.jpg" };
+	private String tableauImages[] = { "22_instructions_01.jpg", "22_instructions_02.jpg", "22_instructions_03.jpg",
+			"22_instructions_04.jpg", "22_instructions_05.jpg", "22_instructions_06.jpg", "22_instructions_07.jpg",
+			"22_instructions_08.jpg", "22_instructions_09.jpg", "22_instructions_10.jpg", "22_instructions_11.jpg",
+			"22_instructions_12.jpg", "22_instructions_13.jpg", "22_instructions_14.jpg", "22_instructions_15.jpg",
+			"22_instructions_16.jpg", "22_instructions_17.jpg", "22_instructions_18.jpg", "22_instructions_19.jpg",
+			"22_instructions_20.jpg", "22_instructions_21.jpg", "22_instructions_22.jpg", "22_instructions_23.jpg",
+			"22_instructions_24.jpg", "22_instructions_25.jpg" };
 
 	/**
 	 * Constructeur: crée une fenêtre qui inclut une instance d'image avec

@@ -117,7 +117,7 @@ Key design decisions:
 
 ## How to Run
 
-### Option 1 — Runnable JAR (Recommended)
+### Option 1: Runnable JAR (Recommended)
 
 1. Download `odyssee-chargee.jar` from the [Releases](../../releases) tab
 2. Make sure Java 17 or newer is installed
@@ -128,7 +128,7 @@ Key design decisions:
 java -jar odyssee-chargee.jar
 ```
 
-### Option 2 — Import in Eclipse
+### Option 2: Import in Eclipse
 
 1. Clone the repository:
 
@@ -140,7 +140,7 @@ git clone https://github.com/XaJason/odyssee-chargee.git
 3. Select the cloned folder
 4. Run `application.Main` as a Java Application
 
-### Option 3 — Command Line
+### Option 3: Command Line
 
 ```bash
 git clone https://github.com/XaJason/odyssee-chargee.git

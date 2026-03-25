@@ -88,7 +88,7 @@ public class Main extends JFrame {
 	/**
 	 * String du fichier de la musique de fond
 	 */
-	private final String NOM_FICHIER_SON_1 = "Musique_Fond.wav";
+	private final String NOM_FICHIER_SON_1 = "musique_fond.wav";
 	/**
 	 * Panneau du menu principal
 	 */
@@ -241,18 +241,18 @@ public class Main extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 
 				if (evt.getPropertyName().equals("passerVersNiveau1")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base1");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveau_base1");
 					panModeJeu.setModeJetpack(false);
 					miseAJourChargementNiveau();
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau2")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base2");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveau_base2");
 					panModeJeu.setModeJetpack(false);
 					miseAJourChargementNiveau();
 
 				}
 				if (evt.getPropertyName().equals("passerVersNiveau3")) {
-					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base3");
+					panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveau_base3");
 					panModeJeu.setModeJetpack(false);
 					miseAJourChargementNiveau();
 				}
@@ -290,17 +290,17 @@ public class Main extends JFrame {
 	// Enuel René Valentin Kizozo Izia
 	private void ajoutNiveauxBase(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("passerVersNiveau4")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base4");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveau_base4");
 			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
 		}
 		if (evt.getPropertyName().equals("passerVersNiveau5")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base5");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveau_base5");
 			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
 		}
 		if (evt.getPropertyName().equals("passerVersNiveau6")) {
-			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("Niveau_base6");
+			panModeJeu.modifierNiveauDeZoneAnimationPhysiqueDeBase("niveau_base6");
 			panModeJeu.setModeJetpack(true);
 			miseAJourChargementNiveau();
 		}

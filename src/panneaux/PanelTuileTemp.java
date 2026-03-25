@@ -64,7 +64,7 @@ public class PanelTuileTemp extends JPanel {
 		}
 
 		else if (rotation) {
-			image = OutilsImage.lireImageEtRedimensionner("rotationPostPlacementVert.png", (this.getWidth()),
+			image = OutilsImage.lireImageEtRedimensionner("rotation_post_placement_vert.png", (this.getWidth()),
 					(this.getHeight()));
 			g2d.drawImage(image, 0, 0, null);
 		} else if (supprimer) {

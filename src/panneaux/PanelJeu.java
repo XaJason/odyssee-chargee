@@ -297,7 +297,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		tglbtnPlaque.setBounds(53, 57, 212, 31);
-		OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
+		OutilsImage.lireImageEtPlacerSurBouton("plaque_charge_positive.png", tglbtnPlaque);
 		panelPlaque.add(tglbtnPlaque);
 
 		btnChargePositive = new JToggleButton("");
@@ -312,7 +312,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		btnChargePositive.setBounds(10, 36, 33, 31);
-		OutilsImage.lireImageEtPlacerSurBouton("ChargePositive.png", btnChargePositive);
+		OutilsImage.lireImageEtPlacerSurBouton("charge_positive.png", btnChargePositive);
 		panelPlaque.add(btnChargePositive);
 
 		btnChargeNegative = new JToggleButton("");
@@ -326,7 +326,7 @@ public class PanelJeu extends JPanel {
 			}
 		});
 		btnChargeNegative.setBounds(10, 78, 33, 31);
-		OutilsImage.lireImageEtPlacerSurBouton("ChargeNegative.png", btnChargeNegative);
+		OutilsImage.lireImageEtPlacerSurBouton("charge_negative.png", btnChargeNegative);
 		panelPlaque.add(btnChargeNegative);
 
 		lblEtatPlaque = new JLabel("La plaque est: positive ");
@@ -351,7 +351,7 @@ public class PanelJeu extends JPanel {
 		chckbxModeJetpack.setBounds(6, 0, 286, 23);
 		panelInfosPlaque.add(chckbxModeJetpack);
 
-		fondEcran = new FondEcran("fondJeu.jpg", 1);
+		fondEcran = new FondEcran("fond_jeu.jpg", 1);
 		fondEcran.setBounds(0, 0, 1920, 1080);
 		add(fondEcran);
 		fondEcran.setLayout(null);
@@ -444,19 +444,19 @@ public class PanelJeu extends JPanel {
 		if (positif && tglbtnPlaque.isSelected()) {
 			zoneAnimationPhysique.setPlaquePositive(true);
 			lblEtatPlaque.setText("La plaque est: positive");
-			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositiveSelectionner.png", tglbtnPlaque);
+			OutilsImage.lireImageEtPlacerSurBouton("plaque_charge_positive_selectionner.png", tglbtnPlaque);
 		} else if (!positif && tglbtnPlaque.isSelected()) {
 			zoneAnimationPhysique.setPlaquePositive(false);
 			lblEtatPlaque.setText("La plaque est: négative");
-			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegativeSelectionner.png", tglbtnPlaque);
+			OutilsImage.lireImageEtPlacerSurBouton("plaque_charge_negative_selectionner.png", tglbtnPlaque);
 		} else if (positif && !tglbtnPlaque.isSelected()) {
 			zoneAnimationPhysique.setPlaquePositive(false);
 			lblEtatPlaque.setText("La plaque est: positive");
-			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargePositive.png", tglbtnPlaque);
+			OutilsImage.lireImageEtPlacerSurBouton("plaque_charge_positive.png", tglbtnPlaque);
 		} else {
 			zoneAnimationPhysique.setPlaquePositive(true);
 			lblEtatPlaque.setText("La plaque est: négative");
-			OutilsImage.lireImageEtPlacerSurBouton("PlaqueChargeNegative.png", tglbtnPlaque);
+			OutilsImage.lireImageEtPlacerSurBouton("plaque_charge_negative.png", tglbtnPlaque);
 		}
 
 		repaint();

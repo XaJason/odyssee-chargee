@@ -242,7 +242,7 @@ public class ZoneAnimationPhysique extends JPanel implements Runnable {
 		setBackground(Color.lightGray);
 		setBounds(29, 31, 1232, 617);
 
-		niveau = Sauvegarder.chargerNiveauDeBase("Niveau_base1");
+		niveau = Sauvegarder.chargerNiveauDeBase("niveau_base1");
 		placerVaisseauPourDebutAnimation(niveau);
 		niveau.getGrille().setDansModeJeu(true);
 

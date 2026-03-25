@@ -497,7 +497,7 @@ public class PanelEditeur extends JPanel {
 				gererRotationPostPlacement();
 			}
 		});
-		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+		OutilsImage.lireImageEtPlacerSurBouton("rotation_post_placement.png", btnRotationPostPlacement);
 
 		lblRotationPostPlacement = new JLabel("<html><center>ROTATION<br>POST-PLACEMENT<br>\r\n[T]<html>");
 		lblRotationPostPlacement.setForeground(new Color(51, 51, 51));
@@ -601,7 +601,7 @@ public class PanelEditeur extends JPanel {
 		btnRotationPostPlacement.setEnabled(true);
 		grille.setRotationPostPlacement(false);
 		panelTuileTemp.setRotation(false);
-		OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+		OutilsImage.lireImageEtPlacerSurBouton("rotation_post_placement.png", btnRotationPostPlacement);
 	}
 
 	/**
@@ -641,10 +641,10 @@ public class PanelEditeur extends JPanel {
 	private void gererRotationPostPlacement() {
 		grille.setRotationPostPlacement();
 		if (grille.getRotationPostPlacement()) {
-			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacementSelectionner.jpg", btnRotationPostPlacement);
+			OutilsImage.lireImageEtPlacerSurBouton("rotation_post_placement_selectionner.jpg", btnRotationPostPlacement);
 			panelTuileTemp.setRotation(true);
 		} else {
-			OutilsImage.lireImageEtPlacerSurBouton("rotationPostPlacement.png", btnRotationPostPlacement);
+			OutilsImage.lireImageEtPlacerSurBouton("rotation_post_placement.png", btnRotationPostPlacement);
 			panelTuileTemp.setRotation(false);
 		}
 	}

@@ -20,7 +20,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -43,7 +42,7 @@ import utilitaires.OutilsImage;
  * @author Kitimir Yim
  * @author Enuel René Valentin Kizozo Izia
  */
-public class Grille extends JPanel implements Serializable {
+public class Grille extends JPanel {
 	/** Numéro d'identification pour la sérialisation **/
 	private static final long serialVersionUID = -977837790552954988L;
 	/** Dernier endroit cliqué **/
@@ -836,7 +835,7 @@ public class Grille extends JPanel implements Serializable {
 			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		} else if (rotationPostPlacement) {
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
-			Image image = toolkit.getImage("ressources/rotationPostPlacementVert.png");
+			Image image = toolkit.getImage("ressources/rotation_post_placement_vert.png");
 			Cursor c = toolkit.createCustomCursor(image, new Point(0, 0), "Le curseur");
 			setCursor(c);
 
