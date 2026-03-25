@@ -189,12 +189,12 @@ odyssee-chargee/
 
 ## Screenshots
 
-![Level 1](demo/level-1.png)
-![Level 2](demo/level-2.png)
-![Level 3](demo/level-3.png)
-![Level 4](demo/level-4.png)
-![Level 5](demo/level-5.png)
-![Level 6](demo/level-6.png)
+![Level 1](demo/level_1.png)
+![Level 2](demo/level_2.png)
+![Level 3](demo/level_3.png)
+![Level 4](demo/level_4.png)
+![Level 5](demo/level_5.png)
+![Level 6](demo/level_6.png)
 
 ---
 

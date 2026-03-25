@@ -74,7 +74,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 			}
 		});
 		btnNiveauBase1.setBounds(313, 385, 224, 44);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaubase1.png", btnNiveauBase1);
+		OutilsImage.lireImageEtPlacerSurBouton("niveau_base1.png", btnNiveauBase1);
 		fondEcran.add(btnNiveauBase1);
 
 		btnNiveauBase2 = new JButton("Niveau de base 2");
@@ -85,7 +85,7 @@ public class PanelSelecteurNiveaux extends JPanel {
 			}
 		});
 		btnNiveauBase2.setBounds(313, 425, 224, 44);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaubase2.png", btnNiveauBase2);
+		OutilsImage.lireImageEtPlacerSurBouton("niveau_base2.png", btnNiveauBase2);
 		fondEcran.add(btnNiveauBase2);
 
 		btnNiveauBase3 = new JButton("Niveau de base 3");
@@ -96,13 +96,13 @@ public class PanelSelecteurNiveaux extends JPanel {
 			}
 		});
 		btnNiveauBase3.setBounds(313, 465, 224, 44);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaubase3.png", btnNiveauBase3);
+		OutilsImage.lireImageEtPlacerSurBouton("niveau_base3.png", btnNiveauBase3);
 		fondEcran.add(btnNiveauBase3);
 
 		creerTroisBoutonsNiveaux();
-		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase4.png", btnNiveauBase4);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase5.png", btnNiveauBase5);
-		OutilsImage.lireImageEtPlacerSurBouton("niveaudebase6.png", btnNiveauBase6);
+		OutilsImage.lireImageEtPlacerSurBouton("niveau_de_base4.png", btnNiveauBase4);
+		OutilsImage.lireImageEtPlacerSurBouton("niveau_de_base5.png", btnNiveauBase5);
+		OutilsImage.lireImageEtPlacerSurBouton("niveau_de_base6.png", btnNiveauBase6);
 	}
 
 	/**

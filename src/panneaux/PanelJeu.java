@@ -555,7 +555,7 @@ public class PanelJeu extends JPanel {
 
 			}
 		});
-		OutilsImage.lireImageEtPlacerSurBouton("prochaineimage.png", btnProchaineImage);
+		OutilsImage.lireImageEtPlacerSurBouton("prochaine_image.png", btnProchaineImage);
 
 		btnRecommencer = new JButton("Recommencer");
 		btnRecommencer.setBounds(820, 813, 175, 40);
