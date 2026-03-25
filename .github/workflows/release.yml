@@ -1,0 +1,84 @@
+name: Build & Release Odyssée Chargée
+
+on:
+  push:
+    tags:
+      - "v*" # triggers on v1.0.0, v1.1.0, etc.
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            package-type: exe
+            artifact-name: odyssee-chargee-windows.exe
+          - os: macos-latest
+            package-type: dmg
+            artifact-name: odyssee-chargee-macos.dmg
+          - os: ubuntu-latest
+            package-type: deb
+            artifact-name: odyssee-chargee-linux.deb
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      # Install WiX v3 (Windows only, required for .exe)
+      - name: Install WiX Toolset (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install wixtoolset --version=3.11.2 -y
+          echo "C:\Program Files (x86)\WiX Toolset v3.11\bin" >> $env:GITHUB_PATH
+
+      # Build the JAR with Maven
+      - name: Build JAR (Maven)
+        run: mvn clean package -q
+
+      # OR if you use Gradle, replace the step above with:
+      # - name: Build JAR (Gradle)
+      #   run: ./gradlew jar
+
+      - name: Run jpackage
+        run: |
+          jpackage \
+            --type ${{ matrix.package-type }} \
+            --input target \
+            --dest dist \
+            --main-jar odyssee-chargee.jar \
+            --main-class com.application.Main \
+            --name "OdysseeChargee" \
+            --app-version ${{ github.ref_name }}
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: dist/*
+
+  release:
+    name: Create GitHub Release
+    needs: build # waits for all 3 builds to finish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/**/*
