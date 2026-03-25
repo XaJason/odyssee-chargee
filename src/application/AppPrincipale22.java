@@ -343,7 +343,7 @@ public class AppPrincipale22 extends JFrame {
 			volume.setValue(20f * (float) Math.log10((float) volumeEntre0Et1));
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Probl�me � la cr�ation du clip (son)! " + fichier);
+			JOptionPane.showMessageDialog(null, "Problème à la création du clip (son)! " + fichier);
 			e.printStackTrace();
 			return;
 		}

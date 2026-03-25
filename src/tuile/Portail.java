@@ -145,8 +145,6 @@ public class Portail extends Tuile implements Serializable {
 			portailAssocie.setTempsDernierUsage(tempsActuel);
 
 			ajusterPositionVaisseau(vaisseau, posVaisseauDansPortail);
-		} else {
-
 		}
 	}
 

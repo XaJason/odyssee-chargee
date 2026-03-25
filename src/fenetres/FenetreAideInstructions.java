@@ -54,8 +54,8 @@ public class FenetreAideInstructions extends JFrame {
 			"22_Instructions-24.jpg", "22_Instructions-25.jpg" };
 
 	/**
-	 * Constructeur: cr�e une fen�tre qui inclut une instance d'image avec
-	 * d�filement
+	 * Constructeur: crée une fenêtre qui inclut une instance d'image avec
+	 * défilement
 	 */
 	// Kitimir Yim
 	public FenetreAideInstructions() {

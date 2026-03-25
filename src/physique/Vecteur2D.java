@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 /**
  * La classe Vecteur permet de realiser les operations de base sur un vecteur
- * Euclidien en deux dimensions (x,y), o� x et y sont les composantes du
+ * Euclidien en deux dimensions (x,y), où x et y sont les composantes du
  * vecteur.
  *
- * **ATTENTION*** Les identifiants x et y sont utilitaires�s dans cette classe
- * non pas pour repr�senter des position, mais bien pour repr�senter des
+ * **ATTENTION*** Les identifiants x et y sont utilisés dans cette classe
+ * non pas pour représenter des position, mais bien pour représenter des
  * composantes!!
  *
- * Cette classe est une version 2d modifi�e et augment�e de la classe SVector3d
+ * Cette classe est une version 2d modifiée et augmentée de la classe SVector3d
  * ecrite par Simon Vezina dans le cadre du cours de physique.
  *
  * @author Simon Vézina et Caroline Houle
@@ -50,10 +50,10 @@ public class Vecteur2D implements Serializable {
 	}
 
 	/**
-	 * Constructeur qui cr�e un nouveau vecteur qui contient les m�mes composantes
-	 * que celui pass� en param�tre
+	 * Constructeur qui crée un nouveau vecteur qui contient les mêmes composantes
+	 * que celui passé en paramètre
 	 *
-	 * @param v Le vecteur � reproduire
+	 * @param v Le vecteur à reproduire
 	 */
 	// Simon Vézina et Caroline Houle
 	public Vecteur2D(Vecteur2D v) {
@@ -104,7 +104,7 @@ public class Vecteur2D implements Serializable {
 	 * du vecteur est nul, le vecteur normalise sera le vecteur nul (0.0, 0.0).
 	 *
 	 * @param v Le vecteur
-	 * @return Le vecteur normalis�.
+	 * @return Le vecteur normalisé.
 	 * @throws Exception Si le vecteur ne peut pas etre normalise etant trop petit
 	 *                   ou de longueur nulle.
 	 */
@@ -142,7 +142,7 @@ public class Vecteur2D implements Serializable {
 
 	/**
 	 * Methode qui calcule et retourner l'addition du vecteur courant et d'un autre
-	 * vecteur. Le vecteur courant reste inchang�.
+	 * vecteur. Le vecteur courant reste inchangé.
 	 *
 	 * @param v Le vecteur a ajouter au vecteur courant
 	 * @return Un nouveau vecteur qui represente la somme des deux vecteurs
@@ -236,7 +236,7 @@ public class Vecteur2D implements Serializable {
 
 	/**
 	 * Methode qui effectue la multiplication du vecteur courant par une scalaire.Le
-	 * vecteur courant reste inchang�.
+	 * vecteur courant reste inchangé.
 	 *
 	 * @param m - Le muliplicateur
 	 * @return Un nouveau vecteur qui represente le resultat de la multiplication
@@ -264,7 +264,7 @@ public class Vecteur2D implements Serializable {
 		// numeriquement normaliser ce vecteur
 		if (mod < EPSILON) {
 			throw new Exception("Erreur Vecteur: Le vecteur " + this.toString()
-					+ " �tant nul ou presque nul ne peut pas etre normalis�.");
+					+ " étant nul ou presque nul ne peut pas être normalisé.");
 		} else {
 			return new Vecteur2D(x / mod, y / mod);
 		}
@@ -306,9 +306,9 @@ public class Vecteur2D implements Serializable {
 
 	/**
 	 * Methode qui permet de modifier les deux composantes du vecteur en
-	 * reproduisant celles du vecteur pass� en param�tre
+	 * reproduisant celles du vecteur passé en paramètre
 	 *
-	 * @param v Le vecteur dont on d�sire copier les composantes
+	 * @param v Le vecteur dont on désire copier les composantes
 	 */
 	// Simon Vézina et Caroline Houle
 	public void setComposantes(Vecteur2D v) {
@@ -338,7 +338,7 @@ public class Vecteur2D implements Serializable {
 
 	/**
 	 * Methode qui calcule et retourne le vecteur resultant de la soustraction d'un
-	 * vecteur quelconque du vecteur courant. Le vecteur courant reste inchang�.
+	 * vecteur quelconque du vecteur courant. Le vecteur courant reste inchangé.
 	 *
 	 * @param v Le vecteur a soustraire au vecteur courant.
 	 * @return Un nouveau vecteur qui represente la soustraction des deux vecteurs.

@@ -15,7 +15,7 @@ import javax.swing.ScrollPaneConstants;
  * Ce composant personnalise permet d'afficher une ou plusieurs images
  * accompagnees d'une barre de defilement vertical. Le tout est placee dans un
  * jpanel. Avec ses methodes suivant/precedent, il servira typiquement a
- * afficher des iamges qui representent des pages de texte cons�cutives.
+ * afficher des iamges qui representent des pages de texte consécutives.
  *
  * Pour utiliser ce composant: le placer sur l'interface (avec ou sans
  * WindowBuilder). Ensuite, executer sa methode setFichiersImages.
@@ -79,7 +79,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 	private String[] tableauImages;
 
 	/**
-	 * Crée un composant destin� a contenir une serie de pages (images) S,Il n'y a
+	 * Crée un composant destiné à contenir une serie de pages (images) S'il n'y a
 	 * qu'une seule image a montrer, on peut appeler setFichierImage S'il y a
 	 * plusieurs fichiers a associer, dans lesquels on voudra naviguer avec
 	 * precedente/suivante, alors on appellera setFichiersImages Il faut ensuite
@@ -145,11 +145,11 @@ public class PanelImagesAvecDefilement extends JPanel {
 	}
 
 	/**
-	 * Permet d'indiquer quelles seront les multiples fichiers d'image � utiliser.
+	 * Permet d'indiquer quelles seront les multiples fichiers d'image à utiliser.
 	 * On peut ensuite utiliser les methodes precedente() et suivante() pour
 	 * naviguer parmi elles.
 	 *
-	 * @param tableauImages Le tableau des noms des images de texte, s�par�s par des
+	 * @param tableauImages Le tableau des noms des images de texte, séparés par des
 	 *                      virgules.
 	 */
 	// Caroline Houle
@@ -209,7 +209,7 @@ public class PanelImagesAvecDefilement extends JPanel {
 			pasDeSize = true;
 		} else {
 			// on charge l'image et on la redimensionne (note: on pourrait optimiser en ne
-			// faisant �a qu'une fois...)
+			// faisant ça qu'une fois...)
 			URL urlImage = getClass().getClassLoader().getResource(nomFichierImage);
 			if (urlImage == null) {
 				JOptionPane.showMessageDialog(null,

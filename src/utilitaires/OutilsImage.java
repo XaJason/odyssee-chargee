@@ -45,7 +45,7 @@ public class OutilsImage {
 			try {
 				img = ImageIO.read(urlFichier);
 			} catch (IOException e) {
-
+				e.printStackTrace();
 			}
 		}
 		return (img);

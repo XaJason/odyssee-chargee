@@ -568,7 +568,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Jason Xa
 	public void rotation(int facteur) {
-		if (tuile != null && tuile.getType() != "Vaisseau") {
+		if (tuile != null && !"Vaisseau".equals(tuile.getType())) {
 			tuile.setAngleRotation(tuile.getAngleRotation() + facteur * 0.125 * Math.PI); // 1/16 de rotation
 			repaint();
 
@@ -851,7 +851,7 @@ public class Grille extends JPanel implements Serializable {
 	 */
 	// Kitimir Yim
 	private void gererPortails() {
-		if (tuileTemp.getType() == "Portail") {
+		if ("Portail".equals(tuileTemp.getType())) {
 			nbPortails++;
 			lierPortail(tuileTemp);
 		}
@@ -1213,7 +1213,7 @@ public class Grille extends JPanel implements Serializable {
 	// Enuel René Valentin Kizozo Izia
 	private void supprimerPortailAssocie(int i, int j) {
 		// Vérifie que la tuile courante est un portail
-		if (tabEmplacement[i][j].getType() == "Portail") {
+		if ("Portail".equals(tabEmplacement[i][j].getType())) {
 			nbPortails--;
 			Portail portail = (Portail) tabEmplacement[i][j];
 			Portail portailAssocie = portail.getPortailAssocie();

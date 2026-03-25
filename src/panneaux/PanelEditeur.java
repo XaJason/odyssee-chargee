@@ -2,7 +2,6 @@ package panneaux;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -826,11 +825,9 @@ public class PanelEditeur extends JPanel {
 
 	/**
 	 * Gère la sauvegarde du niveau
-	 *
-	 * @throws HeadlessException exception sans tête
 	 */
 	// Jason Xa
-	private void sauvegarder() throws HeadlessException {
+	private void sauvegarder() {
 		if (niveauBienConstruit("de sauvegarder")) {
 			sauvegarde = true;
 			sauvegarderNiveau();
@@ -877,7 +874,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerCarre() {
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Carré") {
+		if (grille.getTuile() != null && "Carré".equals(grille.getTuile().getType())) {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -911,7 +908,7 @@ public class PanelEditeur extends JPanel {
 	// Jason Xa
 	private void selectionnerPics() {
 
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Pics") {
+		if (grille.getTuile() != null && "Pics".equals(grille.getTuile().getType())) {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -929,7 +926,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerPortail() {
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Portail") {
+		if (grille.getTuile() != null && "Portail".equals(grille.getTuile().getType())) {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -947,7 +944,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerTriangleEquilateral() {
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle équilatéral") {
+		if (grille.getTuile() != null && "Triangle équilatéral".equals(grille.getTuile().getType())) {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {
@@ -965,7 +962,7 @@ public class PanelEditeur extends JPanel {
 	 */
 	// Jason Xa
 	private void selectionnerTriangleRectangle() {
-		if (!(grille.getTuile() == null) && grille.getTuile().getType() == "Triangle rectangle") {
+		if (grille.getTuile() != null && "Triangle rectangle".equals(grille.getTuile().getType())) {
 			grille.setTuile(null);
 			panelTuileTemp.setTuile(null);
 		} else {

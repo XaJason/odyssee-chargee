@@ -81,7 +81,7 @@ public class PanelTuileTemp extends JPanel {
 	 */
 	// Jason Xa
 	public void rotation(int facteur) {
-		if (tuile != null && tuile.getType() != "Vaisseau") {
+		if (tuile != null && !"Vaisseau".equals(tuile.getType())) {
 			tuile.setAngleRotation(tuile.getAngleRotation() + facteur * 0.125 * Math.PI);
 			repaint();
 		}

@@ -58,11 +58,8 @@ public class GestionnaireDeNiveaux {
 		nom = nom.toLowerCase();
 		Niveau niveauTrouver = null;
 		for (Niveau element : repertoireNiveau) {
-			if (element.getNom() == nom) {
-
+			if (nom.equals(element.getNom())) {
 				niveauTrouver = element;
-			} else {
-
 			}
 		}
 		return niveauTrouver;
@@ -88,7 +85,7 @@ public class GestionnaireDeNiveaux {
 	// Giroux
 	public void supprimerNiveau(String nom) {
 		for (int i = 0; i < repertoireNiveau.size(); i++) {
-			if (repertoireNiveau.get(i).getNom() == nom) {
+			if (nom.equals(repertoireNiveau.get(i).getNom())) {
 				repertoireNiveau.remove(i);
 			}
 
