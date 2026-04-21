@@ -5,7 +5,7 @@ rigid-body simulation, electromagnetic plate mechanics, portal teleportation,
 and a built-in level editor. No external game engine was used.
 
 [![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)](https://openjdk.org/)
-[![Javadoc](https://img.shields.io/badge/docs-Javadoc-blue)](https://xajason.github.io/odyssee-chargee/)
+[![Javadoc](https://img.shields.io/badge/docs-Javadoc-blue)](https://xajason.github.io/Odyssee-chargee/)
 [![License](https://img.shields.io/badge/license-Academic-lightgrey)](#license)
 
 ![Gameplay Demo](demo/gameplay.gif)
@@ -133,7 +133,7 @@ java -jar odyssee-chargee.jar
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/XaJason/odyssee-chargee.git
+git clone https://github.com/XaJason/Odyssee-chargee.git
 ```
 
 2. Open Eclipse and go to _File > Import > Existing Projects into Workspace_
@@ -143,8 +143,8 @@ git clone https://github.com/XaJason/odyssee-chargee.git
 ### Option 3: Command Line
 
 ```bash
-git clone https://github.com/XaJason/odyssee-chargee.git
-cd odyssee-chargee
+git clone https://github.com/XaJason/Odyssee-chargee.git
+cd Odyssee-chargee
 javac -encoding UTF-8 -d bin $(find src -name "*.java")
 java -cp bin application.Main
 ```
@@ -166,7 +166,7 @@ java -cp bin application.Main
 ## Project Structure
 
 ```
-odyssee-chargee/
+Odyssee-chargee/
 ├── src/
 │   ├── application/     # Entry point and app lifecycle
 │   ├── dessin/          # Animation zone, tile grid, star rating
